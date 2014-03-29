@@ -117,11 +117,12 @@
 \graphicspath{{img/},{img-ergebnisse/},{img-anhang/},{img-eyecatcher/}}  % Angabe der Pfade, wo die Grafiken liegen; 
             % mehrere Pfade sind möglich
 
-\usepackage{thumbpdf}  % http://www.ctan.org/tex-archive/support/thumbpdf/readme.txt
+%\usepackage{thumbpdf}  % http://www.ctan.org/tex-archive/support/thumbpdf/readme.txt
 %\usepackage[plainpages=false,hidelinks,pdfpagelabels]{hyperref} % http://www.ctan.org/tex-archive/macros/latex/contrib/hyperref/doc/manual.pdf
 \usepackage[plainpages=false,pdfpagelabels]{hyperref} % http://www.ctan.org/tex-archive/macros/latex/contrib/hyperref/doc/manual.pdf
 \usepackage{amssymb}
 \usepackage{subfigure}
+\usepackage{scrhack}
 
 %======================================================================
 %  user.sty
@@ -169,8 +170,8 @@
 
 % ---------------------------------------------------------------------
 %Vermeiden einzelner Zeilen am Ende einer Seite oder oben auf einer neuen Seite
-%\clubpenalty10000
-%\widowpenalty10000
+\clubpenalty10000
+\widowpenalty10000
 
 \hyphenation{konnten hexa-gonalen spin-entartung damit wobei function}
 %======================================================================
@@ -182,35 +183,20 @@
   metadaten      % Variablen setzen
   ,titel      % Titelseite, Zusammenfassung und Inhaltsverzeichnis
   ,einleitung
-  ,grundlagen
-  ,dft
-  ,programme
+  ,grundlagen_cnt
+  ,grundlagen_transistor
+  ,grundlagen_cntfet
+  ,grundlagen_simulation
+  ,grundlagen_dft
+  ,grundlagen_eht
+  ,grundlagen_negf
+  ,grundlagen_atk
+  ,grundlagen_nds
+  ,grundlagen_bte
   ,ergebnisse
   ,auswertung
-% Alle per include einzulesenden Dateien müssen hier angegeben sein!
+  % Alle per include einzulesenden Dateien müssen hier angegeben sein!
 }
-
-% Aufteilung der Arbeit in folgende Bestandteile in angeg. Reihenfolge
-%
-% Titelseite
-% Bibliographische Beschreibung (Rückseite der Titelseite)
-% (Aufgabenstellung)
-% Danksagung
-% Abstract
-% Inhaltsverzeichnis
-% Tabellenverzeichnis
-% Abbildungsverzeichnis
-% Einleitung
-% Inhalt
-% Zusammenfassung/Ausblick
-% (Verzeichnis verwendeter Terme)
-% Glossar (Abkürzungsverzeichnis)
-% (Index)
-% Literaturverzeichnis
-% (Thesen)
-% (Selbstständigkeitserklärung)
-% Anhänge
-
 
 %======================================================================
 % * *   T E X T    S T A R T S    H E R E   * * * * * * * * * * * * * *
@@ -241,18 +227,20 @@
 %  Inhalt per include
 %======================================================================
 
-%\include{anleitung} % Datei, welche die Anleitung zur Nutzung der 
-          % Vorlage enthält
 \newpage
 \include{einleitung}
-\include{grundlagen}
-\include{dft}
-\include{lbf}
-\include{programme}
+\include{grundlagen_cnt}
+\include{grundlagen_transistor}
+\include{grundlagen_cntfet}
+\include{grundlagen_simulation}
+\include{grundlagen_dft}
+\include{grundlagen_eht}
+\include{grundlagen_negf}
+\include{grundlagen_atk}
+\include{grundlagen_nds}
+\include{grundlagen_bte}
 \include{ergebnisse}
 \include{auswertung}
-%\include{anleitung_bibtex}
-
 
 %======================================================================
 %  Glossar
@@ -272,15 +260,10 @@
 %\manualmark
 %\markboth{Literaturverzeichnis}{Literaturverzeichnis}
 %\bibliographystyle{unsrt} % standart
-%\bibliographystyle{gerplain} % hässlich und keine Sortierung
 \bibliographystyle{gerunsrtmod} % titel kursiv, journal normal; ist fein, modifiziert damit die Namen stimmen
 %\bibliographystyle{gerunsrtdoi} % titel kursiv, journal normal; ist fein, modifiziert damit die Namen stimmen + doi anzeigen (in progress ...)
 %\bibliographystyle{IEEEtrans} % Hinweis von Christian
-%\bibliographystyle{klunummod} % Anjas Wahl; modifiziert damit die Namen stimmen
-%\bibliographystyle{plain} %unsortiert
 %\usepackage{url}
-%\bibliographystyle{gerabbrv} % unsortiert
-%\bibliographystyle{own} % result of some tests ...
 
 \bibliography{literatur} %standart
 
@@ -306,8 +289,6 @@
 %\chapter{}
 \null\vfil
 \begin{center}
-%\usekomafont{disposition}\textbf{Danksagung}
-%\textbf{Danksagung}
 %\vspace{-.5em}\vspace{\parsep}
 %\vspace{0.2cm}
 \vspace{3cm}
@@ -328,24 +309,6 @@
 \includepdf[pagecommand={\thispagestyle{plain}}]{selbststaendigkeitserklaerung.pdf}
 
 \end{appendix}
-
-%\chapter*{Selbstständigkeitserklärung}
-%
-%Hiermit erkläre ich, dass ich die vorliegende Arbeit
-%selbstständig angefertigt, nicht anderweitig zu Prüfungszwecken vorgelegt und
-%keine anderen als die angegebenen Hilfsmittel verwendet habe. Sämtliche 
-%wissentlich verwendete Textausschnitte, Zitate oder Inhalte anderer Verfasser 
-%wurden ausdrücklich als solche gekennzeichnet.\\[2ex]
-%\dcplace, den \dcdate\\[6ex]
-%\flushleft
-%\newlength\us
-%\settowidth{\us}{-\dcauthorfirstname~\dcauthorlastname-}
-%\begin{tabular}{p{\us}}\hline
-%\centering\footnotesize \dcauthorfirstname~\dcauthorlastname
-%\end{tabular}
-
-
-
 
 %\part*{Anhang}
 

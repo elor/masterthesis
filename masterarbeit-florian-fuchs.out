@@ -3,10 +3,19 @@
 \BOOKMARK [0][-]{chapter*.4}{Abk\374rzungsverzeichnis}{}% 3
 \BOOKMARK [0][-]{chapter*.5}{Symbolverzeichnis}{}% 4
 \BOOKMARK [0][-]{chapter.1}{Einleitung}{}% 5
-\BOOKMARK [0][-]{chapter.2}{\334berblick \374ber Kohlenstoffnanor\366hrchen}{}% 6
-\BOOKMARK [0][-]{chapter.3}{Theoretische Grundlagen}{}% 7
-\BOOKMARK [0][-]{chapter.4}{Numerische Methoden}{}% 8
-\BOOKMARK [0][-]{chapter.5}{Berechnungen und Ergebnisse}{}% 9
-\BOOKMARK [0][-]{chapter.6}{Zusammenfassung der Ergebnisse und Ausblick}{}% 10
-\BOOKMARK [0][-]{appendix.A}{Danksagung}{}% 11
-\BOOKMARK [0][-]{appendix.B}{Selbstst\344ndigkeitserkl\344rung}{}% 12
+\BOOKMARK [0][-]{chapter.2}{Grundlagen}{}% 6
+\BOOKMARK [1][-]{section.2.1}{Kohlenstoffnanor\366hrchen}{chapter.2}% 7
+\BOOKMARK [1][-]{section.2.2}{Allgemeiner \334berblick \374ber Transistoren}{chapter.2}% 8
+\BOOKMARK [1][-]{section.2.3}{Transistoren auf Basis von CNTs}{chapter.2}% 9
+\BOOKMARK [0][-]{chapter.3}{Simulationsmethoden}{}% 10
+\BOOKMARK [1][-]{section.3.1}{Allgemeiner \334berblick und Multiskalenmodellierung}{chapter.3}% 11
+\BOOKMARK [1][-]{section.3.2}{Dichtefunktionaltheorie}{chapter.3}% 12
+\BOOKMARK [1][-]{section.3.3}{Erweiterte H\374ckelmethode}{chapter.3}% 13
+\BOOKMARK [1][-]{section.3.4}{Nichtgleichgewichts-Greensfunktions-Formalismus}{chapter.3}% 14
+\BOOKMARK [1][-]{section.3.5}{Atomistix ToolKit}{chapter.3}% 15
+\BOOKMARK [1][-]{section.3.6}{Numerische Ger\344tesimulation}{chapter.3}% 16
+\BOOKMARK [1][-]{section.3.7}{Boltzmann-Transport-Gleichungs-L\366ser}{chapter.3}% 17
+\BOOKMARK [0][-]{chapter.4}{Berechnungen und Ergebnisse}{}% 18
+\BOOKMARK [0][-]{chapter.5}{Zusammenfassung der Ergebnisse und Ausblick}{}% 19
+\BOOKMARK [0][-]{appendix.A}{Danksagung}{}% 20
+\BOOKMARK [0][-]{appendix.B}{Selbstst\344ndigkeitserkl\344rung}{}% 21

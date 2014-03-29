@@ -1,0 +1,45 @@
+%======================================================================
+%	Metadaten
+%======================================================================
+%	$Id$
+%	Matthias Kupfer
+%======================================================================
+
+\newcommand{\dcsubject}{Masterarbeit}
+% z.B. (Diplom/Studien/Haus)arbeit, Praktikumsbericht, Studie, Beleg, 
+% (Pro/Haupt/Ober)seminar, Seminar usw.
+\newcommand{\dctitle}{Mal schauen ...}
+\newcommand{\dcsubtitle}{~} % Untertitel, falls erforderlich
+
+\newcommand{\dcauthorlastname}{Fuchs}
+\newcommand{\dcauthorfirstname}{Florian}
+\newcommand{\dcauthoremail}{fufl@hrz.tu-chemnitz.de} 
+\newcommand{\dcdate}{\today}
+
+\newcommand{\dcplace}{Chemnitz} % Ort, kann an der TU meist so bleiben
+\newcommand{\dcuni}{Technische Universität \dcplace}
+\newcommand{\dcdepartfirst}{Fakultät für Naturwissenschaften} % Fakultätsangabe
+\newcommand{\dcproffirst}{Theorie ungeordneter Systeme} % Angabe der Professur
+\newcommand{\dcdepartsecond}{Fakultät für Elektrotechnik und Informationstechnik} % Fakultätsangabe
+\newcommand{\dcprofsecond}{Technologien der Nanoelektronik} % Angabe der Professur
+\newcommand{\dcdepartthird}{Fraunhofer Institut für elektronische Nanosysteme} 
+\newcommand{\dcprofthird}{Abteilung Back-End of Line}
+
+\newcommand{\dcpruefererst}{\hspace{3pt} Prof. Dr. Stefan E. Schulz}
+\newcommand{\dcprueferzweit}{\hspace{3pt} Prof. Dr. Angela Thränhardt}% Prüfer der Arbeit
+%\newcommand{\dcadvisor}{Prof. Dr. Stefan E. Schulz}% Betreuer der Arbeit
+
+\newcommand{\dckeywords}{CNT, DFT, C, Au, Pd, Mo}
+
+%%======================================================================
+% Einstellungen des Hyperref-Paketes
+\hypersetup{%    
+	pdftitle	= {\dctitle}, %
+	pdfsubject	= {\dcsubject, \dcdate}, %
+	pdfauthor	= {\dcauthorfirstname~\dcauthorlastname, \dcauthoremail}, %
+	pdfkeywords	= {\dckeywords}, %
+	pdfcreator	= {pdfTeX with Hyperref and Thumbpdf}, %
+	pdfproducer	= {LaTeX, hyperref, thumbpdf}, %
+	% weitere PDF-Einstellungen in hyperref.cfg
+}
+%%======================================================================

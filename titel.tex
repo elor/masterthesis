@@ -1,0 +1,220 @@
+ %======================================================================
+%	Titelseite 
+%======================================================================
+
+% Wir setzten hier die Seitennummerierung auf Großrömisch, auch wenn diese
+% nicht auf dem "Papier" erscheint. Es dient nur der internen Zählung der
+% Seiten im hyperref-Paket, welches für die Seitennummerierung in den PDFs
+% zuständig ist. Ohne diesen Trick kommen ein paar sinnlose Warnungen und
+% die Seiten-Navigation im Adobe Reader kann durcheinander geraten.
+\pagenumbering{Roman}
+
+
+%%======================================================================
+%% Schmutztitel
+%%======================================================================
+%\extratitle{
+%	\usekomafont{disposition}\mdseries 
+%	\begin{center}
+%		\Huge \dcsubject\\[1.5ex]
+%		\hrule
+%		\vspace*{\fill}
+%		\includegraphics{TUC_deutsch_einzeile_CMYK}
+%	\end{center}
+%}
+
+%%======================================================================
+%% Titelkopf
+%%======================================================================
+\titlehead{
+	\vspace*{-1.5cm}
+	% Schriftfamilie wie alle Überschriften, aber nicht fett
+	\usekomafont{disposition}\mdseries 
+	\begin{center}
+		\raisebox{-1ex}{\includegraphics[scale=1.4]{TUC_deutsch_einzeile_CMYK}}\\
+		\hrulefill \\[1em]
+		{\Large\dcdepartfirst}\\[0.5em] 
+		\dcproffirst\\[0.5em]
+		{\Large\dcdepartsecond}\\[0.5em] 
+		\dcprofsecond
+	\end{center}
+	\begin{center}
+		\raisebox{-1ex}{\includegraphics[scale=1.3]{FHG_LOGO}}\\
+		\hrulefill \\[1em]
+		{\Large\dcdepartthird}\\[0.5em] 
+		\dcprofthird\\[0.5em]
+	\end{center}
+	\vspace*{0.5cm}
+}
+
+%%======================================================================
+%% Subjekt
+%%======================================================================
+\subject{\bf\Huge\dcsubject}
+
+
+%%======================================================================
+%% Titel
+%%======================================================================
+\title{\sf\Large
+	\dctitle
+	\\
+	\dcsubtitle
+}
+
+%%======================================================================
+%% Autor des Dokumentes
+%%======================================================================
+\author{\dcauthorfirstname~\dcauthorlastname}
+	
+%%======================================================================
+%% Ort, Datum
+%%======================================================================
+\date{\dcplace, den \dcdate
+}
+
+%%======================================================================
+%% Publishers
+%%======================================================================
+\publishers{
+	{\parbox{\textwidth-8em}{
+		\begin{tabbing}
+			{\bf Betreuer:}\quad\=\kill
+			{\bf Gutachter:}	\>\dcpruefererst\\
+						\>\dcprueferzweit\\
+%			{\bf Erstgutachter:}	\>\dcpruefererst\\
+%			{\bf Zweitgutachter:}	\>\dcprueferzweit\\
+			%{\bf Zweitkorrektor:}	\>\dcadvisor
+		\end{tabbing}	
+	}}
+}
+
+%%======================================================================
+%% bibliografische Angaben
+%%======================================================================
+\lowertitleback{
+\textbf{\dcauthorlastname, \dcauthorfirstname}\\
+\dctitle\\
+%\dcsubject,~\dcdepart\\
+\dcsubject\\
+\dcuni,~\ifcase\month\or
+  Januar\or Februar\or März\or April\or Mai\or Juni\or
+    Juli\or August\or September\or Oktober\or November\or Dezember\fi
+    ~\number\year
+}
+
+%%======================================================================
+%% maketitle
+%%======================================================================
+
+\maketitle
+
+%%======================================================================
+%% Danksagung
+%%======================================================================
+%\thispagestyle{empty}
+%\null\vfil
+%\begin{center}
+%\usekomafont{disposition}\textbf{Danksagung}
+%\vspace{-.5em}\vspace{\parsep}
+%%
+%% Hier steht der Text für die Danksagung
+%%
+%\end{center}
+%\par\vfil\null
+%\cleardoubleemptypage
+  
+%%======================================================================
+%%      Kurzfassung / Abstract
+%%======================================================================
+%\def\abstractname{Abstract} 	% Wenn der Text "Zusammenfassung" erscheinen 
+								% soll, dann muß dies auskommentiert werden
+				
+\pagenumbering{roman}
+\begin{abstract}
+
+
+%Als Modellsystem fungiert dabei das (8,4)-CNT, welches mit Molybdän, Palladium sowie Gold funktionalisiert wurde. 
+%Anhand der Analyse der Bandstrukturen und des Landauer-Büttiker-Formalismus wird dabei die Beschreibung der Eigenschaften geschehen. Für einige Metalle werden dabei Ergebnisse zum Spinverhalten sowie den elektrischen Eigenschaften bei unterschiedlichen Besetzungsgraden gegeben. Ebenfalls gezeigt werden Ergebnisse zum elektromechanischen Verhalten für die verschiedenen Metalle als auch für verschiedene Besetzungsgrade.    
+
+\end{abstract}
+
+%%======================================================================
+%%      Inhaltsverzeichnis
+%%======================================================================
+%\clearpage
+
+%\cleardoubleemptypage
+
+%\pdfbookmark{Inhaltsverzeichnis}{Inhaltsverzeichnis}
+\tableofcontents
+%\setcounter{tocdepth}{2}
+
+%%======================================================================
+%%      Abbildungsverzeichnis
+%%======================================================================
+%\cleardoublepage
+\markboth{Abbildungsverzeichnis}{Abbildungsverzeichnis}
+\listoffigures
+
+%%======================================================================
+%%      Tabellenverzeichnis
+%%======================================================================
+%\cleardoublepage
+\markboth{Tabellenverzeichnis}{Tabellenverzeichnis}
+\listoftables
+
+%======================================================================
+%  Literaturverzeichnis
+%======================================================================
+%\cleardoublepage
+%\manualmark
+%\markboth{Literaturverzeichnis}{Literaturverzeichnis}
+%\bibliographystyle{unsrt}
+%\bibliographystyle{own}
+%\bibliography{literatur}
+
+%%======================================================================
+%%      Algorithmenverzeichnis
+%%======================================================================
+%\renewcommand{\listalgorithmname}{Algorithmenverzeichnis}
+%\cleardoublepage
+%\addcontentsline{toc}{chapter}{Algorithmenverzeichnis}
+%\listofalgorithms
+
+%%======================================================================
+%%      Abkuerzungsverzeichnis
+%%======================================================================
+%\cleardoublepage
+\chapter*{Abkürzungsverzeichnis}
+\addcontentsline{toc}{chapter}{Abkürzungsverzeichnis}
+\markboth{Abkürzungsverzeichnis}{Abkürzungsverzeichnis}
+\def\listacronymname{Abkürzungsverzeichnis}
+
+ \begin{longtable}{ll}
+
+ 
+
+ \end{longtable}
+
+
+\chapter*{Symbolverzeichnis}
+\addcontentsline{toc}{chapter}{Symbolverzeichnis}
+\markboth{Abkürzungsverzeichnis}{Symbolverzeichnis}
+\def\listacronymname{Symbolverzeichnis}
+
+ \begin{longtable}{ll}
+  \end{longtable}
+
+%\begin{acronym}[SQL]
+% \acro{CNTs}{Kohlenstoffnanoröhrchen (engl. Carbon Nanotubes, CNTs)}
+% \acro{DFT}{Dichtefunktionaltheorie}
+%\end{acronym}
+
+%\printglosstex(acr)
+
+%%======================================================================
+%%      Ende
+%%======================================================================
+\cleardoublepage
+\pagenumbering{arabic} % Fäng erneut bei 1 an.

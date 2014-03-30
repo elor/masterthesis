@@ -1,22 +1,34 @@
-\contentsline {chapter}{\nonumberline Abbildungsverzeichnis}{iii}{chapter*.2}
-\contentsline {chapter}{\nonumberline Tabellenverzeichnis}{iv}{chapter*.3}
-\contentsline {chapter}{Abk\IeC {\"u}rzungsverzeichnis}{v}{chapter*.4}
-\contentsline {chapter}{Symbolverzeichnis}{vi}{chapter*.5}
+\contentsline {chapter}{\nonumberline Abbildungsverzeichnis}{iv}{chapter*.2}
+\contentsline {chapter}{\nonumberline Tabellenverzeichnis}{v}{chapter*.3}
+\contentsline {chapter}{Abk\IeC {\"u}rzungsverzeichnis}{vi}{chapter*.4}
+\contentsline {chapter}{Symbolverzeichnis}{vii}{chapter*.5}
 \select@language {ngerman}
 \select@language {ngerman}
 \contentsline {chapter}{\numberline {1}Einleitung}{1}{chapter.1}
 \contentsline {chapter}{\numberline {2}Grundlagen}{2}{chapter.2}
 \contentsline {section}{\numberline {2.1}Kohlenstoffnanor\IeC {\"o}hrchen}{2}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Geometrische Struktur}{2}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Elektronische Eigenschaften}{2}{subsection.2.1.2}
 \contentsline {section}{\numberline {2.2}Allgemeiner \IeC {\"U}berblick \IeC {\"u}ber Transistoren}{3}{section.2.2}
-\contentsline {section}{\numberline {2.3}Transistoren auf Basis von CNTs}{4}{section.2.3}
+\contentsline {subsection}{\numberline {2.2.1}Bipolartransistor}{3}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Feldeffekttransistor}{3}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Weitere Transistortypen}{3}{subsection.2.2.3}
+\contentsline {section}{\numberline {2.3}FET auf CNT-Basis}{4}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}CNTFET mit Schottkybarrieren}{4}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}MOSFET-\IeC {\"a}hnlicher CNTFET}{4}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}Weitere Transistortypen auf CNT-Basis}{4}{subsection.2.3.3}
 \contentsline {chapter}{\numberline {3}Simulationsmethoden}{5}{chapter.3}
-\contentsline {section}{\numberline {3.1}Allgemeiner \IeC {\"U}berblick und Multiskalenmodellierung}{5}{section.3.1}
-\contentsline {section}{\numberline {3.2}Dichtefunktionaltheorie}{6}{section.3.2}
-\contentsline {section}{\numberline {3.3}Erweiterte H\IeC {\"u}ckelmethode}{7}{section.3.3}
-\contentsline {section}{\numberline {3.4}Nichtgleichgewichts-Greensfunktions-Formalismus}{8}{section.3.4}
-\contentsline {section}{\numberline {3.5}Atomistix ToolKit}{9}{section.3.5}
-\contentsline {section}{\numberline {3.6}Numerische Ger\IeC {\"a}tesimulation}{10}{section.3.6}
-\contentsline {section}{\numberline {3.7}Boltzmann-Transport-Gleichungs-L\IeC {\"o}ser}{11}{section.3.7}
+\contentsline {section}{\numberline {3.1}Multiskalenmodellierung}{5}{section.3.1}
+\contentsline {section}{\numberline {3.2}Atomistische Elektronenstrukturrechnung}{6}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Dichtefunktionaltheorie}{6}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Erweiterte H\IeC {\"u}ckelmethode}{7}{subsection.3.2.2}
+\contentsline {section}{\numberline {3.3}Transportrechnung}{8}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Nichtgleichgewichts-Green-Funktionen-Formalismus}{8}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Landauer-Formalismus}{8}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}Atomistix ToolKit}{9}{subsection.3.3.3}
+\contentsline {section}{\numberline {3.4}Kontinuumsbeschreibung}{10}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Numerische Ger\IeC {\"a}tesimulation}{10}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Boltzmann-Transport-Gleichungs-L\IeC {\"o}ser}{11}{subsection.3.4.2}
 \contentsline {chapter}{\numberline {4}Berechnungen und Ergebnisse}{12}{chapter.4}
 \contentsline {chapter}{\numberline {5}Zusammenfassung der Ergebnisse und Ausblick}{13}{chapter.5}
 \contentsline {chapter}{\numberline {A}Danksagung}{15}{appendix.A}

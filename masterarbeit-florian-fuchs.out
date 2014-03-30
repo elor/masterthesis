@@ -5,17 +5,29 @@
 \BOOKMARK [0][-]{chapter.1}{Einleitung}{}% 5
 \BOOKMARK [0][-]{chapter.2}{Grundlagen}{}% 6
 \BOOKMARK [1][-]{section.2.1}{Kohlenstoffnanor\366hrchen}{chapter.2}% 7
-\BOOKMARK [1][-]{section.2.2}{Allgemeiner \334berblick \374ber Transistoren}{chapter.2}% 8
-\BOOKMARK [1][-]{section.2.3}{Transistoren auf Basis von CNTs}{chapter.2}% 9
-\BOOKMARK [0][-]{chapter.3}{Simulationsmethoden}{}% 10
-\BOOKMARK [1][-]{section.3.1}{Allgemeiner \334berblick und Multiskalenmodellierung}{chapter.3}% 11
-\BOOKMARK [1][-]{section.3.2}{Dichtefunktionaltheorie}{chapter.3}% 12
-\BOOKMARK [1][-]{section.3.3}{Erweiterte H\374ckelmethode}{chapter.3}% 13
-\BOOKMARK [1][-]{section.3.4}{Nichtgleichgewichts-Greensfunktions-Formalismus}{chapter.3}% 14
-\BOOKMARK [1][-]{section.3.5}{Atomistix ToolKit}{chapter.3}% 15
-\BOOKMARK [1][-]{section.3.6}{Numerische Ger\344tesimulation}{chapter.3}% 16
-\BOOKMARK [1][-]{section.3.7}{Boltzmann-Transport-Gleichungs-L\366ser}{chapter.3}% 17
-\BOOKMARK [0][-]{chapter.4}{Berechnungen und Ergebnisse}{}% 18
-\BOOKMARK [0][-]{chapter.5}{Zusammenfassung der Ergebnisse und Ausblick}{}% 19
-\BOOKMARK [0][-]{appendix.A}{Danksagung}{}% 20
-\BOOKMARK [0][-]{appendix.B}{Selbstst\344ndigkeitserkl\344rung}{}% 21
+\BOOKMARK [2][-]{subsection.2.1.1}{Geometrische Struktur}{section.2.1}% 8
+\BOOKMARK [2][-]{subsection.2.1.2}{Elektronische Eigenschaften}{section.2.1}% 9
+\BOOKMARK [1][-]{section.2.2}{Allgemeiner \334berblick \374ber Transistoren}{chapter.2}% 10
+\BOOKMARK [2][-]{subsection.2.2.1}{Bipolartransistor}{section.2.2}% 11
+\BOOKMARK [2][-]{subsection.2.2.2}{Feldeffekttransistor}{section.2.2}% 12
+\BOOKMARK [2][-]{subsection.2.2.3}{Weitere Transistortypen}{section.2.2}% 13
+\BOOKMARK [1][-]{section.2.3}{FET auf CNT-Basis}{chapter.2}% 14
+\BOOKMARK [2][-]{subsection.2.3.1}{CNTFET mit Schottkybarrieren}{section.2.3}% 15
+\BOOKMARK [2][-]{subsection.2.3.2}{MOSFET-\344hnlicher CNTFET}{section.2.3}% 16
+\BOOKMARK [2][-]{subsection.2.3.3}{Weitere Transistortypen auf CNT-Basis}{section.2.3}% 17
+\BOOKMARK [0][-]{chapter.3}{Simulationsmethoden}{}% 18
+\BOOKMARK [1][-]{section.3.1}{Multiskalenmodellierung}{chapter.3}% 19
+\BOOKMARK [1][-]{section.3.2}{Atomistische Elektronenstrukturrechnung}{chapter.3}% 20
+\BOOKMARK [2][-]{subsection.3.2.1}{Dichtefunktionaltheorie}{section.3.2}% 21
+\BOOKMARK [2][-]{subsection.3.2.2}{Erweiterte H\374ckelmethode}{section.3.2}% 22
+\BOOKMARK [1][-]{section.3.3}{Transportrechnung}{chapter.3}% 23
+\BOOKMARK [2][-]{subsection.3.3.1}{Nichtgleichgewichts-Green-Funktionen-Formalismus}{section.3.3}% 24
+\BOOKMARK [2][-]{subsection.3.3.2}{Landauer-Formalismus}{section.3.3}% 25
+\BOOKMARK [2][-]{subsection.3.3.3}{Atomistix ToolKit}{section.3.3}% 26
+\BOOKMARK [1][-]{section.3.4}{Kontinuumsbeschreibung}{chapter.3}% 27
+\BOOKMARK [2][-]{subsection.3.4.1}{Numerische Ger\344tesimulation}{section.3.4}% 28
+\BOOKMARK [2][-]{subsection.3.4.2}{Boltzmann-Transport-Gleichungs-L\366ser}{section.3.4}% 29
+\BOOKMARK [0][-]{chapter.4}{Berechnungen und Ergebnisse}{}% 30
+\BOOKMARK [0][-]{chapter.5}{Zusammenfassung der Ergebnisse und Ausblick}{}% 31
+\BOOKMARK [0][-]{appendix.A}{Danksagung}{}% 32
+\BOOKMARK [0][-]{appendix.B}{Selbstst\344ndigkeitserkl\344rung}{}% 33

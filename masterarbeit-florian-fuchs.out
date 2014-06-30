@@ -16,18 +16,19 @@
 \BOOKMARK [2][-]{subsection.2.3.2}{MOSFET-\344hnlicher CNTFET}{section.2.3}% 16
 \BOOKMARK [2][-]{subsection.2.3.3}{Weitere Transistortypen auf CNT-Basis}{section.2.3}% 17
 \BOOKMARK [0][-]{chapter.3}{Simulationsmethoden}{}% 18
-\BOOKMARK [1][-]{section.3.1}{Multiskalenmodellierung}{chapter.3}% 19
-\BOOKMARK [1][-]{section.3.2}{Atomistische Elektronenstrukturrechnung}{chapter.3}% 20
-\BOOKMARK [2][-]{subsection.3.2.1}{Erweiterte H\374ckelmethode}{section.3.2}% 21
-\BOOKMARK [2][-]{subsection.3.2.2}{Dichtefunktionaltheorie}{section.3.2}% 22
-\BOOKMARK [1][-]{section.3.3}{Transportrechnung}{chapter.3}% 23
-\BOOKMARK [2][-]{subsection.3.3.1}{Nichtgleichgewichts-Green-Funktionen-Formalismus}{section.3.3}% 24
-\BOOKMARK [2][-]{subsection.3.3.2}{Landauer-Formalismus}{section.3.3}% 25
-\BOOKMARK [2][-]{subsection.3.3.3}{Atomistix ToolKit}{section.3.3}% 26
-\BOOKMARK [1][-]{section.3.4}{Kontinuumsbeschreibung}{chapter.3}% 27
-\BOOKMARK [2][-]{subsection.3.4.1}{Numerische Ger\344tesimulation}{section.3.4}% 28
-\BOOKMARK [2][-]{subsection.3.4.2}{Boltzmann-Transport-Gleichungs-L\366ser}{section.3.4}% 29
-\BOOKMARK [0][-]{chapter.4}{Berechnungen und Ergebnisse}{}% 30
-\BOOKMARK [0][-]{chapter.5}{Zusammenfassung der Ergebnisse und Ausblick}{}% 31
-\BOOKMARK [0][-]{appendix.A}{Danksagung}{}% 32
-\BOOKMARK [0][-]{appendix.B}{Selbstst\344ndigkeitserkl\344rung}{}% 33
+\BOOKMARK [1][-]{section.3.1}{Anwendungen von Simulationen}{chapter.3}% 19
+\BOOKMARK [1][-]{section.3.2}{Multiskalenmodellierung}{chapter.3}% 20
+\BOOKMARK [1][-]{section.3.3}{Atomistische Elektronenstrukturrechnung}{chapter.3}% 21
+\BOOKMARK [2][-]{subsection.3.3.1}{Erweiterte H\374ckelmethode}{section.3.3}% 22
+\BOOKMARK [2][-]{subsection.3.3.2}{Dichtefunktionaltheorie}{section.3.3}% 23
+\BOOKMARK [1][-]{section.3.4}{Transportrechnung}{chapter.3}% 24
+\BOOKMARK [2][-]{subsection.3.4.1}{Nichtgleichgewichts-Green-Funktionen-Formalismus}{section.3.4}% 25
+\BOOKMARK [2][-]{subsection.3.4.2}{Landauer-Formalismus}{section.3.4}% 26
+\BOOKMARK [2][-]{subsection.3.4.3}{Atomistix ToolKit}{section.3.4}% 27
+\BOOKMARK [1][-]{section.3.5}{Kontinuumsbeschreibung}{chapter.3}% 28
+\BOOKMARK [2][-]{subsection.3.5.1}{Numerische Ger\344tesimulation}{section.3.5}% 29
+\BOOKMARK [2][-]{subsection.3.5.2}{Boltzmann-Transport-Gleichungs-L\366ser}{section.3.5}% 30
+\BOOKMARK [0][-]{chapter.4}{Berechnungen und Ergebnisse}{}% 31
+\BOOKMARK [0][-]{chapter.5}{Zusammenfassung der Ergebnisse und Ausblick}{}% 32
+\BOOKMARK [0][-]{appendix.A}{Danksagung}{}% 33
+\BOOKMARK [0][-]{appendix.B}{Selbstst\344ndigkeitserkl\344rung}{}% 34

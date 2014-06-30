@@ -18,18 +18,19 @@
 \contentsline {subsection}{\numberline {2.3.2}MOSFET-\IeC {\"a}hnlicher CNTFET}{4}{subsection.2.3.2}
 \contentsline {subsection}{\numberline {2.3.3}Weitere Transistortypen auf CNT-Basis}{4}{subsection.2.3.3}
 \contentsline {chapter}{\numberline {3}Simulationsmethoden}{5}{chapter.3}
-\contentsline {section}{\numberline {3.1}Multiskalenmodellierung}{5}{section.3.1}
-\contentsline {section}{\numberline {3.2}Atomistische Elektronenstrukturrechnung}{6}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Erweiterte H\IeC {\"u}ckelmethode}{6}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}Dichtefunktionaltheorie}{7}{subsection.3.2.2}
-\contentsline {section}{\numberline {3.3}Transportrechnung}{8}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}Nichtgleichgewichts-Green-Funktionen-Formalismus}{8}{subsection.3.3.1}
-\contentsline {subsection}{\numberline {3.3.2}Landauer-Formalismus}{8}{subsection.3.3.2}
-\contentsline {subsection}{\numberline {3.3.3}Atomistix ToolKit}{9}{subsection.3.3.3}
-\contentsline {section}{\numberline {3.4}Kontinuumsbeschreibung}{10}{section.3.4}
-\contentsline {subsection}{\numberline {3.4.1}Numerische Ger\IeC {\"a}tesimulation}{10}{subsection.3.4.1}
-\contentsline {subsection}{\numberline {3.4.2}Boltzmann-Transport-Gleichungs-L\IeC {\"o}ser}{11}{subsection.3.4.2}
-\contentsline {chapter}{\numberline {4}Berechnungen und Ergebnisse}{12}{chapter.4}
-\contentsline {chapter}{\numberline {5}Zusammenfassung der Ergebnisse und Ausblick}{13}{chapter.5}
+\contentsline {section}{\numberline {3.1}Anwendungen von Simulationen}{5}{section.3.1}
+\contentsline {section}{\numberline {3.2}Multiskalenmodellierung}{5}{section.3.2}
+\contentsline {section}{\numberline {3.3}Atomistische Elektronenstrukturrechnung}{7}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Erweiterte H\IeC {\"u}ckelmethode}{7}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Dichtefunktionaltheorie}{8}{subsection.3.3.2}
+\contentsline {section}{\numberline {3.4}Transportrechnung}{9}{section.3.4}
+\contentsline {subsection}{\numberline {3.4.1}Nichtgleichgewichts-Green-Funktionen-Formalismus}{9}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.2}Landauer-Formalismus}{9}{subsection.3.4.2}
+\contentsline {subsection}{\numberline {3.4.3}Atomistix ToolKit}{10}{subsection.3.4.3}
+\contentsline {section}{\numberline {3.5}Kontinuumsbeschreibung}{11}{section.3.5}
+\contentsline {subsection}{\numberline {3.5.1}Numerische Ger\IeC {\"a}tesimulation}{11}{subsection.3.5.1}
+\contentsline {subsection}{\numberline {3.5.2}Boltzmann-Transport-Gleichungs-L\IeC {\"o}ser}{12}{subsection.3.5.2}
+\contentsline {chapter}{\numberline {4}Berechnungen und Ergebnisse}{13}{chapter.4}
+\contentsline {chapter}{\numberline {5}Zusammenfassung der Ergebnisse und Ausblick}{14}{chapter.5}
 \contentsline {chapter}{\numberline {A}Danksagung}{15}{appendix.A}
 \contentsline {chapter}{\numberline {B}Selbstst\IeC {\"a}ndigkeitserkl\IeC {\"a}rung}{17}{appendix.B}

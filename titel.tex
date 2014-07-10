@@ -191,13 +191,18 @@ Stichworte: \dckeywords
 
 \newcolumntype{Y}{>{\flushleft\arraybackslash}X}
 
-\begin{tabularx}{\linewidth}{YYY}
-CNT & Carbon Nanotube & Kohlenstoffnanoröhrchen\\
-MOSFET & Metal-Oxid-Semiconductor Field-Effect Transistor & Metall-Oxid-Halbleiter-Feldeffekttransistor\\
-DFT & Density Functional Theory & Dichtefunktionaltheorie\\
-EHT & Extended Hückel Theory & Erweiterte Hückelmethode\\
-NEGF & Non-equilibrium Green's function formalism & Nichtgleichgewichts-Green-Funktions-Formalismus\\
+%\begin{acronym}[SQL]
+% \acro{CNTs}{Kohlenstoffnanoröhrchen (engl. Carbon Nanotubes, CNTs)}
+% \acro{DFT}{Dichtefunktionaltheorie}
+%\end{acronym}
 
+\def\arraystretch{1.5}
+\begin{tabularx}{\linewidth}{lll}
+ALD	&	Atomic Layer Deposition	&	Atomlagenabscheidung	\\
+CVD	&	Chemical Vapor Deposition	&	Chemische Gasphasenabscheidung	\\
+PVD	&	Physical Vapor Deposition	&	Physikalische Gasphasenabscheidung	\\
+RDF	&	Radial Distribution Function	&	Radiale Verteilungsfunktion	\\
+Parsivald	&	\multicolumn{2}{X}{Parallel Atomistic Reaction Simulator for Vapor and Atomic Layer Depositions}	\\
 \end{tabularx}
 
 %\begin{longtable}{lll}
@@ -212,13 +217,8 @@ NEGF & Non-equilibrium Green's function formalism & Nichtgleichgewichts-Green-Fu
 \markboth{Abkürzungsverzeichnis}{Symbolverzeichnis}
 \def\listacronymname{Symbolverzeichnis}
 
- \begin{longtable}{ll}
-  \end{longtable}
-
-%\begin{acronym}[SQL]
-% \acro{CNTs}{Kohlenstoffnanoröhrchen (engl. Carbon Nanotubes, CNTs)}
-% \acro{DFT}{Dichtefunktionaltheorie}
-%\end{acronym}
+\begin{tabularx}{\linewidth}{ll}
+\end{tabularx}
 
 %\printglosstex(acr)
 

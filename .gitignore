@@ -12,3 +12,5 @@ masterarbeit-erik-lorenz.pdf
 *.lof
 *.ps
 .*.swp
+*.bbl
+.nfs*

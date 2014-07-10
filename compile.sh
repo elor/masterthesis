@@ -1,5 +1,5 @@
 #!/bin/bash
 
-pdflatex masterarbeit-florian-fuchs
-bibtex masterarbeit-florian-fuchs
-pdflatex masterarbeit-florian-fuchs
+pdflatex masterarbeit*.tex
+bibtex masterarbeit*.tex
+pdflatex masterarbeit*.tex

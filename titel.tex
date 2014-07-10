@@ -189,11 +189,22 @@ Stichworte: \dckeywords
 \markboth{Abkürzungsverzeichnis}{Abkürzungsverzeichnis}
 \def\listacronymname{Abkürzungsverzeichnis}
 
- \begin{longtable}{ll}
+\newcolumntype{Y}{>{\flushleft\arraybackslash}X}
 
- 
+\begin{tabularx}{\linewidth}{YYY}
+CNT & Carbon Nanotube & Kohlenstoffnanoröhrchen\\
+MOSFET & Metal-Oxid-Semiconductor Field-Effect Transistor & Metall-Oxid-Halbleiter-Feldeffekttransistor\\
+DFT & Density Functional Theory & Dichtefunktionaltheorie\\
+EHT & Extended Hückel Theory & Erweiterte Hückelmethode\\
+NEGF & Non-equilibrium Green's function formalism & Nichtgleichgewichts-Green-Funktions-Formalismus\\
 
- \end{longtable}
+\end{tabularx}
+
+%\begin{longtable}{lll}
+%
+%MOSFET & Metall-Oxid-Halbleiter-Feldeffekttransistor & metal-oxid-semiconductor field-effect transistor \\
+%
+%\end{longtable}
 
 
 \chapter*{Symbolverzeichnis}

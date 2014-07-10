@@ -5,13 +5,13 @@
 \label{ueberdienotwendigkeitvonsimulationen}
 
 Wie bereits in Kapitel \ref{cha:einleitung} angerissen wurde, existieren zahlreiche Anwendungsszenarien für Simulationen im Zusammenhang mit CNTFETs.\\
-Zum einen sind sie unerlässlich bei der \textit{Einschätzung neuer Technologien}. Insbesondere aufgrund hoher Kosten, die beim Wechsel der aktuell genutzten Technologie stets anfallen, sind vorangehende Simulationen von größter Bedeutung. Nicht nur die Abschätzung der Leistung der potenziellen Technologie ist hier wichtig, sondern auch die Frage nach Zuverlässigkeit, Lebensdauer als auch der anfallenden Kosten. Nur wenn die neue Technologie diesen und einigen weiteren Ansprüchen genügt, ist ein Wechsel aus wirtschaftlichen Gründen sinnvoll.\\
+Zum einen sind sie unerlässlich bei der \textit{Einschätzung neuer Technologien}. Insbesondere aufgrund hoher Kosten, die beim Wechsel der aktuell genutzten Technologie stets anfallen, sind vorangehende Simulationen von größter Bedeutung. Nicht nur die Abschätzung der Leistung der potenziell zukünftigen Technologie ist hier wichtig, sondern auch die Frage nach Zuverlässigkeit, Lebensdauer als auch der anfallenden Kosten. Nur wenn die neue Technologie diesen und einigen weiteren Ansprüchen genügt, ist ein Wechsel aus wirtschaftlichen Gründen sinnvoll.\\
 Auch die \textit{Optimierung der Transistoren} stellt ein wichtiges Anwendungsfeld für Simulationen dar.
 Hier gilt es die optimale Kombination zahlreicher möglicher Parameter zu finden.
 Neben der Wahl der verwendeten Materialien gehören hierzu auch geometrische Eigenschaften.
 Die Ergebnisse können schließlich als Ausgangspunkt für experimentelle Arbeiten als auch industrielle Umsetzungen dienen.\\
 Schließlich ist dank Simulationen auch ein \textit{tieferer Einblick in die Physik} der Transistoren möglich, was für das Verstehen experimenteller Ergebnisse notwendig ist.
-Dies ist insbesondere aufgrund der zunehmenden Miniaturisierung der Transistoren von Bedeutung, da aufgrund der kleinen Abmessungen atomare sowie quantenmechanische Effekte berücksichtigt werden müssen.
+Dies ist insbesondere aufgrund der zunehmenden Miniaturisierung heutiger Transistoren von Bedeutung, da aufgrund der kleinen Abmessungen atomare sowie quantenmechanische Effekte berücksichtigt werden müssen.
 Nur dank eines fundierten theoretischen Verständnisses ist eine korrekte Beschreibung der Transistoreigenschaften sowie des Transistorverhaltens möglich.
 
 \section{Multiskalenmodellierung}
@@ -21,28 +21,31 @@ Für die theoretische Beschreibung und Simulation von Transistoren sind zahlreic
 Aufgrund der sehr kleinen Abmessungen der heutigen und insbesondere zukünftiger Transistoren bieten sich \textit{atomistische Simulationen} an.
 Hierbei stellt die Position der einzelnen Atome den Ausgangspunkt der Rechnungen dar.
 In Abhängigkeit von der verwendeten Methode sind dabei keine -- wie im Falle von ab initio Methoden -- oder nur eine geringe Anzahl externer Parameter notwendig.
+Zahlreiche Effekte, die bei anderen Methoden zusätzlich berücksichtigt werden müssen, werden bei atomistischen Rechnungen automatisch mit berücksichtigt, wodurch beispielsweise die Beschreibung von Tunnelströmen erleichtert wird.
 Damit verbunden ist jedoch auch ein relativ hoher Rechenaufwand, was diese Methoden meist nur für die Untersuchung kleinerer Systeme praktikabel macht.\\
-Eine Alternative stellen sogenannte \textit{numerische Gerätesimulationen} dar.
+Eine Alternative zu atomistischen Methoden stellen sogenannte \textit{numerische Gerätesimulationen} dar.
 Anstelle der exakten Atompositionen kommen hier effektive Modelle zur Beschreibung der Systemeigenschaften zum Einsatz.
 Hierfür sind jedoch externe Parameter notwendig, welche beispielsweise von atomistischen Rechnungen oder experimentellen Untersuchen extrahiert werden müssen.
 Gleichzeitig können unbekannte Parameter jedoch auch als Fit-Parameter genutzt werden, um so Übereinstimmung mit experimentellen Resultaten zu erreichen.
 Aussagen für das Experiment können so schnell erzielt werden, eine physikalisch korrekte Beschreibung des Systems ist so jedoch nur begrenzt möglich.
 Numerische Gerätesimulationen erlauben jedoch auch eine weitaus schnellere Berechnung der Systeme.
 Auch können sie genutzt werden, um Gesetzmäßigkeiten abzuleiten. Bei atomistischen Verfahren ist dies vergleichsweise schwierig, da \todo{Warum?}.\\
-Eine Beschreibung basierend auf Gesetzmäßigkeiten und Formeln bildet die Grundlage für sogenannte \textit{Kompaktmodelle}.
-Diese können auf physikalischen Überlegungen und Gesetzen oder aber auch nur auf Fit-Prozeduren basieren.\\
-Schließlich ermöglichen \textit{Schaltkreissimulation} die Beschreibung ganzer Schaltkreise mit bis zu \todo{??? Literatur?} Transistoren.
-Dabei können wie beispielsweise bei \todo{Lit.} die Ergebnisse der Kompaktmodelle direkt als Eingabe verwendet werden.\\ 
+Eine Beschreibung basierend auf Gesetzmäßigkeiten und Formeln bildet die Grundlage für die sogenannte \textit{Kompaktmodellierung}.
+Derartige Kompaktmodelle basieren entweder auf physikalischen Überlegungen und Gesetzen oder aber auch nur auf Fit-Prozeduren.\\
+Schließlich ermöglichen \textit{Schaltkreissimulation} die Beschreibung ganzer Schaltkreise mit bis zu \todo{??? Lit.} Transistoren.
+Dabei können wie beispielsweise bei \todo{Lit.} die Ergebnisse der Kompaktmodelle direkt als Eingabe verwendet werden.
+Hierzu gehören inbesondere das Programm SPICE (engl. simulation program with integrated circuit emphasis) \cite{nagel_spice:_1973}.\\
 In Tabelle \ref{tab:simulationsmethoden} sind einige Implementierungen der vorgestellten Methoden aufgeführt.
+
 
 \newcolumntype{Y}{>{\centering\arraybackslash}X}
 \begin{table}
-\caption{Einige Implementationen der unterschiedlichen Simulationsmodelle, welche im Text vorgestellt wurden.}
+\caption[Simulationsmethoden]{Einige Implementationen der unterschiedlichen Simulationsmodelle, welche im Text vorgestellt wurden.}
 \begin{tabularx}{\linewidth}{|Y|Y|Y|Y|}
 \hline
-Atomistische Simulation & Numerische Gerätesimulation & Kompakt\-modell & Schaltkreis\-simulation \\
+Atomistische Simulation & Numerische Gerätesimulation & Kompakt\-modellierung & Schaltkreis\-simulation \\
 \hline
-Zitat & Zitat & Zitat & Zitat \\
+Zitat & Zitat & Zitat & SPICE \cite{nagel_spice:_1973}\\
 \hline
 \end{tabularx}
 \label{tab:simulationsmethoden}

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[ $1 ] && src="$1" || src="masterthesis-erik-lorenz.tex"
+[ $1 ] && src="$1" || src="masterthesis.tex"
 if [ -z "$src" ]; then
   echo "usage: $0 <input.tex>"
   exit

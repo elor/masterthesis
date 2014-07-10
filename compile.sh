@@ -1,5 +1,5 @@
 #!/bin/bash
 
-pdflatex masterarbeit*.tex
-bibtex masterarbeit*.tex
-pdflatex masterarbeit*.tex
+pdflatex masterthesis.tex
+bibtex masterthesis.tex
+pdflatex masterthesis.tex

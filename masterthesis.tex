@@ -1,0 +1,37 @@
+\documentclass[
+	fontsize=11pt,
+	a4paper,
+	twoside,
+	german,
+	headsepline=true,
+	footsepline=false,
+	automark,
+	headings=normal,
+	appendixprefix,
+	open=any,
+	cleardoublepage=plain,
+	abstract=true,
+	index=totoc,
+	listof=totoc,
+	bibliography=totoc,
+	BCOR9mm,
+]{scrreprt}
+
+\include{packages}
+\include{settings}
+\include{metadaten}
+
+\begin{document}
+
+	\include{titel}
+	\include{abstract}
+	\include{contents}
+
+	\include{einleitung}
+
+	\include{bibliography}
+
+	\include{appendix}
+
+\end{document}
+

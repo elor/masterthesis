@@ -1,0 +1,66 @@
+\section{Parsivald-Modell}
+
+\subsection{Beschreibung}
+
+Parsivald ist der Name eines Modelles mit gleichnamiger Implementierung, das unter Kombination von Kinetic Monte Carlo-Methoden mit molekulardynamischen Berechnungen Oberflächenwachstum auf großen Substraten effizient simulieren kann.
+
+\begin{figure}[tbh]
+  \centering
+  \def\svgwidth{\textwidth}
+  \input{img/parsivald-schema-flat.pdf_tex}
+  \caption[Parsivald-Schema]{
+    Auswahl und Durchführung eines Oberflächenereignisses, verteilt auf KMC und MD.
+  }
+  \label{fig:parsivald-schema}
+\end{figure}
+
+Dazu wird der gesamte Wachstumsprozess in das Auftreffen eines Precursormoleküles oder Atomes und seine Reaktion beziehungsweise physikalische Anlagerung an der Oberfläche getrennt.
+Prozesse in der Gasphase werden vom Modell nicht betrachtet, jedoch lassen sich deren Auswirkungen auf die Oberfläche ebenfalls darstellen.
+Auf der Oberfläche des gesamten Simulationsraumes wird zuerst nach einem Ort für eine Precursorreaktion gesucht.
+Nachdem dessen Auswahl extrahiert man alle Atome in der unmittelbaren Nachbarschaft und bildet daraus eine Reaktionszelle für MD-Simulationen.
+Diese Zelle enthält einen Rand fester Atome, dessen Größe wie auch die Größe der Zelle selbst von der Reichweite der genutzten MD-Potentiale abhängt.
+In diese Zelle fügt man je nach Simulationsart, gewünschter Genauigkeit und Fähigkeit der Potentiale das Precursormolekül oder einzelne Atome daraus ein.
+Nach einer erfolgreichen Reaktions- oder Relaxationssimulation fügt man die Atome der Reaktionszelle wieder in die Gesamtstruktur ein und wählt das nächste Oberflächenereignis aus.
+
+Auf dieser Grundlage aufbauend, lässt sich durch verschiedene Optimierungen die Laufzeit minimieren.
+Beispielsweise kann man durch Parallelisierung des KMC-Teiles linearen Speedup \todo{Linearer Speedup?} erreichen, der nur durch die Größe des Raumes begrenzt ist.
+Eine Parallelisierung der MD-Simulationen ist hingegen nicht sinnvoll, da bloß kleine Mengen von maximal einigen Tausend Atomen gleichzeitig simuliert werden.
+Andererseits kann man durch oben diskutierte Datenstrukturen die Suche neuer KMC-Ereignisse sowie die Extraktion einer atomaren Nachbarschaft verkürzen.
+
+\todo{Annahmen}
+\todo{fehlt noch was?}
+
+\subsection{Einschränkungen}
+
+Aufgrund seiner Annahmen kann man mit Parsivald nur eine eingeschränkte Art von Prozessen betrachten.
+Hauptsächlich lassen sich nur Prozesse und Strukturen betrachten, die auch durch Molekulardynamik darstellbar sind.
+Es gilt: Ist das Bulk-Material und seine Oberfläche mit Molekulardynamik darstellbar, sollte das Material mit Parsivald darstellbar sein.
+Im optimalen Fall stellen die genutzten MD-Potentiale auch Precursor-Oberflächen-Reaktionen verlässlich dar, so dass man auf spezielle Annäherungen verzichten kann.
+Darunter fallen explizite sterische Hinderung, \todo{was noch?}
+
+\missingfigure{steric-hindrance}
+
+Betrachtet man beispielsweise die sterische Hinderung:
+Normalerweise verhindert die lokale Oberflächendichte von Precursorliganden die weitere Anlagerung von Precursormolekülen bei chemischen Abscheidungen, bis diese Liganden von der Oberfläche entfernt wurden.
+In allen Fällen, in denen nur das Zentralatom auf der Oberfläche simuliert werden kann, muss auf eine andere Methode der sterischen Hinderung zurück gegriffen werden.
+Dafür wird eine kugelförmige Zone definiert, innerhalb derer weitere Precursorreaktionen auf der Oberfläche ausgeschlossen sind, bis der nächste Prozessschritt gestartet wurde.
+Als entsprechender Parameter steht nun jedem möglichen Abscheidungsereignis der Radius dieser Kugel zur Verfügung.
+
+
+
+\subsection{Implementierung}
+
+Das Parsivald-Modell wurde ursprünglich im Rahmen meiner Bachelorarbeit \todo{Referenz} in Software umgesetzt.
+Seither wurden verschiedene Funktionen ergänzt, wie beispielsweise Erleichterungen im Prozessdesign sowie der separate PVD-Modus. Auch einfachere Möglichkeiten, eine bestimmte Zahl an Worker-Prozessen zu starten, vereinfacht die Nutzung der Software auf größeren Clustersystemen.
+
+Grundlage der Implementierung bieten hauptsächlich die beiden Bibliotheken libenskmc sowie LAMMPS für KMC und MD, wobei libenskmc aus eigener Entwicklung stammt.
+Man hätte an dieser Stelle auch die SPPARKS-Bibliothek für KMC-Simulationen einbinden können, die von den selben Autoren der LAMMPS-Bibliothek stammt. Es hat sich jedoch heraus gestellt, dass SPPARKS nur unter großem Aufwand das Parsivald-Modell handhaben könnte, was vor allem in Hinblick auf häufige kritische Abbrüche der LAMMPS-Bibliothek nicht vertretbar war.
+
+Auf eigenen Code wurde bei folgenden Systemen gesetzt:
+Das Host-Worker-System mit angebundenen Netzwerk-Code musste geschrieben werden, da LAMMPS die Nutzung einer MPI-Bibliothek unterbindet.
+Die Octrees zum räumlichen Binning wurden eng mit libenskmc verzahnt, weshalb auf eine externe Geometrie-Bibliothek verzichtet wurde.
+DUMP-Substrate werden aufgrund der klaren Format-Definition durch eigenen Code eingelesen.
+Ebenso erfolgt die Ausgabe der .xyz-Dateien über eigenen Code.
+Im Gegensatz dazu werden .lmp-Substrate jedoch über lmpio eingelesen, einer IO-Bibliothek für .lmp-Dateien, die im Hintergrund LAMMPS nutzt, um Kompatibilität mit der Vielzahl an uneindeutigen Atomeigenschaften zu garantieren.
+Um Konformität zwischen Kommandozeilenargumenten und Konfigurationsdateien zu garantieren, wurde auf die ArgumentParser-Bibliothek zurück gegriffen, die aus eigener Feder entstammt und in weiteren externen Projekten Verwendung findet.
+Die Abhängigkeitsauflösung bei KMC-Ereignissen entstammt ebenfalls der eigenen Feder, ebenso wie der sonstige Binding Code zwischen LAMMPS und libenskmc, inklusive beider Parallelisierung-Codes (Threads und losgelöste Unterprozesse).

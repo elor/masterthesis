@@ -1,9 +1,182 @@
 \section{Effiziente Datenstrukturen für räumliche Positionen}
 
-\subsection{Lineare Konstrukte}
+\todo{proofread and declutter whole section}
+Um große Simulationsräume mit vielen Millionen Atomen verwalten zu können, ist es offensichtlich nicht sinnvoll, alle Atome in einer Liste halten zu wollen.
+Statt dessen muss man verfügbare Datenstrukturen auf ihre Leistung hinsichtlich der notwendigen Operationen betrachten.
+Diese Operationen werden durch die Erfassung und Manipulation atomarer Positionen notwendig:
 
-\subsection{Octree}
+\begin{itemize}
+\item Konstruktion \\
+Der Aufbau des Simulationsraumes aus dem Substrat. Da nur einmalig durchgeführt, steht der Zeitaufwand im Hintergrund. Wichtiger ist der erwartete Speicherverbrauch.
+\item Hinzufügen \\
+Das Einfügen eines neuen Atomes in die Datenstruktur. Im Idealfall werden Atome in konstanter Zeit \BigO{1}) hinzugefügt.
+\item Aktualisierung \\
+Die Verschiebung von Atomen oder Gruppen von Atomen. Idealerweise ist konstante Zeit \BigO{m} für $m$ Atome möglich.
+\item Ortssuche \\
+Die Suche eines oder mehrerer Atome im Umkreis eines beliebigen Punktes. \BigO{\log{n}} oder besser ist notwendig, da diese Operation neben der Nachbarschaftssuche am häufigsten ausgeführt wird.
+\item Nachbarschaftssuche \\
+Die Suche nach allen Atomen im Umkreis eines anderen Atomes. Algorithmisch meist identisch zur Ortssuche, jedoch am häufigsten benutzt.
+\item Oberflächensuche \\
+Speziell für Wachstums- und Oberflächenprozesse muss die Oberfläche entlang einer Geraden ermittelt werden.
+\end{itemize}
+
+\subsection{Atomliste}
+
+Ein naiver Ansatz ist die Speicherung aller Atome in einer Liste.
+Obwohl Konstruktion, Hinzufügen und Aktualisierung (\BigO{n}, \BigO{1}, \BigO{1} entsprechend) minimale Laufzeiten aufweisen, zeigen sich schnell die Nachteile:
+Sowohl Nachbarschaftssuche als auch Ortssuche laufen in \BigO{n}, was für ihre Häufigkeit schlicht zu langsam ist.
+Ebenfalls zu langwierig ist die Suche nach der Oberfläche, die ebenfalls in \BigO{n} läuft und anschaulich das gesamte Substrat durchsuchen muss, nur um die Oberfläche zu finden.
+Auf einer Oberfläche der Größe 400 nm$^2$ bräuchte die Erstellung eines einzigen KMC-Ereignisses auf dem Testsystem ca. 20 Sekunden.
+
+Systeme in der Größenordnung einiger Mikrometer wären damit undenkbar, weshalb schnell andere Methoden untersucht wurden.
+
+\subsection{Binning vs. Spatial Datastructures}
+
+\begin{figure}[btp]
+  \centering
+%%  \includegraphics[width=\textwidth]{datastructures}
+  \def\svgwidth{\textwidth}
+  \input{img/datastructures.pdf_tex}
+  \caption[Räumliche Datenstrukturen]{
+    a) Gesamter Raum (Atomliste)
+    b) Lineare Bins (k-d-Arrays)
+    \\
+    c) Octree
+    d) k-d-Baum
+  }
+  \label{fig:datastructures}
+\end{figure}
+
+Zur Lösung stehen zwei grundlegend verschiedene Methoden zur Verfügung:
+
+Einerseits lässt sich der Raum in kleinere Einheiten (Zellen) unterteilen, in die dann die Atome eingefügt werden.
+Somit ließe sich die Komplexität der Operation auf einen konstanten Faktor sowie die Komplexität der Suche nach der relevanten Zelle aufteilen.
+Als Beispiele sind einfache mehrdimensionale Arrays sowie Octrees gegeben.
+
+Andererseits stehen eigenständige Datenstrukturen zur Verfügung, die hinsichtlich einiger der Operationen optimiert wurden und inzwischen Standardwerkzeuge in verschiedenen Disziplinen geworden sind.
+Beispiele sind hier der k-d-Baum sowie die Anwendung der Delaunay-Triangulation.
+
+\subsection{Array-Binning}
+
+Binning hat gemein, dass man den Raum in ausreichend große Zellen unterteilt und ihnen die darin enthaltenen Atome zuordnet.
+Bei Verschiebung eines Atomes über die Grenzen seiner Zelle muss das Atom entsprechend in die benachbarte Zelle überführt werden.
+Die einfachste Implementierung sieht in 3 Raumdimensionen ein dreidimensionales Array von Zellen vor.
+
+``Linear'' bezieht sich hierbei sowohl auf die Speicherkomplexität im Verhältnis zur Anzahl der Zellen, andererseits auf die Zugriffszeiten bei Suchoperationen. Beliebiger Zugriff ist hierbei hingegen in konstanter Zeit möglich.
+Orts- und Nachbarschaftssuchen geschehen in \BigO{n/N} mit $N$ Zellen für realistische Systeme, Aktualisieren und Hinzufügen geschehen in \BigO{m}.
+Das Hauptproblem dieser Methode ist die potentiell große Anzahl leerer Zellen, die einerseits Speicher verbraucht, andererseits bei Oberflächensuchen zu übermäßig vielen Abfragen führt oder separate Buchhaltung benötigt (Beispiel: Heightmap).
+Somit sind eigentlich zweidimensionale Oberflächenprobleme in drei Dimensionen nur kubischem Speicheraufwand möglich.
+
+\subsection{Octree-Binning}
+
+Ein Octree ist eine rekursive Datenstruktur, welche ebenfalls den gesamten Raum in Zellen unterteilt, dabei allerdings auf dynamische Speicherzuweisung zurückgreift und somit leere Zellen zu vermeiden versucht:
+Der gesamte Raum wird als ein einziger Quader dargestellt, welchen man bei Bedarf in 8 gleiche Quader halber Breite unterteilt.
+Dies geschieht rekursiv bis zur gewünschten Auflösung, bei der man die Zellen referenziert und entsprechende Atome einfügt.
+8 Quader können auch wieder zu ihrer Stammzelle zusammengefügt werden, um nach getaner Arbeit den Speicher freizugeben.
+
+Durch dieses Allokierungsschema werden die allokierten Zellen auf den interessanten Bereich beschränkt, während leeren Bereichen die Information über fehlende Atome beigelegt wird, ohne Zellen anzulegen.
+Damit lassen sich Oberflächenprobleme mit zweidimensionalem Speicheraufwand betrachten, wobei im Gegenzug der Zugriff auf eine beliebige Zelle auf \BigO{\log{N}} für $N$ Zellen steigt.
+Dieser Komplexität folgen auch alle Operationen, mit Ausnahme der Oberflächensuche.
+Diese wird durch den Octree stark vereinfacht, da man einen großen Bereich leerer Zellen mit einem Mal überspringen kann:
+
+Angenommen, die obere Hälfte eines großen Simulationsraumes ist komplett frei von Atomen, was nach dem Laden des Substrates typischerweise der Fall ist.
+Für eine Prüfung einer Zelle muss man diese jedes Mal aus dem Arbeitsspeicher in den CPU-Cache laden, was bei modernen CPUs um die tausend CPU-Takte ($\approx$1ms) kosten kann.
+Sucht man nun in einem 3d-Array die Oberfläche in Z-Richtung, so prüft man an einer xy-Position jede Zelle auf die Zahl ihrer Atome.
+Dafür muss man jede Zelle aus dem Speicher laden, obwohl die Prüfung vor allem am Anfang der Simulation fehl schlägt.
+Bei einem Octree hingegen wäre die obere Hälfte in vier leere Zellen zerlegt, die in der xy-Ebene nebeneinander liegen.
+Somit muss man nur eine einzige Superzelle prüfen, die aufgrund der Häufigkeit der Prüfungen bereits im CPU-Cache liegt und in der Regel nicht mehr geladen werden muss.
+Das Ergebnis ist ein Speedup um viele Größenordnungen bei einer der häufigsten Operationen.
+Durch aktives Caching lässt sich das \BigO{\log{N}}-Verhalten dämpfen, was den Octree zur passendsten Binning-Datenstruktur erhebt.
 
 \subsection{k-d-Baum}
 
+Wie beim binning wird auch beim k-d-Baum (k-dimensionaler Baum) der Raum in einzelne Zellen unterteilt.
+Anders als beim Binning hält jede Zelle nur ein einziges Atom.
+Die Konstruktion geschieht folgendermaßen:
+
+\begin{enumerate}
+\item Wenn $N=1$: Kehre zurück
+\item Sortiere die Atome in Richtung der aktuellen Dimension (beginne mit x)
+\item Wähle Atom $\lfloor N/2 \rfloor$
+\item Teile Raum an $pos[d]_{\lfloor N/2 \rfloor}$ in zwei Zellen. Verteile die Atome auf beide Zellen.
+\item Wähle zyklisch die nächste Dimension
+\item Für beide Zellen: Gehe zu 1.
+\end{enumerate}
+
+Diese rekursive Definition erstellt aus Listen von Atomen k-d-Bäume, bei denen jeder Knoten jeweils ein Atom hält.
+
+K-d-Bäume haben somit ein ausgezeichnetes Speicherverhalten von \BigO{n} mit recht guten Such-, Einfügungs-, Entfernungs- und Aktualisierungszeiten von \BigO{\log{n}} für realistische Systeme und niedrige Dimensionszahl.
+Da es sich einfach um einen mehrdimensionalen Suchbaum handelt, lassen sich Nachbarschaftsbeziehungen ebenfalls in \BigO{\log{n}} auflösen, was für die vorliegenden Probleme immer noch hervorragend ist.
+Auch bei k-d-Bäumen ist die Suche nach einer eventuellen Oberfläche jedoch nicht so einfach.
+Zwar lässt sich leicht feststellen, dass nahe der Oberflächen größere Zellen existieren, jedoch lassen sich somit keine Eindellungen erfassen.
+Dafür müsste man wiederum eine Vielzahl von Atomen separat auslesen und vergleichen, wofür man für jede Prüfung implizit eine Delaunay-Triangulation aufbauen muss.
+Somit eignen sich k-d-Bäume zwar für die meisten Operationen hervorragend, jedoch erfüllen sie nicht alle notwendigen Voraussetzungen.
+Am wichtigsten ist jedoch, dass ein k-d-Baum allgemein keine periodischen Räume unterstützt.
+Zwar gibt es dafür wiederum Variationen, jedoch verlieren diese dann einige der Sucheigenschaften.
+
 \subsection{Delaunay-Triangulation}
+
+\missingfigure{Delaunay-Triangulation}
+
+Eine Delaunay-Triangulation ist die Aufteilung eines Raumes in seine Primitive hinsichtlich einer Liste von Punkten (hier: Atome), die unter Anderem folgende Eigenschaften umfasst:
+
+\begin{itemize}
+\item Jedes Atom ist Bestandteil eines oder mehrerer Primitive
+\item Im Umkreis eines Primitivs befinden sich keine anderen Atome
+\item Die Vereinigung aller Primitive ergibt eine konvexe Hülle
+\item Primitive überschneiden sich nicht
+\item Ein Atom teilt sich mit seinem nächsten Nachbarn eine Kante der Triangulation \\
+(Eine Delaunay-Triangulation hat als Subgraphen den Nächstnachbargraphen)
+\item Eine Delaunay-Triangulation ist dual zu seinem Voronoi-Diagramm
+\end{itemize}
+
+Aufgrund seiner Allgemeinheit gibt es zur Erstellung einer Delaunay-Triangulation gibt es eine Vielzahl an Algorithmen, welche jeweils unterschiedliche Komplexitäten aufweisen.
+Allgemein lässt sich sagen, dass die Triangulation eine hervorragende \BigO{n}-Speicherkomplexität hat.
+
+Den oben genannten Eigenschaften lassen sich einige der Operationen absehen:
+Beim Hinzufügen, Entfernen und Aktualisieren muss man jeweils einen lokalen Bereich hinsichtlich der Delaunay-Kriterien prüfen und gegebenenfalls per Flip-Algorithmus zwei benachbarte Primitive miteinander ``flippen'', indem die gemeinsame Fläche aufgelöst und durch eine neue ersetzt wird.
+Hier ist jedoch eine Worst-Case-Laufzeit von \BigO{n} anzusetzen, die allerdings in realistischen Strukturen, wie sie bei MD-Simulationen erzeugt werden, nicht erreicht wird.
+Statt dessen beschränkt sich das Flipping auf die lokale Nachbarschaft.
+
+Durch seine Dualität zum Voronoi-Diagramm eignet sich die Delaunay-Triangulation recht gut für Ortssuchen, die jedoch im Gegensatz zu den vorherigen Datenstrukturen nicht mehr notwendig werden.
+Statt dessen lassen sich seine anderen Eigenschaften nutzen: Nachbarschaftssuche über Grapheigenschaften sowie die Verbindung zu Alpha-Hüllen.
+
+Um die gesamte Nachbarschaft in einer Delaunay-Triangulation zu suchen, reicht es, eine Suche über die benachbarten Primitive durchzuführen.
+Ein passender Algorithmus sähe dann wie folgt aus:
+
+\begin{enumerate}
+\item Erstelle Raum S = Suchraum um Atom A$_s$
+\item Füge alle Primitive von A$_s$ zur Suchliste hinzu
+\item Lies nächstes Primitiv P von Suchliste
+\item Wenn $P \cap S \neq \emptyset$:
+  \begin{enumerate}
+  \item Für jeden Eckpunkt p von P:
+    \begin{enumerate}
+    \item Wenn $p \in S$ und $p \notin Ergebnis$: Füge p zu Ergebnis hinzu
+    \end{enumerate}
+  \item Für alle benachbarten Primitive P' von P:
+    \begin{enumerate}
+    \item Wenn P' $\notin$ Suchliste: Füge P zu Suchliste hinzu
+    \end{enumerate} 
+  \end{enumerate}
+\end{enumerate}
+
+Dabei wird ausgenutzt, dass die Delaunay-Triangulation raumfüllend ist.
+Somit werden nur Atome und Primitive untersucht, die Bestandteil des Suchraumes sind, weshalb diese Suche lokal und somit schnell bleibt.
+
+Hinsichtlich der Oberflächensuche wird allerdings eine andere Eigenschaft offensichtlich:
+Die Alpha-Oberfläche ist ein Subgraph der Delaunay-Triangulation.
+Vereinfacht ausgedrückt ist die Alpha-Form einer Punktmenge ihre ``ungefähre Form'', wie man sie wahrnehmen würde.
+Oft zieht man auch Parallelen zum ``Einpacken in Plastikfolie mit Luftabpumpen''.
+Die eigentliche Definition beinhaltet folgende Idee:
+
+Entfernt man alle Delaunay-Primitive, deren Umkreisradius oberhalb eines Grenzwertes $\alpha$ liegt, und bildet dann die Vereinigung aller verbleibenden Primitive sowie etwaiger frei gewordener Punkte, so erhält man die Alphaform.
+Für $\alpha = \infty$ erhält man somit die konvexe Hülle.
+Für endliche Werte von $\alpha$ hingegen werden auch konkave Bereiche in der Oberfläche betrachtet.
+Wählt man $\alpha$ jedoch unterhalb des kleinsten Abstandes der Atome, so erfasst man zwangsläufig auch Atome im Inneren der Struktur, wodurch die Idee der allgemeinen Oberfläche wieder verloren geht.
+
+Verwaltet man nun parallel zur Delaunay-Triangulation eine Liste der theoretisch durch den $alpha$-Algorithmus entfernten Primitive, so hat man die Oberfläche der gesamten Struktur charakterisiert, ohne nennenswerten Mehraufwand treiben zu müssen.
+Durch Kenntnis dieser Oberfläche ließen sich nun CVD-Prozesse auch an spitzen Strukturen betrachten, ohne dem Wachstum die Charakteristika der räumlichen Darstellung aufzuzwingen.
+
+Bisher ist es jedoch bei theoretischen Betrachtungen dieser Delaunay-basierten Methoden geblieben.
+Hinsichtlich allgemeiner Oberflächensimulationen ließe sich diese Methode der Delaunay-Triangulationen perspektivisch in Parsivald einpflegen.

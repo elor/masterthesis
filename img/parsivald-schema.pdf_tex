@@ -1,0 +1,62 @@
+%% Creator: Inkscape inkscape 0.48.4, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'parsivald-schema.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{775.25bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,1.36175427)%
+    \put(0,0){\includegraphics[width=\unitlength]{parsivald-schema.pdf}}%
+    \put(0.05426208,1.17947888){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.49841986\unitlength}\raggedright Structure\end{minipage}}}%
+    \put(0.42648703,0.5407678){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.78723503\unitlength}\raggedright 4) Relaxation\end{minipage}}}%
+    \put(0.51817187,0.10469376){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.59346645\unitlength}\raggedright 5) Reinsertion\end{minipage}}}%
+    \put(0.00364177,1.05026594){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.18660802\unitlength}\raggedright MD\end{minipage}}}%
+    \put(0.00364177,1.37205267){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.24922921\unitlength}\raggedright KMC\end{minipage}}}%
+    \put(0.42467719,1.0373036){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.70589994\unitlength}\raggedright 3) Precursor\end{minipage}}}%
+    \put(0.42485311,1.12298245){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.53139341\unitlength}\raggedright 2) Extraction\end{minipage}}}%
+    \put(0.42243652,1.36046344){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.96956762\unitlength}\raggedright 1) Site Selection\end{minipage}}}%
+  \end{picture}%
+\endgroup%

@@ -1,2 +1,93 @@
 \section{Molekulardynamik}
 
+Molekulardynamik (MD) ist im Gegensatz zu quantenmechanischen Methoden eine klassische atomistische Methode, die zwar ungenauere Ergebnisse liefert, jedoch größere Systeme von bis zu einer Million Atome in akzeptabler Zeit rechnen kann.
+Damit wird sie seit vielen Jahren erfolgreich in Physik, Chemie sowie in Materialwissenschaften genutzt, um System-, Molekül- und Materialeigenschaften zu bestimmen und Rückschlüsse auf reale Prozesse zu führen.
+Somit existiert es eine Vielzahl gut erforschter Systeme, auf die im Rahmen dieser Arbeit aufgebaut wird.
+
+\subsection{Formulierung}
+
+Als klassische Methode arbeitet Molekulardynamik mit Kraftfeldern, Massen und Zeitintegration.
+So besteht ein System aus einer Vielzahl an Teilchen, die als Punktmasse angenähert werden, sowie einer universellen Zeit $t$.
+Jedes Teilchen vereint also die Eigenschaften seiner Masse $m$, seines Impulses $\vec p$ und seiner Position $\vec r$.
+Zusätzlich wirkt auf jedes Teilchen ein Kraftfeld $F(R)$ mit $R$ als aktuellem Systemzustand.
+Es gilt für jedes Teilchen:
+
+$$
+\dot{\vec r} = {\vec p \over m}
+$$
+
+$$
+\dot{\vec p} = m \vec a = F(R)
+$$
+\todo{Globale Formulierung!}
+
+Zentral ist also das Kraftfeld $F(R)$, welches auf unterschiedliche Arten 
+
+\subsection{Ensembles und Optimierungen}
+
+\subsubsection{Mikrokanonisches Ensemble (NVE)}
+
+\subsubsection{Kanonisches Ensemble (NVT)}
+
+Gegenüber dem mikrokanonischen Ensemble kommt im Kanonischen Ensemble noch ein Thermostat hinzu.
+Dieses gleicht die mittlere Temperatur des Systemes an einen vorgegebenen Wert an.
+Dies kann über harte Reskalierung der Atomgeschwindigkeiten (Berendsen-Thermostat), durch zufällige Stöße mit virtuellen Teilchen (Anderson-Thermostat) geschehen, oder durch einen zusätzlichen Reibungsterm, der auch negative Reibungskoeffizienten zulässt (Nosé-Hoover-Thermostat).
+
+Unter Benutzung des \textbf{Berendsen-Thermostates} werden jeden Zeitschritt die Geschwindigkeiten aller Teilchen so skaliert, dass die Temperatur, die sich aus der kinetischen Energie über die Maxwell-Boltzmann-Verteilung für Gase ergibt, auf dem Zielwert gehalten wird:
+
+$$
+\overline{E_{kin}} = {1\over2} m\overline{v^2} = {d\over2}k_BT
+$$
+
+%% $$
+%% T = {m \overline{v^2} \over k_B d}
+%% $$
+
+Da dabei eine feste Temperatur erzwungen wird, ergibt dieses Thermostat kein kanonisches Ensemble, ist jedoch für große Systeme eine gute Näherung, die effizient berechnet werden kann.
+
+Das \textbf{Anderson-Thermostat} hingegen arbeitet näher an der Idee des kanonischen Ensembles, über die Systemgrenzen hinweg Energie und somit Temperatur durch Teilchenstöße auszutauschen.
+Dabei wird für die Zahl der Stöße pro Zeitschritt eine Poissonverteilung angenommen, Masse und Geschwindigkeiten der virtuellen Atome entsprechen der Zieltemperatur.
+Zwar hat diese Vorgehensweise den Vorteil, mit einer geringen Anzahl an äußeren Einflüssen die Temperatur konstant zu halten, jedoch eignet es sich nur für die Betrachtung zeitgemittelter Größen.
+Durch die Manipulation einzelner, zufälliger Atome können Trajektorien, insbesondere Abscheidungsorte und -konfigurationen stark beeinflusst werden.
+
+Als Alternative eignet sich das \textbf{Nosé-Hoover-Thermostat}.
+Dieses fügt dem Gesamtsystem einen zusätzlichen Freiheitsgrad $s$ hinzu, der die Temperatur beeinflusst.
+Auf jedes Atom i wirkt somit eine zusätzliche Reibungskraft entlang des Impulses:
+
+$$
+\dot{\vec p_i} = \vec{F_i} - s \vec{p_i}
+$$
+
+Der Reibungskoeffizient $s$ ändert sich dabei in Abhängigkeit vom System und kann dabei auch negative Werte annehmen:
+
+$$
+\dot s = {\tau \over M} \sum_i{{p_i^2 \over 2m_i} - {Nd \over k_BT}}
+$$
+
+\todo{tau hin oder weg?}
+
+Damit fluktuiert die Temperatur um den Zielwert, wird also nicht fest erzwungen und folgt somit dem kanonischen Ensemble, wobei $\tau$ die Zeitskala angibt, auf der das System ins thermische Gleichgewicht übergeht.
+In vielen Softwarepaketen für Molekulardynamiksimulationen dient das Nosé-Hoover-Thermostat als Standardthermostat.
+
+\subsubsection{Großkanonisches Ensemble (NPT)}
+
+Zusätzlich zu einem Thermostat kommt im großkanonischen Ensemble ein Barostat zum Einsatz.
+Dieses reguliert über Reskalierung des Simulationsraumes unter periodischen Randbedingungen den mittleren Druck des Systemes.
+Dadurch lassen sich periodische Strukturen wie Kristalle frei relaxieren, ohne ihnen eine feste Dichte aufzuzwingen.
+Andererseits lassen sich auch Systeme unter großen Drücken untersuchen.
+
+Die Methoden des Barostats gleichen dem des Thermostats, wobei hier nicht die einzelnen Atome, sondern deren relativer Abstand von einander durch Skalierung der Raumposition manipuliert wird.
+Als Voreinstellung kommt üblicher Weise wieder ein Nosé-Hoover-Barostat zum Einsatz, wobei aufgrund seiner Einfachheit auch Berendsen-Barostate genutzt werden.
+
+\todo{Woher kommt der Druck?}
+
+\subsubsection{Minimierung durch Konjugierte Gradienten (CG)}
+
+\todo{Schreiben!}
+
+\subsection{Kraftfelder}
+
+\subsection{Auswertung}
+
+\subsection{Software}
+

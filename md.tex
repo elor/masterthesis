@@ -88,7 +88,13 @@ Der Druck wird dabei über die Virialgleichung \todo{für ideale Gase?} ermittel
 
 \subsubsection{Minimierung durch Konjugierte Gradienten (CG-Minimierung)}
 
-\missingfigure{conjugategradient}
+\begin{figure}[!b]
+  \centering
+  \def\svgwidth{0.8\textwidth}
+  \input{img/cg-gradient.pdf_tex}
+  \caption[CG-Methode]{CG-Methode}
+  \label{fig:cg-gradient}
+\end{figure}
 
 Zur Energieminimierung, welche der Strukturoptimierung dient, wird häufig die \textbf{Methode der konjugierten Gradienten} angewandt.
 Man sucht dabei in der Grundvariante ausgehend von einem beliebigen Startpunkt $\vec x_0$ das Minimum der im Suchbereich stetigen Funktion $f(\vec x)$ durch schrittweise Annäherung entlang des Gradienten:

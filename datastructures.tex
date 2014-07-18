@@ -117,59 +117,95 @@ Zwar gibt es dafür wiederum Variationen, jedoch verlieren diese dann einige der
 
 \subsection{Delaunay-Triangulation}
 
-\missingfigure{Delaunay-Triangulation}
+\begin{figure}[bhpt]
+  \centering
+  \def\svgwidth{\textwidth}
+  \input{img/delaunay.pdf_tex}
+  \caption[Delaunay-Konstruktion]{Delaunay-Konstruktion}
+  \label{fig:delaunay}
+\end{figure}
 
-Eine Delaunay-Triangulation ist die Aufteilung eines Raumes in seine Primitive hinsichtlich einer Liste von Punkten (hier: Atome), die unter Anderem folgende Eigenschaften umfasst:
+Während bei den bisher vorgestellten Partitionsmethoden der Raum in k-dimensionale Quader geteilt wurde, basieren Triangulationen auf k-dimensionalen Simplexen, deren Eckpunkte die gespeicherte Punktmenge bilden.
+Der Zentrale Vertreter ist die Delaunay-Triangulation, die für eine Menge von Punkten folgende Eigenschaften aufweist:
 
+\todo{algorithmicx}
 \begin{itemize}
-\item Jedes Atom ist Bestandteil eines oder mehrerer Primitive
-\item Im Umkreis eines Primitivs befinden sich keine anderen Atome
-\item Die Vereinigung aller Primitive ergibt eine konvexe Hülle
-\item Primitive überschneiden sich nicht
-\item Ein Atom teilt sich mit seinem nächsten Nachbarn eine Kante der Triangulation \\
-(Eine Delaunay-Triangulation hat als Subgraphen den Nächstnachbargraphen)
-\item Eine Delaunay-Triangulation ist dual zu seinem Voronoi-Diagramm
+\item Jeder Punkt ist ein Eckpunkt mindestens eines Simplexes
+\item Simplexe überschneiden sich nicht
+\item Innerhalb des Umkreises eines Simplexes befinden sich keine weiteren Punkte
+\item Die Vereinigung aller Simplexe ergibt die konvexe Hülle
+\item Ein Punkt teilt sich mit seinem nächsten Nachbarn mindestens einen Simplex \\
+$\Leftrightarrow$ Nächstnachbargraph $\subset$ Delaunay-Triangulation
+%% \item Die Delaunay-Triangulation und das Voronoi-Diagramm über die selben Punkte sind dual\\
+%% $\Rightarrow$ Allgemeine Nachbarschaftssuche ist \BigO{n\log n}
+\todo{Voronoi-Dualität?}
 \end{itemize}
 
-Aufgrund seiner Allgemeinheit gibt es zur Erstellung einer Delaunay-Triangulation gibt es eine Vielzahl an Algorithmen, welche jeweils unterschiedliche Komplexitäten aufweisen.
-Allgemein lässt sich sagen, dass die Triangulation eine hervorragende \BigO{n}-Speicherkomplexität hat.
+Eine Delaunay-Triangulation lässt sich aus einer Punktmenge in \BigO{n\log n}\todo{Referenz} ausführen, wofür eine Vielzahl an Algorithmen zur Verfügung stehen. \todo{Referenz}
+Diesen liegt das Delaunay-Kriterium zu Grunde:
+Der Umkreis eines Simplex' enthält nur seine eigenen Eckpunkte.
+Ist dieses Kriterium bei zwei benachbarten Simplexen nicht gegeben, lässt sich per \textbf{Flip-Algorithmus} (Abbildung \ref{fig:delaunay-flip}) wieder eine Delaunay-Triangulation herstellen.
+Dazu entfernt man die gemeinsame Kante bzw. Fläche der beiden betroffenen Simplexe und fügt zwischen den übrigen Punkten eine neue Grenze so ein, dass das Delaunay-Kriterium erfüllt ist.
+Die dabei neu entstehenden Simplexe müssen nun mit ihren jeweiligen Nachbarn auf das Delaunay-Kriterium überprüft werden, wobei die neuen Simplexe als Bestandteil der Delaunay-Triangulation garantiert sind.\todo{Referenz}
 
-Den oben genannten Eigenschaften lassen sich einige der Operationen absehen:
-Beim Hinzufügen, Entfernen und Aktualisieren muss man jeweils einen lokalen Bereich hinsichtlich der Delaunay-Kriterien prüfen und gegebenenfalls per Flip-Algorithmus zwei benachbarte Primitive miteinander ``flippen'', indem die gemeinsame Fläche aufgelöst und durch eine neue ersetzt wird.
-Hier ist jedoch eine Worst-Case-Laufzeit von \BigO{n} anzusetzen, die allerdings in realistischen Strukturen, wie sie bei MD-Simulationen erzeugt werden, nicht erreicht wird.
-Statt dessen beschränkt sich das Flipping auf die lokale Nachbarschaft.
+\begin{figure}[bhpt]
+  \centering
+  \def\svgwidth{\textwidth}
+  \input{img/delaunay-flip.pdf_tex}
+  \caption[Delaunay-Triangulation: Flip Algorithmus]{Flip Algorithmus zur Aktualisierung einer Delaunay-Triangulation. Die Ausgangssituation (a) erfüllt das Delaunay-Kriterium nicht (b). Durch Drehung der Simplexe (c) generiert sich der zulässige Endzustand (d)}
+  \label{fig:delaunay-flip}
+\end{figure}
 
-Durch seine Dualität zum Voronoi-Diagramm eignet sich die Delaunay-Triangulation recht gut für Ortssuchen, die jedoch im Gegensatz zu den vorherigen Datenstrukturen nicht mehr notwendig werden.
-Statt dessen lassen sich seine anderen Eigenschaften nutzen: Nachbarschaftssuche über Grapheigenschaften sowie die Verbindung zu Alpha-Hüllen.
+\todo{Laufzeit Flipping?}
 
-Um die gesamte Nachbarschaft in einer Delaunay-Triangulation zu suchen, reicht es, eine Suche über die benachbarten Primitive durchzuführen.
-Ein passender Algorithmus sähe dann wie folgt aus:
+Für die Nachbarschaftssuche eines Referenzpunktes werden die raumfüllenden Eigenschaften der Triangulation relevant.
+Der notwendigerweise konvexe, sonst aber beliebige Suchbereich um den Referenzpunkt wird von Simplexen überdeckt, die in direkter oder indirekter Nachbarschaft des Punktes liegen.
+Somit teilen sich alle Punkte innerhalb des Suchbereiches eine Kante eines Simplexes mit einem anderen Punkt im Suchbereich.
+Man muss nun einfach alle Kanten der Triangulation absuchen, bis man Punkte außerhalb des Suchbereiches findet.
+Ein möglicher Algorithmus kann folgendermaßen aussehen:
 
-\begin{enumerate}
-\item Erstelle Raum S = Suchraum um Atom A$_s$
-\item Füge alle Primitive von A$_s$ zur Suchliste hinzu
-\item Lies nächstes Primitiv P von Suchliste
-\item Wenn $P \cap S \neq \emptyset$:
-  \begin{enumerate}
-  \item Für jeden Eckpunkt p von P:
-    \begin{enumerate}
-    \item Wenn $p \in S$ und $p \notin Ergebnis$: Füge p zu Ergebnis hinzu
-    \end{enumerate}
-  \item Für alle benachbarten Primitive P' von P:
-    \begin{enumerate}
-    \item Wenn P' $\notin$ Suchliste: Füge P zu Suchliste hinzu
-    \end{enumerate} 
-  \end{enumerate}
-\end{enumerate}
+\begin{algorithm}
+  \centering
+  \begin{algorithmic}
+    \STATE Füge Referenzpunkt zur Suchliste hinzu
+    \WHILE{Suchliste $\neq \emptyset$}
+    \STATE Lies ersten Punkt P von Suchliste
+    \STATE Entferne P von Suchliste
+    \IF{Wenn P $\in$ Suchbereich}
+    \STATE Füge p zum Ergebnis hinzu
+    \FOR{jeden Nachbarn P' von P}
+    \IF{P'$\notin$ Suchliste \AND P'$\notin$ Ergebnis}
+      \STATE Füge P' zu Suchliste hinzu
+    \ENDIF
+    \ENDFOR
+    \ENDIF
+    \ENDWHILE
+    \RETURN{Ergebnis}
+  \end{algorithmic}
+  \caption[Nachbarschaftssuche auf einer Delaunay-Triangulation]{Nachbarschaftssuche auf einer Delaunay-Triangulation}
+  \label{algo:delaunay-neighbors}
+\end{algorithm}
+
+\todo[inline]{continue here}
 
 Dabei wird ausgenutzt, dass die Delaunay-Triangulation raumfüllend ist.
 Somit werden nur Atome und Primitive untersucht, die Bestandteil des Suchraumes sind, weshalb diese Suche lokal und somit schnell bleibt.
+
+Um die Position einzelner Punkte zu aktualisieren, arbeitet man üblicherweise mit Flip-Algorithmen, wie in Abbildung \ref{fig:delaunay-flip} dargestellt.
 
 Hinsichtlich der Oberflächensuche wird allerdings eine andere Eigenschaft offensichtlich:
 Die Alpha-Oberfläche ist ein Subgraph der Delaunay-Triangulation.
 Vereinfacht ausgedrückt ist die Alpha-Form einer Punktmenge ihre ``ungefähre Form'', wie man sie wahrnehmen würde.
 Oft zieht man auch Parallelen zum ``Einpacken in Plastikfolie mit Luftabpumpen''.
 Die eigentliche Definition beinhaltet folgende Idee:
+
+\begin{figure}[bhpt]
+  \centering
+  \def\svgwidth{\textwidth}
+  \input{img/delaunay-alpha.pdf_tex}
+  \caption[Alpha Shape]{Alpha Shape}
+  \label{fig:delaunay-alpha}
+\end{figure}
 
 Entfernt man alle Delaunay-Primitive, deren Umkreisradius oberhalb eines Grenzwertes $\alpha$ liegt, und bildet dann die Vereinigung aller verbleibenden Primitive sowie etwaiger frei gewordener Punkte, so erhält man die Alphaform.
 Für $\alpha = \infty$ erhält man somit die konvexe Hülle.

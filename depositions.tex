@@ -1,0 +1,72 @@
+\section{Gasphasenabscheidungen}
+
+Gasphasenabscheidungen sind eine Klasse von Verfahren, bei denen dünne Schichten durch physikalische oder chemische Prozesse aus der Gasphase auf eine Oberfläche aufgetragen werden.
+Sie teilen sich in \textbf{Physikalische Gasphasenabscheidung} (PVD, Physical Vapor Deposition), \textbf{Chemische Gasphasenabscheidung} (CVD, Chemical Vapor Deposition) und \textbf{Atomlagenabscheidung} (ALD, Atomic Layer Deposition) auf, die im folgenden betrachtet werden.
+
+Ihnen ist allgemein, dass einzelne Atome oder Moleküle auf der Oberfläche aufkommen, dort physikalisch oder chemisch adsorbiert werden und eventuelle Nebenprodukte aus dem Reaktor gespült werden, wodurch mit vorhersehbarer Rate eine dünne Schicht des Zielmateriales aufwächst.
+Tabellen \ref{tab:deposition-comparison} und \ref{tab:deposition-materials} stellen jeweils Charakteristiken und mögliche Materialien für die drei Prozesse dar.
+
+\missingfigure{Reaktoren}
+
+\begin{table}
+  \centering
+  \begin{tabularx}{\textwidth}{|X|ccc|}
+    \hline
+    Prozesscharakteristiken & \textbf{PVD} & \textbf{CVD} & \textbf{ALD} \\
+    \hline
+    reaktiv &  & \cmark & \cmark \\
+    kontinuierlich & \cmark & \cmark & zyklisch \\
+    Gas-Edukte & Atome, Moleküle & Precursor-Moleküle & Precursor-Moleküle \\
+    \# Edukte & 1 & 1+ & 2+ \\
+    Nebenprodukte & & \cmark & \cmark \\
+    Wachstumsrate & $\sim t$ & $\sim t$ & $\sim n_\text{cyc.}$ \\
+    \hline
+  \end{tabularx}
+  \caption[Prozesscharakteristiken der Abscheidungsarten]{Vergleich der Abscheidungsarten}
+  \label{tab:deposition-comparison}
+\end{table}
+
+\begin{table}
+  \centering
+  \begin{tabularx}{\textwidth}{XXXXXXXXX}
+    & \angled{Metalle} & \angled{Legierungen} & \angled{Metalloxide} & \angled{Nitride} & \angled{Chloride} & \angled{Silizium}  & \angled{Siliziumoxid} & \angled{Diamant} \\
+    \hline
+    \textbf{PVD} &\cmark&\cmark&&&&\cmark&&?\\
+    \textbf{CVD} &\cmark&?&\cmark&\cmark&\cmark&\cmark&?&?\\
+    \textbf{ALD} &\cmark&?&\cmark&\cmark&\cmark&\cmark&\cmark&\cmark\\
+  \end{tabularx}
+  \caption[Mögliche Produkte der Abscheidungsarten]{Mögliche Produkte der Abscheidungsarten. Weitergehende Informationen finden sich in der Literatur für PVD\cite{asd}, CVD\cite{asd} und ALD\cite{puurunen_surface_2005}.}
+  \todo[inline]{Referenzen für abgeschiedene Systeme}
+  \label{tab:deposition-materials}
+\end{table}
+
+\subsection{Physikalische Gasphasenabscheidung}
+
+PVD ist kontinuierlich und nicht reaktiv, arbeitet also mit Atomen oder Molekülen, die physikalisch auf der Oberfläche adsorbieren.
+Beispielsweise werden beim Sputtering durch energiereiche Partikel (Argon-Plasma) einzelne Atome aus dem sogenannten Target geschlagen, die dann auf dem Substrat eine homogene, dünne Schicht bilden.
+Durch die Nutzung mehrerer Targets (Cosputtering) oder mehrerer Atomsorten in einem Target lassen sich auch Legierungen und andere mehrelementige Materialien abscheiden.
+\todo{Referenzen für alles}
+
+\subsection{Chemische Gasphasenabscheidung}
+
+CVD wächst durch chemische Adsorption eines oder mehrerer Precursor-Moleküles eine dünne Schicht auf dem Substrat auf.
+Dazu werden die Precursorgase zeitgleich in den Reaktor geleitet, wo sie über die Substratoberfläche strömen und Reaktionen ermöglichen.
+Die dabei entstehenden Nebenprodukte werden mit dem Gasstrom aus dem Reaktor geführt, um die aufwachsende Schicht nicht zu verunreinigen.
+\todo{zu abrupter Übergang}
+
+Passende Precursor-Kombinationen zu finden, gestaltet sich oft schwierig, da sie idealerweise erst auf der Oberfläche und nicht in der Gasphase reagieren und dabei inerte Nebenprodukte erzeugen sollen.
+Weitere Kriterien wie Prozesstemperaturen, Energiebarrieren und komplizierte Reaktionspfade erschweren die Suche zusätzlich.
+Im Gegensatz zu PVD kann CVD dafür auf allen Substraten, über deren Oberfläche ein kontinuierlicher Gasfluss möglich ist, eine dünne Schicht abscheiden.
+Dies beinhaltet Stufen, Rillen und anderweitig strukturierte Substrate ebenso wie Poren durch das Substrat.
+
+\subsection{Atomlagenabscheidung}
+
+ALD entstand als Abwandlung der CVD, bei der zwei Precursorgase wechselweise in den Reaktor geleitet werden.
+So werden einerseits Gasphasenreaktionen vermieden, andererseits wächst die Schicht nicht mehr kontinuierlich, sondern zyklisch mit einer Höhe pro Zyklus (GPC, Growth per Cycle), die von der Wahl des Precursorpaares abhängt.
+
+\begin{figure}
+  \def\svgwidth{\textwidth}
+  \input{img/ald-schema.pdf_tex}
+  \caption[ALD-Schema]{ALD-Schema: dsa ald}
+  \label{fig:ald-schema}
+\end{figure}

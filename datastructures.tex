@@ -21,21 +21,28 @@ Die Suche nach allen Atomen im Umkreis eines anderen Atomes. Algorithmisch meist
 Speziell für Wachstums- und Oberflächenprozesse muss die Oberfläche entlang einer Geraden ermittelt werden.
 \end{itemize}
 
-\subsection{Atomliste}
+\subsection{Globale Atomlisten}
 
-Ein naiver Ansatz ist die Speicherung aller Atome in einer Liste.
-Obwohl Konstruktion, Hinzufügen und Aktualisierung (\BigO{n}, \BigO{1}, \BigO{1} entsprechend) minimale Laufzeiten aufweisen, zeigen sich schnell die Nachteile:
-Sowohl Nachbarschaftssuche als auch Ortssuche laufen in \BigO{n}, was für ihre Häufigkeit schlicht zu langsam ist.
-Ebenfalls zu langwierig ist die Suche nach der Oberfläche, die ebenfalls in \BigO{n} läuft und anschaulich das gesamte Substrat durchsuchen muss, nur um die Oberfläche zu finden.
-Auf einer Oberfläche der Größe 400 nm$^2$ bräuchte die Erstellung eines einzigen KMC-Ereignisses auf dem Testsystem ca. 20 Sekunden.
+Der naive Ansatz ist die Speicherung aller Atome in einer globalen Liste.
+Konstruktion, Hinzufügen und Aktualisierung (entsprechend \BigO{n}, \BigO{1} und \BigO{1}) weisen zwar optimale Laufzeiten auf, die anderen Operationen benötigen dagegen Worst-Case-Zeit:
+Sowohl Nachbarschaftssuche als auch Ortssuche laufen in \BigO{n}.
+Kombiniert mit der Suche der Oberfläche (\BigO{n}, vernachlässigt aber viele Atome) beziehungsweise der durch sie notwendigen Ereignisvalidierung summiert sich die Komplexität für eine KMC-Ereigniserstellung auf \BigO{n^2}, was allerdings verschiedene Nachbarschafts-Überprüfungen nicht mit einschließt.
+Auf einer Oberfläche der Größe 400 nm$^2$ bräuchte die Erstellung eines einzigen KMC-Ereignisses auf dem Testsystem ca. 20 Sekunden, wodurch ein KMC-Schritt mit einigen tausend Ereignissen praktisch nicht durchführbar ist.
 
-Systeme in der Größenordnung einiger Mikrometer wären damit undenkbar, weshalb schnell andere Methoden untersucht wurden.
+Auch Molekulardynamik-Bibliotheken kämpfen mit diesem Problem.
+Um dort den Such- und Rechenaufwand bei Kraftfeldern mit Cutoff-Reichweite zu verringern, werden entweder Nachbarschaftslisten oder Binning genutzt, welches in einem folgenden Abschnitt diskutiert wird.
+\textbf{Nachbarschaftslisten} referenzieren für jedes Atom alle Atome innerhalb seines Cutoff-Radius' inklusive Toleranz.
+Dadurch werden Kraftberechnungen nur mit potentiell relevanten Atomen durchgeführt, allerdings müssen die Listen in regelmäßigen Intervallen aktualisiert werden, wobei jedes Mal eine \BigO{n^2}-Operation durchgeführt werden muss.
+Diese Methode ist sinnvoll für mittelgroße Systeme, in denen jedes Atom in einem beschränkten Bereich wandert, stößt aber bei großen Systemen mit teilweise festen Atompositionen an seine Grenzen.
 
-\subsection{Binning vs. Spatial Datastructures}
+Allgemein lässt sich mit Listen von Atomen keine große Struktur in praktikabler Zeit behandeln, was an der Vielzahl nichtrelevanter Atome bei grundlegenden Operationen liegt.
+
+\subsection{Binning oder Räumliche Datenstrukturen?}
+
+\todo[inline]{insert content here}
 
 \begin{figure}[btp]
   \centering
-%%  \includegraphics[width=\textwidth]{datastructures}
   \def\svgwidth{\textwidth}
   \input{img/datastructures.pdf_tex}
   \caption[Räumliche Datenstrukturen]{
@@ -47,8 +54,6 @@ Systeme in der Größenordnung einiger Mikrometer wären damit undenkbar, weshal
   }
   \label{fig:datastructures}
 \end{figure}
-
-Zur Lösung stehen zwei grundlegend verschiedene Methoden zur Verfügung:
 
 Einerseits lässt sich der Raum in kleinere Einheiten (Zellen) unterteilen, in die dann die Atome eingefügt werden.
 Somit ließe sich die Komplexität der Operation auf einen konstanten Faktor sowie die Komplexität der Suche nach der relevanten Zelle aufteilen.
@@ -69,6 +74,14 @@ Das Hauptproblem dieser Methode ist die potentiell große Anzahl leerer Zellen, 
 Somit sind eigentlich zweidimensionale Oberflächenprobleme in drei Dimensionen nur kubischem Speicheraufwand möglich.
 
 \subsection{Octree-Binning}
+
+\begin{figure}[tbhp]
+  \centering
+  \includegraphics[width=\textwidth]{octree}
+  \caption[Octree]{Octree}
+  \todo[inline]{Beschreibung}
+  \label{fig:octree}
+\end{figure}
 
 Ein Octree ist eine rekursive Datenstruktur, welche ebenfalls den gesamten Raum in Zellen unterteilt, dabei allerdings auf dynamische Speicherzuweisung zurückgreift und somit leere Zellen zu vermeiden versucht:
 Der gesamte Raum wird als ein einziger Quader dargestellt, welchen man bei Bedarf in 8 gleiche Quader halber Breite unterteilt.
@@ -91,18 +104,29 @@ Durch aktives Caching lässt sich das \BigO{\log{N}}-Verhalten dämpfen, was den
 
 \subsection{k-d-Baum}
 
-Wie beim binning wird auch beim k-d-Baum (k-dimensionaler Baum) der Raum in einzelne Zellen unterteilt.
+\begin{figure}[bthp]
+  \includegraphics[width=\textwidth]{kdtree-tree}
+  \caption[Konstruktion eines k-d-Baumes]{Konstruktion eines k-d-Baumes\todo[inline]{mehr Bildunterschrift}}
+  \label{fig:kdtree}
+\end{figure}
+
+Wie beim Binning wird auch beim k-d-Baum (k-dimensionaler Baum) der Raum in einzelne Zellen unterteilt.
 Anders als beim Binning hält jede Zelle nur ein einziges Atom.
 Die Konstruktion geschieht folgendermaßen:
-
-\begin{enumerate}
-\item Wenn $N=1$: Kehre zurück
-\item Sortiere die Atome in Richtung der aktuellen Dimension (beginne mit x)
-\item Wähle Atom $\lfloor N/2 \rfloor$
-\item Teile Raum an $pos[d]_{\lfloor N/2 \rfloor}$ in zwei Zellen. Verteile die Atome auf beide Zellen.
-\item Wähle zyklisch die nächste Dimension
-\item Für beide Zellen: Gehe zu 1.
-\end{enumerate}
+\begin{algorithm}
+  \begin{algorithmic}
+    \IF{N$\ge$1}
+    \STATE Sortiere die Atome in Richtung der aktuellen Dimension (beginne mit x)
+    \STATE Wähle Atom $\lfloor N/2 \rfloor$
+    \STATE Teile Raum an $pos[d]_{\lfloor N/2 \rfloor}$ in zwei Zellen. Verteile die Atome auf beide Zellen.
+    \STATE Wähle zyklisch die nächste Dimension
+    \STATE Für beide Zellen: Gehe zu 1.
+    \STATE kehre zurück
+    \ENDIF
+  \end{algorithmic}
+  \caption[Konstruktion eines k-d-Baumes]{Konstruktion eines k-d-Baumes}
+  \label{algo:kdtree-construction}
+\end{algorithm}
 
 Diese rekursive Definition erstellt aus Listen von Atomen k-d-Bäume, bei denen jeder Knoten jeweils ein Atom hält.
 
@@ -128,7 +152,6 @@ Zwar gibt es dafür wiederum Variationen, jedoch verlieren diese dann einige der
 Während bei den bisher vorgestellten Partitionsmethoden der Raum in k-dimensionale Quader geteilt wurde, basieren Triangulationen auf k-dimensionalen Simplexen, deren Eckpunkte die gespeicherte Punktmenge bilden.
 Der Zentrale Vertreter ist die Delaunay-Triangulation, die für eine Menge von Punkten folgende Eigenschaften aufweist:
 
-\todo{algorithmicx}
 \begin{itemize}
 \item Jeder Punkt ist ein Eckpunkt mindestens eines Simplexes
 \item Simplexe überschneiden sich nicht
@@ -138,7 +161,6 @@ Der Zentrale Vertreter ist die Delaunay-Triangulation, die für eine Menge von P
 $\Leftrightarrow$ Nächstnachbargraph $\subset$ Delaunay-Triangulation
 %% \item Die Delaunay-Triangulation und das Voronoi-Diagramm über die selben Punkte sind dual\\
 %% $\Rightarrow$ Allgemeine Nachbarschaftssuche ist \BigO{n\log n}
-\todo{Voronoi-Dualität?}
 \end{itemize}
 
 Eine Delaunay-Triangulation lässt sich aus einer Punktmenge in \BigO{n\log n}\todo{Referenz} ausführen, wofür eine Vielzahl an Algorithmen zur Verfügung stehen. \todo{Referenz}
@@ -167,20 +189,16 @@ Ein möglicher Algorithmus kann folgendermaßen aussehen:
 \begin{algorithm}
   \centering
   \begin{algorithmic}
-    \STATE Füge Referenzpunkt zur Suchliste hinzu
-    \WHILE{Suchliste $\neq \emptyset$}
-    \STATE Lies ersten Punkt P von Suchliste
-    \STATE Entferne P von Suchliste
-    \IF{Wenn P $\in$ Suchbereich}
-    \STATE Füge p zum Ergebnis hinzu
-    \FOR{jeden Nachbarn P' von P}
-    \IF{P'$\notin$ Suchliste \AND P'$\notin$ Ergebnis}
-      \STATE Füge P' zu Suchliste hinzu
-    \ENDIF
-    \ENDFOR
+    \STATE Result = \{\}
+    \STATE Queue = \{ P$_0$ : P$_0 \in$ Volume \}
+    \WHILE{Queue $\neq \emptyset$}
+    \STATE Sei P $\in$ Queue
+    \STATE Queue = Queue $\setminus$ \{ P \}
+    \IF{P $\in$ Volume}
+    \STATE Result = Result $\cap$ \{ P \}
+    \STATE Queue $\cap$ (Neighbors(P) $\setminus$ Result)
     \ENDIF
     \ENDWHILE
-    \RETURN{Ergebnis}
   \end{algorithmic}
   \caption[Nachbarschaftssuche auf einer Delaunay-Triangulation]{Nachbarschaftssuche auf einer Delaunay-Triangulation}
   \label{algo:delaunay-neighbors}

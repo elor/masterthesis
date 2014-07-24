@@ -6,7 +6,14 @@ Sie teilen sich in \textbf{Physikalische Gasphasenabscheidung} (PVD, Physical Va
 Ihnen ist allgemein, dass einzelne Atome oder Moleküle auf der Oberfläche aufkommen, dort physikalisch oder chemisch adsorbiert werden und eventuelle Nebenprodukte aus dem Reaktor gespült werden, wodurch mit vorhersehbarer Rate eine dünne Schicht des Zielmateriales aufwächst.
 Tabellen \ref{tab:deposition-comparison} und \ref{tab:deposition-materials} stellen jeweils Charakteristiken und mögliche Materialien für die drei Prozesse dar.
 
-\missingfigure{Reaktoren}
+\begin{figure}
+  \centering
+  \def\svgwidth{\textwidth}
+  \input{img/reactors.pdf_tex}
+  \includegraphics[]{reactors}
+  \caption[Abscheidungskammern und -reaktoren]{Abscheidungskammern und -reaktoren}
+  \label{fig:reactors}
+\end{figure}
 
 \begin{table}
   \centering
@@ -59,14 +66,64 @@ Weitere Kriterien wie Prozesstemperaturen, Energiebarrieren und komplizierte Rea
 Im Gegensatz zu PVD kann CVD dafür auf allen Substraten, über deren Oberfläche ein kontinuierlicher Gasfluss möglich ist, eine dünne Schicht abscheiden.
 Dies beinhaltet Stufen, Rillen und anderweitig strukturierte Substrate ebenso wie Poren durch das Substrat.
 
+\missingfigure{Beispiel Precursor-Moleküle}
+
 \subsection{Atomlagenabscheidung}
 
-ALD entstand als Abwandlung der CVD, bei der zwei Precursorgase wechselweise in den Reaktor geleitet werden.
-So werden einerseits Gasphasenreaktionen vermieden, andererseits wächst die Schicht nicht mehr kontinuierlich, sondern zyklisch mit einer Höhe pro Zyklus (GPC, Growth per Cycle), die von der Wahl des Precursorpaares abhängt.
-
 \begin{figure}
+  \centering
   \def\svgwidth{\textwidth}
   \input{img/ald-schema.pdf_tex}
   \caption[ALD-Schema]{ALD-Schema: dsa ald}
   \label{fig:ald-schema}
 \end{figure}
+
+Als Variation von CVD entstand ALD \todo{Referenz} mit dem Ziel, dünne Schichten kontrolliert in einzelnen Atomlagen abzuscheiden.
+Dazu werden zwei Precursorgase in wechselweisen Schritten in den Reaktor geleitet, zwischen denen Spülschritte mit inertem Gas verbleibende Moleküle und Nebenprodukte aus dem Reaktor spülen (Abbildung \ref{fig:ald-schema}).
+So werden einerseits Gasphasenreaktionen vermieden, andererseits sorgt die Sättigung \todo{Grafik zur Sättigung} der Oberfläche mit Precursorliganden in jedem Precursorschritt für zyklen-begrenztes Schichtwachstum.
+Anders als der Name vermuten lässt, werden aber normalerweise keine kompletten Monolagen in einem Zyklus aufgebracht.
+Üblicherweise erreichen ALD-Prozesse bis zu 35\% \todo{referenz} einer Monolage, bedingt durch sterische Hinderung (Abbildung \ref{fig:steric}).
+Die Wachstumsrate wird somit von dem Growth-per-Cycle-Wert (GPC) abgelöst, der angibt, wie stark eine Schicht im Schnitt pro Zyklus wächst.
+
+Große Gruppen von Precursorliganden verhindern durch sterische Hinderung einen hohen GPC-Wert, weshalb kompakte Precursor bevorzugt untersucht werden. \todo{Referenz?}
+Die Suche nach möglichen Precursorpaaren und Prozessparametern unterliegt ansonsten gleichen Anforderungen wie bei CVD.
+
+Eine ausführlichere Übersicht zu Atomlagenabscheidung und mögliche Precursorpaare findet sich in Referenz \cite{puurunen_surface_2005}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.5\textwidth]{sterichindrance}
+  \caption[Sterische Hinderung]{Sterische Hinderung auf einem Gitter:
+    Angelagerte Precursor-Liganden verhindern Reaktionen auf benachbarten Gitterpunkten.
+    Überlagerungsfreie Positionen in größerem Abstand akzeptieren weiterhin Precursor-Reaktionen.
+  }
+  \label{fig:steric}
+\end{figure}
+
+\subsection{Simulation von Gasphasenabscheidungen}
+
+\begin{table}
+  \centering
+  \begin{tabularx}{\textwidth}{XXXX}
+    \hline
+    Methode & Anwendungsfeld & Größenordnung & Grundlagen \\
+    \hline
+    Finite Elemente Methode (FEM) & Gasfluss und Verbrauch in Reaktoren & makroskopisch & Navier-Stokes-Gl., Reaktionskinetik \\
+    Kinetic Monte Carlo (KMC) & Wachstums\-simulationen & mikroskopisch & Reaktionsraten, Gitternäherungen \\
+    Molekular\-dynamik (MD) & Material\-unter\-suchungen & < 1.000.000 Atome & klassische Interaktionspotentiale \\
+    Dichte\-funktional\-theorie (DFT) & Reaktionspfade & < 1.000 Atome & Elektronendichten \\
+    \hline
+  \end{tabularx}
+  \caption[Ausgewählte Methoden zur Simulation von Gasphasenabscheidungen]{Ausgewählte Methoden zur Simulation von Gasphasenabscheidungen}
+  \label{tab:deposition-simulations}
+  \todo[inline]{Referenzen!}
+\end{table}
+
+Tabelle \ref{tab:deposition-simulations} stellt ausgewählte Simulationsmethoden für Gasphasenabscheidungen vor, die in der Praxis Anwendung finden.
+Besonders auf atomarer Ebene sind viele Prozesse nicht vollends verstanden.
+So ist der genaue Reaktionspfad für Precursorpaare oft nicht bekannt, obwohl sie seit Jahrzehnten erfolgreich eingesetzt werden.
+Durch Simulationen will man diese Prozesse verstehen helfen und somit genauere Kontrolle über die abgeschiedenen Schichten erlangen.
+
+Dichtefunktionaltheorie und Molekulardynamik stechen hier aufgrund ihrer atomaren Arbeitsweise besonders hervor.
+DFT-Untersuchungen beschränken sich hier auf die Reaktionspfade von Molekülen, wo hingegen Molekulardynamik das fertige Material zu simulieren versucht.
+In den letzten Jahren sind hingegen auch reaktive Formulierungen für Molekulardynamik aufgekommen\todo{Referenz}, die einen zentralen Bestandteil dieser Arbeit bilden.

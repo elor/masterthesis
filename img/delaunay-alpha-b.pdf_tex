@@ -1,6 +1,6 @@
 %% Creator: Inkscape inkscape 0.48.4, www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
-%% Accompanies image file 'delaunay-flip.pdf' (pdf, eps, ps)
+%% Accompanies image file 'delaunay-alpha-b.pdf' (pdf, eps, ps)
 %%
 %% To include the image in your LaTeX document, write
 %%   \input{<filename>.pdf_tex}
@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{829.31152344bp}%
+    \setlength{\unitlength}{123.95692139bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,11 +48,8 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.19474298)%
-    \put(0,0){\includegraphics[width=\unitlength]{delaunay-flip.pdf}}%
-    \put(-0.00231743,0.04354599){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.15241558\unitlength}\raggedright a)\end{minipage}}}%
-    \put(0.80044382,0.04354599){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.15241558\unitlength}\raggedright d)\end{minipage}}}%
-    \put(0.2314277,0.04354599){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.15241558\unitlength}\raggedright b)\end{minipage}}}%
-    \put(0.54396613,0.043546){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.15241558\unitlength}\raggedright c)\end{minipage}}}%
+  \begin{picture}(1,0.76184772)%
+    \put(0,0){\includegraphics[width=\unitlength]{delaunay-alpha-b.pdf}}%
+    \put(-0.00682159,0.11650688){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.66828721\unitlength}\raggedright b)\end{minipage}}}%
   \end{picture}%
 \endgroup%

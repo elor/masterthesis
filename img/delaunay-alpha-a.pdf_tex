@@ -1,6 +1,6 @@
 %% Creator: Inkscape inkscape 0.48.4, www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
-%% Accompanies image file 'datastructures.pdf' (pdf, eps, ps)
+%% Accompanies image file 'delaunay-alpha-a.pdf' (pdf, eps, ps)
 %%
 %% To include the image in your LaTeX document, write
 %%   \input{<filename>.pdf_tex}
@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{1189.78739852bp}%
+    \setlength{\unitlength}{123.95689697bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,11 +48,8 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.21913423)%
-    \put(0,0){\includegraphics[width=\unitlength]{datastructures.pdf}}%
-    \put(-0.00159999,0.22550409){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.33043117\unitlength}\raggedright a)\end{minipage}}}%
-    \put(0.25786634,0.22547785){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.33043117\unitlength}\raggedright b)\end{minipage}}}%
-    \put(0.51911873,0.22550411){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.33043117\unitlength}\raggedright c)\end{minipage}}}%
-    \put(0.77941238,0.22547782){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.33043117\unitlength}\raggedright d)\end{minipage}}}%
+  \begin{picture}(1,0.76184787)%
+    \put(0,0){\includegraphics[width=\unitlength]{delaunay-alpha-a.pdf}}%
+    \put(-0.00619105,0.1165069){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.66828734\unitlength}\raggedright a)\end{minipage}}}%
   \end{picture}%
 \endgroup%

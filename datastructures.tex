@@ -41,17 +41,35 @@ Allgemein lässt sich mit Listen von Atomen keine große Struktur in praktikable
 
 \todo[inline]{insert content here}
 
-\begin{figure}[btp]
-  \centering
-  \def\svgwidth{\textwidth}
-  \input{img/datastructures.pdf_tex}
-  \caption[Räumliche Datenstrukturen]{
-    a) Gesamter Raum (Atomliste)
-    b) Lineare Bins (k-d-Arrays)
-    \\
-    c) Octree
-    d) k-d-Baum
+\begin{figure}[bhpt]
+  \captionsetup[subfigure]{singlelinecheck=false}{
+    \def\subfigwidth{0.23\textwidth}
+    \def\svgwidth{\textwidth}
+    \begin{subfigure}[t]{\subfigwidth}
+      \includegraphics[width=\textwidth]{datastructures-a}
+      \subcaption{Gesamter Raum (Atomlisten)}
+      \label{fig:datastructures-a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{\subfigwidth}
+      \includegraphics[width=\textwidth]{datastructures-b}
+      \subcaption{Lineare Bins (k-d-Arrays)}
+      \label{fig:datastructures-a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{\subfigwidth}
+      \includegraphics[width=\textwidth]{datastructures-c}
+      \subcaption{Octree}
+      \label{fig:datastructures-a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{\subfigwidth}
+      \includegraphics[width=\textwidth]{datastructures-d}
+      \subcaption{k-d-Baum}
+      \label{fig:datastructures-a}
+    \end{subfigure}
   }
+  \caption{Übersicht über räumliche Datenstrukturen}
   \label{fig:datastructures}
 \end{figure}
 
@@ -171,10 +189,34 @@ Dazu entfernt man die gemeinsame Kante bzw. Fläche der beiden betroffenen Simpl
 Die dabei neu entstehenden Simplexe müssen nun mit ihren jeweiligen Nachbarn auf das Delaunay-Kriterium überprüft werden, wobei die neuen Simplexe als Bestandteil der Delaunay-Triangulation garantiert sind.\todo{Referenz}
 
 \begin{figure}[bhpt]
-  \centering
-  \def\svgwidth{\textwidth}
-  \input{img/delaunay-flip.pdf_tex}
-  \caption[Delaunay-Triangulation: Flip Algorithmus]{Flip Algorithmus zur Aktualisierung einer Delaunay-Triangulation. Die Ausgangssituation (a) erfüllt das Delaunay-Kriterium nicht (b). Durch Drehung der Simplexe (c) generiert sich der zulässige Endzustand (d)}
+  \captionsetup[subfigure]{singlelinecheck=false}{
+    \def\subfigwidth{0.23\textwidth}
+    \def\svgwidth{\textwidth}
+    \begin{subfigure}[t]{\subfigwidth}
+      \includegraphics[width=\textwidth]{delaunay-flip-a}
+      \subcaption{Ausgangstriangulation}
+      \label{fig:delaunay-flip-a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{\subfigwidth}
+      \includegraphics[width=\textwidth]{delaunay-flip-b}
+      \subcaption{Vereinigung invalider Simplexe}
+      \label{fig:delaunay-flip-b}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{\subfigwidth}
+      \includegraphics[width=\textwidth]{delaunay-flip-c}
+      \subcaption{Aufteilung in neue valide Simplexe}
+      \label{fig:delaunay-flip-c}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{\subfigwidth}
+      \includegraphics[width=\textwidth]{delaunay-flip-d}
+      \subcaption{Ergebnis}
+      \label{fig:delaunay-flip-d}
+    \end{subfigure}
+  }
+  \caption{Flip Algorithmus zur Aktualisierung einer Delaunay-Triangulation}
   \label{fig:delaunay-flip}
 \end{figure}
 
@@ -219,9 +261,28 @@ Die eigentliche Definition beinhaltet folgende Idee:
 
 \begin{figure}[bhpt]
   \centering
-  \def\svgwidth{\textwidth}
-  \input{img/delaunay-alpha.pdf_tex}
-  \caption[Alpha Shape]{Alpha Shape}
+  \captionsetup[subfigure]{singlelinecheck=false}{
+    \def\subwidth{0.3\textwidth}
+    \def\svgwidth{\textwidth}
+    \begin{subfigure}[t]{\subwidth}
+      \includegraphics[width=\textwidth]{delaunay-alpha-a}
+      \subcaption{Delaunay Triangulation}
+      \label{fig:delaunay-alpha-a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{\subwidth}
+      \includegraphics[width=\textwidth]{delaunay-alpha-b}
+      \subcaption{Konvexe Hülle: Kanten mit nur einem Simplex}
+      \label{fig:delaunay-alpha-b}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{\subwidth}
+      \includegraphics[width=\textwidth]{delaunay-alpha-c}
+      \subcaption{Alpha-Form: Hülle nach Entfernung von Simplexen mit $\text{Umkreis} > \alpha$}
+      \label{fig:delaunay-alpha-c}
+    \end{subfigure}
+  }
+  \caption{Konstruktion einer Alpha-Form}
   \label{fig:delaunay-alpha}
 \end{figure}
 

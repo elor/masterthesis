@@ -41,3 +41,15 @@
 \newcommand{\cmark}{\ding{51}}
 \newcommand{\ccross}{\ding{55}}
 \newcommand{\angled}[1]{\rotatebox{25}{#1}}
+
+\definecolor{Green}{rgb}{0.7 1.0 0.7}
+\definecolor{Yellow}{rgb}{1.0 1.0 0.7}
+\definecolor{Red}{rgb}{1.0 0.7 0.7}
+
+\newcolumntype{G}{>{\columncolor{Green}}c}
+\newcolumntype{y}{>{\columncolor{Yellow}}c}
+\newcolumntype{R}{>{\columncolor{Red}}c}
+
+\newcommand{\cG}[1]{\multicolumn{1}{G}{#1}}
+\newcommand{\cY}[1]{\multicolumn{1}{y}{#1}}
+\newcommand{\cR}[1]{\multicolumn{1}{R}{#1}}

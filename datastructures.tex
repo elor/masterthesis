@@ -38,15 +38,26 @@ Unterschiede ergeben sich jeweils in Laufzeit und Speicherverbrauch für verschi
     Atomliste  &  \cG{$n$}         &  \cG{$1$}         &  \cG{$1$}         &  \cG{$1$}         &  \cR{$n$}          &  \cR{$n$}         &  \cR{$n$}        &  \cG{$n$}                \\
     NB-Listen  &  \cR{$n^2$}       &  \cR{$n$}         &  \cR{$n$}         &  \cR{$n$}         &  \cR{$n$}          &  \cG{$1$}         &  \cR{$n$}        &  \cR{$\frac{r}{s}n^2$}   \\
     Binning    &  \cG{$n$}         &  \cG{$1$}         &  \cG{$1$}         &  \cG{$1$}         &  \cG{$r$}          &  \cG{$r$}         &  \cR{$c$}        &  \cY{$n+c$}              \\
-    Octree     &  \cY{$n\log{c}$}  &  \cY{$\log{c}$}   &  \cY{$\log{c}$}   &  \cG{$1$}         &  \cY{$r\log{c}$}   &  \cY{$r\log{c}$}  &  \cY{$\log{c}$}  &  \cG{$n+c^\frac{2}{3}$}  \\
-    k-d-Baum   &  \cY{$n\log{n}$}  &  \cY{$\log{n}$}   &  \cY{$\log{n}$}   &  \cY{$\log{n}$}   &  \cG{$\log{n}$}    &  \cG{$r\log{n}$}  &  \cY{$\log{n}$}  &  \cG{$n$}                \\
+    Octree     &  \cY{$n\log{c}$}  &  \cY{$\log{c}$}   &  \cY{$\log{c}$}   &  \cG{$1$}         &  \cY{$r\log{c}$}   &  \cY{$r\log{c}$}  &  \cY{$\log{c}$}  &  \cY{$n+c^\frac{2}{3}$}  \\
+    k-d-Baum   &  \cY{$n\log{n}$}  &  \cY{$\log{n}$}   &  \cY{$\log{n}$}   &  \cY{$\log{n}$}   &  \cY{$r\log{n}$}   &  \cY{$r\log{n}$}  &  \cY{$\log{n}$}  &  \cG{$n$}                \\
     Delaunay   &  \cY{$n\log{n}$}  &  \cY{$k\log{k}$}  &  \cY{$k\log{k}$}  &  \cY{$k\log{k}$}  &  \cG{$r+\log{n}$}  &  \cG{$r$}         &  \cG{$1$}        &  \cY{$nk$}               \\
     \hline
     %Atomfeld  &  \cG{$n$}         &  \cG{$1$}         &  \cG{$1$}         &  \cG{$1$}         &  \cR{$n$}          &  \cR{$n$}         &  \cR{$n$}        &  \cG{$n$}                \\
   \end{tabularx}
-  \caption[asd]{$n$ - Zahl der Atome; $c$ - Zahl der Zellen ($c<n$); $r$ - Suchradius; $k$ - max. Koordination (Zahl direkter Nachbarn)}
+  \caption[asd]{
+    Abschätzung des Speicheraufwands und der asymptotischen Laufzeit ausgewählter Operationen auf verschiedenen Datenstrukturen
+    \\
+    \begin{tabularx}{0.8\textwidth}{XXX}
+      \cG{optimal} & \cY{annehmbar} & \cR{Bottleneck} \\
+      $n$ - Anzahl Atome &
+      $c$ - Anzahl Bins &
+      $r$ - Suchradius \\
+      $s$ - Raumgröße & 
+      $k$ - Nächstnachbarn &
+      $1$ - konstant \\
+    \end{tabularx}
+  }
 \end{table}
-
 
 \subsection{Globale Atomlisten}
 

@@ -30,13 +30,14 @@ Daraus resultieren Beschränkungen, die bei der Auswahl geeigneter Datenstruktur
 \item Divide-and-Conquer-Algorithmen müssen aufwendigeres Stitching betreiben
 \end{enumerate}
 
-\subsection{Notwendige Operationen}
+\subsection{Benutzte Operationen}
 
 \todo[inline]{Referenzen der optimalen Laufzeiten!}
 
 Aus Sicht der aufrufenden Simulation ist die Wahl der unterliegenden Datenstruktur durch Abstraktion gleichgültig.
 Sie interagiert mit dem Simulationsraum durch eine Zahl von Operationen, die kurz vorgestellt werden sollen.
 Das beinhaltet Konstruktion, Manipulation und Suche auf der Struktur.
+Ein Vergleich der asymptotischen Laufzeiten ist in Tabelle \ref{tab:datastructures_bigo} dargestellt.
 
 \subsubsection{Konstruktion}
 Damit ist der einmalige Aufbau der gesamten Struktur aus einer beliebigen Menge von Atomen gemeint.
@@ -66,10 +67,10 @@ Als inverse Operation zur Einfügung gelten hier ähnliche Laufzeiten:
 Konstante Zeit für Binning und Listen, und \BigO{k} (k - obere Grenze der Zahl der Nachbarn).
 
 \subsubsection{Nachbarschaftssuche}
-Die Suche aller Atome im festen Umkreis eines bestimmten Atomes, also seine Nachbarn.
+Eine Suchoperation aller Atome im festen Umkreis eines bestimmten Atomes, also seine Nachbarn.
 Diese Operation wird genutzt, um MD-Simulationen vorzubereiten, und wird somit bei jeder versuchten Reaktion ausgeführt.
 
-\CONTINUEHERE
+Die Laufzeit dieser Operation variiert stark zwischen \BigO{1} für Nachbarschaftslisten, die die Komplexität in andere Operationen verschieben, und \BigO{n} für den direkten Vergleich mit allen anderen Atomen.
 
 \subsubsection{Ortssuche}
 Im Gegensatz zur Nachbarschaftssuche sucht man hier alle Atome im Umkreis eines beliebigen Punktes.
@@ -77,19 +78,13 @@ Diese Suche wird zur Identifizierung eines Reaktionsortes und somit zum Aufbau e
 Damit ist sie eine der häufigsten Operationen und sollte in möglichst optimaler Zeit laufen.
 Da beide Nachbarschaftssuchen in einander überführbar sind, ist ihre Komplexität mit wenigen Ausnahmen gleich.
 
+Eine nennenswerte Ausnahme in der Laufzeit sind Delaunay-Triangulationen:
+Dort geht der Nachbarschaftssuche eine Suche eines beliebigen Atomes innerhalb des Suchradius' voraus, weshalb sich die Komplexität um einen Summanden unterscheidet.
+
 \subsubsection{Oberflächensuche}
 Diese Operation sucht die Oberfläche, entweder entlang einer definierten Geraden oder im Umkreis eines Punktes.
 Die genaue Formulierung kann zugunsten der Datenstruktur angepasst werden.
 Ein Punkt auf der Oberfläche wird bei der Erstellung jedes KMC-Ereignisses durchgeführt und ist damit gleich häufig wie die Ortssuche, und im ein Vielfaches häufiger als die anderen.
-
-\subsection{Klassen von Datenstrukturen}
-\subsubsection{Binning}
-\subsubsection{Nachbarschaftslisten}
-\subsubsection{Suchbäume}
-\subsubsection{Triangulationen}
-\subsubsection{Laufzeiten}
-
-Tabelle \ref{tab:datastructures_bigo} beinhaltet Abschätzungen der asymptotischen Laufzeit 
 
 \begin{table}
   \centering
@@ -121,25 +116,45 @@ Tabelle \ref{tab:datastructures_bigo} beinhaltet Abschätzungen der asymptotisch
   }
 \end{table}
 
-\subsection{Globale Atomlisten}
+\subsection{Klassen von Datenstrukturen}
 
-Der naive Ansatz ist die Speicherung aller Atome in einer globalen Liste.
-Konstruktion, Hinzufügen und Aktualisierung (entsprechend \BigO{n}, \BigO{1} und \BigO{1}) weisen zwar optimale Laufzeiten auf, die anderen Operationen benötigen dagegen Worst-Case-Zeit:
-Sowohl Nachbarschaftssuche als auch Ortssuche laufen in \BigO{n}. 
-Kombiniert mit der Suche der Oberfläche (\BigO{n}, vernachlässigt aber viele Atome) beziehungsweise der durch sie notwendigen Ereignisvalidierung summiert sich die Komplexität für eine KMC-Ereigniserstellung auf \BigO{n^2}, was allerdings verschiedene Nachbarschafts-Überprüfungen nicht mit einschließt.
-Auf einer Oberfläche der Größe 400 nm$^2$ bräuchte die Erstellung eines einzigen KMC-Ereignisses auf dem Testsystem ca. 20 Sekunden, wodurch ein KMC-Schritt mit einigen tausend Ereignissen praktisch nicht durchführbar ist.
+Die Vielzahl der verfügbaren Datenstrukturen und Algorithmen lassen sich in generelle Kategorien nach ihrer Arbeitsweise einordnen.
+Diese teilen ihre Funktionsweise, so dass Algorithmen innerhalb der Klasse oftmals austauschbar sind.
 
-Auch Molekulardynamik-Bibliotheken kämpfen mit diesem Problem.
-Um dort den Such- und Rechenaufwand bei Kraftfeldern mit Cutoff-Reichweite zu verringern, werden entweder Nachbarschaftslisten oder Binning genutzt, welches in einem folgenden Abschnitt diskutiert wird.
-\textbf{Nachbarschaftslisten} referenzieren für jedes Atom alle Atome innerhalb seines Cutoff-Radius' inklusive Toleranz.
-Dadurch werden Kraftberechnungen nur mit potentiell relevanten Atomen durchgeführt, allerdings müssen die Listen in regelmäßigen Intervallen aktualisiert werden, wobei jedes Mal eine \BigO{n^2}-Operation durchgeführt werden muss.
-Diese Methode ist sinnvoll für mittelgroße Systeme, in denen jedes Atom in einem beschränkten Bereich wandert, stößt aber bei großen Systemen mit teilweise festen Atompositionen an seine Grenzen.
+\subsubsection{Listen}
 
-Allgemein lässt sich mit Listen von Atomen keine große Struktur in praktikabler Zeit behandeln, was an der Vielzahl nichtrelevanter Atome bei grundlegenden Operationen liegt.
+Listen sind die einfachste Datenstruktur zur Behandlung von Punktwolken.
+Die einzelnen Atome werden in einer Liste gespeichert, wodurch Manipulationsoperationen in optimaler konstanter Zeit möglich sind, Nachbarschaftsoperationen andererseits Vergleiche mit sämtlichen Atomen anstellen müssen, wodurch die Laufzeit der zeitkritischen Operationen die Worst-Case-Laufzeit von \BigO{n} annimmt.
 
-\subsection{Binning oder Räumliche Datenstrukturen?}
+\subsubsection{Nachbarschaftslisten}
 
-\todo[inline]{insert content here}
+Nachbarschaftslisten sind Atomlisten, die für jedes Atom eine Referenz zu allen Atomen innerhalb einer begrenzten Nachbarschaft beinhalten.
+Diese Referenzen müssen bei jeder Manipulation aufwendig aktualisiert werden, wodurch im Gegenzug die Nachbarschaftssuche in konstanter Zeit (\BigO{1}) beziehungsweise je bei weiteren Anforderungen mit \BigO{r} skalieren.
+Nachbarschaftslisten verringern in MD-Simulationen mit Kraftfeldern mit begrenzter Reichweite die Programmlaufzeit signifikant, bei häufigen Aktualisierungen bietet sich jedoch auch Binning an.
+
+Der Vollständigkeit halber möchte ich erwähnen, dass einige der \BigO{n}-Operationen durch clevere Optimierung und Suche innerhalb der direkten Nachbarschaft beispielsweise auf \BigO{rk} reduziert werden kann.
+Bei großen Verschiebungen der Atomposition muss dafür zuvor einer der Nachbarn gesucht werden, wodurch sich erneut eine \BigO{n}-Operation vorschiebt und die asymptotische Laufzeit wieder auf \BigO{n} erhöht wird.
+
+\subsubsection{Binning}
+
+Eine implizite Möglichkeit, die lokale Nachbarschaft zu referenzieren, findet man in Binning.
+Dafür zerlegt man den Raum in kleinere Quader, in denen man die enthaltenen Atome referenziert.
+Die Nachbarn ergeben sich dann aus einer Suche innerhalb der benachbarten Quader.
+Notwendig ist eine eindeutige Addressierung der Quader aus der Atomposition sowie die Suche der benachbarten Quader, die auch bei periodischen Simulationsräumen eindeutig ist.
+
+\subsubsection{Suchbäume}
+
+Eine andere Möglichkeit, Bäume für die Optimierung von Suchfunktionen zu nutzen, findet sich in k-dimensionalen Bäumen, auch k-d-Trees genannt.
+Diese sind eine rekursive Datenstruktur, die alle Atome entlang einer Hauptachse sortieren, das Median-Element als Root-Knoten herausnehmen und jeweils aus der linken und rechten Seite einen neuen k-d-Baum aufbauen.
+Nicht ganz offensichtlich ist damit jede Nachbarschafts- und Ortssuche in \BigO{N_r\log{n}} möglich.\todo{N - Obere Schranke der Zahl der Nachbarn innerhalb des Suchradius}{}
+Dies geht auf Kosten der Manipulationsoperationen, die in \BigO{\log{n}} laufen.
+
+\subsubsection{Triangulationen}
+
+Triangulationen kann man als eine spezielle Form von Nachbarschaftslisten betrachten.
+Sie teilen den gesamten Raum in nicht-überschneidende k-Simplexe, deren Ecken auf vordefinierten Punkten liegen.
+Damit teilen sich alle Atome mindestens einen Simplex mit ihrem nächsten Nachbarn, jedoch nicht notwendigerweise mit allen Nachbarn innerhalb eines bestimmten Radius'.
+Triangulationen werden in verschiedenen Varianten genutzt, wobei in dieser Arbeit die populäre Delaunay-Triangulation aufgrund ihrer Dualität zu Voronoi-Diagrammen und der direkten Verbindung zu Alpha-Formen betrachtet wird.
 
 \begin{figure}[bhpt]
   \captionsetup[subfigure]{singlelinecheck=false}{
@@ -147,13 +162,13 @@ Allgemein lässt sich mit Listen von Atomen keine große Struktur in praktikable
     \def\svgwidth{\textwidth}
     \begin{subfigure}[t]{\subfigwidth}
       \includegraphics[width=\textwidth]{datastructures-a}
-      \subcaption{Gesamter Raum (Atomlisten)}
+      \subcaption{Ohne Binning}
       \label{fig:datastructures-a}
     \end{subfigure}
     \hfill
     \begin{subfigure}[t]{\subfigwidth}
       \includegraphics[width=\textwidth]{datastructures-b}
-      \subcaption{Lineare Bins (k-d-Arrays)}
+      \subcaption{k-d-Arrays}
       \label{fig:datastructures-a}
     \end{subfigure}
     \hfill
@@ -169,56 +184,36 @@ Allgemein lässt sich mit Listen von Atomen keine große Struktur in praktikable
       \label{fig:datastructures-a}
     \end{subfigure}
   }
-  \caption{Übersicht über räumliche Datenstrukturen}
+  \caption[Übersicht über räumliche Datenstrukturen]{Übersicht über räumliche Datenstrukturen}
   \label{fig:datastructures}
 \end{figure}
 
-Einerseits lässt sich der Raum in kleinere Einheiten (Zellen) unterteilen, in die dann die Atome eingefügt werden.
-Somit ließe sich die Komplexität der Operation auf einen konstanten Faktor sowie die Komplexität der Suche nach der relevanten Zelle aufteilen.
-Als Beispiele sind einfache mehrdimensionale Arrays sowie Octrees gegeben.
+\subsection{\todo{rename}{Berücksichtigte Datenstrukturen}}
 
-Andererseits stehen eigenständige Datenstrukturen zur Verfügung, die hinsichtlich einiger der Operationen optimiert wurden und inzwischen Standardwerkzeuge in verschiedenen Disziplinen geworden sind.
-Beispiele sind hier der k-d-Baum sowie die Anwendung der Delaunay-Triangulation.
-
-\subsection{Array-Binning}
-
-Binning hat gemein, dass man den Raum in ausreichend große Zellen unterteilt und ihnen die darin enthaltenen Atome zuordnet.
-Bei Verschiebung eines Atomes über die Grenzen seiner Zelle muss das Atom entsprechend in die benachbarte Zelle überführt werden.
-Die einfachste Implementierung sieht in 3 Raumdimensionen ein dreidimensionales Array von Zellen vor.
-
-``Linear'' bezieht sich hierbei sowohl auf die Speicherkomplexität im Verhältnis zur Anzahl der Zellen, andererseits auf die Zugriffszeiten bei Suchoperationen. Beliebiger Zugriff ist hierbei hingegen in konstanter Zeit möglich.
-Orts- und Nachbarschaftssuchen geschehen in \BigO{n/N} mit $N$ Zellen für realistische Systeme, Aktualisieren und Hinzufügen geschehen in \BigO{m}.
-Das Hauptproblem dieser Methode ist die potentiell große Anzahl leerer Zellen, die einerseits Speicher verbraucht, andererseits bei Oberflächensuchen zu übermäßig vielen Abfragen führt oder separate Buchhaltung benötigt (Beispiel: Heightmap).
-Somit sind eigentlich zweidimensionale Oberflächenprobleme in drei Dimensionen mit nur kubischem Speicheraufwand möglich.
-
-\subsection{Octree-Binning}
+\subsubsection{Octree-Binning}
+Octree-Binning ist eine mögliche Optimierung der Binning-Methode, bei der man zur Aufteilung des Raumes nicht auf k-dimensionale Arrays, sondern auf einen sogenannten Octree zurück greift.
+Als diesen bezeichnet man eine dreidimensionale Struktur, die eine Zelle rekursiv in je 8 gleichartige Zellen halber Breite aufteilt, bis man eine gewünschten Zellgröße erreicht.
+Durch Bitoperationen lassen sich die Zellen effizient und identisch zu k-d-Arrays addressieren, jedoch ist jede Zelladdressierung auf dem Baum mit einer \BigO{\log{c}}-Operation verbunden.
+Der Hauptunterschied findet sich jedoch in der Oberflächen- und Ortssuche:
+8 benachbarte, leere Zellen können effektiv zu einer Superzelle zusammen gefasst werden, die bei Suchoperationen gemeinsam übersprungen werden.
+Somit reduziert sich die Speicherkomplexität von großen dreidimensionalen Dünnschichtsystemen auf die Komplexität eines zweidimensionalen Systemes, auf Kosten zusätzlicher Buchhaltung mit \BigO{\log{c}}-Komplexität.
 
 \begin{figure}[tbhp]
   \centering
   \includegraphics[width=\textwidth]{octree}
-  \caption[Octree]{Octree}
-  \todo[inline]{Beschreibung}
   \label{fig:octree}
+  \caption[Quadtree-Veranschaulichung eines Octrees]{Quadtree (2d) zur Veranschaulichung der Funktionsweise eines Octrees (3d):\\
+    Rekursive Unterteilung der interessanten Zellen bis zur gewünschten Auflösung, dann zellweises Binning
+}
 \end{figure}
 
-Ein Octree ist eine rekursive Datenstruktur, welche ebenfalls den gesamten Raum in Zellen unterteilt, dabei allerdings auf dynamische Speicherzuweisung zurückgreift und somit leere Zellen zu vermeiden versucht:
-Der gesamte Raum wird als ein einziger Quader dargestellt, welchen man bei Bedarf in 8 gleiche Quader halber Breite unterteilt.
-Dies geschieht rekursiv bis zur gewünschten Auflösung, bei der man die Zellen referenziert und entsprechende Atome einfügt.
-8 Quader können auch wieder zu ihrer Stammzelle zusammengefügt werden, um nach getaner Arbeit den Speicher freizugeben.
+Weitere Laufzeitoptimierungen ergeben sich bei Betrachtung der Addresszugriffe.
+So wird bei der Ereignissuche wiederholt auf Zellen in direkter Nachbarschaft zugegriffen.
+Durch Access Caching speichert man den letzten Zellzugriff und sucht bei weiteren Zugriffen auf dem Octree in der Nachbarschaft dieser Zelle, statt jede Zelladdressierung beim Root-Knoten zu beginnen.
+Bei Aufruf einer leeren, nicht-allokierten Zelle speichert man stattdessen deren kleinste Superzelle, wodurch man automatisch die kleinste Superzelle der Nachbarschaft referenziert und folgende Suchoperationen signifikant verkürzt.
+Addressierung der kleinsten gemeinsamen Superzelle geschieht durch Vergleich des höchsten unterschiedlichen Bits der Addresse, der auf einigen Prozessorarchitekturen fest im Chipsatz verankert ist und somit in konstanter Zeit läuft.
 
-Durch dieses Allokierungsschema werden die allokierten Zellen auf den interessanten Bereich beschränkt, während leeren Bereichen die Information über fehlende Atome beigelegt wird, ohne Zellen anzulegen.
-Damit lassen sich Oberflächenprobleme mit zweidimensionalem Speicheraufwand betrachten, wobei im Gegenzug der Zugriff auf eine beliebige Zelle auf \BigO{\log{N}} für $N$ Zellen steigt.
-Dieser Komplexität folgen auch alle Operationen, mit Ausnahme der Oberflächensuche.
-Diese wird durch den Octree stark vereinfacht, da man einen großen Bereich leerer Zellen mit einem Mal überspringen kann:
-
-Angenommen, die obere Hälfte eines großen Simulationsraumes ist komplett frei von Atomen, was nach dem Laden des Substrates typischerweise der Fall ist.
-Für eine Prüfung einer Zelle muss man diese jedes Mal aus dem Arbeitsspeicher in den CPU-Cache laden, was bei modernen CPUs um die tausend CPU-Takte ($\approx$1ms) kosten kann.
-Sucht man nun in einem 3d-Array die Oberfläche in Z-Richtung, so prüft man an einer xy-Position jede Zelle auf die Zahl ihrer Atome.
-Dafür muss man jede Zelle aus dem Speicher laden, obwohl die Prüfung vor allem am Anfang der Simulation fehl schlägt.
-Bei einem Octree hingegen wäre die obere Hälfte in vier leere Zellen zerlegt, die in der xy-Ebene nebeneinander liegen.
-Somit muss man nur eine einzige Superzelle prüfen, die aufgrund der Häufigkeit der Prüfungen bereits im CPU-Cache liegt und in der Regel nicht mehr geladen werden muss.
-Das Ergebnis ist ein Speedup um viele Größenordnungen bei einer der häufigsten Operationen.
-Durch aktives Caching lässt sich das \BigO{\log{N}}-Verhalten dämpfen, was den Octree zur passendsten Binning-Datenstruktur erhebt.
+\todo[inline]{Wars das? Formeln?}
 
 \subsection{k-d-Baum}
 
@@ -228,9 +223,13 @@ Durch aktives Caching lässt sich das \BigO{\log{N}}-Verhalten dämpfen, was den
   \label{fig:kdtree}
 \end{figure}
 
-Wie beim Binning wird auch beim k-d-Baum (k-dimensionaler Baum) der Raum in einzelne Zellen unterteilt.
-Anders als beim Binning hält jede Zelle nur ein einziges Atom.
-Die Konstruktion geschieht folgendermaßen:
+Sucht man nach optimalen Strukturen für Suchoperationen, stößt man schnell auf k-d-Bäume.
+Diese unterteilen den gesamten Raum in Zellen, die jeweils genau ein Atom beinhalten.
+Durch Algorithmus \ref{algo:kdtree-construction} zur Konstruktion eines k-d-Baumes ergibt sich ein balancierter Baum mit Atomen als Knoten, der als besondere Eigenschaft radiale Suchen nach beliebigen Punkten beschleunigt.
+Ist ein Knoten weiter entfernt als eine vorherige Referenz, so sind dessen Kinder ebenfalls weiter entfernt.
+Somit lässt sich per impliziter binärer Suche jedes nächste Atom in \BigO{\log{n}} finden.
+In Verbindung mit einem Heap lässt sich auch eine feste Anzahl von Atomen in \BigO{\log{n}\log{N_r}}\todo{$N_r$?} suchen.
+
 \begin{algorithm}
   \begin{algorithmic}
     \IF{N$\ge$1}
@@ -246,18 +245,22 @@ Die Konstruktion geschieht folgendermaßen:
   \label{algo:kdtree-construction}
 \end{algorithm}
 
-Diese rekursive Definition erstellt aus Listen von Atomen k-d-Bäume, bei denen jeder Knoten jeweils ein Atom hält.
+Probleme von k-d-Bäumen zeigen sich bei der Suche nach einer Oberfläche einerseits und bei periodischen Räumen andererseits.
 
-K-d-Bäume haben somit ein ausgezeichnetes Speicherverhalten von \BigO{n} mit recht guten Such-, Einfügungs-, Entfernungs- und Aktualisierungszeiten von \BigO{\log{n}} für realistische Systeme und niedrige Dimensionszahl.
-Da es sich einfach um einen mehrdimensionalen Suchbaum handelt, lassen sich Nachbarschaftsbeziehungen ebenfalls in \BigO{\log{n}} auflösen, was für die vorliegenden Probleme immer noch hervorragend ist.
-Auch bei k-d-Bäumen ist die Suche nach einer eventuellen Oberfläche jedoch nicht so einfach.
-Zwar lässt sich leicht feststellen, dass nahe der Oberflächen größere Zellen existieren, jedoch lassen sich somit keine Eindellungen erfassen.
-Dafür müsste man wiederum eine Vielzahl von Atomen separat auslesen und vergleichen, wofür man für jede Prüfung implizit eine Delaunay-Triangulation aufbauen muss.
-Somit eignen sich k-d-Bäume zwar für die meisten Operationen hervorragend, jedoch erfüllen sie nicht alle notwendigen Voraussetzungen.
-Am wichtigsten ist jedoch, dass ein k-d-Baum allgemein keine periodischen Räume unterstützt.
-Zwar gibt es dafür wiederum Variationen, jedoch verlieren diese dann einige der Sucheigenschaften.
+Die Oberfläche entlang einer Hauptachse lässt sich per Range Search mit anschließender Sortierung der Ergebnisse in \BigO{k\log{n^{1-\frac{1}{k}}}}\todo{REFERENZ!}{} ermitteln.
+Möchte man jedoch das Auftreffen eines Precursors mit beliebiger Inklination ermitteln, kann man auf keine optimale Methode zurückgreifen.
+
+Periodische Räume auf der anderen Seite brechen die Sucheigenschaften des k-d-Baumes, jedoch bloß am Rand der Struktur.
+Nutzt man einen kleinen Suchbereich mit Radius $r$, der den Simulationsraum vollständig überlappt, so kann man die Periodizität vernachlässigen.
+Andernfalls muss man entsprechend viele Suche in periodischen Bildern durchführen.
+Die Modifikationsoperationen selbst bleiben unverändert.
+
+Der größte Nachteil eines k-d-Baumes bleibt jedoch die Eigenschaft, beim Hinzufügen von Atomen beispielsweise entlang der z-Richtung stetig unbalancierter zu werden, wodurch Update-Operationen auf dem gesamten Baum notwendig wären.
+Diese sind mit der geringen Konstruktionszeit zwar vertretbar, allerdings unnötig in Hinblick auf andere Methoden, wie Octrees und Delaunay-Triangulationen.
 
 \subsection{Delaunay-Triangulation}
+
+\CONTINUEHERE
 
 \begin{figure}[bhpt]
   \centering

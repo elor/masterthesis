@@ -1,34 +1,95 @@
 \section{Effiziente Datenstrukturen}
+\label{sec:datastructures}
 
-\todo{proofread and declutter whole section}
-\todo{subsubsections}
-Für die Betrachtung großer Systeme ist die Nutzung spezieller Datenstrukturen und Algorithmen notwendig, da naive Ansätze schnell an ihre Grenzen stoßen.
-Unterschiede ergeben sich jeweils in Laufzeit und Speicherverbrauch für verschiedene Operationen, die in \ref{tab:data-ops}
+Zur Simulation von Abscheidungen finden Simulationen per \todo{ref}{KMC} und MD bereits seit vielen Jahren Anwendung.
+Dabei wird jedoch oft auf naive Implementierungen zurückgegriffen, die bei atomistischen Simulationen beispielsweise die Systemgröße beschränken oder KMC-Systemen ein Simulationsgitter aufzwingen.
+Je nach betrachtetem System kann man diese Einschränkungen tolerieren, jedoch existieren auch Möglichkeiten, diese Grenzen zu erweitern.
+Durch Nutzung spezieller Algorithmen und Datenstrukturen, die Systemeigenschaften wie scheinbare Dimensionalität\todo{Begriff} (Oberfläche in 3D-Raum) oder annähernd gleichverteilte Teilchendichte in ihrer Arbeitsweise berücksichtigen, lassen sich sowohl Systemgröße als auch Laufzeit verbessern.
 
-\begin{table}
-  \centering
-  \begin{tabularx}{\textwidth}{|l|X|}
-    \hline
-    Operation & Beschreibung \\
-    \hline
+Im Folgenden möchte ich prominente Datenstrukturen für die Speicherung und Manipulation von Punktwolken kurz vorstellen und einen Überblick über deren Laufzeit und Speicherverbrauch für die betrachteten Systeme geben.
+Dabei bietet sich Binning, Nachbarschaftslisten, Suchbäume und Triangulationen an.
 
-    Konstruktion & Einmaliger Aufbau der Datenstrukturen aus einer Liste von Atomen \\
+Bei den zu betrachtenden Systemen handelt es sich um atomistische Bulks und Oberflächen ohne Betrachtung der Gasphase.
+Dafür ergeben sich folgende Eigenschaften:
+\begin{enumerate}
+\item Lokalität\\
+  Atome behalten ihre Nachbarschaft für relativ lange Zeiträume bei
+\item Scharfe Systemgrenzen\\
+  Die Oberfläche des Systemes trennt sich klar vom Bulk-Material ab
+\item Gleichverteilung der Teilchendichte\\
+  Es lässt sich eine untere und obere Grenze für Nächstnachbar-Teilchenabstände angeben
+\item Periodizität entlang ausgewählter Achsen\\
+  Betrachtete Systeme können beispielsweise in der xy-Ebene periodisch, aber in z-Richtung begrenzt sein
+\end{enumerate}
+Daraus resultieren Beschränkungen, die bei der Auswahl geeigneter Datenstrukturen relevant sind, beispielsweise die Folgenden:
+\begin{enumerate}
+\item Nachbarschaftslisten müssen selten aktualisiert werden\\
+  Die Reichweite einer Manipulation ist begrenzt
+\item Oberflächen und Poren lassen sich als variable Mengen von Atomen darstellen
+\item Die Zahl der Nachbarn ist begrenzt
+\item Divide-and-Conquer-Algorithmen müssen aufwendigeres Stitching betreiben
+\end{enumerate}
 
-    Hinzufügen & Einfügen eines neuen Atomes in die Datenstruktur \\
+\subsection{Notwendige Operationen}
 
-    Verschieben & Verschiebung von Atomen oder Molekülen. \\
+\todo[inline]{Referenzen der optimalen Laufzeiten!}
 
-    Entfernung & Entfernung eines Atomes aus der Datenstruktur \\
+Aus Sicht der aufrufenden Simulation ist die Wahl der unterliegenden Datenstruktur durch Abstraktion gleichgültig.
+Sie interagiert mit dem Simulationsraum durch eine Zahl von Operationen, die kurz vorgestellt werden sollen.
+Das beinhaltet Konstruktion, Manipulation und Suche auf der Struktur.
 
-    Ortssuche & Suche eines oder mehrerer Atome im Umkreis eines beliebigen Punktes \\
+\subsubsection{Konstruktion}
+Damit ist der einmalige Aufbau der gesamten Struktur aus einer beliebigen Menge von Atomen gemeint.
+Durch die Einmaligkeit steht die Laufzeit dieser Operation im Hintergrund, jedoch lassen sich auch hier Optimierungen durchführen, beispielsweise wenn der gesamte Raum als periodische Erweiterung einer kleineren Struktur konstruiert wird.
 
-    Nachbarschaftssuche & Suche aller Atome im Umkreis eines bestimmten Atomes \\
+Wenn kein besonderer Algorithmus dafür vorliegt, kann die Struktur als iterative Einfügung einzelner Atome in eine leere Struktur angenähert werden, und verhält sich somit linear zur Laufzeit der Einfügungsoperation.
+Optimal ist hier \BigO{n} bei simplen Listen, im Gegensatz zu \BigO{n^2} bei Nachbarschaftslisten.
 
-    Oberflächensuche & Identifizierung der Oberfläche des Systemes entlang einer Gerade \\
+\subsubsection{Einfügung}
+Auch Hinzufügen, Push- oder Insert-Operation genannt, bezeichnet sie das Einfügen eines neuen Atomes in die Datenstruktur.
+Dies geschieht im Parsivald-Modell bei erfolgreichen Reaktionen von Gasmolekülen mit der Oberfläche, wodurch diese Operation vergleichsweise häufig durchgeführt wird.
 
-    \hline
-  \end{tabularx}
-\end{table}
+Optimale Laufzeit ist das Hinzufügen eines Atomes an das Ende einer Liste in konstanter Zeit (\BigO{1}), jedoch verlangen einige Strukturen den Vergleich mit allen anderen Atomen, wodurch sich \BigO{n} ergibt.
+
+\subsubsection{Verschieben}
+Auch als Update-Operation bekannt, führt sie eine Aktualisierung einzelner oder mehrerer Atome durch.
+In der Regel werden sie in ihrer räumlichen Position verschoben.
+Diese Operation wird in der Regel nach einer MD-Simulation ausgeführt werden, und nicht währenddessen, da es im Allgemeinen effizienter ist, die Atome während der Simulation in optimierten Listen zu halten, statt \todo{entfernen}{wild im Arbeitsspeicher herum zu springen}.
+
+Auch hier lässt sich konstante Zeit als Optimum angeben, wobei beispielsweise Nachbarschaftslisten komplett neu aufgebaut werden müssen und somit \BigO{n} als Grenze angegeben werden muss.
+
+\subsubsection{Entfernung}
+Als Gegenstück zur Push-Operation entfernt diese eines oder mehrere Atome aus der Struktur.
+Diese Operation ist sinnvoll, wenn durch Reaktionen einzelne Liganden von der Oberfläche entfernt werden, und wird entsprechend bei vielen Reaktionen ausgeführt.
+
+Als inverse Operation zur Einfügung gelten hier ähnliche Laufzeiten:
+Konstante Zeit für Binning und Listen, und \BigO{k} (k - obere Grenze der Zahl der Nachbarn).
+
+\subsubsection{Nachbarschaftssuche}
+Die Suche aller Atome im festen Umkreis eines bestimmten Atomes, also seine Nachbarn.
+Diese Operation wird genutzt, um MD-Simulationen vorzubereiten, und wird somit bei jeder versuchten Reaktion ausgeführt.
+
+\CONTINUEHERE
+
+\subsubsection{Ortssuche}
+Im Gegensatz zur Nachbarschaftssuche sucht man hier alle Atome im Umkreis eines beliebigen Punktes.
+Diese Suche wird zur Identifizierung eines Reaktionsortes und somit zum Aufbau eines KMC-Ereignisses genutzt.
+Damit ist sie eine der häufigsten Operationen und sollte in möglichst optimaler Zeit laufen.
+Da beide Nachbarschaftssuchen in einander überführbar sind, ist ihre Komplexität mit wenigen Ausnahmen gleich.
+
+\subsubsection{Oberflächensuche}
+Diese Operation sucht die Oberfläche, entweder entlang einer definierten Geraden oder im Umkreis eines Punktes.
+Die genaue Formulierung kann zugunsten der Datenstruktur angepasst werden.
+Ein Punkt auf der Oberfläche wird bei der Erstellung jedes KMC-Ereignisses durchgeführt und ist damit gleich häufig wie die Ortssuche, und im ein Vielfaches häufiger als die anderen.
+
+\subsection{Klassen von Datenstrukturen}
+\subsubsection{Binning}
+\subsubsection{Nachbarschaftslisten}
+\subsubsection{Suchbäume}
+\subsubsection{Triangulationen}
+\subsubsection{Laufzeiten}
+
+Tabelle \ref{tab:datastructures_bigo} beinhaltet Abschätzungen der asymptotischen Laufzeit 
 
 \begin{table}
   \centering
@@ -44,6 +105,7 @@ Unterschiede ergeben sich jeweils in Laufzeit und Speicherverbrauch für verschi
     \hline
     %Atomfeld  &  \cG{$n$}         &  \cG{$1$}         &  \cG{$1$}         &  \cG{$1$}         &  \cR{$n$}          &  \cR{$n$}         &  \cR{$n$}        &  \cG{$n$}                \\
   \end{tabularx}
+  \label{tab:datastructures_bigo}
   \caption[asd]{
     Abschätzung des Speicheraufwands und der asymptotischen Laufzeit ausgewählter Operationen auf verschiedenen Datenstrukturen
     \\
@@ -63,7 +125,7 @@ Unterschiede ergeben sich jeweils in Laufzeit und Speicherverbrauch für verschi
 
 Der naive Ansatz ist die Speicherung aller Atome in einer globalen Liste.
 Konstruktion, Hinzufügen und Aktualisierung (entsprechend \BigO{n}, \BigO{1} und \BigO{1}) weisen zwar optimale Laufzeiten auf, die anderen Operationen benötigen dagegen Worst-Case-Zeit:
-Sowohl Nachbarschaftssuche als auch Ortssuche laufen in \BigO{n}.
+Sowohl Nachbarschaftssuche als auch Ortssuche laufen in \BigO{n}. 
 Kombiniert mit der Suche der Oberfläche (\BigO{n}, vernachlässigt aber viele Atome) beziehungsweise der durch sie notwendigen Ereignisvalidierung summiert sich die Komplexität für eine KMC-Ereigniserstellung auf \BigO{n^2}, was allerdings verschiedene Nachbarschafts-Überprüfungen nicht mit einschließt.
 Auf einer Oberfläche der Größe 400 nm$^2$ bräuchte die Erstellung eines einzigen KMC-Ereignisses auf dem Testsystem ca. 20 Sekunden, wodurch ein KMC-Schritt mit einigen tausend Ereignissen praktisch nicht durchführbar ist.
 

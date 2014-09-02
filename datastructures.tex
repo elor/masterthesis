@@ -19,7 +19,7 @@ Dafür ergeben sich folgende Eigenschaften:
 \item Gleichverteilung der Teilchendichte\\
   Es lässt sich eine untere und obere Grenze für Nächstnachbar-Teilchenabstände angeben
 \item Periodizität entlang ausgewählter Achsen\\
-  Betrachtete Systeme können beispielsweise in der xy-Ebene periodisch, aber in z-Richtung begrenzt sein
+  Betrachtete Systeme können beispielsweise in der xy-Ebene periodisch, aber in z-Rich\-tung begrenzt sein
 \end{enumerate}
 Daraus resultieren Beschränkungen, die bei der Auswahl geeigneter Datenstrukturen relevant sind, beispielsweise die Folgenden:
 \begin{enumerate}
@@ -37,7 +37,7 @@ Daraus resultieren Beschränkungen, die bei der Auswahl geeigneter Datenstruktur
 Aus Sicht der aufrufenden Simulation ist die Wahl der unterliegenden Datenstruktur durch Abstraktion gleichgültig.
 Sie interagiert mit dem Simulationsraum durch eine Zahl von Operationen, die kurz vorgestellt werden sollen.
 Das beinhaltet Konstruktion, Manipulation und Suche auf der Struktur.
-Ein Vergleich der asymptotischen Laufzeiten ist in Tabelle \ref{tab:datastructures_bigo} dargestellt.
+Ein Vergleich der asymptotischen Laufzeiten ist in Tabelle \ref{tab:datastructures-bigo} dargestellt.
 
 \subsubsection{Konstruktion}
 Damit ist der einmalige Aufbau der gesamten Struktur aus einer beliebigen Menge von Atomen gemeint.
@@ -53,7 +53,7 @@ Dies geschieht im Parsivald-Modell bei erfolgreichen Reaktionen von Gasmoleküle
 Optimale Laufzeit ist das Hinzufügen eines Atomes an das Ende einer Liste in konstanter Zeit (\BigO{1}), jedoch verlangen einige Strukturen den Vergleich mit allen anderen Atomen, wodurch sich \BigO{n} ergibt.
 
 \subsubsection{Verschieben}
-Auch als Update-Operation bekannt, führt sie eine Aktualisierung einzelner oder mehrerer Atome durch.
+Auch als Up\-date-Operation bekannt, führt sie eine Aktualisierung einzelner oder mehrerer Atome durch.
 In der Regel werden sie in ihrer räumlichen Position verschoben.
 Diese Operation wird in der Regel nach einer MD-Simulation ausgeführt werden, und nicht währenddessen, da es im Allgemeinen effizienter ist, die Atome während der Simulation in optimierten Listen zu halten, statt \todo{entfernen}{wild im Arbeitsspeicher herum zu springen}.
 
@@ -100,7 +100,7 @@ Ein Punkt auf der Oberfläche wird bei der Erstellung jedes KMC-Ereignisses durc
     \hline
     %Atomfeld  &  \cG{$n$}         &  \cG{$1$}         &  \cG{$1$}         &  \cG{$1$}         &  \cR{$n$}          &  \cR{$n$}         &  \cR{$n$}        &  \cG{$n$}                \\
   \end{tabularx}
-  \label{tab:datastructures_bigo}
+  \label{tab:datastructures-bigo}
   \caption[asd]{
     Abschätzung des Speicheraufwands und der asymptotischen Laufzeit ausgewählter Operationen auf verschiedenen Datenstrukturen
     \\
@@ -198,14 +198,76 @@ Der Hauptunterschied findet sich jedoch in der Oberflächen- und Ortssuche:
 8 benachbarte, leere Zellen können effektiv zu einer Superzelle zusammen gefasst werden, die bei Suchoperationen gemeinsam übersprungen werden.
 Somit reduziert sich die Speicherkomplexität von großen dreidimensionalen Dünnschichtsystemen auf die Komplexität eines zweidimensionalen Systemes, auf Kosten zusätzlicher Buchhaltung mit \BigO{\log{c}}-Komplexität.
 
+
+\begin{algorithm}
+  \begin{algorithmic}
+    \Input $atoms$ - Liste von Atomen
+    \Input $size[3]$ - Größe des Simulationsraumes
+    \Input $depth$ - Tiefe des Octrees. Legt die Zellgröße fest
+    \Assumption Alle Atome befinden sich im Simulationsraum
+    \Result Stammzelle eines Octrees, der alle Atome enthält
+    \State
+    \Function{construct-octree}{$atoms, size, depth$}
+    \State $cellsize[0] \gets size[0]\cdot2^{-depth}$
+    \State $cellsize[1] \gets size[1]\cdot2^{-depth}$
+    \State $cellsize[2] \gets size[2]\cdot2^{-depth}$
+    \State $root \gets$ new Octree($depth$)
+    \ForAll{$atom$ in $atoms$}
+    \State $cellindex[0] \gets \lfloor atom.pos[0] / cellsize[0] \rfloor$
+    \State $cellindex[1] \gets \lfloor atom.pos[1] / cellsize[1] \rfloor$
+    \State $cellindex[2] \gets \lfloor atom.pos[2] / cellsize[2] \rfloor$
+    \State $cell \gets$ \Call{getcell-octree}{$root, cellindex$, true}
+    \State \Call{addatom}{cell, atom}
+    \EndFor
+    \State \Return $root$
+    \EndFunction
+  \end{algorithmic}
+  \label{alco:octree-construction}
+  \caption[Octree-Konstruktion]{Octree-Konstruktion: Es handelt sich um einen typischen Binning-Algorithmus, dessen Octree-Eigenschaften in der Funktion \Call{getcell-octree}{} liegen.}
+\end{algorithm}
+
 \begin{figure}[tbhp]
   \centering
   \includegraphics[width=\textwidth]{octree}
   \label{fig:octree}
   \caption[Quadtree-Veranschaulichung eines Octrees]{Quadtree (2d) zur Veranschaulichung der Funktionsweise eines Octrees (3d):\\
-    Rekursive Unterteilung der interessanten Zellen bis zur gewünschten Auflösung, dann zellweises Binning
+    Rekursive Unterteilung der interessanten Zellen bis zur gewünschten Auflösung, dann zellweises Binning.
+    Dabei werden nur benutzte Zellen dynamisch allokiert, wodurch sich bei Oberflächensystemen Einsparungen in Speicherverbrauch und Laufzeit ergeben.
 }
 \end{figure}
+
+\begin{algorithm}
+  \begin{algorithmic}
+    \Input $root$ - Stammzelle des Octrees
+    \Input $index[3]$ - globale Adresse der Zielzelle
+    \Input $allocate$ - Ob die Zelle neu erstellt werden soll
+    \Result null falls leer, sonst Zielzelle
+    \State
+    \Function{getcell-octree}{root, index, allocate}
+    \State $depth \gets $\Call{depth}{root}
+    \Comment{Tiefe, an der sich die Zielzellen befinden}
+    \State $cell \gets root$
+    \While{$depth > 0$}
+    \If{not $cell.children$}
+    \If{allocate}
+    \State $cell.children \gets $new cell[8]
+    \Else
+    \State \Return null
+    \EndIf
+    \EndIf
+    \State $depth \gets depth-1$
+    \State $childid \gets $\Call{bitand}{index[0], $2^{depth}$}
+    \State $childid \gets childid+2\cdot$\Call{bitand}{index[1], $2^{depth}$}
+    \State $childid \gets childid+4\cdot$\Call{bitand}{index[2], $2^{depth}$}
+    \State \Comment{Indiziert die Subzelle aus der globalen Position}
+    \State $cell \gets cell.children[childid]$
+    \EndWhile
+    \State\Return cell
+    \EndFunction
+  \end{algorithmic}
+  \caption[Zell-Addressierung in Octrees]{Zell-Addressierung und -Allokierung im Octree: Bei jedem Schritt wird der Raum in 2 Unterzellen je Raumdimension geteilt, woraus eine Laufzeit von \BigO{\log{depth}} resultiert}
+  \label{algo:octree-adressing}
+\end{algorithm}
 
 Weitere Laufzeitoptimierungen ergeben sich bei Betrachtung der Addresszugriffe.
 So wird bei der Ereignissuche wiederholt auf Zellen in direkter Nachbarschaft zugegriffen.
@@ -217,31 +279,43 @@ Addressierung der kleinsten gemeinsamen Superzelle geschieht durch Vergleich des
 
 \subsection{k-d-Baum}
 
-\begin{figure}[bthp]
-  \includegraphics[width=\textwidth]{kdtree-tree}
-  \caption[Konstruktion eines k-d-Baumes]{Konstruktion eines k-d-Baumes\todo[inline]{mehr Bildunterschrift}}
-  \label{fig:kdtree}
-\end{figure}
-
-Sucht man nach optimalen Strukturen für Suchoperationen, stößt man schnell auf k-d-Bäume.
-Diese unterteilen den gesamten Raum in Zellen, die jeweils genau ein Atom beinhalten.
+Recherchiert man optimale Strukturen für Suchoperationen, stößt man schnell auf k-dimensionale Bäume, oder kurz k-d-Bäume.
+Diese unterteilen einen kartesischen Raum in orthogonale Zellen, die jeweils genau ein Atom beinhalten, welches jedoch auf einer der Zellgrenzen liegt.
 Durch Algorithmus \ref{algo:kdtree-construction} zur Konstruktion eines k-d-Baumes ergibt sich ein balancierter Baum mit Atomen als Knoten, der als besondere Eigenschaft radiale Suchen nach beliebigen Punkten beschleunigt.
 Ist ein Knoten weiter entfernt als eine vorherige Referenz, so sind dessen Kinder ebenfalls weiter entfernt.
 Somit lässt sich per impliziter binärer Suche jedes nächste Atom in \BigO{\log{n}} finden.
 In Verbindung mit einem Heap lässt sich auch eine feste Anzahl von Atomen in \BigO{\log{n}\log{N_r}}\todo{$N_r$?} suchen.
 
+\begin{figure}[bthp]
+  \includegraphics[width=\textwidth]{kdtree-tree}
+  \caption[Konstruktion eines k-d-Baumes]{
+    Rekursive Konstruktion eines k-d-Baumes: Die Punktmenge wird sortiert, der Median zum Baum hinzugefügt und seine Kinder aus den beiden Teilmengen per k-d-Baum-Konstruktion gewonnen.
+    Der gewonnene Suchbaum ist effizient in Speicherplatz und Laufzeit der Suchoperationen.
+}
+  \label{fig:kdtree}
+\end{figure}
+
 \begin{algorithm}
   \begin{algorithmic}
-    \IF{N$\ge$1}
-    \STATE Sortiere die Atome in Richtung der aktuellen Dimension (beginne mit x)
-    \STATE Wähle Atom $\lfloor N/2 \rfloor$
-    \STATE Teile Raum an $pos[d]_{\lfloor N/2 \rfloor}$ in zwei Zellen. Verteile die Atome auf beide Zellen.
-    \STATE Wähle zyklisch die nächste Dimension
-    \STATE Für beide Zellen: Gehe zu 1.
-    \STATE kehre zurück
-    \ENDIF
+    \Input $points$ - Liste von Punkten
+    \Input $k$ - Dimensionalität des Simulationsraumes
+    \Result Root-Element eines vollständigen KD-Baumes aus diesen Punkten
+    \State
+    \Function{construct-kdtree}{$points, dim\gets0$}
+    \State $n\gets$\Call{length}{points}
+    \If{$n=0$}
+    \State \Return null
+    \Else
+    \State \Call{sort}{$points, dim$} \Comment{Sortiert $points$ nach pos[$dim$]}
+    \State $root\gets{}points\left[\lfloor\frac{n}{2}\rfloor\right]$
+    \State $dim\gets(dim+1)\mod{k}$
+    \State $root.left \gets$ \Call{construct-kdtree}{$points\left[0:\lfloor\frac{n}{2}\rfloor-1\right], dim$}
+    \State $root.right \gets$ \Call{construct-kdtree}{$points\left[\lfloor\frac{n}{2}\rfloor+1:n-1\right], dim$}
+    \State \Return $root$
+    \EndIf
+    \EndFunction
   \end{algorithmic}
-  \caption[Konstruktion eines k-d-Baumes]{Konstruktion eines k-d-Baumes}
+  \caption[Konstruktion eines k-d-Baumes]{Rekursive Konstruktion eines k-d-Baumes (naive Implementierung)}
   \label{algo:kdtree-construction}
 \end{algorithm}
 
@@ -255,41 +329,95 @@ Nutzt man einen kleinen Suchbereich mit Radius $r$, der den Simulationsraum voll
 Andernfalls muss man entsprechend viele Suche in periodischen Bildern durchführen.
 Die Modifikationsoperationen selbst bleiben unverändert.
 
-Der größte Nachteil eines k-d-Baumes bleibt jedoch die Eigenschaft, beim Hinzufügen von Atomen beispielsweise entlang der z-Richtung stetig unbalancierter zu werden, wodurch Update-Operationen auf dem gesamten Baum notwendig wären.
+Der größte Nachteil eines k-d-Baumes bleibt jedoch die Eigenschaft, beim Hinzufügen von Atomen beispielsweise entlang der z-Richtung stetig unbalancierter zu werden, wodurch Up\-date-Opera\-tionen auf dem gesamten Baum notwendig wären.
 Diese sind mit der geringen Konstruktionszeit zwar vertretbar, allerdings unnötig in Hinblick auf andere Methoden, wie Octrees und Delaunay-Triangulationen.
 
 \subsection{Delaunay-Triangulation}
-
-\CONTINUEHERE
 
 \begin{figure}[bhpt]
   \centering
   \def\svgwidth{\textwidth}
   \input{img/delaunay.pdf_tex}
-  \caption[Delaunay-Konstruktion]{Delaunay-Konstruktion}
+  \caption[Delaunay-Triangulation]{Beispiel der Konstruktion einer Delaunay-Triangulation (c) aus einer Punktwolke (a).
+    Für jedes Simplex (hier 2d-Simplex, also Dreieck) muss das Delaunay-Kriterium eingehalten werden:
+    Es dürfen sich keine weiteren Punkte im Umkreis des Simplices befinden (b).
+  }
   \label{fig:delaunay}
 \end{figure}
 
-Während bei den bisher vorgestellten Partitionsmethoden der Raum in k-dimensionale Quader geteilt wurde, basieren Triangulationen auf k-dimensionalen Simplexen, deren Eckpunkte die gespeicherte Punktmenge bilden.
-Der Zentrale Vertreter ist die Delaunay-Triangulation, die für eine Menge von Punkten folgende Eigenschaften aufweist:
+Eine alternative Partitionsmethode findet sich in Triangulationen.
+Diese zerlegen den Raum nicht in Quader, sondern in k-dimensionale Simplexe, also geometrische Objekte voller Dimensionalität bei minimalen Punkten im jeweiligen Raum.
+Anschaulich ergeben sich damit Dreiecke in zwei und Tetraeder in drei Dimensionen.
+Diese Simplexe unterliegen besonderen Eigenschaften hinsichtlich der Punktmenge, jedoch möchte ich im Weiteren auf Delaunay-Triangulationen im Speziellen eingehen.
+
+Delaunay-Triangulationen, so benannt nach ihrem Entdecker Boris Delaunay\todo{ref} besitzen besondere Eigenschaften, die sich als hilfreich in vielen algorithmischen Problemen zeigt.
+So beinhaltet eine Delaunay-Triangulation eine Menge an Untergraphen, wie dem Nächstnachbargraph oder der Alphaform, die bei vielen Problemlösungen heran gezogen werden und auch hier von Interesse sein sollen.
+Weiterhin ist sie dual zum Voronoi-Diagramm, was im Rahmen meiner Arbeit nicht weiter von Vorteil ist.
+Die Haupteigenschaften einer Delaunay-Triangulation sind dabei Folgende:
 
 \begin{itemize}
 \item Jeder Punkt ist ein Eckpunkt mindestens eines Simplexes
 \item Simplexe überschneiden sich nicht
-\item Innerhalb des Umkreises eines Simplexes befinden sich keine weiteren Punkte
+\item Im Umkreis eines Simplexes befinden sich keine fremden Punkte
 \item Die Vereinigung aller Simplexe ergibt die konvexe Hülle
 \item Ein Punkt teilt sich mit seinem nächsten Nachbarn mindestens einen Simplex \\
   $\Leftrightarrow$ Nächstnachbargraph $\subset$ Delaunay-Triangulation
   %% \item Die Delaunay-Triangulation und das Voronoi-Diagramm über die selben Punkte sind dual\\
-  %% $\Rightarrow$ Allgemeine Nachbarschaftssuche ist \BigO{n\log n}
+  %% $\Rightarrow$ Allgemeine Nachbarschaftssuche ist \BigO{k\log k}
 \end{itemize}
 
-Eine Delaunay-Triangulation lässt sich aus einer Punktmenge in \BigO{n\log n}\todo{Referenz} ausführen, wofür eine Vielzahl an Algorithmen zur Verfügung stehen. \todo{Referenz}
+Interessant werden sie aber nicht nur zur Speicherung von Atomen im Simulationsraum, sondern vor allem bei der Suche der Oberfläche und des Volumens sowie zur Konnektivitätsprüfung eines Systemes und somit im Rahmen der Auswertung von Punktwolken.
+Dafür nutzt man eine Alpha-Form, die durch eine Untermenge der triangulierten Punktmenge definiert ist, die deren scheinbare Oberfläche bilden.
+Es werden ebenso Oberflächenrauheiten und Dichten bis hin zu Nanoporen und Kristalldefekten abgebildet.
+Mit wenig Mehraufwand ließen sich somit bei laufenden Simulationen diese Werte in-situ ermitteln und direkt einer Auswertung zuführen.
+Andererseits ist die Oberfläche des Systemes zur Laufzeit bekannt und kann beispielsweise für Oberflächenreaktionen direkt genutzt werden.
+
+\subsubsection{Algorithmen zur Konstruktion einer Delaunay-Triangulation}
+
+Eine Delaunay-Triangulation lässt sich aus einer Punktmenge in \BigO{n\log n} konstruieren\todo{Algorithmus?}, wofür eine Vielzahl an Algorithmen zur Verfügung stehen. \todo{Referenz}
 Diesen liegt das Delaunay-Kriterium zu Grunde:
-Der Umkreis eines Simplex' enthält nur seine eigenen Eckpunkte.
-Ist dieses Kriterium bei zwei benachbarten Simplexen nicht gegeben, lässt sich per \textbf{Flip-Algorithmus} (Abbildung \ref{fig:delaunay-flip}) wieder eine Delaunay-Triangulation herstellen.
-Dazu entfernt man die gemeinsame Kante bzw. Fläche der beiden betroffenen Simplexe und fügt zwischen den übrigen Punkten eine neue Grenze so ein, dass das Delaunay-Kriterium erfüllt ist.
-Die dabei neu entstehenden Simplexe müssen nun mit ihren jeweiligen Nachbarn auf das Delaunay-Kriterium überprüft werden, wobei die neuen Simplexe als Bestandteil der Delaunay-Triangulation garantiert sind.\todo{Referenz}
+Der Umkreis eines Simplices enthält nur seine eigenen Eckpunkte.
+Ansonsten unterscheiden sie sich stark in Funktionsweise, Optimaler Laufzeit  und eventueller Parallelisierbarkeit.
+
+\begin{itemize}
+\item Flip-basierte Algorithmen (Local Improvement)\\
+Man startet mit einer beliebigen Triangulation, prüft den Umkreis aller Simplexe und führt gegebenenfalls den Flip-Algorithmus aus, der in Abbildung \ref{fig:delaunay-flip} vorgestellt wird.
+Diese Algorithmen konvergieren typischerweise in \BigO{n^2} und sind damit vergleichsweise langsam.
+
+\item Scan-Algorithmus (Incremental Construction)\\
+Bei dieser Methode baut man schrittweise Simplexe auf, die das Delaunay-Kriterium erfüllen, ohne bestehende Simplexe löschen zu müssen.
+Man baut die Triangulation gewissermaßen \textit{von innen} auf.
+Durch viele Vergleiche und Sortierungen varieren typische asymptotische Laufzeiten zwischen \BigO{n\log{n}} und \BigO{n^2}.
+
+\item Einfügungs-Algorithmen (Incremental Insertion)\\
+Sie sind das Gegenstück zu Scan-Algorithmen, insofern man hier die Triangulation \textit{von außen} aufbaut.
+Man erstellt einen beliebig großen Simplex, der die gesamte Punktmenge beinhaltet, und fügt nun schrittweise einzelne Punkte in die Triangulation ein.
+Der den neuen Punkt einschließende wird in mehrere Simplexe unterteilt, die anschließend bei auf das Delaunay-Kriterium überprüft und bei Bedarf geflippt werden.
+Mit ihnen erreicht man geringe Laufzeiten von \BigO{n\log{n} + n^{\lceil d/2 \rceil}}.
+
+\item Divide-and-Conquer-Algorithmen\\
+Diese rekursiven Algorithmen ermöglichen durch effiziente Aufteilung des Problemes in zwei oder mehr Unterprobleme geringe Laufzeiten für viele Probleme, jedoch müssen dafür mehrere Probleme gelöst werden.
+Einerseits muss das Problem teilbar sein, was bei Punktmengen ohne weiteres möglich ist.
+Andererseits muss man die Lösungen der Teilprobleme zu einer Lösung des Gesamtproblemes zusammen gefügt werden.
+Bei Delaunay-Triangulationen gibt es verschiedene erfolgreiche Ansätze in zwei Dimensionen\todo{Referenzen}, die zu Laufzeiten nahe der für Divide and Conquer üblichen \BigO{n\log{n}} führen, jedoch stellen höhere Dimensionen diese Algorithmen vor Probleme.
+
+Cignoni et al.\cite{cignoni_1998} haben eine DeWall genannte\footnote{DeWall steht hier für Delaunay Wall Algorithm, so benannt nach den Wänden, an denen getrennt und wieder verknüpft wird} Methode gefunden, die eine zwar worst-case-Laufzeit von \BigO{n^{\lceil d/2 \rceil + 1}} ergibt, die sich jedoch nur in pathologischen Fällen zeigt.
+Nimmt man annähernde Gleichverteilungen an, die im vorliegenden Anwendungsfall gegeben sind, konvergiert dieser Algorithmus in drei Dimensionen subquadratisch und ist somit vergleichbar effizient.
+Es zeigt sich allerdings, dass er trotz der vermeintlich langen Laufzeit vor allem bei periodischen und periodisch erweiterten Systemen effizient arbeitet, da hier ohnehin Grenzflächen existieren, an denen Teiltriangulationen auf einander abgestimmt werden müssen.
+Andererseits ist das Parsivald-Modell ohnehin für parallele Platformen ausgelegt, so dass hier weitere Leistungssteigerungen zu erwarten sind.
+Ebenso eignet sich diese Methode zur Einbettung neu berechneter Würfel in die Struktur, wie es beim Parsivald-Modell nach jeder simulierten Reaktion vorkommt.
+
+\item Höherdimensionale Einbettung\\
+Hier wird die Punktmenge in eine höhere Dimension transformiert, in der deren konvexe Hülle berechnet wird, die dann in den ursprünglichen Raum herunterprojiziert wird und darin eine zulässige Delaunay-Triangulation ergibt.
+In der Praxis ist dieser Algorithmus nicht weiter von Bedeutung, da Einfügungs-Algorithmen für allgemeine Fälle eine geringere Laufzeit erreichen.
+
+\end{itemize}
+
+\subsubsection{Flip-Algorithmus}
+
+Viele dieser Algorithmen basieren auf dem \textbf{Flip-Verfahren}, mit dem invalide Simplexe in valide Simplexe überführt werden können.
+Abbildung \ref{fig:delaunay-flip} stellt dar, wie man dabei den Simplex auf das Umkreis-Kriterium prüft und gegebenenfalls eine Grenzfläche zwischen zwei Simplexen auflöst und aus deren Punkten neue Simplexe erstellt, die das Delaunay-Kriterium erfüllen.
+Anschließend führt man den selben Test mit deren Nachbarn durch.
 
 \begin{figure}[bhpt]
   \captionsetup[subfigure]{singlelinecheck=false}{
@@ -319,48 +447,48 @@ Die dabei neu entstehenden Simplexe müssen nun mit ihren jeweiligen Nachbarn au
       \label{fig:delaunay-flip-d}
     \end{subfigure}
   }
-  \caption{Flip Algorithmus zur Aktualisierung einer Delaunay-Triangulation}
+  \caption{
+    Flip Algorithmus zur Aktualisierung einer Delaunay-Triangulation.
+    Anschließend müssen Nachbar-Simplexe den selben Test durchlaufen.
+    Die Flipping-Kaskade führt dabei höchstens \BigO{k\log{k}} Prüfungen aus, wenn man eine bestehende Delaunay-Triangulation aktualisieren möchte.
+    $k$ steht hier für die Zahl der Simplexe eines Punktes.
+}
   \label{fig:delaunay-flip}
 \end{figure}
 
-\todo{Laufzeit Flipping?}
-
+\subsubsection{Nachbarschaftssuche}
 Für die Nachbarschaftssuche eines Referenzpunktes werden die raumfüllenden Eigenschaften der Triangulation relevant.
 Der notwendigerweise konvexe, sonst aber beliebige Suchbereich um den Referenzpunkt wird von Simplexen überdeckt, die in direkter oder indirekter Nachbarschaft des Punktes liegen.
-Somit teilen sich alle Punkte innerhalb des Suchbereiches eine Kante eines Simplexes mit einem anderen Punkt im Suchbereich.
-Man muss nun einfach alle Kanten der Triangulation absuchen, bis man Punkte außerhalb des Suchbereiches findet.
-Ein möglicher Algorithmus kann folgendermaßen aussehen:
+Somit teilen sich alle Punkte innerhalb des Suchbereiches eine Kante eines Simplexes mit einem anderen Punkt im Suchbereich, sofern der Suchbereich hinreichend groß ist.
+Ausgehend vom Referenzpunkt sucht man entlang aller Kanten nach Punkten, die innerhalb des Suchbereiches liegen, bis alle potentiellen Punkte überprüft wurden.
+Diese Vorgehensweise ist in Algorithmus \ref{algo:delaunay-neigbors} ausführlich beschrieben.
 
 \begin{algorithm}
   \centering
   \begin{algorithmic}
-    \STATE Result = \{\}
-    \STATE Queue = \{ P$_0$ : P$_0 \in$ Volume \}
-    \WHILE{Queue $\neq \emptyset$}
-    \STATE Sei P $\in$ Queue
-    \STATE Queue = Queue $\setminus$ \{ P \}
-    \IF{P $\in$ Volume}
-    \STATE Result = Result $\cap$ \{ P \}
-    \STATE Queue $\cap$ (Neighbors(P) $\setminus$ Result)
-    \ENDIF
-    \ENDWHILE
+    \State Result = \{\}
+    \State Queue = \{ P$_0$ : P$_0 \in$ Volume \}
+    \While{Queue $\neq \emptyset$}
+    \State Sei P $\in$ Queue
+    \State Queue = Queue $\setminus$ \{ P \}
+    \If{P $\in$ Volume}
+    \State Result = Result $\cap$ \{ P \}
+    \State Queue $\cap$ (Neighbors(P) $\setminus$ Result)
+    \EndIf
+    \EndWhile
   \end{algorithmic}
-  \caption[Nachbarschaftssuche auf einer Delaunay-Triangulation]{Nachbarschaftssuche auf einer Delaunay-Triangulation}
+  \caption[Nachbarschaftssuche auf einer Delaunay-Triangulation]{Nachbarschaftssuche auf einer Delaunay-Triangulation.
+    Ist der Suchraum konvex und hinreichend groß, lässt sich damit effizient nach Nachbarn eines bestimmten Punktes suchen.
+  }
   \label{algo:delaunay-neighbors}
 \end{algorithm}
 
-\todo[inline]{continue here}
+\subsubsection{Alpha-Form}
 
-Dabei wird ausgenutzt, dass die Delaunay-Triangulation raumfüllend ist.
-Somit werden nur Atome und Primitive untersucht, die Bestandteil des Suchraumes sind, weshalb diese Suche lokal und somit schnell bleibt.
-
-Um die Position einzelner Punkte zu aktualisieren, arbeitet man üblicherweise mit Flip-Algorithmen, wie in Abbildung \ref{fig:delaunay-flip} dargestellt.
-
-Hinsichtlich der Oberflächensuche wird allerdings eine andere Eigenschaft offensichtlich:
-Die Alpha-Oberfläche ist ein Subgraph der Delaunay-Triangulation.
-Vereinfacht ausgedrückt ist die Alpha-Form einer Punktmenge ihre ``ungefähre Form'', wie man sie wahrnehmen würde.
-Oft zieht man auch Parallelen zum ``Einpacken in Plastikfolie mit Luftabpumpen''.
-Die eigentliche Definition beinhaltet folgende Idee:
+Betrachtet man ausschließlich die Atome aller Simplexe, deren Umkreisradius oberhalb eines Grenzwertes $\alpha^{-1}$ liegt, so erhält man eine so genannte Alpha-Form (Alpha-Shape), wie in Abbildung \ref{fig:delaunay-alpha} dargestellt.
+Diese umfasst neben den Punkten der konvexen Hülle ebenfalls je nach $\alpha$-Wert auch Poren und Dellen auf der Oberfläche sowie im Bulk, wobei Konnektivitätsinformationen aus der Delaunay-Triangulation gewonnen werden können.
+Der algorithmische Mehraufwand zur Erstellung und Verwaltung dieser Informationen ist gegenüber der eigentlichen Delaunay-Triangulation vernachlässigbar\todo{Referenz}.
+Aus diesem Grund bietet sich an, Oberflächensimulationen mit dem Parsivald-Modell mit Hilfe von Delaunay-Triangulationen zu verwalten, da die Oberflächeninformationen direkt in einen KMC-Algorithmus eingearbeitet werden können und somit auf separate Oberflächensuchen und -parametrisierungen verzichtet werden kann.
 
 \begin{figure}[bhpt]
   \centering
@@ -388,14 +516,3 @@ Die eigentliche Definition beinhaltet folgende Idee:
   \caption{Konstruktion einer Alpha-Form}
   \label{fig:delaunay-alpha}
 \end{figure}
-
-Entfernt man alle Delaunay-Primitive, deren Umkreisradius oberhalb eines Grenzwertes $\alpha$ liegt, und bildet dann die Vereinigung aller verbleibenden Primitive sowie etwaiger frei gewordener Punkte, so erhält man die Alphaform.
-Für $\alpha = \infty$ erhält man somit die konvexe Hülle.
-Für endliche Werte von $\alpha$ hingegen werden auch konkave Bereiche in der Oberfläche betrachtet.
-Wählt man $\alpha$ jedoch unterhalb des kleinsten Abstandes der Atome, so erfasst man zwangsläufig auch Atome im Inneren der Struktur, wodurch die Idee der allgemeinen Oberfläche wieder verloren geht.
-
-Verwaltet man nun parallel zur Delaunay-Triangulation eine Liste der theoretisch durch den $alpha$-Algorithmus entfernten Primitive, so hat man die Oberfläche der gesamten Struktur charakterisiert, ohne nennenswerten Mehraufwand treiben zu müssen.
-Durch Kenntnis dieser Oberfläche ließen sich nun CVD-Prozesse auch an spitzen Strukturen betrachten, ohne dem Wachstum die Charakteristika der räumlichen Darstellung aufzuzwingen.
-
-Bisher ist es jedoch bei theoretischen Betrachtungen dieser Delaunay-basierten Methoden geblieben.
-Hinsichtlich allgemeiner Oberflächensimulationen ließe sich diese Methode der Delaunay-Triangulationen perspektivisch in Parsivald einpflegen.

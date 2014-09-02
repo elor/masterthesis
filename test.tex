@@ -1,0 +1,13 @@
+
+\begin{algorithm}
+  \begin{algorithmic}
+    \Function{construct-kdtree}{atoms}
+    \If {$i\geq maxval$}
+    \State $i\gets 0$
+    \Else
+    \State $i\gets$ \Call{construct-kdtree}{atoms}
+    \EndIf
+    \State \Return Root
+    \EndFunction
+  \end{algorithmic}
+\end{algorithm}

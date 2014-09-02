@@ -1,32 +1,30 @@
 \usepackage[ngerman]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[]{geometry}	% Seitenraender
-\usepackage{
-	acronym, % Verwaltung von Abkuerzungen
-	bibgerm, % Deutsche Bibliographie
-	calc, % Erweiterung der arithmetischen Funktionen in
-	color, % epigraph,
-  colortbl,
-	scrpage2, % Kopf- und Fußzeilen flexibel gestalten
-	tabularx, % Blocksatzspalten
-	ngerman,
-	capt-of,
-	longtable,
-	amsmath,
-	pdfpages,
-	graphicx,
-	todonotes,
-	listings, % Quellcode
-%	url,
-}
+\usepackage[final]{graphicx}
+\usepackage{acronym}
+\usepackage{bibgerm}
+\usepackage{calc}
+\usepackage{color}
+\usepackage{colortbl}
+\usepackage{scrpage2}
+\usepackage{tabularx}
+\usepackage{ngerman}
+\usepackage{capt-of}
+\usepackage{longtable}
+\usepackage{amsmath}
+\usepackage{pdfpages}
+\usepackage{todonotes}
+\usepackage{listings}
 \usepackage[rightcaption]{sidecap}
 
-\setkomafont{disposition}{\normalcolor\bfseries}	
+\setkomafont{disposition}{\normalcolor\bfseries}
 \lstloadlanguages{[LaTeX]TeX}
 
 % Für schöne Darstellung von Algorithmen
-\usepackage[german, algoruled, algochapter]{algorithm2e}
-\usepackage{algorithmic}
+\usepackage{algpseudocode}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
 
 \graphicspath{{img/},{img-results/}}
 
@@ -43,3 +41,15 @@
 \usepackage{newtxtext}
 \usepackage{newtxmath}
 \usepackage{pifont}
+
+% Overflows und Fehlkerning reduzieren
+\usepackage[
+        activate={true,nocompatibility},
+        final,
+        tracking=true,
+        kerning=true,
+        spacing=true,
+        factor=1100,
+        stretch=10,
+        shrink=10
+]{microtype}

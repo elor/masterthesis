@@ -1,18 +1,33 @@
 \section{Effiziente Datenstrukturen}
 \label{sec:datastructures}
 
-Zur Simulation von Abscheidungen finden Simulationen per \todo{ref}{KMC} und MD bereits seit vielen Jahren Anwendung.
-Dabei wird jedoch oft auf naive Implementierungen zurückgegriffen, die bei atomistischen Simulationen beispielsweise die Systemgröße beschränken oder KMC-Systemen ein Simulationsgitter aufzwingen.
-Je nach betrachtetem System kann man diese Einschränkungen tolerieren, jedoch existieren auch Möglichkeiten, diese Grenzen zu erweitern.
-Durch Nutzung spezieller Algorithmen und Datenstrukturen, die Systemeigenschaften wie scheinbare Dimensionalität\todo{Begriff} (Oberfläche in 3D-Raum) oder annähernd gleichverteilte Teilchendichte in ihrer Arbeitsweise berücksichtigen, lassen sich sowohl Systemgröße als auch Laufzeit verbessern.
+%% Einführung in die übliche Arbeitsweise bei atomistischen Simulationen
 
-Im Folgenden möchte ich prominente Datenstrukturen für die Speicherung und Manipulation von Punktwolken kurz vorstellen und einen Überblick über deren Laufzeit und Speicherverbrauch für die betrachteten Systeme geben.
-Dabei bietet sich Binning, Nachbarschaftslisten, Suchbäume und Triangulationen an.
+Schichtabscheidungen und Oberflächenreaktionen\
+\footnote{Erst seit Einführung der ReaxFF-Formulierung lassen sich Reaktionen selbst simulieren, Oberflächen und Reaktionsprodukte werden aber schon länger realisiert}
+werden bereits seit vielen Jahren durch KMC- und MD-Methoden modelliert\todo{refs}.
+Zur Beschleunigung des Arbeitsablaufes kommt dabei häufig Standardsoftware zum Einsatz, die zwar für allgemeine Systeme optimiert wurde,
+allerdings im Gegenzug für spezielle Probleme zu erhöhten Laufzeiten gegenüber spezialisierten Ansätzen führt.
+Zu solchen Systemen zählen auch Oberflächenabscheidungen, die aufgrund ihrer geringen Dimensionalität (Oberfläche in 3d, also effektiv 2 Dimensionen), langen Laufzeiten (viele Millionen MD-Schritte) und additiver Arbeitsweise (Nachteil bei Datenstrukturen) stark von Beschleunigungen profitieren können.
+
+%% Vorteile von und Vorgehensweise für Expertensysteme
+
+Die Unterschiede zwischen der Betrachtung allgemeiner und spezieller Systeme liegen dabei in den genutzten Algorithmen und Datenstrukturen:
+Bessere Systemkenntnis ermöglicht eine genauere Abschätzung der Häufigkeit bestimmter Operationen, und somit die Wahl und Anpassung von Algorithmen auf die Klasse der zu untersuchenden Systeme.
+Dafür werden die Vor- und Nachteile in Form der asymptotischen Laufzeiten von Operationen mit deren Häufigkeit und dem Speicherverbrauch der Datenstruktur abgewogen.
+Als Resultat werden häufige Operationen beschleunigt, wodurch die Effizienz der gesamten Simulation gesteigert und größere Systeme ermöglicht werden.
+Dabei bleibt zu erwähnen, dass der Speicherverbrauch bei den verfügbaren Datenstrukturen linear mit der Systemgröße skaliert, weshalb der primäre Engpass in der Rechenzeit und nicht im Speicherverbrauch liegt.
+
+\subsection{Algorithmische Annahmen für Oberflächenabscheidungen}
+
+\\CONTINUEHERE
 
 Bei den zu betrachtenden Systemen handelt es sich um atomistische Bulks und Oberflächen ohne Betrachtung der Gasphase.
 Dafür ergeben sich folgende Eigenschaften:
 \begin{enumerate}
 \item Lokalität\\
+  Interatomare Einflüsse sind reichweitenbegrenzt
+\item geringe Diffusivität\\
   Atome behalten ihre Nachbarschaft für relativ lange Zeiträume bei
 \item Scharfe Systemgrenzen\\
   Die Oberfläche des Systemes trennt sich klar vom Bulk-Material ab
@@ -32,12 +47,27 @@ Daraus resultieren Beschränkungen, die bei der Auswahl geeigneter Datenstruktur
 
 \subsection{Benutzte Operationen}
 
+\begin{table}[b]
+  \caption[datasymbols]{Symbole für Laufzeit- und Speicherabschätzungen}
+  \label{tab:datasymbols}
+  \begin{tabularx}{\textwidth}{|lX|lX|}
+    \hline
+    {Symbol} & {Bedeutung} & {Symbol} & {Bedeutung} \\
+    \hline
+    \BigO{expr} & Worst-Case-Komplexität & $n$ & Zahl der Atome \\
+    $k$ & Zahl von Nächstnachbarn & $b$ & Zahl der Bins \\
+    $k_r$ & Zahl von Nachbarn mit $d \leq r_c$ & $r_c$ & Cutoff-Radius \\
+    $r_s$ & Suchradius & $s$ & lineare Raumgröße \\
+    \hline
+  \end{tabularx}
+\end{table}
+
 \todo[inline]{Referenzen der optimalen Laufzeiten!}
 
 Aus Sicht der aufrufenden Simulation ist die Wahl der unterliegenden Datenstruktur durch Abstraktion gleichgültig.
 Sie interagiert mit dem Simulationsraum durch eine Zahl von Operationen, die kurz vorgestellt werden sollen.
 Das beinhaltet Konstruktion, Manipulation und Suche auf der Struktur.
-Ein Vergleich der asymptotischen Laufzeiten ist in Tabelle \ref{tab:datastructures-bigo} dargestellt.
+Ein Vergleich der asymptotischen Laufzeiten ist in Tabelle \ref{tab:dataruntimes} dargestellt.
 
 \subsubsection{Konstruktion}
 Damit ist der einmalige Aufbau der gesamten Struktur aus einer beliebigen Menge von Atomen gemeint.
@@ -92,7 +122,7 @@ Ein Punkt auf der Oberfläche wird bei der Erstellung jedes KMC-Ereignisses durc
     Datenstr.  &  Kon.             &  Hin.             &  Ver.             &  Entf.            &  Ortss.            &  NB-S.            &  Oberfl.         &  RAM                     \\
     \hline
     Atomliste  &  \cG{$n$}         &  \cG{$1$}         &  \cG{$1$}         &  \cG{$1$}         &  \cR{$n$}          &  \cR{$n$}         &  \cR{$n$}        &  \cG{$n$}                \\
-    NB-Listen  &  \cR{$n^2$}       &  \cR{$n$}         &  \cR{$n$}         &  \cR{$n$}         &  \cR{$n$}          &  \cG{$1$}         &  \cR{$n$}        &  \cR{$\frac{r}{s}n^2$}   \\
+    NB-Listen  &  \cY{$n\log{n}$}       &  \cR{$n$}         &  \cR{$n$}         &  \cR{$n$}         &  \cR{$n$}          &  \cG{$1$}         &  \cR{$n$}        &  \cR{$\frac{r}{s}n^2$}   \\
     Binning    &  \cG{$n$}         &  \cG{$1$}         &  \cG{$1$}         &  \cG{$1$}         &  \cG{$r$}          &  \cG{$r$}         &  \cR{$c$}        &  \cY{$n+c$}              \\
     Octree     &  \cY{$n\log{c}$}  &  \cY{$\log{c}$}   &  \cY{$\log{c}$}   &  \cG{$1$}         &  \cY{$r\log{c}$}   &  \cY{$r\log{c}$}  &  \cY{$\log{c}$}  &  \cY{$n+c^\frac{2}{3}$}  \\
     k-d-Baum   &  \cY{$n\log{n}$}  &  \cY{$\log{n}$}   &  \cY{$\log{n}$}   &  \cY{$\log{n}$}   &  \cY{$r\log{n}$}   &  \cY{$r\log{n}$}  &  \cY{$\log{n}$}  &  \cG{$n$}                \\
@@ -100,8 +130,8 @@ Ein Punkt auf der Oberfläche wird bei der Erstellung jedes KMC-Ereignisses durc
     \hline
     %Atomfeld  &  \cG{$n$}         &  \cG{$1$}         &  \cG{$1$}         &  \cG{$1$}         &  \cR{$n$}          &  \cR{$n$}         &  \cR{$n$}        &  \cG{$n$}                \\
   \end{tabularx}
-  \label{tab:datastructures-bigo}
-  \caption[asd]{
+  \label{tab:dataruntimes}
+  \caption[Laufzeitabschätzung genutzter Operationen auf verschiedenen Datenstrukturen]{
     Abschätzung des Speicheraufwands und der asymptotischen Laufzeit ausgewählter Operationen auf verschiedenen Datenstrukturen
     \\
     \begin{tabularx}{0.8\textwidth}{XXX}
@@ -233,7 +263,7 @@ Somit reduziert sich die Speicherkomplexität von großen dreidimensionalen Dün
   \caption[Quadtree-Veranschaulichung eines Octrees]{Quadtree (2d) zur Veranschaulichung der Funktionsweise eines Octrees (3d):\\
     Rekursive Unterteilung der interessanten Zellen bis zur gewünschten Auflösung, dann zellweises Binning.
     Dabei werden nur benutzte Zellen dynamisch allokiert, wodurch sich bei Oberflächensystemen Einsparungen in Speicherverbrauch und Laufzeit ergeben.
-}
+  }
 \end{figure}
 
 \begin{algorithm}
@@ -291,7 +321,7 @@ In Verbindung mit einem Heap lässt sich auch eine feste Anzahl von Atomen in \B
   \caption[Konstruktion eines k-d-Baumes]{
     Rekursive Konstruktion eines k-d-Baumes: Die Punktmenge wird sortiert, der Median zum Baum hinzugefügt und seine Kinder aus den beiden Teilmengen per k-d-Baum-Konstruktion gewonnen.
     Der gewonnene Suchbaum ist effizient in Speicherplatz und Laufzeit der Suchoperationen.
-}
+  }
   \label{fig:kdtree}
 \end{figure}
 
@@ -381,35 +411,35 @@ Ansonsten unterscheiden sie sich stark in Funktionsweise, Optimaler Laufzeit  un
 
 \begin{itemize}
 \item Flip-basierte Algorithmen (Local Improvement)\\
-Man startet mit einer beliebigen Triangulation, prüft den Umkreis aller Simplexe und führt gegebenenfalls den Flip-Algorithmus aus, der in Abbildung \ref{fig:delaunay-flip} vorgestellt wird.
-Diese Algorithmen konvergieren typischerweise in \BigO{n^2} und sind damit vergleichsweise langsam.
+  Man startet mit einer beliebigen Triangulation, prüft den Umkreis aller Simplexe und führt gegebenenfalls den Flip-Algorithmus aus, der in Abbildung \ref{fig:delaunay-flip} vorgestellt wird.
+  Diese Algorithmen konvergieren typischerweise in \BigO{n^2} und sind damit vergleichsweise langsam.
 
 \item Scan-Algorithmus (Incremental Construction)\\
-Bei dieser Methode baut man schrittweise Simplexe auf, die das Delaunay-Kriterium erfüllen, ohne bestehende Simplexe löschen zu müssen.
-Man baut die Triangulation gewissermaßen \textit{von innen} auf.
-Durch viele Vergleiche und Sortierungen varieren typische asymptotische Laufzeiten zwischen \BigO{n\log{n}} und \BigO{n^2}.
+  Bei dieser Methode baut man schrittweise Simplexe auf, die das Delaunay-Kriterium erfüllen, ohne bestehende Simplexe löschen zu müssen.
+  Man baut die Triangulation gewissermaßen \textit{von innen} auf.
+  Durch viele Vergleiche und Sortierungen varieren typische asymptotische Laufzeiten zwischen \BigO{n\log{n}} und \BigO{n^2}.
 
 \item Einfügungs-Algorithmen (Incremental Insertion)\\
-Sie sind das Gegenstück zu Scan-Algorithmen, insofern man hier die Triangulation \textit{von außen} aufbaut.
-Man erstellt einen beliebig großen Simplex, der die gesamte Punktmenge beinhaltet, und fügt nun schrittweise einzelne Punkte in die Triangulation ein.
-Der den neuen Punkt einschließende wird in mehrere Simplexe unterteilt, die anschließend bei auf das Delaunay-Kriterium überprüft und bei Bedarf geflippt werden.
-Mit ihnen erreicht man geringe Laufzeiten von \BigO{n\log{n} + n^{\lceil d/2 \rceil}}.
+  Sie sind das Gegenstück zu Scan-Algorithmen, insofern man hier die Triangulation \textit{von außen} aufbaut.
+  Man erstellt einen beliebig großen Simplex, der die gesamte Punktmenge beinhaltet, und fügt nun schrittweise einzelne Punkte in die Triangulation ein.
+  Der den neuen Punkt einschließende wird in mehrere Simplexe unterteilt, die anschließend bei auf das Delaunay-Kriterium überprüft und bei Bedarf geflippt werden.
+  Mit ihnen erreicht man geringe Laufzeiten von \BigO{n\log{n} + n^{\lceil d/2 \rceil}}.
 
 \item Divide-and-Conquer-Algorithmen\\
-Diese rekursiven Algorithmen ermöglichen durch effiziente Aufteilung des Problemes in zwei oder mehr Unterprobleme geringe Laufzeiten für viele Probleme, jedoch müssen dafür mehrere Probleme gelöst werden.
-Einerseits muss das Problem teilbar sein, was bei Punktmengen ohne weiteres möglich ist.
-Andererseits muss man die Lösungen der Teilprobleme zu einer Lösung des Gesamtproblemes zusammen gefügt werden.
-Bei Delaunay-Triangulationen gibt es verschiedene erfolgreiche Ansätze in zwei Dimensionen\todo{Referenzen}, die zu Laufzeiten nahe der für Divide and Conquer üblichen \BigO{n\log{n}} führen, jedoch stellen höhere Dimensionen diese Algorithmen vor Probleme.
+  Diese rekursiven Algorithmen ermöglichen durch effiziente Aufteilung des Problemes in zwei oder mehr Unterprobleme geringe Laufzeiten für viele Probleme, jedoch müssen dafür mehrere Probleme gelöst werden.
+  Einerseits muss das Problem teilbar sein, was bei Punktmengen ohne weiteres möglich ist.
+  Andererseits muss man die Lösungen der Teilprobleme zu einer Lösung des Gesamtproblemes zusammen gefügt werden.
+  Bei Delaunay-Triangulationen gibt es verschiedene erfolgreiche Ansätze in zwei Dimensionen\todo{Referenzen}, die zu Laufzeiten nahe der für Divide and Conquer üblichen \BigO{n\log{n}} führen, jedoch stellen höhere Dimensionen diese Algorithmen vor Probleme.
 
-Cignoni et al.\cite{cignoni_1998} haben eine DeWall genannte\footnote{DeWall steht hier für Delaunay Wall Algorithm, so benannt nach den Wänden, an denen getrennt und wieder verknüpft wird} Methode gefunden, die eine zwar worst-case-Laufzeit von \BigO{n^{\lceil d/2 \rceil + 1}} ergibt, die sich jedoch nur in pathologischen Fällen zeigt.
-Nimmt man annähernde Gleichverteilungen an, die im vorliegenden Anwendungsfall gegeben sind, konvergiert dieser Algorithmus in drei Dimensionen subquadratisch und ist somit vergleichbar effizient.
-Es zeigt sich allerdings, dass er trotz der vermeintlich langen Laufzeit vor allem bei periodischen und periodisch erweiterten Systemen effizient arbeitet, da hier ohnehin Grenzflächen existieren, an denen Teiltriangulationen auf einander abgestimmt werden müssen.
-Andererseits ist das Parsivald-Modell ohnehin für parallele Platformen ausgelegt, so dass hier weitere Leistungssteigerungen zu erwarten sind.
-Ebenso eignet sich diese Methode zur Einbettung neu berechneter Würfel in die Struktur, wie es beim Parsivald-Modell nach jeder simulierten Reaktion vorkommt.
+  Cignoni et al.\cite{cignoni_1998} haben eine DeWall genannte\footnote{DeWall steht hier für Delaunay Wall Algorithm, so benannt nach den Wänden, an denen getrennt und wieder verknüpft wird} Methode gefunden, die eine zwar worst-case-Laufzeit von \BigO{n^{\lceil d/2 \rceil + 1}} ergibt, die sich jedoch nur in pathologischen Fällen zeigt.
+  Nimmt man annähernde Gleichverteilungen an, die im vorliegenden Anwendungsfall gegeben sind, konvergiert dieser Algorithmus in drei Dimensionen subquadratisch und ist somit vergleichbar effizient.
+  Es zeigt sich allerdings, dass er trotz der vermeintlich langen Laufzeit vor allem bei periodischen und periodisch erweiterten Systemen effizient arbeitet, da hier ohnehin Grenzflächen existieren, an denen Teiltriangulationen auf einander abgestimmt werden müssen.
+  Andererseits ist das Parsivald-Modell ohnehin für parallele Platformen ausgelegt, so dass hier weitere Leistungssteigerungen zu erwarten sind.
+  Ebenso eignet sich diese Methode zur Einbettung neu berechneter Würfel in die Struktur, wie es beim Parsivald-Modell nach jeder simulierten Reaktion vorkommt.
 
 \item Höherdimensionale Einbettung\\
-Hier wird die Punktmenge in eine höhere Dimension transformiert, in der deren konvexe Hülle berechnet wird, die dann in den ursprünglichen Raum herunterprojiziert wird und darin eine zulässige Delaunay-Triangulation ergibt.
-In der Praxis ist dieser Algorithmus nicht weiter von Bedeutung, da Einfügungs-Algorithmen für allgemeine Fälle eine geringere Laufzeit erreichen.
+  Hier wird die Punktmenge in eine höhere Dimension transformiert, in der deren konvexe Hülle berechnet wird, die dann in den ursprünglichen Raum herunterprojiziert wird und darin eine zulässige Delaunay-Triangulation ergibt.
+  In der Praxis ist dieser Algorithmus nicht weiter von Bedeutung, da Einfügungs-Algorithmen für allgemeine Fälle eine geringere Laufzeit erreichen.
 
 \end{itemize}
 
@@ -452,7 +482,7 @@ Anschließend führt man den selben Test mit deren Nachbarn durch.
     Anschließend müssen Nachbar-Simplexe den selben Test durchlaufen.
     Die Flipping-Kaskade führt dabei höchstens \BigO{k\log{k}} Prüfungen aus, wenn man eine bestehende Delaunay-Triangulation aktualisieren möchte.
     $k$ steht hier für die Zahl der Simplexe eines Punktes.
-}
+  }
   \label{fig:delaunay-flip}
 \end{figure}
 

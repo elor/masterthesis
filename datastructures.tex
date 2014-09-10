@@ -1,49 +1,56 @@
-\section{Effiziente Datenstrukturen}
+\section{Datenstrukturen}
 \label{sec:datastructures}
 
 %% Einführung in die übliche Arbeitsweise bei atomistischen Simulationen
 
-Schichtabscheidungen und Oberflächenreaktionen\
-\footnote{Erst seit Einführung der ReaxFF-Formulierung lassen sich Reaktionen selbst simulieren, Oberflächen und Reaktionsprodukte werden aber schon länger realisiert}
-werden bereits seit vielen Jahren durch KMC- und MD-Methoden modelliert\todo{refs}.
+Teilaspekte von Schichtabscheidungen wie Oberflächenreaktionen werden seit vielen Jahren erfolgreich mit KMC- und MD-Methoden simuliert\todo{refs}.
 Zur Beschleunigung des Arbeitsablaufes kommt dabei häufig Standardsoftware zum Einsatz, die zwar für allgemeine Systeme optimiert wurde,
-allerdings im Gegenzug für spezielle Probleme zu erhöhten Laufzeiten gegenüber spezialisierten Ansätzen führt.
-Zu solchen Systemen zählen auch Oberflächenabscheidungen, die aufgrund ihrer geringen Dimensionalität (Oberfläche in 3d, also effektiv 2 Dimensionen), langen Laufzeiten (viele Millionen MD-Schritte) und additiver Arbeitsweise (Nachteil bei Datenstrukturen) stark von Beschleunigungen profitieren können.
+im Gegenzug allerdings für spezielle Probleme zu erhöhten Laufzeiten gegenüber spezialisierten Ansätzen führt.
+Zu solchen Systemen zählen auch Oberflächenabscheidungen, die aufgrund ihrer geringen Dimensionalität (Oberflächen mit 2 effektiven Dimensionen), langen Laufzeiten (viele Millionen MD-Schritte) und additiver Arbeitsweise (Schrittweises Hinzufügen einzelner Atome) stark von speziellen Optimierungen profitieren können.
 
 %% Vorteile von und Vorgehensweise für Expertensysteme
 
 Die Unterschiede zwischen der Betrachtung allgemeiner und spezieller Systeme liegen dabei in den genutzten Algorithmen und Datenstrukturen:
 Bessere Systemkenntnis ermöglicht eine genauere Abschätzung der Häufigkeit bestimmter Operationen, und somit die Wahl und Anpassung von Algorithmen auf die Klasse der zu untersuchenden Systeme.
-Dafür werden die Vor- und Nachteile in Form der asymptotischen Laufzeiten von Operationen mit deren Häufigkeit und dem Speicherverbrauch der Datenstruktur abgewogen.
+Dafür werden die Vor- und Nachteile in Form der asymptotischen Laufzeiten von Operationen gegenüber deren Häufigkeit und Speicherverbrauch der Datenstruktur abgewogen.
 Als Resultat werden häufige Operationen beschleunigt, wodurch die Effizienz der gesamten Simulation gesteigert und größere Systeme ermöglicht werden.
-Dabei bleibt zu erwähnen, dass der Speicherverbrauch bei den verfügbaren Datenstrukturen linear mit der Systemgröße skaliert, weshalb der primäre Engpass in der Rechenzeit und nicht im Speicherverbrauch liegt.
+Es bleibt zu erwähnen, dass der Speicherverbrauch bei den auf das Problem anwendbaren Datenstrukturen linear mit der Systemgröße skaliert, weshalb der primäre Engpass in der Rechenzeit und nicht im Speicherverbrauch liegt.
 
-\subsection{Algorithmische Annahmen für Oberflächenabscheidungen}
+\subsection{Systemeigenschaften}
 
-\\CONTINUEHERE
-
-Bei den zu betrachtenden Systemen handelt es sich um atomistische Bulks und Oberflächen ohne Betrachtung der Gasphase.
-Dafür ergeben sich folgende Eigenschaften:
+Bei den zu betrachtenden Systemen handelt es sich um atomistische Bulks und Oberflächen ohne explizite Simulation der Gasphase.
+Für diese ergeben sich folgende Eigenschaften:
 \begin{enumerate}
 \item Lokalität\\
   Interatomare Einflüsse sind reichweitenbegrenzt
-\item geringe Diffusivität\\
+\item Niedriger Diffusionskoeffizient\\
   Atome behalten ihre Nachbarschaft für relativ lange Zeiträume bei
-\item Scharfe Systemgrenzen\\
-  Die Oberfläche des Systemes trennt sich klar vom Bulk-Material ab
+\item Scharfe Oberflächen\\
+  Die Oberfläche des Systems ist eindeutig durch eine Menge von Atomen festgelegt
 \item Gleichverteilung der Teilchendichte\\
-  Es lässt sich eine untere und obere Grenze für Nächstnachbar-Teilchenabstände angeben
-\item Periodizität entlang ausgewählter Achsen\\
-  Betrachtete Systeme können beispielsweise in der xy-Ebene periodisch, aber in z-Rich\-tung begrenzt sein
+  Es lässt sich eine untere und obere Grenze für Nächstnachbarabstände angeben
+\item Teilweise Periodizität\\
+  Betrachtete Systeme können entlang ausgewählter Hauptachsen periodisch sein
 \end{enumerate}
-Daraus resultieren Beschränkungen, die bei der Auswahl geeigneter Datenstrukturen relevant sind, beispielsweise die Folgenden:
+
+Einzig das Diffusionskriterium ergibt sich aus der Notwendigkeit, Atompositionen über einen langen Zeitraum ohne Manipulation effizient zu speichern.
+Man könnte Diffusionen jedoch auf verschiedene Arten in das Parsivald-Modell einarbeiten.
+Dazu zählen explizite MD-Simulationen der Oberfläche ebenso wie Monte-Carlo-Simulationen der Position von Oberflächen- oder Bulkteilchen.
+Im Rahmen dieser Arbeit möchte ich zuerst auf diffusionsarme Materialien und Precursorsysteme zurück greifen, bevor der allgemeine Fall betrachtet wird.
+
+Als Resultat der oben genannten Systemeigenschaften lassen sich Annahmen für dir algorithmische Betrachtung des Systemes treffen.
+Beispiele solcher Annahmen, die in der Umsetzung des Parsivald-Modelles relevant wurden, zeigt folgende Liste.
+
 \begin{enumerate}
+\item Reaktionssimulationen sind auch auf Ausschnitte der Gesamtstruktur durchführbar
 \item Nachbarschaftslisten müssen selten aktualisiert werden\\
   Die Reichweite einer Manipulation ist begrenzt
-\item Oberflächen und Poren lassen sich als variable Mengen von Atomen darstellen
-\item Die Zahl der Nachbarn ist begrenzt
+\item Oberflächenatome befinden sich zu einander in direkter Nachbarschaft
+\item Die Zahl der Nachbarn unterliegt einer oberen Schranke
 \item Divide-and-Conquer-Algorithmen müssen aufwendigeres Stitching betreiben
 \end{enumerate}
+
+Ohne diese Annahmen stellten einige der ausgewählten Operationen das System nur unzureichend dar.
 
 \subsection{Benutzte Operationen}
 
@@ -64,85 +71,75 @@ Daraus resultieren Beschränkungen, die bei der Auswahl geeigneter Datenstruktur
 
 \todo[inline]{Referenzen der optimalen Laufzeiten!}
 
-Aus Sicht der aufrufenden Simulation ist die Wahl der unterliegenden Datenstruktur durch Abstraktion gleichgültig.
-Sie interagiert mit dem Simulationsraum durch eine Zahl von Operationen, die kurz vorgestellt werden sollen.
-Das beinhaltet Konstruktion, Manipulation und Suche auf der Struktur.
+Aus Sicht der aufrufenden Simulation ist die Wahl der unterliegenden Datenstruktur nicht ersichtlich.
+Für sie besteht die Interaktion aus Operationen, die auf die Menge von Atomen ausgeführt werden.
+Das beinhaltet Konstruktions-, Manipulations- und Suchoperationen auf dieser Menge.
 Ein Vergleich der asymptotischen Laufzeiten ist in Tabelle \ref{tab:dataruntimes} dargestellt.
 
 \subsubsection{Konstruktion}
-Damit ist der einmalige Aufbau der gesamten Struktur aus einer beliebigen Menge von Atomen gemeint.
-Durch die Einmaligkeit steht die Laufzeit dieser Operation im Hintergrund, jedoch lassen sich auch hier Optimierungen durchführen, beispielsweise wenn der gesamte Raum als periodische Erweiterung einer kleineren Struktur konstruiert wird.
+Damit wird der einmalige Aufbau der gesamten Struktur aus einer beliebigen Menge von Atomen bezeichnet.
+Dadurch steht die eigentliche Laufzeit dieser Operation im Hintergrund.
 
-Wenn kein besonderer Algorithmus dafür vorliegt, kann die Struktur als iterative Einfügung einzelner Atome in eine leere Struktur angenähert werden, und verhält sich somit linear zur Laufzeit der Einfügungsoperation.
-Optimal ist hier \BigO{n} bei simplen Listen, im Gegensatz zu \BigO{n^2} bei Nachbarschaftslisten.
+Liegt kein separater Algorithmus vor, kann die Struktur durch iterative Einfügung einzelner Atome angenähert werden, und verhält sich somit linear zur Laufzeit der Einfügungsoperation, und somit maximal quadratisch zur Zahl der Atome.
+Optimal ist hier \BigO{n} bei simplen Listen, im Gegensatz zu \BigO{n^2} bei Nachbarschaftslisten\ref{}.
 
 \subsubsection{Einfügung}
-Auch Hinzufügen, Push- oder Insert-Operation genannt, bezeichnet sie das Einfügen eines neuen Atomes in die Datenstruktur.
-Dies geschieht im Parsivald-Modell bei erfolgreichen Reaktionen von Gasmolekülen mit der Oberfläche, wodurch diese Operation vergleichsweise häufig durchgeführt wird.
+Je nach Datenstruktur auch Push-Operation genannt, bezeichnet sie das Einfügen eines neuen Atomes in eine bestehende Struktur.
+Dies geschieht im Parsivald-Modell nach erfolgreichen Reaktionen von Gasmolekülen auf der Oberfläche, bei denen die neu aufgebrachten Atome dem Simulationsraum beigefügt werden.
+Da diese Operation vergleichsweise häufig aufgerufen wird, bieten sich Strukturen an, bei denen nur die lokale Nachbarschaft, nicht aber die gesamte Struktur aktualisiert werden muss.
 
 Optimale Laufzeit ist das Hinzufügen eines Atomes an das Ende einer Liste in konstanter Zeit (\BigO{1}), jedoch verlangen einige Strukturen den Vergleich mit allen anderen Atomen, wodurch sich \BigO{n} ergibt.
 
-\subsubsection{Verschieben}
-Auch als Up\-date-Operation bekannt, führt sie eine Aktualisierung einzelner oder mehrerer Atome durch.
-In der Regel werden sie in ihrer räumlichen Position verschoben.
-Diese Operation wird in der Regel nach einer MD-Simulation ausgeführt werden, und nicht währenddessen, da es im Allgemeinen effizienter ist, die Atome während der Simulation in optimierten Listen zu halten, statt \todo{entfernen}{wild im Arbeitsspeicher herum zu springen}.
+\subsubsection{Modifikation}
+Auch als Up\-date-Operation bekannt, führt sie eine Aktualisierung der Positionen oder des Typen\footnote{Einige Anwendungen erfordern die separate Betrachtung verschiedener Adsorptions- oder Oxidationszustände durch separate Atomtypen} einzelner oder mehrerer Atome durch.
 
-Auch hier lässt sich konstante Zeit als Optimum angeben, wobei beispielsweise Nachbarschaftslisten komplett neu aufgebaut werden müssen und somit \BigO{n} als Grenze angegeben werden muss.
+Auch hier lässt sich konstante Zeit als Optimum angeben, wo hingegen beispielsweise Nachbarschaftslisten komplett neu aufgebaut und somit Laufzeitgrenzen von \BigO{n} angegeben werden müssen.
 
 \subsubsection{Entfernung}
-Als Gegenstück zur Push-Operation entfernt diese eines oder mehrere Atome aus der Struktur.
-Diese Operation ist sinnvoll, wenn durch Reaktionen einzelne Liganden von der Oberfläche entfernt werden, und wird entsprechend bei vielen Reaktionen ausgeführt.
-
-Als inverse Operation zur Einfügung gelten hier ähnliche Laufzeiten:
-Konstante Zeit für Binning und Listen, und \BigO{k} (k - obere Grenze der Zahl der Nachbarn).
+Als Gegenstück zur Push-Operation entfernt diese eines oder mehrere Atome aus dem Simulationsraum.
+Diese Operation wird angewandt, wenn durch Reaktionen einzelne Liganden von der Oberfläche entfernt werden und findet somit Anwendung bei Simulationen, die den gesamten Precursor betrachten.
+Es gelten die gleichen Laufzeitgrenzen wie bei der Einfügung von Atomen.
 
 \subsubsection{Nachbarschaftssuche}
-Eine Suchoperation aller Atome im festen Umkreis eines bestimmten Atomes, also seine Nachbarn.
-Diese Operation wird genutzt, um MD-Simulationen vorzubereiten, und wird somit bei jeder versuchten Reaktion ausgeführt.
+Ihrem Namen entsprechend sucht diese Operation nach allen Atomen in der Nachbarschaft eines vorher bekannten Atomes.
+Sie wird beim Parsivald-Modell genutzt, um die lokale Nachbarschaft eines Referenzatomes für eine MD-Simulationen zu extrahieren, und somit bei jedem ausgewählten KMC-Ereignis ausgeführt.
 
-Die Laufzeit dieser Operation variiert stark zwischen \BigO{1} für Nachbarschaftslisten, die die Komplexität in andere Operationen verschieben, und \BigO{n} für den direkten Vergleich mit allen anderen Atomen.
+Die Laufzeit variiert stark zwischen \BigO{1} für Nachbarschaftslisten, die die Komplexität in die anderen Operationen auslagern, und \BigO{n}, falls die Position aller Atome explizit verglichen werden muss.
+Häufig ist die Laufzeit auch proportional zur oberen Grenze der Zahl von Nachbarschaftsatomen und somit zum kubischen Suchradius.
 
 \subsubsection{Ortssuche}
-Im Gegensatz zur Nachbarschaftssuche sucht man hier alle Atome im Umkreis eines beliebigen Punktes.
-Diese Suche wird zur Identifizierung eines Reaktionsortes und somit zum Aufbau eines KMC-Ereignisses genutzt.
-Damit ist sie eine der häufigsten Operationen und sollte in möglichst optimaler Zeit laufen.
+Im Unterschied zur Nachbarschaftssuche sucht man hier alle Atome im Umkreis eines beliebigen Punktes im Raum.
+Diese Operation wird zur Identifizierung eines Reaktionsortes und somit zum Aufbau eines KMC-Ereignisses genutzt.
+Damit ist sie die häufigste Operationen und sollte im Mittelpunkt von Optimierungsbemühungen stehen.
 Da beide Nachbarschaftssuchen in einander überführbar sind, ist ihre Komplexität mit wenigen Ausnahmen gleich.
-
-Eine nennenswerte Ausnahme in der Laufzeit sind Delaunay-Triangulationen:
-Dort geht der Nachbarschaftssuche eine Suche eines beliebigen Atomes innerhalb des Suchradius' voraus, weshalb sich die Komplexität um einen Summanden unterscheidet.
 
 \subsubsection{Oberflächensuche}
 Diese Operation sucht die Oberfläche, entweder entlang einer definierten Geraden oder im Umkreis eines Punktes.
-Die genaue Formulierung kann zugunsten der Datenstruktur angepasst werden.
-Ein Punkt auf der Oberfläche wird bei der Erstellung jedes KMC-Ereignisses durchgeführt und ist damit gleich häufig wie die Ortssuche, und im ein Vielfaches häufiger als die anderen.
+Die Art der Eingangsgröße kann von der aufrufenden Simulation zugunsten der Laufzeit gewählt werden.
+
 
 \begin{table}
   \centering
-  \begin{tabularx}{\textwidth}{X|cccccccc}
-    Datenstr.  &  Kon.             &  Hin.             &  Ver.             &  Entf.            &  Ortss.            &  NB-S.            &  Oberfl.         &  RAM                     \\
+  \begin{tabularx}{\textwidth}{X|*8c}
+    Datenstr.  &  Konstr.          &  Einfüg.          &  Modif            &  Entf.            &  Ortss.                &  NB-Su.               &  Oberfl.         &  RAM                          \\
     \hline
-    Atomliste  &  \cG{$n$}         &  \cG{$1$}         &  \cG{$1$}         &  \cG{$1$}         &  \cR{$n$}          &  \cR{$n$}         &  \cR{$n$}        &  \cG{$n$}                \\
-    NB-Listen  &  \cY{$n\log{n}$}       &  \cR{$n$}         &  \cR{$n$}         &  \cR{$n$}         &  \cR{$n$}          &  \cG{$1$}         &  \cR{$n$}        &  \cR{$\frac{r}{s}n^2$}   \\
-    Binning    &  \cG{$n$}         &  \cG{$1$}         &  \cG{$1$}         &  \cG{$1$}         &  \cG{$r$}          &  \cG{$r$}         &  \cR{$c$}        &  \cY{$n+c$}              \\
-    Octree     &  \cY{$n\log{c}$}  &  \cY{$\log{c}$}   &  \cY{$\log{c}$}   &  \cG{$1$}         &  \cY{$r\log{c}$}   &  \cY{$r\log{c}$}  &  \cY{$\log{c}$}  &  \cY{$n+c^\frac{2}{3}$}  \\
-    k-d-Baum   &  \cY{$n\log{n}$}  &  \cY{$\log{n}$}   &  \cY{$\log{n}$}   &  \cY{$\log{n}$}   &  \cY{$r\log{n}$}   &  \cY{$r\log{n}$}  &  \cY{$\log{n}$}  &  \cG{$n$}                \\
-    Delaunay   &  \cY{$n\log{n}$}  &  \cY{$k\log{k}$}  &  \cY{$k\log{k}$}  &  \cY{$k\log{k}$}  &  \cG{$r+\log{n}$}  &  \cG{$r$}         &  \cG{$1$}        &  \cY{$nk$}               \\
+    Atomliste  &  \cG{$n$}         &  \cG{$1$}         &  \cG{$1$}         &  \cG{$1$}         &  \cR{$n$}              &  \cR{$n$}             &  \cR{$n$}        &  \cG{$n$}                     \\
+    NB-Listen  &  \cY{$n\log{n}$}  &  \cR{$n$}         &  \cR{$n$}         &  \cR{$n$}         &  \cR{$n$}              &  \cG{$1$}             &  \cR{$n$}        &  \cR{$\frac{r_c^3}{s^3}n^2$}  \\
+    Binning    &  \cG{$n$}         &  \cG{$1$}         &  \cG{$1$}         &  \cG{$1$}         &  \cG{$r_s^3$}          &  \cG{$r_s^3$}         &  \cR{$c$}        &  \cY{$n+c$}                   \\
+    Octree     &  \cY{$n\log{c}$}  &  \cY{$\log{c}$}   &  \cY{$\log{c}$}   &  \cG{$1$}         &  \cY{$r_s^3\log{c}$}   &  \cY{$r_s^3\log{c}$}  &  \cY{$\log{c}$}  &  \cY{$n+c^\frac{2}{3}$}       \\
+    k-d-Baum   &  \cY{$n\log{n}$}  &  \cY{$\log{n}$}   &  \cY{$\log{n}$}   &  \cY{$\log{n}$}   &  \cY{$r_s^3\log{n}$}   &  \cY{$r_s^3\log{n}$}  &  \cY{$\log{n}$}  &  \cG{$n$}                     \\
+    Delaunay   &  \cY{$n\log{n}$}  &  \cY{$k\log{k}$}  &  \cY{$k\log{k}$}  &  \cY{$k\log{k}$}  &  \cG{$r_s^3+\log{n}$}  &  \cG{$r_s^3$}         &  \cG{$1$}        &  \cY{$nk$}                    \\
     \hline
-    %Atomfeld  &  \cG{$n$}         &  \cG{$1$}         &  \cG{$1$}         &  \cG{$1$}         &  \cR{$n$}          &  \cR{$n$}         &  \cR{$n$}        &  \cG{$n$}                \\
+    %Atomfeld  &  \cG{$n$}         &  \cG{$1$}         &  \cG{$1$}         &  \cG{$1$}         &  \cR{$n$}              &  \cR{$n$}             &  \cR{$n$}        &  \cG{$n$}                     \\
+  \end{tabularx}
+  \vspace{1em}
+  \begin{tabularx}{0.7\textwidth}{*3C}
+    \cG{optimal} & \cY{annehmbar} & \cR{Bottleneck} \\
   \end{tabularx}
   \label{tab:dataruntimes}
   \caption[Laufzeitabschätzung genutzter Operationen auf verschiedenen Datenstrukturen]{
     Abschätzung des Speicheraufwands und der asymptotischen Laufzeit ausgewählter Operationen auf verschiedenen Datenstrukturen
     \\
-    \begin{tabularx}{0.8\textwidth}{XXX}
-      \cG{optimal} & \cY{annehmbar} & \cR{Bottleneck} \\
-      $n$ - Anzahl Atome &
-      $c$ - Anzahl Bins &
-      $r$ - Suchradius \\
-      $s$ - Raumgröße & 
-      $k$ - Nächstnachbarn &
-      $1$ - konstant \\
-    \end{tabularx}
   }
 \end{table}
 

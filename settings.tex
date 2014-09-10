@@ -46,13 +46,11 @@
 \definecolor{Yellow}{rgb}{1.0 1.0 0.7}
 \definecolor{Red}{rgb}{1.0 0.7 0.7}
 
-\newcolumntype{G}{>{\columncolor{Green}}c}
-\newcolumntype{y}{>{\columncolor{Yellow}}c}
-\newcolumntype{R}{>{\columncolor{Red}}c}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
 
-\newcommand{\cG}[1]{\multicolumn{1}{G}{#1}}
-\newcommand{\cY}[1]{\multicolumn{1}{y}{#1}}
-\newcommand{\cR}[1]{\multicolumn{1}{R}{#1}}
+\newcommand{\cG}[1]{\cellcolor{Green}#1}
+\newcommand{\cY}[1]{\cellcolor{Yellow}#1}
+\newcommand{\cR}[1]{\cellcolor{Red}#1}
 
 \algnewcommand\algorithmicinput{\textbf{Input: }}
 \algnewcommand\Input{\item[\algorithmicinput]}

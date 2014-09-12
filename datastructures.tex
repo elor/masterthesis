@@ -229,21 +229,18 @@ Für Triangulationen gibt es verschiedene Ausprügungen der Kriterien, wobei in 
 
 \subsection{Effiziente Datenstrukturen}
 
-Zur Betrachtung der vorgestellten Probleme bieten sich nur eine Auswahl der angesprochenen Datenstrukturen an, da die asymptotischen Laufzeiten der Suchoperationen auf den ausgeschlossenen Strukturen oberhalb der Praktikabilitätsgrenze liegen.
-Als effiziente und damit interessante Datenstrukturen werden weiterhin Octrees, k-d-Bäume und Delaunay-Triangulationen behandelt.
+Zur Betrachtung der in Abschnitt \ref{sec:parsivald} vorgestellten Problemstellungen bieten sich nur eine Auswahl der angesprochenen Datenstrukturen an, da die asymptotischen Laufzeiten der Suchoperationen auf den ausgeschlossenen Strukturen oberhalb der Praktikabilitätsgrenze liegen.
+Als Auswahl effizienter Datenstrukturen werden weiterhin Octrees, k-d-Bäume und Delaunay-Triangulationen behandelt.
 
-\subsubsection{Octree-Binning}\label{dataoctree}
-Octree-Binning ist eine mögliche Optimierung der angesprochenen Binning-Methode, bei der man zur Aufteilung des Raumes nicht auf Zellgitter, sondern einen Octree zurück greift.
-Als diesen bezeichnet man eine dreidimensionale Struktur, die eine quaderförmige Zelle rekursiv in 8 geometrisch ähnliche Unterzellen halber Breite aufteilt, bis man eine gewünschten Auflösung erreicht.
-Der Vorteil liegt in der ausschließlichen Erstellung der Unterzellen, die im Rahmen der Simulation von Interesse sind, sowie der Betrachtung leerer Raumbereiche als zusammengefasste Superzelle, wie Abbildung \ref{fig:octree} darstellt.
-Für die angestrebte Anwendung sind dies die Raumbereiche, in denen sich Atome befinden.
-Vorteile typischen Binnings mit seinen effizienten Nachbarschaftssuchen bleiben erhalten, jedoch ergeben sich gegenüber Zellgittern effizientere Oberflächensuchen, deren Effizienzsteigerung auf die Möglichkeit des Überspringens leerer Raumbereiche zurückzuführen ist.
-Auch verringert sich der Speicherbedarf aller Zellen bei dreidimensionalen Oberflächensystemen auf die eines zweidimensionalen Systemes, da effektiv nur Zellen an der Oberfläche erstellt und durchsucht werden müssen.
-Theoretisch sind mit Access Caching, Bitweiser Addressierung, Surface Flagging oder Height Mapping noch weitere Optimierungen möglich, die jedoch nur den Laufzeitfaktor, jedoch nicht die asymptotische Laufzeit beeinflussen und daher nur am Rand genannt sein sollen.
-Algorithmus \ref{algo:octree-addressing} skizziert die Addressierung der Zelle eines Octrees und zeigt auch deren Schwachpunkt:
-Um eine einzige Zelle per absolutem oder globalem Index abzurufen, sind Operationen der Komplexität \BigO{\log{c}} notwendig, die bei häufigen Zellzugriffen und großen Systemen zu Leistungseinbrüchen führen können.
+\subsubsection{Octrees}\label{dataoctree}
+Octrees können als Optimierungen für Binning-Methoden genutzt werden, indem man die Zellen in einem Suchbaum statt in Zellgittern organisiert.
+Dazu wird der Simulationsraum rekursiv in 8 geometrisch ähnliche Unterzellen halber Breite aufgeteilt, bis die gewünschte Auflösung erreicht ist.
+Als Vorteil ergeben sich die ausschließliche Erstellung für die Simulation relevanter Unterzellen, sowie die Betrachtung leerer Raumbereiche als zusammengefasste Superzelle, wie in Abbildung \ref{fig:octree} dargestellt.
+Resultat sind verringerter Speicherbedarf und beschleunigte Suchoptionen, die irrelevante Gebiete schneller überspringen können.
 
-CONTINUEHERE
+Theoretisch sind mit Access Caching, Bitweiser Addressierung, Surface Flagging oder Height Mapping noch weitere Anpassungen möglich, allerdings verbessert sich dabei nur der Laufzeitfaktor, nicht die asymptotische Laufzeit, weshalb sie nur am Rand genannt sein sollen.
+Algorithmus \ref{algo:octreeaddressing} skizziert die Addressierung der Zelle eines Octrees und zeigt auch deren Schwachpunkt:
+Um eine einzige Zelle per absolutem oder relativem Index abzurufen, sind Operationen der Komplexität \BigO{\log{c}} notwendig, die bei häufigen Zellzugriffen und großen Systemen sowie kleinen Zellen zu Leistungseinbrüchen führen können.
 
 %% \begin{algorithm}
 %%   \begin{algorithmic}
@@ -310,25 +307,23 @@ CONTINUEHERE
     \EndFunction
   \end{algorithmic}
   \caption[Zell-Addressierung in Octrees]{Rekursive Zell-Addressierung und -Allokierung im Octree: Bei jedem Schritt wird das Problem in 8 Unterzellen geteilt, woraus eine Laufzeit von \BigO{d}$=$\BigO{\log{c}} resultiert}
-  \label{algo:octree-adressing}
+  \label{algo:octreeadressing}
 \end{algorithm}
-
-Weitere Laufzeitoptimierungen ergeben sich bei Betrachtung der Addresszugriffe.
-So wird bei der Ereignissuche wiederholt auf Zellen in direkter Nachbarschaft zugegriffen.
-Durch Access Caching speichert man den letzten Zellzugriff und sucht bei weiteren Zugriffen auf dem Octree in der Nachbarschaft dieser Zelle, statt jede Zelladdressierung beim Root-Knoten zu beginnen.
-Bei Aufruf einer leeren, nicht-allokierten Zelle speichert man stattdessen deren kleinste Superzelle, wodurch man automatisch die kleinste Superzelle der Nachbarschaft referenziert und folgende Suchoperationen signifikant verkürzt.
-Addressierung der kleinsten gemeinsamen Superzelle geschieht durch Vergleich des höchsten unterschiedlichen Bits der Addresse, der auf einigen Prozessorarchitekturen fest im Chipsatz verankert ist und somit in konstanter Zeit läuft.
 
 \todo[inline]{Wars das? Formeln?}
 
-\subsection{k-d-Baum}
+\subsection{k-d-Bäume}
 
-Recherchiert man optimale Strukturen für Suchoperationen, stößt man schnell auf k-dimensionale Bäume, oder kurz k-d-Bäume.
-Diese unterteilen einen kartesischen Raum in orthogonale Zellen, die jeweils genau ein Atom beinhalten, welches jedoch auf einer der Zellgrenzen liegt.
-Durch Algorithmus \ref{algo:kdtree-construction} zur Konstruktion eines k-d-Baumes ergibt sich ein balancierter Baum mit Atomen als Knoten, der als besondere Eigenschaft radiale Suchen nach beliebigen Punkten beschleunigt.
-Ist ein Knoten weiter entfernt als eine vorherige Referenz, so sind dessen Kinder ebenfalls weiter entfernt.
-Somit lässt sich per impliziter binärer Suche jedes nächste Atom in \BigO{\log{n}} finden.
-In Verbindung mit einem Heap lässt sich auch eine feste Anzahl von Atomen in \BigO{\log{n}\log{N_r}}\todo{$N_r$?} suchen.
+Für Nachbarschafts- und Bereichssuchen wird wegen ihrer hervorragenden Suchkomplexität auf k-d-Bäume zurückgegriffen, die einen kartesischen Raum in orthogonale Zellen mit jeweils einem Atom unterteilen.
+Es ergibt sich ein balancierter Binärbaum mit Atomen als Knoten, dessen Haupteigenschaft in impliziter Betrachtung von Abstandsrelationen liegt.
+So lassen sich große Bereiche aus einer Abstandssuche oder Bereichssuche ausschließen, sobald ein Atom mit geringerem Abstand gefunden wurde.
+Somit lässt sich per binärer Suche das nächste Atom eines beliebigen Punktes in \BigO{\log{n}} finden.
+Sucht man $N$ Nächstnachbaratome, lassen sie sich durch Kombination mit einem Heap in \BigO{\log{n}\log{N_r}} finden, was zwar im Vergleich zu Octrees zu höheren asymptotischen Laufzeiten führt, jedoch zu kürzeren realen Laufzeiten führt.
+\footnote{Vergleich dazu auch Heapsort vs. Quicksort: Cachingeffekte}
+Aktualisierungen von Knoten behandelt man durch Standardalgorithmen wie Baumrotation in \BigO{\log{n}}.
+
+Eine weitere Eigenschaft von k-d-Bäumen ist außerdem, dass sie nicht auf endliche Räume beschränkt sind und zuverlässig beliebig große Systeme beschreiben können.
+Durch adaptives Neubalancieren erreicht man dennoch bei typischerweise einseitigem Schichtwachstum die oben erwähnten Suchlaufzeiten auf Kosten der Manipulationseffizienz.
 
 \begin{figure}[bthp]
   \includegraphics[width=\textwidth]{kdtree-tree}
@@ -339,42 +334,36 @@ In Verbindung mit einem Heap lässt sich auch eine feste Anzahl von Atomen in \B
   \label{fig:kdtree}
 \end{figure}
 
-\begin{algorithm}
-  \begin{algorithmic}
-    \Input $points$ - Liste von Punkten
-    \Input $k$ - Dimensionalität des Simulationsraumes
-    \Result Root-Element eines vollständigen KD-Baumes aus diesen Punkten
-    \State
-    \Function{construct-kdtree}{$points, dim\gets0$}
-    \State $n\gets$\Call{length}{points}
-    \If{$n=0$}
-    \State \Return null
-    \Else
-    \State \Call{sort}{$points, dim$} \Comment{Sortiert $points$ nach pos[$dim$]}
-    \State $root\gets{}points\left[\lfloor\frac{n}{2}\rfloor\right]$
-    \State $dim\gets(dim+1)\mod{k}$
-    \State $root.left \gets$ \Call{construct-kdtree}{$points\left[0:\lfloor\frac{n}{2}\rfloor-1\right], dim$}
-    \State $root.right \gets$ \Call{construct-kdtree}{$points\left[\lfloor\frac{n}{2}\rfloor+1:n-1\right], dim$}
-    \State \Return $root$
-    \EndIf
-    \EndFunction
-  \end{algorithmic}
-  \caption[Konstruktion eines k-d-Baumes]{Rekursive Konstruktion eines k-d-Baumes (naive Implementierung)}
-  \label{algo:kdtree-construction}
-\end{algorithm}
+%% \begin{algorithm}
+%%   \begin{algorithmic}
+%%     \Input $points$ - Liste von Punkten
+%%     \Input $k$ - Dimensionalität des Simulationsraumes
+%%     \Result Root-Element eines vollständigen KD-Baumes aus diesen Punkten
+%%     \State
+%%     \Function{construct-kdtree}{$points, dim\gets0$}
+%%     \State $n\gets$\Call{length}{points}
+%%     \If{$n=0$}
+%%     \State \Return null
+%%     \Else
+%%     \State \Call{sort}{$points, dim$} \Comment{Sortiert $points$ nach pos[$dim$]}
+%%     \State $root\gets{}points\left[\lfloor\frac{n}{2}\rfloor\right]$
+%%     \State $dim\gets(dim+1)\mod{k}$
+%%     \State $root.left \gets$ \Call{construct-kdtree}{$points\left[0:\lfloor\frac{n}{2}\rfloor-1\right], dim$}
+%%     \State $root.right \gets$ \Call{construct-kdtree}{$points\left[\lfloor\frac{n}{2}\rfloor+1:n-1\right], dim$}
+%%     \State \Return $root$
+%%     \EndIf
+%%     \EndFunction
+%%   \end{algorithmic}
+%%   \caption[Konstruktion eines k-d-Baumes]{Rekursive Konstruktion eines k-d-Baumes (naive Implementierung)}
+%%   \label{algo:kdtree-construction}
+%% \end{algorithm}
 
 Probleme von k-d-Bäumen zeigen sich bei der Suche nach einer Oberfläche einerseits und bei periodischen Räumen andererseits.
+Die Oberfläche entlang einer Hauptachse lässt sich per Range Search mit anschließender Minimalsuche entlang der Suchachse effizient ermitteln, möchte man allerdings das Auftreffen eines Precursors mit beliebiger Inklination ermitteln, kann man auf keine optimale Methode zurückgreifen, sondern muss die Range Search auf einen größeren orthogonalen Suchbereich erweitern und darin eine Auswahl treffen.
+Zudem führen lokale Aktualisierungen im schlimmsten Fall zur Neubalancierung des gesamten Baumes, wodurch die Betrachtung paralleler verzögerter Aktualisierungen erschwert wird.
+Periodische Simulationsräume führen außerdem in der Nähe der Systemgrenze zu identischen Operationen auf periodischen Bildern des Baumes, die bei eventuellen Aktualisierungen ebenso weitreichende Restrukturierungen zur Folge haben.
 
-Die Oberfläche entlang einer Hauptachse lässt sich per Range Search mit anschließender Sortierung der Ergebnisse in \BigO{k\log{n^{1-\frac{1}{k}}}}\todo{REFERENZ!}{} ermitteln.
-Möchte man jedoch das Auftreffen eines Precursors mit beliebiger Inklination ermitteln, kann man auf keine optimale Methode zurückgreifen.
-
-Periodische Räume auf der anderen Seite brechen die Sucheigenschaften des k-d-Baumes, jedoch bloß am Rand der Struktur.
-Nutzt man einen kleinen Suchbereich mit Radius $r$, der den Simulationsraum vollständig überlappt, so kann man die Periodizität vernachlässigen.
-Andernfalls muss man entsprechend viele Suche in periodischen Bildern durchführen.
-Die Modifikationsoperationen selbst bleiben unverändert.
-
-Der größte Nachteil eines k-d-Baumes bleibt jedoch die Eigenschaft, beim Hinzufügen von Atomen beispielsweise entlang der z-Richtung stetig unbalancierter zu werden, wodurch Up\-date-Opera\-tionen auf dem gesamten Baum notwendig wären.
-Diese sind mit der geringen Konstruktionszeit zwar vertretbar, allerdings unnötig in Hinblick auf andere Methoden, wie Octrees und Delaunay-Triangulationen.
+Aus diesen Gründen lassen sich k-d-Bäume nicht zufriedenstellend im Parsivald-Modell nutzen.
 
 \subsection{Delaunay-Triangulation}\label{datadelaunay}
 
@@ -389,34 +378,32 @@ Diese sind mit der geringen Konstruktionszeit zwar vertretbar, allerdings unnöt
   \label{fig:delaunay}
 \end{figure}
 
-Eine alternative Partitionsmethode findet sich in Triangulationen.
-Diese zerlegen den Raum nicht in Quader, sondern in k-dimensionale Simplexe, also geometrische Objekte voller Dimensionalität bei minimalen Punkten im jeweiligen Raum.
-Anschaulich ergeben sich damit Dreiecke in zwei und Tetraeder in drei Dimensionen.
-Diese Simplexe unterliegen besonderen Eigenschaften hinsichtlich der Punktmenge, jedoch möchte ich im Weiteren auf Delaunay-Triangulationen im Speziellen eingehen.
+Eine alternative Partitionsmethode findet sich in Triangulationen, die die konvexe Hülle der Punktwolke raumfüllend in nichtüberlappende k-dimensionale Simplexe entsprechend einer weiterhin Delaunay-Kriterium genannten Beziehung zerlegen:
+Im Umkreis eines Simplexes befinden sich keine weiteren Punkte aus der Punktwolke.
+Damit ergibt sich eine Vielzahl an Eigenschaften, die für verschiedene Problemstellungen zu effizienten Lösungen führen.
+So beinhaltet eine Delaunay-Triangulation als Subgraphen den Nächstnachbargraphen, die Alpha-Form und die konvexe Hülle, ist dual zum Voronoi-Diagramm und es lässt sich leicht auf Konnektivität prüfen.
 
-Delaunay-Triangulationen, so benannt nach ihrem Entdecker Boris Delaunay\todo{ref} besitzen besondere Eigenschaften, die sich als hilfreich in vielen algorithmischen Problemen zeigt.
-So beinhaltet eine Delaunay-Triangulation eine Menge an Untergraphen, wie dem Nächstnachbargraph oder der Alphaform, die bei vielen Problemlösungen heran gezogen werden und auch hier von Interesse sein sollen.
-Weiterhin ist sie dual zum Voronoi-Diagramm, was im Rahmen meiner Arbeit nicht weiter von Vorteil ist.
-Die Haupteigenschaften einer Delaunay-Triangulation sind dabei Folgende:
 
 \begin{itemize}
-\item Jeder Punkt ist ein Eckpunkt mindestens eines Simplexes
+\item Jeder Punkt ist Eckpunkt eines oder mehrerer Simplexe
 \item Simplexe überschneiden sich nicht
-\item Im Umkreis eines Simplexes befinden sich keine fremden Punkte
+\item Im Umkreis eines Simplexes befinden sich keine weiteren Punkte
 \item Die Vereinigung aller Simplexe ergibt die konvexe Hülle
-\item Ein Punkt teilt sich mit seinem nächsten Nachbarn mindestens einen Simplex \\
-  $\Leftrightarrow$ Nächstnachbargraph $\subset$ Delaunay-Triangulation
+\item Alpha-Form $\subset$ Delaunay-Triangulation
+\item %Ein Punkt teilt sich mit seinem nächsten Nachbarn mindestens einen Simplex \\
+  %$\Leftrightarrow$
+  Nächstnachbargraph $\subset$ Delaunay-Triangulation
   %% \item Die Delaunay-Triangulation und das Voronoi-Diagramm über die selben Punkte sind dual\\
   %% $\Rightarrow$ Allgemeine Nachbarschaftssuche ist \BigO{k\log k}
 \end{itemize}
 
-Interessant werden sie aber nicht nur zur Speicherung von Atomen im Simulationsraum, sondern vor allem bei der Suche der Oberfläche und des Volumens sowie zur Konnektivitätsprüfung eines Systemes und somit im Rahmen der Auswertung von Punktwolken.
-Dafür nutzt man eine Alpha-Form, die durch eine Untermenge der triangulierten Punktmenge definiert ist, die deren scheinbare Oberfläche bilden.
-Es werden ebenso Oberflächenrauheiten und Dichten bis hin zu Nanoporen und Kristalldefekten abgebildet.
-Mit wenig Mehraufwand ließen sich somit bei laufenden Simulationen diese Werte in-situ ermitteln und direkt einer Auswertung zuführen.
-Andererseits ist die Oberfläche des Systemes zur Laufzeit bekannt und kann beispielsweise für Oberflächenreaktionen direkt genutzt werden.
+Delaunay-Triangulationen werden somit für Oberflächenbetrachtungen interessant, da sie über die Alpha-Form, welche durch Auswahl der Punkte aller Simplexe mit Umkreisradien oberhalb einer stoffabhängigen Grenze ermittelt wird und die wahrgenommene Oberfläche eines Systems darstellt.
+Somit lassen sich Oberflächenrauheiten, Nanoporen und bei extremen Grenzwerten auch Kristalldefekte bestimmen.
+Mit wenig Mehraufwand gegenüber reinen Delaunay-Triangulationen ließen sich somit einerseits Auswertungen bei laufenden Simulationen durchführen und Prozesse gegebenenfalls direkt optimieren, andererseits ist die gesamte Oberfläche zur Simulation von Oberflächenereignissen bekannt und direkt parametrisiert.
 
 \subsubsection{Algorithmen zur Konstruktion einer Delaunay-Triangulation}
+
+CONTINUEHERE
 
 Eine Delaunay-Triangulation lässt sich aus einer Punktmenge in \BigO{n\log n} konstruieren\todo{Algorithmus?}, wofür eine Vielzahl an Algorithmen zur Verfügung stehen. \todo{Referenz}
 Diesen liegt das Delaunay-Kriterium zu Grunde:

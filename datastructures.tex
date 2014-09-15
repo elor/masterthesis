@@ -223,7 +223,7 @@ Da es sich bei k-d-Bäumen um einen Lehrbuchansatz bei Nachbarschafts- und Suchp
 \subsubsection{Triangulationen}
 
 Triangulationen kann man als eine spezielle Form von Nachbarschaftslisten betrachten, bei denen ausgeprägte Nachbarschaftsbedingungen besonderen Kriterien unterliegen.
-Sie zerlegen die konvexe Hülle der Punktwolke in eine Menge von raumfüllenden, nicht-überschneidenden k-Simplexen\footnote{Ein k-Simplex ist ein Objekt in k Dimensionen mit k+1 Eckpunkten, die untereinander mit geraden Kanten verbunden sind. Somit ist ein 1-Simplex eine Linie, ein 2-Simplex ein Dreieck, ein 3-Simplex ein Tetraeder, usw.}, deren Ecken auf Elementen der Punktwolke liegen.
+Sie zerlegen die konvexe Hülle der Punktwolke in eine Menge von raumfüllenden, nicht-überschneidenden $k$-Simplexen\footnote{Ein $k$-Simplex ist ein Objekt in $k$ Dimensionen mit $k+1$ Eckpunkten, die untereinander mit geraden Kanten verbunden sind. Somit ist ein 1-Simplex eine Linie, ein 2-Simplex ein Dreieck, ein 3-Simplex ein Tetraeder, usw.}, deren Ecken auf Elementen der Punktwolke liegen.
 Damit teilen sich alle Atome mindestens einen Simplex mit ihrem nächsten Nachbarn, jedoch nicht notwendigerweise mit allen Nachbarn innerhalb eines bestimmten Radius'.
 Für Triangulationen gibt es verschiedene Ausprügungen der Kriterien, wobei in dieser Arbeit die populäre Delaunay-Triangulation aufgrund ihrer Dualität zu Voronoi-Diagrammen und der direkten Verbindung zur Alpha-Form in Abschnitt \ref{datadelaunay} betrachtet wird.
 
@@ -403,52 +403,37 @@ Mit wenig Mehraufwand gegenüber reinen Delaunay-Triangulationen ließen sich so
 
 \subsubsection{Algorithmen zur Konstruktion einer Delaunay-Triangulation}
 
-CONTINUEHERE
-
-Eine Delaunay-Triangulation lässt sich aus einer Punktmenge in \BigO{n\log n} konstruieren\todo{Algorithmus?}, wofür eine Vielzahl an Algorithmen zur Verfügung stehen. \todo{Referenz}
-Diesen liegt das Delaunay-Kriterium zu Grunde:
-Der Umkreis eines Simplices enthält nur seine eigenen Eckpunkte.
-Ansonsten unterscheiden sie sich stark in Funktionsweise, Optimaler Laufzeit  und eventueller Parallelisierbarkeit.
+Zur Delaunay-Triangulierung aus einer Punktmenge stehen verschiedene Algorithmen zur Verfügung, die auf unterschiedlichen Methoden aufbauen.
 
 \begin{itemize}
 \item Flip-basierte Algorithmen (Local Improvement)\\
-  Man startet mit einer beliebigen Triangulation, prüft den Umkreis aller Simplexe und führt gegebenenfalls den Flip-Algorithmus aus, der in Abbildung \ref{fig:delaunay-flip} vorgestellt wird.
+  Man startet mit einer beliebigen Triangulation, prüft den Umkreis aller Simplexe auf enthaltene Punkte und korrigiert gegebenenfalls per Flip-Algorithmus, der in Abbildung \ref{fig:delaunay-flip} dargestellt ist.
   Diese Algorithmen konvergieren typischerweise in \BigO{n^2} und sind damit vergleichsweise langsam.
 
 \item Scan-Algorithmus (Incremental Construction)\\
-  Bei dieser Methode baut man schrittweise Simplexe auf, die das Delaunay-Kriterium erfüllen, ohne bestehende Simplexe löschen zu müssen.
-  Man baut die Triangulation gewissermaßen \textit{von innen} auf.
+  Man konstruiert schrittweise Simplexe, die das Delaunay-Kriterium erfüllen und keine nachträgliche Änderung benötigen.
   Durch viele Vergleiche und Sortierungen varieren typische asymptotische Laufzeiten zwischen \BigO{n\log{n}} und \BigO{n^2}.
 
 \item Einfügungs-Algorithmen (Incremental Insertion)\\
-  Sie sind das Gegenstück zu Scan-Algorithmen, insofern man hier die Triangulation \textit{von außen} aufbaut.
-  Man erstellt einen beliebig großen Simplex, der die gesamte Punktmenge beinhaltet, und fügt nun schrittweise einzelne Punkte in die Triangulation ein.
-  Der den neuen Punkt einschließende wird in mehrere Simplexe unterteilt, die anschließend bei auf das Delaunay-Kriterium überprüft und bei Bedarf geflippt werden.
-  Mit ihnen erreicht man geringe Laufzeiten von \BigO{n\log{n} + n^{\lceil d/2 \rceil}}.
+  Man erstellt einen beliebig großen Simplex, der die gesamte Punktmenge beinhaltet, und fügt schrittweise einzelne Punkte in die Triangulation ein.
+  Der den eingefügten Punkt umfassende Simplex wird an ihm in mehrere Unter-Simplexe geteilt, auf den und dessen unmittelbare Nachbarn ein Flip-basierter Algorithmus ausgeführt wird.
+  Laufzeiten sind typischerweise gering mit \BigO{n\log{n} + n^{\lceil d/2 \rceil}}.
 
 \item Divide-and-Conquer-Algorithmen\\
-  Diese rekursiven Algorithmen ermöglichen durch effiziente Aufteilung des Problemes in zwei oder mehr Unterprobleme geringe Laufzeiten für viele Probleme, jedoch müssen dafür mehrere Probleme gelöst werden.
-  Einerseits muss das Problem teilbar sein, was bei Punktmengen ohne weiteres möglich ist.
-  Andererseits muss man die Lösungen der Teilprobleme zu einer Lösung des Gesamtproblemes zusammen gefügt werden.
-  Bei Delaunay-Triangulationen gibt es verschiedene erfolgreiche Ansätze in zwei Dimensionen\todo{Referenzen}, die zu Laufzeiten nahe der für Divide and Conquer üblichen \BigO{n\log{n}} führen, jedoch stellen höhere Dimensionen diese Algorithmen vor Probleme.
-
-  Cignoni et al.\cite{cignoni_1998} haben eine DeWall genannte\footnote{DeWall steht hier für Delaunay Wall Algorithm, so benannt nach den Wänden, an denen getrennt und wieder verknüpft wird} Methode gefunden, die eine zwar worst-case-Laufzeit von \BigO{n^{\lceil d/2 \rceil + 1}} ergibt, die sich jedoch nur in pathologischen Fällen zeigt.
-  Nimmt man annähernde Gleichverteilungen an, die im vorliegenden Anwendungsfall gegeben sind, konvergiert dieser Algorithmus in drei Dimensionen subquadratisch und ist somit vergleichbar effizient.
-  Es zeigt sich allerdings, dass er trotz der vermeintlich langen Laufzeit vor allem bei periodischen und periodisch erweiterten Systemen effizient arbeitet, da hier ohnehin Grenzflächen existieren, an denen Teiltriangulationen auf einander abgestimmt werden müssen.
-  Andererseits ist das Parsivald-Modell ohnehin für parallele Platformen ausgelegt, so dass hier weitere Leistungssteigerungen zu erwarten sind.
-  Ebenso eignet sich diese Methode zur Einbettung neu berechneter Würfel in die Struktur, wie es beim Parsivald-Modell nach jeder simulierten Reaktion vorkommt.
+  Man teilt die Punktmenge in Untermengen, die rekursiv trianguliert und anschließend an ihren Grenzen miteinander zur Zieltriangulation vereinigt werden.
+  Hauptproblem ist die Vereinigung der Teiltriangulierungen, die in zwei Dimensionen aufgrund von Ordnungsrelationen entlang der Grenze beinahe trivial, in höheren Dimensionen jedoch mit Problemen verbunden ist.
+  Eine mögliche Lösung ist der DeWall-Algorithmus\cite{cignoni_1998}, dessen Verknüpfungsoperation entlang der Grenzen teilperiodischer Räume interessant wird.
+  In zwei Dimensionen erreicht man \BigO{n\log{n}}, höhere Dimensionen können per DeWall-Algorithmus mit einer Laufzeit von \BigO{n^{\lceil d/2 \rceil + 1}} behandelt werden, die sich jedoch nur in pathologischen Fällen zeigt.
+  Nimmt man annähernde Gleichverteilungen an, konvergiert dieser Algorithmus in drei Dimensionen subquadratisch, man sollte jedoch betrachten, dass er sich gegenüber anderer Konstruktionsalgorithmen durch einfache Parallelisierung sowie der Möglichkeit der Aktualisierung großer Raumbereiche auszeichnet.
 
 \item Höherdimensionale Einbettung\\
-  Hier wird die Punktmenge in eine höhere Dimension transformiert, in der deren konvexe Hülle berechnet wird, die dann in den ursprünglichen Raum herunterprojiziert wird und darin eine zulässige Delaunay-Triangulation ergibt.
-  In der Praxis ist dieser Algorithmus nicht weiter von Bedeutung, da Einfügungs-Algorithmen für allgemeine Fälle eine geringere Laufzeit erreichen.
+  Hier wird die Punktmenge in eine höhere Dimension transformiert, in der deren konvexe Hülle berechnet wird, die dann in den ursprünglichen Raum herunterprojiziert wird und darin eine gültige Delaunay-Triangulation ergibt.
+  Dieser Algorithmus ist von rein akademischem Interesse, da Einfügungs-Algorithmen für allgemeine Fälle geringere Laufzeiten ermöglichen.
+  Interessant wird diese Methode ebenfalls bei Hinzufügung und Aktualisierung von Punkten.
 
 \end{itemize}
 
 \subsubsection{Flip-Algorithmus}
-
-Viele dieser Algorithmen basieren auf dem \textbf{Flip-Verfahren}, mit dem invalide Simplexe in valide Simplexe überführt werden können.
-Abbildung \ref{fig:delaunay-flip} stellt dar, wie man dabei den Simplex auf das Umkreis-Kriterium prüft und gegebenenfalls eine Grenzfläche zwischen zwei Simplexen auflöst und aus deren Punkten neue Simplexe erstellt, die das Delaunay-Kriterium erfüllen.
-Anschließend führt man den selben Test mit deren Nachbarn durch.
 
 \begin{figure}[bhpt]
   \captionsetup[subfigure]{singlelinecheck=false}{
@@ -479,71 +464,99 @@ Anschließend führt man den selben Test mit deren Nachbarn durch.
     \end{subfigure}
   }
   \caption{
-    Flip Algorithmus zur Aktualisierung einer Delaunay-Triangulation.
-    Anschließend müssen Nachbar-Simplexe den selben Test durchlaufen.
-    Die Flipping-Kaskade führt dabei höchstens \BigO{k\log{k}} Prüfungen aus, wenn man eine bestehende Delaunay-Triangulation aktualisieren möchte.
-    $k$ steht hier für die Zahl der Simplexe eines Punktes.
+    Flip-Algorithmus: Invalide Simplexe werden aufgelöst und entlang einer neuen Grenze in neue Simplexe überführt.
+    Diese Operation läuft in \BigO{k_d\log{k_d}} Prüfungen bei Aktualisierung der Punkte eines Simplexes, mit $k_d$ als oberer Schranke der Zahl der Simplexe eines Punktes.
   }
   \label{fig:delaunay-flip}
 \end{figure}
 
-\subsubsection{Nachbarschaftssuche}
-Für die Nachbarschaftssuche eines Referenzpunktes werden die raumfüllenden Eigenschaften der Triangulation relevant.
-Der notwendigerweise konvexe, sonst aber beliebige Suchbereich um den Referenzpunkt wird von Simplexen überdeckt, die in direkter oder indirekter Nachbarschaft des Punktes liegen.
-Somit teilen sich alle Punkte innerhalb des Suchbereiches eine Kante eines Simplexes mit einem anderen Punkt im Suchbereich, sofern der Suchbereich hinreichend groß ist.
-Ausgehend vom Referenzpunkt sucht man entlang aller Kanten nach Punkten, die innerhalb des Suchbereiches liegen, bis alle potentiellen Punkte überprüft wurden.
-Diese Vorgehensweise ist in Algorithmus \ref{algo:delaunay-neigbors} ausführlich beschrieben.
+Basis vieler Algorithmen auf Delaunay-Triangulationen basieren auf dem \textbf{Flip-Verfahren} (Abbildung \ref{fig:delaunay-flip}), mit dem unzulässige in zulässige Simplexe überführt werden.
+Dabei werden Grenzen zu dem benachbarten Simplex, dessen Punkt innerhalb des Umkreises liegt, aufgelöst und aus den dann verfügbaren Punkten zwei neue Simplexe gebildet.
+Im Anschluss ist es häufig notwendig, die neu entstandenen Simplexe sowie die ursprünglichen Nachbarn des zweiten Simplexes auf die gleiche Art zu prüfen.
 
-\begin{algorithm}
-  \centering
-  \begin{algorithmic}
-    \State Result = \{\}
-    \State Queue = \{ P$_0$ : P$_0 \in$ Volume \}
-    \While{Queue $\neq \emptyset$}
-    \State Sei P $\in$ Queue
-    \State Queue = Queue $\setminus$ \{ P \}
-    \If{P $\in$ Volume}
-    \State Result = Result $\cap$ \{ P \}
-    \State Queue $\cap$ (Neighbors(P) $\setminus$ Result)
-    \EndIf
-    \EndWhile
-  \end{algorithmic}
-  \caption[Nachbarschaftssuche auf einer Delaunay-Triangulation]{Nachbarschaftssuche auf einer Delaunay-Triangulation.
-    Ist der Suchraum konvex und hinreichend groß, lässt sich damit effizient nach Nachbarn eines bestimmten Punktes suchen.
-  }
-  \label{algo:delaunay-neighbors}
-\end{algorithm}
+%% Nachbarschaftssuche nicht notwendig
+
+%% \subsubsection{Nachbarschaftssuche}
+%% Für die Nachbarschaftssuche eines Referenzpunktes werden die raumfüllenden Eigenschaften der Triangulation relevant.
+%% Der notwendigerweise konvexe, sonst aber beliebige Suchbereich um den Referenzpunkt wird von Simplexen überdeckt, die in direkter oder indirekter Nachbarschaft des Punktes liegen.
+%% Somit teilen sich alle Punkte innerhalb des Suchbereiches eine Kante eines Simplexes mit einem anderen Punkt im Suchbereich, sofern der Suchbereich hinreichend groß ist.
+%% Ausgehend vom Referenzpunkt sucht man entlang aller Kanten nach Punkten, die innerhalb des Suchbereiches liegen, bis alle potentiellen Punkte überprüft wurden.
+%% Diese Vorgehensweise ist in Algorithmus \ref{algo:delaunay-neigbors} ausführlich beschrieben.
+
+%% \begin{algorithm}
+%%   \centering
+%%   \begin{algorithmic}
+%%     \State Result = \{\}
+%%     \State Queue = \{ P$_0$ : P$_0 \in$ Volume \}
+%%     \While{Queue $\neq \emptyset$}
+%%     \State Sei P $\in$ Queue
+%%     \State Queue = Queue $\setminus$ \{ P \}
+%%     \If{P $\in$ Volume}
+%%     \State Result = Result $\cap$ \{ P \}
+%%     \State Queue $\cap$ (Neighbors(P) $\setminus$ Result)
+%%     \EndIf
+%%     \EndWhile
+%%   \end{algorithmic}
+%%   \caption[Nachbarschaftssuche auf einer Delaunay-Triangulation]{Nachbarschaftssuche auf einer Delaunay-Triangulation.
+%%     Ist der Suchraum konvex und hinreichend groß, lässt sich damit effizient nach Nachbarn eines bestimmten Punktes suchen.
+%%   }
+%%   \label{algo:delaunay-neighbors}
+%% \end{algorithm}
 
 \subsubsection{Alpha-Form}
 
-Betrachtet man ausschließlich die Atome aller Simplexe, deren Umkreisradius oberhalb eines Grenzwertes $\alpha^{-1}$ liegt, so erhält man eine so genannte Alpha-Form (Alpha-Shape), wie in Abbildung \ref{fig:delaunay-alpha} dargestellt.
-Diese umfasst neben den Punkten der konvexen Hülle ebenfalls je nach $\alpha$-Wert auch Poren und Dellen auf der Oberfläche sowie im Bulk, wobei Konnektivitätsinformationen aus der Delaunay-Triangulation gewonnen werden können.
-Der algorithmische Mehraufwand zur Erstellung und Verwaltung dieser Informationen ist gegenüber der eigentlichen Delaunay-Triangulation vernachlässigbar\todo{Referenz}.
-Aus diesem Grund bietet sich an, Oberflächensimulationen mit dem Parsivald-Modell mit Hilfe von Delaunay-Triangulationen zu verwalten, da die Oberflächeninformationen direkt in einen KMC-Algorithmus eingearbeitet werden können und somit auf separate Oberflächensuchen und -parametrisierungen verzichtet werden kann.
+Die Alpha-Form (Abbildung \ref{fig:delaunay-alpha}) beschreibt anschaulich, aus welchen Punkten, Linien und Flächen die Oberfläche einer Punktmenge besteht.
+Im Gegensatz zur konvexen Hülle kann sie auch Einschlüsse, Poren und Oberflächenrauheiten je nach Wahl des $\alpha$-Wertes darstellen.
+Allgemeine Hüllen von Triangulationen werden dabei als Vereinigung der Menge genau der Flächen gewonnen, die nur einem Simplex zugeordnet sind, so dass man die konvexe Hülle beispielsweise als Hülle einer Delaunay-Triangulation erhält.
+%% Abhängig vom Anwendungsfall lassen sie sich als Menge von Punkten, Verbindungslinien oder Flächen ausdrücken.
+
+Für die Konstruktion von Alpha-Formen aus Delaunay-Triangulationen gibt es dabei zwei äquivalente Ansätze:
+Einerseits kann man alle Simplexe mit einem Umkreisradius $r_d > \alpha^{-1}$ aus der Delaunay-Triangulation entfernen und die Hülle der so entstandenen Triangulation bilden.
+Andererseits kann man alle Simplexe mit einem Umkreisradius $r_d > \alpha^{-1}$ aus der Delaunay-Triangulation auswählen und deren Hülle bilden.
+Die Nutzung des $\alpha$ als inversen Parameter ergibt sich hierbei aus weitergehenden Überlegungen, die konvexe Hülle als $\alpha=0$ und Tests mit invertierten Kreisflächen als $\alpha<0$ darzustellen.
+
+Beide Methoden erzeugen dabei leicht unterschiedliche Ergebnisse:
+Ansatz 1 garantiert, dass die so entstandenen Oberflächen aus Simplexen aufgebaut sind, also keine einzelnen Punkte oder Dreiecke beinhalten und somit eines oder mehrere Volumen beschreiben.
+Ansatz 2 erzeugt in erster Linie die gleiche Oberfläche, erfasst allerdings zusätzlich innerhalb der Auswahl auch einzelne Atome, Verbindungslinien oder Flächen, die keinem Volumen zugeordnet sind und somit im atomistischen Kontext einzelne Atome oder kleine Moleküle darstellen.
+Um beim zweiten Ansatz auch Elemente der konvexen Hülle erfassen zu können, wird die Triangulation häufig innerhalb und inklusive der Eckpunkte eines unendlichen virtuellen Simplexes vorgenommen, wie es auch bei einigen Konstruktionsmethoden üblich ist.
+Per Konnektivitätsprüfung der Oberflächendreiecke lässt sich zwischen zusammenhängenden Oberflächen, Einschlüssen und eigenständigen Punkten unterscheiden.
+
+In der Anwendung werden Alpha-Oberflächen für die Bestimmung von Rauheiten von Oberflächen oder Volumen poröser Materialien interessant, da sie sich als Punktmengen- beziehungsweise Polygonoperationen gestalten.
+Für Simulationen von Oberflächenabscheidungen ließen sich auf diese Weise auch Bedeckungen mit Precursorliganden ermitteln.
 
 \begin{figure}[bhpt]
   \centering
   \captionsetup[subfigure]{singlelinecheck=false}{
-    \def\subwidth{0.3\textwidth}
+    \def\subwidth{0.4\textwidth}
     \def\svgwidth{\textwidth}
     \begin{subfigure}[t]{\subwidth}
       \includegraphics[width=\textwidth]{delaunay-alpha-a}
-      \subcaption{Delaunay Triangulation}
+      \subcaption{Delaunay Triangulation einer beliebigen Punktmenge}
       \label{fig:delaunay-alpha-a}
     \end{subfigure}
     \hfill
     \begin{subfigure}[t]{\subwidth}
       \includegraphics[width=\textwidth]{delaunay-alpha-b}
-      \subcaption{Konvexe Hülle: Kanten mit nur einem Simplex}
+      \subcaption{Konvexe Hülle: Hülle der Triangulation}
       \label{fig:delaunay-alpha-b}
+    \end{subfigure}
+  }
+  \vspace{2em}
+  \captionsetup[subfigure]{singlelinecheck=false}{
+    \def\subwidth{0.4\textwidth}
+    \def\svgwidth{\textwidth}
+    \begin{subfigure}[t]{\subwidth}
+      \includegraphics[width=\textwidth]{delaunay-alpha-c}
+      \subcaption{Alpha-Form: Hülle nach Entfernung von Simplexen mit $r_d > \alpha$}
+      \label{fig:delaunay-alpha-c}
     \end{subfigure}
     \hfill
     \begin{subfigure}[t]{\subwidth}
-      \includegraphics[width=\textwidth]{delaunay-alpha-c}
-      \subcaption{Alpha-Form: Hülle nach Entfernung von Simplexen mit $\text{Umkreis} > \alpha$}
+      \includegraphics[width=\textwidth]{delaunay-alpha-d}
+      \subcaption{Alpha-Form: Hülle nach Entfernung von Simplexen mit $r_d < \alpha$ (nur innen)}
       \label{fig:delaunay-alpha-c}
     \end{subfigure}
   }
-  \caption{Konstruktion einer Alpha-Form}
+  \caption[Methoden zur Bestimmung der Oberfläche per Delaunay-Triangulation]{Verschiedene Methoden zur Bestimmung der Oberfläche per Delaunay-Triangulation. Man beachte, dass die in (d) genutzte Methode den Ausreißer-Punkt oben rechts mit trianguliert, jedoch nicht zur Oberfläche zählt, da für keinen seiner Simplexe $r_d < \alpha$ gilt}
   \label{fig:delaunay-alpha}
 \end{figure}

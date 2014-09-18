@@ -7,10 +7,35 @@ Ihnen ist allgemein, dass einzelne Atome oder Moleküle auf der Oberfläche aufk
 Tabellen \ref{tab:deposition-comparison} und \ref{tab:deposition-materials} stellen jeweils Charakteristiken und mögliche Materialien für die drei Prozesse dar.
 
 \begin{figure}
-  \centering
-  \def\svgwidth{\textwidth}
-  \input{img/reactors.pdf_tex}
-  \includegraphics[]{reactors}
+  \captionsetup[subfigure]{format=plain}
+  \parbox[c]{.3\linewidth}{
+    \includegraphics[width=\linewidth]{reactors-a}
+  }\hfill
+  \parbox[c]{.65\textwidth}{
+    \subcaption{Sputter-Kammer (PVD): Ein Elektronenstrahl (links) schlägt Atome aus dem Target (oben), die sich auf dem Substrat (unten) als dünne Schicht absetzen}
+    \label{fig:datastructures-a}
+  }
+
+  \vspace{1em}
+
+  \parbox[c]{.3\linewidth}{
+    \includegraphics[width=\linewidth]{reactors-b}
+  }\hfill
+  \parbox[c]{.65\textwidth}{
+    \subcaption{Injektions-Kammer (CVD, ALD): Precursorgase strömen von oben über das Substrat, wo sie durch chemische Reaktionen dünne Schichten bilden. Nebenprodukte der Oberflächenreaktionen werden nach unten aus dem Reaktor gespült}
+    \label{fig:datastructures-b}
+  }
+
+  \vspace{1em}
+
+  \parbox[c]{.3\linewidth}{
+    \includegraphics[width=\linewidth]{reactors-c}
+  }\hfill
+  \parbox[c]{.65\textwidth}{
+    \subcaption{Batch-Reaktor (CVD, ALD): Gase strömen zwischen Stapeln von Substraten, auf deren Oberfläche durch chemische Reaktionen dünne Schichten abgeschieden werden. Nebenprodukte werden mit dem Gasstrom aus dem Reaktor gespült}
+    \label{fig:datastructures-c}
+  }
+
   \caption[Abscheidungskammern und -reaktoren]{Abscheidungskammern und -reaktoren}
   \label{fig:reactors}
 \end{figure}

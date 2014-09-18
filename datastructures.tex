@@ -54,76 +54,11 @@ Ohne diese Annahmen stellten einige der ausgewählten Operationen das System nur
 
 \subsection{Benutzte Operationen}
 
-\begin{table}[b]
-  \caption[datasymbols]{Symbole für Laufzeit- und Speicherabschätzungen}
-  \label{tab:datasymbols}
-  \begin{tabularx}{\textwidth}{|lX|lX|}
-    \hline
-    {Symbol} & {Bedeutung} & {Symbol} & {Bedeutung} \\
-    \hline
-    \BigO{expr} & Worst-Case-Komplexität & $n$ & Zahl der Atome \\
-    $k$ & Zahl von Nächstnachbarn & $b$ & Zahl der Bins \\
-    $k_r$ & Zahl von Nachbarn mit $d \leq r_c$ & $r_c$ & Cutoff-Radius \\
-    $r_s$ & Suchradius & $s$ & lineare Raumgröße \\
-    \hline
-  \end{tabularx}
-\end{table}
+Durch Abstraktion besteht die Interaktion mit den zugrunde liegenden Datenstrukturen in Operationen, die auf die Menge von Atomen wirken.
+Die möglichen Operationen werden in Tabelle \ref{tab:dataops} vorgestellt und umfassen einmalige Aufgaben wie die Konstruktion der Datenstruktur, schreibende Operationen wie Hinzufügen und Entfernen von Atomen sowie lesende Operationen wie die Ausgabe von Atomen innerhalb eines bestimmten Bereiches.
+Ein Vergleich der asymptotischen Laufzeiten auf verschiedenen Datenstrukturen ist in Tabelle \ref{tab:dataruntimes} dargestellt.
 
-\todo[inline]{Referenzen der optimalen Laufzeiten!}
-
-Aus Sicht der aufrufenden Simulation ist die Wahl der unterliegenden Datenstruktur nicht ersichtlich.
-Für sie besteht die Interaktion aus Operationen, die auf die Menge von Atomen ausgeführt werden.
-Das beinhaltet Konstruktions-, Manipulations- und Suchoperationen auf dieser Menge.
-Ein Vergleich der asymptotischen Laufzeiten ist in Tabelle \ref{tab:dataruntimes} dargestellt.
-
-\subsubsection{Konstruktion}
-Damit wird der einmalige Aufbau der gesamten Struktur aus einer beliebigen Menge von Atomen bezeichnet.
-Dadurch steht die eigentliche Laufzeit dieser Operation im Hintergrund.
-
-Liegt kein separater Algorithmus vor, kann die Struktur durch iterative Einfügung einzelner Atome angenähert werden, und verhält sich somit linear zur Laufzeit der Einfügungsoperation, und somit maximal quadratisch zur Zahl der Atome.
-Optimal ist hier \BigO{n} bei simplen Listen, im Gegensatz zu \BigO{n^2} bei Nachbarschaftslisten\ref{}.
-
-\subsubsection{Einfügung}
-Je nach Datenstruktur auch Push-Operation genannt, bezeichnet sie das Einfügen eines neuen Atomes in eine bestehende Struktur.
-Dies geschieht im Parsivald-Modell nach erfolgreichen Reaktionen von Gasmolekülen auf der Oberfläche, bei denen die neu aufgebrachten Atome dem Simulationsraum beigefügt werden.
-Da diese Operation vergleichsweise häufig aufgerufen wird, bieten sich Strukturen an, bei denen nur die lokale Nachbarschaft, nicht aber die gesamte Struktur aktualisiert werden muss.
-
-Optimale Laufzeit ist das Hinzufügen eines Atomes an das Ende einer Liste in konstanter Zeit (\BigO{1}), jedoch verlangen einige Strukturen den Vergleich mit allen anderen Atomen, wodurch sich \BigO{n} ergibt.
-
-\subsubsection{Modifikation}
-Auch als Up\-date-Operation bekannt, führt sie eine Aktualisierung der Positionen oder des Typen\footnote{Einige Anwendungen erfordern die separate Betrachtung verschiedener Adsorptions- oder Oxidationszustände durch separate Atomtypen} einzelner oder mehrerer Atome durch.
-
-Auch hier lässt sich konstante Zeit als Optimum angeben, wo hingegen beispielsweise Nachbarschaftslisten komplett neu aufgebaut und somit Laufzeitgrenzen von \BigO{n} angegeben werden müssen.
-
-\subsubsection{Entfernung}
-Als Gegenstück zur Push-Operation entfernt diese eines oder mehrere Atome aus dem Simulationsraum.
-Diese Operation wird angewandt, wenn durch Reaktionen einzelne Liganden von der Oberfläche entfernt werden und findet somit Anwendung bei Simulationen, die den gesamten Precursor betrachten.
-Es gelten die gleichen Laufzeitgrenzen wie bei der Einfügung von Atomen.
-
-\subsubsection{Nachbarschaftssuche}
-Ihrem Namen entsprechend sucht diese Operation nach allen Atomen in der Nachbarschaft eines vorher bekannten Atomes.
-Sie wird beim Parsivald-Modell genutzt, um die lokale Nachbarschaft eines Referenzatomes für eine MD-Simulationen zu extrahieren, und somit bei jedem ausgewählten KMC-Ereignis ausgeführt.
-
-Die Laufzeit variiert stark zwischen \BigO{1} für Nachbarschaftslisten, die die Komplexität in die anderen Operationen auslagern, und \BigO{n}, falls die Position aller Atome explizit verglichen werden muss.
-Häufig ist die Laufzeit auch proportional zur oberen Grenze der Zahl von Nachbarschaftsatomen und somit zum kubischen Suchradius.
-
-\subsubsection{Ortssuche}
-Im Unterschied zur Nachbarschaftssuche sucht man hier alle Atome im Umkreis eines beliebigen Punktes im Raum.
-Diese Operation wird zur Identifizierung eines Reaktionsortes und somit zum Aufbau eines KMC-Ereignisses genutzt.
-Damit ist sie die häufigste Operationen und sollte im Mittelpunkt von Optimierungsbemühungen stehen.
-Da beide Nachbarschaftssuchen in einander überführbar sind, ist ihre Komplexität mit wenigen Ausnahmen gleich.
-
-\subsubsection{Oberflächensuche}
-Diese Operation sucht die Oberfläche, entweder entlang einer definierten Geraden oder im Umkreis eines Punktes.
-Die Art der Eingangsgröße kann von der aufrufenden Simulation zugunsten der Laufzeit gewählt werden.
-
-Hier bietet die Delaunay-Triangilation die besondere Eigenschaft, die Oberfläche eines Systems direkt ermitteln und in der Datenstruktur speichern zu können.
-Sie ist dann für den KMC-Teil der Simulation durch eine Menge von Oberflächenatomen charakterisiert, die sich mit jeder Schreiboperation auf der Struktur automatisch aktualisiert.
-Auch die Oberflächennormale ist dabei gegeben, ohne zusätzliche komplizierte Prüfungen anstellen zu müssen, so dass man beispielsweise Auftreffwahrscheinlichkeiten für KMC-Ereignisse ohne weiteres berechnen kann.
-Dafür muss man im Gegenzug den KMC-Algorithmus auf Zusammenarbeit mit der Triangulation anpassen, anstatt einen abstrakten Algorithmus mit expliziten Oberflächensuchen nutzen zu können.
-Aus diesen Gründen nehme ich die Komplexität im Rahmen der kombinierten KMC-MD-Simulation mit \BigO{1} als konstant an, obwohl eine explizite Oberflächensuche eine superlogarithmische Laufzeit hätte.
-
-\begin{table}[hb]
+\begin{table}[H]
   \centering
   \begin{tabularx}{\textwidth}{X|*8c}
     Datenstr.  &  Konstr.          &  Einfüg.          &  Modif            &  Entf.            &  Ortss.                      &  NB-Su.               &  Oberfl.         &  RAM                          \\
@@ -148,84 +83,116 @@ Aus diesen Gründen nehme ich die Komplexität im Rahmen der kombinierten KMC-MD
   \label{tab:dataruntimes}
 \end{table}
 
+\begin{table}[H]
+  \caption[datasymbols]{Symbole für Laufzeit- und Speicherabschätzungen}
+  \label{tab:datasymbols}
+  \begin{tabularx}{\textwidth}{|lX|lX|}
+    \hline
+    {Symbol} & {Bedeutung} & {Symbol} & {Bedeutung} \\
+    \hline
+    \BigO{expr} & Worst-Case-Komplexität & $n$ & Zahl der Atome \\
+    $k$ & Zahl von Nächstnachbarn & $b$ & Zahl der Bins \\
+    $k_r$ & Zahl von Nachbarn mit $d \leq r_c$ & $r_c$ & Cutoff-Radius \\
+    $r_s$ & Suchradius & $s$ & lineare Raumgröße \\
+    \hline
+  \end{tabularx}
+\end{table}
+
+\begin{table}[H]
+  \rowcolors{0}{white}{lightgray}
+  \begin{tabularx}{\textwidth}{|lX|}
+    \hline
+    \textbf{Operation} & \textbf{Beschreibung} \\
+    \hline
+    Konstruktion & 
+    Der einmalige Aufbau aus einer Punktwolke.
+    Entspricht oftmals einer einzelnen Einfügung aller Punkte.
+    Die Laufzeit ist zweitrangig gegenüber den anderen Operationen
+    \\
+    Einfügung &
+    Ergänzung eines Punktes zu einer bestehenden Struktur.
+    Wird nach erfolgten Precursor-Oberflächen-Reaktionen durchgeführt.
+    Laufzeiten: \BigO{1} (Listen) bis \BigO{n} (Nachbarschaftslisten)
+    \\
+    Modifikation &
+    Aktualisierung der Position eines Punktes.
+    Entspricht gelegentlich einer Entfernung mit anschließender Einfügung.
+    Laufzeiten: \BigO{1} (Listen) bis \BigO{n} (Nachbarschaftslisten)
+    \\
+    Entfernung &
+    Entfernung eines Punktes aus der Struktur, entspricht also oft einer inversen Einfügung.
+    Wird zur Entfernung von Oberflächen-Liganden aufgerufen.
+    Laufzeiten normalerweise wie bei Einfügung
+    \\
+    Nachbarschaftssuche &
+    Extraktion einer Menge von Punkten in der Nähe anderer Punkte, z.B. für kleinere MD-Simulationen.
+    Geschieht für jeden Reaktionsversuch.
+    Laufzeiten: \BigO{1} (Nachbarschaftslisten) bis \BigO{n} (Listen)
+    \\
+    Bereichssuche &
+    Extraktion einer Menge von Punkten in der Nähe eines beliebigen Punktes, z.B. zur Prüfung möglicher Reaktionen.
+    Wird für jede mögliche Reaktion durchgeführt und ist damit häufigste Operation.
+    Laufzeiten: \BigO{r_s^3} (Binning) bis \BigO{n} (Listen)
+    \\
+    Oberflächensuche &
+    Die Bestimmung der globalen Oberfläche oder eines Punktes auf der Oberfläche entlang einer Geraden, je nach Prozess und verfügbaren Algorithmen.
+    Ist oft der limitierende Faktor der Simulation.
+    Delaunay-Triangulationen bilden per Alpha-Form implizit die globale Oberfläche ab, die so direkt in die KMC-Formulierung einfließen kann.
+    \\
+    \hline
+  \end{tabularx}
+  \caption[Liste der notwendigen Operationen]{
+    Übersicht über Operationen, die auf die zugrunde liegenden Datenstrukturen ausgeführt werden.
+    Oberflächen- und Bereichssuchen sind am häufigsten.
+%    Zeitkritisch sind die unteren die Bereichs- und Oberflächensuche, da sie für jedes potentielle KMC-Ereignis ausgeführt werden müssen, die anderen nur für jedes versuchte.
+  }
+  \label{tab:dataops}
+\end{table}
+
 \subsection{Kategorien von Datenstrukturen}
 
-Durch Unterschiede in der Funktionsweise verschiedener Algorithmen und Datenstrukturen ergeben sich für sie Kategorien, die generelle Eigenschaften wie die Laufzeit teilen.
+Durch Unterschiede in der Funktionsweise verschiedener Algorithmen und Datenstrukturen ergeben sich für sie Kategorien, die generelle Eigenschaften wie die Laufzeit teilen\todo{teilen??}.
 Während der Entwicklung und Implementierung des Parsivald-Modelles wurden Algorithmen aus den folgenden Kategorien in Betracht gezogen.
 
-\subsubsection{Listen}
-
-Listen von Atomen sind die einfachste Datenstruktur zur Behandlung von Punktwolken, da sie neben den Atompositionen, -typen und einer beliebigen Laufnummer keine weiteren Informationen beinhalten.
-Die einzelnen Atome werden in einer globalen Liste verwaltet, wodurch Manipulationsoperationen in optimaler konstanter Zeit möglich sind, Nachbarschaftsoperationen und Positionsvergleiche andererseits Vergleiche mit sämtlichen Atomen benötigen und somit die Worst-Case-Laufzeit von \BigO{n} annehmen.
-
-Für große Systeme sind listenbasierte Ansätze folglich ungeeignet, wie man an deren Laufzeiten in Tabelle \ref{tab:dataruntimes} erkennen kann.
-
-\subsubsection{Nachbarschaftslisten}
-
-Nachbarschaftslisten sind eine Form von Atomlisten, die zusätzlich zur Position jedes Atoms auch eine Liste von Referenzen auf alle Atome in dessen Nachbarschaft speichern.
-Diese müssen aber bei jeder Manipulation aufwendig aktualisiert werden, wodurch im Gegenzug die Nachbarschaftssuche in konstanter Zeit \BigO{1} möglich ist.
-Für MD-Simulationen mit reichweitenbegrenzten Kraftfeldern bieten sich Nachbarschaftslisten zur signifikanten Reduktion der Programmlaufzeit an.
-Dabei muss erwähnt werden, dass einige der \BigO{n}-Operationen durch geeignete Optimierungen auf Laufzeiten von \BigO{rk} reduzieren lassen, jedoch basieren diese meist auf häufigen Aktualisierungen bei geringen relativen Atombewegungen.
-Unterliegen die Positionsänderungen größeren Schritten, wie es beim Parsivald-Modell durch seine separaten atomistischen Simulationen der Fall ist, ergeben sich grenzwertig wieder \BigO{n}-Abhängigkeiten.
-
-\subsubsection{Binning}
-
-Eine implizite Möglichkeit, die lokale Nachbarschaft zu referenzieren, findet man in Binning-Methoden, die die Zuordnung von räumlichen Positionen in meist quaderförmige Raumbereiche, Bins genannt, umfassen.
-Dafür zerlegt man den Raum in kleinere, leicht addressierbare Quader, für die man Listen der enthaltenen Atomepflegt, die nur noch bei Überschreitung der Quadergrenzen aktualisiert werden müssen.
-Die Nachbarn ergeben sich dann aus einer Suche innerhalb der benachbarten Quader in Abhängigkeit des Suchradius', wobei periodische Systemgrenzen durch relative Addressierung der Bins elegant versteckt werden.
-
-Die Bins selbst lassen sich nun wiederum in Listen, mehrdimensionalen Gittern oder Baumstrukturen speichern, wobei jede Methode ihre eigenen Vor- und Nachteile hat.
-Im Rahmen der Arbeit wurden hauptsächlich Octrees genutzt, wie sie in Abschnitt \ref{dataoctree} beschrieben werden.
-
-\begin{figure}[bhpt]
-  \captionsetup[subfigure]{singlelinecheck=false}{
-    \def\subfigwidth{0.23\textwidth}
-    \def\svgwidth{\textwidth}
-    \begin{subfigure}[t]{\subfigwidth}
-      \includegraphics[width=\textwidth]{datastructures-a}
-      \subcaption{Ohne Binning}
-      \label{fig:datastructures-a}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{\subfigwidth}
-      \includegraphics[width=\textwidth]{datastructures-b}
-      \subcaption{Binning}
-      \label{fig:datastructures-a}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{\subfigwidth}
-      \includegraphics[width=\textwidth]{datastructures-c}
-      \subcaption{Octree}
-      \label{fig:datastructures-a}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{\subfigwidth}
-      \includegraphics[width=\textwidth]{datastructures-d}
-      \subcaption{k-d-Baum}
-      \label{fig:datastructures-a}
-    \end{subfigure}
+\begin{table}[H]
+  \rowcolors{0}{white}{lightgray}
+  \caption[Liste der notwendigen Operationen]{
+    Übersicht über Operationen, die auf die zugrunde liegenden Datenstrukturen ausgeführt werden.
+    Oberflächen- und Bereichssuchen sind am häufigsten.
+    %    Zeitkritisch sind die unteren die Bereichs- und Oberflächensuche, da sie für jedes potentielle KMC-Ereignis ausgeführt werden müssen, die anderen nur für jedes versuchte.
   }
-  \caption[Übersicht über räumliche Datenstrukturen]{
-    Übersicht über Raumzerlegungen einiger Datenstrukturen.
-    k-d-Bäume (d) beinhalten in jeder Zelle nur ein Atom, weshalb sich die Zellgrenzen entlang der Atompositionen formen.
-    Octrees (c) dagegen haben vordefinierte Grenzen, aber prägen nur besetzte Zellen aus, wodurch leere Raumbereiche effizient von Suchoperationen ausgeschlossen sind.
-}
-  \label{fig:datastructures}
-\end{figure}
-
-\subsubsection{Suchbäume}
-
-Eine andere Möglichkeit, Bäume für die Optimierung von Suchfunktionen zu nutzen, findet sich in k-dimensionalen Bäumen, auch k-d-Bäume genannt.
-Diese sind rekursive Datenstrukturen, die alle Atome entlang einer Hauptachse sortieren, das Median-Element als Root-Knoten herausnehmen und jeweils aus den beiden verbleibenden Atommengen einen neuen k-d-Baum entlang der zyklisch nächsten Hauptachse aufbauen.
-Der Hauptnutzen dieses Ansatzes findet sich in vereinfachten Nachbarschafts- und Ortssuchen, die jeweils in \BigO{k_r\log{n}} möglich sind, was bei den untersuchten Systemen \BigO{r_s^3\log{n}} entspricht.
-Da es sich bei k-d-Bäumen um einen Lehrbuchansatz bei Nachbarschafts- und Suchproblemen handelt, werden sie nachfolgend in Abschnitt \ref{datakdtree} eingehender beschrieben.
-
-\subsubsection{Triangulationen}
-
-Triangulationen kann man als eine spezielle Form von Nachbarschaftslisten betrachten, bei denen ausgeprägte Nachbarschaftsbedingungen besonderen Kriterien unterliegen.
-Sie zerlegen die konvexe Hülle der Punktwolke in eine Menge von raumfüllenden, nicht-überschneidenden $k$-Simplexen\footnote{Ein $k$-Simplex ist ein Objekt in $k$ Dimensionen mit $k+1$ Eckpunkten, die untereinander mit geraden Kanten verbunden sind. Somit ist ein 1-Simplex eine Linie, ein 2-Simplex ein Dreieck, ein 3-Simplex ein Tetraeder, usw.}, deren Ecken auf Elementen der Punktwolke liegen.
-Damit teilen sich alle Atome mindestens einen Simplex mit ihrem nächsten Nachbarn, jedoch nicht notwendigerweise mit allen Nachbarn innerhalb eines bestimmten Radius'.
-Für Triangulationen gibt es verschiedene Ausprügungen der Kriterien, wobei in dieser Arbeit die populäre Delaunay-Triangulation aufgrund ihrer Dualität zu Voronoi-Diagrammen und der direkten Verbindung zur Alpha-Form in Abschnitt \ref{datadelaunay} betrachtet wird.
+  \label{tab:dataops}
+  \begin{tabularx}{\textwidth}{lX}
+    \toprule
+    Datenstrukturen & Beschreibung \\
+    \midrule
+    Listen &
+    Punkte werden in globalen Listen gespeichert, ohne weitere Beziehungen zu verwalten.
+    Für Suchoperationen müssen dann alle Punkte auf das Kriterium geprüft werden, wodurch Listenansätze für große Systeme durch Laufzeiten von \BigO{n} ungeeignet sind.
+    \\
+    Nachbarschaftslisten &
+    Neben den Punkten selbst speichern Nachbarschaftslisten eine Referenz auf jeden anderen Punkt in der Nachbarschaft.
+    Diese Referenzen müssen bei jeder Schreiboperation in einer \BigO{n}-Operation aktualisiert werden, lassen sich aber dafür in konstanter Zeit \BigO{1} auslesen.
+    Sie werden häufig für MD-Simulationen genutzt, bei denen sich die Nachbarschaft nur langsam ändert.
+    \\
+    Bins &
+    Beim Binning werden Punkte in meist quaderförmige Raumbereiche, Bins genannt, eingeteilt, wodurch bei Suchoperationen nur Punke in Bins im Suchbereich geprüft werden müssen.
+    Die Koordinate des Bins ergibt sich aus der globalen Position.
+    Bins selbst können in einer übergeordneten Datenstruktur verwaltet werden, beispielsweise die in Abschnitt \ref{dataoctree} verwendeten Octrees
+    \\
+    Suchbäume &
+    Die Punkte werden als Knoten eines globalen Baumes gespeichert, der für Suchoperationen optimiert ist.
+    Änderungen an Punkten benötigen dafür mehr Aufwand und können den kompletten Baum restrukturieren.
+    Abschnitt \ref{datakdtree} stellt k-d-Bäume vor.
+    \\
+    Triangulationen &
+    Triangulationen zerlegen den Simulationsraum raumfüllend in $k$-Simplexe\footnotemark, deren Eckpunkte auf den Elementen der Punktwolke liegen.
+    Delaunay-Triangulationen (Abschnitt \ref{datadelaunay}) ermöglichen durch ihre Eigenschaften besonders schnelle Oberflächen- und Nachbarschaftssuchen.
+    \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+\footnotetext{Ein $k$-Simplex ist ein Objekt in $k$ Dimensionen mit $k+1$ Eckpunkten, die untereinander mit geraden Kanten verbunden sind. Somit ist ein 1-Simplex eine Linie, ein 2-Simplex ein Dreieck, ein 3-Simplex ein Tetraeder, usw.}
 
 \subsection{Effiziente Datenstrukturen}
 

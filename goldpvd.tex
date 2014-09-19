@@ -1,33 +1,55 @@
 \section{Gold-PVD}
 
-Als Testsystem für PVD-Prozesse bietet sich Gold als ein System an, dessen Abscheidungsprozess zwar durch Oberflächendiffusion dominiert wird, jedoch kristalline Strukturen bildet und für das ausgiebig erforschte MD-Parametrisierungen existieren.
+Als Testsystem für PVD-Prozesse bietet sich mit kristallinem Gold ein System an, dessen Abscheidungsprozess zwar durch Oberflächendiffusion dominiert wird, jedoch kristalline Strukturen bildet und für das ausgiebig erforschte MD-Parametrisierungen existieren.
+Da es sich um ein reines Metallsystem handelt, existieren ausreichend getestete EAM-Potentiale, von denen ich mich für die Nutzung der Potentiale aus der Standardbibliothek von LAMMPS\ref{LAMMPS-Ref} entschieden habe.
 
 \subsection{Voruntersuchungen}
 
-Als kristallines, unäres Abscheidungssystem wurden zur Vorbetrachtung die Bindungslängen, Dichten sowie Koordinationen der kristallinen Phase untersucht\todo{Oberfläche?}.
+Zur Validierung grundlegender Materialeigenschaften wurden Bindungslängen, Dichten und Koordinationszahlen aus einer relaxierten kristallinen Phase untersucht.
 Eine Stabilitätsanalyse des Precursormoleküles entfällt, da bei PVD-Prozessen nur einzelne Atome auf die Oberfläche aufgebracht werden.
-Die Ergebnisse dieser Untersuchungen, die erwartungsgemäß gute Übereinstimmung zwischen Simulation und Experiment zeigen, sind in Tabelle \ref{tab:goldpreresults} zusammengefasst.
+Zur Bestimmung dieser Werte wurde ein Goldkristall von 40x40x40 \AA Größe auf 1000K aufgeheizt, im kanonischen Ensemble relaxiert und anschließend abgekühlt, wobei bei den entsprechenden Temperaturen die in Tabelle \ref{tab:goldpreresults} gezeigten Werte aufgenommen.
+Die Temperaturen ergeben sich aus den Umgebungsbedingungen der Literaturwerte.
+Wie man den Ergebnissen ansehen kann, bleibt die Kristallstruktur erwartungsgemäß erhalten (die Schmelztemperatur wurde für die Relaxierung nicht überschritten) und stellt die Literaturwerte in guter Übereinstimmung dar.
 
 \begin{table}[hbtp]
   %% \rowcolors{0}{white}{lightgray} 
   \caption[Eigenschaften von Gold]{Eigenschaften von Gold als Voruntersuchung des PVD-Prozesses. Die Abweichung der Koordinationszahl wird in der Nichtperiodizität der untersuchten Struktur vermutet}
   \label{tab:goldpreresults}
-  \begin{tabularx}{\textwidth}{|XXXX|}
+  \begin{tabularx}{\textwidth}{|lXXXX|}
     \hline
-    \textbf{unters. Größe} & \textbf{Simulation} & \textbf{Experiment} & \textbf{Abweichung}\\
+    \textbf{unters. Größe} & \textbf{Temperatur} & \textbf{Simulation} & \textbf{Experiment} & \textbf{Abweichung}\\
     \hline
-    Bindungslänge & 2.879 \AA & 2.884 \AA & 0.2\% \\
-    Koordination & 11.81 & 12.00 & 1.6\% \\
-    Dichte (300K) & 18.99 g/cm$^3$ & 19.30 g/cm$^3$ & 1.6\%\\
-    Dichte (500K) & 18.89 g/cm$^3$ & 19.13 g/cm$^3$ & 1.2\%\\
+    Bindungslänge & 50 K & 2.885 \AA & 2.884 \AA & 0.05\% \\
+    Koordination & 50 K & 12.00 & 12.00 & 0\% \\
+    Dichte & 300 K & 18.99 g/cm$^3$ & 19.30 g/cm$^3$ & 1.6\%\\
+    Dichte & 500 K & 18.89 g/cm$^3$ & 19.13 g/cm$^3$ & 1.2\%\\
     \hline
   \end{tabularx}
 \end{table}
 
+\todo[inline]{Oberflächenvalidierung}
+
+\subsection{Thermische Eigenschaften}
+
+Anders als bei anderen Formulierungen bilden EAM-Potentiale auch thermische Eigenschaften von Metallen ab, die im folgenden kurz für Gold vorgestellt werden.
+Dazu wurde die gleiche Teststruktur langsam auf 2000 K, also weit über den Schmelzpunkt von 1337 K, aufgeheizt, während die Materialdichte in Abhängigkeit der Temperatur untersucht wurde.
+Die Ergebnisse (Abbildung \ref{fig:goldthermo}) zeigen gute Übereinstimmung mit experimentellen Daten in der Temperaturabhängigkeit der Dichte sowie im Schmelzpunkt.
+
+\begin{figure}[tbp]
+  \captionsetup[subfigure]{singlelinecheck=false}
+  \def\subfigwidth{0.45\textwidth}
+  \begin{subfigure}[t]{\subfigwidth}
+    \includegraphics[width=\textwidth]{goldthermo}
+    \subcaption{thermische Eigenschaften}
+  \end{subfigure}
+  \caption[Ergebnisse thermischer Simulationen von Gold]{Ergebnisse thermischer Simulationen von Gold}
+  \label{fig:goldthermo}
+\end{figure}
 
 \subsection{Prozess-Simulation}
 
-Mangels chemischer Reaktionen genügt es, die Auftrefforte der Goldatome zufällig gleichverteilt auf der xy-Ebene auszuwählen.
+Zur Simulation eines Gold-PVD-Prozesses mit Parsivald wurden die untersuchten Potentialparameter nebst Kristallsubstrat geladen, ein Abscheidungsmodus mit zufälligen Auftreffpositionen in der xy-Ebene gewählt und Relaxationszeiten und Reaktionsnachbarschaftsgrößen gewählt, die in den vorheringen Tests als hinreichend ermittelt wurden.
+Damit ergaben sich Reaktionsräume der Größe 37x37x25 \AA mit jeweils ca. 1800 Atomen, Relaxationszeiten von 1.4 ns in 1400 Simulationsschritten und Auftreffgeschwindigkeiten von 4 \AA/ps, die aus üblichen Sputterbedingungen berechnet wurden.\todo{wie berechnet?}
 
 \subsubsection{Strukturierte Substrate}
 
@@ -95,4 +117,4 @@ Andererseits steckt dahinter ein methodischer Fehler bei Nutzung von Binning-Met
 Die Oberfläche wird aufgrund von Laufzeitbegrenzungen nur entlang der z-Achse bestimmt, woraufhin das neue Atom über einem Atom auf der Oberfläche platziert wird.
 Das führt bei Stufen in der Struktur zu Atomen, die immer am oberen Ende einer Kante oder Neigung aufgetragen werden und dort mit statistischer Wahrscheinlichkeit verbleiben.
 
-Eine mögliche Lösung stellt die ausführliche Parametrisierung der Oberfläche dar, beispielsweise per Alpha-Form (Abschnitt \ref{data}, über die man die Ereigniswahrscheinlichkeit entsprechend der Einbettungsenergie, angenähert über die Oberflächenkrümmung, variierte.
+Eine mögliche Lösung stellt die ausführliche Parametrisierung der Oberfläche dar, beispielsweise per Alpha-Form (Abschnitt \ref{dataalphaform}, über die man die Ereigniswahrscheinlichkeit entsprechend der Einbettungsenergie variierte, angenähert über die Oberflächenkrümmung.

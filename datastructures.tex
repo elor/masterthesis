@@ -159,9 +159,9 @@ Während der Entwicklung und Implementierung des Parsivald-Modelles wurden Algor
   \caption[Liste der notwendigen Operationen]{
     Übersicht über Operationen, die auf die zugrunde liegenden Datenstrukturen ausgeführt werden.
     Oberflächen- und Bereichssuchen sind am häufigsten.
-    %    Zeitkritisch sind die unteren die Bereichs- und Oberflächensuche, da sie für jedes potentielle KMC-Ereignis ausgeführt werden müssen, die anderen nur für jedes versuchte.
+    \todo[inline]{change text to fit the table content}
   }
-  \label{tab:dataops}
+  \label{tab:dataops2}
   \begin{tabularx}{\textwidth}{lX}
     \toprule
     Datenstrukturen & Beschreibung \\
@@ -239,11 +239,11 @@ Um eine einzige Zelle per absolutem oder relativem Index abzurufen, sind Operati
 \begin{figure}[tbhp]
   \centering
   \includegraphics[width=\textwidth]{octree}
-  \label{fig:octree}
   \caption[Funktionsweise eines Octrees]{Quadtree (2d-Äquivalent des Octrees) zur Veranschaulichung der Funktionsweise eines Octrees:
     Räumliche Unterteilung und deren die Baum-Darstellung.
     Rekursive Zerlegung der interessanten Zellen bis zur gewünschten Auflösung in Ebene 4, dann zellweises Binning der Atome.
   }
+  \label{fig:octree}
 \end{figure}
 
 \begin{algorithm}
@@ -274,12 +274,13 @@ Um eine einzige Zelle per absolutem oder relativem Index abzurufen, sind Operati
     \EndFunction
   \end{algorithmic}
   \caption[Zell-Addressierung in Octrees]{Rekursive Zell-Addressierung und -Allokierung im Octree: Bei jedem Schritt wird das Problem in 8 Unterzellen geteilt, woraus eine Laufzeit von \BigO{d}$=$\BigO{\log{c}} resultiert}
-  \label{algo:octreeadressing}
+  \label{algo:octreeaddressing}
 \end{algorithm}
 
 \todo[inline]{Wars das? Formeln?}
 
 \subsection{k-d-Bäume}
+\label{datakdtree}
 
 Für Nachbarschafts- und Bereichssuchen wird wegen ihrer hervorragenden Suchkomplexität auf k-d-Bäume zurückgegriffen, die einen kartesischen Raum in orthogonale Zellen mit jeweils einem Atom unterteilen.
 Es ergibt sich ein balancierter Binärbaum mit Atomen als Knoten, dessen Haupteigenschaft in impliziter Betrachtung von Abstandsrelationen liegt.
@@ -389,7 +390,7 @@ Zur Delaunay-Triangulierung aus einer Punktmenge stehen verschiedene Algorithmen
 \item Divide-and-Conquer-Algorithmen\\
   Man teilt die Punktmenge in Untermengen, die rekursiv trianguliert und anschließend an ihren Grenzen miteinander zur Zieltriangulation vereinigt werden.
   Hauptproblem ist die Vereinigung der Teiltriangulierungen, die in zwei Dimensionen aufgrund von Ordnungsrelationen entlang der Grenze beinahe trivial, in höheren Dimensionen jedoch mit Problemen verbunden ist.
-  Eine mögliche Lösung ist der DeWall-Algorithmus\cite{cignoni_1998}, dessen Verknüpfungsoperation entlang der Grenzen teilperiodischer Räume interessant wird.
+  Eine mögliche Lösung ist der DeWall-Algorithmus\cite{cignoni_dewall:_1998}, dessen Verknüpfungsoperation entlang der Grenzen teilperiodischer Räume interessant wird.
   In zwei Dimensionen erreicht man \BigO{n\log{n}}, höhere Dimensionen können per DeWall-Algorithmus mit einer Laufzeit von \BigO{n^{\lceil d/2 \rceil + 1}} behandelt werden, die sich jedoch nur in pathologischen Fällen zeigt.
   Nimmt man annähernde Gleichverteilungen an, konvergiert dieser Algorithmus in drei Dimensionen subquadratisch, man sollte jedoch betrachten, dass er sich gegenüber anderer Konstruktionsalgorithmen durch einfache Parallelisierung sowie der Möglichkeit der Aktualisierung großer Raumbereiche auszeichnet.
 
@@ -522,7 +523,7 @@ Für Simulationen von Oberflächenabscheidungen ließen sich auf diese Weise auc
     \begin{subfigure}[t]{\subwidth}
       \includegraphics[width=\textwidth]{delaunay-alpha-d}
       \subcaption{Alpha-Form: Hülle (nur innen) nach Entfernung von Simplexen mit $r_d < \alpha$}
-      \label{fig:delaunay-alpha-c}
+      \label{fig:delaunay-alpha-d}
     \end{subfigure}
   }
   \caption[Methoden zur Bestimmung der Oberfläche per Delaunay-Triangulation]{Verschiedene Methoden zur Bestimmung der Oberfläche per Delaunay-Triangulation. Man beachte, dass die in (d) genutzte Methode den Ausreißer-Punkt oben rechts mit trianguliert, jedoch nicht zur Oberfläche zählt, da für keinen seiner Simplexe $r_d < \alpha$ gilt}

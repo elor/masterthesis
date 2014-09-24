@@ -1,1 +1,28 @@
-\section{Silicon-PVD}
+\section{Silizium-PVD}
+
+Mit dem Ziel der Simulation des \ce{SiH4}-\ce{H2O}-CVD-Prozesses habe ich zunächst Potentiale gesucht, die Siliziumkristalle darstellen können.
+Diese Untersuchungen ergaben sich aus den Eigenschaften einiger ReaxFF-Parametrisierungen, entweder Moleküle oder Bulkmaterialien zu unterstützen.
+
+\subsection{Potentialdateien}
+
+\begin{table}[h]
+  \caption[Silizium-Potentialdateien]{Potentialdateien für Silizium- und Siliziumoxidsysteme}
+  \label{tab:siliconpotentials}
+  \rowcolors{0}{white}{lightgray}
+  \begin{tabularx}{1\textwidth}{|lXc|}
+    \hline
+    \textbf{Bezeichnung} & \textbf{Anwendung \& Kommentare} & \textbf{Ref.} \\
+    \hline
+    Al\_AlO\_AlN & \ce{Al}, \ce{Al2O3}, \ce{AlN}. Basiert auf einer Si-Parametrisierung & \cite{plimpton_lammps_2014} \\
+    chenoweth    & Zersetzung von Polydimethylsiloxane bei hohen Drücken und Temperaturen. Ergänzung von \ce{C-Si}-Bindungen     & \cite{chenoweth_simulations_2005} \\
+    kulkarni     & Reaktion von Sauerstoff mit \ce{OH}-terminierten Siliziumoxid-Oberflächen & \cite{kulkarni_oxygen_2013} \\
+    lg & ``log gradients''. Siehe liu\_nitramines. Fehlerhafte Version aus LAMMPS & \cite{liu_reaxff-lg:_2011} \\
+    liu\_ettringite & Verspannung von \ce{Ca6[Al(OH)6]2(SO4)3 26H2O} (Ettringite). Basiert auf Si-Parametrisierung  & \cite{liu_development_2012} \\
+    liu\_nitramines & Dichtebestimmung von Nitramin-Molekülen bei hohen Drücken. Dichte erhöht durch Van-der-Waals-Korrekturen & \cite{liu_reaxff-lg:_2011} \\
+    narayanan & & \cite{narayanan_reactive_2012} \\
+    newsome & & \cite{newsome_oxidation_2012} \\
+    nielson & & \cite{nielson_development_2005} \\
+    zhan & Nitramin-Explosionen & \cite{zhang_carbon_2009} \\
+    \hline
+  \end{tabularx}
+\end{table}

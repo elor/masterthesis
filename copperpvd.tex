@@ -1,15 +1,36 @@
-\section{Gold-PVD}
-\label{goldpvd}
+\section{Kupfer-PVD}
+\label{copperpvd}
 
-Als Testsystem für PVD-Prozesse bietet sich Gold-PVD an, die zwar durch Oberflächendiffusion dominiert wird, jedoch ideale fcc-kristalline Strukturen bildet.
-Die genutzte EAM-Potentialdatei stammt aus dem \todo{ref}LAMMPS-Paket, basiert aber auf Parametern von Foiles et al.\cite{foiles_embedded-atom-method_1986}, die für Einbettung einzelner Atome in Bulk- und Oberflächensysteme optimiert wurden.
+Ein zweites PVD-System stellt Kupfer dar, wofür eine Vielzahl an unterschiedlichen Parametrisierungen vorliegen (Tabelle \ref{tab:copperpots}).
+Es stellt sich die Aufgabe, eine passende Parametrisierung darunter zu suchen und zu entscheiden, inwiefern eine Vorauswahl anhand weniger Parameter \todo{chword} sinnvoll ist.
+Kupfer bildet ebenfalls fcc-Kristalle, 
+
+\begin{table}[hbtp]
+  \caption[EAM-Parametrisierungen für Kupfersysteme]{EAM-Parametrisierungen für Kupfersysteme.}
+  \label{tab:copperpots}
+  \rowcolors{0}{white}{lightgray}
+  \begin{tabularx}{\textwidth}{|lXc|}
+    \hline
+    \textbf{Bezeichnung} & \textbf{Anwendung \& Kommentare} & \textbf{Ref.} \\
+    \hline
+    CuAg.eam.alloy & Strukturelle und thermische Eigenschaften von \ce{Cu-Al} & \cite{williams_embedded-atom_2006} \\
+    cu\_ag\_ymwu.eam.alloy & Mono-, Di-, Trimere und Inseln von \ce{Cu} auf \ce{Ag} & \cite{wu_cu/ag_2009} \\
+    Cu\_smf7.eam & Oberflächen von \ce{Ni-Cu}-Legierungen bei \SI{800}{\kelvin} & \cite{foiles_calculation_1985} \\
+    Cu\_u3.eam & Oberflächen und Bulks verschiedener Legierungen & \cite{foiles_embedded-atom-method_1986} \\
+    Cu\_u6.eam & Aktivierungsenergie für Eigendiffusionen & \cite{adams_self-diffusion_1989} \\
+    Cu-Zr\_2.eam.fs & Flüssige und amorphe \ce{Cu-Zr}-Legierungen & \cite{mendelev_development_2009} \\
+    Cu-Zr.eam.fs & Flüssige und amorphe \ce{Cu-Zr}-Legierungen & \cite{mendelev_using_2007} \\
+    Mendelev\_Cu2\_2012.eam.fs & Unterkühlte \ce{Al-Cu}-Schmelzen. Basiert auf \cite{mendelev_analysis_2008} & \cite{_interatomic_2014} \\
+    \hline
+  \end{tabularx}
+  
+\end{table}
 
 \subsection{Voruntersuchungen}
 
-Zur Validierung grundlegender Materialeigenschaften wurden Bindungslängen, Dichten und Koordinationszahlen aus einer relaxierten kristallinen Phase untersucht (Tabelle \ref{tab:goldpreresults}).
-Zur Bestimmung dieser Werte wurde ein Goldkristall von \SI{40x40x40}{\angstrom} Größe auf \SI{1000}{\kelvin} aufgeheizt, im kanonischen Ensemble relaxiert und anschließend abgekühlt.
-Wie man den Ergebnissen ansehen kann, bleibt die Kristallstruktur erwartungsgemäß erhalten (die Schmelztemperatur wurde für die Relaxierung nicht überschritten) und steht in guter Übereinstimmung mit Literaturwerten.
-Die Parametrisierung repräsentiert somit das Zielsystem.
+Bei den Voruntersuchungen der strukturellen Eigenschaften konnten einige Parametersätze von LAMMPS nicht akzeptiert werden oder haben sich mit kryptischen Fehlern auf negative Speicherallokierungen aufgehangen.
+Die Ergebnisse der drei verbliebenen Potentiale sind jedoch in guter Übereinstimmung mit Literaturwerten (Tabelle \ref{tab:copperpreresults}).
+\todo{Dichte}Der Schmelzpunkt wurde jedoch nicht zuverlässig simuliert (Abbildung \ref{fig:copperthermo}).
 
 \begin{table}[hbtp]
   %% \rowcolors{0}{white}{lightgray} 
@@ -17,46 +38,40 @@ Die Parametrisierung repräsentiert somit das Zielsystem.
   \label{tab:goldpreresults}
   \begin{tabularx}{\textwidth}{|lXXXX|}
     \hline
-    \textbf{unters. Größe} & \textbf{Temperatur} & \textbf{Simulation} & \textbf{Experiment} & \textbf{Abweichung}\\
+    \textbf{unters. Größe} & \textbf{Experiment} & \textbf{Cu\_smf7.eam} & \textbf{Cu\_u3.eam} & \textbf{Cu\_u6.eam} \\
     \hline
-    Bindungslänge  &  \SI{50}{\kelvin}   &  \SI{2.885}{\angstrom}                    &  \SI{2.884}{\angstrom}                    &  \SI{0.05}{\percent}  \\
-    Koordination   &  \SI{50}{\kelvin}   &  \SI{12.00}{}                             &  \SI{12.00}{}                             &  \SI{0}{\percent}     \\
-    Dichte         &  \SI{300}{\kelvin}  &  \SI{18.99}{\gram\per\cubic\centi\meter}  &  \SI{19.30}{\gram\per\cubic\centi\meter}  &  \SI{1.6}{\percent}   \\
-    Dichte         &  \SI{500}{\kelvin}  &  \SI{18.89}{\gram\per\cubic\centi\meter}  &  \SI{19.13}{\gram\per\cubic\centi\meter}  &  \SI{1.2}{\percent}   \\
+    Bindungslänge  &  \SI{2.556}{\angstrom} & \SI{2.558}{\angstrom} & \SI{2.558}{\angstrom} & \SI{2.558}{\angstrom} \\
+    Koordination   &  \SI{12.00}{} & \SI{12.00}{} & \SI{12.00}{} & \SI{12.00}{} \\
+    Dichte         & \SI{8.92}{\gram\per\cubic\centi\meter} & \SI{8.908}{\gram\per\cubic\centi\meter} & \SI{8.915}{\gram\per\cubic\centi\meter} & \SI{8.910}{\gram\per\cubic\centi\meter} \\
     \hline
   \end{tabularx}
 \end{table}
 
-\todo[inline]{Oberflächenvalidierung}
-
-\subsection{Thermische Eigenschaften}
-
-Neben strukturellen Eigenschaften bilden EAM-Potentiale auch einige thermische Eigenschaften von Metallen ab.
-Für deren Untersuchung wurde die Massendichte in Abhängigkeit der Temperatur für die Teststruktur aufgenommen, die langsam auf \SI{2000}{\kelvin}, also weit über den Schmelzpunkt von \SI{1337}{\kelvin}, aufgeheizt wurde.
-Die Ergebnisse (Abbildung \ref{fig:goldthermo}) zeigen gute Übereinstimmung mit experimentellen Daten, allerdings sind die Relaxationszeiten $t_\text{relax}$ oberhalb von ca. \SI{20}{\pico\second} und Thermostat-Dämpfungsparameter $D_T$ um \SI{0.02}{\femto\second} notwendig.
+\todo[inline]{Oberflächenvalidierung?}
 
 \begin{figure}[tbp]
   \centering
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{7cm}
   \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{gold_bestthermo}
-    \subcaption{Temperaturverlauf bei $ t_\text{relax}=\SI{50}{\pico\second}$ und $D_T=\SI{0.02}{\femto\second}$}
+    \includegraphics[width=\textwidth]{Cu_u6_meltingpoint}
+    \subcaption{Phasenübergang mit Cu\_u6.eam bei unterschiedlichen $t_\text{relax}$}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{gold_relaxtime}
-    \subcaption{Abhängigkeit des simulierten Schmelzpunktes von der Relaxationszeit}
+    \includegraphics[width=\textwidth]{Cu_smf7_meltingpoint}
+    \subcaption{Phasenübergang mit Cu\_smf7.eam bei unterschiedlichen $t_\text{relax}$}
   \end{subfigure}
-  \caption[Ergebnisse thermischer Simulationen von Gold]{Ergebnisse thermischer Simulationen von Gold.
-    Verlauf stimmt gut mit experimentellen Daten (schwarze Linien) überein.
-    Experimentelle Werte stammen aus Standardliteratur sowie von Brillo et al.\cite{brillo_density_2006}.
+  \caption[Abweichung der Schmelztemperaturen bei Kupfer-MD]{
+    Abweichung der Schmelztemperatur mit verschiedenen Parametrisierungen.
+    Experimentelle Werte von Brillo et al.\cite{brillo_density_2006}.
   }
   \label{fig:goldthermo}
 \end{figure}
 
 \subsection{Prozess-Simulation}
 
+Äquivalent zur Vorgehensweise beim Gold-PVD-Prozess wurde ein Kupfer-PVD-Prozess gestartet
 Zur Simulation eines Gold-PVD-Prozesses mit Parsivald wurden die untersuchten Potentialparameter sowie ein Kristallsubstrat eingelesen, ein Abscheidungsmodus mit zufälligen Auftreffpositionen in der xy-Ebene gewählt und Relaxationszeiten und Reaktionsnachbarschaftsgrößen gewählt, die in den vorheringen Tests als hinreichend ermittelt wurden.
 Damit ergaben sich Reaktionsräume der Größe \SI{37x37x25}{\angstrom} mit jeweils ca. 1800 Atomen, Relaxationszeiten von \SI{1.4}{\nano\second} in \SI{1400}{} Simulationsschritten und Auftreffgeschwindigkeiten von \SI{4}{\angstrom/\pico\second}, die aus üblichen Sputterbedingungen stammen.\todo{wie berechnet?}
 Die \SI{100x100}{\angstrom} breiten Kristalle werden perfekt fortgesetzt, wobei nach 10 Kristallschichten eine Rauheit von einem Atomdurchmesser vorliegt, was Übereinstimmung mit einem diffusionsdominierten Abscheidungsprozess zeigt.

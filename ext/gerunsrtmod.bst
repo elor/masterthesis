@@ -233,21 +233,21 @@ FUNCTION {field.or.null}
 FUNCTION {boldface}
 { duplicate$ empty$
     { pop$ "" }
-    { "{\bf " swap$ * "}" * }
+    { "\textbf{ " swap$ * "}" * }
   if$
 }
 
 FUNCTION {emphasize}
 { duplicate$ empty$
     { pop$ "" }
-    { "{\em " swap$ * "}" * }
+    { "{\emph " swap$ * "}" * }
   if$
 }
 
 FUNCTION {smallcaps}
 { duplicate$ empty$
     { pop$ "" }
-    { "{\sc " swap$ * "}" * }
+    { "\textsc{ " swap$ * "}" * }
   if$
 }
 

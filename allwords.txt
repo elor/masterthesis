@@ -3,12 +3,15 @@ Abbildung
 Abbildungsverzeichnis
 Abbrüche
 Abbruchkriterien
+Abbruchsquoten
 abdecken
 aber
 Abfolge
 abgekühlt
 abgelöst
 abgeschieden
+abgeschirmte
+abgeschlossen
 abgewogen
 abhängen
 abhängig
@@ -27,7 +30,9 @@ Abscheidungskammern
 Abscheidungsmodus
 Abscheidungsorte
 Abscheidungsprozess
+Abscheidungsschritten
 Abscheidungssimulation
+Abscheidungszeitraum
 Abschluss
 Abschnitt
 absetzen
@@ -81,6 +86,7 @@ Allokierung
 alloy
 AlN
 Alpha
+Alphastruktur
 als
 also
 alternative
@@ -142,6 +148,8 @@ Arbeitsweise
 Argon
 ArgumentParser
 Art
+Artefakt
+Arten
 ASD
 Assumption
 asymptotische
@@ -197,6 +205,7 @@ aufwendigeres
 aufzuzwingen
 August
 aus
+Ausdehnung
 ausführliche
 ausführlichere
 Ausgabe
@@ -330,8 +339,7 @@ bleibt
 bloß
 Boltzmann
 bond
-Breite
-breiten
+breite
 Brillo
 Buckingham
 Bulk
@@ -369,6 +377,7 @@ com
 Conquer
 Construction
 content
+Coppersubstrate
 Cosputtering
 Coulomb
 cu
@@ -450,7 +459,7 @@ dir
 direkt
 Diskontinuitäten
 diskreten
-diskutierte
+diskutiert
 Distribution
 Divide
 dominiert
@@ -561,6 +570,7 @@ Entfernung
 enthält
 enthalten
 entlang
+entnehmen
 entscheiden
 entsprechen
 entsprechend
@@ -569,7 +579,7 @@ entstammt
 entstand
 entstandenen
 entstehen
-entstehenden
+entstehende
 entweder
 entwickelt
 Entwicklung
@@ -593,8 +603,10 @@ Ergebnis
 Ergebniskapitel
 Ergebnisse
 ergibt
+Erhalt
 erhält
 erhalten
+Erhebungen
 erhöht
 erik
 erkennbar
@@ -651,6 +663,7 @@ Fehlerhafte
 Fehlerkorrektur
 Fehlern
 fehlt
+fein
 Feinheiten
 FEM
 fertige
@@ -662,6 +675,7 @@ Filmwachstums
 final
 finden
 Finite
+Fins
 fit
 fitten
 Flächen
@@ -710,7 +724,7 @@ Gasphasenreaktionen
 Gasstrom
 Gebiete
 gebildet
-gebliebene
+geblieben
 gedacht
 Gedanke
 gefittet
@@ -879,11 +893,12 @@ hinzu
 Hinzufügen
 Hinzufügung
 hinzugefügt
-hohen
+hohe
 Höhenabweichung
+hoher
 Höherdimensionale
 höhere
-Hohlräumen
+Hohlräume
 homogene
 Hoover
 Host
@@ -893,6 +908,7 @@ ich
 id
 ideale
 idealerweise
+Ideales
 Idee
 identischen
 ignoriert
@@ -1033,6 +1049,8 @@ Kreisflächen
 Kristall
 Kristalldefekte
 Kristalle
+Kristallebenen
+Kristallen
 kristallin
 Kristallschichten
 Kristallstruktur
@@ -1048,6 +1066,8 @@ Kupfer
 Kupfersysteme
 kürzeren
 Ladungsaustausch
+lagen
+Lamellen
 LAMMPS
 lange
 längeren
@@ -1287,7 +1307,7 @@ Oberflächenereignis
 Oberflächenereignissen
 Oberflächenkrümmung
 Oberflächenmessung
-Oberflächenrauheiten
+Oberflächenrauheit
 Oberflächenreaktionen
 Oberflächenstabilität
 Oberflächensuche
@@ -1358,6 +1378,7 @@ Physical
 Physik
 physikalisch
 p_i
+Pillars
 plain
 Plasma
 platziert
@@ -1366,6 +1387,7 @@ Polak
 Polydimethylsiloxane
 Polygonoperationen
 Poren
+Porenbildung
 poröser
 Porösität
 Position
@@ -1379,7 +1401,7 @@ Potentialparametrisierungen
 Potentials
 Praktikabilitätsgrenze
 Präparation
-präparierten
+präpariert
 Praxis
 Precursor
 Precursorgase
@@ -1401,12 +1423,14 @@ Programmen
 Projekten
 Proteine
 Prozess
+Prozessartefakte
 Prozessbedingungen
 Prozesscharakteristiken
 Prozessdesign
 Prozesse
 Prozessparameter
 Prozessschritt
+Prozessstabilität
 Prozesstemperaturen
 prüfen
 Prüfer
@@ -1432,6 +1456,7 @@ Rahmen
 RAM
 Rand
 Randbedingungen
+Ränder
 Range
 Rate
 Rauheit
@@ -1505,8 +1530,10 @@ Relaxation
 Relaxationssimulation
 Relaxationszeit
 relaxieren
-relaxierten
+relaxierenden
+relaxiert
 Relaxierung
+Relaxierungseffekte
 relevant
 repräsentiert
 Reskalierung
@@ -1517,6 +1544,7 @@ Resultat
 resultiert
 results
 Ribière
+Richtung
 Rillen
 Roman
 r_s
@@ -1587,7 +1615,7 @@ Simplices
 Simulation
 Simulationsart
 Simulationsgruppe
-Simulationsmethoden
+Simulationsmethode
 Simulationsraum
 Simulationsräume
 Simulationsraumes
@@ -1658,6 +1686,7 @@ Stattdessen
 stechen
 Stefan
 stehen
+Steigung
 Stelle
 stellen
 stellende
@@ -1680,6 +1709,7 @@ Strafenergien
 stretch
 strömen
 Struktur
+Strukturbreite
 strukturelle
 Strukturen
 strukturierte
@@ -1692,6 +1722,7 @@ subquadratisch
 Substrat
 Substratoberfläche
 Substratstruktur
+Substratunterseite
 Suchachse
 Suchbaum
 Suchbäume
@@ -1732,6 +1763,7 @@ Teilaspekte
 Teilchen
 Teilchendichte
 Teilchenstöße
+Teile
 teilen
 Teiles
 Teilmengen
@@ -1794,6 +1826,8 @@ typischerweise
 Überkoordinationen
 Überlagerungsfreie
 Überlegungen
+übernommen
+überschätzt
 überschneiden
 überschritten
 Übersicht
@@ -1827,11 +1861,13 @@ University
 unmittelbare
 unmögliche
 unnötige
+Unrelaxierte
 Unstetigkeiten
 unten
 unterbindet
 untere
 untereinander
+unterhalb
 Unterkoordination
 unterkoordinierten
 Unterkühlte
@@ -1860,6 +1896,7 @@ valide
 Validierung
 Van
 Vapor
+variabler
 Variante
 Variation
 varieren
@@ -1874,6 +1911,7 @@ verbleibende
 verbleibt
 verbliebenen
 Verbrauch
+verbreitert
 verbunden
 vereinfacht
 vereinigt
@@ -1894,9 +1932,11 @@ vermeiden
 vermieden
 vermischen
 vermuten
+vermutlich
 vernachlässigbar
 verringerter
 verschiedene
+verschwinden
 Version
 Verspannung
 verstanden
@@ -1929,6 +1969,7 @@ vom
 von
 Voraussetzung
 Vorauswahl
+Vorbetrachtungen
 Voreinstellung
 vorgegebenen
 Vorgehensweise
@@ -1956,11 +1997,13 @@ während
 wahrgenommene
 Wahrscheinlichkeit
 war
+wäre
 Wars
 was
 Wasserstoffbrücken
 wechselweisen
 weg
+wegrelaxiert
 Weise
 weit
 weitere
@@ -2015,6 +2058,7 @@ Zeitraum
 Zeiträume
 Zeitschritt
 Zeitskala
+Zeitverlauf
 Zell
 Zellgittern
 zellweises

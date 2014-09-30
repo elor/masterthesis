@@ -13,7 +13,9 @@ Die Parametrisierung repräsentiert somit das Zielsystem.
 
 \begin{table}[hbtp]
   %% \rowcolors{0}{white}{lightgray} 
-  \caption[Eigenschaften von Gold]{Vergleich der Eigenschaften von Gold mit experimentellen und Literaturdaten als Voruntersuchung des PVD-Prozesses\todo[inline]{ref}}
+  \caption[Eigenschaften von Gold]{Vergleich der Eigenschaften von Gold mit experimentellen und Literaturdaten als Voruntersuchung des PVD-Prozesses
+%% \todo[inline]{ref}
+}
   \label{tab:goldpreresults}
   \begin{tabularx}{\textwidth}{|lXXXX|}
     \hline
@@ -27,7 +29,7 @@ Die Parametrisierung repräsentiert somit das Zielsystem.
   \end{tabularx}
 \end{table}
 
-\todo[inline]{Oberflächenvalidierung}
+%% \todo[inline]{Oberflächenvalidierung}
 
 \subsection{Thermische Eigenschaften}
 
@@ -57,42 +59,46 @@ Die Ergebnisse (Abbildung \ref{fig:goldthermo}) zeigen gute Übereinstimmung mit
 
 \subsection{Prozess-Simulation}
 
-Zur Simulation eines Gold-PVD-Prozesses mit Parsivald wurden die untersuchten Potentialparameter sowie ein Kristallsubstrat eingelesen, ein Abscheidungsmodus mit zufälligen Auftreffpositionen in der xy-Ebene gewählt und Relaxationszeiten und Reaktionsnachbarschaftsgrößen gewählt, die in den vorheringen Tests als hinreichend ermittelt wurden.
-Damit ergaben sich Reaktionsräume der Größe \SI{37x37x25}{\angstrom} mit jeweils ca. 1800 Atomen, Relaxationszeiten von \SI{1.4}{\nano\second} in \SI{1400}{} Simulationsschritten und Auftreffgeschwindigkeiten von \SI{4}{\angstrom/\pico\second}, die aus üblichen Sputterbedingungen stammen.\todo{wie berechnet?}
-Die \SI{100x100}{\angstrom} breiten Kristalle werden perfekt fortgesetzt, wobei nach 10 Kristallschichten eine Rauheit von einem Atomdurchmesser vorliegt, was Übereinstimmung mit einem diffusionsdominierten Abscheidungsprozess zeigt.
+Zur Simulation eines Gold-PVD-Prozesses mit Parsivald wurden die untersuchten Potentialparameter sowie ein Kristallsubstrat im PVD-Modus eingelesen und Relaxationszeiten und Reaktionsnachbarschaftsgrößen aus den Vorbetrachtungen übernommen.
+Damit ergeben sich Reaktionsräume der Größe \SI{37x37x25}{\angstrom} mit jeweils ca. \num{1800} Atomen, Relaxationszeiten von \SI{1.4}{\nano\second} in \num{1400} Simulationsschritten und Auftreffgeschwindigkeiten von \SI{4}{\angstrom/\pico\second}, die aus üblichen Sputterbedingungen stammen.\todo{wie berechnet?}
+
+Abbildung \ref{fig:golddepositions-a} zeigt, wie das Substrat unter Erhalt der Kristallstruktur fortgesetzt wird.
+Poren und Einschlüsse wurden durch Untersuchung der Alphastruktur nicht gefunden.
+Abbildung \ref{fig:goldroughness-a} stellt die Rauheit dar, die beim glatten Substrat über den Abscheidungszeitraum konstant geblieben ist.
+Fehler- und Abbruchsquoten bei den LAMMPS-Berechnungen lagen mit \SI{0.25}{\percent} unterhalb des erwarteten Wertes von \SI{5}{\percent}
 
 \subsubsection{Strukturierte Substrate}
 
-Als Stabilitätsprüfung wurden auch Abscheidungen auf strukturierten Substraten (Abbildung \ref{fig:goldsubstrate}) mit den gleichbleibenden Prozessbedingungen simuliert.
-Es wurden Stufen und Spitzen mit Neigungen von jeweils \SI{15}{\degree}, \SI{20}{\degree}, \SI{30}{\degree}, \SI{45}{\degree}, \SI{60}{\degree} und \SI{90}{\degree} bei oben genannten Prozessbedingungen untersucht.
-\todo{vorherige Relaxation?}
+Neben dem glatten Substrat wurden auch Abscheidungen auf strukturierten Substraten (Abbildung \ref{fig:goldsubstrate}) mit den gleichbleibenden Prozessbedingungen simuliert.
+Als Substrate wurden \SI{20}{\angstrom} hohe Stufen und Spitzen mit Neigungen von jeweils \SI{15}{\degree}, \SI{20}{\degree}, \SI{30}{\degree}, \SI{45}{\degree}, \SI{60}{\degree} und \SI{90}{\degree} präpariert.
+Auf vorherige Relaxierung der Substrate wurde aufgrund der Prozessstabilität sowie der relaxierenden Eigenschaften der MD-Ereignisse verzichtet.
+Zusätzlich wurden Lamellen und Gitter mit einer Strukturbreite von \SI{16}{\angstrom} zur Untersuchung eventueller Prozessartefakte präpariert.
 
-\begin{figure}[bt]
+\begin{figure}[p]
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{0.31\textwidth}
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{Au_substrate_flat}
-    \subcaption{Glattes Gold-Substrat}
+    \subcaption{Ideales Gold-Substrat mit glatter Oberfläche}
     \label{fig:goldsubstrate-a}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{Au_substrate_step30}
-    \subcaption{Gold-Stufe, \SI{30}{\degree}}
+    \subcaption{Unrelaxierte Gold-Stufe, \SI{30}{\degree}}
     \label{fig:goldsubstrate-b}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{Au_substrate_tip60}
-    \subcaption{Gold-Spitze, \SI{60}{\degree}}
+    \subcaption{Unrelaxierte Gold-Spitze, \SI{60}{\degree}}
     \label{fig:goldsubstrate-c}
   \end{subfigure}
-  \caption[Strukturierte Goldsubstrate]{Goldsubstrate mit unterschiedlicher Struktur und Breite und Tiefe von \SI{100}{\angstrom}.
-    Abscheidungen wurden auf glatten Substraten, Stufen und Spitzen vorgenommen.}
+  \caption[Strukturierte Goldsubstrate]{Goldsubstrate mit unterschiedlicher Struktur}
   \label{fig:goldsubstrate}
 \end{figure}
 
-\begin{figure}[bt]
+\begin{figure}[p]
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{0.31\textwidth}
   \begin{subfigure}[t]{\subfigwidth}
@@ -113,18 +119,67 @@ Es wurden Stufen und Spitzen mit Neigungen von jeweils \SI{15}{\degree}, \SI{20}
     \label{fig:golddepositions-c}
   \end{subfigure}
   \caption[Abscheidung auf strukturierten Substraten]{
-    Ergebnis der Abscheidung.
-    Die Substratstruktur bleibt erkennbar, wird aber nach oben verstärkt, ansonsten aber kristallin und glatt fortgesetzt.
+    Ergebnis von 50 Abscheidungsschritten (\SI{47}{\angstrom}) auf verschiedenen Substratstrukturen.
+    Die Struktur bleibt erhalten, aber verbreitert sich zunehmend entlang der Kristallebenen.
   }
   \label{fig:golddepositions}
 \end{figure}
 
-Das Kristallsubstrat wird auch hier fortgesetzt, jedoch verstärken sich Neigungswinkel an Stufen und Spitzen zunehmend.
-Nach längeren Laufzeiten entstehen somit Überhänge, die durch Abschluss von unten zu Hohlräumen innerhalb der Struktur führen, welche in der Realität durch thermische Relaxation geschlossen würden.
-Dahinter steht einerseits die Notwendigkeit, Gold-Atome bei Ankunft auf der Oberfläche ausreichend diffundieren zu lassen, was beim aktuellen Modell nur innerhalb der Reaktionsraumgrenzen geschieht.
+\begin{figure}[p]
+  \captionsetup[subfigure]{singlelinecheck=false}
+  \def\subfigwidth{0.49\textwidth}
 
-Andererseits liegt ein methodischer Fehler bei Nutzung von Binning-Methoden vor:
-Die Oberfläche wird aus algorithmischen Gründen nur entlang der z-Achse bestimmt, woraufhin das neue Atom oberhalb eines Referenzatomes auf der Oberfläche platziert wird.
-An Stufen und Kanten werden hierbei höhere Reaktionsorte bevorzugt, an denen das Atom mit \todo{phrasing}statistischer Wahrscheinlichkeit verbleibt.
+  \begin{subfigure}[t]{\subfigwidth}
+    \includegraphics[width=\textwidth]{gold_step30_pockets}
+    \subcaption{Flächen einer \SI{30}{\degree}-Stufe: Keine Bildung von Poren oder Einschlüssen}
+    \label{fig:goldpockets-a}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{\subfigwidth}
+    \includegraphics[width=\textwidth]{gold_tip90_pockets}
+    \subcaption{Flächen einer \SI{90}{\degree}-Spitze: Bildung von Poren in direkter Umgebung der Spitze}
+    \label{fig:goldpockets-b}
+  \end{subfigure}
 
-Einen Lösungsansatz stellt die ausführliche Parametrisierung der Oberfläche dar, beispielsweise per Alpha-Form (siehe Abschnitt \ref{dataalphaform}, über die man die Ereigniswahrscheinlichkeit entsprechend der Einbettungsenergie variierte, angenähert über die Oberflächenkrümmung.
+  \caption[Porenbildung bei Gold-Strukturen]{Porenbildung bei Gold-Strukturen nach 40 Abscheidungsschritten (ca. \num{22000} PVD-Ereignisse $\hat{=}$ \SI{38}{\angstrom}). $\sigma_z$ wird über die oberen Atome (ohne periodische Ränder und Substratunterseite) gebildet und somit bei großen Poren überschätzt}
+  \label{fig:goldpockets}
+
+\end{figure}
+
+Wie man den Alpha-Formen (Abbildung \ref{fig:goldpockets-a}) entnehmen kann, beinhaltet das abgeschiedene Gold bei geringen Neigungswinkeln keine Kristalldefekte, Poren oder Einschlüsse.
+Bei Abscheidungen auf Substrate hoher Neigungswinkel (>\SI{60}{\degree}) bilden sich Poren mit größerer Ausdehnung (>\SI{20}{\angstrom}).
+Durch Bildung von Überhängen an den Stufen werden die Poren zu Hohlräumen abgeschlossen, die nicht durch Relaxierung geschlossen werden.
+Dies zeigt sich auch in den Oberflächenrauheiten der untersuchten Strukturen (Abbildung \ref{fig:goldroughness}).
+Dabei wurden auch die Lamellen (Fins) und Gitter (Pillars) mit einer Strukturbreite von \SI{16}{\angstrom} untersucht, die innerhalb weniger Schritte aufgrund ihrer geringen Ausdehnung von \num{4} Atomdurchmessern durch Relaxierungseffekte verschwinden (Abbildung \ref{fig:goldroughness}).
+Die selben Effekte sollten auch bei größeren Strukturen zu beobachten sein.
+Wie man jedoch Abbildung \ref{fig:goldroughness-b} entnehmen kann, lässt sich das nur andeutungsweise bei der \SI{45}{\degree}-Spitze beobachten.
+
+Hier zeigt sich ein künstliches \todo{besserer Begriff}Artefakt der Simulationsmethode, die auf zusätzliche Relaxationen verzichtet und in z-Richtung abgeschirmte Teile der Oberfläche ignoriert.
+Eine mögliche Lösung wäre die explizite Parametrisierung per Delaunay-Triangulation, wie sie in Abschnitt \ref{datadelaunay} diskutiert wurde.
+In realen Systemen werden entstehende Überhänge und Hohlräume der untersuchten Größenordnungen vermutlich durch Oberflächendiffusionen wegrelaxiert.
+
+\begin{figure}[h]
+  \captionsetup[subfigure]{singlelinecheck=false}
+  \def\subfigwidth{0.49\textwidth}
+
+  \begin{subfigure}[t]{\subfigwidth}
+    \includegraphics[width=\textwidth]{gold_goodroughness}
+    \subcaption{Zeitverlauf der Rauheit von glatten (Flat) und fein strukturierten Oberflächen (Fins, Pillars: \SI{10}{\angstrom} breite Erhebungen)}
+    \label{fig:goldroughness-a}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{\subfigwidth}
+    \includegraphics[width=\textwidth]{gold_tiproughness}
+    \subcaption{Zeitverlauf der Rauheit von \SI{50}{\angstrom} breiten Spitzen variabler Steigung}
+    \label{fig:goldroughness-b}
+  \end{subfigure}
+
+  \caption[Oberflächenrauheit von Gold]{Oberflächenrauheit von Gold}
+  \label{fig:goldroughness}
+
+\end{figure}
+
+\subsection{Skalierbarkeit}
+
+Zur Untersuchung der Skalierbarkeit wurden Substratbreiten von \SI{100}{\angstrom}, \SI{200}{\angstrom}, \SI{1000}{\angstrom} und \SI{10000}{\angstrom} und \SI{20000}{\angstrom} (\SI{2}{\micro\meter}) auf Speicherverbrauch, Atomzahl und, sofern möglich, Laufzeit untersucht.
+\todo[inline]{Plots oder Tabellen}

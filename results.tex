@@ -1,10 +1,13 @@
 \chapter{Ergebnisse}
 
-Im Verlauf der Erforschung möglicher Prozesse wurden Abscheidungen von Gold, Silizium (beide PVD), Siliziumoxid (CVD) und Aluminiumoxid (ALD) simuliert, die nachfolgend im Einzelnen vorgestellt werden.
-Für jedes System mussten zuerst passende MD-Potential\-para\-metri\-sierungen gefunden werden, die anschließend mit Parsivald durch günstige Prozessparameter zu einer \todo{ist nicht wirklich komplett gesamtheitlich}gesamtheitlichen Abscheidungssimulation \todo{phrasing}gepackt wurden.
+Im Verlauf der Erforschung möglicher Prozesse wurden Abscheidungen verschiedener Materialien und Methoden simuliert, die unterschiedliche Aspekte der Präparation, Durchführung und Einschränkungen von Parsivald-simulierten Prozessen demonstrieren.
 
-\todo{woanders?}
-Präparation der Substrate geschah entweder durch Relaxation einer zufälligen Struktur in \todo{ref}LAMMPS, oder mittels \todo{ref}Materials Studio, dessen exportierte .pdb-Dateien per \todo{ref}Atomsk in .lmp-Formate überführt wurden, die von LAMMPS und Parsivald lesbar sind.
+Abschnitt \ref{goldpvd} zeigt allgemeine Vorbetrachtungen eines Potentiales und seiner MD-Parameter sowie die Nutzung strukturierter Substrate anhand von Gold-PVD.
+Im darauf folgenden Abschnitt \ref{copperpvd} werden verschiedene Potentiale auf die Anwendbarkeit auf Kupfer-PVD überprüft.
+Silizium-PVD stellt anschließend Probleme mit amorphen Materialien in Abschnitt \ref{siliconpvd} dar.
+Abschnitt \ref{silicacvd} demonstriert binäre Abscheidungssysteme anhand von Siliziumoxid-CVD.
+Schließlich wird in Abschnitt \ref{aluminaald} ein ALD-Prozess anhand des TMA-\ce{H2O}-Prozesses untersucht.
+\todo[inline]{Multilagen-Systeme}
 
 \input{goldpvd}
 \clearpage
@@ -15,4 +18,3 @@ Präparation der Substrate geschah entweder durch Relaxation einer zufälligen S
 \input{silicacvd}
 \clearpage
 \input{aluminaald}
-

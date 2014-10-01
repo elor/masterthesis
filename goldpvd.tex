@@ -79,48 +79,46 @@ Zusätzlich wurden Lamellen und Gitter mit einer Strukturbreite von \SI{16}{\ang
   \def\subfigwidth{0.31\textwidth}
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{Au_substrate_flat}
-    \subcaption{Ideales Gold-Substrat mit glatter Oberfläche}
-    \label{fig:goldsubstrate-a}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{Au_substrate_step30}
-    \subcaption{Unrelaxierte Gold-Stufe, \SI{30}{\degree}}
-    \label{fig:goldsubstrate-b}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{Au_substrate_tip60}
-    \subcaption{Unrelaxierte Gold-Spitze, \SI{60}{\degree}}
-    \label{fig:goldsubstrate-c}
-  \end{subfigure}
-  \caption[Strukturierte Goldsubstrate]{Goldsubstrate mit unterschiedlicher Struktur}
-  \label{fig:goldsubstrate}
-\end{figure}
-
-\begin{figure}[p]
-  \captionsetup[subfigure]{singlelinecheck=false}
-  \def\subfigwidth{0.31\textwidth}
-  \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{Au_deposition_flat}
-    \subcaption{Abscheidung auf glattem Gold-Substrat}
+    \subcaption{Glattes Gold-Substrat}
     \label{fig:golddepositions-a}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{Au_deposition_step30}
-    \subcaption{Abscheidung auf Gold-Stufe, \SI{30}{\degree}}
+    \includegraphics[width=\textwidth]{Au_substrate_step30}
+    \subcaption{Gold-Stufe, \SI{30}{\degree}}
     \label{fig:golddepositions-b}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{Au_deposition_tip60}
-    \subcaption{Abscheidung auf Gold-Spitze, \SI{60}{\degree}}
+    \includegraphics[width=\textwidth]{Au_substrate_tip60}
+    \subcaption{Gold-Spitze, \SI{60}{\degree}}
     \label{fig:golddepositions-c}
   \end{subfigure}
-  \caption[Abscheidung auf strukturierten Substraten]{
-    Ergebnis von 50 Abscheidungsschritten (\SI{47}{\angstrom}) auf verschiedenen Substratstrukturen.
-    Die Struktur bleibt erhalten, aber verbreitert sich zunehmend entlang der Kristallebenen.
+
+  \Large\center{$\Downarrow$}
+  \vspace{0.25cm}
+
+  \captionsetup[subfigure]{singlelinecheck=false}
+  \def\subfigwidth{0.31\textwidth}
+  \begin{subfigure}[t]{\subfigwidth}
+    \includegraphics[width=\textwidth]{Au_deposition_flat}
+    \subcaption{Glatte, kristalline Schicht ($\sigma_z = \SI{1.2}{\angstrom}$)}
+    \label{fig:golddepositions-d}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{\subfigwidth}
+    \includegraphics[width=\textwidth]{Au_deposition_step30}
+    \subcaption{Fortsetzung der Stufe ($\sigma_z = \SI{6.4}{\angstrom}$)}
+    \label{fig:golddepositions-e}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{\subfigwidth}
+    \includegraphics[width=\textwidth]{Au_deposition_tip60}
+    \subcaption{Fortsetzung der Spitze ($\sigma_z = \SI{8.0}{\angstrom}$)}
+    \label{fig:golddepositions-f}
+  \end{subfigure}
+  \caption[Gold-Abscheidung auf strukturierten Substraten]{
+    Goldschicht nach 50 Abscheidungsschritten (\SI{47}{\angstrom}) auf verschiedenen Substraten
   }
   \label{fig:golddepositions}
 \end{figure}
@@ -131,17 +129,18 @@ Zusätzlich wurden Lamellen und Gitter mit einer Strukturbreite von \SI{16}{\ang
 
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{gold_step30_pockets}
-    \subcaption{Flächen einer \SI{30}{\degree}-Stufe: Keine Bildung von Poren oder Einschlüssen}
+    \subcaption{\SI{30}{\degree}-Stufe: Keine Poren oder Einschlüsse}
     \label{fig:goldpockets-a}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{gold_tip90_pockets}
-    \subcaption{Flächen einer \SI{90}{\degree}-Spitze: Bildung von Poren in direkter Umgebung der Spitze}
+    \subcaption{Porenbildung an der Basis der \SI{90}{\degree}-Spitze}
     \label{fig:goldpockets-b}
   \end{subfigure}
 
-  \caption[Porenbildung bei Gold-Strukturen]{Porenbildung bei Gold-Strukturen nach 40 Abscheidungsschritten (ca. \num{22000} PVD-Ereignisse $\hat{=}$ \SI{38}{\angstrom}). $\sigma_z$ wird über die oberen Atome (ohne periodische Ränder und Substratunterseite) gebildet und somit bei großen Poren überschätzt}
+  \caption[Porenbildung bei Gold-Strukturen]{Porenbildung bei Gold-Strukturen nach 40 Abscheidungsschritten (ca. \num{22000} PVD-Ereignisse $\hat{=}$ \SI{38}{\angstrom}).
+  }
   \label{fig:goldpockets}
 
 \end{figure}
@@ -151,7 +150,8 @@ Bei Abscheidungen auf Substrate hoher Neigungswinkel (>\SI{60}{\degree}) bilden 
 Durch Bildung von Überhängen an den Stufen werden die Poren zu Hohlräumen abgeschlossen, die nicht durch Relaxierung geschlossen werden.
 Dies zeigt sich auch in den Oberflächenrauheiten der untersuchten Strukturen (Abbildung \ref{fig:goldroughness}).
 Dabei wurden auch die Lamellen (Fins) und Gitter (Pillars) mit einer Strukturbreite von \SI{16}{\angstrom} untersucht, die innerhalb weniger Schritte aufgrund ihrer geringen Ausdehnung von \num{4} Atomdurchmessern durch Relaxierungseffekte verschwinden (Abbildung \ref{fig:goldroughness}).
-Die selben Effekte sollten auch bei größeren Strukturen zu beobachten sein.
+Die Rauheit $\sigma_z$ wird über die per periodische Alpha-Form bestimmte Oberfläche des Systemes inklusive der Poren berechnet und somit bei großen Poren überschätzt
+\todo{welche effekte?}Die selben Effekte sollten auch bei größeren Strukturen zu beobachten sein.
 Wie man jedoch Abbildung \ref{fig:goldroughness-b} entnehmen kann, lässt sich das nur andeutungsweise bei der \SI{45}{\degree}-Spitze beobachten.
 
 Hier zeigt sich ein künstliches \todo{besserer Begriff}Artefakt der Simulationsmethode, die auf zusätzliche Relaxationen verzichtet und in z-Richtung abgeschirmte Teile der Oberfläche ignoriert.
@@ -170,11 +170,11 @@ In realen Systemen werden entstehende Überhänge und Hohlräume der untersuchte
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{gold_tiproughness}
-    \subcaption{Zeitverlauf der Rauheit von \SI{50}{\angstrom} breiten Spitzen variabler Steigung}
+    \subcaption{Zeitverlauf der Rauheit von \SI{50}{\angstrom} breiten Spitzen variabler Steigung. Oberflächenrauheiten werden nicht verringert}
     \label{fig:goldroughness-b}
   \end{subfigure}
 
-  \caption[Oberflächenrauheit von Gold]{Oberflächenrauheit von Gold}
+  \caption[Oberflächenrauheit von Gold]{Oberflächenrauheit von Gold. Im idealen Fall konvergiert die Rauheit gegen einen konstanten Wert von \SI{1.2}{\angstrom}}
   \label{fig:goldroughness}
 
 \end{figure}
@@ -182,4 +182,5 @@ In realen Systemen werden entstehende Überhänge und Hohlräume der untersuchte
 \subsection{Skalierbarkeit}
 
 Zur Untersuchung der Skalierbarkeit wurden Substratbreiten von \SI{100}{\angstrom}, \SI{200}{\angstrom}, \SI{1000}{\angstrom} und \SI{10000}{\angstrom} und \SI{20000}{\angstrom} (\SI{2}{\micro\meter}) auf Speicherverbrauch, Atomzahl und, sofern möglich, Laufzeit untersucht.
-\todo[inline]{Plots oder Tabellen}
+
+\todo[inline]{Plots oder Tabellen oder so}

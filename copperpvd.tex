@@ -1,9 +1,8 @@
 \section{Kupfer-PVD}
 \label{copperpvd}
 
-Ein zweites PVD-System stellt Kupfer dar, wofür eine Vielzahl an unterschiedlichen Parametrisierungen vorliegen (Tabelle \ref{tab:copperpots}).
-Es stellt sich die Aufgabe, eine passende Parametrisierung darunter zu suchen und zu entscheiden, inwiefern eine Vorauswahl anhand weniger Parameter \todo{chword} sinnvoll ist.
-Kupfer bildet ebenfalls fcc-Kristalle, 
+Ein zweites PVD-System stellt Kupfer dar, für das eine Vielzahl an unterschiedlichen Parametrisierungen vorliegt (Tabelle \ref{tab:copperpots}).
+Es stellt sich die Aufgabe, darunter eine passende Parametrisierung zu suchen und zu entscheiden, inwiefern eine Vorauswahl anhand weniger Parameter \todo{chword} möglich ist.
 
 \begin{table}[hbtp]
   \caption[EAM-Parametrisierungen für Kupfersysteme]{EAM-Parametrisierungen für Kupfersysteme.}
@@ -26,23 +25,28 @@ Kupfer bildet ebenfalls fcc-Kristalle,
   
 \end{table}
 
+Viele der Parametersätze wurden für Legierungen angepasst, die Cu-Zr-Potentiale sind sogar mit der Warnung versehen, man könne ein reines Metall damit nicht mehr verlässlich simulieren.
+Ein Hinweis auf die Kompatibilität mit LAMMPS oder den untersuchten Systemen ließ sich häufig nicht finden, weshalb Testrechnungen an Kupfer-Bulks und -Oberflächen durchgeführt wurden.
+
 \subsection{Voruntersuchungen}
 
-Bei den Voruntersuchungen der strukturellen Eigenschaften konnten einige Parametersätze von LAMMPS nicht akzeptiert werden oder haben sich mit kryptischen Fehlern auf negative Speicherallokierungen aufgehangen.
-Die Ergebnisse der drei verbliebenen Potentiale sind jedoch in guter Übereinstimmung mit Literaturwerten (Tabelle \ref{tab:copperpreresults}).
-\todo{Dichte}Der Schmelzpunkt wurde jedoch nicht zuverlässig simuliert (Abbildung \ref{fig:copperthermo}).
+Mit Ausnahme der drei Parametersätze Cu\_u3.eam, Cu\_u6.eam und Cu\_smf7.eam konnten die Potentiale nicht von LAMMPS zur Simulation genutzt werden.
+Es zeigten sich dabei Probleme beim Laden der Dateien, kryptische Fehlerausgaben nach einigen Schritten oder ein Aufhängen der Simulation ohne Vorankündigung.
+Die Ergebnisse der verbliebenen Potentiale sind jedoch in guter Übereinstimmung mit Literaturwerten (Tabelle \ref{tab:copperpreresults}).
+\todo[inline]{Dichte}
+Im Gegensatz zu den ebenfalls durch EAM-Potentiale simulierten Goldsystemen wurde der Schmelzpunkt nicht zuverlässig simuliert (Abbildung \ref{fig:copperthermo}), was durch die sonst geringen Simulationstemperaturen vernachlässigbar ist.
 
 \begin{table}[hbtp]
-  %% \rowcolors{0}{white}{lightgray} 
-  \caption[Eigenschaften von Gold]{Vergleich der Eigenschaften von Gold mit experimentellen und Literaturdaten als Voruntersuchung des PVD-Prozesses\todo[inline]{ref}}
-  \label{tab:goldpreresults}
+  \rowcolors{0}{white}{lightgray} 
+  \caption[Eigenschaften von Kupfer]{Vergleich der Eigenschaften von Kupfer mit experimentellen und Literaturdaten als Voruntersuchung des PVD-Prozesses\todo[inline]{ref}}
+  \label{tab:copperpreresults}
   \begin{tabularx}{\textwidth}{|lXXXX|}
     \hline
     \textbf{unters. Größe} & \textbf{Experiment} & \textbf{Cu\_smf7.eam} & \textbf{Cu\_u3.eam} & \textbf{Cu\_u6.eam} \\
     \hline
-    Bindungslänge  &  \SI{2.556}{\angstrom} & \SI{2.558}{\angstrom} & \SI{2.558}{\angstrom} & \SI{2.558}{\angstrom} \\
     Koordination   &  \SI{12.00}{} & \SI{12.00}{} & \SI{12.00}{} & \SI{12.00}{} \\
-    Dichte         & \SI{8.92}{\gram\per\cubic\centi\meter} & \SI{8.908}{\gram\per\cubic\centi\meter} & \SI{8.915}{\gram\per\cubic\centi\meter} & \SI{8.910}{\gram\per\cubic\centi\meter} \\
+    Bindungslänge  &  \SI{2.556}{\angstrom} & \SI{2.558}{\angstrom} (\SI{0.08}{\percent}) & \SI{2.558}{\angstrom} (\SI{0.08}{\percent}) & \SI{2.558}{\angstrom} (\SI{0.08}{\percent}) \\
+    Dichte         & \SI{8.92}{\gram\per\cubic\centi\meter} & \SI{8.908}{\gram\per\cubic\centi\meter} (\SI{-0.13}{\percent}) & \SI{8.915}{\gram\per\cubic\centi\meter} (\SI{-0.06}{\percent}) & \SI{8.910}{\gram\per\cubic\centi\meter}  (\SI{-0.11}{\percent}) \\
     \hline
   \end{tabularx}
 \end{table}
@@ -66,21 +70,21 @@ Die Ergebnisse der drei verbliebenen Potentiale sind jedoch in guter Übereinsti
     Abweichung der Schmelztemperatur mit verschiedenen Parametrisierungen.
     Experimentelle Werte von Brillo et al.\cite{brillo_density_2006}.
   }
-  \label{fig:goldthermo}
+  \label{fig:copperthermo}
 \end{figure}
 
 \subsection{Prozess-Simulation}
 
-Äquivalent zur Vorgehensweise beim Gold-PVD-Prozess wurde ein Kupfer-PVD-Prozess gestartet
-Zur Simulation eines Gold-PVD-Prozesses mit Parsivald wurden die untersuchten Potentialparameter sowie ein Kristallsubstrat eingelesen, ein Abscheidungsmodus mit zufälligen Auftreffpositionen in der xy-Ebene gewählt und Relaxationszeiten und Reaktionsnachbarschaftsgrößen gewählt, die in den vorheringen Tests als hinreichend ermittelt wurden.
-Damit ergaben sich Reaktionsräume der Größe \SI{37x37x25}{\angstrom} mit jeweils ca. 1800 Atomen, Relaxationszeiten von \SI{1.4}{\nano\second} in \SI{1400}{} Simulationsschritten und Auftreffgeschwindigkeiten von \SI{4}{\angstrom/\pico\second}, die aus üblichen Sputterbedingungen stammen.\todo{wie berechnet?}
-Die \SI{100x100}{\angstrom} breiten Kristalle werden perfekt fortgesetzt, wobei nach 10 Kristallschichten eine Rauheit von einem Atomdurchmesser vorliegt, was Übereinstimmung mit einem diffusionsdominierten Abscheidungsprozess zeigt.
+Aufgrund der Ähnlichkeit des Gold-PVD-Prozesses wurden dessen Parameter für die Kupfer-PVD übernommen und auf dessen Eigenschaften leicht angewandt.
+So liegen kleinere Bindungslängen und geringere Massen vor, die beispielsweise zu erhöhten \todo{wirklich?}Auftreffgeschwindigkeiten führen.
 
-\subsubsection{Strukturierte Substrate}
-
-Als Stabilitätsprüfung wurden auch Abscheidungen auf strukturierten Substraten (Abbildung \ref{fig:coppersubstrate}) mit den gleichbleibenden Prozessbedingungen simuliert.
-Es wurden Stufen und Spitzen mit Neigungen von jeweils \SI{15}{\degree}, \SI{20}{\degree}, \SI{30}{\degree}, \SI{45}{\degree}, \SI{60}{\degree} und \SI{90}{\degree} bei oben genannten Prozessbedingungen untersucht.
-\todo{vorherige Relaxation?}
+Zu Beginn der Simulation ergeben sich hohe Abbruchquoten von \SI{25}{\percent}, die im Laufe der Simulation nachlassen.
+Genauere Untersuchungen zeigen, dass bei Ankunft eines neuen Kupferatomes auf der glatten Gitteroberfläche ein vorhandenes Atom herausgeschlagen wird.
+Sobald die Oberfläche mit genügend Off-Lattice-Atomen versehen ist, verschwindet dieser Effekt.
+Die kritische Bedeckung liegt zwischen \SI{0.34}{\per\nano\meter\squared} und \SI{0.74}{\per\nano\meter\squared}.
+Das deckt sich gut mit der maximalen MD-Ereignisdichte von \SI{0.098}{\per\nano\meter\squared} unter der Annahme, dass mehrere Atome an der Abschwächung des Effektes beteiligt sind\todo{Formulierung}.
+Es ist also zu vermuten, dass perfekte Gitterkonfigurationen nicht robust gegenüber gerichteten Energieeinträgen ist, kleine Perturbationen der Atompositionen aber zur gleichmäßigeren Verteilung der eingebrachten Energien führen.
+\todo[inline]{Entropie?}
 
 \begin{figure}[bt]
   \captionsetup[subfigure]{singlelinecheck=false}

@@ -12,7 +12,7 @@ Es stellt sich die Aufgabe, darunter eine passende Parametrisierung zu suchen un
     \hline
     \textbf{Bezeichnung} & \textbf{Anwendung \& Kommentare} & \textbf{Ref.} \\
     \hline
-    CuAg.eam.alloy & Strukturelle und thermische Eigenschaften von \ce{Cu-Al} & \cite{williams_embedded-atom_2006} \\
+    CuAg.eam.alloy & Strukturelle und thermische Eigenschaften von \ce{Cu-Ag} & \cite{williams_embedded-atom_2006} \\
     cu\_ag\_ymwu.eam.alloy & Mono-, Di-, Trimere und Inseln von \ce{Cu} auf \ce{Ag} & \cite{wu_cu/ag_2009} \\
     Cu\_smf7.eam & Oberflächen von \ce{Ni-Cu}-Legierungen bei \SI{800}{\kelvin} & \cite{foiles_calculation_1985} \\
     Cu\_u3.eam & Oberflächen und Bulks verschiedener Legierungen & \cite{foiles_embedded-atom-method_1986} \\
@@ -36,7 +36,7 @@ Die Ergebnisse der verbliebenen Potentiale sind jedoch in guter Übereinstimmung
 \todo[inline]{Dichte}
 Im Gegensatz zu den ebenfalls durch EAM-Potentiale simulierten Goldsystemen wurde der Schmelzpunkt nicht zuverlässig simuliert (Abbildung \ref{fig:copperthermo}), was durch die sonst geringen Simulationstemperaturen vernachlässigbar ist.
 
-\begin{table}[hbtp]
+\begin{table}[tbh]
   \rowcolors{0}{white}{lightgray} 
   \caption[Eigenschaften von Kupfer]{Vergleich der Eigenschaften von Kupfer mit experimentellen und Literaturdaten als Voruntersuchung des PVD-Prozesses\todo[inline]{ref}}
   \label{tab:copperpreresults}
@@ -53,8 +53,7 @@ Im Gegensatz zu den ebenfalls durch EAM-Potentiale simulierten Goldsystemen wurd
 
 \todo[inline]{Oberflächenvalidierung?}
 
-\begin{figure}[tbp]
-  \centering
+\begin{figure}[bht]
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{7cm}
   \begin{subfigure}[t]{\subfigwidth}
@@ -81,69 +80,46 @@ So liegen kleinere Bindungslängen und geringere Massen vor, die beispielsweise 
 Zu Beginn der Simulation ergeben sich hohe Abbruchquoten von \SI{25}{\percent}, die im Laufe der Simulation nachlassen.
 Genauere Untersuchungen zeigen, dass bei Ankunft eines neuen Kupferatomes auf der glatten Gitteroberfläche ein vorhandenes Atom herausgeschlagen wird.
 Sobald die Oberfläche mit genügend Off-Lattice-Atomen versehen ist, verschwindet dieser Effekt.
-Die kritische Bedeckung liegt zwischen \SI{0.34}{\per\nano\meter\squared} und \SI{0.74}{\per\nano\meter\squared}.
-Das deckt sich gut mit der maximalen MD-Ereignisdichte von \SI{0.098}{\per\nano\meter\squared} unter der Annahme, dass mehrere Atome an der Abschwächung des Effektes beteiligt sind\todo{Formulierung}.
+Die kritische Bedeckung liegt zwischen \SI{0.034}{\per\nano\meter\squared} und \SI{0.074}{\per\nano\meter\squared}, was sich mit der maximalen MD-Ereignisdichte von \SI{0.073}{\per\nano\meter\squared} deckt.
 Es ist also zu vermuten, dass perfekte Gitterkonfigurationen nicht robust gegenüber gerichteten Energieeinträgen ist, kleine Perturbationen der Atompositionen aber zur gleichmäßigeren Verteilung der eingebrachten Energien führen.
 \todo[inline]{Entropie?}
 
-\begin{figure}[bt]
+\begin{figure}[bth]
   \captionsetup[subfigure]{singlelinecheck=false}
-  \def\subfigwidth{0.31\textwidth}
+  \def\subfigwidth{0.49\textwidth}
   \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{Au_substrate_flat}
-    \subcaption{Glattes Gold-Substrat}
-    \label{fig:coppersubstrate-a}
+    \includegraphics[width=\textwidth]{Cu_abortstatplot}
+    \subcaption{Verlauf der Abbruchraten}
+    \label{fig:copperparsivald-a}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{Au_substrate_step30}
-    \subcaption{Gold-Stufe, \SI{30}{\degree}}
-    \label{fig:coppersubstrate-b}
+    \includegraphics[width=\textwidth]{missing}
+    \subcaption{Zeitliche Entwicklung der Schichtdicke}
+    \label{fig:copperparsivald-b}
+  \end{subfigure}
+  \begin{subfigure}[t]{\subfigwidth}
+    \includegraphics[width=\textwidth]{missing}
+    \subcaption{Zeitliche Entwicklung der Rauheit}
+    \label{fig:copperparsivald-c}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{Au_substrate_tip60}
-    \subcaption{Gold-Spitze, \SI{60}{\degree}}
-    \label{fig:coppersubstrate-c}
+    \includegraphics[width=\textwidth]{Cu_eventhistogram}
+    \subcaption{Häufigkeit gleichzeitiger Ereignisse}
+    \label{fig:copperparsivald-d}
   \end{subfigure}
-  \caption[Strukturierte Coppersubstrate]{Coppersubstrate mit unterschiedlicher Struktur und Breite und Tiefe von \SI{100}{\angstrom}.
-    Abscheidungen wurden auf glatten Substraten, Stufen und Spitzen vorgenommen.}
-  \label{fig:coppersubstrate}
+  \caption{Vergleich der Kupfer-Potentiale im Parsivald-Programm}
+  \label{fig:copperparsivald}
 \end{figure}
 
-\begin{figure}[bt]
-  \captionsetup[subfigure]{singlelinecheck=false}
-  \def\subfigwidth{0.31\textwidth}
-  \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{Au_deposition_flat}
-    \subcaption{Abscheidung auf glattem Gold-Substrat}
-    \label{fig:copperdepositions-a}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{Au_deposition_step30}
-    \subcaption{Abscheidung auf Gold-Stufe, \SI{30}{\degree}}
-    \label{fig:copperdepositions-b}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{Au_deposition_tip60}
-    \subcaption{Abscheidung auf Gold-Spitze, \SI{60}{\degree}}
-    \label{fig:copperdepositions-c}
-  \end{subfigure}
-  \caption[Abscheidung auf strukturierten Substraten]{
-    Ergebnis der Abscheidung.
-    Die Substratstruktur bleibt erkennbar, wird aber nach oben verstärkt, ansonsten aber kristallin und glatt fortgesetzt.
-  }
-  \label{fig:copperdepositions}
-\end{figure}
+Im weiteren Verlauf der Simulation konvergiert die Abbruchquote gegen einen niedrigen Wert unterhalb von \SI{2}{\percent} (Abbildung \ref{fig:copperparsivald-a}).
+Strukturelle Untersuchungen zeigen keine Einschlüsse, was auch bei diesem Prozess durch in der fcc-kristallinen Struktur der abgeschiedenen Schicht begründet ist.
+Rauheit und Schichtdicke (Abbildungen \ref{fig:copperparsivald-b} und \ref{fig:copperparsivald-c}) \todo{SCHÖNER!}{sind schön}.
 
-Das Kristallsubstrat wird auch hier fortgesetzt, jedoch verstärken sich Neigungswinkel an Stufen und Spitzen zunehmend.
-Nach längeren Laufzeiten entstehen somit Überhänge, die durch Abschluss von unten zu Hohlräumen innerhalb der Struktur führen, welche in der Realität durch thermische Relaxation geschlossen würden.
-Dahinter steht einerseits die Notwendigkeit, Gold-Atome bei Ankunft auf der Oberfläche ausreichend diffundieren zu lassen, was beim aktuellen Modell nur innerhalb der Reaktionsraumgrenzen geschieht.
-
-Andererseits liegt ein methodischer Fehler bei Nutzung von Binning-Methoden vor:
-Die Oberfläche wird aus algorithmischen Gründen nur entlang der z-Achse bestimmt, woraufhin das neue Atom oberhalb eines Referenzatomes auf der Oberfläche platziert wird.
-An Stufen und Kanten werden hierbei höhere Reaktionsorte bevorzugt, an denen das Atom mit \todo{phrasing}statistischer Wahrscheinlichkeit verbleibt.
-
-Einen Lösungsansatz stellt die ausführliche Parametrisierung der Oberfläche dar, beispielsweise per Alpha-Form (siehe Abschnitt \ref{dataalphaform}, über die man die Ereigniswahrscheinlichkeit entsprechend der Einbettungsenergie variierte, angenähert über die Oberflächenkrümmung.
+\subsubsection{Maximale Ereignisdichte}
+Ergänzend ist in Abbildung \ref{fig:copperparsivald-d} ein Histogramm der Zahl paralleler Ereignisse dargestellt.
+Die maximale Oberflächendichte der Ereignisse liegt bei der gewählten MD-Box-Größe von \SI{37x37}{\angstrom} bei \SI{0.073}{\per\nano\meter\squared}.
+Dem stehen beobachtete Werte von 12 aktiven Ereignissen gegenüber, die einer Dichte von \SI{0.03}{\per\nano\meter\squared} und somit \SI{30}{\percent} maximaler Bedeckung entsprechen.
+Aufgrund der zufälligen Positionierung der MD-Box innerhalb der KMC-Simulation und der Blocking von Ereignissen bei Überlappung der MD-Kästen scheint dieser Wert plausibel.
+Ähnliche Werte werden bei Simulationsläufen mit unterschiedlichen Substratgrößen und Materialien beobachtet werden.

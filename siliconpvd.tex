@@ -1,9 +1,14 @@
-\section{Silizium-PVD}
+\section{Silizium-PVD und Silica-CVD}
+\label{siliconpvd}
 
-Mit dem Ziel der Simulation des \ce{SiH4}-\ce{H2O}-CVD-Prozesses habe ich zunächst Potentiale gesucht, die Siliziumkristalle darstellen können.
-Diese Untersuchungen ergaben sich aus den Eigenschaften einiger ReaxFF-Parametrisierungen, entweder Moleküle oder Bulkmaterialien zu unterstützen.
+Anhand von Silizium-PVD sollen einerseits amorphe Schichten abgeschieden, andererseits zum \ce{SiH4}-\ce{O2}-CVD-Prozess hingeführt werden.
+Als Substrat werden kristalline Strukturen verschiedener Kristallebenen ([100], [110] und [111]) untersucht.
 
 \subsection{Potentialdateien}
+
+Für die folgenden Simulationen werden ReaxFF-Potentiale mit der Aussicht genutzt, auch Reaktionen zwischen Oberflächenatomen und Precursormolekülen simulieren zu können.
+Da die ReaxFF-Formulierung erst innerhalb des letzten Jahrzehntes an Popularität gewonnen hat\todo{ref auf van duin}, sind die verfügbaren Potentiale auf einzelne Probleme angepasst und oftmals noch nicht in den Potentialdatenbanken zu finden.
+Tabelle \ref{tab:siliconpotentials} listet die im Rahmen der Arbeit untersuchten ReaxFF-Parametrisierungen auf.
 
 \begin{table}[h]
   \caption[Silizium-Potentialdateien]{Potentialdateien für Silizium- und Siliziumoxidsysteme}
@@ -13,7 +18,7 @@ Diese Untersuchungen ergaben sich aus den Eigenschaften einiger ReaxFF-Parametri
     \hline
     \textbf{Bezeichnung} & \textbf{Anwendung \& Kommentare} & \textbf{Ref.} \\
     \hline
-    Al\_AlO\_AlN & \ce{Al}, \ce{Al2O3}, \ce{AlN}. Basiert auf einer Si-Parametrisierung                                         & \cite{plimpton_lammps_2014} \\
+    Al\_AlO\_AlN    & \ce{Al}, \ce{Al2O3}, \ce{AlN}. Basiert auf einer Si-Parametrisierung                                      & \cite{plimpton_lammps_2014} \\
     chenoweth       & Zersetzung von Polydimethylsiloxane bei hohen Drücken und Temperaturen. Ergänzung von \ce{C-Si}-Bindungen & \cite{chenoweth_simulations_2005} \\
     kulkarni        & Reaktion von Sauerstoff mit \ce{OH}-terminierten Siliziumoxid-Oberflächen                                 & \cite{kulkarni_oxygen_2013} \\
     lg              & ``low gradients''. Siehe liu\_nitramines. Fehlerhafte Version aus LAMMPS                                  & \cite{liu_reaxff-lg:_2011} \\
@@ -27,3 +32,38 @@ Diese Untersuchungen ergaben sich aus den Eigenschaften einiger ReaxFF-Parametri
   \end{tabularx}
 \end{table}
 
+\subsection{Potentialuntersuchungen}
+
+Neben den Kristall-Optimierungen und -Relaxierungen werden auch Relaxierungen der Oberfläche und Präparationen amorpher Strukturen sowie Precursor-Simulationen als Potentialtests genutzt.
+Zeigen diese gute Ergebnisse, kommen noch Simulationen von Precursor-Reaktionen und Precursor-Oberflächen-Reaktionen hinzu.
+Das Ziel dieser Bemühungen ist eine Abschätzung der Darstellbarkeit des Prozesses per Molekulardynamik:
+Sind neben den Bulks auch die die Precursormoleküle und Oberflächen sowie deren Reaktionen miteinander mit hoher Zuverlässigkeit darstellbar, ließe sich der Prozess ohne grobe Vereinfachung der Precursorchemie simulieren.
+Die Ergebnisse dieser Betrachtungen wurden in Tabelle \ref{tab:siliconpreresults} zusammen gefasst und für ausgewählte Systeme in Tabelle \ref{tab:silicondetailedresults} näher analysiert.
+
+\begin{table}[h]
+  \caption[Ergebnisse der Silizium-Potential-Untersuchungen]{Zusammenfassung Ergebnisse der Untersuchung der Potenialuntersuchung für Silizium-Systeme. Detailliertere Ergebnisse finden sich im \todo[inline]{Anhang}}
+  \label{tab:siliconpotentials}
+  \rowcolors{0}{white}{lightgray}
+  \begin{tabularx}{\textwidth}{|lCCCCCCCC|}
+    \hline
+    \textbf{Bezeichnung} & LMP & c-\ce{Si} & c-\ce{SiO2} & a-\ce{Si} & \ce{SiH4} & \ce{+O2} & PVD\footnotemark[1] & CVD\footnotemark[2] \\
+    \hline          % LAMMPS &  c-Si  & c-SiO2 &  a-Si  & Silane  & + O2  &  PVD   &  CVD   \\
+    Al\_AlO\_AlN    & \cmark &        &(\cmark)& \cmark?& \cmark &        & \cmark & \cmark?\\
+    chenoweth       &        &        &        &        &        &        &        &        \\
+    kulkarni        & \cmark & \cmark & \cmark & \cmark?& \cmark &(\cmark)& \cmark & \cmark?\\
+    lg              &        &        &        &        &        &        &        &        \\
+    liu\_ettringite & \cmark &        & \cmark & \cmark?&        &        & \cmark & \cmark?\\
+    liu\_nitramines &        &        &        &        &        &        &        &        \\
+    narayanan       & \cmark &        & \cmark & \cmark?&        &        & \cmark & \cmark?\\
+    newsome         & \cmark &        &(\cmark)& \cmark?&        &(\cmark)& \cmark & \cmark?\\
+    nielson         & \cmark & \cmark & \cmark & \cmark?& \cmark &        & \cmark & \cmark?\\
+    zhang           & \cmark &        &        &        & \cmark & \cmark &        &        \\
+    \hline
+  \end{tabularx}
+  \todo[inline]{Gruende und Daten -> Anhang}
+\end{table}
+
+Schluss.
+
+\footnotetext[1]{PVD: a-\ce{Si}-PVD mit Parsivald}
+\footnotetext[2]{PVD: a-\ce{SiO2}-CVD mit Parsivald}

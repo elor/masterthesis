@@ -1,9 +1,6 @@
 \section{Kupfer-PVD}
 \label{copperpvd}
 
-Ein zweites PVD-System stellt Kupfer dar, für das eine Vielzahl an unterschiedlichen Parametrisierungen vorliegt (Tabelle \ref{tab:copperpots}).
-Es stellt sich die Aufgabe, darunter eine passende Parametrisierung zu suchen und zu entscheiden, inwiefern eine Vorauswahl anhand weniger Parameter \todo{chword} möglich ist.
-
 \begin{table}[hbtp]
   \caption[EAM-Parametrisierungen für Kupfersysteme]{EAM-Parametrisierungen für Kupfersysteme.}
   \label{tab:copperpots}
@@ -25,20 +22,18 @@ Es stellt sich die Aufgabe, darunter eine passende Parametrisierung zu suchen un
   
 \end{table}
 
-Viele der Parametersätze wurden für Legierungen angepasst, die Cu-Zr-Potentiale sind sogar mit der Warnung versehen, man könne ein reines Metall damit nicht mehr verlässlich simulieren.
-Ein Hinweis auf die Kompatibilität mit LAMMPS oder den untersuchten Systemen ließ sich häufig nicht finden, weshalb Testrechnungen an Kupfer-Bulks und -Oberflächen durchgeführt wurden.
+Viele der für Kupfer verfügbaren Parametersätze wurden für binäre Legierungen angepasst, von denen einige Hinweise auf die Nicht-Darstellbarkeit der reinen Metallsysteme enthalten\cite{mendelev_development_2009}\cite{mendelev_using_2007}.
 
 \subsection{Voruntersuchungen}
 
-Mit Ausnahme der drei Parametersätze Cu\_u3.eam, Cu\_u6.eam und Cu\_smf7.eam konnten die Potentiale nicht von LAMMPS zur Simulation genutzt werden.
-Es zeigten sich dabei Probleme beim Laden der Dateien, kryptische Fehlerausgaben nach einigen Schritten oder ein Aufhängen der Simulation ohne Vorankündigung.
-Die Ergebnisse der verbliebenen Potentiale sind jedoch in guter Übereinstimmung mit Literaturwerten (Tabelle \ref{tab:copperpreresults}).
-\todo[inline]{Dichte}
-Im Gegensatz zu den ebenfalls durch EAM-Potentiale simulierten Goldsystemen wurde der Schmelzpunkt nicht zuverlässig simuliert (Abbildung \ref{fig:copperthermo}), was durch die sonst geringen Simulationstemperaturen vernachlässigbar ist.
+Mit Ausnahme der drei Parametersätze Cu\_u3.eam, Cu\_u6.eam und Cu\_smf7.eam wurden die Parameterdateien nicht von LAMMPS akzeptiert.
+Es zeigten sich Probleme beim Laden der Dateien, kryptische Fehlerausgaben nach wenigen Schritten oder ein Aufhängen der Simulation ohne Vorankündigung.\todo{Ursachensuche?}
+Die Ergebnisse der verbliebenen Simulationen zeigen aber gute Übereinstimmung mit Literaturwerten (Tabelle \ref{tab:copperpreresults}).
+Einzig der Schmelzpunkt wird stark überschätzt (Abbildung \ref{fig:copperthermo}), was durch üblicherweise geringe Simulationstemperaturen vernachlässigbar ist.
 
-\begin{table}[tbh]
+\begin{table}[bht]
   \rowcolors{0}{white}{lightgray} 
-  \caption[Eigenschaften von Kupfer]{Vergleich der Eigenschaften von Kupfer mit experimentellen und Literaturdaten als Voruntersuchung des PVD-Prozesses\todo[inline]{ref}}
+  \caption[Eigenschaften von Kupfer]{Voruntersuchungen: Vergleich der Simulationsergebnisse mit Literaturdaten}
   \label{tab:copperpreresults}
   \begin{tabularx}{\textwidth}{|lXXXX|}
     \hline
@@ -51,9 +46,7 @@ Im Gegensatz zu den ebenfalls durch EAM-Potentiale simulierten Goldsystemen wurd
   \end{tabularx}
 \end{table}
 
-\todo[inline]{Oberflächenvalidierung?}
-
-\begin{figure}[bht]
+\begin{figure}[hp]
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{7cm}
   \begin{subfigure}[t]{\subfigwidth}
@@ -74,17 +67,7 @@ Im Gegensatz zu den ebenfalls durch EAM-Potentiale simulierten Goldsystemen wurd
 
 \subsection{Prozess-Simulation}
 
-Aufgrund der Ähnlichkeit des Gold-PVD-Prozesses wurden dessen Parameter für die Kupfer-PVD übernommen und auf dessen Eigenschaften leicht angewandt.
-So liegen kleinere Bindungslängen und geringere Massen vor, die beispielsweise zu erhöhten \todo{wirklich?}Auftreffgeschwindigkeiten führen.
-
-Zu Beginn der Simulation ergeben sich hohe Abbruchquoten von \SI{25}{\percent}, die im Laufe der Simulation nachlassen.
-Genauere Untersuchungen zeigen, dass bei Ankunft eines neuen Kupferatomes auf der glatten Gitteroberfläche ein vorhandenes Atom herausgeschlagen wird.
-Sobald die Oberfläche mit genügend Off-Lattice-Atomen versehen ist, verschwindet dieser Effekt.
-Die kritische Bedeckung liegt zwischen \SI{0.034}{\per\nano\meter\squared} und \SI{0.074}{\per\nano\meter\squared}, was sich mit der maximalen MD-Ereignisdichte von \SI{0.073}{\per\nano\meter\squared} deckt.
-Es ist also zu vermuten, dass perfekte Gitterkonfigurationen nicht robust gegenüber gerichteten Energieeinträgen ist, kleine Perturbationen der Atompositionen aber zur gleichmäßigeren Verteilung der eingebrachten Energien führen.
-\todo[inline]{Entropie?}
-
-\begin{figure}[bth]
+\begin{figure}[hp]
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{0.49\textwidth}
   \begin{subfigure}[t]{\subfigwidth}
@@ -109,17 +92,70 @@ Es ist also zu vermuten, dass perfekte Gitterkonfigurationen nicht robust gegen�
     \subcaption{Häufigkeit gleichzeitiger Ereignisse}
     \label{fig:copperparsivald-d}
   \end{subfigure}
-  \caption{Vergleich der Kupfer-Potentiale im Parsivald-Programm}
+  \caption{Vergleich der Kupfer-Potentiale in Parsivald-Rechnungen}
   \label{fig:copperparsivald}
 \end{figure}
 
-Im weiteren Verlauf der Simulation konvergiert die Abbruchquote gegen einen niedrigen Wert unterhalb von \SI{2}{\percent} (Abbildung \ref{fig:copperparsivald-a}).
-Strukturelle Untersuchungen zeigen keine Einschlüsse, was auch bei diesem Prozess durch in der fcc-kristallinen Struktur der abgeschiedenen Schicht begründet ist.
-Rauheit und Schichtdicke (Abbildungen \ref{fig:copperparsivald-b} und \ref{fig:copperparsivald-c}) \todo{SCHÖNER!}{sind schön}.
+Aufgrund der Ähnlichkeit des Gold-PVD-Prozesses wurden dessen Parameter für die Kupfer-PVD übernommen und auf deren Eigenschaften angepasst.
+Beispielsweise liegen kleinere Bindungslängen und geringere Massen vor, die zu erhöhten Auftreff- und geschwindigkeiten führen.
+
+Zu Beginn der Simulation ergeben sich hohe Abbruchrate von \SI{25}{\percent}, die durch Herausschlagen einzelner Atome bei Ankunft eines neuen Kupferatomes verursacht werden.
+Bereits nach wenigen Oberflächenereignissen nimmt die Abbruchrate ab, was auf eine Reduktion des Effektes durch thermische Relaxation und Bedeckung der Oberfläche durch temporäre Off-Lattice-Atome hinweist.
+Die kritische Bedeckung dafür liegt zwischen \SI{0.034}{\per\nano\meter\squared} und \SI{0.074}{\per\nano\meter\squared} und deckt sich somit mit der maximalen MD-Ereignisdichte von \SI{0.073}{\per\nano\meter\squared}.
+Das deutet darauf hin, dass perfekte Gitterkonfigurationen nicht robust gegenüber gerichteten Energieeinträgen ist, kleine Störungen des Gitters aber zur gleichmäßigeren Verteilung der eingebrachten Energien führen.
+\todo[inline]{Entropieargument einbringen?}
+
+Im weiteren Verlauf der Simulation variiert die Abbruchquote unterhalb von \SI{2}{\percent} (Abbildung \ref{fig:copperparsivald-a}).
+Sie korreliert augenscheinlich mit der RMS-Rauheit (Abbildung \ref{fig:copperparsivald-c}), die durch Oberflächenunebenheiten auf der Nanometer-Skala dominiert wird.
+Mit einem nahezu konstanten RMS-Wert um \SI{1}{\angstrom} sind die gewachsenen Schichten durchgehend glatt, mit Ausnahme des Cu\_u3.eam-Systemes.
+
+Die Cu\_u3.eam-Simulation bildet ab Schritt 70 einen \SI{2.6}{\nano\meter} breiten und \SI{3.0}{\nano\meter} tiefen \todo{Krater?}Krater aus, der schließlich zu einem \SI{1}{\nano\meter} großen \todo{void}Einschluss abgeschlossen wird (Abbildung \ref{fig:coppercrater}).
+Die Auswirkungen dieses Kraters sind auch im RMS-Diagramm (Abbildung \ref{fig:copperparsivald-c}, schlagartige Abnahme in Schritt 96) und in den Abbruchraten (Abbildung \ref{fig:copperparsivald-a}, Anstieg zwischen Schritten 60 und 90) erkennbar, beeinflussen aber nicht die Wachstumsrate (Abbildung \ref{fig:copperparsivald-b}).
+
+\begin{figure}[bthp]
+
+  \captionsetup[subfigure]{justification=centering,singlelinecheck=false}
+  \def\subfigwidth{0.32\textwidth}
+
+  \begin{subfigure}[t]{\subfigwidth}
+    \includegraphics[width=\textwidth]{Cu_crater_01_crop}
+    \subcaption{$t=59$}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{\subfigwidth}
+    \includegraphics[width=\textwidth]{Cu_crater_07_crop}
+    \subcaption{$t=65$}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{\subfigwidth}
+    \includegraphics[width=\textwidth]{Cu_crater_17_crop}
+    \subcaption{$t=75$}
+  \end{subfigure}
+
+  \begin{subfigure}[t]{\subfigwidth}
+    \includegraphics[width=\textwidth]{Cu_crater_27}
+    \subcaption{$t=85$}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{\subfigwidth}
+    \includegraphics[width=\textwidth]{Cu_crater_37}
+    \subcaption{$t=95$}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{\subfigwidth}
+    \includegraphics[width=\textwidth]{Cu_crater_42}
+    \subcaption{$t=100$}
+  \end{subfigure}
+
+  \caption{Wachstum und Abschluss des Kupfer-Kraters bei Cu\_u3.eam.\\
+    Seitenansicht der extrahierten Oberflächenatome (\SI{3x3}{\nano\meter})
+  }
+  \label{fig:coppercrater}
+\end{figure}
 
 \subsubsection{Maximale Ereignisdichte}
 Ergänzend ist in Abbildung \ref{fig:copperparsivald-d} ein Histogramm der Zahl paralleler Ereignisse dargestellt.
 Die maximale Oberflächendichte der Ereignisse liegt bei der gewählten MD-Box-Größe von \SI{37x37}{\angstrom} bei \SI{0.073}{\per\nano\meter\squared}.
-Dem stehen beobachtete Werte von 12 aktiven Ereignissen gegenüber, die einer Dichte von \SI{0.03}{\per\nano\meter\squared} und somit \SI{30}{\percent} maximaler Bedeckung entsprechen.
+Dem stehen beobachtete Werte von 12 aktiven Ereignissen gegenüber, die einer Dichte von \SI{0.03}{\per\nano\meter\squared} und somit \SI{40}{\percent} maximaler Bedeckung entsprechen.
 Aufgrund der zufälligen Positionierung der MD-Box innerhalb der KMC-Simulation und der Blocking von Ereignissen bei Überlappung der MD-Kästen scheint dieser Wert plausibel.
 Ähnliche Werte werden bei Simulationsläufen mit unterschiedlichen Substratgrößen und Materialien beobachtet werden.

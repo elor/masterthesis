@@ -1,13 +1,19 @@
 \section{Parsivald-Modell}
 \label{sec:parsivald}
 
-\subsection{Bisheriger Stand}
+\subsection{Beschreibung}
 
-Parsivald entstand als Resultat meiner Bachelorarbeit\cite{lorenz_entwicklung_2012} am Fraunhofer ENAS in Chemnitz, wurde darin aber noch als namenlose Software entwickelt.
-Das Modell wurde mit dem Ziel der Atom\-lagen\-abscheidungs-Simulationen entwickelt und beschränkte sich deshalb auf atomistische Simulation von Metall\-oxid-ALD mittels MEAM-Potentialen.
-Im Hintergrund werden LAMMPS neben einer eigene KMC-Bibliothek und Importer und Exporter verschiedener Dateiformate, Kommandozeilenargumente und Konfigurationsdateien zur einfacheren Prozesserforschung zu einer mehrteiligen Software verbunden, die per Host-Worker-Mechanismus aus dem Simulationsraum wiederholt Simulationseinheiten extrahiert, mit MD-Methoden simuliert und zurückführt (Abbildung \ref{fig:parsivald-schema}).
+Parsivald entstand als damals namenloses Resultat meiner Bachelorarbeit\cite{lorenz_entwicklung_2012} am Fraunhofer ENAS in Chemnitz mit dem Ziel der Atom\-lagen\-abscheidungs-Simulationen mit Beschränkung auf atomistische Simulation von Metall\-oxid-ALD mittels MEAM-Potentialen.
+Im Hintergrund werden per Host-Worker-Mechanismus aus dem Simulationsraum wiederholt Simulationseinheiten extrahiert, mit MD-Methoden simuliert und zurückführt (Abbildung \ref{fig:parsivald-schema}).
+Dafür wird LAMMPS neben einer eigenen KMC-Bibliothek, Importer und Exporter verschiedener Dateiformate, Kommandozeilenargumente und Konfigurationsdateien und einer MPI-orthogonalen Kommunikationsschnittstelle in die mehrteilige Software integriert.
 
-\begin{figure}[tbh]
+Abbildung \ref{fig:parsivald-stephierarchy} stellt die aktuelle Funktionsweise des Parsivald-Modelles vor, die im wesentlichen aus Vor- und Nachbereitung sowie einer Prozessschleife besteht.
+Innerhalb der Hauptschleife werden nacheinander einer oder mehrere Prozessschritte simuliert, die jeweils ein oder mehrere KMC-Ereignisarten umfassen können.
+Das beinhaltet Relaxationen, Atom- oder Molekülabscheidungen, die jeweils mittels Molekulardynamik simuliert werden.
+KMC-Ereignisse sind dabei durch die allgemeinen Prozesseigenschaften auf eine Oberflächenschicht begrenzt, wo sie jeweils innerhalb eines Kastens beschränker Größe, der MD-Box, wirken (Abbildung \ref{fig:parsivald-schema}).
+Das setzt jedoch diffusionsarme Prozesse voraus, ermöglicht dafür jedoch die effiziente Beschreibung von Atomlagenabscheidungen.
+
+\begin{figure}
   \centering
   \def\svgwidth{\textwidth}
   \input{img/parsivald-schema-flat.pdf_tex}
@@ -16,8 +22,6 @@ Im Hintergrund werden LAMMPS neben einer eigene KMC-Bibliothek und Importer und 
   }
   \label{fig:parsivald-schema}
 \end{figure}
-
-Daraus ergibt sich eine linear skalierende, queue-basierte Parallelisierung mit bis zu tausenden parallellen MD-Simulationen zur atomistischen Betrachtung von Schichtabscheidungen auf der Mikrometer-Skala.
 
 \begin{figure}
   \centering
@@ -29,6 +33,32 @@ Daraus ergibt sich eine linear skalierende, queue-basierte Parallelisierung mit 
   \label{fig:parsivald-stephierarchy}
 \end{figure}
 
+Eine typische ALD-Simulation folgt also folgendem Schema:
+Zuerst wird das Substrat aus einer Datei gelesen und periodisch auf die Größe des Simulationsraums erweitert.
+Pro Halbzyklus wird eine Ereignismaske vorbereitet, die die physikalischen und numerischen Eigenschaften inklusive der notwendigen MD-Befehle zwischenspeichert.
+Anschließend beginnt die Hauptschleife mit Schritt 1, der den ersten Halbzyklus darstellt.
+Es werden mögliche Reaktionsorte auf der Oberfläche gesucht und per KMC-Algorithmus Ereignisse ausgewählt und in MD-Prozessen simuliert.
+Wird das Timeout des Schrittes erreicht, startet zyklisch der nächste Schritt, wodurch auch der gesamte Zyklus neu starten kann.
+Nach jedem Schritt werden auf Wunsch alle Atome in einem atomistischen Speicherformat zur weiteren Analyse auf die Festplatte geschrieben.
+Nach einer vorgegebenen Anzahl an Zyklen endet die Abscheidungssimulation erfolgreich.
+
+Mit diesem Schema lassen sich auch CVD- und PVD-Prozesse simulieren, indem man sich auf einen Schritt pro Zyklus beschränkt und im CVD-Fall mehrere Ereignisarten gleichzeitig nutzt.
+Der Zyklus-Timeout kann dann zur Kontrolle der Ausgabefrequenz genutzt werden.
+Für ALD und CVD lässt sich die Abscheidungsrate aus der Reaktionskinetik abschätzen, während man für PVD-Simulationen die Rate entsprechend der Prozessparameter setzen kann.
+
+\begin{figure}
+  \centering
+  \def\svgwidth{\textwidth}
+  \input{img/parsivald-modes.pdf_tex}
+  \caption[Parsivald-Modi]{
+  }
+  \label{fig:parsivald-modes}
+\end{figure}
+
+
+\subsection{Bisheriger Stand}
+
+Die Möglichkeit 
 
 Dazu wird der gesamte Wachstumsprozess in das Auftreffen eines Precursormoleküles oder Atomes und seine Reaktion beziehungsweise physikalische Anlagerung an der Oberfläche getrennt.
 Für alle weiteren Prozesse wurden folgende Annahmen getroffen:

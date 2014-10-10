@@ -1,11 +1,11 @@
 \section{Parsivald-Modell}
 \label{sec:parsivald}
 
-\subsection{Beschreibung}
+\subsection{Bisheriger Stand}
 
-\todo{subsubsections}
-
-Parsivald ist der Name eines Modelles mit gleichnamiger Implementierung, das unter Kombination von Kinetic Monte Carlo-Methoden mit molekulardynamischen Berechnungen Oberflächenwachstum auf großen Substraten effizient simulieren kann.
+Parsivald entstand als Resultat meiner Bachelorarbeit\cite{lorenz_entwicklung_2012} am Fraunhofer ENAS in Chemnitz, wurde darin aber noch als namenlose Software entwickelt.
+Das Modell wurde mit dem Ziel der Atom\-lagen\-abscheidungs-Simulationen entwickelt und beschränkte sich deshalb auf atomistische Simulation von Metall\-oxid-ALD mittels MEAM-Potentialen.
+Im Hintergrund werden LAMMPS neben einer eigene KMC-Bibliothek und Importer und Exporter verschiedener Dateiformate, Kommandozeilenargumente und Konfigurationsdateien zur einfacheren Prozesserforschung zu einer mehrteiligen Software verbunden, die per Host-Worker-Mechanismus aus dem Simulationsraum wiederholt Simulationseinheiten extrahiert, mit MD-Methoden simuliert und zurückführt (Abbildung \ref{fig:parsivald-schema}).
 
 \begin{figure}[tbh]
   \centering
@@ -16,6 +16,19 @@ Parsivald ist der Name eines Modelles mit gleichnamiger Implementierung, das unt
   }
   \label{fig:parsivald-schema}
 \end{figure}
+
+Daraus ergibt sich eine linear skalierende, queue-basierte Parallelisierung mit bis zu tausenden parallellen MD-Simulationen zur atomistischen Betrachtung von Schichtabscheidungen auf der Mikrometer-Skala.
+
+\begin{figure}
+  \centering
+  \def\svgwidth{\textwidth}
+  \input{img/parsivald-stephierarchy.pdf_tex}
+  \caption[Parsivald-Funktionsweise asd]{
+    Datenabhängigkeit und Programmablaufplan des Parsivald-Modelles
+  }
+  \label{fig:parsivald-stephierarchy}
+\end{figure}
+
 
 Dazu wird der gesamte Wachstumsprozess in das Auftreffen eines Precursormoleküles oder Atomes und seine Reaktion beziehungsweise physikalische Anlagerung an der Oberfläche getrennt.
 Für alle weiteren Prozesse wurden folgende Annahmen getroffen:

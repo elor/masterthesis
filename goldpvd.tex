@@ -14,8 +14,8 @@ Die Parametrisierung repräsentiert somit das Zielsystem.
 \begin{table}[hbtp]
   %% \rowcolors{0}{white}{lightgray} 
   \caption[Eigenschaften von Gold]{Vergleich der Eigenschaften von Gold mit experimentellen und Literaturdaten als Voruntersuchung des PVD-Prozesses
-%% \todo[inline]{ref}
-}
+    %% \todo[inline]{ref}
+  }
   \label{tab:goldpreresults}
   \begin{tabularx}{\textwidth}{|lXXXX|}
     \hline
@@ -181,6 +181,24 @@ In realen Systemen werden entstehende Überhänge und Hohlräume der untersuchte
 
 \subsection{Skalierbarkeit}
 
-Zur Untersuchung der Skalierbarkeit wurden Substratbreiten von \SI{100}{\angstrom}, \SI{200}{\angstrom}, \SI{1000}{\angstrom} und \SI{10000}{\angstrom} und \SI{20000}{\angstrom} (\SI{2}{\micro\meter}) auf Speicherverbrauch, Atomzahl und, sofern möglich, Laufzeit untersucht.
+Zur Untersuchung der Skalierbarkeit wurden Substratbreiten von \SI{100}{\angstrom}, \SI{200}{\angstrom}, \SI{1000}{\angstrom} und \SI{10000}{\angstrom} und \SI{20000}{\angstrom} auf Atomzahl und Laufzeit untersucht (Tabelle \ref{tab:goldscalability}).
 
-\todo[inline]{Plots oder Tabellen oder so}
+
+\begin{table}[hbp]
+
+  \caption[asd]{Untersuchungen zur Skalierbarkeit des Systemes}
+  \label{tab:goldscalability}
+
+  \begin{tabularx}{\textwidth}{|Xrrrrr|}
+    \hline
+    \textbf{Größe} & \textbf{Atome} & \textbf{Ereignisse} & \textbf{Schritte} & \textbf{Worker} & \textbf{Laufzeit} \\
+    \hline
+    \SI{106x106}{\angstrom}      &  \num{59549}      &  \num{46030}     &  \num{100}  &  \num{4}   &  \SI{116042}{\second}  (\SI{1.3}{\day})  \\
+    \SI{204x204}{\angstrom}      &  \num{152374}     &  \num{102374}    &  \num{100}  &  \num{18}  &  \SI{91680}{\second}   (\SI{1.1}{\day})  \\
+    \SI{500x500}{\angstrom}      &  \num{1708600}    &  \num{1401081}   &  \num{100}  &  \num{50}  &  \SI{264900}{\second}  (\SI{3.1}{\day})  \\
+    \SI{1000x1000}{\angstrom}    &  \num{1591908}    &  \num{381588}    &  \num{24}  &  \num{46}  &  \SI{5340}{\second}    (\SI{0.1}{\day})  \\
+    \SI{10000x10000}{\angstrom}  &  \num{128433070}  &  \num{8186990}   &  \num{8}    &  \num{46}  &  \SI{422820}{\second}  (\SI{4.9}{\day})  \\
+    \SI{20000x20000}{\angstrom}  &  \num{490948111}  &  \num{10356031}  &  \num{2}    &  \num{46}  &  \SI{422820}{\second}  (\SI{4.9}{\day})  \\
+    \hline
+  \end{tabularx}
+\end{table}

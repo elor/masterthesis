@@ -1,0 +1,79 @@
+%% Creator: Inkscape inkscape 0.48.4, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'parsivald-stephierarchy.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{396.05039063bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,1.28611034)%
+    \put(0,0){\includegraphics[width=\unitlength]{parsivald-stephierarchy.pdf}}%
+    \put(0.6721823,0.18603341){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{1.0401776\unitlength}\raggedright Ext. Pool\end{minipage}}}%
+    \put(0.44235135,0.16573407){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.17273877\unitlength}\centering Worker\end{minipage}}}%
+    \put(0.44276847,0.13020568){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.17273877\unitlength}\centering MD-Simulation\end{minipage}}}%
+    \put(0.21029236,0.1900733){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{1.0401776\unitlength}\raggedright Interner Pool\end{minipage}}}%
+    \put(0.02086003,0.16371415){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.17273877\unitlength}\centering Worker\end{minipage}}}%
+    \put(0.02127715,0.12818577){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.17273877\unitlength}\centering MD-Simulation\end{minipage}}}%
+    \put(0.87466678,0.11575761){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{1.0401776\unitlength}\raggedright Logs\end{minipage}}}%
+    \put(0.03374937,1.27355502){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{1.0401776\unitlength}\raggedright \Large{Initialisierung}\end{minipage}}}%
+    \put(0.05637699,0.59420033){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{1.0401776\unitlength}\raggedright \large{Schritt 1}\end{minipage}}}%
+    \put(0.08277828,0.53069674){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{1.0401776\unitlength}\raggedright Event Typ 1\end{minipage}}}%
+    \put(0.07610911,0.48904074){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.16628256\unitlength}\raggedright - Atome\\ - MD-Befehle\\ - Worker-ID\end{minipage}}}%
+    \put(0.28485943,0.53069674){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{1.0401776\unitlength}\raggedright Event Typ 2\end{minipage}}}%
+    \put(0.83525875,0.49697523){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.13213873\unitlength}\centering atom.\\ Struktur-\\ Datei\end{minipage}}}%
+    \put(0.08035546,0.8560806){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.21798515\unitlength}\centering Periodische\\ Erweiterung\end{minipage}}}%
+    \put(0.14600276,1.15209877){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{1.0401776\unitlength}\raggedright Substrat\end{minipage}}}%
+    \put(0.70404171,0.8560806){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.21798515\unitlength}\centering Event-Prä-\\ prozessierung\end{minipage}}}%
+    \put(0.04182923,0.67857166){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{1.0401776\unitlength}\raggedright \Large{Prozesszyklus}\end{minipage}}}%
+    \put(0.41854566,0.94641582){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{1.0401776\unitlength}\raggedright - Temperatur\\ - Druck\\ - Ereignisrate\\ - KMC-Kriter.\\ - MD-Befehle\end{minipage}}}%
+    \put(0.74718531,1.16837202){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.13213873\unitlength}\centering MD\\ Input\end{minipage}}}%
+    \put(0.2781036,0.48904074){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.16628256\unitlength}\raggedright - Atome\\ - MD-Befehle\\ - Worker-ID\end{minipage}}}%
+    \put(0.66344035,0.59420033){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{1.0401776\unitlength}\raggedright \large{Schritt 2}\end{minipage}}}%
+    \put(0.58428133,0.53069674){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{1.0401776\unitlength}\raggedright Event Typ 3\end{minipage}}}%
+    \put(0.5777479,0.48904074){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.16628256\unitlength}\raggedright - Atome\\ - MD-Befehle\\ - Worker-ID\end{minipage}}}%
+    \put(0.43517451,1.16602315){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.13213873\unitlength}\centering Prozess-Konfig.\end{minipage}}}%
+    \put(0.41260318,0.99435147){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{1.0401776\unitlength}\raggedright  Event-Masken\\ \end{minipage}}}%
+  \end{picture}%
+\endgroup%

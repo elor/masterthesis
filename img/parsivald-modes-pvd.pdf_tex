@@ -1,6 +1,6 @@
 %% Creator: Inkscape inkscape 0.48.4, www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
-%% Accompanies image file 'parsivald-schema-flat.pdf' (pdf, eps, ps)
+%% Accompanies image file 'parsivald-modes-pvd.pdf' (pdf, eps, ps)
 %%
 %% To include the image in your LaTeX document, write
 %%   \input{<filename>.pdf_tex}
@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{396.83679199bp}%
+    \setlength{\unitlength}{85.03936768bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,14 +48,10 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.24940147)%
-    \put(0,0){\includegraphics[width=\unitlength]{parsivald-schema-flat.pdf}}%
-    \put(0.77781862,0.23491181){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.31121132\unitlength}\raggedright 4) Relaxierung\end{minipage}}}%
-    \put(0.47226868,0.23490826){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.27905777\unitlength}\raggedright 3) Precursor\end{minipage}}}%
-    \put(0.01601704,0.17871945){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.3832914\unitlength}\raggedright 1) Orts-Auswahl\end{minipage}}}%
-    \put(0.27727556,0.15855996){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.2100715\unitlength}\raggedright 2) Extraktion\end{minipage}}}%
-    \put(0.1684278,0.05197447){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.23461034\unitlength}\raggedright 5) Reintegrierung\end{minipage}}}%
-    \put(0.00537941,0.23697817){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.37752967\unitlength}\raggedright \Large{KMC}\end{minipage}}}%
-    \put(0.37060139,0.23641119){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.37752967\unitlength}\raggedright \Large{MD}\end{minipage}}}%
+  \begin{picture}(1,1)%
+    \put(0,0){\includegraphics[width=\unitlength]{parsivald-modes-pvd.pdf}}%
+    \put(0.22420845,0.93790222){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{3.25671644\unitlength}\raggedright \large{PVD}\end{minipage}}}%
+    \put(0.28220041,0.73907722){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{3.25671644\unitlength}\raggedright Atom\end{minipage}}}%
+    \put(0.26174473,0.61406812){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.52061798\unitlength}\raggedright - $dN/dt$\\ - $E_\text{kin}$\\ \end{minipage}}}%
   \end{picture}%
 \endgroup%

@@ -11,7 +11,7 @@ Abbildung \ref{fig:parsivald-stephierarchy} stellt die aktuelle Funktionsweise d
 Innerhalb der Hauptschleife werden nacheinander einer oder mehrere Prozessschritte simuliert, die jeweils ein oder mehrere KMC-Ereignisarten umfassen können.
 Das beinhaltet Relaxationen, Atom- oder Molekülabscheidungen, die jeweils mittels Molekulardynamik simuliert werden.
 KMC-Ereignisse sind dabei durch die allgemeinen Prozesseigenschaften auf eine Oberflächenschicht begrenzt, wo sie jeweils innerhalb eines Kastens beschränker Größe, der MD-Box, wirken (Abbildung \ref{fig:parsivald-schema}).
-Das setzt jedoch diffusionsarme Prozesse voraus, ermöglicht dafür jedoch die effiziente Beschreibung von Atomlagenabscheidungen.
+Das setzt zwar diffusionsarme Prozesse voraus, ermöglicht dafür jedoch die effiziente Beschreibung von Atomlagenabscheidungen.
 
 \begin{figure}
   \centering
@@ -28,10 +28,18 @@ Das setzt jedoch diffusionsarme Prozesse voraus, ermöglicht dafür jedoch die e
   \def\svgwidth{\textwidth}
   \input{img/parsivald-stephierarchy.pdf_tex}
   \caption[Parsivald-Funktionsweise asd]{
-    Datenabhängigkeit und Programmablaufplan des Parsivald-Modelles
+    Schema der Funktionsweise des Parsivald-Modelles für allgemeine Prozessarten.
+    \\
+    Event-Typen unterscheiden sich durch Art der MD-Simulation (Relaxation, Abscheidung) oder Art des Precursors.
+    Siehe auch Abbildung \ref{fig:parsivald-modes}.
   }
   \label{fig:parsivald-stephierarchy}
 \end{figure}
+
+Als Eingaben der Simulation dienen das Substrat, eine valide Prozesskonfiguration sowie MD-Befehlslisten mit Platzhaltern (MD-Maske) samt Potentialparametrisierung.
+Die Konfiguration legt Umgebungseigenschaften, Abscheidungsart (Abbildung \ref{fig:parsivald-modes}), Größe des Simulations- und MD-Raumes und Laufzeitbedingungen des Hostprogrammes fest.
+Die Ausgabe erfolgt kontinuierlich in Ereignis-Logs sowie nach jedem Prozess-Schritt in Form aller Atompositionen, aus denen die Schichteigenschaften bestimmt werden können.
+Optional lassen sich auch einzelne Events zur späteren Neuberechnung zwecks Fehlersuche speichern.
 
 Eine typische ALD-Simulation folgt also folgendem Schema:
 Zuerst wird das Substrat aus einer Datei gelesen und periodisch auf die Größe des Simulationsraums erweitert.
@@ -47,20 +55,77 @@ Der Zyklus-Timeout kann dann zur Kontrolle der Ausgabefrequenz genutzt werden.
 Für ALD und CVD lässt sich die Abscheidungsrate aus der Reaktionskinetik abschätzen, während man für PVD-Simulationen die Rate entsprechend der Prozessparameter setzen kann.
 
 \begin{figure}
-  \centering
-  \def\svgwidth{\textwidth}
-  \input{img/parsivald-modes.pdf_tex}
+  \captionsetup[subfigure]{singlelinecheck=false}
+  \begin{subfigure}[t]{5.7cm}
+    \def\svgwidth{\textwidth}
+    \input{img/parsivald-modes-ald.pdf_tex}
+    \subcaption{ALD-Modus}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{4.7cm}
+    \def\svgwidth{\textwidth}
+    \input{img/parsivald-modes-cvd.pdf_tex}
+    \subcaption{CVD-Modus}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{3cm}
+    \def\svgwidth{\textwidth}
+    \input{img/parsivald-modes-pvd.pdf_tex}
+    \subcaption{PVD-Modus}
+  \end{subfigure}
   \caption[Parsivald-Modi]{
+    Verschiedene Parsivald-Modi im Prozesszyklus.
+    Atomistische und statistische Ausgaben erfolgen nach jedem Schritt.
+    ALD nutzt einen Schritt pro Halbzyklus.
   }
   \label{fig:parsivald-modes}
 \end{figure}
 
+\subsection{Fortschritt im Rahmen der Masterarbeit}
 
-\subsection{Bisheriger Stand}
+Seit Beginn dieser Arbeit wurde das Parsivald-Modell von ALD- auf PVD- und CVD-Simu\-lationen erweitert.
+Dies wurde durch zentral verwaltete Konfigurationen ermöglicht, in denen Konfigurations-, Substrat- und Reaktionsdateien (MD-Masken) verschiedener Prozesse verwaltet werden.
+Durch die Prozess-Konfigurationen sind schnelle Prozessentwicklungszyklen möglich, die durch semi-automatische Generierung unterstützt wird.
+Auch eine vollautomatische Prozesserforschung hinsichtlich passender Vorgaben ist mittels des Konfigurationsmechanismus' denkbar.
 
-Die Möglichkeit 
+Zudem wurde das Host-Worker-System von einzelnen Workern auf Workerpools erweitert, die von einem Hauptprozess pro Rechenknoten verwaltet werden.
+Dies verringert den \todo{grausames Wort}Startup-Overhead einzelner Worker zugunsten der Gesamtleistung des Pools.
+In den Hostprozess ist ein ein optionaler, interner Workerpool eingebettet, der durch veränderte Parallelisierungsmechanismen Fehler der MD-Bibliothek sicher abfangen kann (Abschnitt \ref{lammpssucks}).
 
-Dazu wird der gesamte Wachstumsprozess in das Auftreffen eines Precursormoleküles oder Atomes und seine Reaktion beziehungsweise physikalische Anlagerung an der Oberfläche getrennt.
+
+\subsection{Probleme mit LAMMPS}
+\label{lammpssucks}
+
+Der hervorragende LAMMPS-Code wurde als MD-Bibliothek genutzt, da er gut optimiert und auf Funktionsebene in eigene Programme integrierbar ist sowie ReaxFF-Potentiale im Standardformat unterstützt.
+Damit ist LAMMPS die einzige Wahl, allerdings stößt man bei der Nutzung auf verschiedene Probleme.
+
+Ein Hauptproblem besteht in der Interaktion mit MPI.
+So liegt nahe, für hochparallele Systeme wie Parsivald auf bestehende MPI-Bibliotheken zu setzen, um Tasks vom Host an seine Worker zu vermitteln.
+LAMMPS nutzt jedoch intern globale MPI-Calls, auch wenn nur kleine Systeme untersucht werden oder explizit auf MPI verzichtet wird\todo{Beleg!}.
+Dieses Problem lässt sich durch fork-Prozesse oder proprietäre Patches umgehen, kann aber keine Dauerlösung für so komplexe Software wie LAMMPS sein.
+Zwar lässt sich LAMMPS auch mit einem MPI-Stub kompilieren, jedoch führt dieser durch kollidierende Namen globaler Funktionen der notwendigerweise dynamisch verlinkten MPI-Bibliotheken zu Problemen.
+Durch \todo{unverhältnismäßi\-g? wirklich?}unverhältnismäßigen Aufwand ließe sich auch dieses Problem umgehen, allerdings stößt man auch dann auf folgendes Problem.
+
+LAMMPS ruft nach jedem Berechnungsfehler \texttt{exit} auf, wodurch der aktuelle Prozess ohne Möglichkeit der Fehlerkorrektur abgebrochen und die Kommunikation mit dem Hostprozess hart unterbrochen wird.
+Geschieht dies in einer MPI-Umgebung, werden alle beteiligten Prozesse unter Annahme eines kritischen Fehlers beendet.
+LAMMPS ruft jedoch mit hoher Regelmäßigkeit Fehler hervor, beispielsweise bei unerwartetem Übertreten von Systemgrenzen, hohen Teilchengeschwindigkeiten oder Ausnahmesituationen durch fehlgeformte Potentiale.
+Die Lösung gestaltete sich in der Gestaltung eines eigenen Host-Worker-Systemes, das LAMMPS in gekapselten Prozessen lokal oder auf entfernten Knoten laufen lässt und nur die Anfangsbedingungen und Ergebnisse kommuniziert.
+Damit sind bei Abbrüchen die genauen Gründe unbekannt: Aus Sicht des Hostprozesses besteht ein Verbindungsabbruch.
+Die einzige Möglichkeit besteht darin, die MD-Simulation erneut zu starten und bei wiederholtem Abbruch von unzureichenden Anfangsbedingungen auszugehen.
+
+Darüber hinaus fallen einige LAMMPS-Rechnungen unerwartet in eine Dauerschleife, die sich aufgrund der blockierenden Architektur der Bibliothek nicht ohne separaten Überwachungsprozess diagnostizieren oder beenden lässt.
+Hier besteht die Lösung schlicht in einem Timeout für jeden verbundenen Worker, der durch hostseitigen Verbindungsabbruch realisiert wird.
+Nach einer unbestimmten Zeit nach dem Verbindungsabbruch startet sich der Worker anschließend neu.
+Im Worst-Case-Szenario blockieren alle Worker für unbestimmte Zeit, wodurch die Simulation signifikant ausgebremst wird, jedoch weiterhin stabil läuft.
+
+Vom Hostprozess werden für statistische Auswertungen Zähler der erfolgreichen und fehlerhaften MD-Simulationen geführt, mit denen Fehlerraten mit Prozess- und Struktureigenschaften korreliert werden können.
+Eine Anwendung davon befindet sich in Abschnitt \ref{coppersimulation}.
+
+\subsection{something else}
+
+asd
+
+\todo{wozu?}Dazu wird der gesamte Wachstumsprozess in das Auftreffen eines Precursormoleküles oder Atomes und seine Reaktion beziehungsweise physikalische Anlagerung an der Oberfläche getrennt.
 Für alle weiteren Prozesse wurden folgende Annahmen getroffen:
 
 \begin{enumerate}

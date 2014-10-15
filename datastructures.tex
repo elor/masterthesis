@@ -60,10 +60,16 @@ Ein Vergleich der asymptotischen Laufzeiten auf verschiedenen Datenstrukturen is
 
 \begin{table}[H]
   \centering
-  \begin{tabularx}{\textwidth}{X|*8c}
-    Datenstr.  &  Konstr.          &  Einfüg.          &  Modif            &  Entf.            &  Ortss.                      &  NB-Su.               &  Oberfl.         &  RAM                          \\
+  \caption[Laufzeitabschätzung abstrakter Operationen auf verschiedenen Datenstrukturen]{
+    Abschätzung des Speicheraufwands und der asymptotischen Laufzeit der vorgestellten Operationen auf verschiedenen Datenstrukturen für kompakte Oberflächensysteme in drei Raumdimensionen.
+    \todo[inline]{Referenzen oder Erklärungen}.
+  }
+  \label{tab:dataruntimes}
+  \begin{tabularx}{\textwidth}{|X|*8c|}
     \hline
-    Atomlisten  &  \cG{$n$}         &  \cG{$1$}         &  \cG{$1$}         &  \cG{$1$}         &  \cR{$n$}                    &  \cR{$n$}             &  \cR{$n$}        &  \cG{$n$}                     \\
+    Datenstruktur  &  Konstr.          &  Einfüg.          &  Modif            &  Entf.            &  Ortss.                      &  NB-Su.               &  Oberfl.         &  RAM                          \\
+    \hline
+    Atomlisten &  \cG{$n$}         &  \cG{$1$}         &  \cG{$1$}         &  \cG{$1$}         &  \cR{$n$}                    &  \cR{$n$}             &  \cR{$n$}        &  \cG{$n$}                     \\
     NB-Listen  &  \cY{$n\log{n}$}  &  \cR{$n$}         &  \cR{$n$}         &  \cR{$n$}         &  \cR{$n$}                    &  \cG{$1$}             &  \cR{$n$}        &  \cR{$\frac{r_c^3}{s^3}n^2$}  \\
     Binning    &  \cG{$n$}         &  \cG{$1$}         &  \cG{$1$}         &  \cG{$1$}         &  \cG{$r_s^3$}                &  \cG{$r_s^3$}         &  \cR{$c$}        &  \cY{$n+c$}                   \\
     Octree     &  \cY{$n\log{c}$}  &  \cY{$\log{c}$}   &  \cY{$\log{c}$}   &  \cG{$1$}         &  \cY{$r_s^3\log{c}$}         &  \cY{$r_s^3\log{c}$}  &  \cY{$\log{c}$}  &  \cY{$n+c^\frac{2}{3}$}       \\
@@ -73,33 +79,38 @@ Ein Vergleich der asymptotischen Laufzeiten auf verschiedenen Datenstrukturen is
     %Atomfeld  &  \cG{$n$}         &  \cG{$1$}         &  \cG{$1$}         &  \cG{$1$}         &  \cR{$n$}                    &  \cR{$n$}             &  \cR{$n$}        &  \cG{$n$}                     \\
   \end{tabularx}
   \vspace{1em}
-  \begin{tabularx}{0.8\textwidth}{C*3C}
-    &\cG{optimal} & \cY{annehmbar} & \cR{impraktikabel} \\
-  \end{tabularx}
-  \caption[Laufzeitabschätzung abstrakter Operationen auf verschiedenen Datenstrukturen]{
-    Abschätzung des Speicheraufwands und der asymptotischen Laufzeit der vorgestellten Operationen auf verschiedenen Datenstrukturen für kompakte Oberflächensysteme in drei Raumdimensionen.
-    \todo[inline]{Referenzen oder Erklärungen}.
-  }
-  \label{tab:dataruntimes}
-\end{table}
-
-\begin{table}[H]
-  \caption[datasymbols]{Symbole für Laufzeit- und Speicherabschätzungen}
-  \label{tab:datasymbols}
-  \begin{tabularx}{\textwidth}{|lX|lX|}
+  \hspace{0.15\textwidth}
+  \begin{tabularx}{0.6\textwidth}{|C|C|C|}
     \hline
-    {Symbol} & {Bedeutung} & {Symbol} & {Bedeutung} \\
-    \hline
-    \BigO{expr} & Worst-Case-Komplexität & $n$ & Zahl der Atome \\
-    $k$ & Zahl von Nächstnachbarn & $b$ & Zahl der Bins \\
-    $k_r$ & Zahl von Nachbarn mit $d \leq r_c$ & $r_c$ & Cutoff-Radius \\
-    $r_s$ & Suchradius & $s$ & lineare Raumgröße \\
+    \cG{optimal} & \cY{annehmbar} & \cR{impraktikabel} \\
     \hline
   \end{tabularx}
 \end{table}
 
 \begin{table}[H]
   \rowcolors{0}{white}{lightgray}
+  \caption[datasymbols]{Symbole für Laufzeit- und Speicherabschätzungen}
+  \label{tab:datasymbols}
+  \begin{tabularx}{\textwidth}{|cX|cX|}
+    \hline
+        {Symbol} & {Bedeutung} & {Symbol} & {Bedeutung} \\
+        \hline
+        \BigO{}  &  Worst-Case-Komplexität               &  $n$      &  Zahl der Atome     \\
+        $k$      &  Zahl von Nächstnachbarn              &  $b$      &  Zahl der Bins      \\
+        $k_r$    &  Zahl von Nachbarn mit $d \leq r_c$   &  $r_c$    &  Cutoff-Radius      \\
+        $r_s$    &  Suchradius                           &  $s$      &  lineare Raumgröße  \\
+        \hline
+  \end{tabularx}
+\end{table}
+
+\begin{table}[H]
+  \rowcolors{0}{white}{lightgray}
+  \caption[Liste der notwendigen Operationen]{
+    Übersicht über Operationen, die auf die zugrunde liegenden Datenstrukturen ausgeführt werden.
+    Oberflächen- und Bereichssuchen sind am häufigsten.
+    %    Zeitkritisch sind die unteren die Bereichs- und Oberflächensuche, da sie für jedes potentielle KMC-Ereignis ausgeführt werden müssen, die anderen nur für jedes versuchte.
+  }
+  \label{tab:dataops}
   \begin{tabularx}{\textwidth}{|lX|}
     \hline
     \textbf{Operation} & \textbf{Beschreibung} \\
@@ -141,12 +152,6 @@ Ein Vergleich der asymptotischen Laufzeiten auf verschiedenen Datenstrukturen is
     \\
     \hline
   \end{tabularx}
-  \caption[Liste der notwendigen Operationen]{
-    Übersicht über Operationen, die auf die zugrunde liegenden Datenstrukturen ausgeführt werden.
-    Oberflächen- und Bereichssuchen sind am häufigsten.
-%    Zeitkritisch sind die unteren die Bereichs- und Oberflächensuche, da sie für jedes potentielle KMC-Ereignis ausgeführt werden müssen, die anderen nur für jedes versuchte.
-  }
-  \label{tab:dataops}
 \end{table}
 
 \subsection{Kategorien von Datenstrukturen}
@@ -162,10 +167,10 @@ Während der Entwicklung und Implementierung des Parsivald-Modelles wurden Algor
     \todo[inline]{change text to fit the table content}
   }
   \label{tab:dataops2}
-  \begin{tabularx}{\textwidth}{lX}
-    \toprule
-    Datenstrukturen & Beschreibung \\
-    \midrule
+  \begin{tabularx}{\textwidth}{|lX|}
+    \hline
+    \textbf{Datenstrukturen} & \textbf{Beschreibung} \\
+    \hline
     Listen &
     Punkte werden in globalen Listen gespeichert, ohne weitere Beziehungen zu verwalten.
     Für Suchoperationen müssen dann alle Punkte auf das Kriterium geprüft werden, wodurch Listenansätze für große Systeme durch Laufzeiten von \BigO{n} ungeeignet sind.
@@ -189,7 +194,7 @@ Während der Entwicklung und Implementierung des Parsivald-Modelles wurden Algor
     Triangulationen zerlegen den Simulationsraum raumfüllend in $k$-Simplexe\footnotemark, deren Eckpunkte auf den Elementen der Punktwolke liegen.
     Delaunay-Triangulationen (Abschnitt \ref{datadelaunay}) ermöglichen durch ihre Eigenschaften besonders schnelle Oberflächen- und Nachbarschaftssuchen.
     \\
-    \bottomrule
+    \hline
   \end{tabularx}
 \end{table}
 \footnotetext{Ein $k$-Simplex ist ein Objekt in $k$ Dimensionen mit $k+1$ Eckpunkten, die untereinander mit geraden Kanten verbunden sind. Somit ist ein 1-Simplex eine Linie, ein 2-Simplex ein Dreieck, ein 3-Simplex ein Tetraeder, usw.}
@@ -248,9 +253,9 @@ Um eine einzige Zelle per absolutem oder relativem Index abzurufen, sind Operati
 
 \begin{algorithm}
   \begin{algorithmic}
-%    \Input $root$ - Stammzelle des Octrees
-%    \Input $i[3]$ - globale Adresse der Zielzelle
-%    \Input $allocate$ - Ob die Zelle neu erstellt werden soll
+    %    \Input $root$ - Stammzelle des Octrees
+    %    \Input $i[3]$ - globale Adresse der Zielzelle
+    %    \Input $allocate$ - Ob die Zelle neu erstellt werden soll
     \Result null falls leer, sonst Zielzelle
     \State
     \Function{getcell-octree}{$cell, id, allocate$}
@@ -269,7 +274,7 @@ Um eine einzige Zelle per absolutem oder relativem Index abzurufen, sind Operati
     \State $childid \gets $\Call{bitand}{id[0], $2^{d-1}$}
     + $2\cdot$\Call{bitand}{id[1], $2^{d-1}$}
     + $4\cdot$\Call{bitand}{id[2], $2^{d-1}$}
-%    \State \Comment{Indiziert die Subzelle aus der globalen Position}
+    %    \State \Comment{Indiziert die Subzelle aus der globalen Position}
     \State \Return\Call{getcell-octree}{$cell.children[childid], i, allocate$}
     \EndFunction
   \end{algorithmic}

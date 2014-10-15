@@ -93,10 +93,10 @@ Der Druck wird dabei über die Virialgleichung \todo{für ideale Gase?} ermittel
   \def\svgwidth{0.5\textwidth}
   \input{img/cg-gradient.pdf_tex}
   \caption[CG-Methode]{Klassische Minimierung durch konjugierte Gradienten:\\
-a) Optimale Schrittlänge\\
-b) Kleine Schrittlänge $\Rightarrow$ viele unnötige Schritte\\
-c) Große Schrittlänge $\Rightarrow$ langsames Konvergenzverhalten
-}
+    a) Optimale Schrittlänge\\
+    b) Kleine Schrittlänge $\Rightarrow$ viele unnötige Schritte\\
+    c) Große Schrittlänge $\Rightarrow$ langsames Konvergenzverhalten
+  }
   \label{fig:cg-gradient}
 \end{figure}
 
@@ -145,10 +145,8 @@ Hierfür gibt es eine Vielzahl an verschiedenen Formulierungen, für die es jewe
 
 \subsubsection{Paar-Potentiale}
 
-\missingfigure{Lennard-Jones, Buckingham, Hartkugel}
-
 Das klassische MD-Potential ist das Paarpotential, welches eine Interaktion zwischen zwei benachbarten Atomen modelliert.
-Stellvertretend sind beispielsweise das Lennard-Jones-Potential zur Darstellung von allgemeinen Fluiden (Gleichung \ref{eq:lennardjones}) oder das damit verwandte Bucking\-ham-Potential.
+Stellvertretend sind beispielsweise das Lennard-Jones-Potential zur Darstellung von allgemeinen Fluiden (Gleichung \ref{eq:lennardjones}) oder das damit verwandte Bucking\-ham-Potential (Abbildung \ref{fig:mdpairpotentials}.
 
 \begin{equation}
   \label{eq:lennardjones}
@@ -162,6 +160,13 @@ Stellvertretend sind beispielsweise das Lennard-Jones-Potential zur Darstellung 
   \label{eq:pairenergy}
   E = \sum_i\sum_{j \neq i}{V_{LJ}\left(r_{ij}\right)}
 \end{equation}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.5\textwidth]{mdpotplot}
+  \caption{Beispiele einfacher Paarpotentiale}
+  \label{fig:mdpairpotentials}
+\end{figure}
 
 Andere Potentiale enthalten weitere Parameter oder tabellierte Werte, mit denen spezielle Probleme genauer betrachtet werden können.
 Das allgemeine Problem der Klasse der Paarpotentiale ist ihre Schlichtheit.
@@ -217,7 +222,7 @@ Somit lassen sich Bindungen während der Simulation dynamisch formen und lösen 
 \begin{align}
   \label{eq:reax-formulation}
   E_\text{system} &= E_\text{bond} + E_\text{lp} + E_\text{over} + E_\text{under} + E_\text{val} + E_\text{pen} + E_\text{coa} + E_\text{C2} \\
-\nonumber  & + E_\text{tors} + E_\text{conj} + E_\text{H-bond} + E_\text{vdWaals} + E_\text{Coulomb}
+  \nonumber  & + E_\text{tors} + E_\text{conj} + E_\text{H-bond} + E_\text{vdWaals} + E_\text{Coulomb}
 \end{align}
 
 Die meisten Terme der Gesamtenergie werden über die Bindungsordnung berechnet, die über Beiträge für $\sigma$-, $\pi$- und Doppel-$\pi$-Bindungen aus dem Bindungsabstand errechnet wird.
@@ -226,9 +231,9 @@ Einige werden durch Taper-Korrektur\todo{ref} in der Nähe des Cutoff-Abstandes 
 \todo{Referenz auf Equations\_Reax.pdf}
 
 \begin{table}
-  \begin{tabularx}{\textwidth}{llX}
+  \begin{tabularx}{\textwidth}{|llX|}
     \hline
-    Term & Beitrag & Kommentar \\
+    \textbf{Term} & \textbf{Beitrag} & \textbf{Kommentar} \\
     \hline
     $E_\text{bond}$ & Bindungsenergien & Berechnung über Bindungsordnung\\
     $E_\text{lp}$ & freie Elektronenpaare & über Bindungsordnungssumme am Atomzentrum\\
@@ -309,9 +314,12 @@ Für molekulardynamische Simulationen gibt es sowohl kommerzielle als auch freie
 Tabelle \ref{tab:mdsoftware} stellt eine Auswahl daraus dar.
 
 \begin{table}
-  \begin{tabularx}{\textwidth}{llX}
+  \rowcolors{0}{white}{lightgray}
+  \caption[MD-Software]{MD-Software}
+  \label{tab:mdsoftware}
+  \begin{tabularx}{\textwidth}{|llX|}
     \hline
-    Paket & Rechteinhaber & Kommentare \\
+    \textbf{Paket} & \textbf{Rechteinhaber} & \textbf{Kommentare} \\
     \hline
     LAMMPS & SANDIA & quelloffen, CLI-bedienbar, Bibliothek, eigene Potentiale möglich \\
     Materials Studio GULP & Accelrys & Tief in graphischer Oberfläche verankert \\
@@ -322,7 +330,5 @@ Tabelle \ref{tab:mdsoftware} stellt eine Auswahl daraus dar.
   \end{tabularx}
   \todo[inline]{References!}
   \todo[inline]{bessere Beschreibung!}
-  \caption[MD-Software]{MD-Software}
-  \label{tab:mdsoftware}
 \end{table}
 

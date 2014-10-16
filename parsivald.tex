@@ -2,9 +2,11 @@
 \label{sec:parsivald}
 
 \todo[inline]{Soll ich die Zellen beschrieben?}
+
 \subsection{Beschreibung}
 
-Parsivald entstand als damals namenloses Resultat meiner Bachelorarbeit\cite{lorenz_entwicklung_2012} am Fraunhofer ENAS in Chemnitz mit dem Ziel der Atom\-lagen\-abscheidungs-Simulationen mit Beschränkung auf atomistische Simulation von Metall\-oxid-ALD mittels MEAM-Potentialen.
+Parsivald entstand als damals namenloses Resultat meiner Bachelorarbeit\cite{lorenz_entwicklung_2012} am Fraunhofer ENAS in Chemnitz mit dem Ziel der Simulation von Atom\-lagen\-abscheidungs-Prozessen.
+Das Programm war beschränkt auf die atomistische Simulation von Metall\-oxid-ALD mittels MEAM-Potentialen.
 Im Hintergrund werden per Host-Worker-Mechanismus aus dem Simulationsraum wiederholt Simulationseinheiten extrahiert, mit MD-Methoden simuliert und zurückführt (Abbildung \ref{fig:parsivald-schema}).
 Dafür wird LAMMPS neben einer eigenen KMC-Bibliothek, Importer und Exporter verschiedener Dateiformate, Kommandozeilenargumente und Konfigurationsdateien und einer MPI-orthogonalen Kommunikationsschnittstelle in die mehrteilige Software integriert.
 

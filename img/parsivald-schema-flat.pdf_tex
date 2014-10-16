@@ -54,7 +54,7 @@
     \put(0.47226868,0.23490826){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.27905777\unitlength}\raggedright 3) Precursor\end{minipage}}}%
     \put(0.01601704,0.17871945){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.3832914\unitlength}\raggedright 1) Orts-Auswahl\end{minipage}}}%
     \put(0.27727556,0.15855996){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.2100715\unitlength}\raggedright 2) Extraktion\end{minipage}}}%
-    \put(0.1684278,0.05197447){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.23461034\unitlength}\raggedright 5) Reintegrierung\end{minipage}}}%
+    \put(0.1684278,0.05197447){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.23461034\unitlength}\raggedright 5) Reintegration\end{minipage}}}%
     \put(0.00537941,0.23697817){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.37752967\unitlength}\raggedright \Large{KMC}\end{minipage}}}%
     \put(0.37060139,0.23641119){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.37752967\unitlength}\raggedright \Large{MD}\end{minipage}}}%
   \end{picture}%

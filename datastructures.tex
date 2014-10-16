@@ -47,7 +47,7 @@ Beispiele solcher Annahmen, die in der Umsetzung des Parsivald-Modelles relevant
   Die Reichweite einer Manipulation ist begrenzt
 \item Oberflächenatome befinden sich zu einander in direkter Nachbarschaft
 \item Die Zahl der Nachbarn unterliegt einer oberen Schranke
-\item Divide-and-Conquer-Algorithmen müssen aufwendigeres Stitching betreiben
+\item Divide-and-Conquer-Algorithmen müssen Teilsysteme aufwendig zusammen führen (Stitching)
 \end{enumerate}
 
 Ohne diese Annahmen stellten einige der ausgewählten Operationen das System nur unzureichend dar.
@@ -354,8 +354,7 @@ Aus diesen Gründen lassen sich k-d-Bäume nicht zufriedenstellend im Parsivald-
 Eine alternative Partitionsmethode findet sich in Triangulationen, die die konvexe Hülle der Punktwolke raumfüllend in nichtüberlappende k-dimensionale Simplexe entsprechend einer weiterhin Delaunay-Kriterium genannten Beziehung zerlegen:
 Im Umkreis eines Simplexes befinden sich keine weiteren Punkte aus der Punktwolke.
 Damit ergibt sich eine Vielzahl an Eigenschaften, die für verschiedene Problemstellungen zu effizienten Lösungen führen.
-So beinhaltet eine Delaunay-Triangulation als Subgraphen den Nächstnachbargraphen, die Alpha-Form und die konvexe Hülle, ist dual zum Voronoi-Diagramm und es lässt sich leicht auf Konnektivität prüfen.
-
+So beinhaltet eine Delaunay-Triangulation als Subgraphen den Nächstnachbargraphen, die Alpha-Form (Abschnitt \ref{data-alphaform}) und die konvexe Hülle, ist dual zum Voronoi-Diagramm und es lässt sich effizient auf Konnektivität prüfen.
 
 \begin{itemize}
 \item Jeder Punkt ist Eckpunkt eines oder mehrerer Simplexe
@@ -371,7 +370,7 @@ So beinhaltet eine Delaunay-Triangulation als Subgraphen den Nächstnachbargraph
 \end{itemize}
 
 Delaunay-Triangulationen werden somit für Oberflächenbetrachtungen interessant, da sie über die Alpha-Form, welche durch Auswahl der Punkte aller Simplexe mit Umkreisradien oberhalb einer stoffabhängigen Grenze ermittelt wird und die wahrgenommene Oberfläche eines Systems darstellt.
-Somit lassen sich Oberflächenrauheiten, Nanoporen und bei extremen Grenzwerten auch Kristalldefekte bestimmen.
+Somit lassen sich Oberflächenrauheiten, Nanoporen und bei Alpha-Werten nahe der Bindungslänge auch Kristalldefekte bestimmen.
 Mit wenig Mehraufwand gegenüber reinen Delaunay-Triangulationen ließen sich somit einerseits Auswertungen bei laufenden Simulationen durchführen und Prozesse gegebenenfalls direkt optimieren, andererseits ist die gesamte Oberfläche zur Simulation von Oberflächenereignissen bekannt und direkt parametrisiert.
 
 \subsubsection{Algorithmen zur Konstruktion einer Delaunay-Triangulation}

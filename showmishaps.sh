@@ -34,7 +34,7 @@ echo
 # undefined or multiple labels/references #
 ###########################################
 
-echo "<= undefined references and  multiple labels =>"
+echo "<= undefined references and multiple labels =>"
 echo
 listlogs | { xargs grep -Pi 'multipl[ey]|undefined' || echo "ok";} | sed -r -n "s/^[^\`]*\`([^']+)'.*$/\1/p"
 echo

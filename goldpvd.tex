@@ -67,12 +67,12 @@ Damit ergeben sich Reaktionsräume der Größe \SI{37x37x25}{\angstrom} mit jewe
 Abbildung \ref{fig:golddepositions-a} zeigt, wie das Substrat unter Erhalt der Kristallstruktur fortgesetzt wird.
 Poren und Einschlüsse wurden durch Untersuchung der Alphastruktur nicht gefunden.
 Abbildung \ref{fig:goldroughness-a} stellt die Rauheit dar, die beim glatten Substrat über den Abscheidungszeitraum konstant geblieben ist.
-Fehler- und Abbruchsquoten bei den LAMMPS-Berechnungen lagen mit \SI{0.25}{\percent} unterhalb des erwarteten Wertes von \SI{5}{\percent}
+Fehler- und Abbruchsquoten bei den LAMMPS-Berechnungen lagen mit \SI{0.25}{\percent} unterhalb des aus den ALD-Prozessen der Bachelorarbeit erwarteten Wertes von \SI{5}{\percent}
 
-\subsubsection{Strukturierte Substrate}
+\subsubsection{Wachstum auf strukturierten Substraten}
 
 Neben dem glatten Substrat wurden auch Abscheidungen auf strukturierten Substraten (Abbildung \ref{fig:golddepositions}) mit den gleichbleibenden Prozessbedingungen simuliert.
-Als Substrate wurden \SI{20}{\angstrom} hohe Stufen und Spitzen mit Neigungen von jeweils \SI{15}{\degree}, \SI{20}{\degree}, \SI{30}{\degree}, \SI{45}{\degree}, \SI{60}{\degree} und \SI{90}{\degree} präpariert.
+Als Substrate wurden Stufen oder Spitzen mit einer Höhe von jeweils \SI{20}{\angstrom} und Neigungen von \SI{15}{\degree}, \SI{20}{\degree}, \SI{30}{\degree}, \SI{45}{\degree}, \SI{60}{\degree} und \SI{90}{\degree} präpariert.
 Auf vorherige Relaxierung der Substrate wurde aufgrund der Prozessstabilität sowie der relaxierenden Eigenschaften der MD-Ereignisse verzichtet.
 Zusätzlich wurden Lamellen und Gitter mit einer Strukturbreite von \SI{16}{\angstrom} zur Untersuchung eventueller Prozessartefakte präpariert.
 
@@ -144,21 +144,26 @@ Zusätzlich wurden Lamellen und Gitter mit einer Strukturbreite von \SI{16}{\ang
   \caption[Porenbildung bei Gold-Strukturen]{Porenbildung bei Gold-Strukturen nach 40 Abscheidungsschritten (ca. \num{22000} PVD-Ereignisse $\hat{=}$ \SI{38}{\angstrom}).
   }
   \label{fig:goldpockets}
-
 \end{figure}
 
-Wie man den Alpha-Formen (Abbildung \ref{fig:goldpockets-a}) entnehmen kann, beinhaltet das abgeschiedene Gold bei geringen Neigungswinkeln keine Kristalldefekte, Poren oder Einschlüsse.
+Wie man den Alpha-Formen der simulierten Strukturen (Abbildung \ref{fig:goldpockets-a}) entnehmen kann, beinhaltet das abgeschiedene Gold bei geringen Neigungswinkeln keine Kristalldefekte, Poren oder Einschlüsse.
 Bei Abscheidungen auf Substrate hoher Neigungswinkel (>\SI{60}{\degree}) bilden sich Poren mit größerer Ausdehnung (>\SI{20}{\angstrom}).
 Durch Bildung von Überhängen an den Stufen werden die Poren zu Hohlräumen abgeschlossen, die nicht durch Relaxierung geschlossen werden.
 Dies zeigt sich auch in den Oberflächenrauheiten der untersuchten Strukturen (Abbildung \ref{fig:goldroughness}).
 Dabei wurden auch die Lamellen (Fins) und Gitter (Pillars) mit einer Strukturbreite von \SI{16}{\angstrom} untersucht, die innerhalb weniger Schritte aufgrund ihrer geringen Ausdehnung von \num{4} Atomdurchmessern durch Relaxierungseffekte verschwinden (Abbildung \ref{fig:goldroughness}).
-Die Rauheit $\sigma_z$ wird über die per periodische Alpha-Form bestimmte Oberfläche des Systemes inklusive der Poren berechnet und somit bei großen Poren überschätzt
+Die Rauheit $\sigma_z$ wird über die per periodische Alpha-Form bestimmte Oberfläche des Systemes inklusive der Poren berechnet und somit bei großen Poren überschätzt.
 \todo{welche effekte?}Die selben Effekte sollten auch bei größeren Strukturen zu beobachten sein.
 Wie man jedoch Abbildung \ref{fig:goldroughness-b} entnehmen kann, lässt sich das nur andeutungsweise bei der \SI{45}{\degree}-Spitze beobachten.
 
 Hier zeigt sich ein künstliches \todo{besserer Begriff}Artefakt der Simulationsmethode, die auf zusätzliche Relaxationen verzichtet und in z-Richtung abgeschirmte Teile der Oberfläche ignoriert.
 Eine mögliche Lösung wäre die explizite Parametrisierung per Delaunay-Triangulation, wie sie in Abschnitt \ref{datadelaunay} diskutiert wurde.
-In realen Systemen werden entstehende Überhänge und Hohlräume der untersuchten Größenordnungen vermutlich durch Oberflächendiffusionen wegrelaxiert.
+
+\todo[inline]{Vergleich mit realistischer RMS von Gold-PVD (Faktor 10 höher: 3 Bindungslängen statt subatomar)}
+\todo[inline]{Verringerung der Rauheit mit Sputterdauer}
+\todo[inline]{Unterbinden von Nanopartikeln durch MD-Box}
+\todo[inline]{kleine Nanopartikel wachsen bei Annealing, weil Schmelzpunkt geringer}
+\todo[inline]{Finite-Size-Effekte führen zu Begrenzung des RMS-Wertes. Hier nicht untersucht.}
+Svorcik et al.\cite{svorcik_annealing_2011}
 
 \begin{figure}[bth]
   \captionsetup[subfigure]{singlelinecheck=false}
@@ -185,7 +190,7 @@ In realen Systemen werden entstehende Überhänge und Hohlräume der untersuchte
 
 \end{figure}
 
-\subsection{Skalierbarkeit}
+\subsection{Skalierbarkeit der Rechenzeit mit der Simulationsgröße}
 
 Zur Untersuchung der Skalierbarkeit wurden Substratbreiten von \SI{100}{\angstrom}, \SI{200}{\angstrom}, \SI{1000}{\angstrom} und \SI{10000}{\angstrom} und \SI{20000}{\angstrom} auf Atomzahl und Laufzeit untersucht (Tabelle \ref{tab:goldscalability}).
 
@@ -205,6 +210,7 @@ Zur Untersuchung der Skalierbarkeit wurden Substratbreiten von \SI{100}{\angstro
     \SI{1000x1000}{\angstrom}    &  \num{1591908}    &  \num{381588}    &  \num{24}  &  \num{46}  &  \SI{5340}{\second}    (\SI{0.1}{\day})  \\
     \SI{10000x10000}{\angstrom}  &  \num{128433070}  &  \num{8186990}   &  \num{8}    &  \num{46}  &  \SI{422820}{\second}  (\SI{4.9}{\day})  \\
     \SI{20000x20000}{\angstrom}  &  \num{490948111}  &  \num{10356031}  &  \num{2}    &  \num{46}  &  \SI{422820}{\second}  (\SI{4.9}{\day})  \\
+    \SI{20000x20000}{\angstrom}  &  \todo[inline]{neuewerte}\num{-1}  &  \num{10356031}  &  \num{2}    &  \num{46}  &  \SI{422820}{\second}  (\SI{4.9}{\day})  \\
     \hline
   \end{tabularx}
 \end{table}

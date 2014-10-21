@@ -5,16 +5,13 @@
 
 \subsection{Beschreibung}
 
-Parsivald entstand als damals namenloses Resultat meiner Bachelorarbeit\cite{lorenz_entwicklung_2012} am Fraunhofer ENAS in Chemnitz mit dem Ziel der Simulation von Atom\-lagen\-abscheidungs-Prozessen.
+Parsivald entstand 2012 als namenloses Resultat meiner Bachelorarbeit\cite{lorenz_entwicklung_2012} am Fraunhofer ENAS mit dem Ziel der Simulation von Atom\-lagen\-abscheidungs-Prozessen.
 Das Programm war beschränkt auf die atomistische Simulation von Metall\-oxid-ALD mittels MEAM-Potentialen.
-Im Hintergrund werden per Host-Worker-Mechanismus aus dem Simulationsraum wiederholt Simulationseinheiten extrahiert, mit MD-Methoden simuliert und zurückführt (Abbildung \ref{fig:parsivald-schema}).
-Dafür wird LAMMPS neben einer eigenen KMC-Bibliothek, Importer und Exporter verschiedener Dateiformate, Kommandozeilenargumente und Konfigurationsdateien und einer MPI-orthogonalen Kommunikationsschnittstelle in die mehrteilige Software integriert.
-
-Abbildung \ref{fig:parsivald-stephierarchy} stellt die aktuelle Funktionsweise des Parsivald-Modelles vor, die im wesentlichen aus Vor- und Nachbereitung sowie einer Prozessschleife besteht.
-Innerhalb der Hauptschleife werden nacheinander einer oder mehrere Prozessschritte simuliert, die jeweils ein oder mehrere KMC-Ereignisarten umfassen können.
-Das beinhaltet Relaxationen, Atom- oder Molekülabscheidungen, die jeweils mittels Molekulardynamik simuliert werden.
-KMC-Ereignisse sind dabei durch die allgemeinen Prozesseigenschaften auf eine Oberflächenschicht begrenzt, wo sie jeweils innerhalb eines Kastens beschränker Größe, der MD-Box, wirken (Abbildung \ref{fig:parsivald-schema}).
-Das setzt zwar diffusionsarme Prozesse voraus, ermöglicht dafür jedoch die effiziente Beschreibung von Atomlagenabscheidungen.
+Hauptaufgabe von Parsivald ist es, Atomlagenabscheidungen auf großen Oberflächen per Kombination von KMC- und MD-Methoden mit atomistischer \todo{Genauigkeit}Präzision simulieren zu können.
+Abbildung \ref{fig:parsivald-stephierarchy} stellt die Funktionsweise des Parsivald-Modelles vor, die im Wesentlichen aus Vor- und Nachbereitung sowie einer Prozessschleife besteht.
+Innerhalb der Hauptschleife werden nacheinander in einem oder mehreren Prozessschritten mögliche Adsorptionen, Ligandenaustausch-Reaktionen oder Oberflächenrelaxationen mit KMC-Mechanismen ausgewählt, anschließend mittels Molekulardynamik lokal überprüft und die Ergebnisse schließlich in die globale Stuktur zurückgeführt (Abbildung \ref{fig:parsivald-schema}).
+KMC-Ereignisse sind in diesem Modell auf eine dünne Oberflächenschicht begrenzt, wo sie jeweils innerhalb eines Kastens beschränker Größe, der MD-Box, wirken (Abbildung \ref{fig:parsivald-schema}).
+Das setzt zwar diffusionsarme Prozesse voraus, ermöglicht dafür jedoch die effiziente Beschreibung von Atomlagenabscheidungen mit vielen Millionen Atomen auf der Mikrometerskala.
 
 \begin{figure}
   \centering
@@ -39,23 +36,23 @@ Das setzt zwar diffusionsarme Prozesse voraus, ermöglicht dafür jedoch die eff
   \label{fig:parsivald-stephierarchy}
 \end{figure}
 
-Als Eingaben der Simulation dienen das Substrat, eine valide Prozesskonfiguration sowie MD-Befehlslisten mit Platzhaltern (MD-Maske) samt Potentialparametrisierung.
+Als Eingaben der Simulation dienen das Substrat, eine Sammlung verschiedener Prozessparameter wie Umgebungstemperaturen, Expositionszeiten und Abscheidungsmodi (Abbildung \ref{fig:parsivald-modes}), sowie MD-Befehlslisten mit Platzhaltern (MD-Maske) samt Potentialparametrisierung.
 Die Konfiguration legt Umgebungseigenschaften, Abscheidungsart (Abbildung \ref{fig:parsivald-modes}), Größe des Simulations- und MD-Raumes und Laufzeitbedingungen des Hostprogrammes fest.
 Die Ausgabe erfolgt kontinuierlich in Ereignis-Logs sowie nach jedem Prozess-Schritt in Form aller Atompositionen, aus denen die Schichteigenschaften bestimmt werden können.
 Optional lassen sich auch einzelne Events zur späteren Neuberechnung zwecks Fehlersuche speichern.
 
-Eine typische ALD-Simulation folgt also folgendem Schema:
+Eine typische Abscheidungs-Simulation verläuft nach folgendem Schema:
 Zuerst wird das Substrat aus einer Datei gelesen und periodisch auf die Größe des Simulationsraums erweitert.
-Pro Halbzyklus wird eine Ereignismaske vorbereitet, die die physikalischen und numerischen Eigenschaften inklusive der notwendigen MD-Befehle zwischenspeichert.
-Anschließend beginnt die Hauptschleife mit Schritt 1, der den ersten Halbzyklus darstellt.
-Es werden mögliche Reaktionsorte auf der Oberfläche gesucht und per KMC-Algorithmus Ereignisse ausgewählt und in MD-Prozessen simuliert.
-Wird das Timeout des Schrittes erreicht, startet zyklisch der nächste Schritt, wodurch auch der gesamte Zyklus neu starten kann.
-Nach jedem Schritt werden auf Wunsch alle Atome in einem atomistischen Speicherformat zur weiteren Analyse auf die Festplatte geschrieben.
-Nach einer vorgegebenen Anzahl an Zyklen endet die Abscheidungssimulation erfolgreich.
+Pro Precursorart und \todo{entweder oder}Halbzyklus wird eine Ereignismaske vorbereitet, die die physikalischen und numerischen Parameter inklusive der angepassten Steuerbefehle für die MD-Bibliothek zwischenspeichert.
+Anschließend beginnt die Hauptschleife mit Schritt 1, der den ersten Halbzyklus mit Precursor A darstellt.
+Es werden nun mögliche Ereignisorte auf der Oberfläche gesucht, per KMC-Algorithmus Ereignisse an diesen Orten ausgewählt und von MD-Workern simuliert.
+Bei Erreichen des Timeouts startet der nächste Schritt oder ein neuer Zyklus.
+Nach jedem Schritt werden alle Atome in einem atomistischen Speicherformat zur späteren Analyse auf Festplatte gespeichert.
+Die Abscheidungssimulation endet nach einer vorgegebenen Anzahl an Zyklen oder vollständiger Füllung des Simulationsraumes mit Atomen.
 
 Mit diesem Schema lassen sich auch CVD- und PVD-Prozesse simulieren, indem man sich auf einen Schritt pro Zyklus beschränkt und im CVD-Fall mehrere Ereignisarten gleichzeitig nutzt.
 Der Zyklus-Timeout kann dann zur Kontrolle der Ausgabefrequenz genutzt werden.
-Für ALD und CVD lässt sich die Abscheidungsrate aus der Reaktionskinetik abschätzen, während man für PVD-Simulationen die Rate entsprechend der Prozessparameter setzen kann.
+Für ALD und CVD lässt sich die Abscheidungsrate aus der Reaktionskinetik abschätzen, während man für PVD-Simulationen die Rate fest entsprechend der Prozessparameter setzen kann.
 
 \begin{figure}
   \captionsetup[subfigure]{singlelinecheck=false}
@@ -86,9 +83,6 @@ Für ALD und CVD lässt sich die Abscheidungsrate aus der Reaktionskinetik absch
 
 \subsection{Annahmen und Einschränkungen}
 
-Trotz der Erweiterung auf CVD und PVD bleibt das Parsivald-Modell auf eine spezielle Klasse von Problemen begrenzt.
-So werden das Auftreffen des Precursors und seine Reaktion mit der Oberfläche \todo{naja, so richtig auch nicht}separat betrachtet, auf eine atomistische Modellierung der Gasphase jedoch verzichtet, wozu folgende Annahmen getroffen werden:
-
 \begin{enumerate}
 \item Alle Reaktionen finden auf der Oberfläche statt
 \item Reaktionen sind zeitlich und räumlich getrennt
@@ -96,45 +90,77 @@ So werden das Auftreffen des Precursors und seine Reaktion mit der Oberfläche \
 \item Bulkdiffusion ist vernachlässigbar
 \end{enumerate}
 
-Unter Vernachlässigung einzelner Annahmen reduzierte sich das Parsivald-Modell auf reine Molekulardynamik und wäre somit auf wenige hunderttausend Teilchen begrenzt.
-Dennoch bleiben Genauigkeit und Umfang der Ergebnisse auf molekulardynamische Methoden begrenzt.
-Somit lassen sich nur Potentialdateien nutzen, die sowohl Bulks als auch Oberflächen simulieren können.
-Werden zusätzlich die Simulation von Molekülen und deren Reaktionen mit der Oberfläche unterstützt, lassen sich die Precursor \todo{theoretisch?}theoretisch direkt betrachten.
-Andernfalls muss der Precursor auf das abzuscheidende Zentralatom reduziert und die sterische Hinderung durch seine Liganden sowie die Suche nach Abscheidungsorten mangels \todo{Begriff}Oberflächenliganden separat behandelt werden.
+Die Beschränkung des Modelles auf diffusionsarme Oberflächenabscheidungen ergibt sich aus der Notwendigkeit, Bereiche des Simulationsraumes, in denen keine Reaktion statt findet, bei der MD-Simulation zu vernachlässigen.
+Das betrifft die Gasphase und den größten Teil des Bulks ebenso wie abgeschirmte Bereiche der Oberfläche.
+Für Prozesse, die die oben aufgelisteten Annahmen nicht unterstützen, degeneriert Parsivald zu einer reinen MD-Simulation, für die effizientere Parallelisierungsmethoden existieren\todo{ähm ref? vielleicht?}.
+Ein beschränktes Maß an Oberflächendiffusion lässt sich jedoch mit  längeren Relaxationszeiten oder separaten Relaxations-Ereignissen annähernd behandeln.
 
-\subsection{Fortschritt im Rahmen der Masterarbeit}
+Weiterhin ist Parsivald auf die zugrunde liegende Molekulardynamik beschränkt.
+So lassen sich nur Systeme simulieren, für die Potentialparametrisierungen existieren, die sowohl Bulks als auch Oberflächen darstellen können, wie es bei EAM- und vielen ReaxFF-Potentialen der Fall ist.
+Diese sind im allgemeinen \todo{schwammig}recht rechenaufwendig, weshalb große Systeme nicht mehr mit reiner Molekulardynamik \todo{phrasing}berechenbar sind und sich die Effizienz von Parsivald bemerkbar macht.
+
+Werden zusätzlich Moleküle und deren Reaktionen mit Oberflächenliganden dargestellt, lassen sich Precursor-Oberflächen-Reaktionen direkt in Parsivald simulieren.
+Andernfalls muss der Precursor über sein abzuscheidendes Zentralatom und zusätzliche Mechanismen wie explizite sterische Hinderung angenähert werden.
+Die Suche nach Ereignisorten würde dann über exponierte Oberflächenatome und \todo{erklären oder besseres Wort finden}Revisionslisten statt über Oberflächenliganden angenähert.
+Eine tatsächliche Anwendbarkeit beider Methoden muss für jeden Prozess einzeln abgeschätzt werden, da die nun fehlenden Precursorliganden Einfluss auf die abgeschiedene Struktur haben \todo{konkreter!}können.
+
+\subsection{Erweiterung im Rahmen der Masterarbeit}
 
 \todo[inline]{das ist wohl zu viel}
 Seit Beginn dieser Arbeit wurde das Parsivald-Modell und seine Implementierung um PVD- und CVD-Modi (Abbildung \ref{fig:parsivald-modes}), ein allgemeines Konfigurationsformat\todo{Anhang?}, MD-Befehle mit Platzhaltern (MD-Masken), Unterstützung verschiedener atomistischer Dateiformate, Einbettung der LAMMPS-Umgebungs\-variablen zur Potentialsuche, globale und lokale Suchpfade für alle Eingabedateien, eventgebundene sterische Hinderung zum Zweck der CVD-Simu\-lation, einen internen und beliebig viele externe Workerpools, ein standardisiertes Buildsystem sowie eine Vielzahl externer \todo{ref oder anhang}Werkzeuge zur Prozessvorbereitung und -analyse erweitert.
 
-Diese Änderungen ermöglichen eine einfachere Vorbereitung, Simulation und Erforschung verschiedener Prozesse und Analyse der Ergebnisse.
-Auch eine automatisierte Prozesserforschung hinsichtlich passender Vorgaben ist mittels des Konfigurationsmechanismus' denkbar.
+Diese Änderungen ermöglichen eine einfachere Vorbereitung, Simulation und Untersuchung verschiedener Prozesse und eine aussagekräftigere Analyse der Ergebnisse.
+Auch eine automatisierte \todo{es ist wirklich eine Erforschung gemeint, also eine Suche der Parameter, die Zielgrößen abbilden; eine Untersuchung kann unabhängig von den Konfigurationsdateien anhand der Ausgaben geschehen}Erforschung der Prozessparameter wie Temperatur, Druck und Expositionszeit oder MD-spezifischer Parameter wie Thermostatdämpfung, Relaxationsdauer oder Länge des Zeitschrittes ist mittels des Konfigurationsmechanismus' denkbar.
+
 Zusätzlicher Aufwand musste beim Einkapseln der MD-Bibliothek LAMMPS betrieben werden (Abschnitt \ref{lammpssucks}).
+
+\subsection{Ausgabewerte}
+
+Parsivald-Simulationsläufe geben neben der atomistischen Struktur verschiedene Statistiken und Werte in Form von Daten- und Logdateien aus.
+Das beinhaltet die Zahl der versuchten, erfolgreichen und fehlgeschlagenen Ereignisse, laufende Worker, abgeschirmte und deshalb zurückgestellte Ereignisse und die Anzahl aller Atome.
+Optional lässt sich eine Verteilung der Häufigkeit eines Zugriffes auf Positionen in der xy-Ebene angeben, um bei ALD- und CVD-Prozessen die Auswahlkriterien von Ereignisorten überprüfen zu können, was aber in dieser Arbeit nicht präsentiert wird\todo{Ergänzung im Anhang?}.
+Anhand der atomistischen Struktur lassen sich Oberflächenrauheiten, Porenverteilungen, Dichten, Schichtdicken und Eigenschaften eventueller Kristalle bestimmen.\todo{Verweis auf Anhang -> Methoden}
+
+Eine Auswertung der Abbruchrate ist besonders wichtig, während man nach validen Prozessparametern sucht, da sich über sie Fehler in der Prozesskonfiguration oder in der gebildeten Struktur abschätzen lassen (Siehe Abbildung \ref{fig:copperparsivald}).
+Ereignisse, die einem Abbruch der LAMMPS-Bibliothek unterliegen, ihre Zeitbegrenzung erreichen oder unzulässige \todo{was ist unzulässig?}Strukturen bilden, werden einem Worker zur erneuten Berechnung übergeben.
+Schlagen sie auch bei wiederholten Versuchen fehl, werden sie endgültig als fehlgeschlagen markiert und abgebrochen.
+
+Da auf diese Weise bereits ausgewählte Ereignisse verworfen werden und somit die Abscheidungsraten leicht unterschätzt werden, müssen die Prozessraten entsprechend angepasst werden.
+PVD-Prozesse weisen häufig vergleichsweise konstante Abbruchraten \SI{<1}{\percent} auf, weshalb es genügt, den Zielwert der Abscheidungsrate um die Abbruchrate zu erhöhen, was theoretisch auch automatisiert durchgeführt werden kann.
+Bei ALD- und CVD-Prozessen sind solche Korrekturen auch möglich, allerdings aufgrund der Abhängigkeit von Reaktionsorten nicht notwendig:
+Vor Ausführung jedes Ereignisses wird dessen lokale Nachbarschaft auf Übereinstimmung mit den Kriterien überprüft.
+Wurde in dieser Zeit ein anderes Ereignis in direkter Nachbarschaft abgeschlossen, verbietet die sterische Hinderung seiner Oberflächenliganden das zweite Ereignis und es wird verworfen.
+Schlägt das erste Ereignis jedoch fehl, werden dessen Abhängigkeiten aufgehoben, das zweite Ereignis wird überprüft und mangels Oberflächenliganden zur Ausführung freigegeben.
+
+Problematisch sind Situationen, in denen die Vielzahl der Ereignisse fehlschlägt, wie es bei strukturellen Fehlern oder schlecht gewählten Parametern der Fall sein kann, da hier die Abscheidungsraten nicht verlässlich korrigiert werden können.
+Für die Fälle, für die das Modell gestaltet wurde, wird die obere Schranke der Abbruchrate mit \SI{10}{\percent} abgeschätzt\todo{wie abgeschätzt?}.
 
 \subsection{Probleme mit LAMMPS}
 \label{lammpssucks}
+\todo[inline]{Abschnitt überdenken}
 
 Der hervorragende LAMMPS-Code wurde als MD-Bibliothek genutzt, da er gut optimiert und auf Funktionsebene in eigene Programme integrierbar ist sowie ReaxFF-Potentiale im Standardformat unterstützt.
-Damit ist LAMMPS die einzige Wahl, allerdings stößt man bei der Nutzung auf verschiedene Probleme.
+Damit ist LAMMPS \todo{faktisch}faktisch konkurrenzlos, allerdings stößt man bei der Nutzung auf verschiedene Probleme.
 
 Ein Hauptproblem besteht in der Interaktion mit MPI-Bibliotheken.
-So liegt nahe, für hochparallele Systeme wie Parsivald auf MPI zu setzen, um Tasks vom Host an seine Worker zu vermitteln.
-LAMMPS nutzt jedoch intern globale MPI-Calls, auch wenn nur kleine Systeme untersucht werden oder explizit auf MPI verzichtet wird\todo{Beleg!}.
-Dieses Problem lässt sich durch fork-Prozesse oder proprietäre Patches umgehen, ist aber keine zufriedenstellende, sichere Lösung für umfangreiche Software.
+Es liegt nahe, für hochparallele Systeme wie Parsivald auf MPI zu setzen, um Tasks vom Host an seine Worker zu vermitteln.
+LAMMPS nutzt jedoch intern \todo{lammps.cpp, Zeile 247}globale MPI-Calls, auch wenn nur kleine Systeme untersucht werden oder explizit auf MPI verzichtet wird.
+Zwar wird LAMMPS statisch verlinkt, nicht aber die MPI-Bibliothek\footnote{LAMMPS liegt auch ein MPI-Platzhalter(Stub) für serielle Anwendungsfälle bei, der aber separat verlinkt werden muss, statt in LAMMPS hinein kompiliert zu werden}, so dass ein Umschreiben der exportierten Symbole nicht zum gewünschten Erfolg führt.
+Dieses Problem lässt sich durch fork-Prozesse oder proprietäre Patches umgehen, ist aber keine sichere Lösung für umfangreiche Software.
 Zwar lässt sich LAMMPS auch mit einem MPI-Stub kompilieren, jedoch führt dieser durch kollidierende Namen globaler Funktionen der notwendigerweise dynamisch verlinkten MPI-Bibliotheken unweigerlich zu Problemen.
-Auch nach Lösung dieses Problemes käme MPI in Konflikt mit dem nächsten Problem.
 
-LAMMPS ruft nach jedem Berechnungsfehler \texttt{exit} auf, wodurch der aktuelle Prozess ohne Möglichkeit der Fehlerkorrektur beendet und die Kommunikation mit dem Hostprozess hart unterbrochen wird.
+Weiterhin ruft LAMMPS nach jedem Berechnungsfehler \texttt{exit} auf, wodurch der aktuelle Prozess ohne Möglichkeit der Fehlerkorrektur beendet und die Kommunikation mit dem Hostprozess hart unterbrochen wird.
 Geschieht dies in einem MPI-Prozess, werden alle beteiligten Prozesse auf allen Knoten unter Annahme eines kritischen Fehlers beendet.
-Unerwartetes Übertreten von Systemgrenzen, hohen Teilchengeschwindigkeiten oder Ausnahmesituationen durch fehlgeformte Potentiale verursachen nun regelmäßig und unvorhergesehen \texttt{exit}-Calls und beenden ungewollt die gesamte Simulation.
-Eine mögliche Lösung wäre die Nutzung von Prozess-Forks, die vom eigentlichen MPI-Prozess überwacht werden, wie es in Workerpool der Fall ist.
+Unerwartetes Übertreten von Systemgrenzen, hohen Teilchengeschwindigkeiten oder Ausnahmesituationen durch fehlgeformte Potentiale verursachen regelmäßig und unvorhergesehen \texttt{exit}-Calls und beenden ungeplant die gesamte Simulation.
+Eine mögliche Lösung wäre die Nutzung von Prozess-Forks, die vom eigentlichen MPI-Prozess überwacht werden, wie es in Workerpools der Fall ist.
 
-Darüber hinaus fallen einige Rechnungen unerwartet in eine Dauerschleife innerhalb der LAMMPS-Bibliothek, die sich aufgrund deren blockierender Architektur nicht ohne separaten Überwachungsprozess diagnostizieren oder beenden lässt.
+Darüber hinaus fallen einige Rechnungen unerwartet in eine nichtreproduzierbare Dauerschleife innerhalb der LAMMPS-Bibliothek, die sich aufgrund deren blockierender Architektur nicht ohne separaten Überwachungsprozess diagnostizieren oder beenden lässt.
 Hier besteht die Lösung schlicht in einem hostseitigen Timeout der Verbindung zu jedem verbundenen Worker.
 Eine unbestimmte Zeit nach dem Verbindungsabbruch startet sich der Worker selbsttätig neu.
 Im Worst-Case-Szenario endet ein Großteil der Worker in Dauerschleifen, wodurch die Simulation signifikant ausgebremst wird, jedoch weiterhin stabil läuft.
 
-Als Lösung der vorgestellten Probleme wurde ein eigenes Host-Worker-System gestaltet, das LAMMPS in gekapselten Prozessen lokal oder auf entfernten Knoten laufen lässt, aber nur die Anfangsbedingungen und Ergebnisse kommuniziert.
+
+Als Lösung der vorgestellten Probleme wurde das in Parsivald vorhandene Host-Worker-System so umgestaltet, dass LAMMPS in gekapselten Prozessen lokal oder auf entfernten Knoten läuft, aber nur die Anfangsbedingungen und Ergebnisse kommuniziert.
 Worker werden in Pools organisiert, sind ansonsten aber unabhängig, was sich in der direkten Nutzung des Netzwerkstacks ohne Umweg über den Poolmanagement-Prozess zeigt.
 Auf der einen Seite ist die Stabilität der Worker unabhängig von anderen Workern, andererseits bleiben die eigentlichen Fehlerursachen weiterhin verborgen.
 Stattdessen werden fehlgeschlagene MD-Simulationen erneut gestartet und bei wiederholtem Berechnungsfehler als fehlgeschlagen markiert und verworfen.

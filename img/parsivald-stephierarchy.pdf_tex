@@ -69,10 +69,10 @@
     \put(0.75533586,1.12797312){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.1131208\unitlength}\centering MD-\\ Maske\end{minipage}}}%
     \put(0.43517451,1.12562425){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.13213873\unitlength}\centering Prozess-Konfig.\end{minipage}}}%
     \put(0.41260318,0.95395257){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{1.0401776\unitlength}\raggedright  Event-Masken\\ \end{minipage}}}%
-    \put(0.6721823,0.18603341){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{1.0401776\unitlength}\raggedright Ext. Pool\end{minipage}}}%
+    \put(0.66410252,0.18603341){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{1.0401776\unitlength}\raggedright Entf. Host\end{minipage}}}%
     \put(0.44235135,0.16573407){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.17273877\unitlength}\centering Worker\end{minipage}}}%
     \put(0.44276847,0.13020568){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.17273877\unitlength}\centering MD-Simulation\end{minipage}}}%
-    \put(0.21029236,0.1900733){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{1.0401776\unitlength}\raggedright Interner Pool\end{minipage}}}%
+    \put(0.21433225,0.1900733){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{1.0401776\unitlength}\raggedright Lokaler Host\end{minipage}}}%
     \put(0.02086003,0.16371415){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.17273877\unitlength}\centering Worker\end{minipage}}}%
     \put(0.02127715,0.12818577){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.17273877\unitlength}\centering MD-Simulation\end{minipage}}}%
   \end{picture}%

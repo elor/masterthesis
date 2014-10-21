@@ -14,6 +14,27 @@ Für das Cu/Ni-System werden \todo{Aus welchem Hut wurde das gezaubert?}partiell
 
 \subsection{Ergebnisse}
 
+\begin{figure}[H]
+  \captionsetup[subfigure]{singlelinecheck=false}
+  \def\subfigwidth{7cm}
+  \begin{subfigure}[t]{\subfigwidth}
+    \includegraphics[width=\textwidth]{CuNi_layerroughness_comparison}
+    \subcaption{
+      Vergleich der Rauheit zwischen LAMMPS und Parsivald (Abb. \ref{fig:multilayerresults})
+    }
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{\subfigwidth}
+    \includegraphics[width=\textwidth]{CuNi_atomdistribution_relax}
+    \subcaption{Höhenverteilung der Kupfer- und Nickelatome innerhalb der Schicht}
+  \end{subfigure}
+  \caption[Ergebnisse der Multilagen-Abscheidung von Kupfer und Nickel]{
+    Ergebnisse der Multilagen-Abscheidung von Kupfer und Nickel:
+    Vergleich der zwischen LAMMPS und Parsivald (a) und Einfluss der Relaxationszeit auf die Schichtqualität in Parsivald (b)
+  }
+  \label{fig:multilayerplots}
+\end{figure}
+
 Die in Abbildung \ref{fig:multilayerresults} vorgestellten Ergebnisse zeigen erfolgreiches Multilagenwachstum per PVD-Modus mit Diffusion einzelner Atome in benachbarte Lagen.
 Die Atome der verschiedenen Lagen setzen das fcc-Kristallgitter der vorherigen Lage fort, was durch die Ähnlichkeit der fcc-Gitterkonstanten zu erklären ist (\SI{3.52}{\angstrom} für Nickel, \SI{3.61}{\angstrom} für Kupfer, entspricht \SI{2.5}{\percent} Abweichung).
 Bei größeren Systemen sind durch Verspannungen im Material Gitterversetzungen und -fehlstellen zu erwarten, die allerdings durch \todo{Wort}Finite-Size-Effekte unterdrückt sein können.
@@ -21,22 +42,35 @@ Bei größeren Systemen sind durch Verspannungen im Material Gitterversetzungen 
 \begin{figure}[hp]
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{7cm}
-  %% \begin{subfigure}[t]{\subfigwidth}
-  %%   \includegraphics[width=\textwidth]{CuNi_surface8}
-  %%   \subcaption{Top-Ansicht einer CuNi-Multi\-lagen\-ober\-fläche nach je 4 Lagen (insgesamt \SI{60}{\angstrom})}
-  %% \end{subfigure}
-  %% \hfill
   \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{CuNi_surface8_noalpha}
-    \subcaption{Top-Ansicht einer CuNi-Multi\-lagen\-ober\-fläche nach je 4 Lagen (insgesamt \SI{60}{\angstrom})}
+    \includegraphics[width=\textwidth]{CuNi_profile_LAMMPS_nice}
+    \subcaption{Profil einer per LAMMPS simulierten Multilagen-Abscheidung}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{CuNi_profile8}
-    \subcaption{Profil eines CuNi-Multi\-lagen\-systemes nach je 4 Lagen (insgesamt \SI{60}{\angstrom})}
+    \includegraphics[width=\textwidth]{CuNi_profile_Parsivald}
+    \subcaption{Profil einer per Parsivald simulierten Multilagen-Abscheidung}
   \end{subfigure}
-  \caption[Ergebnisse bei Kupfer-Nickel-Multilagen-PVD]{Ergebnisse bei Kupfer-Nickel-Multilagen-PVD}
+  \caption[Vergleich zwischen Parsivald- und LAMMPS-Multilagenabscheidungen]{
+    Vergleich zwischen Parsivald- und LAMMPS-Multilagenabscheidungen unter Nutzung optimierter Parameter.
+  }
   \label{fig:multilayerresults}
 \end{figure}
 
-\todo[inline]{update with the results of 93\_*/23-28}
+\begin{figure}[hp]
+  \captionsetup[subfigure]{singlelinecheck=false}
+  \begin{subfigure}[t]{8cm}
+    \includegraphics[width=\textwidth]{CuNi_surface8_noalpha}
+    \subcaption{Draufsicht einer CuNi-Multi\-lagen\-ober\-fläche nach nur 4 Lagen (insgesamt \SI{60}{\angstrom})}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{6cm}
+    \includegraphics[width=\textwidth]{CuNi_columnfail}
+    \subcaption{Dünnes Profil eines anderen Systemes nach 24 Lagen (\SI{180}{\angstrom})}
+  \end{subfigure}
+  \caption[Multilagen-Simulation mit willkürlichen Parametern]{
+    Multilagen-Simulation mit Parsivald mit Parametern, die noch nicht auf genaue Darstellung des Systemes optimiert wurden.
+    $t_\text{relax}$ liegt unterhalb der notwendigen Relaxationszeit.
+  }
+  \label{fig:multilayerfails}
+\end{figure}

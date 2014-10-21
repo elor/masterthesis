@@ -81,9 +81,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.7810508"
-     inkscape:cx="53.124904"
-     inkscape:cy="47.019649"
+     inkscape:zoom="2.6971052"
+     inkscape:cx="114.15328"
+     inkscape:cy="49.847032"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -92,10 +92,10 @@
      fit-margin-right="0"
      fit-margin-bottom="0"
      units="cm"
-     inkscape:window-width="1918"
-     inkscape:window-height="1181"
+     inkscape:window-width="1920"
+     inkscape:window-height="1200"
      inkscape:window-x="0"
-     inkscape:window-y="18"
+     inkscape:window-y="0"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata3295">
@@ -105,7 +105,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -183,7 +183,7 @@
              y="482.72617"
              style="font-size:16.36253738px" /></flowRegion><flowPara
            style="font-size:16.36253738px;text-align:start;text-anchor:start"
-           id="flowPara4463-0-0">Precursor</flowPara></flowRoot>      <flowRoot
+           id="flowPara4463-0-0">Precur. B</flowPara></flowRoot>      <flowRoot
          xml:space="preserve"
          id="flowRoot4449-8-5"
          style="font-size:14.87503433px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
@@ -254,7 +254,7 @@
              width="514.95343"
              id="rect4666-3" /></flowRegion><flowPara
            id="flowPara4668-1"
-           style="font-size:16.36253738px;text-align:start;text-anchor:start">Precursor</flowPara></flowRoot>      <flowRoot
+           style="font-size:16.36253738px;text-align:start;text-anchor:start">Precur. A</flowPara></flowRoot>      <flowRoot
          transform="matrix(0.67226736,0,0,0.67226736,59.879295,119.67884)"
          style="font-size:14.87503433px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
          id="flowRoot4670-2"

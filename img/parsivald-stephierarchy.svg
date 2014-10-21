@@ -735,14 +735,14 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="85.807925"
-     inkscape:cy="151.65749"
+     inkscape:zoom="1.4266432"
+     inkscape:cx="313.81801"
+     inkscape:cy="157.63913"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1918"
-     inkscape:window-height="1198"
+     inkscape:window-width="1920"
+     inkscape:window-height="1200"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
@@ -1360,7 +1360,7 @@
          x="-3073.1033"
          y="430.89633" />
       <flowRoot
-         transform="translate(-3363.3599,-49.496194)"
+         transform="translate(-3367.3599,-49.496194)"
          style="font-size:64px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
          id="flowRoot5281"
          xml:space="preserve"><flowRegion
@@ -1372,7 +1372,7 @@
              width="514.95343"
              id="rect5285" /></flowRegion><flowPara
            id="flowPara5287"
-           style="font-size:11px;text-align:start;text-anchor:start">Ext. Pool</flowPara></flowRoot>      <g
+           style="font-size:11px;text-align:start;text-anchor:start">Entf. Host</flowPara></flowRoot>      <g
          id="g6962-8"
          transform="translate(198.51064,-0.99998392)">
         <rect
@@ -1490,7 +1490,7 @@
          sodipodi:nodetypes="cc" />
     </g>
     <flowRoot
-       transform="translate(-3581.8704,-51.496194)"
+       transform="translate(-3579.8704,-51.496194)"
        style="font-size:64px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
        id="flowRoot6550"
        xml:space="preserve"><flowRegion
@@ -1502,7 +1502,7 @@
            width="514.95343"
            id="rect6554" /></flowRegion><flowPara
          id="flowPara6556"
-         style="font-size:11px;text-align:start;text-anchor:start">Interner Pool</flowPara></flowRoot>    <g
+         style="font-size:11px;text-align:start;text-anchor:start">Lokaler Host</flowPara></flowRoot>    <g
        id="g6962">
       <rect
          y="466.67859"
@@ -1627,7 +1627,7 @@
            height="163.79056"
            x="22.784513"
            y="636.05096" /></flowRegion><flowPara
-         id="flowPara3317"></flowPara></flowRoot>    <flowRoot
+         id="flowPara3317" /></flowRoot>    <flowRoot
        xml:space="preserve"
        id="flowRoot3319"
        style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Sans;font-style:normal;font-weight:normal;font-size:16px;line-height:125%;letter-spacing:-2.96000004000000017px;word-spacing:0px"><flowRegion
@@ -1637,5 +1637,5 @@
            height="139.28647"
            x="-4.7288613"
            y="644.21899" /></flowRegion><flowPara
-         id="flowPara3325"></flowPara></flowRoot>  </g>
+         id="flowPara3325" /></flowRoot>  </g>
 </svg>

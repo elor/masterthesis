@@ -81,9 +81,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.7782964"
-     inkscape:cx="173.92809"
-     inkscape:cy="54.118512"
+     inkscape:zoom="2.802715"
+     inkscape:cx="52.48741"
+     inkscape:cy="62.329219"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -92,10 +92,10 @@
      fit-margin-right="0"
      fit-margin-bottom="0"
      units="cm"
-     inkscape:window-width="1918"
-     inkscape:window-height="1181"
+     inkscape:window-width="1920"
+     inkscape:window-height="1200"
      inkscape:window-x="0"
-     inkscape:window-y="18"
+     inkscape:window-y="0"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata3096">
@@ -105,7 +105,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -190,15 +190,15 @@
              width="514.95343"
              id="rect4970-0-3" /></flowRegion><flowPara
            id="flowPara5022"
-           style="font-size:15.58853817px;text-align:start;text-anchor:start">Precursor</flowPara></flowRoot>      <flowRoot
+           style="font-size:15.58853817px;text-align:start;text-anchor:start">Precur. A</flowPara></flowRoot>      <flowRoot
          xml:space="preserve"
          id="flowRoot5024"
          style="font-size:14.87503433px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
          transform="matrix(0.67226736,0,0,0.67226736,224.70446,356.74058)"><flowRegion
            id="flowRegion5026"><rect
              id="rect5028"
-             width="106.67374"
-             height="93.804665"
+             width="111.9811"
+             height="94.335426"
              x="396.7153"
              y="480.6897"
              style="font-size:14.87503433px;text-align:start;text-anchor:start" /></flowRegion><flowPara
@@ -227,7 +227,7 @@
              y="482.72617"
              style="font-size:16.36253738px" /></flowRegion><flowPara
            style="font-size:16.36253738px;text-align:start;text-anchor:start"
-           id="flowPara4399">Precursor</flowPara></flowRoot>      <flowRoot
+           id="flowPara4399">Precur. B</flowPara></flowRoot>      <flowRoot
          transform="matrix(0.67226736,0,0,0.67226736,291.93126,356.74058)"
          style="font-size:14.87503433px;font-style:normal;font-weight:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
          id="flowRoot4437"
@@ -236,8 +236,8 @@
              style="font-size:14.87503433px;text-align:start;text-anchor:start"
              y="480.6897"
              x="396.7153"
-             height="92.682549"
-             width="104.81185"
+             height="92.151817"
+             width="110.64996"
              id="rect4441" /></flowRegion><flowPara
            style="font-size:14.87503433px;text-align:start;text-anchor:start"
            id="flowPara3109">- $p_\text{partial}$</flowPara><flowPara

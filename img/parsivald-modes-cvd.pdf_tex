@@ -51,9 +51,9 @@
   \begin{picture}(1,0.63829786)%
     \put(0,0){\includegraphics[width=\unitlength]{parsivald-modes-cvd.pdf}}%
     \put(0.1226966,0.59866092){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{2.07875514\unitlength}\raggedright \large{CVD}\end{minipage}}}%
-    \put(0.1479741,0.47262643){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{2.07875514\unitlength}\raggedright Precursor\end{minipage}}}%
-    \put(0.14665533,0.38850343){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.4306187\unitlength}\raggedright - $p_\text{partial}$\\ - $E_\text{A}$\\ - Struktur\end{minipage}}}%
-    \put(0.5518257,0.47175135){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{2.07875514\unitlength}\raggedright Precursor\end{minipage}}}%
-    \put(0.55033399,0.38850343){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.42310271\unitlength}\raggedright - $p_\text{partial}$\\ - $E_\text{A}$\\ - Struktur\end{minipage}}}%
+    \put(0.1479741,0.47262643){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{2.07875514\unitlength}\raggedright Precur. A\end{minipage}}}%
+    \put(0.14665533,0.38850343){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.45204342\unitlength}\raggedright - $p_\text{partial}$\\ - $E_\text{A}$\\ - Struktur\end{minipage}}}%
+    \put(0.5518257,0.47175135){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{2.07875514\unitlength}\raggedright Precur. B\end{minipage}}}%
+    \put(0.55033399,0.38850343){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.44666987\unitlength}\raggedright - $p_\text{partial}$\\ - $E_\text{A}$\\ - Struktur\end{minipage}}}%
   \end{picture}%
 \endgroup%

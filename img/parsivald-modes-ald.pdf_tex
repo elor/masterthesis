@@ -51,10 +51,10 @@
   \begin{picture}(1,0.52631577)%
     \put(0,0){\includegraphics[width=\unitlength]{parsivald-modes-ald.pdf}}%
     \put(0.57488285,0.49363277){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{1.71406122\unitlength}\raggedright \large{ALD Halbz.}\end{minipage}}}%
-    \put(0.61530698,0.38898804){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{1.71406122\unitlength}\raggedright Precursor\end{minipage}}}%
+    \put(0.61530698,0.38898804){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{1.71406122\unitlength}\raggedright Precur. B\end{minipage}}}%
     \put(0.61444337,0.32034502){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.37224265\unitlength}\raggedright - $p_\text{partial}$\\ - $E_\text{A}$\\ - Struktur\end{minipage}}}%
     \put(0.09027509,0.49363277){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{1.71406122\unitlength}\raggedright \large{ALD Halbz.}\end{minipage}}}%
-    \put(0.13069922,0.38898804){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{1.71406122\unitlength}\raggedright Precursor\end{minipage}}}%
+    \put(0.13069922,0.38898804){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{1.71406122\unitlength}\raggedright Precur. A\end{minipage}}}%
     \put(0.12983561,0.32034502){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.38091911\unitlength}\raggedright - $p_\text{partial}$\\ - $E_\text{A}$\\ - Struktur\end{minipage}}}%
   \end{picture}%
 \endgroup%

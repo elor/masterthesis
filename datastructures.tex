@@ -1,5 +1,5 @@
 \section{Datenstrukturen}
-\label{sec:datastructures}
+\label{datastructures}
 
 %% Einführung in die übliche Arbeitsweise bei atomistischen Simulationen
 
@@ -58,7 +58,7 @@ Durch Abstraktion besteht die Interaktion mit den zugrunde liegenden Datenstrukt
 Die möglichen Operationen werden in Tabelle \ref{tab:dataops} vorgestellt und umfassen einmalige Aufgaben wie die Konstruktion der Datenstruktur, schreibende Operationen wie Hinzufügen und Entfernen von Atomen sowie lesende Operationen wie die Ausgabe von Atomen innerhalb eines bestimmten Bereiches.
 Ein Vergleich der asymptotischen Laufzeiten auf verschiedenen Datenstrukturen ist in Tabelle \ref{tab:dataruntimes} dargestellt.
 
-\begin{table}[H]
+\begin{table}
   \centering
   \caption[Laufzeitabschätzung abstrakter Operationen auf verschiedenen Datenstrukturen]{
     Abschätzung des Speicheraufwands und der asymptotischen Laufzeit der vorgestellten Operationen auf verschiedenen Datenstrukturen für kompakte Oberflächensysteme in drei Raumdimensionen.
@@ -87,7 +87,7 @@ Ein Vergleich der asymptotischen Laufzeiten auf verschiedenen Datenstrukturen is
   \end{tabularx}
 \end{table}
 
-\begin{table}[H]
+\begin{table}
   \rowcolors{0}{white}{lightgray}
   \caption[datasymbols]{Symbole für Laufzeit- und Speicherabschätzungen}
   \label{tab:datasymbols}
@@ -103,7 +103,7 @@ Ein Vergleich der asymptotischen Laufzeiten auf verschiedenen Datenstrukturen is
   \end{tabularx}
 \end{table}
 
-\begin{table}[H]
+\begin{table}
   \rowcolors{0}{white}{lightgray}
   \caption[Liste der notwendigen Operationen]{
     Übersicht über Operationen, die auf die zugrunde liegenden Datenstrukturen ausgeführt werden.
@@ -159,7 +159,7 @@ Ein Vergleich der asymptotischen Laufzeiten auf verschiedenen Datenstrukturen is
 Durch Unterschiede in der Funktionsweise verschiedener Algorithmen und Datenstrukturen ergeben sich für sie Kategorien, die generelle Eigenschaften wie die Laufzeit teilen\todo{teilen??}.
 Während der Entwicklung und Implementierung des Parsivald-Modelles wurden Algorithmen aus den folgenden Kategorien in Betracht gezogen.
 
-\begin{table}[H]
+\begin{table}
   \rowcolors{0}{white}{lightgray}
   \caption[Liste der notwendigen Operationen]{
     Übersicht über Operationen, die auf die zugrunde liegenden Datenstrukturen ausgeführt werden.
@@ -202,7 +202,7 @@ Während der Entwicklung und Implementierung des Parsivald-Modelles wurden Algor
 
 \subsection{Effiziente Datenstrukturen}
 
-Zur Betrachtung der in Abschnitt \ref{sec:parsivald} vorgestellten Problemstellungen bieten sich nur eine Auswahl der angesprochenen Datenstrukturen an, da die asymptotischen Laufzeiten der Suchoperationen auf den ausgeschlossenen Strukturen oberhalb der Praktikabilitätsgrenze liegen.
+Zur Betrachtung der in Abschnitt \ref{parsivald} vorgestellten Problemstellungen bieten sich nur eine Auswahl der angesprochenen Datenstrukturen an, da die asymptotischen Laufzeiten der Suchoperationen auf den ausgeschlossenen Strukturen oberhalb der Praktikabilitätsgrenze liegen.
 Als Auswahl effizienter Datenstrukturen werden weiterhin Octrees, k-d-Bäume und Delaunay-Triangulationen behandelt.
 
 \subsubsection{Octrees}\label{dataoctree}
@@ -242,7 +242,7 @@ Um eine einzige Zelle per absolutem oder relativem Index abzurufen, sind Operati
 %%   \label{alco:octree-construction}
 %% \end{algorithm}
 
-\begin{figure}[tbhp]
+\begin{figure}
   \centering
   \includegraphics[width=\textwidth]{octree}
   \caption[Funktionsweise eines Octrees]{Quadtree (2d-Äquivalent des Octrees) zur Veranschaulichung der Funktionsweise eines Octrees:
@@ -299,7 +299,7 @@ Aktualisierungen von Knoten behandelt man durch Standardalgorithmen wie Baumrota
 Eine weitere Eigenschaft von k-d-Bäumen ist außerdem, dass sie nicht auf endliche Räume beschränkt sind und zuverlässig beliebig große Systeme beschreiben können.
 Durch adaptives Neubalancieren erreicht man dennoch bei typischerweise einseitigem Schichtwachstum die oben erwähnten Suchlaufzeiten auf Kosten der Manipulationseffizienz.
 
-\begin{figure}[bthp]
+\begin{figure}
   \includegraphics[width=\textwidth]{kdtree-tree}
   \caption[Konstruktion eines k-d-Baumes]{
     Rekursive Konstruktion eines k-d-Baumes: Die Punktmenge wird sortiert, der Median zum Baum hinzugefügt und seine Kinder aus den beiden Teilmengen per k-d-Baum-Konstruktion gewonnen.
@@ -341,7 +341,7 @@ Aus diesen Gründen lassen sich k-d-Bäume nicht zufriedenstellend im Parsivald-
 
 \subsection{Delaunay-Triangulation}\label{datadelaunay}
 
-\begin{figure}[bhpt]
+\begin{figure}
   \centering
   \def\svgwidth{\textwidth}
   \input{img/delaunay.pdf_tex}
@@ -408,7 +408,7 @@ Zur Delaunay-Triangulierung aus einer Punktmenge stehen verschiedene Algorithmen
 
 \subsubsection{Flip-Algorithmus}
 
-\begin{figure}[bhpt]
+\begin{figure}
   \captionsetup[subfigure]{singlelinecheck=false}{
     \def\subfigwidth{0.23\textwidth}
     \def\svgwidth{\textwidth}
@@ -436,7 +436,7 @@ Zur Delaunay-Triangulierung aus einer Punktmenge stehen verschiedene Algorithmen
       \label{fig:delaunay-flip-d}
     \end{subfigure}
   }
-  \caption{
+  \caption[Flip-Algorithmus]{
     Flip-Algorithmus: Invalide Simplexe werden aufgelöst und entlang einer neuen Grenze in neue Simplexe überführt.
     Diese Operation läuft in \BigO{k_d\log{k_d}} Prüfungen bei Aktualisierung der Punkte eines Simplexes, mit $k_d$ als oberer Schranke der Zahl der Simplexe eines Punktes.
   }
@@ -498,7 +498,7 @@ Per Konnektivitätsprüfung der Oberflächendreiecke lässt sich zwischen zusamm
 In der Anwendung werden Alpha-Oberflächen für die Bestimmung von Rauheiten von Oberflächen oder Volumen poröser Materialien interessant, da sie sich als Punktmengen- beziehungsweise Polygonoperationen gestalten.
 Für Simulationen von Oberflächenabscheidungen ließen sich auf diese Weise auch Bedeckungen mit Precursorliganden ermitteln.
 
-\begin{figure}[bhpt]
+\begin{figure}
   \centering
   \captionsetup[subfigure]{singlelinecheck=false}{
     \def\subwidth{0.4\textwidth}

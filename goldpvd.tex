@@ -11,7 +11,7 @@ Zur Bestimmung dieser Werte wurde ein Goldkristall von \SI{40x40x40}{\angstrom} 
 Wie man den Ergebnissen ansehen kann, bleibt die Kristallstruktur erwartungsgemäß erhalten (die Schmelztemperatur wurde für die Relaxierung nicht überschritten) und steht in guter Übereinstimmung mit Literaturwerten.
 Die Parametrisierung repräsentiert somit das Zielsystem.
 
-\begin{table}[hbtp]
+\begin{table}
   %% \rowcolors{0}{white}{lightgray} 
   \caption[Eigenschaften von Gold]{Vergleich der Eigenschaften von Gold mit experimentellen und Literaturdaten als Voruntersuchung des PVD-Prozesses
     %% \todo[inline]{ref}
@@ -76,7 +76,7 @@ Als Substrate wurden Stufen oder Spitzen mit einer Höhe von jeweils \SI{20}{\an
 Auf vorherige Relaxierung der Substrate wurde aufgrund der Prozessstabilität sowie der relaxierenden Eigenschaften der MD-Ereignisse verzichtet.
 Zusätzlich wurden Lamellen und Gitter mit einer Strukturbreite von \SI{16}{\angstrom} zur Untersuchung eventueller Prozessartefakte präpariert.
 
-\begin{figure}[p]
+\begin{figure}
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{0.31\textwidth}
   \begin{subfigure}[t]{\subfigwidth}
@@ -125,7 +125,7 @@ Zusätzlich wurden Lamellen und Gitter mit einer Strukturbreite von \SI{16}{\ang
   \label{fig:golddepositions}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{0.49\textwidth}
 
@@ -150,22 +150,28 @@ Wie man den Alpha-Formen der simulierten Strukturen (Abbildung \ref{fig:goldpock
 Bei Abscheidungen auf Substrate hoher Neigungswinkel (>\SI{60}{\degree}) bilden sich Poren mit größerer Ausdehnung (>\SI{20}{\angstrom}).
 Durch Bildung von Überhängen an den Stufen werden die Poren zu Hohlräumen abgeschlossen, die nicht durch Relaxierung geschlossen werden.
 Dies zeigt sich auch in den Oberflächenrauheiten der untersuchten Strukturen (Abbildung \ref{fig:goldroughness}).
-Dabei wurden auch die Lamellen (Fins) und Gitter (Pillars) mit einer Strukturbreite von \SI{16}{\angstrom} untersucht, die innerhalb weniger Schritte aufgrund ihrer geringen Ausdehnung von \num{4} Atomdurchmessern durch Relaxierungseffekte verschwinden (Abbildung \ref{fig:goldroughness}).
-Die Rauheit $\sigma_z$ wird über die per periodische Alpha-Form bestimmte Oberfläche des Systemes inklusive der Poren berechnet und somit bei großen Poren überschätzt.
-\todo{welche effekte?}Die selben Effekte sollten auch bei größeren Strukturen zu beobachten sein.
-Wie man jedoch Abbildung \ref{fig:goldroughness-b} entnehmen kann, lässt sich das nur andeutungsweise bei der \SI{45}{\degree}-Spitze beobachten.
 
-Hier zeigt sich ein künstliches \todo{besserer Begriff}Artefakt der Simulationsmethode, die auf zusätzliche Relaxationen verzichtet und in z-Richtung abgeschirmte Teile der Oberfläche ignoriert.
-Eine mögliche Lösung wäre die explizite Parametrisierung per Delaunay-Triangulation, wie sie in Abschnitt \ref{datadelaunay} diskutiert wurde.
+\subsection{Vergleich mit gesputterten Schichten}
 
-\todo[inline]{Vergleich mit realistischer RMS von Gold-PVD (Faktor 10 höher: 3 Bindungslängen statt subatomar)}
-\todo[inline]{Verringerung der Rauheit mit Sputterdauer}
-\todo[inline]{Unterbinden von Nanopartikeln durch MD-Box}
-\todo[inline]{kleine Nanopartikel wachsen bei Annealing, weil Schmelzpunkt geringer}
-\todo[inline]{Finite-Size-Effekte führen zu Begrenzung des RMS-Wertes. Hier nicht untersucht.}
-Svorcik et al.\cite{svorcik_annealing_2011}
+AFM-Untersuchungen gesputterter Goldschichten zeigen polykristalline Schichten mit Rauheiten im Bereich von \SI{1.1}{\nano\meter}\cite{svorcik_annealing_2011} (etwa drei fcc-Kristallschichten).
+Dominiert wird das Wachstum dieser Schichten durch die Bildung von Nanopartikeln, deren Schmelztemperaturen von ihrer Größe abhängig ist.
+Diese Schmelztemperaturen nehmen mit der Größe der Partikel zu\cite{liu_melting_2001}, so dass kleinere Goldpartikeln oberhalb ihrer Schmelztemperatur zu größeren Partikeln verschmelzen, wodurch die Rauheit der Goldoberfläche zunimmt.
+Bei \todo{Vergleich womit?}vergleichsweise niedrigen Temperaturen, wie sie bei Sputtering vorhanden sind, werden durch Unterbindung der Verschmelzung kleiner Goldpartikel geringere Rauheiten erreicht, die mit längerer Sputterdauer weiter abnehmen\cite{svorcik_annealing_2011}.
 
-\begin{figure}[bth]
+In Parsivald-Simulationen ist dieser Trend bisher nur selten zu beobachten, wie etwa bei der \SI{45}{\degree}-Spitze, deren Rauheit gegen Ende der Simulation langsam abnimmt.
+Die Systeme wachsen in monokristallinen Schichten entlang der Kristallebenen, jedoch zeigen Abscheidungssimulationen auf einigen strukturierten Substraten zusätzliche Porenbildung an Überhängen, die in der aktuellen Oberflächensuche begründet sind.
+So wird die Oberfläche und damit mögliche Ereignisorte parallel zur Z-Achse gesucht, anstatt die Alpha-Form über eine Delaunay-Triangulation der Atompositionen zu ermitteln, wie es zur bereits Auswertung der simulierten Strukturen durchgeführt wird.
+Somit werden höher gelegene Ereignisorte in der direkten Nachbarschaft bevorzugt, was sich in der Verstärkung von Überhängen bei strukturierten Substraten mit hohen Neigungswinkeln zeigt (Abbildung \ref{fig:goldpockets-b}).
+Als Lösung bieten sich die eben genannten Alpha-Formen an, welche jedoch erst für das Parsivald-Modell optimiert werden müssen (Abschnitt \ref{datadelaunay}).
+
+Bei der Analyse der simulierten Strukturen wurde bei Abscheidungen auf glatten Substraten eine Rauheit von \SI{0.12}{\nano\meter} ermittelt, welche nur ca. \SI{10}{\percent} der experimentellen Werte beziehungsweise einer Lage von Goldatomen entspricht.
+Strukturierte Substrate zeigen hier höhere Rauheiten, die zwar den experimentell bestimmten Rauheiten entsprechen (Abbildung \ref{fig:goldroughness}), aber ebenfalls keine Nanopartikel enthalten, sondern aus monokristallinen Schichten bestehen.
+Daran lässt sich erkennen, dass die verwendeten \todo{word}MD-Simulation-Boxen zu klein und die Relaxationszeiten zu kurz sind, um die Bildung von Nanopartikeln darstellen zu können.
+Zusätzlich verhindern kleine MD-Boxen in Verbindung mit monokristallinen Substraten die Ausbildung polykristalliner Strukturen, was sich im Wachstum monokristalliner Schichten äußert.
+Derartige Finite-Size-Effekte sind Molekulardynamik-Simulationen inhärent, werden jedoch durch Parsivald für einige Systeme zusätzlich verstärkt.
+Bei Abscheidung amorpher Schichten, wie für CVD- und ALD-Prozesse üblich, konnte dieser Effekt bisher nicht beobachtet werden (Abschnitt \ref{siliconpvd}).
+
+\begin{figure}
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{0.49\textwidth}
 
@@ -190,27 +196,68 @@ Svorcik et al.\cite{svorcik_annealing_2011}
 
 \end{figure}
 
-\subsection{Skalierbarkeit der Rechenzeit mit der Simulationsgröße}
+\subsection{Skalierbarkeit mit der Simulationsgröße}
 
-Zur Untersuchung der Skalierbarkeit wurden Substratbreiten von \SI{100}{\angstrom}, \SI{200}{\angstrom}, \SI{1000}{\angstrom} und \SI{10000}{\angstrom} und \SI{20000}{\angstrom} auf Atomzahl und Laufzeit untersucht (Tabelle \ref{tab:goldscalability}).
+Die Größe der simulierten Strukturen, wie sie beispielsweise für Beschichtungen kompletter \todo{Nanodevice}Nano-Bauelemente von Interesse sind, ist bei jeder Simulationsmethode durch verschiedene Einflüsse wie Speicherbedarf und Laufzeit limitiert.
+Allgemein lässt sich sagen, dass präzisere Methoden nur auf kleineren Systemen und kürzeren Zeitskalen funktionieren (Abbildung \ref{fig:methodscales}).
+Atomistische Methoden, insbesondere die Molekulardynamik, sind von theoretischer Seite durch die Notwendigkeit der paarweisen Interaktionen und von technischer Seite durch Speicher- und Netzwerkbandbreite begrenzt.
+Somit sind Systeme mit mehr als \num{100000} Atomen nur mit hohem Aufwand über viele Zeitschritte hinweg berechenbar.
+Die in Abschnitt \ref{datastructures} vorgestellten Überlegungen zur Optimierung, in Kombination mit dem Parallelisierungsansatz des Parsivald-Modelles aus Abschnitt \ref{parsivald}, sollen hier einem praktischen Test unterzogen werden.
 
+Dazu werden verschiedene quadratische Substrate mit Breiten von \SI{100}{\angstrom}, \SI{200}{\angstrom}, \SI{500}{\angstrom}, \SI{1000}{\angstrom} und \SI{10000}{\angstrom} und \SI{20000}{\angstrom} auf Speicherbedarf, Laufzeit, Anzahl der Atome und Ereignisse, Zahl gleichzeitig aktiver Worker und Bedeckungsgrad der Oberfläche mit aktiven Ereignissen untersucht (Tabelle \ref{tab:goldscalability}).
 
-\begin{table}[hbp]
+\begin{table}\begin{threeparttable}
 
-  \caption[asd]{Untersuchungen zur Skalierbarkeit des Systemes}
-  \label{tab:goldscalability}
+    \caption[asd]{Untersuchungen zur Skalierbarkeit des Systemes}
+    \label{tab:goldscalability}
 
-  \begin{tabularx}{\textwidth}{|Xrrrrr|}
-    \hline
-    \textbf{Größe} & \textbf{Atome} & \textbf{Ereignisse} & \textbf{Schritte} & \textbf{Worker} & \textbf{Laufzeit} \\
-    \hline
-    \SI{106x106}{\angstrom}      &  \num{59549}      &  \num{46030}     &  \num{100}  &  \num{4}   &  \SI{116042}{\second}  (\SI{1.3}{\day})  \\
-    \SI{204x204}{\angstrom}      &  \num{152374}     &  \num{102374}    &  \num{100}  &  \num{18}  &  \SI{91680}{\second}   (\SI{1.1}{\day})  \\
-    \SI{500x500}{\angstrom}      &  \num{1708600}    &  \num{1401081}   &  \num{100}  &  \num{50}  &  \SI{264900}{\second}  (\SI{3.1}{\day})  \\
-    \SI{1000x1000}{\angstrom}    &  \num{1591908}    &  \num{381588}    &  \num{24}  &  \num{46}  &  \SI{5340}{\second}    (\SI{0.1}{\day})  \\
-    \SI{10000x10000}{\angstrom}  &  \num{128433070}  &  \num{8186990}   &  \num{8}    &  \num{46}  &  \SI{422820}{\second}  (\SI{4.9}{\day})  \\
-    \SI{20000x20000}{\angstrom}  &  \num{490948111}  &  \num{10356031}  &  \num{2}    &  \num{46}  &  \SI{422820}{\second}  (\SI{4.9}{\day})  \\
-    \SI{20000x20000}{\angstrom}  &  \todo[inline]{neuewerte}\num{-1}  &  \num{10356031}  &  \num{2}    &  \num{46}  &  \SI{422820}{\second}  (\SI{4.9}{\day})  \\
-    \hline
-  \end{tabularx}
-\end{table}
+    \begin{tabularx}{\textwidth}{|Xrrrrrrr|}
+      \hline
+      \textbf{Größe}\tnote{2}  &  \textbf{Wachst.}     &  \textbf{Atome}  &  \textbf{Ereignisse}  &  \textbf{Worker}\tnote{a}  ~            &  \textbf{Bed.}\tnote{e}  &  \textbf{Laufzeit}  &  \textbf{RAM}\tnote{f}  \\
+      \hline
+      \SI{106}{\angstrom}      &  \SI{70}{\angstrom}   &  \num{59549}     &  \num{46030}          &  \num{1.8}\tnote{b}        (\num{4})    &  \SI{21.9}{\percent}     &  \SI{32.2}{\hour}   &  \SI{254}{\mebi\byte}   \\
+      \SI{204}{\angstrom}      &  \SI{42}{\angstrom}   &  \num{152374}    &  \num{102374}         &  \num{14.5}\tnote{b}       (\num{18})   &  \SI{47.7}{\percent}     &  \SI{25.5}{\hour}   &  ~                      \\
+      \SI{204}{\angstrom}      &  \SI{42}{\angstrom}   &  \num{152374}    &  \num{102374}         &  \num{14.5}\tnote{b}       (\num{18})   &  \SI{47.7}{\percent}     &  \SI{25.5}{\hour}   &  \SI{257}{\mebi\byte}   \\
+      \SI{500}{\angstrom}      &  \SI{93}{\angstrom}   &  \num{1708600}   &  \num{1401081}        &  \num{24.8}                (\num{50})   &  \SI{13.6}{\percent}     &  \SI{73.6}{\hour}   &  \SI{282}{\mebi\byte}   \\
+      \SI{1000}{\angstrom}     &  \SI{5.4}{\angstrom}  &  \num{1591908}   &  \num{381588}         &  \num{44.8}                (\num{46})   &  \SI{6.1}{\percent}      &  \SI{1.5}{\hour}    &  \SI{368}{\mebi\byte}   \\
+      \SI{1000}{\angstrom}     &  ~                    &  ~               &  ~                    &  ~                         ~            &  ~                       &  ~                  &  ~                      \\
+      \SI{1}{\micro\meter}     &  \SI{1.3}{\angstrom}  &  \num{1.3e8}     &  \num{8186990}        &  \num{25.4}\tnote{c}       (\num{46})   &  \SI{0.03}{\percent}     &  \SI{117.5}{\hour}  &  ~                      \\
+      \SI{2}{\micro\meter}     &  \SI{0.4}{\angstrom}  &  \num{4.9e8}     &  \num{10356031}       &  \num{26.3}\tnote{c}       (\num{46})   &  \SI{0.009}{\percent}    &  \SI{117.5}{\hour}  &  ~                      \\
+      \SI{2}{\micro\meter}     &  \SI{1.0}{\angstrom}  &  \num{5.1e8}     &  \num{25855695}       &  \num{189}\tnote{d}        (\num{245})  &  \SI{0.06}{\percent}     &  \SI{186.8}{\hour}  &  \SI{45.4}{\gibi\byte}  \\
+      \SI{4}{\micro\meter}     &  ~                    &  \num{1.9e9}     &  ~                    &  ~                         ~            &  ~                       &  ~                  &  \SI{182}{\gibi\byte}  \\
+      \hline
+    \end{tabularx}
+
+    \begin{tablenotes}
+    \item[2] Breite der quadratischen Oberfläche
+    \item[a] Mittelwert und Maximum der zeitgleich bearbeiteten Ereignisse
+    \item[b] Maximale Ereignisdichte erreicht.
+      Restliche Worker sind im Wartezustand.
+    \item[c] Inzwischen behobener Fehler im Host-Code hat Workerneustart verhindert
+    \item[d] Maximale Bandbreite des Hosts erreicht.
+      Längere MD-Simulationen erlauben mehr Worker.
+    \item[e] Bedeckung: Anteil der von laufenden Ereignissen abgedeckten Oberfläche
+    \item[f] Vom Hostprozess verbrauchten 
+    \end{tablenotes}
+
+\end{threeparttable}\end{table}
+
+Mit \SI{94}{\byte} pro Atom, zusätzlich zum programmbezogenen Speicher von \SI{253}{\mebi\byte}, wird deutlich, dass auch große Simulationsräume mit 2 Milliarden Atomen auf \SI{4x4}{\micro\meter} den verfügbaren Arbeitsspeicher moderner Hochleistungsrechner nicht ausreizen.
+Anders sieht es bei der notwendigen Rechenleistung aus:
+Während kleine Simulationsräume (\SI{<200}{\angstrom}) nicht wesentlich von der parallelen Rechenleistung profitieren können, scheitern größere Prozesse am Mangel daran:
+Im zweiten Test mit einer \SI{2x2}{\micro\meter} großen Struktur wurde die Grenze der Bandbreite des Hostprozesses erreicht:
+Die Tests haben gezeigt, dass dieser \num{38.4} Ereignisse pro Sekunde vorbereiten, starten und auswerten kann.
+Mit \SI{4.86}{\second} Laufzeit pro Gold-PVD-Ereignis kann der Hostprozess aber nur 189 parallele Worker dauerhaft mit Ereignissen versorgen.
+Die eigentliche Beschränkung liegt folglich in der genutzten Potentialart:
+Kompliziertere und damit langsamere Potentiale, wie die später genutzten ReaxFF-Potentiale, benötigen meist mehr als \SI{30}{\second} für ein Ereignis, in extremen Fällen sogar \SI{5}{\minute}.
+Somit erlauben sie theoretisch \num{1152} beziehungsweise \num{11520} parallele Worker und übersteigen damit die Möglichkeit dessen, was einem einzelnen Nutzer an einem Hochleistungsrechencluster zur Verfügung steht.
+Leider erhöht sich damit auch die insgesamt benötigte Rechenzeit linear.
+
+Die verbleibende Einschränkung wird somit von den verfügbaren Rechenkernen gebildet.
+In Simulationen mit Substratgrößen auf der Mikrometer-Skala wurden nur kleine Teile der Oberfläche (\SI{<0.1}{\percent}) zeitgleich von Ereignissen simuliert.
+Bei Oberflächen von \SI{2x2}{\micro\meter} Größe sind in dichtester Packung der MD-Boxen mit je \SI{37x37}{\angstrom} Größe maximal \num{291600} parallele Ereignisse möglich.
+Tatsächlich werden aufgrund der Überdeckung der Ereignisse durch die zufällige Wahl der Reaktionsorte häufig \SI{<40}{\percent} davon zeitgleich simuliert.
+Dennoch liegt die Zahl der verfügbaren Prozessorkerne um Größenordnungen unterhalb des optimalen Wertes, was sich in langen Simulationslaufzeiten äußert (\SI{186.8}{\hour} für \SI{1.0}{\angstrom}).
+
+Zusammenfassend lässt sich zur Skalierbarkeit sagen, dass Systeme mit einer Größe zwischen \SI{50x50}{\nano\meter} und \SI{300x300}{\nano\meter} mit modernen Computerclustern effizient berechenbar sind, während kleinere Systeme nicht signifikant von der Effizienzsteigerung profitieren können, für größere Systeme hingegen die notwendige Rechenleistung nicht zur Verfügung steht.
+

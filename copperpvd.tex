@@ -1,6 +1,9 @@
 \section{Kupfer-PVD}
 \label{copperpvd}
 
+Mit Kupfer-PVD wurde ein zweiter Metall-PVD-Prozess auf Parsivald angepasst und unter der Zielsetzung simuliert, die Anwendbarkeit verschiedener Potentialparametrisierungen zu prüfen.
+Der Prozess ähnelt dem Gold-Prozess in seinen Parametern, jedoch konnten viele verschiedene Parametersätze für Kupferoberflächen, -schmelzen und  und -legierungen gefunden werden, von denen einige Hinweise auf die Nicht-Darstellbarkeit der reinen Metallsysteme enthalten\cite{mendelev_development_2009}\cite{mendelev_using_2007}.
+
 \begin{table}
   \caption[EAM-Parametrisierungen für Kupfersysteme]{EAM-Parametrisierungen für Kupfersysteme.}
   \label{tab:copperpots}
@@ -22,11 +25,10 @@
   
 \end{table}
 
-Viele der für Kupfer verfügbaren Parametersätze wurden für binäre Legierungen angepasst, von denen einige Hinweise auf die Nicht-Darstellbarkeit der reinen Metallsysteme enthalten\cite{mendelev_development_2009}\cite{mendelev_using_2007}.
-
 \subsection{Voruntersuchungen}
 
-Mit Ausnahme der drei Parametersätze Cu\_u3.eam, Cu\_u6.eam und Cu\_smf7.eam wurden die Parameterdateien nicht von LAMMPS akzeptiert.
+\todo[inline]{fuckfuckfuck! habe den falschen pair\_style benutzt!}
+Die drei Parametersätze Cu\_u3.eam, Cu\_u6.eam und Cu\_smf7.eam wurden die Parameterdateien nicht von LAMMPS akzeptiert.
 Es zeigten sich Probleme beim Laden der Dateien, kryptische Fehlerausgaben nach wenigen Schritten oder ein Aufhängen der Simulation ohne Vorankündigung.\todo{Ursachensuche?}
 Die Ergebnisse der verbliebenen Simulationen zeigen aber gute Übereinstimmung mit Literaturwerten (Tabelle \ref{tab:copperpreresults}).
 Einzig der Schmelzpunkt wird stark überschätzt (Abbildung \ref{fig:copperthermo}), was durch üblicherweise geringe Simulationstemperaturen vernachlässigbar ist.
@@ -35,13 +37,15 @@ Einzig der Schmelzpunkt wird stark überschätzt (Abbildung \ref{fig:coppertherm
   \rowcolors{0}{white}{lightgray} 
   \caption[Eigenschaften von Kupfer]{Voruntersuchungen: Vergleich der Simulationsergebnisse mit Literaturdaten}
   \label{tab:copperpreresults}
-  \begin{tabularx}{\textwidth}{|lXXXX|}
+  \begin{tabularx}{\textwidth}{|Xrrr|}
     \hline
-    \textbf{unters. Größe} & \textbf{Experiment} & \textbf{Cu\_smf7.eam} & \textbf{Cu\_u3.eam} & \textbf{Cu\_u6.eam} \\
+    \textbf{Parametersatz}  &  \textbf{Koord.}  &  \textbf{Bindungslänge}                        &  \textbf{Dichte}                            \\
     \hline
-    Koordination   &  \SI{12.00}{} & \SI{12.00}{} & \SI{12.00}{} & \SI{12.00}{} \\
-    Bindungslänge  &  \SI{2.556}{\angstrom} & \SI{2.558}{\angstrom} (\SI{0.08}{\percent}) & \SI{2.558}{\angstrom} (\SI{0.08}{\percent}) & \SI{2.558}{\angstrom} (\SI{0.08}{\percent}) \\
-    Dichte         & \SI{8.92}{\gram\per\cubic\centi\meter} & \SI{8.908}{\gram\per\cubic\centi\meter} (\SI{-0.13}{\percent}) & \SI{8.915}{\gram\per\cubic\centi\meter} (\SI{-0.06}{\percent}) & \SI{8.910}{\gram\per\cubic\centi\meter}  (\SI{-0.11}{\percent}) \\
+    \textbf{Experiment}     &  \num{12.00}      &  \SI{2.556}{\angstrom}                         &  \SI{8.92}{\gpcc}                          \\
+    \textbf{Cu\_smf7.eam}   &  \num{12.00}      &  \SI{2.558}{\angstrom}~(\SI{+0.08}{\percent})  &  \SI{8.908}{\gpcc}~(\SI{-0.13}{\percent})  \\
+    \textbf{Cu\_u3.eam}     &  \num{12.00}      &  \SI{2.558}{\angstrom}~(\SI{+0.08}{\percent})  &  \SI{8.915}{\gpcc}~(\SI{-0.06}{\percent})  \\
+    \textbf{Cu\_u6.eam}     &  \num{12.00}      &  \SI{2.558}{\angstrom}~(\SI{+0.08}{\percent})  &  \SI{8.910}{\gpcc}~(\SI{-0.11}{\percent})  \\
+    asd\\
     \hline
   \end{tabularx}
 \end{table}

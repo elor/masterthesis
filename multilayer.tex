@@ -1,18 +1,35 @@
 \section{Multilagen-PVD}
 \label{multilayer}
 
-Der PVD-Modus von Parsivald ist durch seine zyklische Arbeitsweise auch für Multilagensysteme geeignet, wie in diesem Abschnitt am Beispiel von Cu/Ni-Multilagen untersucht wird.
+Mit PVD-Methoden werden auch mehrlagige Schichten abgeschieden, die im folgenden Kapitel am Beispiel von dünnen Cu/Ni-Multilagen näher untersucht werden sollen.
+Das Kupfer-Nickel-System wurde aufgrund ähnlicher Gittereigenkonstanten gewählt (Ni: \SI{3.52}{\angstrom}, Cu: \SI{3.61}{\angstrom}), die kristallines Wachstum ermöglichen und somit Fehlstellen unterbinden sollten.
+Durch die Ähnlichkeit zur Kupfer-PVD kann man auf den dort entwickelten Prozessparametern und den untersuchten Potentialparametersätzen aufbauen.
 
-\subsection{Vorbetrachtung}
-Die Wahl fiel auf Kupfer-Nickel-Systeme aufgrund der ähnlichen Atom- und Gittereigenschaften sowie die Verfügbarkeit eines kompatiblen \todo{cite lammps?}Potentiales.
-Diese Systeme können per \todo{cite}Elektro\-deposition oder durch \todo{cite}Sputtern hergestellt werden, wobei üblicherweise Lagendicken von \todo{cite!}\SI{5}{\angstrom} bis \todo{cite! angstrom oder nm?}\SI{200}{\angstrom} produziert werden.
-\todo{wirklich?}Durch Beschränkungen in der verfügbaren Rechenzeit beschränken sich die vorgestellten Simulationen auf Lagendicken unterhalb von \SI{10}{\angstrom}, allerdings sind größere Systeme technisch möglich.
+Im Experiment werden mehrlagige Kupfer-Nickel-Schichten per Elektro\-deposition\cite{yang_pulsed_1995} oder durch Sputtern\cite{cammarata_nanoindentation_1990} hergestellt, wobei üblicherweise Lagendicken im Bereich mehrerer Nanometer erzielt werden.
+Dieses Vorgehen lässt sich direkt in Parsivald-Simulationen übertragen, in denen zugunsten der Rechenzeit vergleichsweise dünne Lagen mit einer Dicke von \SI{1}{\nano\meter} abgeschieden wurden.
+Anschließend werden diese auf Ähnlichkeit zu mit LAMMPS präparierten Multilagen hinsichtlich ihrer Lagendicke und -rauheit untersucht.
+Eine Auswertung der relativen Verteilung der Atomsorten entlang der Abscheidungsrichtung wird ergänzend für verschiedene Relaxationszeiten als Maß der Lagenqualität durchgeführt.
+Abscheidungen mit Lagen einer Dicke von \SI{6}{\nano\meter} wurden ebenfalls mit Parsivald simuliert, doch mangels verfügbarer Rechenzeit für vergleichbare LAMMPS-Simulationen nicht eingehender untersucht.
 
-An Multilagensystemen lassen sich strukturell neben den Dicken der einzelnen Lagen die Rauheiten aufeinanderfolgender Schichten besonders gut untersuchen.
-Man betrachtet die Korrelation zwischen den einzelnen Schichten sowie den Verlauf der Rauheit bei späteren Schichten.
-Für das Cu/Ni-System werden \todo{Aus welchem Hut wurde das gezaubert?}partiell korrelierte, kumulative Rauheiten erwartet, wobei Untersuchungen an den Gold- und Kupfer-Strukturen der letzten Kapitel eine systematische Überschätzung des Verlaufs der Rauheiten vermuten lassen\todo{Hut?}.
+Wie bei den Gold-PVD-Simulation zuvor müssen für erfolgreiche Simulationen einige Prozessparameter wie Relaxationszeit, Thermostatdämpfung und Substrattemperatur optimiert werden.
+\todo{wort}Das geschah hinsichtlich der Rauheit der Oberfläche zur Vermeidung von Fehlstellen sowie hinsichtlich der Qualität der einzelnen Lagen im Vergleich mit ähnlichen Untersuchungen\cite{zhou_atomistic_1998}.
+In diesen wurde bereits gezeigt, dass die kinetische Energie der einfallenden Atome einen erheblichen Einfluss auf die Qualität der einzelnen Lagen hat, weshalb gleichartige Untersuchungen nur hinsichtlich der Substrattemperatur durchgeführt wurden.
 
 \subsection{Ergebnisse}
+
+Parsivald-Simulationen erzeugen nach korrekter Parametereinstellung monokristallin gewachsene, klar abgegrenzte Atomlagen geringer Rauheit, die sich gut mit den Ergebnissen gleichartiger LAMMPS-Simulationen decken (Abbildung \ref{fig:multilayerresults}).
+Rauheitswerte um \SI{1.2}{\angstrom} stellen sich mit beiden Simulationsmethoden bis zur zehnten Lage ein und stimmen stimmen somit miteinander und mit den bisherigen Ergebnissen überein (Abbildung \ref{fig:multilayerplots-a}).
+
+Zuvor war eine Anpassung der Temperaturen und Relaxationszeiten notwendig, die jedoch für LAMMPS und Parsivald gleichermaßen gelten.
+Als Richtwert wurde die Qualität der einzelnen Lagen in Form des Anteils der Atomsorten in Abhängigkeit der Höhe über dem Substrat genutzt (Abbildung \ref{fig:multilayerplots-b}).
+Lagen schlechterer Qualität zeigen eine höhere Durchmischung der Atomsorten, was wiederum zu einem Abfall der relativen Häufigkeit einer Atomsorte innerhalb ihrer Schicht führt, wie man für die beiden Verteilungen bei einer Relaxationszeit von \SI{0.2}{\femto\second} pro Ereignis beobachten kann.
+Erst bei Verdopplung der Relaxationszeit bilden sich klar abgegrenzte Lagen aus, wie sie in Abbildung \ref{fig:multilayerresults} dargestellt sind.
+
+In Anhang 
+
+\todo[inline]{ordentlich vorstellen!}
+
+Bei größeren Systemen sind durch Verspannungen im Material Gitterversetzungen und -fehlstellen zu erwarten, die allerdings durch \todo{Wort}Finite-Size-Effekte unterdrückt sein können.
 
 \begin{figure}
   \captionsetup[subfigure]{singlelinecheck=false}
@@ -21,6 +38,7 @@ Für das Cu/Ni-System werden \todo{Aus welchem Hut wurde das gezaubert?}partiell
     \includegraphics[width=\textwidth]{CuNi_layerroughness_comparison}
     \subcaption{
       Vergleich der Rauheit zwischen LAMMPS und Parsivald (Abb. \ref{fig:multilayerresults})
+      \label{fig:multilayerplots-a}
     }
   \end{subfigure}
   \hfill
@@ -34,10 +52,6 @@ Für das Cu/Ni-System werden \todo{Aus welchem Hut wurde das gezaubert?}partiell
   }
   \label{fig:multilayerplots}
 \end{figure}
-
-Die in Abbildung \ref{fig:multilayerresults} vorgestellten Ergebnisse zeigen erfolgreiches Multilagenwachstum per PVD-Modus mit Diffusion einzelner Atome in benachbarte Lagen.
-Die Atome der verschiedenen Lagen setzen das fcc-Kristallgitter der vorherigen Lage fort, was durch die Ähnlichkeit der fcc-Gitterkonstanten zu erklären ist (\SI{3.52}{\angstrom} für Nickel, \SI{3.61}{\angstrom} für Kupfer, entspricht \SI{2.5}{\percent} Abweichung).
-Bei größeren Systemen sind durch Verspannungen im Material Gitterversetzungen und -fehlstellen zu erwarten, die allerdings durch \todo{Wort}Finite-Size-Effekte unterdrückt sein können.
 
 \begin{figure}
   \captionsetup[subfigure]{singlelinecheck=false}
@@ -55,22 +69,4 @@ Bei größeren Systemen sind durch Verspannungen im Material Gitterversetzungen 
     Vergleich zwischen Parsivald- und LAMMPS-Multilagenabscheidungen unter Nutzung optimierter Parameter.
   }
   \label{fig:multilayerresults}
-\end{figure}
-
-\begin{figure}
-  \captionsetup[subfigure]{singlelinecheck=false}
-  \begin{subfigure}[t]{8cm}
-    \includegraphics[width=\textwidth]{CuNi_surface8_noalpha}
-    \subcaption{Draufsicht einer CuNi-Multi\-lagen\-ober\-fläche nach nur 4 Lagen (insgesamt \SI{60}{\angstrom})}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[t]{6cm}
-    \includegraphics[width=\textwidth]{CuNi_columnfail}
-    \subcaption{Dünnes Profil eines anderen Systemes nach 24 Lagen (\SI{180}{\angstrom})}
-  \end{subfigure}
-  \caption[Multilagen-Simulation mit willkürlichen Parametern]{
-    Multilagen-Simulation mit Parsivald mit Parametern, die noch nicht auf genaue Darstellung des Systemes optimiert wurden.
-    $t_\text{relax}$ liegt unterhalb der notwendigen Relaxationszeit.
-  }
-  \label{fig:multilayerfails}
 \end{figure}

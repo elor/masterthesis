@@ -4,22 +4,24 @@
 Mit Kupfer-PVD wurde ein zweiter Metall-PVD-Prozess auf Parsivald angepasst und unter der Zielsetzung simuliert, die Anwendbarkeit verschiedener Potentialparametrisierungen zu prüfen.
 Der Prozess ähnelt dem Gold-Prozess in seinen Parametern, jedoch konnten viele verschiedene Parametersätze für Kupferoberflächen, -schmelzen und  und -legierungen gefunden werden, von denen einige Hinweise auf die Nicht-Darstellbarkeit der reinen Metallsysteme enthalten\cite{mendelev_development_2009}\cite{mendelev_using_2007}.
 
+Aus diesem Grund ist eine einfache Voruntersuchung der verfügbaren Parametersätze notwendig, anhand derer Kandidaten für Parsivald für vollständige Abscheidungssimulationen gesucht werden.
+
 \begin{table}
   \caption[EAM-Parametrisierungen für Kupfersysteme]{EAM-Parametrisierungen für Kupfersysteme.}
   \label{tab:copperpots}
   \rowcolors{0}{white}{lightgray}
   \begin{tabularx}{\textwidth}{|lXc|}
     \hline
-    \textbf{Bezeichnung} & \textbf{Anwendung \& Kommentare} & \textbf{Ref.} \\
+    \textbf{Bezeichnung}        & \textbf{Anwendung \& Kommentare}                                             & \textbf{Ref.}                            \\
     \hline
-    CuAg.eam.alloy & Strukturelle und thermodynamische Eigenschaften von \ce{Cu-Ag} & \cite{williams_embedded-atom_2006} \\
-    cu\_ag\_ymwu.eam.alloy & Mono-, Di-, Trimere und Inseln von \ce{Cu} auf \ce{Ag} & \cite{wu_cu/ag_2009} \\
-    Cu\_smf7.eam & Oberflächen von \ce{Ni-Cu}-Legierungen bei \SI{800}{\kelvin} & \cite{foiles_calculation_1985} \\
-    Cu\_u3.eam & Oberflächen und Bulks verschiedener Legierungen & \cite{foiles_embedded-atom-method_1986} \\
-    Cu\_u6.eam & Aktivierungsenergie für Eigendiffusionen & \cite{adams_self-diffusion_1989} \\
-    Cu-Zr\_2.eam.fs & Flüssige und amorphe \ce{Cu-Zr}-Legierungen & \cite{mendelev_development_2009} \\
-    Cu-Zr.eam.fs & Flüssige und amorphe \ce{Cu-Zr}-Legierungen & \cite{mendelev_using_2007} \\
-    Mendelev\_Cu2\_2012.eam.fs & Unterkühlte \ce{Al-Cu}-Schmelzen. Basiert auf \cite{mendelev_analysis_2008} & \cite{_interatomic_2014} \\
+    CuAg.eam.alloy              & Struktur und thermodynamische Eigenschaften von \ce{Cu-Ag}                   & \cite{williams_embedded-atom_2006}       \\
+    cu\_ag\_ymwu.eam.alloy      & Mono-, Di-, Trimere und Inseln von \ce{Cu} auf \ce{Ag}                       & \cite{wu_cu/ag_2009}                     \\
+    Cu\_smf7.eam                & Oberflächen von \ce{Ni-Cu}-Legierungen bei \SI{800}{\kelvin}                 & \cite{foiles_calculation_1985}           \\
+    Cu\_u3.eam                  & Oberflächen und Bulks verschiedener Legierungen                              & \cite{foiles_embedded-atom-method_1986}  \\
+    Cu\_u6.eam                  & Aktivierungsenergie für Eigendiffusionen                                     & \cite{adams_self-diffusion_1989}         \\
+    Cu-Zr\_2.eam.fs             & Flüssige und amorphe \ce{Cu-Zr}-Legierungen                                  & \cite{mendelev_development_2009}         \\
+    Cu-Zr.eam.fs                & Flüssige und amorphe \ce{Cu-Zr}-Legierungen                                  & \cite{mendelev_using_2007}               \\
+    Mendelev\_Cu2\_2012.eam.fs  & Unterkühlte \ce{Al-Cu}-Schmelzen. Basiert auf \cite{mendelev_analysis_2008}  & \cite{_interatomic_2014}                 \\
     \hline
   \end{tabularx}
   
@@ -27,35 +29,49 @@ Der Prozess ähnelt dem Gold-Prozess in seinen Parametern, jedoch konnten viele 
 
 \subsection{Voruntersuchungen}
 
-\todo[inline]{fuckfuckfuck! habe den falschen pair\_style benutzt!}
-Die drei Parametersätze Cu\_u3.eam, Cu\_u6.eam und Cu\_smf7.eam wurden die Parameterdateien nicht von LAMMPS akzeptiert.
-Es zeigten sich Probleme beim Laden der Dateien, kryptische Fehlerausgaben nach wenigen Schritten oder ein Aufhängen der Simulation ohne Vorankündigung.\todo{Ursachensuche?}
-Die Ergebnisse der verbliebenen Simulationen zeigen aber gute Übereinstimmung mit Literaturwerten (Tabelle \ref{tab:copperpreresults}).
-Einzig der Schmelzpunkt wird stark überschätzt (Abbildung \ref{fig:copperthermo}), was durch üblicherweise geringe Simulationstemperaturen vernachlässigbar ist.
+Als Vorbetrachtung für die Anwendbarkeit in Abscheidungssimulationen wurden Koordinationszahlen, Bindungslängen und Dichten mit allen Parametersätzen ermittelt und mit experimentellen Daten verglichen.
+Die Ergebnisse stimmen im Allgemeinen gut mit experimentellen Werten überein (Tabelle \ref{tab:copperpreresults}), zeigt aber für cu\_ag\_ymwu.eam.alloy eine Abweichung in der Bindungslänge von \SI{3.25}{\percent}, die zu einer Dichteabweichung von \SI{10.4}{\percent} führt.
+Die meisten anderen Parametersätze unterschätzen die Bindungslänge nur leicht, mit Ausnahme der mit LAMMPS vertriebenen Parametersätze.
+Diese wurden in den weiteren Simulationen aufgrund der guten Ergebnisse und ihrer Bewährtheit zu Rate gezogen.
+
+Mit den Parameterdateien wird der Schmelzpunkt stark überschätzt, mit Ausnahme von cu\_ag\_ymwu.eam.alloy, die den Schmelzpunkt um 300K unterschätzt (Abbildung \ref{fig:copperthermo}).
+Hier zeigt sich die Eigenschaft der Molekulardynamik, jeweils nur für ein enges Anwendungsgebiet passende Ergebnisse zu liefern.
+Wie Tabelle \ref{tab:copperpots} zu entnehmen ist, wurden die verfügbaren Parametersätze nicht für thermodynamische Untersuchungen angepasst und unterstützen diese somit nicht.
 
 \begin{table}
-  \rowcolors{0}{white}{lightgray} 
-  \caption[Eigenschaften von Kupfer]{Voruntersuchungen: Vergleich der Simulationsergebnisse mit Literaturdaten}
-  \label{tab:copperpreresults}
-  \begin{tabularx}{\textwidth}{|Xrrr|}
-    \hline
-    \textbf{Parametersatz}  &  \textbf{Koord.}  &  \textbf{Bindungslänge}                        &  \textbf{Dichte}                            \\
-    \hline
-    \textbf{Experiment}     &  \num{12.00}      &  \SI{2.556}{\angstrom}                         &  \SI{8.92}{\gpcc}                          \\
-    \textbf{Cu\_smf7.eam}   &  \num{12.00}      &  \SI{2.558}{\angstrom}~(\SI{+0.08}{\percent})  &  \SI{8.908}{\gpcc}~(\SI{-0.13}{\percent})  \\
-    \textbf{Cu\_u3.eam}     &  \num{12.00}      &  \SI{2.558}{\angstrom}~(\SI{+0.08}{\percent})  &  \SI{8.915}{\gpcc}~(\SI{-0.06}{\percent})  \\
-    \textbf{Cu\_u6.eam}     &  \num{12.00}      &  \SI{2.558}{\angstrom}~(\SI{+0.08}{\percent})  &  \SI{8.910}{\gpcc}~(\SI{-0.11}{\percent})  \\
-    asd\\
-    \hline
-  \end{tabularx}
+  \begin{threeparttable}
+    \rowcolors{0}{white}{lightgray} 
+    \caption[Eigenschaften von Kupfer]{Voruntersuchungen: Vergleich der Simulationsergebnisse mit Literaturdaten}
+    \label{tab:copperpreresults}
+    \begin{tabularx}{\textwidth}{|Xrrrrr|}
+      \hline
+      \textbf{Parametersatz}      &  \textbf{Koord.}  &  \multicolumn{2}{c}{\textbf{Bindungslänge}\tnote{a}}  ~  ~                       &  \textbf{Dichte}\tnote{a} &  ~                       \\
+      \hline
+      Experiment                  &  \num{12.00}      &  \SI{2.556}{\angstrom}                                &  ~                       &  \SI{8.92}{\gpcc}         &  ~                       \\
+      CuAg.eam.alloy              &  \num{12.09}      &  \SI{2.559}{\angstrom}                                &  (\SI{-0.12}{\percent})  &  \SI{8.893}{\gpcc}        &  (\SI{-0.30}{\percent})  \\
+      cu\_ag\_ymwu.eam.alloy      &  \num{12.03}      &  \SI{2.473}{\angstrom}                                &  (\SI{-3.25}{\percent})  &  \SI{9.846}{\gpcc}        &  (+\SI{10.4}{\percent})  \\
+      Cu\_smf7.eam                &  \num{12.03}      &  \SI{2.558}{\angstrom}                                &  (\SI{+0.08}{\percent})  &  \SI{8.908}{\gpcc}        &  (\SI{-0.13}{\percent})  \\
+      Cu\_u3.eam                  &  \num{12.00}      &  \SI{2.558}{\angstrom}                                &  (\SI{+0.08}{\percent})  &  \SI{8.915}{\gpcc}        &  (\SI{-0.06}{\percent})  \\
+      Cu\_u6.eam                  &  \num{12.00}      &  \SI{2.558}{\angstrom}                                &  (\SI{+0.08}{\percent})  &  \SI{8.910}{\gpcc}        &  (\SI{-0.11}{\percent})  \\
+      CuNi.eam.alloy              &  \num{12.10}      &  \SI{2.559}{\angstrom}                                &  (\SI{-0.12}{\percent})  &  \SI{8.895}{\gpcc}        &  (\SI{-0.28}{\percent})  \\
+      Cu-Zr\_2.eam.fs             &  \num{12.05}      &  \SI{2.575}{\angstrom}                                &  (\SI{-0.74}{\percent})  &  \SI{8.738}{\gpcc}        &  (\SI{-2.04}{\percent})  \\
+      Cu-Zr.eam.fs                &  \num{12.09}      &  \SI{2.575}{\angstrom}                                &  (\SI{-0.74}{\percent})  &  \SI{8.738}{\gpcc}        &  (\SI{-2.04}{\percent})  \\
+      Mendelev\_Cu2\_2012.eam.fs  &  \num{12.07}      &  \SI{2.575}{\angstrom}                                &  (\SI{-0.74}{\percent})  &  \SI{8.747}{\gpcc}        &  (\SI{-1.94}{\percent})  \\
+      \hline
+    \end{tabularx}
+
+    \begin{tablenotes}
+      \item[a] Der Wert in Klammern ist die Abweichung vom experimentellen Wert
+    \end{tablenotes}
+  \end{threeparttable}
 \end{table}
 
 \begin{figure}
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{7cm}
   \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{Cu_u6_meltingpoint}
-    \subcaption{Phasenübergang mit Cu\_u6.eam bei unterschiedlichen $t_\text{relax}$}
+    \includegraphics[width=\textwidth]{Cu_trelax_all}
+    \subcaption{Phasenübergänge mit allen Parametersätzen}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
@@ -97,25 +113,27 @@ Einzig der Schmelzpunkt wird stark überschätzt (Abbildung \ref{fig:coppertherm
     \subcaption{Häufigkeit gleichzeitiger Ereignisse}
     \label{fig:copperparsivald-d}
   \end{subfigure}
-  \caption{Vergleich der Kupfer-Potentiale in Parsivald-Rechnungen}
+  \caption{Vergleich der Kupfer-Potentiale in ausgewählten Parsivald-Rechnungen}
   \label{fig:copperparsivald}
 \end{figure}
 
-Aufgrund der Ähnlichkeit des Gold-PVD-Prozesses wurden dessen Parameter für die Kupfer-PVD übernommen und auf deren Eigenschaften angepasst.
-Beispielsweise liegen kleinere Bindungslängen und geringere Massen vor, die zu erhöhten Auftreff- und geschwindigkeiten führen.
+In einer Sputtersimulation soll zunächst überprüft werden, ob Kupfer im PVD-Modus von Parsivald abgeschieden werden kann.
+Weiterhin werden die abgeschiedenen Schichten auf Unebenheiten, Fehlstellen und Einschlüsse untersucht, um Aussagen über deren Qualität zu gewinnen.
+Als Abscheidungsparameter wurden aufgrund der Ähnlichkeit zum Gold-PVD-Prozess dessen Werte auf Kupfer-PVD angepasst.
+Unterschiede liegen in den Auftreffenergien von \SI{5.4}{\electronvolt}, die vom Thermostat vor dem eigentlichen Auftreffen der Kupfer-Atome auf der Oberfläche noch weiter abgeschwächt werden.
 
-Zu Beginn der Simulation ergeben sich hohe Abbruchrate von \SI{25}{\percent}, die durch Herausschlagen einzelner Atome bei Ankunft eines neuen Kupferatomes verursacht werden.
+Zu Beginn der einzelnen Simulation ergeben sich hohe Abbruchrate von \SI{25}{\percent}, die durch Herausschlagen einzelner Oberflächenatome bei Ankunft eines neuen Kupferatomes verursacht werden.
 Bereits nach wenigen Oberflächenereignissen nimmt die Abbruchrate ab, was auf eine Reduktion des Effektes durch thermische Relaxation und Bedeckung der Oberfläche durch temporäre Off-Lattice-Atome hinweist.
 Die kritische Bedeckung dafür liegt zwischen \SI{0.034}{\per\nano\meter\squared} und \SI{0.074}{\per\nano\meter\squared} und deckt sich somit mit der maximalen MD-Ereignisdichte von \SI{0.073}{\per\nano\meter\squared}.
 Das deutet darauf hin, dass perfekte Gitterkonfigurationen nicht robust gegenüber gerichteten Energieeinträgen ist, kleine Störungen des Gitters aber zur gleichmäßigeren Verteilung der eingebrachten Energien führen.
-\todo[inline]{Entropieargument einbringen?}
 
 Im weiteren Verlauf der Simulation variiert die Abbruchquote unterhalb von \SI{2}{\percent} (Abbildung \ref{fig:copperparsivald-a}).
 Sie korreliert augenscheinlich mit der RMS-Rauheit (Abbildung \ref{fig:copperparsivald-c}), die durch Oberflächenunebenheiten auf der Nanometer-Skala dominiert wird.
-Mit einem nahezu konstanten RMS-Wert um \SI{1}{\angstrom} sind die gewachsenen Schichten durchgehend glatt, mit Ausnahme des Cu\_u3.eam-Systemes.
+Mit einem nahezu konstanten RMS-Wert um \SI{1}{\angstrom} sind die gewachsenen Schichten durchgehend glatt, mit Ausnahme einzelner Simulationen.
 
-Die Cu\_u3.eam-Simulation bildet ab Schritt 70 einen \SI{2.6}{\nano\meter} breiten und \SI{3.0}{\nano\meter} tiefen \todo{Krater?}Krater aus, der schließlich zu einem \SI{1}{\nano\meter} großen \todo{void}Einschluss abgeschlossen wird (Abbildung \ref{fig:coppercrater}).
-Die Auswirkungen dieses Kraters sind auch im RMS-Diagramm (Abbildung \ref{fig:copperparsivald-c}, schlagartige Abnahme in Schritt 96) und in den Abbruchraten (Abbildung \ref{fig:copperparsivald-a}, Anstieg zwischen Schritten 60 und 90) erkennbar, beeinflussen aber nicht die Wachstumsrate (Abbildung \ref{fig:copperparsivald-b}).
+In der abgebildeten Versuchsreihe bildet das Cu\_u3.eam-System ab Schritt 70 einen \SI{2.6}{\nano\meter} breiten und \SI{3.0}{\nano\meter} tiefen \todo{Krater?}Krater aus, der schließlich zu einem \SI{1}{\nano\meter} großen \todo{void}Einschluss abgeschlossen wird (Abbildung \ref{fig:coppercrater}).
+Die Auswirkungen dieses Kraters auf die Rauheit sind klar in Abbildung \ref{fig:copperparsivald-c} als schlagartige Abnahme in Schritt 96 und in den Abbruchraten (Abbildung \ref{fig:copperparsivald-a}) als Anstieg zwischen Schritten 60 und 90 erkennbar, beeinflussen aber nicht die Wachstumsrate (Abbildung \ref{fig:copperparsivald-b}).
+Das gleiche Verhalten zeigt sich in weiteren Simulationen auch für die anderen Parametersätze und ist nicht auf Cu\_u3.eam begrenzt.
 
 \begin{figure}
 
@@ -163,4 +181,5 @@ Ergänzend ist in Abbildung \ref{fig:copperparsivald-d} ein Histogramm der Zahl 
 Die maximale Oberflächendichte der Ereignisse liegt bei der gewählten MD-Box-Größe von \SI{37x37}{\angstrom} bei \SI{0.073}{\per\nano\meter\squared}.
 Dem stehen beobachtete Werte von 12 aktiven Ereignissen gegenüber, die einer Dichte von \SI{0.03}{\per\nano\meter\squared} und somit \SI{40}{\percent} maximaler Bedeckung entsprechen.
 Aufgrund der zufälligen Positionierung der MD-Box innerhalb der KMC-Simulation und der Blocking von Ereignissen bei Überlappung der MD-Kästen scheint dieser Wert plausibel.
-Ähnliche Werte werden bei Simulationsläufen mit unterschiedlichen Substratgrößen und Materialien beobachtet werden.
+Tatsächliche Werte liegen bei den untersuchten Prozessen bei der Hälfte, also bei \SI{20}{\percent} maximaler Bedeckung.
+Die Bedeckungsdichten für Systeme unterschiedlicher Größe wurden in Tabelle \ref{tab:goldscalability} für Gold-PVD aufgelistet und zeigen für kleine Systeme ähnliche Werte, können für Systeme auf der Mikrometer-Skala mangels Rechenleistung jedoch nicht erfüllt werden.

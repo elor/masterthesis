@@ -1,0 +1,7 @@
+#filename  bondlength coordination coord.length N-density
+crystal    2.351000   4.001641     2.979000     0.049967
+kulkarni   2.303000   4.001670     2.929000     0.053222
+liu\_ettr. 2.325000   4.001709     2.709000     0.060694
+narayanan  2.325000   4.001673     2.715000     0.060606
+newsome    2.359000   4.001427     3.027000     0.052051
+nielson    2.293000   4.001685     2.919000     0.053886

@@ -25,6 +25,36 @@ unusedcitations(){
     [ -n "$retval" ]
 }
 
+updateallwords(){
+    ./listallwords.sh > allwords.txt
+}
+
+knownwords(){
+    cat ~/usr/share/words/113_elements.txt
+    cat ~/usr/share/words/200000_de.txt
+    cat ~/usr/share/words/80000_de.txt
+    cat ~/usr/share/words/apostrophiert.txt
+    cat spelling/abbreviations.txt
+    cat spelling/chemicals.txt
+    cat spelling/mywords.txt
+    cat spelling/propernouns.txt
+}
+
+unknownwords(){
+    {
+        cat allwords.txt
+        knownwords | sed p
+    } | sort | uniq -u
+}
+
+listunknownwords(){
+    updateallwords
+    local unknown
+    unknown=`unknownwords`
+    echo -ne "$unknown"
+    [ -n "$unknown" ]
+}
+
 #####################
 # begin actual work #
 #####################
@@ -75,6 +105,15 @@ unusedcitations(){
     echo "<= ASD occurences =>"
     echo
     listfiles | { xargs -0 grep -Pin 'asd|dsa' || echo "ok"; }
+    echo
+
+    ##############
+    # list typos #
+    ##############
+
+    echo "<= possible typos =>"
+    echo
+    listunknownwords || echo "ok"
     echo
 
     ##############

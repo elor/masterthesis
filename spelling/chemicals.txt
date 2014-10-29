@@ -1,3 +1,27 @@
 AlN
 Aluminiumoxid
+Chloride
+CuAg
+CuNi
+cu
+Ettringit
+Eukryptit
+CH
+Hydroxyl
+Hydroxylgruppen
+LiAl
+Nickel
+Nickelatome
+Nitride
+Nitramin
+NO
+SiC
+SiH
+Silizium
+Silikaten
+SiO
+OH
+Trimethylaluminium
+Trimethylaluminum
+Polydimethylsiloxane
 

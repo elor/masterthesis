@@ -33,7 +33,7 @@ Für diese ergeben sich folgende Eigenschaften:
   Betrachtete Systeme können entlang ausgewählter Hauptachsen periodisch sein
 \end{enumerate}
 
-Einzig das Diffusionskriterium ergibt sich aus der Notwendigkeit, Atompositionen über einen langen Zeitraum ohne Manipulation effizient zu speichern.
+Einzig das Kriterium der geringen Diffusion ergibt sich aus der Notwendigkeit, Atompositionen über einen langen Zeitraum ohne Manipulation effizient zu speichern.
 Man könnte Diffusionen jedoch auf verschiedene Arten in das Parsivald-Modell einarbeiten.
 Dazu zählen explizite MD-Simulationen der Oberfläche ebenso wie Monte-Carlo-Simulationen der Position von Oberflächen- oder Bulkteilchen.
 Im Rahmen dieser Arbeit möchte ich zuerst auf diffusionsarme Materialien und Precursorsysteme zurück greifen, bevor der allgemeine Fall betrachtet wird.
@@ -62,7 +62,7 @@ Ein Vergleich der asymptotischen Laufzeiten auf verschiedenen Datenstrukturen is
   \centering
   \caption[Laufzeitabschätzung abstrakter Operationen auf verschiedenen Datenstrukturen]{
     Abschätzung des Speicheraufwands und der asymptotischen Laufzeit der vorgestellten Operationen auf verschiedenen Datenstrukturen für kompakte Oberflächensysteme in drei Raumdimensionen.
-    \todo[inline]{Referenzen oder Erklärungen}.
+    \todo[inline]{Referenz oder Erklärung}.
   }
   \label{tab:dataruntimes}
   \begin{tabularx}{\textwidth}{|X|*8c|}
@@ -181,7 +181,7 @@ Während der Entwicklung und Implementierung des Parsivald-Modelles wurden Algor
     Sie werden häufig für MD-Simulationen genutzt, bei denen sich die Nachbarschaft nur langsam ändert.
     \\
     Bins &
-    Beim Binning werden Punkte in meist quaderförmige Raumbereiche, Bins genannt, eingeteilt, wodurch bei Suchoperationen nur Punke in Bins im Suchbereich geprüft werden müssen.
+    Beim Binning werden Punkte in meist quaderförmige Raumbereiche, Bins genannt, eingeteilt, wodurch bei Suchoperationen nur Punkte in Bins im Suchbereich geprüft werden müssen.
     Die Koordinate des Bins ergibt sich aus der globalen Position.
     Bins selbst können in einer übergeordneten Datenstruktur verwaltet werden, beispielsweise die in Abschnitt \ref{dataoctree} verwendeten Octrees
     \\
@@ -211,8 +211,8 @@ Dazu wird der Simulationsraum rekursiv in 8 geometrisch ähnliche Unterzellen ha
 Als Vorteil ergeben sich die ausschließliche Erstellung für die Simulation relevanter Unterzellen, sowie die Betrachtung leerer Raumbereiche als zusammengefasste Superzelle, wie in Abbildung \ref{fig:octree} dargestellt.
 Resultat sind verringerter Speicherbedarf und beschleunigte Suchoptionen, die irrelevante Gebiete schneller überspringen können.
 
-Theoretisch sind mit Access Caching, Bitweiser Addressierung, Surface Flagging oder Height Mapping noch weitere Anpassungen möglich, allerdings verbessert sich dabei nur der Laufzeitfaktor, nicht die asymptotische Laufzeit, weshalb sie nur am Rand genannt sein sollen.
-Algorithmus \ref{algo:octreeaddressing} skizziert die Addressierung der Zelle eines Octrees und zeigt auch deren Schwachpunkt:
+Theoretisch sind mit Access Caching, Bitweiser Adressierung, Surface Flagging oder Height Mapping noch weitere Anpassungen möglich, allerdings verbessert sich dabei nur der Laufzeitfaktor, nicht die asymptotische Laufzeit, weshalb sie nur am Rand genannt sein sollen.
+Algorithmus \ref{algo:octreeaddressing} skizziert die Adressierung der Zelle eines Octrees und zeigt auch deren Schwachpunkt:
 Um eine einzige Zelle per absolutem oder relativem Index abzurufen, sind Operationen der Komplexität \BigO{\log{c}} notwendig, die bei häufigen Zellzugriffen und großen Systemen sowie kleinen Zellen zu Leistungseinbrüchen führen können.
 
 %% \begin{algorithm}
@@ -279,7 +279,7 @@ Um eine einzige Zelle per absolutem oder relativem Index abzurufen, sind Operati
     \State \Return\Call{getcell-octree}{$cell.children[childid], i, allocate$}
     \EndFunction
   \end{algorithmic}
-  \caption[Zell-Addressierung in Octrees]{Rekursive Zell-Addressierung und -Allokierung im Octree: Bei jedem Schritt wird das Problem in 8 Unterzellen geteilt, woraus eine Laufzeit von \BigO{d}$=$\BigO{\log{c}} resultiert}
+  \caption[Zell-Adressierung in Octrees]{Rekursive Zell-Adressierung und -Allokierung im Octree: Bei jedem Schritt wird das Problem in 8 Unterzellen geteilt, woraus eine Laufzeit von \BigO{d}$=$\BigO{\log{c}} resultiert}
   \label{algo:octreeaddressing}
 \end{algorithm}
 
@@ -289,7 +289,7 @@ Um eine einzige Zelle per absolutem oder relativem Index abzurufen, sind Operati
 \label{datakdtree}
 
 Für Nachbarschafts- und Bereichssuchen wird wegen ihrer hervorragenden Suchkomplexität auf k-d-Bäume zurückgegriffen, die einen kartesischen Raum in orthogonale Zellen mit jeweils einem Atom unterteilen.
-Es ergibt sich ein balancierter Binärbaum mit Atomen als Knoten, dessen Haupteigenschaft in impliziter Betrachtung von Abstandsrelationen liegt.
+Es ergibt sich ein balancierter Binärbaum mit Atomen als Knoten, dessen herausragende Eigenschaft in impliziter Betrachtung von Abstandsrelationen liegt.
 So lassen sich große Bereiche aus einer Abstandssuche oder Bereichssuche ausschließen, sobald ein Atom mit geringerem Abstand gefunden wurde.
 Somit lässt sich per binärer Suche das nächste Atom eines beliebigen Punktes in \BigO{\log{n}} finden.
 Sucht man $N$ Nächstnachbaratome, lassen sie sich durch Kombination mit einem Heap in \BigO{\log{n}\log{N_r}} finden, was zwar im Vergleich zu Octrees zu höheren asymptotischen Laufzeiten führt, jedoch zu kürzeren realen Laufzeiten führt.
@@ -333,13 +333,14 @@ Durch adaptives Neubalancieren erreicht man dennoch bei typischerweise einseitig
 %% \end{algorithm}
 
 Probleme von k-d-Bäumen zeigen sich bei der Suche nach einer Oberfläche einerseits und bei periodischen Räumen andererseits.
-Die Oberfläche entlang einer Hauptachse lässt sich per Range Search mit anschließender Minimalsuche entlang der Suchachse effizient ermitteln, möchte man allerdings das Auftreffen eines Precursors mit beliebiger Inklination ermitteln, kann man auf keine optimale Methode zurückgreifen, sondern muss die Range Search auf einen größeren orthogonalen Suchbereich erweitern und darin eine Auswahl treffen.
+Die Oberfläche entlang einer Hauptachse lässt sich per Range Search mit anschließender Minimumssuche entlang der Suchachse effizient ermitteln, möchte man allerdings das Auftreffen eines Precursors mit beliebiger Inklination ermitteln, kann man auf keine optimale Methode zurückgreifen, sondern muss die Range Search auf einen größeren orthogonalen Suchbereich erweitern und darin eine Auswahl treffen.
 Zudem führen lokale Aktualisierungen im schlimmsten Fall zur Neubalancierung des gesamten Baumes, wodurch die Betrachtung paralleler verzögerter Aktualisierungen erschwert wird.
 Periodische Simulationsräume führen außerdem in der Nähe der Systemgrenze zu identischen Operationen auf periodischen Bildern des Baumes, die bei eventuellen Aktualisierungen ebenso weitreichende Restrukturierungen zur Folge haben.
 
 Aus diesen Gründen lassen sich k-d-Bäume nicht zufriedenstellend im Parsivald-Modell nutzen.
 
-\subsection{Delaunay-Triangulation}\label{datadelaunay}
+\subsection{Delaunay-Triangulation}
+\label{datadelaunay}
 
 \begin{figure}
   \centering
@@ -385,7 +386,7 @@ Zur Delaunay-Triangulierung aus einer Punktmenge stehen verschiedene Algorithmen
 
 \item Scan-Algorithmus (Incremental Construction)\\
   Man konstruiert schrittweise Simplexe, die das Delaunay-Kriterium erfüllen und keine nachträgliche Änderung benötigen.
-  Durch viele Vergleiche und Sortierungen varieren typische asymptotische Laufzeiten zwischen \BigO{n\log{n}} und \BigO{n^2}.
+  Durch viele Vergleiche und Sortierungen variieren typische asymptotische Laufzeiten zwischen \BigO{n\log{n}} und \BigO{n^2}.
 
 \item Einfügungs-Algorithmen (Incremental Insertion)\\
   Man erstellt einen beliebig großen Simplex, der die gesamte Punktmenge beinhaltet, und fügt schrittweise einzelne Punkte in die Triangulation ein.
@@ -394,13 +395,13 @@ Zur Delaunay-Triangulierung aus einer Punktmenge stehen verschiedene Algorithmen
 
 \item Divide-and-Conquer-Algorithmen\\
   Man teilt die Punktmenge in Untermengen, die rekursiv trianguliert und anschließend an ihren Grenzen miteinander zur Zieltriangulation vereinigt werden.
-  Hauptproblem ist die Vereinigung der Teiltriangulierungen, die in zwei Dimensionen aufgrund von Ordnungsrelationen entlang der Grenze beinahe trivial, in höheren Dimensionen jedoch mit Problemen verbunden ist.
+  Größter Rechenaufwand ist für die Vereinigung der Teiltriangulierungen notwendig, die in zwei Dimensionen aufgrund von Ordnungsrelationen entlang der Grenze beinahe trivial, in höheren Dimensionen jedoch mit Problemen verbunden ist.
   Eine mögliche Lösung ist der DeWall-Algorithmus\cite{cignoni_dewall:_1998}, dessen Verknüpfungsoperation entlang der Grenzen teilperiodischer Räume interessant wird.
   In zwei Dimensionen erreicht man \BigO{n\log{n}}, höhere Dimensionen können per DeWall-Algorithmus mit einer Laufzeit von \BigO{n^{\lceil d/2 \rceil + 1}} behandelt werden, die sich jedoch nur in pathologischen Fällen zeigt.
   Nimmt man annähernde Gleichverteilungen an, konvergiert dieser Algorithmus in drei Dimensionen subquadratisch, man sollte jedoch betrachten, dass er sich gegenüber anderer Konstruktionsalgorithmen durch einfache Parallelisierung sowie der Möglichkeit der Aktualisierung großer Raumbereiche auszeichnet.
 
 \item Höherdimensionale Einbettung\\
-  Hier wird die Punktmenge in eine höhere Dimension transformiert, in der deren konvexe Hülle berechnet wird, die dann in den ursprünglichen Raum herunterprojiziert wird und darin eine gültige Delaunay-Triangulation ergibt.
+  Hier wird die Punktmenge in eine höhere Dimension transformiert, in der deren konvexe Hülle berechnet wird, die dann in den ursprünglichen Raum herunter projiziert wird und darin eine gültige Delaunay-Triangulation ergibt.
   Dieser Algorithmus ist von rein akademischem Interesse, da Einfügungs-Algorithmen für allgemeine Fälle geringere Laufzeiten ermöglichen.
   Interessant wird diese Methode ebenfalls bei Hinzufügung und Aktualisierung von Punkten.
 

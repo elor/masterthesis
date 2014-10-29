@@ -33,7 +33,7 @@ Zentral ist also das Kraftfeld $F(R)$, welches auf unterschiedliche Arten
 
 Gegenüber dem mikrokanonischen Ensemble kommt im Kanonischen Ensemble noch ein Thermostat hinzu.
 Dieses gleicht die mittlere Temperatur des Systemes an einen vorgegebenen Wert an.
-Dies kann über harte Reskalierung der Atomgeschwindigkeiten (Berendsen-Thermostat), durch zufällige Stöße mit virtuellen Teilchen (Anderson-Thermostat) geschehen, oder durch einen zusätzlichen Reibungsterm, der auch negative Reibungskoeffizienten zulässt (Nosé-\-Hoover-\-Thermostat).
+Dies kann über harte Reskalierung der Partikelgeschwindigkeiten (Berendsen-Thermostat), durch zufällige Stöße mit virtuellen Teilchen (Anderson-Thermostat) geschehen, oder durch einen zusätzlichen Reibungsterm, der auch negative Reibungskoeffizienten zulässt (Nosé-\-Hoover-\-Thermostat).
 
 Unter Benutzung des \textbf{Berendsen-Thermostates} werden jeden Zeitschritt die Geschwindigkeiten aller Teilchen so skaliert, dass die Temperatur, die sich aus der kinetischen Energie über die Maxwell-Boltzmann-Verteilung für Gase ergibt, auf dem Zielwert gehalten wird:
 
@@ -101,7 +101,7 @@ Der Druck wird dabei über die Virialgleichung \todo{für ideale Gase?} ermittel
 \end{figure}
 
 Zur Energieminimierung, welche der Strukturoptimierung dient, wird häufig die \textbf{Methode der konjugierten Gradienten} angewandt.
-Man sucht dabei in der Grundvariante ausgehend von einem beliebigen Startpunkt $\vec x_0$ das Minimum der im Suchbereich stetigen Funktion $f(\vec x)$ durch schrittweise Annäherung entlang des Gradienten:
+Man sucht dabei in der grundlegenden Variante ausgehend von einem beliebigen Startpunkt $\vec x_0$ das Minimum der im Suchbereich stetigen Funktion $f(\vec x)$ durch schrittweise Annäherung entlang des Gradienten:
 
 \begin{gather}
   \vec s_i = \Delta\vec x_i = \nabla f(\vec x_{i-1})\\
@@ -111,7 +111,7 @@ Man sucht dabei in der Grundvariante ausgehend von einem beliebigen Startpunkt $
 Der zusätzliche Parameter $\alpha$ legt dabei die Schrittweite fest.
 Mögliche Abbruchkriterien können dabei die Differenz zwischen zwei Schritten ($\left|\vec x_i - \vec x_{i-1}\right| < x_\text{tol}$), die maximale Änderung eines Vektorelementes ($\max_k{\left|x_{i,k} - x_{i-1,k}\right|} < x_\text{tol}$), die Stärke des Gradienten ($\left|\nabla f(\vec x_{i-1})\right| < x_\text{tol}$), eine Anzahl an Zeitschritten ($i > i_\text{tol}$) oder eine Kombination daraus sein.
 
-Dieser grundlegende Algorithmus stößt schnell anseine Grenzen, wenn man allgemeine, nichtlineare Funktionen minimieren möchte.
+Dieser grundlegende Algorithmus stößt schnell an seine Grenzen, wenn man allgemeine, nichtlineare Funktionen minimieren möchte.
 Dafür führt man mehrere Änderungen ein:
 Einerseits ersetzt man den Sprung durch eine Minimierung entlang der Schrittrichtung (Gleichungen \ref{eq:cg-linesearch1} und \ref{eq:cg-linesearch2}).
 Andererseits ändert man die Schrittrichtung in Abhängigkeit vorheriger Schritte leicht ab (Gleichungen \ref{eq:pr1} und \ref{eq:pr2}).
@@ -190,7 +190,7 @@ Zwar gibt es erfolgreiche \todo{kommerzielle} Anpassungen für Biomoleküle (\to
 Das Embedded Atom Model (EAM) für jedes Atom $i$ besteht aus einem Paarpotential $V_{\alpha\beta}(r_{ij})$ sowie einer Einbettungsfunktion $F_\alpha$, die die Energie jedes Atomes in Abhängigkeit der angenäherten Elektronendichte $\rho_\beta(r_{ij})$ in der Umgebung modelliert (Gleichung \ref{eq:eam-energy}).\todo{Referenz}
 So lassen sich insbesondere metallische Materialien und Oberflächen simulieren.
 $\alpha$ und $\beta$ stellen dabei verschiedene Atomsorten dar, allerdings lassen sich auch mit dieser umfangreicheren Formulierung hauptsächlich reine Metalle simulieren.
-Für diese findet man allerdings passende Parametrisierungen\todo{Referenz auf Datenbank und passende Paper}, die im Gegensatz zu den meisten Potentialen sowohl thermodynamisches Verhalten als auch Strukturen recht gut modellieren \todo{Referenz auf separates Ergebniskapitel}.
+Für diese findet man allerdings passende Parametrisierungen\todo{Referenz auf Datenbank und passende Paper}, die im Gegensatz zu den meisten Potentialen sowohl thermodynamisches Verhalten als auch Strukturen recht gut modellieren (Abschnitt \ref{goldthermo}).
 
 \begin{equation}
   \label{eq:eam-energy}
@@ -233,21 +233,21 @@ Einige werden durch Taper-Korrektur\todo{ref} in der Nähe des Cutoff-Abstandes 
 \begin{table}
   \begin{tabularx}{\textwidth}{|llX|}
     \hline
-    \textbf{Term} & \textbf{Beitrag} & \textbf{Kommentar} \\
+    \textbf{Term}      & \textbf{Beitrag}            & \textbf{Kommentar}                            \\
     \hline
-    $E_\text{bond}$ & Bindungsenergien & Berechnung über Bindungsordnung\\
-    $E_\text{lp}$ & freie Elektronenpaare & über Bindungsordnungssumme am Atomzentrum\\
-    $E_\text{over}$ & Überkoordinationen & unter Ausschluss freier Elektronenpaare\\
-    $E_\text{under}$ & Unterkoordinationen & nur bei unterkoordinierten $\pi$-Bindungen\\
-    $E_\text{val}$ & Bindungswinkel & Optimum abhängig von Elektronenkonfiguration\\
-    $E_\text{pen}$ & Strafenergien & Fehlerkorrektur bei Winkeln mit Doppelbindung\\
-    $E_\text{coa}$ & Drei-Teilchen-Konjugationen & Stabilisierung von NO$_2$-Gruppen\\
-    $E_\text{C2}$ & Dreifachbindungskorrektur & Stabilisierung der Dreifachbindung von C$_2$\\
-    $E_\text{tors}$ & Torsionsbarrieren & \\
-    $E_\text{conj}$ & Vier-Teilchen-Konjugationen & Konjugation bei Kohlenwasserstoffen\\
-    $E_\text{H-bond}$ & Wasserstoffbrücken & \\
-    $E_\text{vdWaals}$ & Van-der-Waals-Kräfte & \\
-    $E_\text{Coulomb}$ & Coulomb-Kräfte & \\
+    $E_\text{bond}$    & Bindungsenergien            & Berechnung über Bindungsordnung               \\
+    $E_\text{lp}$      & freie Elektronenpaare       & über Bindungsordnungssumme am Atomzentrum     \\
+    $E_\text{over}$    & Überkoordinationen          & unter Ausschluss freier Elektronenpaare       \\
+    $E_\text{under}$   & Unterkoordinationen         & nur bei unterkoordinierten $\pi$-Bindungen    \\
+    $E_\text{val}$     & Bindungswinkel              & Optimum abhängig von Elektronenkonfiguration  \\
+    $E_\text{pen}$     & Strafenergien               & Fehlerkorrektur bei Winkeln mit Doppelbindung \\
+    $E_\text{coa}$     & Drei-Teilchen-Konjugationen & Stabilisierung von NO$_2$-Gruppen             \\
+    $E_\text{C2}$      & Dreifachbindungskorrektur   & Stabilisierung der Dreifachbindung von C$_2$  \\
+    $E_\text{tors}$    & Torsionsbarrieren           &                                               \\
+    $E_\text{conj}$    & Vier-Teilchen-Konjugationen & Konjugation bei Kohlenwasserstoffen           \\
+    $E_\text{H-bond}$  & Wasserstoffbrücken          &                                               \\
+    $E_\text{vdWaals}$ & Van-der-Waals-Kräfte        &                                               \\
+    $E_\text{Coulomb}$ & Coulomb-Kräfte              &                                               \\
     \hline
   \end{tabularx}
   \caption[ReaxFF Energiebeiträge]{ReaxFF Energiebeiträge aus Gleichung \ref{eq:reax-formulation}}
@@ -301,8 +301,8 @@ Die Dichte lässt sich bei periodischen Strukturen nach über Volumen und
 
 Die Oberfläche einer Struktur gibt Hinweise auf angelagerte Molekülgruppen, Rauheit, Porösität und Bildung reinatomiger Cluster.
 Bei großen, glatten Strukturen reicht oft ein Schnitt entlang einer Hauptachse, um Bulk und Oberfläche zu trennen.
-In den verbliebenen Fällen lässt sich zu diesem Zweck eine Alpha-Form per Delaunay-Triangulation bestimmen. \todo{Referenz auf Delaunay-Section}
-Die eigentlichen Untersuchungen beschränken sich dann auf eine Zählung der Bindungen und Atomsorten, Radiale Verteilungsfunktionen, Oberflächenmessung oder Höhenabweichung vom Mittelwert.
+In den verbliebenen Fällen lässt sich zu diesem Zweck eine Alpha-Form per Delaunay-Triangulation bestimmen (Abschnitt \ref{datadelaunay}.
+Die eigentlichen Untersuchungen beschränken sich dann auf eine Zählung der Bindungen und Atomsorten, Radiale Verteilungsfunktionen, Oberflächenmessung oder Abweichungen der Schichtdicke vom Mittelwert.
 
 \subsubsection{Reaktionen}
 

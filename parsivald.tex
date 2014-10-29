@@ -9,7 +9,7 @@ Parsivald entstand 2012 als namenloses Resultat meiner Bachelorarbeit\cite{loren
 Das Programm war beschränkt auf die atomistische Simulation von Metall\-oxid-ALD mittels MEAM-Potentialen.
 Hauptaufgabe von Parsivald ist es, Atomlagenabscheidungen auf großen Oberflächen per Kombination von KMC- und MD-Methoden mit atomistischer \todo{Genauigkeit}Präzision simulieren zu können.
 Abbildung \ref{fig:parsivald-stephierarchy} stellt die Funktionsweise des Parsivald-Modelles vor, die im Wesentlichen aus Vor- und Nachbereitung sowie einer Prozessschleife besteht.
-Innerhalb der Hauptschleife werden nacheinander in einem oder mehreren Prozessschritten mögliche Adsorptionen, Ligandenaustausch-Reaktionen oder Oberflächenrelaxationen mit KMC-Mechanismen ausgewählt, anschließend mittels Molekulardynamik lokal überprüft und die Ergebnisse schließlich in die globale Stuktur zurückgeführt (Abbildung \ref{fig:parsivald-schema}).
+Innerhalb der Hauptschleife werden nacheinander in einem oder mehreren Prozessschritten mögliche Adsorptionen, Ligandenaustausch-Reaktionen oder Oberflächenrelaxationen mit KMC-Mechanismen ausgewählt, anschließend mittels Molekulardynamik lokal überprüft und die Ergebnisse schließlich in die globale Struktur zurückgeführt (Abbildung \ref{fig:parsivald-schema}).
 KMC-Ereignisse sind in diesem Modell auf eine dünne Oberflächenschicht begrenzt, wo sie jeweils innerhalb eines Kastens beschränker Größe, der MD-Box, wirken (Abbildung \ref{fig:parsivald-schema}).
 Das setzt zwar diffusionsarme Prozesse voraus, ermöglicht dafür jedoch die effiziente Beschreibung von Atomlagenabscheidungen mit vielen Millionen Atomen auf der Mikrometerskala.
 
@@ -92,7 +92,7 @@ Für ALD und CVD lässt sich die Abscheidungsrate aus der Reaktionskinetik absch
 
 Die Beschränkung des Modelles auf diffusionsarme Oberflächenabscheidungen ergibt sich aus der Notwendigkeit, Bereiche des Simulationsraumes, in denen keine Reaktion statt findet, bei der MD-Simulation zu vernachlässigen.
 Das betrifft die Gasphase und den größten Teil des Bulks ebenso wie abgeschirmte Bereiche der Oberfläche.
-Für Prozesse, die die oben aufgelisteten Annahmen nicht unterstützen, degeneriert Parsivald zu einer reinen MD-Simulation, für die effizientere Parallelisierungsmethoden existieren\todo{ähm ref? vielleicht?}.
+Für Prozesse, die die oben aufgelisteten Annahmen nicht unterstützen, degeneriert Parsivald zu einer reinen MD-Simulation, für die mit Binning und Nachbarschaftslisten effizientere Parallelisierungsmethoden existieren.
 Ein beschränktes Maß an Oberflächendiffusion lässt sich jedoch mit  längeren Relaxationszeiten oder separaten Relaxations-Ereignissen annähernd behandeln.
 
 Weiterhin ist Parsivald auf die zugrunde liegende Molekulardynamik beschränkt.
@@ -107,10 +107,10 @@ Eine tatsächliche Anwendbarkeit beider Methoden muss für jeden Prozess einzeln
 \subsection{Erweiterung im Rahmen der Masterarbeit}
 
 \todo[inline]{das ist wohl zu viel}
-Seit Beginn dieser Arbeit wurde das Parsivald-Modell und seine Implementierung um PVD- und CVD-Modi (Abbildung \ref{fig:parsivald-modes}), ein allgemeines Konfigurationsformat\todo{Anhang?}, MD-Befehle mit Platzhaltern (MD-Masken), Unterstützung verschiedener atomistischer Dateiformate, Einbettung der LAMMPS-Umgebungs\-variablen zur Potentialsuche, globale und lokale Suchpfade für alle Eingabedateien, eventgebundene sterische Hinderung zum Zweck der CVD-Simu\-lation, einen internen und beliebig viele externe Workerpools, ein standardisiertes Buildsystem sowie eine Vielzahl externer \todo{ref oder anhang}Werkzeuge zur Prozessvorbereitung und -analyse erweitert.
+Seit Beginn dieser Arbeit wurde das Parsivald-Modell und seine Implementierung um PVD- und CVD-Modi (Abbildung \ref{fig:parsivald-modes}), ein allgemeines Konfigurationsformat\todo{Anhang?}, MD-Befehle mit Platzhaltern (MD-Masken), Unterstützung verschiedener atomistischer Dateiformate, Einbettung der LAMMPS-Umgebungs\-variablen zur Potentialsuche, globale und lokale Suchpfade für alle Eingabedateien, eventgebundene sterische Hinderung zum Zweck der CVD-Simu\-lation, einen internen und beliebig viele externe Workerpools, ein standardisiertes Buildsystem sowie eine Vielzahl externer \todo{ref oder Anhang}Werkzeuge zur Prozess-Vorbereitung und -Analyse erweitert.
 
 Diese Änderungen ermöglichen eine einfachere Vorbereitung, Simulation und Untersuchung verschiedener Prozesse und eine aussagekräftigere Analyse der Ergebnisse.
-Auch eine automatisierte \todo{es ist wirklich eine Erforschung gemeint, also eine Suche der Parameter, die Zielgrößen abbilden; eine Untersuchung kann unabhängig von den Konfigurationsdateien anhand der Ausgaben geschehen}Erforschung der Prozessparameter wie Temperatur, Druck und Expositionszeit oder MD-spezifischer Parameter wie Thermostatdämpfung, Relaxationsdauer oder Länge des Zeitschrittes ist mittels des Konfigurationsmechanismus' denkbar.
+Auch eine automatisierte \todo{es ist wirklich eine Erforschung gemeint, also eine Suche der Parameter, die Zielgrößen abbilden. Eine Untersuchung kann unabhängig von den Konfigurationsdateien anhand der Ausgaben geschehen}Erforschung der Prozessparameter wie Temperatur, Druck und Expositionszeit oder MD-spezifischer Parameter wie Thermostatdämpfung, Relaxationsdauer oder Länge des Zeitschrittes ist mittels des Konfigurationsmechanismus' denkbar.
 
 Zusätzlicher Aufwand musste beim Einkapseln der MD-Bibliothek LAMMPS betrieben werden (Abschnitt \ref{lammpssucks}).
 
@@ -142,7 +142,7 @@ Für die Fälle, für die das Modell gestaltet wurde, wird die obere Schranke de
 Der hervorragende LAMMPS-Code wurde als MD-Bibliothek genutzt, da er gut optimiert und auf Funktionsebene in eigene Programme integrierbar ist sowie ReaxFF-Potentiale im Standardformat unterstützt.
 Damit ist LAMMPS \todo{faktisch}faktisch konkurrenzlos, allerdings stößt man bei der Nutzung auf verschiedene Probleme.
 
-Ein Hauptproblem besteht in der Interaktion mit MPI-Bibliotheken.
+Ein hauptsächliches Problem besteht in der Interaktion mit MPI-Bibliotheken.
 Es liegt nahe, für hochparallele Systeme wie Parsivald auf MPI zu setzen, um Tasks vom Host an seine Worker zu vermitteln.
 LAMMPS nutzt jedoch intern \todo{lammps.cpp, Zeile 247}globale MPI-Calls, auch wenn nur kleine Systeme untersucht werden oder explizit auf MPI verzichtet wird.
 Zwar wird LAMMPS statisch verlinkt, nicht aber die MPI-Bibliothek\footnote{LAMMPS liegt auch ein MPI-Platzhalter(Stub) für serielle Anwendungsfälle bei, der aber separat verlinkt werden muss, statt in LAMMPS hinein kompiliert zu werden}, so dass ein Umschreiben der exportierten Symbole nicht zum gewünschten Erfolg führt.

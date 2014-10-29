@@ -8,7 +8,7 @@ ASD
 \subsection{Potentialdateien}
 
 Für die folgenden Simulationen werden ReaxFF-Potentiale mit der Aussicht genutzt, auch Reaktionen zwischen Oberflächenatomen und Precursormolekülen simulieren zu können.
-Da die ReaxFF-Formulierung erst innerhalb des letzten Jahrzehntes an Popularität gewonnen hat\todo{ref auf van duin}, sind die verfügbaren Potentiale auf einzelne Probleme angepasst und oftmals noch nicht in den Potentialdatenbanken zu finden.
+Da die ReaxFF-Formulierung erst innerhalb des letzten Jahrzehntes an Popularität gewonnen hat\todo{ref auf van Duin}, sind die verfügbaren Potentiale auf einzelne Probleme angepasst und oftmals noch nicht in den Potentialdatenbanken zu finden.
 Tabelle \ref{tab:siliconpotentials} listet die im Rahmen der Arbeit untersuchten ReaxFF-Parametrisierungen auf.
 
 \begin{table}
@@ -43,7 +43,7 @@ Die Ergebnisse dieser Betrachtungen wurden in Tabelle \ref{tab:siliconpreresults
 \begin{table}
   \begin{threeparttable}
     \caption[Ergebnisse der Silizium-Potential-Untersuchungen]{Zusammenfassung Ergebnisse der Untersuchung der Potenialuntersuchung für Silizium-Systeme.
-      Detailliertere Ergebnisse finden sich im \todo[inline]{Anhang}
+      Detailliertere Ergebnisse finden sich in Anhang \ref{appendix:silicon}
     }
     \label{tab:siliconpreresults}
 
@@ -52,21 +52,21 @@ Die Ergebnisse dieser Betrachtungen wurden in Tabelle \ref{tab:siliconpreresults
       \hline
       \textbf{Bezeichnung}    & LMP    & c-\ce{Si} & c-\ce{SiO2} & a-\ce{Si} & \ce{SiH4} & \ce{+O2} & PVD\tnote{a} & CVD\tnote{b} \\
       \hline                % & LAMMPS & c-Si      & c-SiO2      & a-Si      & Silane    & +O2      & PVD          & CVD          \\
-      Al\_AlO\_AlN            & \cmark & ~         & (\cmark)    & \cmark?   & \cmark    & ~        & \cmark       & \cmark?      \\
-      chenoweth               & ~      & ~         & ~           & ~         & ~         & ~        & ~            & ~            \\
-      kulkarni                & \cmark & \cmark    & \cmark      & \cmark?   & \cmark    & (\cmark) & \cmark       & \cmark?      \\
-      lg                      & ~      & ~         & ~           & ~         & ~         & ~        & ~            & ~            \\
-      liu\_ettringite         & \cmark & ~         & \cmark      & \cmark?   & ~         & ~        & \cmark       & \cmark?      \\
-      liu\_nitramines         & ~      & ~         & ~           & ~         & ~         & ~        & ~            & ~            \\
-      narayanan               & \cmark & ~         & \cmark      & \cmark?   & ~         & ~        & \cmark       & \cmark?      \\
-      newsome                 & \cmark & ~         & (\cmark)    & \cmark?   & ~         & (\cmark) & \cmark       & \cmark?      \\
-      nielson                 & \cmark & \cmark    & \cmark      & \cmark?   & \cmark    & ~        & \cmark       & \cmark?      \\
-      zhang                   & \cmark & ~         & ~           & ~         & \cmark    & \cmark   & ~            & ~            \\
+      Al\_AlO\_AlN            & \cmark & ~         & (\cmark)    &  \cmark   & \cmark    & ~        & \cmark       & \cmark?      \\
+      chenoweth               & ~      & ~         & ~           &  ~        & ~         & ~        & ~            & ~            \\
+      kulkarni                & \cmark & \cmark    & \cmark      &  \cmark   & \cmark    & (\cmark) & \cmark       & \cmark?      \\
+      lg                      & ~      & ~         & ~           &  ~        & ~         & ~        & ~            & ~            \\
+      liu\_ettringite         & \cmark & ~         & \cmark      &  \cmark   & ~         & ~        & \cmark       & \cmark?      \\
+      liu\_nitramines         & ~      & ~         & ~           &  ~        & ~         & ~        & ~            & ~            \\
+      narayanan               & \cmark & ~         & \cmark      &  \cmark   & ~         & ~        & \cmark       & \cmark?      \\
+      newsome                 & \cmark & ~         & (\cmark)    &  ~        & ~         & (\cmark) & \cmark       & \cmark?      \\
+      nielson                 & \cmark & \cmark    & \cmark      &  \cmark   & \cmark    & ~        & \cmark       & \cmark?      \\
+      zhang                   & \cmark & ~         & ~           &  ~        & \cmark    & \cmark   & ~            & ~            \\
       \hline
     \end{tabularx}
     \todo[inline]{Gruende und Daten -> Anhang}
 
-    \begin{tablenotes}
+    \begin{tablenotes}[para]
       \item[a] PVD: a-\ce{Si}-PVD mit Parsivald
       \item[b] CVD: a-\ce{SiO2}-CVD mit Parsivald
     \end{tablenotes}
@@ -76,8 +76,8 @@ Die Ergebnisse dieser Betrachtungen wurden in Tabelle \ref{tab:siliconpreresults
 \subsubsection{Kompatibilität mit der Molekulardynamiksoftware (LMP)}
 
 Einige Potentialdateien sind aus verschiedenen Gründen nicht mit der aktuellen Version der LAMMPS-Bibliothek kompatibel, was sich in harten Abbrüchen des Programmes äußert und sie nicht nutzbar für weitere Untersuchungen macht.
-Sie sollen hier der vollständigkeit halber Erwähnung finden.
-Andere Dateien lassen sich zwar laden und benutzen, äußern jedoch regelmäßige Warnungen über ihre van-der-Waals-Parameter, die aber nicht zu sonstigen Fehlern führen und meist nur Stickstoff- oder Platzhalteratome\footnote{Typischerweise beinhalten ReaxFF-Dateien wechselwirkungsfreie Platzhalteratome unter dem Pseudo-Element \ce{X} zum Zweck des Ausschlusses einzelner Partikel aus der Simulation} betrifft.
+Sie sollen hier der Vollständigkeit halber Erwähnung finden.
+Andere Dateien lassen sich zwar laden und benutzen, äußern jedoch regelmäßige Warnungen über ihre van-der-Waals-Parameter, die aber nicht zu sonstigen Fehlern führen und meist nur Stickstoff- oder Platzhalteratome\footnote{Typischerweise beinhalten ReaxFF-Dateien wechselwirkungsfreie Platzhalterelemente unter dem Pseudo-Element \ce{X} zum Zweck des Ausschlusses einzelner Partikel aus der Simulation} betrifft.
 
 \subsubsection{Kristalleigenschaften (c-\ce{Si}, c-\ce{SiO2})}
 
@@ -92,17 +92,29 @@ Anhang \ref{appendix:silicon} beinhaltet Abbildungen eines Vergleiches der Bindu
 \subsubsection{Amorphes Silizium (a-\ce{Si})}
 
 Durch langsame Relaxation zufällig positionierter Siliziumatome wurde amorphes Silizium simuliert, das wie die Kristalle zuvor auf Dichte und Bindungslängen untersucht wurde.
-Deren Werte variieren stärker als für kristalline Systeme, liegen jedoch nah am experimentell bestimmten Wert von \SI{2.3}{\gpcc}\cite{remes_optical_1998}, anstatt Cluster und Hohlräume zu bilden.
+Deren Werte variieren für amorphes Silizium stärker als für kristallines, liegen jedoch nah am experimentell bestimmten Wert von \SI{2.3}{\gpcc}\cite{remes_optical_1998}, anstatt Cluster und Hohlräume zu bilden.
 
 \subsubsection{Stabilität der Precursormoleküle (\ce{SiH4}, \ce{O2})}
 
-\todo[inline]{continuehere}
+ReaxFF-Potentiale versprechen die Simulation von Molekülen und deren Reaktion miteinander, die mit den folgenden Tests für Silan und molekularen Sauerstoff überprüft werden sollen.
+Dazu wurden Simulationen einzelner und mehrerer Precursormoleküle (\ce{SiH4} und \ce{O2}) im kanonischen Ensemble bei verschiedenen Temperaturen simuliert und hinsichtlich ihrer Stabilität begutachtet.
+Abbildung \ref{fig:silanestability} zeigt eine Auswahl der Ergebnisse der Silan-Simulationen, an denen sich erkennen lässt, wie instabile Simulationen zur Ablösung der Wasserstoffatome vom Silanmolekül führen.
 
 \subsubsection{Reaktion der Precursormoleküle (\ce{SiH4 + O2})}
 
+Reaktionen von einzelnen Precursormolekülen wurden stichprobenartig in verschiedenen Orientierungen, Energien und Temperaturen vorgenommen, um einen Überblick über die Verlässlichkeit zu bekommen.
+Zusätzlich wurden durchmischte Precursorgase mit dem Ziel eventueller Reaktionen simuliert, was jedoch mit keiner der Parametrisierungen zum gewünschten Erfolg bei hoher Zuverlässigkeit führte.
+Einige Parametrisierungen zeigen jedoch vielversprechende Teilreaktionen, die korrekte Doppelbindungen und Bildung von Wasserstoffmolekülen beinhalten (Abbildung \ref{fig:precursorreactions}).
+Vor allem bei größeren Reaktionsräumen bilden sich Cluster aus Precursormolekülen, die von attraktiven Termen in den Kraftfeldern dominiert werden, aber nicht durch chemische Wechselwirkungen zu erklären sind (Abbildung \ref{fig:precursorclusters}).
+
 \subsubsection{Abscheidungssimulationen (PVD, CVD)}
 
+Die Abscheidungssimulationen selbst verlaufen wie in Kapitel \ref{parsivald} vorgestellt und unterscheiden sich kaum von den Parsivald-Simulationen der vorherigen Abschnitte.
+Als Ausgang werden amorphe und deshalb rauhere Schichten erwartet, die kontinuierlich wachsen.
+Besondere Bedingungen gelten für CVD-Simulationen von \ce{SiO2}-Schichten, wie sie in Abschnitt \ref{silicacvd} eingehender behandelt werden.
 
+\subsection{Silizium-PVD}
 
-\subsection{presentation transcript}
-
+Silizium-PVD dient in der Produktion elektronischer Artikel der Erzeugung einer dünnen, amorphen Siliziumschicht für diverse Anwendungsszenarien.
+Sie soll wie bisher simuliert werden, wobei aufgrund des amorphen Charakters längere Relaxationszeiten erwartet werden.
+Durch die rechenaufwendigeren ReaxFF-Potentiale 

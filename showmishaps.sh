@@ -55,7 +55,7 @@ unknownwords(){
 }
 
 listunknownwords(){
-    updateallwords # taken care of by crontab
+#   updateallwords # taken care of by crontab
     local unknown
     unknown=`unknownwords`
     echo -ne "$unknown"

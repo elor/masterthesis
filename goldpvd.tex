@@ -12,7 +12,7 @@ Wie man den Ergebnissen ansehen kann, bleibt die Kristallstruktur erwartungsgem�
 Die Parametrisierung repräsentiert somit das Zielsystem.
 
 \begin{table}
-  %% \oddrowcolors 
+  %% \oddrowcolors
   \caption[Eigenschaften von Gold]{Vergleich der Eigenschaften von Gold mit experimentellen und Literaturdaten als Voruntersuchung des PVD-Prozesses
     %% \todo[inline]{ref}
   }
@@ -62,7 +62,7 @@ Bei geringeren $t_\text{relax}$ oder $D_T$ relaxiert das System innerhalb eines 
 
 \subsection{Prozess-Simulation}
 
-Zur Simulation eines Gold-PVD-Prozesses mit Parsivald wurden die untersuchten Potentialparameter sowie ein Kristallsubstrat im PVD-Modus eingelesen und Relaxationszeiten und Reaktionsnachbarschaftsgrößen aus den Vorbetrachtungen übernommen.
+Zur Simulation eines Gold-PVD-Prozesses mit Parsivald wurden die untersuchten Potentialparameter sowie ein Kristallsubstrat im PVD-Modus eingelesen und Relaxationszeiten und Größen der MD-Simulationsräume aus den Vorbetrachtungen übernommen.
 Damit ergeben sich Reaktionsräume der Größe \SI{37x37x25}{\angstrom} mit jeweils ca. \num{1800} Atomen, Relaxationszeiten von \SI{1.4}{\nano\second} in \num{1400} Simulationsschritten und Auftreffgeschwindigkeiten von \SI{4}{\angstrom/\pico\second}, die aus üblichen Sputterbedingungen stammen.\todo{wie berechnet?}
 
 Abbildung \ref{fig:golddepositions-a} zeigt, wie das Substrat unter Erhalt der Kristallstruktur fortgesetzt wird.
@@ -239,7 +239,7 @@ Dazu werden verschiedene quadratische Substrate mit Breiten von \SI{100}{\angstr
     \item[d] Maximale Bandbreite des Hosts erreicht.
       Längere MD-Simulationen erlauben mehr Worker.
     \item[e] Bedeckung: Anteil der von laufenden Ereignissen abgedeckten Oberfläche
-    \item[f] Vom Hostprozess verbrauchten 
+    \item[f] Vom Hostprozess verbrauchten
     \end{tablenotes}
 
 \end{threeparttable}\end{table}
@@ -262,5 +262,5 @@ Bei Oberflächen von \SI{2x2}{\micro\meter} Größe sind in dichtester Packung d
 Tatsächlich werden aufgrund der Überdeckung der Ereignisse durch die zufällige Wahl der Reaktionsorte häufig \SI{<40}{\percent} davon zeitgleich simuliert.
 Dennoch liegt die Zahl der verfügbaren Prozessorkerne um Größenordnungen unterhalb des optimalen Wertes, was sich in langen Simulationslaufzeiten äußert (\SI{186.8}{\hour} für \SI{1.0}{\angstrom}).
 
-Zusammenfassend lässt sich zur Skalierbarkeit sagen, dass Systeme mit einer Größe zwischen \SI{50x50}{\nano\meter} und \SI{300x300}{\nano\meter} mit modernen Computerclustern effizient berechenbar sind, während kleinere Systeme nicht signifikant von der Effizienzsteigerung profitieren können, für größere Systeme hingegen die notwendige Rechenleistung nicht zur Verfügung steht.
+Zusammenfassend lässt sich sagen, dass Systeme mit einer Größe zwischen \SI{50x50}{\nano\meter} und \SI{300x300}{\nano\meter} mit modernen Computerclustern effizient berechenbar sind, wo hingegen kleinere Systeme nicht signifikant von der Effizienzsteigerung profitieren können und für größere Systeme die notwendige Rechenleistung unerreichbar bleibt.
 

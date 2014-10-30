@@ -25,7 +25,7 @@ Als Richtwert wurde die Qualität der einzelnen Lagen in Form des Anteils der At
 Lagen schlechterer Qualität zeigen eine höhere Durchmischung der Atomsorten, was wiederum zu einem Abfall der relativen Häufigkeit einer Atomsorte innerhalb ihrer Schicht führt, wie man für die beiden Verteilungen bei einer Relaxationszeit von \SI{0.2}{\femto\second} pro Ereignis beobachten kann.
 Erst bei Verdopplung der Relaxationszeit bilden sich klar abgegrenzte Lagen aus, wie sie in Abbildung \ref{fig:multilayerresults} dargestellt sind.
 
-In Anhang 
+In Anhang
 
 \todo[inline]{ordentlich vorstellen!}
 
@@ -38,13 +38,14 @@ Bei größeren Systemen sind durch Verspannungen im Material Gitterversetzungen 
     \includegraphics[width=\textwidth]{CuNi_layerroughness_comparison}
     \subcaption{
       Vergleich der Rauheit zwischen LAMMPS und Parsivald (Abb. \ref{fig:multilayerresults})
-      \label{fig:multilayerplots-a}
     }
+    \label{fig:multilayerplots-a}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{CuNi_atomdistribution_relax}
-    \subcaption{Höhenverteilung der Kupfer- und Nickelatome innerhalb der Schicht}
+    \subcaption{Verteilung der Kupfer- und Nickelatome innerhalb der Schicht}
+    \label{fig:multilayerplots-b}
   \end{subfigure}
   \caption[Ergebnisse der Multilagen-Abscheidung von Kupfer und Nickel]{
     Ergebnisse der Multilagen-Abscheidung von Kupfer und Nickel:
@@ -65,8 +66,8 @@ Bei größeren Systemen sind durch Verspannungen im Material Gitterversetzungen 
     \includegraphics[width=\textwidth]{CuNi_profile_Parsivald}
     \subcaption{Profil einer per Parsivald simulierten Multilagen-Abscheidung}
   \end{subfigure}
-  \caption[Vergleich zwischen Parsivald- und LAMMPS-Multilagenabscheidungen]{
-    Vergleich zwischen Parsivald- und LAMMPS-Multilagenabscheidungen unter Nutzung optimierter Parameter.
+  \caption[Vergleich zwischen Simulationen von Multilagensystemen mit Parsivald und LAMMPS]{
+    Vergleich zwischen Simulationen von Multilagensystemen mit Parsivald und LAMMPS unter Nutzung optimierter Parameter.
   }
   \label{fig:multilayerresults}
 \end{figure}

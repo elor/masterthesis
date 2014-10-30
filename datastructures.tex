@@ -115,7 +115,7 @@ Ein Vergleich der asymptotischen Laufzeiten auf verschiedenen Datenstrukturen is
     \hline
     \textbf{Operation} & \textbf{Beschreibung} \\
     \hline
-    Konstruktion & 
+    Konstruktion &
     Der einmalige Aufbau aus einer Punktwolke.
     Entspricht oftmals einer einzelnen Einfügung aller Punkte.
     Die Laufzeit ist zweitrangig gegenüber den anderen Operationen
@@ -202,7 +202,7 @@ Während der Entwicklung und Implementierung des Parsivald-Modelles wurden Algor
 
 \subsection{Effiziente Datenstrukturen}
 
-Zur Betrachtung der in Abschnitt \ref{parsivald} vorgestellten Problemstellungen bieten sich nur eine Auswahl der angesprochenen Datenstrukturen an, da die asymptotischen Laufzeiten der Suchoperationen auf den ausgeschlossenen Strukturen oberhalb der Praktikabilitätsgrenze liegen.
+Zur Betrachtung der in Abschnitt \ref{parsivald} vorgestellten Problemstellungen bieten sich nur eine Auswahl der angesprochenen Datenstrukturen an, da die sonstigen asymptotischen Laufzeiten der Suchoperationen zu impraktikablen Laufzeiten der Simulation führten.
 Als Auswahl effizienter Datenstrukturen werden weiterhin Octrees, k-d-Bäume und Delaunay-Triangulationen behandelt.
 
 \subsubsection{Octrees}\label{dataoctree}
@@ -288,7 +288,7 @@ Um eine einzige Zelle per absolutem oder relativem Index abzurufen, sind Operati
 \subsection{k-d-Bäume}
 \label{datakdtree}
 
-Für Nachbarschafts- und Bereichssuchen wird wegen ihrer hervorragenden Suchkomplexität auf k-d-Bäume zurückgegriffen, die einen kartesischen Raum in orthogonale Zellen mit jeweils einem Atom unterteilen.
+Für Nachbarschafts- und Bereichssuchen wird wegen ihrer hervorragenden Sucheffizienz auf k-d-Bäume zurückgegriffen, die einen kartesischen Raum in orthogonale Zellen mit jeweils einem Atom unterteilen.
 Es ergibt sich ein balancierter Binärbaum mit Atomen als Knoten, dessen herausragende Eigenschaft in impliziter Betrachtung von Abstandsrelationen liegt.
 So lassen sich große Bereiche aus einer Abstandssuche oder Bereichssuche ausschließen, sobald ein Atom mit geringerem Abstand gefunden wurde.
 Somit lässt sich per binärer Suche das nächste Atom eines beliebigen Punktes in \BigO{\log{n}} finden.
@@ -297,7 +297,7 @@ Sucht man $N$ Nächstnachbaratome, lassen sie sich durch Kombination mit einem H
 Aktualisierungen von Knoten behandelt man durch Standardalgorithmen wie Baumrotation in \BigO{\log{n}}.
 
 Eine weitere Eigenschaft von k-d-Bäumen ist außerdem, dass sie nicht auf endliche Räume beschränkt sind und zuverlässig beliebig große Systeme beschreiben können.
-Durch adaptives Neubalancieren erreicht man dennoch bei typischerweise einseitigem Schichtwachstum die oben erwähnten Suchlaufzeiten auf Kosten der Manipulationseffizienz.
+Durch adaptives Neubalancieren erreicht man dennoch bei typischerweise einseitigem Schichtwachstum die oben erwähnten Suchlaufzeiten auf Kosten der Effizienz von Manipulationen.
 
 \begin{figure}
   \includegraphics[width=\textwidth]{kdtree-tree}
@@ -333,7 +333,7 @@ Durch adaptives Neubalancieren erreicht man dennoch bei typischerweise einseitig
 %% \end{algorithm}
 
 Probleme von k-d-Bäumen zeigen sich bei der Suche nach einer Oberfläche einerseits und bei periodischen Räumen andererseits.
-Die Oberfläche entlang einer Hauptachse lässt sich per Range Search mit anschließender Minimumssuche entlang der Suchachse effizient ermitteln, möchte man allerdings das Auftreffen eines Precursors mit beliebiger Inklination ermitteln, kann man auf keine optimale Methode zurückgreifen, sondern muss die Range Search auf einen größeren orthogonalen Suchbereich erweitern und darin eine Auswahl treffen.
+Die Oberfläche entlang einer Hauptachse lässt sich per Range Search effizient ermitteln, allerdings kann man auf keine optimale Methode zurückgreifen, wenn man ein Auftreffen eines Precursormoleküles mit beliebiger Inklination darstellen möchte, sondern muss den Suchbereich diagonal ausweiten.
 Zudem führen lokale Aktualisierungen im schlimmsten Fall zur Neubalancierung des gesamten Baumes, wodurch die Betrachtung paralleler verzögerter Aktualisierungen erschwert wird.
 Periodische Simulationsräume führen außerdem in der Nähe der Systemgrenze zu identischen Operationen auf periodischen Bildern des Baumes, die bei eventuellen Aktualisierungen ebenso weitreichende Restrukturierungen zur Folge haben.
 
@@ -371,7 +371,7 @@ So beinhaltet eine Delaunay-Triangulation als Subgraphen den Nächstnachbargraph
   %% $\Rightarrow$ Allgemeine Nachbarschaftssuche ist \BigO{k\log k}
 \end{itemize}
 
-Delaunay-Triangulationen werden somit für Oberflächenbetrachtungen interessant, da sie über die Alpha-Form, welche durch Auswahl der Punkte aller Simplexe mit Umkreisradien oberhalb einer stoffabhängigen Grenze ermittelt wird und die wahrgenommene Oberfläche eines Systems darstellt.
+Delaunay-Triangulationen werden somit für Betrachtungen von Oberflächen interessant, da sie über die Alpha-Form, welche durch Auswahl der Punkte aller Simplexe mit Umkreisradien oberhalb einer stoffabhängigen Grenze ermittelt wird und die wahrgenommene Oberfläche eines Systems darstellt.
 Somit lassen sich Oberflächenrauheiten, Nanoporen und bei Alpha-Werten nahe der Bindungslänge auch Kristalldefekte bestimmen.
 Mit wenig Mehraufwand gegenüber reinen Delaunay-Triangulationen ließen sich somit einerseits Auswertungen bei laufenden Simulationen durchführen und Prozesse gegebenenfalls direkt optimieren, andererseits ist die gesamte Oberfläche zur Simulation von Oberflächenereignissen bekannt und direkt parametrisiert.
 
@@ -396,7 +396,7 @@ Zur Delaunay-Triangulierung aus einer Punktmenge stehen verschiedene Algorithmen
 \item Divide-and-Conquer-Algorithmen\\
   Man teilt die Punktmenge in Untermengen, die rekursiv trianguliert und anschließend an ihren Grenzen miteinander zur Zieltriangulation vereinigt werden.
   Größter Rechenaufwand ist für die Vereinigung der Teiltriangulierungen notwendig, die in zwei Dimensionen aufgrund von Ordnungsrelationen entlang der Grenze beinahe trivial, in höheren Dimensionen jedoch mit Problemen verbunden ist.
-  Eine mögliche Lösung ist der DeWall-Algorithmus\cite{cignoni_dewall:_1998}, dessen Verknüpfungsoperation entlang der Grenzen teilperiodischer Räume interessant wird.
+  Eine mögliche Lösung ist der DeWall-Algorithmus\cite{cignoni_dewall:_1998}, dessen Methode zur Vereinigung über die Grenzen teilperiodischer Räume interessant wird.
   In zwei Dimensionen erreicht man \BigO{n\log{n}}, höhere Dimensionen können per DeWall-Algorithmus mit einer Laufzeit von \BigO{n^{\lceil d/2 \rceil + 1}} behandelt werden, die sich jedoch nur in pathologischen Fällen zeigt.
   Nimmt man annähernde Gleichverteilungen an, konvergiert dieser Algorithmus in drei Dimensionen subquadratisch, man sollte jedoch betrachten, dass er sich gegenüber anderer Konstruktionsalgorithmen durch einfache Parallelisierung sowie der Möglichkeit der Aktualisierung großer Raumbereiche auszeichnet.
 

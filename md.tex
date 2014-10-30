@@ -27,7 +27,7 @@ Es gilt für jedes Teilchen:
 
 \todo{Globale Formulierung!}
 
-Zentral ist also das Kraftfeld $F(R)$, welches auf unterschiedliche Arten 
+Zentral ist also das Kraftfeld $F(R)$, welches auf unterschiedliche Arten
 
 \subsubsection{Kanonisches Ensemble (NVT)}
 
@@ -78,7 +78,7 @@ Dieses reguliert über Reskalierung des Simulationsraumes unter periodischen Ran
 Dadurch lassen sich periodische Strukturen wie Kristalle frei relaxieren, ohne ihnen eine feste Dichte aufzuzwingen.
 Andererseits lassen sich auch Systeme unter großen Drücken untersuchen.
 
-Die Methoden des Barostats gleichen dem des Thermostats, wobei hier nicht die einzelnen Atome, sondern deren relativer Abstand von einander durch Skalierung der Raumposition manipuliert wird.
+Die Methoden des Barostats gleichen dem des Thermostats, wobei hier nicht die einzelnen Atome, sondern deren relativer Abstand zu einander durch Skalierung der Hauptachsen manipuliert wird.
 Als Voreinstellung kommt üblicherweise wieder ein Nosé-Hoover-Barostat zum Einsatz, wobei aufgrund seiner Einfachheit auch Berendsen-Barostate genutzt werden.
 Der Druck wird dabei über die Virialgleichung \todo{für ideale Gase?} ermittelt:
 
@@ -216,7 +216,7 @@ Dafür ist vorher eine umfangreichere Parametrisierung notwendig, die an eine Vi
 
 \todo{Referenz}
 Reactive Force Fields (ReaxFF) wurden mit der Idee erdacht, bisher unmögliche Simulationen in Molekulardynamik mit größeren Systemen darstellen zu können.
-Dafür fließt eine Vielzahl an Einflüssen in die Potentialgestaltung ein, beispielsweise Van-der-Waals-Kräfte und elektrostatische Kräfte, allerdings ist der zentrale Gedanke die Modellierung von Über- und Unterkoordination eines Atomes in seiner Nachbarschaft unter Ladungsaustausch.
+Dafür fließt eine Vielzahl an Einflüssen in die Potentialparameter ein, beispielsweise Van-der-Waals-Kräfte und elektrostatische Kräfte, allerdings ist der zentrale Gedanke die Modellierung von Über- und Unterkoordination eines Atomes in seiner Nachbarschaft unter Ladungsaustausch.
 Somit lassen sich Bindungen während der Simulation dynamisch formen und lösen und dadurch ganze Reaktionen zwischen verschiedenen Molekülen simulieren.
 
 \begin{align}
@@ -293,16 +293,16 @@ Damit können grobe Defekte ausgeschlossen werden.
 
 \subsubsection{Dichte}
 
-Die Dichte lässt sich bei periodischen Strukturen nach über Volumen und 
+Die Dichte lässt sich bei periodischen Strukturen nach über Volumen und
 
 \subsubsection{Radiale Verteilungsfunktionen}
 
 \subsubsection{Oberfläche}
 
-Die Oberfläche einer Struktur gibt Hinweise auf angelagerte Molekülgruppen, Rauheit, Porösität und Bildung reinatomiger Cluster.
+Die Oberfläche einer Struktur gibt Hinweise auf angelagerte Moleküle, Rauheit, Porösität und Bildung von Cluster und Nanopartikeln.
 Bei großen, glatten Strukturen reicht oft ein Schnitt entlang einer Hauptachse, um Bulk und Oberfläche zu trennen.
 In den verbliebenen Fällen lässt sich zu diesem Zweck eine Alpha-Form per Delaunay-Triangulation bestimmen (Abschnitt \ref{datadelaunay}.
-Die eigentlichen Untersuchungen beschränken sich dann auf eine Zählung der Bindungen und Atomsorten, Radiale Verteilungsfunktionen, Oberflächenmessung oder Abweichungen der Schichtdicke vom Mittelwert.
+Die eigentlichen Untersuchungen beschränken sich dann auf eine Zählung der Bindungen und Atomsorten, Radiale Verteilungsfunktionen, Messungen der Oberfläche oder Abweichungen der Schichtdicke vom Mittelwert.
 
 \subsubsection{Reaktionen}
 

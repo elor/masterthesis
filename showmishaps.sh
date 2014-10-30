@@ -2,6 +2,12 @@
 #
 # shows all minor latex mishaps for all .tex files
 
+
+cuttooneline(){
+    [ -z "$COLUMNS" ] && local COLUMNS=80
+    sed -r 's/(^.{1,'$COLUMNS'}).*/\1/'    
+}
+
 listfiles(){
     find * -name '*.tex' -print0
 }
@@ -25,8 +31,7 @@ availablecitations(){
 unusedcitations(){
     local retval
     retval=$({ availablecitations; usedcitations|sed p; } | sort | uniq -u)
-    echo -ne "$retval"
-    [ -n "$retval" ]
+    [ -n "$retval" ] && echo -e "$retval"
 }
 
 updateallwords(){
@@ -34,10 +39,10 @@ updateallwords(){
 }
 
 knownwords(){
-    cat ~/usr/share/words/113_elements.txt
-    cat ~/usr/share/words/200000_de.txt
-    cat ~/usr/share/words/80000_de.txt
-    cat ~/usr/share/words/apostrophiert.txt
+    cat /home/e.lorenz/usr/share/words/113_elements.txt
+    cat /home/e.lorenz/usr/share/words/200000_de.txt
+    cat /home/e.lorenz/usr/share/words/80000_de.txt
+    cat /home/e.lorenz/usr/share/words/apostrophiert.txt
     cat spelling/abbreviations.txt
     cat spelling/anglicisms.txt
     cat spelling/chemicals.txt
@@ -55,45 +60,36 @@ unknownwords(){
 }
 
 listunknownwords(){
-#   updateallwords # taken care of by crontab
+    updateallwords # taken care of by crontab
     local unknown
     unknown=`unknownwords`
-    echo -ne "$unknown"
-    [ -n "$unknown" ]
+    [ -n "$unknown" ] && echo -e "$unknown"
+}
+
+listlonglines(){
+    local maxchars=$1
+    [ -z "$maxchars" ] && maxchars=300
+    lines=$(
+        listfiles|xargs -0n1 | while IFS= read file; do
+            sed -r 's/\{[^{}]+(\{[^{}]*\}[^{}]*)*\}//g' $file | sed 's/\$[^$]\+\$//' | awk '{if (length > '$maxchars') print length,"'$file':"NR":",$0}' | cuttooneline
+        done | sort -nr
+    )
+    [ -n "$lines" ] && echo -e "$lines"
 }
 
 #####################
 # begin actual work #
 #####################
 {
-
     findmatch='listfiles | xargs grep -n'
 
-    ####################
-    # trailing  spaces #
-    ####################
+    ##############
+    # list typos #
+    ##############
 
-    echo "<= trailing spaces =>"
+    echo "<= possible typos =>"
     echo
-    listfiles | xargs -0 grep -n '\s+$' || echo "ok"
-    echo
-
-    ######################
-    # dots within a line #
-    ######################
-
-    echo "<= dots within lines (multiple sentences) =>"
-    echo
-    listfiles | xargs -0 grep -Pn '^[^%&]*(?<!engl|Kap|S|Abb|Tab|Gl|Anh|Ref|Prof|vs|Dr|z\.B|et al|unters|ca|eam)\.(?!$|[0-9]|pdf|cpp|com|eam|\s*(\&|\\todo|%|\\\\|,|\})|Sc\.|B\.)' | grep -Pv '\\(If|State)|\\dcauthoremail|Stefan E\. Schulz' || echo "ok"
-    echo
-
-    ####################
-    # unused citations #
-    ####################
-
-    echo "<= unused citations =>"
-    echo
-    unusedcitations || echo "ok"
+    listunknownwords || echo "ok"
     echo
 
     ###########################################
@@ -105,6 +101,42 @@ listunknownwords(){
     listlogs | { xargs -0 grep -Pi 'multipl[ey]|undefined' || echo "ok"; } | sed -r -n "s/^[^\`]*\`([^']+)'.*$/\1/p"
     echo
 
+    ####################
+    # unused citations #
+    ####################
+
+    echo "<= unused citations =>"
+    echo
+    unusedcitations || echo "ok"
+    echo
+
+    ##############
+    # long lines #
+    ##############
+
+    echo "<= lines > 333 chars =>"
+    echo
+    listlonglines 333 || echo "ok"
+    echo
+
+    ####################
+    # trailing  spaces #
+    ####################
+
+    echo "<= trailing spaces =>"
+    echo
+    listfiles | xargs -0 grep -Pn '\s+$' || echo "ok"
+    echo
+
+    ######################
+    # dots within a line #
+    ######################
+
+    echo "<= dots within lines (multiple sentences) =>"
+    echo
+    { listfiles | xargs -0 grep -Pn '^[^%&]*(?<!engl|Kap|S|Abb|Tab|Gl|Anh|Ref|Prof|vs|Dr|z\.B|et al|unters|ca|eam)\.(?!$|[0-9]|pdf|cpp|com|eam|\s*(\&|\\todo|%|\\\\|,|\})|Sc\.|B\.)' | grep -Pv '\\(If|State)|\\dcauthoremail|Stefan E\. Schulz' || echo "ok"; } | cuttooneline
+    echo
+
     ###################################
     # search for asd and its variants #
     ###################################
@@ -112,15 +144,6 @@ listunknownwords(){
     echo "<= ASD occurences =>"
     echo
     listfiles | { xargs -0 grep -Pin 'asd|dsa' || echo "ok"; }
-    echo
-
-    ##############
-    # list typos #
-    ##############
-
-    echo "<= possible typos =>"
-    echo
-    listunknownwords || echo "ok"
     echo
 
     ##############

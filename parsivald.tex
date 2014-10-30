@@ -9,7 +9,7 @@ Parsivald entstand 2012 als namenloses Resultat meiner Bachelorarbeit\cite{loren
 Das Programm war beschränkt auf die atomistische Simulation von Metall\-oxid-ALD mittels MEAM-Potentialen.
 Hauptaufgabe von Parsivald ist es, Atomlagenabscheidungen auf großen Oberflächen per Kombination von KMC- und MD-Methoden mit atomistischer \todo{Genauigkeit}Präzision simulieren zu können.
 Abbildung \ref{fig:parsivald-stephierarchy} stellt die Funktionsweise des Parsivald-Modelles vor, die im Wesentlichen aus Vor- und Nachbereitung sowie einer Prozessschleife besteht.
-Innerhalb der Hauptschleife werden nacheinander in einem oder mehreren Prozessschritten mögliche Adsorptionen, Ligandenaustausch-Reaktionen oder Oberflächenrelaxationen mit KMC-Mechanismen ausgewählt, anschließend mittels Molekulardynamik lokal überprüft und die Ergebnisse schließlich in die globale Struktur zurückgeführt (Abbildung \ref{fig:parsivald-schema}).
+Innerhalb der Hauptschleife werden nacheinander in mehreren Prozessschritten mögliche Adsorptionen, Ligandenaustausch-Reaktionen oder Relaxationen mit KMC-Mechanismen ausgewählt, mittels Molekulardynamik lokal simuliert und die Ergebnisse schließlich in die globale Struktur zurückgeführt (Abbildung \ref{fig:parsivald-schema}).
 KMC-Ereignisse sind in diesem Modell auf eine dünne Oberflächenschicht begrenzt, wo sie jeweils innerhalb eines Kastens beschränker Größe, der MD-Box, wirken (Abbildung \ref{fig:parsivald-schema}).
 Das setzt zwar diffusionsarme Prozesse voraus, ermöglicht dafür jedoch die effiziente Beschreibung von Atomlagenabscheidungen mit vielen Millionen Atomen auf der Mikrometerskala.
 
@@ -107,10 +107,12 @@ Eine tatsächliche Anwendbarkeit beider Methoden muss für jeden Prozess einzeln
 \subsection{Erweiterung im Rahmen der Masterarbeit}
 
 \todo[inline]{das ist wohl zu viel}
-Seit Beginn dieser Arbeit wurde das Parsivald-Modell und seine Implementierung um PVD- und CVD-Modi (Abbildung \ref{fig:parsivald-modes}), ein allgemeines Konfigurationsformat\todo{Anhang?}, MD-Befehle mit Platzhaltern (MD-Masken), Unterstützung verschiedener atomistischer Dateiformate, Einbettung der LAMMPS-Umgebungs\-variablen zur Potentialsuche, globale und lokale Suchpfade für alle Eingabedateien, eventgebundene sterische Hinderung zum Zweck der CVD-Simu\-lation, einen internen und beliebig viele externe Workerpools, ein standardisiertes Buildsystem sowie eine Vielzahl externer \todo{ref oder Anhang}Werkzeuge zur Prozess-Vorbereitung und -Analyse erweitert.
+Seit Beginn dieser Arbeit wurde das Parsivald-Modell und seine Implementierung um PVD- und CVD-Modi (Abbildung \ref{fig:parsivald-modes}), eventgebundene sterische Hinderung zum Zweck der CVD-Simu\-lation, ein allgemeines Konfigurationsformat\todo{Anhang?} und MD-Befehle mit Platzhaltern (sogenannte MD-Masken) erweitert.
+Intern kam die Unterstützung verschiedener atomistischer Dateiformate, die Einbettung der LAMMPS-Umgebungs\-variablen zur Potentialsuche, globale und lokale Suchpfade für alle Eingabedateien und ein interner sowie beliebig viele externe Workerpools dazu.
+Ein standardisiertes Buildsystem sorgt für schnelle und sichere Kompilierung der Software, und eine Vielzahl externer \todo{ref oder Anhang}Werkzeuge zur Prozess-Vorbereitung und -Analyse, wie sie in \todo{Referenz auf das Kapitel, in dem die Methoden vorgestellt werden} vorgestellt werden, ermöglicht schnelle Zyklen der Parameteroptimierung und Auswertung.
 
 Diese Änderungen ermöglichen eine einfachere Vorbereitung, Simulation und Untersuchung verschiedener Prozesse und eine aussagekräftigere Analyse der Ergebnisse.
-Auch eine automatisierte \todo{es ist wirklich eine Erforschung gemeint, also eine Suche der Parameter, die Zielgrößen abbilden. Eine Untersuchung kann unabhängig von den Konfigurationsdateien anhand der Ausgaben geschehen}Erforschung der Prozessparameter wie Temperatur, Druck und Expositionszeit oder MD-spezifischer Parameter wie Thermostatdämpfung, Relaxationsdauer oder Länge des Zeitschrittes ist mittels des Konfigurationsmechanismus' denkbar.
+Auch eine automatisierte Optimierung der Prozessparameter wie Temperatur, Druck und Expositionszeit oder MD-spezifischer Parameter wie Thermostatdämpfung, Relaxationsdauer oder Länge des Zeitschrittes ist mittels des Konfigurationsmechanismus' denkbar.
 
 Zusätzlicher Aufwand musste beim Einkapseln der MD-Bibliothek LAMMPS betrieben werden (Abschnitt \ref{lammpssucks}).
 
@@ -154,14 +156,14 @@ Geschieht dies in einem MPI-Prozess, werden alle beteiligten Prozesse auf allen 
 Unerwartetes Übertreten von Systemgrenzen, hohen Teilchengeschwindigkeiten oder Ausnahmesituationen durch fehlgeformte Potentiale verursachen regelmäßig und unvorhergesehen \texttt{exit}-Calls und beenden ungeplant die gesamte Simulation.
 Eine mögliche Lösung wäre die Nutzung von Prozess-Forks, die vom eigentlichen MPI-Prozess überwacht werden, wie es in Workerpools der Fall ist.
 
-Darüber hinaus fallen einige Rechnungen unerwartet in eine nichtreproduzierbare Dauerschleife innerhalb der LAMMPS-Bibliothek, die sich aufgrund deren blockierender Architektur nicht ohne separaten Überwachungsprozess diagnostizieren oder beenden lässt.
+Darüber hinaus fallen einige Rechnungen unerwartet in eine nichtreproduzierbare Dauerschleife innerhalb der LAMMPS-Bibliothek, die sich aufgrund deren blockierender Architektur nicht ohne separaten Prozess diagnostizieren oder beenden lässt.
 Hier besteht die Lösung schlicht in einem hostseitigen Timeout der Verbindung zu jedem verbundenen Worker.
 Eine unbestimmte Zeit nach dem Verbindungsabbruch startet sich der Worker selbsttätig neu.
 Im Worst-Case-Szenario endet ein Großteil der Worker in Dauerschleifen, wodurch die Simulation signifikant ausgebremst wird, jedoch weiterhin stabil läuft.
 
 
 Als Lösung der vorgestellten Probleme wurde das in Parsivald vorhandene Host-Worker-System so umgestaltet, dass LAMMPS in gekapselten Prozessen lokal oder auf entfernten Knoten läuft, aber nur die Anfangsbedingungen und Ergebnisse kommuniziert.
-Worker werden in Pools organisiert, sind ansonsten aber unabhängig, was sich in der direkten Nutzung des Netzwerkstacks ohne Umweg über den Poolmanagement-Prozess zeigt.
+Worker werden in Pools organisiert, sind ansonsten aber unabhängig, was sich in der direkten Nutzung des Netzwerkstacks ohne Umweg über den Management-Prozess zeigt.
 Auf der einen Seite ist die Stabilität der Worker unabhängig von anderen Workern, andererseits bleiben die eigentlichen Fehlerursachen weiterhin verborgen.
 Stattdessen werden fehlgeschlagene MD-Simulationen erneut gestartet und bei wiederholtem Berechnungsfehler als fehlgeschlagen markiert und verworfen.
 

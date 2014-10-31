@@ -24,4 +24,8 @@ OH
 Trimethylaluminium
 Trimethylaluminum
 Polydimethylsiloxane
+LiAlO
+Silikate
+Siliziumdioxid
+si
 

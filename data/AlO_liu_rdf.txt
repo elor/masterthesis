@@ -1,0 +1,4 @@
+#filename  bondlength  coordination  coord.length  N-density
+AlAl.rdf   2.845000    5.979458      3.227000      0.045796
+OAl.rdf    1.875000    4.550775      2.783000      0.045799
+OO.rdf     2.565000    11.037445     3.359000      0.068696

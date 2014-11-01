@@ -35,10 +35,12 @@ k_BT
 k_d
 k_r
 kerning
+lCCCCCCC
 lCCCCCCCC
 listof
 m_i
 nk
+nocompatibility
 p_i
 pdf
 pdfTeX
@@ -63,4 +65,3 @@ twoside
 wu_cu
 x_i
 xy
-nocompatibility

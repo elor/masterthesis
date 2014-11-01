@@ -48,23 +48,36 @@ Die Ergebnisse dieser Betrachtungen wurden in Tabelle \ref{tab:siliconpreresults
     \label{tab:siliconpreresults}
 
     \oddrowcolors
-    \begin{tabularx}{\textwidth}{|lCCCCCCCC|}
+    \begin{tabularx}{\textwidth}{|lCCCCCCC|}
       \hline
-      \textbf{Bezeichnung}    & LMP    & c-\ce{Si} & c-\ce{SiO2} & a-\ce{Si} & \ce{SiH4} & \ce{+O2} & PVD\tnote{a} & CVD\tnote{b} \\
-      \hline                % & LAMMPS & c-Si      & c-SiO2      & a-Si      & Silane    & +O2      & PVD          & CVD          \\
-      Al\_AlO\_AlN            & \cmark & ~         & (\cmark)    &  \cmark   & \cmark    & ~        & \cmark       & \cmark?      \\
-      chenoweth               & ~      & ~         & ~           &  ~        & ~         & ~        & ~            & ~            \\
-      kulkarni                & \cmark & \cmark    & \cmark      &  \cmark   & \cmark    & (\cmark) & \cmark       & \cmark?      \\
-      lg                      & ~      & ~         & ~           &  ~        & ~         & ~        & ~            & ~            \\
-      liu\_ettringite         & \cmark & ~         & \cmark      &  \cmark   & ~         & ~        & \cmark       & \cmark?      \\
-      liu\_nitramines         & ~      & ~         & ~           &  ~        & ~         & ~        & ~            & ~            \\
-      narayanan               & \cmark & ~         & \cmark      &  \cmark   & ~         & ~        & \cmark       & \cmark?      \\
-      newsome                 & \cmark & ~         & (\cmark)    &  ~        & ~         & (\cmark) & \cmark       & \cmark?      \\
-      nielson                 & \cmark & \cmark    & \cmark      &  \cmark   & \cmark    & ~        & \cmark       & \cmark?      \\
-      zhang                   & \cmark & ~         & ~           &  ~        & \cmark    & \cmark   & ~            & ~            \\
+      \textbf{Bezeichnung}    & LMP    & c-\ce{Si} & c-\ce{SiO2} & a-\ce{Si} & \ce{SiH4} & \ce{+O2} & PVD\tnote{a} \\
+      \hline                % & LAMMPS & c-Si      & c-SiO2      & a-Si      & Silane    & +O2      & PVD          \\
+      Al\_AlO\_AlN            & \cmark & ~         & (\cmark)    &  \cmark   & \cmark    & ~        & \cmark       \\
+      chenoweth               & ~      & ~         & ~           &  ~        & ~         & ~        & ~            \\
+      kulkarni                & \cmark & \cmark    & \cmark      &  \cmark   & \cmark    & (\cmark) & \cmark       \\
+      lg                      & ~      & ~         & ~           &  ~        & ~         & ~        & ~            \\
+      liu\_ettringite         & \cmark & ~         & \cmark      &  \cmark   & ~         & ~        & \cmark       \\
+      liu\_nitramines         & ~      & ~         & ~           &  ~        & ~         & ~        & ~            \\
+      narayanan               & \cmark & ~         & \cmark      &  \cmark   & ~         & ~        & \cmark       \\
+      newsome                 & \cmark & ~         & (\cmark)    &  ~        & ~         & (\cmark) & \cmark       \\
+      nielson                 & \cmark & \cmark    & \cmark      &  \cmark   & \cmark    & ~        & \cmark       \\
+      zhang                   & \cmark & ~         & ~           &  ~        & \cmark    & \cmark   & ~            \\
       \hline
     \end{tabularx}
-    \todo[inline]{Gruende und Daten -> Anhang}
+    \todo[inline]{PVD Ergebnisse -> Anhang}
+
+ %% & CVD\tnote{b}
+ %% & CVD
+ %% & \cmark?
+ %% & ~
+ %% & \cmark?
+ %% & ~
+ %% & \cmark?
+ %% & ~
+ %% & \cmark?
+ %% & \cmark?
+ %% & \cmark?
+ %% & ~
 
     \begin{tablenotes}[para]
       \item[a] PVD: a-\ce{Si}-PVD mit Parsivald
@@ -110,8 +123,9 @@ Vor allem bei größeren Reaktionsräumen bilden sich Cluster aus Precursormolek
 \subsubsection{Abscheidungssimulationen (PVD, CVD)}
 
 Die Abscheidungssimulationen selbst verlaufen wie in Kapitel \ref{parsivald} vorgestellt und unterscheiden sich kaum von den Parsivald-Simulationen der vorherigen Abschnitte.
-Als Ausgang werden amorphe und deshalb rauhere Schichten erwartet, die kontinuierlich wachsen.
-Besondere Bedingungen gelten für CVD-Simulationen von \ce{SiO2}-Schichten, wie sie in Abschnitt \ref{silicacvd} eingehender behandelt werden.
+Als Ausgang werden amorphe und deshalb rauhere Schichten erwartet, die sowohl für \ce{Si}-PVD als auch \ce{SiO2}-CVD kontinuierlich wachsen, aber unterschiedlichen Bedingungen unterliegen.
+Während die Silizium-Atome des PVD-Prozesses wie für Sputter-Prozesse üblich zufällig auf der Oberfläche auftreffen, finden die Reaktionen des CVD-Prozesses nur in der Nähe von auf der Oberfläche befindlichen Liganden statt.
+Sauerstoff-Reaktionen werden also nur in der Nähe von Silan-Gruppen und Silan-Reaktionen nur in der Nähe von Hydroxyl-Gruppen oder Sauerstoffatomen generiert.
 
 \subsection{Silizium-PVD}
 
@@ -122,7 +136,7 @@ Typische Laufzeiten von mehreren Wochen wurden für vollständige ReaxFF-Abschei
 
 Als Substrat für die Parsivald-Simulationen wurden unrelaxierte Silizium-Monokristalle mit Oberflächen entlang der drei Kristallebenen (001), (011) und (111) präpariert und durch periodische Erweiterung auf \SI{106.416x103.68}{\angstrom} vergrößert.
 Sonstige Parameter umfassen eine Temperatur von \SI{1300}{\kelvin} (der Schmelzpunkt liegt bei \SI{1687}{\kelvin}), Relaxationszeiten von \SI{350}{\femto\second} und MD-Box-Größen von \SI{37x37}{\angstrom}.
-Die Auftreffenergie der Silizium-Atome liegt mit \SI{11.2}{\electronvolt} erneut vergleichsweise hoch, wird aber auch hier durch das Thermostat abgedämpft.
+Die Auftreffenergie der Silizium-Atome liegt mit \SI{11.2}{\electronvolt} erneut vergleichsweise hoch, wird aber auch hier durch das Thermostat verringert\todo{wie weit?}.
 Damit werden im Schnitt \num{1.68} parallele Ereignisse mit durchschnittlich \num{1510.65} Atomen und einer mittleren Laufzeit von \SI{60.71}{\second} berechnet.
 Die Laufzeit lässt sich beispielsweise über die Zeitschrittweite noch minimieren, zeigt allerdings den Unterschied in der Laufzeit bei der Nutzung von EAM- und ReaxFF-Potentialen, der einem Faktor von etwa \num{12} für vergleichbare Operationen entspricht.
 Die hohe Temperatur wurden gewählt, um Relaxationen zu beschleunigen, und übersteigen Temperaturen realer Abscheidungen.
@@ -152,8 +166,8 @@ Leider ermöglicht die begrenzte Laufzeit der Simulation ermöglicht keine Aussa
 \end{figure}
 
 Abbildung \ref{fig:siliconprofile} stellt die räumliche Verteilung der Unebenheiten dar, die sich lokal in Kratern und Poren von bis zu \SI{32}{\angstrom} Tiefe konzentrieren, aufgrund ihrer geringen Breite aber nur zu einer RMS-Rauheit von \SI{11.5}{\angstrom} führen.
-Breitere Eindellungen haben sich durch die geringe Größe des Simulationsraumes nicht entwickelt, jedoch wäre eine Untersuchung einer ca. \SI{500x500}{\angstrom} breiten Struktur in dieser Hinsicht interessant.
-Anhand des Profiles lässt sich auch erkennen, dass mitunter längere Relaxierungszeiten oder höhere Teilchenenergien notwendig wären, um Porenbildung weiter zu verringern und langreichweitigere Unebenheiten zu befördern, wie sie etwa bei der Bildung nanoskopischer Silizium-Partikel gebildet würden.
+Breitere Krater haben sich durch die geringe Größe des Simulationsraumes nicht entwickelt, jedoch wäre eine Untersuchung einer ca. \SI{500x500}{\angstrom} breiten Struktur auf deren Bildung interessant\todo{in den Ausblick packen?}.
+Anhand des Profiles lässt sich auch erkennen, dass mitunter längere Relaxationszeiten oder höhere Teilchenenergien notwendig wären, um Porenbildung weiter zu verringern und langreichweitigere Unebenheiten zu befördern, wie sie etwa bei der Bildung nanoskopischer Silizium-Partikel gebildet würden.
 
 Zum Vergleich beinhaltet Abbildung \ref{fig:siliconunderrelaxedprofile} das Oberflächenprofil einer unterrelaxierten Oberfläche, wie sie während der Anpassung der Parsivald-Parameter entstanden sind.
 Es zeigen sich stärkere Unterschiede und steilere Hänge, die sich aus der hohen Porösität des Materiales ergeben.
@@ -161,10 +175,10 @@ Somit ist zu erwarten, dass die Rauheit der Schicht mit stärkerer Relaxierung e
 
 \todo{Abschnitt viel weiter nach oben schieben}
 Zur Charakterisierung der Kristalleigenschaften der abgeschiedenen Schicht wurden ihre RDF-Funktionen berechnet, aus denen ersichtlich ist, dass bereits nach \SI{4}{\angstrom}, also kurz vor der zweiten Korrelationslänge bei \SI{4.4}{\angstrom}, keine langreichweitige Ordnung mehr vorhanden ist.
-Damit ist die Schicht amorph mit einer durchschnittlichen Koordinatinoszahl von \num{4}, woraus sich entnehmen lässt, \todo{wirklich?}dass die chemischen Bindungen
-Die engen Spitzen an den charakteristischen Abständen des reinen Silizium-Kristalles werden durch das Substrat erzeugt, dass bei \SI{100}{\angstrom} Schichthöhe immerhin noch \SI{20}{\percent} der Struktur ausmacht, jedoch durch anfängliche Relaxierungen zum Teil seine Kristalleigenschaften verloren hat.
+Damit ist die Schicht amorph mit einer durchschnittlichen Koordinationszahl von \num{4}, woraus sich entnehmen lässt, \todo{wirklich?}dass die chemischen Bindungen
+Die engen Spitzen an den charakteristischen Abständen des reinen Silizium-Kristalles werden durch das Substrat erzeugt, dass bei \SI{100}{\angstrom} Schichtdicke immerhin noch \SI{20}{\percent} der Struktur ausmacht, jedoch durch anfängliche Relaxierungen zum Teil seine Kristalleigenschaften verloren hat.
 
-Anders als bei Gold oder Kupfer, bei denen metallische Bindungen dominieren, oder etwa bei Salzen, die von ionischen Bindungen bestimmt werden, überwiegen in reinem Silizium \todo{wirklich?}kovalente Bindungen, so dass die mittleren Koordinationszahl von \num{3.99} anzeigt, dass alle 4 möglichen Bindungen der Siliziumatome tatsächlich ausgeprägt sind.
+Anders als bei Gold oder Kupfer, bei denen metallische Bindungen dominieren, überwiegen in reinem Silizium \todo{wirklich?}kovalente Bindungen, so dass die mittleren Koordinationszahl von \num{3.99} anzeigt, dass alle 4 möglichen Bindungen der Siliziumatome tatsächlich ausgeprägt sind.
 Somit zeigt sich die ReaxFF-Formulierung erfolgreich in der Darstellung der chemischen Eigenschaften von Silizium.
 
 \begin{figure}[H]
@@ -193,7 +207,7 @@ Somit zeigt sich die ReaxFF-Formulierung erfolgreich in der Darstellung der chem
   \end{subfigure}
   \caption[Oberflächenprofil einer unterrelaxierten Siliziumschicht]{
     Oberflächenprofil einer unterrelaxierten Silizium-Schicht:
-    Es bildet sich ein poröses Material mit Porentiefen oberhalb von \SI{6}{\nano\meter}, die linear mit der Schichthöhe wachsen
+    Es bildet sich ein poröses Material mit Porentiefen oberhalb von \SI{6}{\nano\meter}, die linear mit der Schichtdicke wachsen
   }
   \label{fig:siliconunderrelaxedprofile}
 \end{figure}

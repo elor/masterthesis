@@ -1,47 +1,53 @@
 \section{Gasphasenabscheidungen}
+\label{depositions}
 
-Gasphasenabscheidungen sind eine Klasse von Verfahren, bei denen dünne Schichten durch physikalische oder chemische Prozesse aus der Gasphase auf eine Oberfläche aufgetragen werden.
-Sie teilen sich in \textbf{Physikalische Gasphasenabscheidung} (PVD, Physical Vapor Deposition), \textbf{Chemische Gasphasenabscheidung} (CVD, Chemical Vapor Deposition) und \textbf{Atomlagenabscheidung} (ALD, Atomic Layer Deposition) auf, die im folgenden betrachtet werden.
+Gasphasenabscheidungen sind ein Herstellungsverfahren für dünne Schichten, bei denen durch physikalische oder chemische Prozesse aus einer Gasphase eine dünne Schicht auf einer Oberfläche aufgewachsen wird.
+Ihre drei Arten werden gemäß ihrer Funktionsweise als \textbf{Physikalische Gasphasenabscheidung} (PVD, Physical Vapor Deposition), \textbf{Chemische Gasphasenabscheidung} (CVD, Chemical Vapor Deposition) und \textbf{Atomlagenabscheidung} (ALD, Atomic Layer Deposition) bezeichnet, die im folgenden vorgestellt werden.
 
-Ihnen ist allgemein, dass einzelne Atome oder Moleküle auf der Oberfläche aufkommen, dort physikalisch oder chemisch adsorbiert werden und eventuelle Nebenprodukte aus dem Reaktor gespült werden, wodurch mit vorhersehbarer Rate eine dünne Schicht des Zielmateriales aufwächst.
-Tabellen \ref{tab:deposition-comparison} und \ref{tab:deposition-materials} stellen jeweils Charakteristiken und mögliche Materialien für die drei Prozesse dar.
+Ihnen ist allgemein, dass einzelne Atome oder Moleküle aus der Gasphase auf der Oberfläche auftreffen, dort physikalisch oder chemisch adsorbiert werden und so mit vorhersehbarer Rate eine dünne Schicht eines gewünschten Materiales bilden.
+Dennoch hat jeder Prozess seine eigenen Eigenschaften, die es ihm ermöglichen, verschiedene Materialarten mit unterschiedlicher Genauigkeit aufzuwachsen.
+Tabellen \ref{tab:deposition-comparison} und \ref{tab:deposition-materials} sollen einen kurzen Überblick darüber verschaffen, bevor die Prozesse im einzelnen vorgestellt werden.
+Alle Prozesse finden in speziellen Abscheidungskammern oder Reaktoren statt, über die Abbildung \ref{fig:reactors} einen kurzen Überblick geben soll.
 
 \begin{figure}
   \captionsetup[subfigure]{format=plain}
-  \parbox[c]{.3\linewidth}{
+  \def\chamberwidth{0.3\textwidth}
+  \def\subcaptionwidth{0.65\textwidth}
+
+  \parbox[c]{\chamberwidth}{
     \includegraphics[width=\linewidth]{reactors-a}
   }\hfill
-  \parbox[c]{.65\textwidth}{
+  \parbox[c]{\subcaptionwidth}{
     \subcaption{Sputter-Kammer (PVD):
       Ein Elektronenstrahl (links) schlägt Atome aus dem Target (oben), die sich auf dem Substrat (unten) als dünne Schicht absetzen
     }
-    \label{fig:datastructures-a}
+    \label{fig:depochamber-a}
   }
 
   \vspace{1em}
 
-  \parbox[c]{.3\linewidth}{
+  \parbox[c]{\chamberwidth}{
     \includegraphics[width=\linewidth]{reactors-b}
   }\hfill
-  \parbox[c]{.65\textwidth}{
+  \parbox[c]{\subcaptionwidth}{
     \subcaption{Injektions-Kammer (CVD, ALD):
       Precursorgase strömen von oben über das Substrat, wo sie durch chemische Reaktionen dünne Schichten bilden.
       Nebenprodukte der Oberflächenreaktionen werden nach unten aus dem Reaktor gespült
     }
-    \label{fig:datastructures-b}
+    \label{fig:depochamber-b}
   }
 
   \vspace{1em}
 
-  \parbox[c]{.3\linewidth}{
+  \parbox[c]{\chamberwidth}{
     \includegraphics[width=\linewidth]{reactors-c}
   }\hfill
-  \parbox[c]{.65\textwidth}{
+  \parbox[c]{\subcaptionwidth}{
     \subcaption{Batch-Reaktor (CVD, ALD):
       Gase strömen zwischen Stapeln von Substraten, auf deren Oberfläche durch chemische Reaktionen dünne Schichten abgeschieden werden.
       Nebenprodukte werden mit dem Gasstrom aus dem Reaktor gespült
     }
-    \label{fig:datastructures-c}
+    \label{fig:depochamber-c}
   }
 
   \caption[Abscheidungskammern und -reaktoren]{Abscheidungskammern und -reaktoren}
@@ -49,31 +55,31 @@ Tabellen \ref{tab:deposition-comparison} und \ref{tab:deposition-materials} stel
 \end{figure}
 
 \begin{table}
-  \centering
-  \begin{tabularx}{\textwidth}{|X|ccc|}
-    \hline
-    Prozesscharakteristiken & \textbf{PVD} & \textbf{CVD} & \textbf{ALD} \\
-    \hline
-    reaktiv &  & \cmark & \cmark \\
-    kontinuierlich & \cmark & \cmark & zyklisch \\
-    Gas-Edukte & Atome, Moleküle & Precursor-Moleküle & Precursor-Moleküle \\
-    \# Edukte & 1 & 1+ & 2+ \\
-    Nebenprodukte & & \cmark & \cmark \\
-    Wachstumsrate & $\sim t$ & $\sim t$ & $\sim n_\text{cyc.}$ \\
-    \hline
-  \end{tabularx}
+  \oddrowcolors
   \caption[Prozesscharakteristiken der Abscheidungsarten]{Vergleich der Abscheidungsarten}
   \label{tab:deposition-comparison}
+  \begin{tabularx}{\textwidth}{|Xccc|}
+    \hline
+    \textbf{Eigenschaften} & \textbf{PVD}    & \textbf{CVD}       & \textbf{ALD}         \\
+    \hline
+    reaktiv                &                 & \cmark             & \cmark               \\
+    kontinuierlich         & \cmark          & \cmark             & zyklisch             \\
+    Gas-Edukte             & Atome, Moleküle & Precursor-Moleküle & Precursor-Moleküle   \\
+    \# Edukte              & 1               & 1+                 & 2+                   \\
+    Nebenprodukte          &                 & \cmark             & \cmark               \\
+    Wachstumsrate          & $\sim t$        & $\sim t$           & $\sim n_\text{cyc.}$ \\
+    \hline
+  \end{tabularx}
 \end{table}
 
 \begin{table}
   \centering
   \begin{tabularx}{\textwidth}{XXXXXXXXX}
-    & \angled{Metalle} & \angled{Legierungen} & \angled{Metalloxide} & \angled{Nitride} & \angled{Chloride} & \angled{Silizium}  & \angled{Siliziumoxid} & \angled{Diamant} \\
+    ~            & \angled{Metalle} & \angled{Legierungen} & \angled{Metalloxide} & \angled{Nitride} & \angled{Chloride} & \angled{Silizium} & \angled{Siliziumoxid} & \angled{Diamant} \\
     \hline
-    \textbf{PVD} &\cmark&\cmark&&&&\cmark&&?\\
-    \textbf{CVD} &\cmark&?&\cmark&\cmark&\cmark&\cmark&?&?\\
-    \textbf{ALD} &\cmark&?&\cmark&\cmark&\cmark&\cmark&\cmark&\cmark\\
+    \textbf{PVD} & \cmark           & \cmark               & ~                    & ~                & ~                 & \cmark            & ~                     & ?                \\
+    \textbf{CVD} & \cmark           & ?                    & \cmark               & \cmark           & \cmark            & \cmark            & \cmark                & ?                \\
+    \textbf{ALD} & \cmark           & ?                    & \cmark               & \cmark           & \cmark            & \cmark            & \cmark                & \cmark           \\
   \end{tabularx}
   \caption[Mögliche Produkte der Abscheidungsarten]{Mögliche Produkte der Abscheidungsarten.
     Weitergehende Informationen finden sich in der Literatur für PVD\todo[inline]{cite}, CVD\todo[inline]{cite} und ALD\cite{puurunen_surface_2005}.
@@ -84,23 +90,26 @@ Tabellen \ref{tab:deposition-comparison} und \ref{tab:deposition-materials} stel
 
 \subsection{Physikalische Gasphasenabscheidung}
 
-PVD ist kontinuierlich und nicht reaktiv, arbeitet also mit Atomen oder Molekülen, die physikalisch auf der Oberfläche adsorbieren.
-Beispielsweise werden beim Sputtering durch energiereiche Partikel (Argon-Plasma) einzelne Atome aus dem sogenannten Target geschlagen, die dann auf dem Substrat eine homogene, dünne Schicht bilden.
-Durch die Nutzung mehrerer Targets (Co\-sputtering) oder mehrerer Atomsorten in einem Target lassen sich auch Legierungen und andere gemischte Materialien wie zum Beispiel mehrlagige Schichten abscheiden.
-\todo{Referenzen für alles}
+Physikalische Gasphasenabscheidungen (PVD) sind eine grundlegenden Abscheidungsart, die nichtreaktiv mit einzelnen Atomen funktioniert.
+Zu ihnen zählt beispielsweise Sputtering, bei dem aus einem Block des gewünschten Materiales (Target) per \todo{wirklich Elektronen?}Elektronen- oder Ionenstrahl kontinuierlich Atome herausgeschlagen werden, die sich dann auf dem Substrat absetzen und dort zu einer dünnen Schicht verbinden.
+Anhand der Energien der herausschlagenden Partikel und deren \todo{Größe des?}Teilchenstrom lässt sich dabei die Wachstumsrate und Qualität des abgeschiedenen Dünnfilmes beeinflussen.
+Durch den statistischen Charakter der Abscheidungsorte resultiert Sputtering in Abhängigkeit des abgeschiedenen Materiales und der Umgebungsbedingungen meist in glatten Filmen\cite{svorcik_annealing_2011}, bei denen prozessbedingt keine Kontrolle der Schichtdicke im Sub-Nanometer-Bereich möglich ist.
+Gemischte Systeme wie Legierungen und mehrlagige Schichten werden durch Nutzung mehrerer Targets ermöglicht\cite{cammarata_nanoindentation_1990}.
 
 \subsection{Chemische Gasphasenabscheidung}
 
-CVD wächst durch chemische Adsorption eines oder mehrerer Precursor-Moleküles eine dünne Schicht auf dem Substrat auf.
-Dazu werden die Precursorgase zeitgleich in den Reaktor geleitet, wo sie über die Substratoberfläche strömen und Reaktionen ermöglichen.
-Die dabei entstehenden Nebenprodukte werden mit dem Gasstrom aus dem Reaktor geführt, um die aufwachsende Schicht nicht zu verunreinigen.
-\todo{zu abrupter Übergang}
+Während einer Chemischen Gasphasenabscheidung (CVD) adsorbieren sogenannte Precursormoleküle physikalisch auf dem Substrat und reagieren im Anschluss mit an der Oberfläche befindlichen Atomen.
+Dabei werden entweder Teile des Precursors auf der Oberfläche hinterlassen oder von vorherigen Reaktionen verbliebene Precursorliganden von der Oberfläche entfernt, wodurch bei entsprechender Prozessgestaltung gewünschte Stöchiometrien und Bindungen bevorzugt gebildet werden.
+Abbildung \ref{fig:ald-schema} stellt diese Vorgehensweise für ALD-Prozesse dar, die eine Spezialisierung von CVD-Prozessen sind und im nächsten Abschnitt vorgestellt werden.
+Da es sich um einen kontinuierlichen Prozess handelt, befinden sich meist zwei Precursorgase gleichzeitig im Reaktor, wo sie idealerweise erst auf der Oberfläche miteinander reagieren, da Reaktionen zwischen ihnen in der Gasphase neben einem erhöhtem Gasverbrauch zu Verunreinigungen und Unebenheiten führen können.
 
-Passende Precursor-Kombinationen zu finden, gestaltet sich oft schwierig, da sie idealerweise erst auf der Oberfläche und nicht in der Gasphase reagieren und dabei inerte Nebenprodukte erzeugen sollen.
-Weitere Kriterien wie Prozesstemperaturen, Energiebarrieren und komplizierte Reaktionspfade erschweren die Suche zusätzlich.
-Im Gegensatz zu PVD kann CVD dafür auf allen Substraten, über deren Oberfläche ein kontinuierlicher Gasfluss möglich ist, eine dünne Schicht abscheiden.
-Dies beinhaltet Stufen, Rillen und anderweitig strukturierte Substrate ebenso wie Poren durch das Substrat.
+Für erfolgreiche Abscheidungsprozesse ist es wichtig, neben passenden Umgebungsbedingungen auch Precursormoleküle zu wählen, die einerseits eine hohe Qualität des Filmes gewährleisten, andererseits kompakt genug sind, um hohe Wachstumsraten zu ermöglichen.
+Zudem sollten die gasförmigen Nebenprodukte inert sein, um nicht mit der Oberfläche oder der Reaktorwand zu reagieren, während sie mit dem kontinuierlichen Gasfluss aus dem Reaktor gespült werden.
+Auch eine physikalische Adsorption der Nebenprodukte auf der Oberfläche kann den Dünnfilm verunreinigen.
+Dabei sind stets die Prozesstemperaturen, -drücke, Reaktionsbarrieren und die Stabilität aller involvierten Moleküle zu betrachten, wodurch Chemische Gasphasenabscheidungen oft monatelanger Arbeit justiert werden müssen.
+Wie bei PVD lässt sich die Schichtdicke auf mehrere Nanometer genau kontrollieren, was hinsichtlich einer gegenüber ALD vergleichsweise hohen \todo{ref}Wachstumsrate für viele Anwendungen ausreichend ist.
 
+\todo[inline]{Beispiel Precursor-Moleküle}
 \missingfigure{Beispiel Precursor-Moleküle}
 
 \subsection{Atomlagenabscheidung}
@@ -113,17 +122,17 @@ Dies beinhaltet Stufen, Rillen und anderweitig strukturierte Substrate ebenso wi
   \label{fig:ald-schema}
 \end{figure}
 
-Als Variation von CVD entstand ALD \todo{Referenz} mit dem Ziel, dünne Schichten kontrolliert in einzelnen Atomlagen abzuscheiden.
-Dazu werden zwei Precursorgase in wechselweisen Schritten in den Reaktor geleitet, zwischen denen Spülschritte mit inertem Gas verbleibende Moleküle und Nebenprodukte aus dem Reaktor spülen (Abbildung \ref{fig:ald-schema}).
-So werden einerseits Gasphasenreaktionen vermieden, andererseits sorgt die Sättigung \todo{Grafik zur Sättigung} der Oberfläche mit Precursorliganden in jedem Precursorschritt für zyklen-begrenztes Schichtwachstum.
-Anders als der Name vermuten lässt, werden aber normalerweise keine kompletten Monolagen in einem Zyklus aufgebracht.
-Üblicherweise erreichen ALD-Prozesse bis zu 35\% \todo{referenz} einer Monolage, bedingt durch sterische Hinderung (Abbildung \ref{fig:steric}).
-Die Wachstumsrate wird somit von dem Growth-per-Cycle-Wert (GPC) abgelöst, der angibt, wie stark eine Schicht im Schnitt pro Zyklus wächst.
+Als Variation einer Chemischen Gasphasenabscheidung entstanden Atomlagenabscheidungen (ALD) mit dem Ziel\todo{Referenz}, konforme dünne Schichten kontrolliert in einzelnen Atomlagen mit Sub-Nanometer-Genauigkeit der Schichtdicke aufwachsen zu lassen.
+Dazu werden zwei Precursorgase wechselweise in separaten Schritten (Halbzyklen) in den Reaktor geleitet, wo sie wie bei CVD-Prozessen mit der Oberfläche reagieren und so langsam eine Schicht aufwachsen (Abbildung \ref{fig:ald-schema}).
+Zwischen den Precursorschritten entfernen Spülschritte mit inertem Gas verbleibende Precursormoleküle und Nebenprodukte aus dem Reaktor und verhindern so gleichzeitige Reaktionen beider Precursorgase.
+So werden einerseits Gasphasenreaktionen vermieden, andererseits limitiert die Sättigung der Oberfläche mit Precursorliganden in jedem Precursorschritt die Zunahme der Dicke pro Zyklus.
+Die Wachstumsrate aus den kontinuierlichen Prozessen wird somit von dem Growth-per-Cycle-Wert (GPC) abgelöst, der angibt, wie viel eine Schicht im Schnitt pro Zyklus wächst.
+Über die Zahl der Zyklen lässt sich somit die Dicke der gewachsenen Schicht genauer als mit kontinuierlichen Abscheidungen steuern, was sich aber in langsameren Abscheidungsprozessen äußert.
 
-Große Gruppen von Precursorliganden verhindern durch sterische Hinderung einen hohen GPC-Wert, weshalb kompakte Precursor bevorzugt untersucht werden. \todo{Referenz?}
+Anders als der Name des Prozesses vermuten lässt, werden aufgrund sterischer Hinderung (Abbildung \ref{fig:sterichindrance}) der Precursorliganden keine kompletten Atomlagen in jedem Zyklus aufgebracht.
+Üblicherweise erreichen ALD-Prozesse maximal zu \todo{referenz}\SI{35}{\percent} einer Monolage, doch sorgen die teils recht großen Precursormoleküle mit größerem Radius der sterischen Hinderung für geringere GPC-Werte.
 Die Suche nach möglichen Precursorpaaren und Prozessparametern unterliegt ansonsten gleichen Anforderungen wie bei CVD.
-
-Eine ausführlichere Übersicht zu Atomlagenabscheidung und mögliche Precursorpaare findet sich in Referenz \cite{puurunen_surface_2005}.
+Eine ausführlichere Übersicht zu Atomlagenabscheidungen und zu möglichen Precursorpaaren für verschiedene Materialien findet sich in Referenz \cite{puurunen_surface_2005}.
 
 \begin{figure}
   \centering
@@ -132,33 +141,32 @@ Eine ausführlichere Übersicht zu Atomlagenabscheidung und mögliche Precursorp
     Angelagerte Precursor-Liganden verhindern Reaktionen auf benachbarten Gitterpunkten.
     Überlagerungsfreie Positionen in größerem Abstand akzeptieren weiterhin Precursor-Reaktionen.
   }
-  \label{fig:steric}
+  \label{fig:sterichindrance}
 \end{figure}
 
 \subsection{Simulation von Gasphasenabscheidungen}
 
 \begin{table}
-  \centering
-  \begin{tabularx}{\textwidth}{XXXX}
-    \hline
-    Methode & Anwendungsfeld & Größenordnung & Grundlagen \\
-    \hline
-    Finite Elemente Methode (FEM) & Gasfluss und Verbrauch in Reaktoren & makroskopisch & Navier-Stokes-Gl., Reaktionskinetik \\
-    Kinetic Monte Carlo (KMC) & Wachstums\-simulationen & mikroskopisch & Reaktionsraten, Gitternäherungen \\
-    Molekular\-dynamik (MD) & Material\-unter\-suchungen & < 1.000.000 Atome & klassische Interaktionspotentiale \\
-    Dichte\-funktional\-theorie (DFT) & Reaktionspfade & < 1.000 Atome & Elektronendichten \\
-    \hline
-  \end{tabularx}
-  \caption[Ausgewählte Methoden zur Simulation von Gasphasenabscheidungen]{Ausgewählte Methoden zur Simulation von Gasphasenabscheidungen}
+  \oddrowcolors
+  \caption[Überblick über Methoden zur Simulation von Gasphasenabscheidungen]{Überblick über Methoden zur Simulation von Gasphasenabscheidungen}
   \label{tab:deposition-simulations}
   \todo[inline]{Referenzen!}
+  \begin{tabularx}{\textwidth}{|XXlX|}
+    \hline
+    Methode                           & Anwendungsfeld                       & Größenordnung     & Grundlagen                          \\
+    \hline
+    Finite Elemente Methode (FEM)     & Gasfluss und -verbrauch in Reaktoren & makroskopisch     & Navier-Stokes-Gl., Reaktionskinetik \\
+    Kinetic Monte Carlo (KMC)         & Wachstums\-simulationen              & mikroskopisch     & Reaktionsraten, Gitternäherungen    \\
+    Molekular\-dynamik (MD)           & Material\-unter\-suchungen           & < 1.000.000 Atome & klassische Interaktionspotentiale   \\
+    Dichte\-funktional\-theorie (DFT) & Reaktionspfade                       & < 1.000 Atome     & Elektronendichten                   \\
+    \hline
+  \end{tabularx}
 \end{table}
 
-Tabelle \ref{tab:deposition-simulations} stellt ausgewählte Simulationsmethoden für Gasphasenabscheidungen vor, die in der Praxis Anwendung finden.
-Besonders auf atomarer Ebene sind viele Prozesse nicht vollends verstanden.
-So ist der genaue Reaktionspfad für Precursorpaare oft nicht bekannt, obwohl sie seit Jahrzehnten erfolgreich eingesetzt werden.
-Durch Simulationen will man diese Prozesse verstehen helfen und somit genauere Kontrolle über die abgeschiedenen Schichten erlangen.
+\todo[inline]{fig:methodscales}
+\missingfigure{fig:methodscales}
 
-Dichtefunktionaltheorie und Molekulardynamik stechen hier aufgrund ihrer atomaren Arbeitsweise besonders hervor.
-DFT-Untersuchungen beschränken sich hier auf die Reaktionspfade von Molekülen, wo hingegen Molekulardynamik das fertige Material zu simulieren versucht.
-In den letzten Jahren sind hingegen auch reaktive Formulierungen für Molekulardynamik aufgekommen\todo{Referenz}, die einen zentralen Bestandteil dieser Arbeit bilden.
+Für die Simulation von Gasphasenabscheidungen stehen verschiedene numerische Methoden zur Verfügung, die die Darstellung unterschiedlicher Zeit- und Größenordnungen ermöglichen (Tabelle \ref{tab:deposition-simulations})\todo{fig:methodscales}.
+Jede dieser Methoden basiert auf anderen Annahmen und Formulierungen, so dass sich ihre Anwendungsgebiete zwar nur marginal überschneiden, aber der Transfer von Ergebnissen zwischen den Methoden zu präziseren Vorhersagen führen kann.
+So können FEM-Reaktorsimulationen den Gasverbrauch an charakteristischen Punkten der Oberfläche durch KMC-Simulationen ermitteln, welche wiederum auf DFT-Daten für Reaktionsraten und -energien zurück greift.
+Bisherige Simulationen verzichten meist auf ein strukturelle Betrachtungen der abgeschiedenen Schicht, wie sie etwa mit molekulardynamischen Rechnungen möglich werden, obwohl sie besonders in der Nanoelektronik von Interesse werden.

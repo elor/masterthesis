@@ -12,11 +12,12 @@ Function
 Gl
 LaTeX
 N_r
-Nk_BT
 PV
 Symbolverzeichnis
 Tabellenverzeichnis
+X_i
 X_t
+a_i
 appendixprefix
 automark
 centering
@@ -31,7 +32,7 @@ headsepline
 hyperref
 i,k
 img
-k_BT
+k_B
 k_d
 k_r
 kerning
@@ -53,6 +54,8 @@ pdfsubject
 pdftitle
 r_c
 r_d
+r_i
+r_ij
 r_s
 s_i
 singlelinecheck
@@ -62,6 +65,7 @@ thumbpdf
 totoc
 true,nocompatibility
 twoside
+v_i
 wu_cu
 x_i
 xy

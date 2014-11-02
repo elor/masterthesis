@@ -36,15 +36,15 @@ Die Parametrisierung repräsentiert somit das Zielsystem.
 
 Neben strukturellen Eigenschaften bilden EAM-Potentiale auch einige thermodynamische Eigenschaften von Metallen ab.
 Für deren Untersuchung wurde die Massendichte in Abhängigkeit der Temperatur für die Teststruktur aufgenommen, die langsam auf \SI{2000}{\kelvin}, also weit über den Schmelzpunkt von \SI{1337}{\kelvin}, aufgeheizt wurde.
-Die Ergebnisse (Abbildung \ref{fig:goldthermo}) zeigen gute Übereinstimmung mit experimentellen Daten, wofür Relaxationszeiten $t_\text{relax}$ oberhalb von \SI{20}{\pico\second} und Thermostat-Dämpfungsparameter $D_T$ \SI{\approx0.02}{\femto\second} als notwendig ermittelt wurden.
-Bei geringeren $t_\text{relax}$ oder $D_T$ relaxiert das System innerhalb eines Temperaturschrittes nicht vollständig, wodurch der Schmelzpunkt überschätzt wird, wie in Abbildung \ref{fig:goldthermo-b} zu sehen ist.
+Die Ergebnisse (Abbildung \ref{fig:goldthermo}) zeigen gute Übereinstimmung mit experimentellen Daten, wofür Relaxationszeiten $t_\text{relax}$ oberhalb von \SI{20}{\pico\second} und Thermostat-Dämpfungsparameter $\tau$ \SI{\approx0.02}{\femto\second} als notwendig ermittelt wurden.
+Bei geringeren $t_\text{relax}$ oder $\tau$ relaxiert das System innerhalb eines Temperaturschrittes nicht vollständig, wodurch der Schmelzpunkt überschätzt wird, wie in Abbildung \ref{fig:goldthermo-b} zu sehen ist.
 
 \begin{figure}
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{7cm}
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{gold_bestthermo}
-    \subcaption{Temperaturverlauf bei $ t_\text{relax}=\SI{50}{\pico\second}$ und $D_T=\SI{0.02}{\femto\second}$}
+    \subcaption{Temperaturverlauf bei $ t_\text{relax}=\SI{50}{\pico\second}$ und $\tau=\SI{0.02}{\femto\second}$}
     \label{fig:goldthermo-a}
   \end{subfigure}
   \hfill
@@ -152,7 +152,6 @@ Bei Abscheidungen auf Substrate hoher Neigungswinkel (>\SI{60}{\degree}) bilden 
 Durch Bildung von Überhängen an den Stufen werden die Poren zu Hohlräumen abgeschlossen, die nicht durch Relaxierung geschlossen werden.
 Dies zeigt sich auch in den Oberflächenrauheiten der untersuchten Strukturen (Abbildung \ref{fig:goldroughness}).
 
-\clearpage
 \subsection{Vergleich mit gesputterten Schichten}
 
 AFM-Untersuchungen gesputterter Goldschichten zeigen polykristallines Wachstum mit Rauheiten im Bereich von \SI{1.1}{\nano\meter} (etwa drei fcc-Kristallschichten)\cite{svorcik_annealing_2011}.

@@ -1,0 +1,47 @@
+\section{Methoden zur Nutzung und Auswertung von MD-Simulationen}
+
+\todo{gibt's den Titel auch in schön?}
+
+\todo[inline]{zu trocken}
+In diesem Abschnitt soll ein kurzer Überblick über die Vorgehensweise bei der Präparation und Auswertung von MD-Simulationen gegeben werden, um Verständnis für die in den nachfolgenden Kapiteln genutzten Begriffe zu schaffen.
+
+\subsection{Relaxierungen}
+
+Ausgehend von einer präparierten Struktur wird das System auf die Relaxationstemperatur erwärmt, dort im kanonischen Ensemble für die Relaxationsdauer simuliert und bei Bedarf wieder auf eine Zieltemperatur abgekühlt.
+Erwärmung und Abkühlung sind zwar optional, allerdings bei einigen Strukturen zur Reduktion numerischer Fehler notwendig, wie etwa zur Wahrung der Anschlussbedingungen der MD-Simulationen innerhalb von Parsivald.
+
+\subsection{Strukturelle Analyse}
+
+Zur Auswertung einer Struktur bietet sich zuerst eine visuelle Beurteilung an, die mit entsprechenden Programmen vorgenommen werden kann.
+Im Anschluss können die Dichte, Radiale Verteilungsfunktion, Bindungslänge und Koordinationszahl bestimmt werden, um die Struktur weiter zu charakterisieren und Aussagen über Kristallbildung treffen zu können.
+\todo{Beispiel?}Bei Kristallen kann eine Alpha-Form mit einem $\alpha$-Wert knapp oberhalb der Bindungslänge genutzt werden, um Fehlstellen im Gitter oder Gitterversetzungen zu identifizieren.
+
+\subsection{Bestimmung der Dichte und Temperatur}
+
+Zur Bestimmung der Dichte stehen verschiedene Möglichkeiten zur Verfügung, die letzendlich alle auf Zählung der Atome innerhalb eines begrenzten Volumens zurückgeführt werden können.
+Da sie im großkanonischen Ensemble durch die Reskalierung der Raumachsen fluktuiert, muss sie zeitlich über einen größeren Zeitraum als die Dämpfungskonstante $\tau_p$ gemittelt werden, da sie sonst nicht über die gesamte Periode der Fluktuation betrachtet wird.
+
+Ebenso muss zur Bestimmung der Temperatur auf das Konvergenzverhalten des Thermostates geachtet werden.
+Die Temperatur wird aus dem Mittelwert der kinetischen Energie aller Teilchen bestimmt, welche jedoch schwanken kann, weshalb wiederum die Bildung eines Zeitmittelwertes notwendig wird.
+
+\subsection{Radiale Verteilungsfunktionen, Bindungslänge und Koordinationszahl}
+
+Die Radiale Verteilungsfunktion (RDF) ergibt sich als Histogramm der Zahl der Atome in Abhängigkeit des radialen Abstandes voneinander, gewichtet über die Volumen der Bins, welche durch die radiale Beschreibung die Form von Kugelschalen annehmen.
+Ihr erstes Maximum bildet die Bindungslänge, während das Integral bis zur Koordinationslänge (erstes Minimum nach der Bindungslänge) die erste Koordinationszahl ergibt.
+An der RDF-Darstellung lässt sich außerdem die Reichweite der Ordnung erkennen:
+Sobald die Funktion gegen den konstanten Wert von 1 konvergiert, ist keine langreichweitige Ordnung mehr vorhanden.
+Radiale Verteilungen von perfekten Kristallen bestehen hingegen aus Spitzen, zwischen denen Nullwerte liegen, da sie in absoluter Ordnung zu einander sind.
+\todo[inline]{Beispiel?}
+
+\subsection{Schichtdicke und Oberflächenbeschaffenheit}
+
+Zur Bestimmung der Schichtdicke, Oberflächenrauheit oder Porösität muss zuerst die Oberfläche einer Schicht aus der Alpha-Form mittels Delaunay-Triangulation in Form einer Punktwolke bestimmen (Abschnitt \ref{datadelaunay}).
+Im Anschluss lässt sich aus der entstandenen Punktwolke der tiefste und höchste Punkt der Oberfläche sowie die Spannweite bestimmen, und durch Bildung des Mittelwertes die mittlere Schichtdicke ermitteln.
+Durch Zählung der Elemente in der Punktwolke lässt sich zudem die Bedeckung der Oberfläche mit chemischen Gruppen bestimmen.
+Durch Begutachtung der Oberflächen-Punktwolke kann man außerdem Rückschlüsse auf die Porösität führen, indem man neben der eigentlichen Oberfläche auch sämtliche Einschlüsse innerhalb der Struktur aus der Alpha-Form extrahiert.
+
+\subsection{Reaktionen und Stabilität von Molekülen}
+
+Einzelne Moleküle werden mit externer Software präpariert, mit Geschwindigkeiten im Rahmen der Zieltemperatur versehen und im mikrokanonischen Ensemble simuliert, um Aussagen über ihre Stabilität zu erhalten.
+Diese wird bei kleinen Datenmengen manuell durch Begutachtung der dynamischen Eigenschaften und der entstandenen Moleküle durchgeführt, bei vielen Datensätzen wird eine automatische Auswertung auf Konnektivität der Atome durchgeführt, wodurch Aussagen über die entstandenen Moleküle getroffen werden können.
+Die gleichen Untersuchungen geben Aufschluss über den Erfolg einer Reaktion.

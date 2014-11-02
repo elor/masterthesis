@@ -52,7 +52,7 @@ Aufbauend auf dem mikrokanonischen Ensemble tauscht das kanonische Ensemble zus�
 
 Numerisch wird diese zusätzliche Randbedingung durch ein Thermostat ermöglicht, das die Teilchenenergien beeinflusst und so für eine Korrektur der mittleren Systemtemperatur in Richtung der Temperatur des Wärmebades sorgt.
 
-Ein naives Thermostat skalierte also in jedem Zeitschritt die Teilchengeschwindigkeiten entsprechend der Maxwell-Boltzmann-Verteilung auf den Vorgabewert $T_\text{Ziel}$ (Gleichung \ref{eq:ekanonisch}), wodurch zwar die korrekte Temperatur erzeugt wird, aber die Ensembleeigenschaften wie Ergodizität verletzt werden.
+Ein naives Thermostat skalierte also in jedem Zeitschritt die Teilchengeschwindigkeiten entsprechend der Maxwell-Boltzmann-Verteilung auf den Vorgabewert $T_\text{Ziel}$ (Gleichung \ref{eq:ekanonisch}), wodurch zwar die korrekte Temperatur erzeugt wird, aber die Eigenschaften des Ensembles, z.B. die Ergodizität, verletzt werden.
 So werden \todo{Fluktuationen der Temperatur}Systemzustände verhindert, die eine geringere oder höhere Temperatur aufweisen und als Übergänge zu anderen Systemzuständen dienen können, wodurch das System in einem lokalen Energieminimum gefangen sein kann.
 
 \begin{equation}
@@ -71,21 +71,21 @@ Dabei werden ebenfalls die Fluktuationen in der Systemtemperatur unterbunden, do
 
 Für kleine Systeme müssen jedoch Methoden benutzt werden, die das kanonische Ensemble bewahren.
 Das \textbf{Andersen-Thermostat} beispielsweise tauscht über die Systemgrenzen hinweg Energie in Form von poissonverteilten Stößen mit virtuellen Teilchen aus und bewahrt so die Temperatur des Systems.
-Zwar hat diese Vorgehensweise den Vorteil, mit einer geringen Anzahl an äußeren Einflüssen die Temperatur konstant zu halten, jedoch eignet es sich nur für die Betrachtung zeitgemittelter Größen, da lokale Energieeinträge in das System die Trajektorien einzelner Teilchen massiv stören können.
+Zwar hat diese Vorgehensweise den Vorteil, mit einer geringen Anzahl an äußeren Einflüssen die Temperatur konstant zu halten, jedoch eignet es sich nur für die Betrachtung zeitgemittelter Größen, da lokale Energieeinträge in das System die Trajektorien einzelner Teilchen stören können.
 In Zusammenhang mit der Untersuchung dynamischer Eigenschaften ist dieses Thermostat daher nicht zu empfehlen und sollte nur bei ausreichend großen Systemen Anwendung finden.
 
 Die beste Alternative für kleine Systeme ist das \textbf{Nosé-Hoover-Thermostat}, das dem System einen zusätzlichen Freiheitsgrad $s$ hinzufügt, über den die Temperatur des Systems beeinflusst werden kann.
-Der Einfluss auf die Teilchenenergien äußert sich in der Einführung einer zusätzlichen Reibungskraft entlang des Impules jedes Teilchens:
+Der Einfluss auf die Teilchenenergien äußert sich in der Einführung einer zusätzlichen Reibungskraft entlang des Impulses jedes Teilchens:
 
 \begin{equation}
   \dot{\vec p_i} = \vec{F_i} - s \vec{p_i}
 \end{equation}
 
 Der Reibungskoeffizient $s$ ändert sich dabei in Abhängigkeit der Systemtemperatur, wobei er auch negative Werte annehmen und so Teilchen entlang ihrer Bewegungsrichtung beschleunigen kann.
-Auch bei diesem Thermostat fungiert der Zeitfaktor $\tau$ als Stellgröße für die Reaktionsgeschwindigkeit des Thermostates.
+Auch bei diesem Thermostat fungiert der Zeitfaktor $\tau$ als Größe für die Stellgeschwindigkeit des Thermostates.
 
 \begin{equation}
-  \dot s = {\tau \over M} \sum_i{{p_i^2 \over 2m_i} - {Nd \over k_BT}}
+  \dot s = \frac{\tau}{M} \sum_i{\frac{p_i^2}{2m_i}} - \frac{N d}{k_B T}
 \end{equation}
 \todo[inline]{Was ist M?}
 
@@ -131,7 +131,8 @@ Dabei läuft man den Systemzustand von einem Startpunkt $\vec X_0$ aus entlang d
   \vec X_i = \vec X_{i-1} - \alpha \nabla E(\vec X_{i-1})
 \end{equation}
 
-Als Abbruchkriterien stehen je nach Verhalten des Systems währen der Optimierung die Differenz zwischen zwei Schritten ($\left|\vec X_i - \vec X_{i-1}\right| < X_\text{tol}$), die maximale Änderung eines Vektorelementes ($\max_k{\left|X_{i,k} - X_{i-1,k}\right|} < X_\text{tol}$), die Stärke des Gradienten ($\left|\nabla E(\vec X_{i-1})\right| < E_\text{tol}$), eine Anzahl an Zeitschritten ($i > i_\text{tol}$) oder eine Kombination daraus zur Verfügung.
+Als Abbruchkriterien stehen je nach Verhalten des Systems währen der Optimierung die Differenz zwischen zwei Schritten ($\left|\vec X_i - \vec X_{i-1}\right| < X_\text{tol}$), die maximale Änderung eines Vektorelementes ($\max_k{\left|X_{i,k} - X_{i-1,k}\right|} < X_\text{tol}$), \todo{sieht gut aus?}% hide overlong line
+die Stärke des Gradienten ($\left|\nabla E(\vec X_{i-1})\right| < E_\text{tol}$), eine Anzahl an Zeitschritten ($i > i_\text{tol}$) oder eine Kombination daraus zur Verfügung.
 
 Eine Optimierung durch minimierte Gradienten ist für eine Große Zahl an Freiheitsgraden zwar schnell, stößt aber an seine Grenzen, wenn man allgemeine, nichtlineare Funktionen minimieren möchte, weshalb Variationen des CG-Algorithmus' entwickelt wurden.
 Einerseits kann man den Optimierungsschritt durch eine Minimierung entlang der Schrittrichtung (Gleichungen \ref{eq:cg-linesearch1} und \ref{eq:cg-linesearch2}) ersetzen, andererseits steht die Manipulation der Schrittrichtung in Abhängigkeit vorheriger Schritte zur Verfügung (Gleichung \ref{eq:pr1}).
@@ -159,178 +160,17 @@ Diese Anpassungen verbessern einerseits das erwartete Konvergenzverhalten, ander
 %% Obwohl diese auf dem Papier schneller konvergieren, sind für jeden Iterationsschritt durch die Berechnung der Hesse-Matrix mehr Rechenoperationen notwendig, so dass reale Berechnungszeit und Speicherverbrauch gegenüber CG-Methoden oft im Nachteil sind.
 %% \todo{Referenz für Interessierte}
 
-\subsection{Kraftfelder}
-\label{mdforcefields}
 
-Zentrales Element molekulardynamischer Methoden sind Kraftfelder $\vec F(X)$, auch Potentiale $V(X)$ genannt, die die Interaktionen der simulierten Teilchen beschreiben.
-Für verschiedene Materialien existieren spezielle Potentialformulierungen, die für unterschiedliche Elemente wiederum eigene Potentialparametrisierungen in Form von Potentialdateien zur Verfügung stellen.
-Im Folgenden soll eine Auswahl dieser Potentialformulierungen kurz in ihrer Funktionsweise vorgestellt werden.
-
-\subsubsection{Paar-Potentiale}
-
-Das einfachste MD-Potential ist das Paarpotential, welches eine Interaktion zwischen jeweils zwei benachbarten Atomen modelliert, wodurch sich die Systemgleichungen auf Gleichungen \ref{eq:pairforce} und \ref{eq:pairenergy} reduzieren.
-Stellvertretend steht das Lennard-Jones-Potential zur Darstellung von allgemeinen Fluiden (Gleichung \ref{eq:lennardjones}) oder das damit verwandte Bucking\-ham-Potential (Abbildung \ref{fig:mdpairpotentials}).
-Allen Paar-Potentialen ist gemein, eine rein radiale Abhängigkeit $V(r_ij)$ zu besitzen, die oftmals einen charakteristischen Bindungsabstand in Abhängigkeit der Parameter bildet, welcher sich als Minimum in den Potentialen äußert.
-Unterhalb dieses Radius' dominiert ein repulsiver Term, wo hingegen oberhalb davon ein leicht attraktiver Term vorherrscht, der für große Radien asymptotisch konstant wird und deshalb oft oberhalb eines Cutoff-Radius $r_\text{cut}$ vernachlässigt wird.
-
-\begin{equation}
-  \label{eq:pairforce}
-  \vec F_{ij}(r_{ij}) = \vec\nabla V(r_{ij})
-\end{equation}
-\begin{equation}
-  \label{eq:pairenergy}
-  E = \sum_i\sum_{j \neq i}{V(r_{ij})}
-\end{equation}
-\begin{equation}
-  \label{eq:lennardjones}
-  V_\text{LJ}(r_{ij}) = 4 \epsilon \left[\left(\frac{\sigma}{r_{ij}}\right)^{12} - \left(\frac{\sigma}{r_{ij}}\right)^{6}\right]
-\end{equation}
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.5\textwidth]{mdpotplot}
-  \caption{Beispiele einfacher Paarpotentiale}
-  \label{fig:mdpairpotentials}
-\end{figure}
-
-Zwar zeigen Paarpotentiale gute thermodynamische Eigenschaften bei hoher Effizienz, doch können sie aufgrund ihrer Schlichtheit kein atomistischen Strukturen verlässlich vorhersagen, weshalb die umfangreicheren Mehrteilchen-Potentiale entwickelt wurden.
-
-\subsubsection{N-Teilchen-Potentiale}
-
-N-Teilchen-Potentiale erweitern Paarpotentiale um weitere Terme, die von einer festen Anzahl an Teilchen abhängen, beispielsweise Winkel- und Torsionsabhängigkeiten.
-
-\begin{equation}
-  \label{eq:nbody-energy}
-  E = \sum_i\sum_{j \neq i}{V_2\left(r_{ij}\right)} + \sum_i\sum_{j \neq i}\sum_{i \neq k \neq j}{V_3\left(r_{ij}, r_{ik}, \theta_{ijk}\right)} + \dots
-\end{equation}
-\todo{letzte Summe: Indizes aufspalten}
-
-Obwohl sich mit N-Teilchen-Potentialen komplexere Systeme betrachten lassen, zeigen sie die gleichen Schwachstellen wie Paarpotentiale, benötigen aber eine größere Anzahl an Parametern,
-Zwar gibt es erfolgreiche \todo{kommerzielle} Anwendungen für Biomoleküle (\todo{CHARMM} \todo{GROMACS} \todo{AMBER}), die allerdings aufgrund ihrer Spezialisierung nicht auf andere Stoffsysteme wie Festkörper oder Oberflächen übertragbar sind.
-
-\subsubsection{Embedded Atom Model}
-
-Das Embedded Atom Model (EAM) besteht aus einem Paarpotential $V_{\alpha\beta}(r_{ij})$ für jedes Atom $i$ sowie einer Einbettungsfunktion $F_\alpha$, die die Energie des Atomes in Abhängigkeit der angenäherten lokalen Elektronendichte $\rho_\beta(r_{ij})$ modelliert (Gleichung \ref{eq:eam-energy}).\todo{Referenz}
-So lassen sich metallische Bulks und Oberflächen simulieren, für die $\alpha$ und $\beta$ verschiedene Atomsorten darstellen, doch führt die Formulierung für andere Systeme zwangsläufig zur Bildung gleichatomiger Cluster.
-Für eine Vielzahl an Metallen und Legierungen findet man in \todo{wie beispielsweise ASD}Potentialdatenbanken fertige Parametrisierungen\todo{Referenz auf Datenbank und passende Paper}, von denen viele zusätzlich zu den strukturellen Eigenschaften auch thermodynamisches Verhalten recht gut modellieren (Abschnitt \ref{goldthermo}).
-
-\begin{equation}
-  \label{eq:eam-energy}
-  E = \sum_i\left[F_\alpha\left(\sum_{j\neq i}{\rho_\beta\left(r_{ij}\right)}\right) + \frac{1}{2}\sum_{j\neq i}{V_{\alpha\beta}\left(r_{ij}\right)}\right]
-\end{equation}
-
-\subsubsection{Modified Embedded Atom Model}
-
-Als Erweiterung des EAM-Potentials wurden MEAM-Potentiale entwickelt, die neben Metallen und Legierungen auch Metalloxide und andere Mischsysteme ermöglichen sollen. \todo{Referenz auf Baskes}
-Sie basieren auf dem gleichen Grundgedanken, stellen die Einbettungsenergie aber in Abhängigkeit einer umfangreicheren Formulierung der lokalen Elektronendichte dar.
-An dieser Stelle soll neben der oberflächlichen Formel in Gleichung \ref{eq:meam-energy} auf die ursprüngliche Publikation von Baskes \todo[inline]{Ref!} verwiesen werden.
-
-\begin{equation}
-  \label{eq:meam-energy}
-  E = \sum_i\left[F_\alpha\left(\bar{\rho_i}\right) + \frac{1}{2}\sum_{j\neq i}{V_{ij}\left(r_{ij}\right)}\right]
-\end{equation}
-
-\subsubsection{Reactive Force Fields}
-
-\todo{Referenz auf van Duin}
-todo[inline]{continuehere}
-Reactive Force Fields (ReaxFF) wurden mit der Idee entwickelt, bisher unmögliche Simulationen in Molekulardynamik mit größeren Systemen darstellen zu können.
-Dafür fließt eine Vielzahl an Einflüssen in die Potentialparameter ein, beispielsweise Van-der-Waals-Kräfte und elektrostatische Kräfte, allerdings ist der zentrale Gedanke die Modellierung von Über- und Unterkoordination eines Atomes in seiner Nachbarschaft unter Ladungsaustausch.
-Somit lassen sich Bindungen während der Simulation dynamisch formen und lösen und dadurch ganze Reaktionen zwischen verschiedenen Molekülen simulieren.
-
-\begin{align}
-  \label{eq:reax-formulation}
-  E_\text{system} &= E_\text{bond} + E_\text{lp} + E_\text{over} + E_\text{under} + E_\text{val} + E_\text{pen} + E_\text{coa} + E_\text{C2} \\
-  \nonumber  & + E_\text{tors} + E_\text{conj} + E_\text{H-bond} + E_\text{vdWaals} + E_\text{Coulomb}
-\end{align}
-
-Die meisten Terme der Gesamtenergie werden über die Bindungsordnung berechnet, die über Beiträge für $\sigma$-, $\pi$- und Doppel-$\pi$-Bindungen aus dem Bindungsabstand errechnet wird.
-Einige werden durch Taper-Korrektur\todo{ref} in der Nähe des Cutoff-Abstands auf 0 gesenkt, um Diskontinuitäten zu vermeiden und einen fließenden Übergang zwischen Bindungszuständen zu ermöglichen.
-
-\todo{Referenz auf Equations\_Reax.pdf}
-
-\begin{table}
-  \begin{tabularx}{\textwidth}{|llX|}
-    \hline
-    \textbf{Term}      & \textbf{Beitrag}            & \textbf{Kommentar}                            \\
-    \hline
-    $E_\text{bond}$    & Bindungsenergien            & Berechnung über Bindungsordnung               \\
-    $E_\text{lp}$      & freie Elektronenpaare       & über Bindungsordnungssumme am Atomzentrum     \\
-    $E_\text{over}$    & Überkoordinationen          & unter Ausschluss freier Elektronenpaare       \\
-    $E_\text{under}$   & Unterkoordinationen         & nur bei unterkoordinierten $\pi$-Bindungen    \\
-    $E_\text{val}$     & Bindungswinkel              & Optimum abhängig von Elektronenkonfiguration  \\
-    $E_\text{pen}$     & Strafenergien               & Fehlerkorrektur bei Winkeln mit Doppelbindung \\
-    $E_\text{coa}$     & Drei-Teilchen-Konjugationen & Stabilisierung von NO$_2$-Gruppen             \\
-    $E_\text{C2}$      & Dreifachbindungskorrektur   & Stabilisierung der Dreifachbindung von C$_2$  \\
-    $E_\text{tors}$    & Torsionsbarrieren           &                                               \\
-    $E_\text{conj}$    & Vier-Teilchen-Konjugationen & Konjugation bei Kohlenwasserstoffen           \\
-    $E_\text{H-bond}$  & Wasserstoffbrücken          &                                               \\
-    $E_\text{vdWaals}$ & Van-der-Waals-Kräfte        &                                               \\
-    $E_\text{Coulomb}$ & Coulomb-Kräfte              &                                               \\
-    \hline
-  \end{tabularx}
-  \caption[ReaxFF Energiebeiträge]{ReaxFF Energiebeiträge aus Gleichung \ref{eq:reax-formulation}}
-  \label{tab:reax-energies}
-\end{table}
-
-Wie aus Gleichung \ref{eq:reax-formulation} und Tabelle \ref{tab:reax-energies} hervor geht, wurden das ReaxFF-Potential ursprünglich für Reaktionen von organischen Molekülen entwickelt, ist aber vielseitig genug, eine Vielzahl anderer Materialien simulieren zu können.
-Die unterstützten Stoffgruppen hängen dabei stark von den Strukturen ab, an die die Parametrisierung gefittet wurde.
-Auch, wenn alle notwendigen Atomsorten unterstützt werden, kommt es häufig vor, dass der zu untersuchende Stoff bei der Parametersuche nicht beachtet wurde und somit nicht darstellbar ist.
-
-In den letzten fünf Jahren haben Reactive Force Fields jedoch langsam an Aufmerksamkeit gewonnen, so dass die Zahl spezialisierter Parametrisierungen wächst.
-Es gibt auch Bestrebungen, sich ergänzende ReaxFF-Parametrisierungen zu kombinieren und somit mit einer Parametrisierung jedes gewünschte System betrachten zu können.
-Besonders in kommerzieller MD-Software\todo{Referenz auf GULP} versucht man so, dem Nutzer unnötige Arbeit abzunehmen.
-Es muss sich jedoch noch zeigen, ob dieser Ansatz zufrieden stellende Ergebnisse liefern kann.
-
-\subsubsection{Allgemeine Probleme}
-
-\textbf{Parametrisierung}:
-Da Molekulardynamik keine ab-initio-Methode ist, sondern jedes Potential erst an experimentelle oder numerische Daten angepasst (gefittet)\todo{was nun?} werden muss, sollte die Herkunft jeder Parametrisierung bei seiner Nutzung bedacht werden.
-\todo{kulkarni: Kritische Betrachtung seiner Trainingsstrukturen}
-\\\\
-\textbf{Übertragbarkeit}:
-Je nach Potentialart lassen sich viele Parametrisierungen nicht vermischen oder auf andere Probleme übertragen.
-\\\\
-\textbf{Analysemethoden}:
-Im Normalfall sind Potentiale entweder für strukturelle oder thermodynamische Größen optimiert.
-Mit einem rein strukturellen Potential lassen sich also keine thermodynamischen Größen und Phasenübergänge verlässlich ermitteln.
-\\\\
-\textbf{Reaktionen}:
-Mit der Ausnahme des ReaxFF-Potentiales lassen sich per Molekulardynamik keine Reaktionen betrachten.
-\\\\
-\textbf{Annäherungen}:
-\todo{Was hast du hier gedacht, Erik?}
-
-\subsection{Auswertung}
-
-\subsubsection{Relaxierungen}
-
-\subsubsection{Struktur}
-
-Zur Auswertung einer Struktur bietet sich zuerst eine visuelle Beurteilung an, die mit entsprechenden Programmen vorgenommen werden kann.
-Damit können grobe Defekte ausgeschlossen werden.
-
-\subsubsection{Dichte}
-
-Die Dichte lässt sich bei periodischen Strukturen nach über Volumen und
-
-\subsubsection{Radiale Verteilungsfunktionen}
-
-\subsubsection{Oberfläche}
-
-Die Oberfläche einer Struktur gibt Hinweise auf angelagerte Moleküle, Rauheit, Porösität und Bildung von Cluster und Nanopartikeln.
-Bei großen, glatten Strukturen reicht oft ein Schnitt entlang einer Hauptachse, um Bulk und Oberfläche zu trennen.
-In den verbliebenen Fällen lässt sich zu diesem Zweck eine Alpha-Form per Delaunay-Triangulation bestimmen (Abschnitt \ref{datadelaunay}.
-Die eigentlichen Untersuchungen beschränken sich dann auf eine Zählung der Bindungen und Atomsorten, Radiale Verteilungsfunktionen, Messungen der Oberfläche oder Abweichungen der Schichtdicke vom Mittelwert.
-
-\subsubsection{Reaktionen}
+%% separate file for force fields to avoid having to scroll down
+\input{forcefields}
 
 
+\subsection{Verfügbare Software}
 
-\subsection{Software}
-
-Für molekulardynamische Simulationen gibt es sowohl kommerzielle als auch freie Softwarepakete, die einige Parametersätze mitbringen.
-Tabelle \ref{tab:mdsoftware} stellt eine Auswahl daraus dar.
+Für molekulardynamische Simulationen stehen sowohl kommerzielle als auch freie Softwarepakete zur Verfügung, die jeweils eigene Parametersätze mitbringen.
+In LAMMPS lassen sich zudem auch externe Parametersätze einbinden, wodurch die Betrachtung neuer Problemstellungen erleichtert wird.
+Weiterhin unterscheiden sich die Programme in ihrer Nutzerfreundlichkeit (Kommandozeile oder grafische Oberfläche) und der Möglichkeit, sie als Bibliothek in eigene Programme einzubinden.
+Tabelle \ref{tab:mdsoftware} stellt die wichtigsten Vertreter moderner Molekulardynamiksoftware dar.
 
 \begin{table}
   \oddrowcolors
@@ -338,16 +178,15 @@ Tabelle \ref{tab:mdsoftware} stellt eine Auswahl daraus dar.
   \label{tab:mdsoftware}
   \begin{tabularx}{\textwidth}{|llX|}
     \hline
-    \textbf{Paket} & \textbf{Rechteinhaber} & \textbf{Kommentare} \\
+    \textbf{Paket}        & \textbf{Rechteinhaber}   & \textbf{Kommentare}                                              \\
     \hline
-    LAMMPS & SANDIA & quelloffen, CLI-bedienbar, Bibliothek, eigene Potentiale möglich \\
-    Materials Studio GULP & Accelrys & Tief in graphischer Oberfläche verankert \\
-    AMBER & University of California & verschiedene Biomoleküle \\
-    CHARMM & Accelrys & Proteine \\
-    GROMACS & Uppsala University & Biomoleküle, quelloffen \\
+    LAMMPS                & SANDIA                   & quelloffen, CLI-bedienbar, Bibliothek, eigene Potentiale möglich \\
+    Materials Studio GULP & Accelrys                 & Grafische Oberfläche, lizenzpflichtig                            \\
+    AMBER                 & University of California & Biomoleküle, lizenzpflichtig                                     \\
+    CHARMM                & Accelrys                 & Proteine, lizenzpflichtig                                        \\
+    GROMACS               & Uppsala University       & Biomoleküle, quelloffen                                          \\
     \hline
   \end{tabularx}
   \todo[inline]{References!}
-  \todo[inline]{bessere Beschreibung!}
+  \todo[inline]{bessere Beschreibungen?}
 \end{table}
-

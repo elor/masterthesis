@@ -31,7 +31,7 @@ Diese grundlegende Ensembleformulierung betrachtet die drei Größen Teilchenzah
 Daraus ergibt ergeben sich die Bewegungsgleichungen für jedes Teilchen $i$, welche anschließend durch eine numerische Integrationsmethode, etwa dem Velocity-Verlet-Algorithmus, zeitlich integriert werden.
 
 \begin{equation}
-  \dot{\vec r_i} = {\vec p_i \over m_i}
+  \dot{\vec r_i} = \frac{\vec p_i}{m_i}
 \end{equation}
 
 \begin{equation}
@@ -61,7 +61,7 @@ So werden \todo{Fluktuationen der Temperatur}Systemzustände verhindert, die ein
   \label{eq:ekanonisch}
 \end{equation}
 
-Eine Anpassung bietet das \textbf{Berendsen-Thermostat}, welches ebenfalls mit einer Reskalierung der Teilchengeschwindigkeiten arbeitet, aber für eine exponentielle Annäherung an die Zieltemperatur $T_\text{Ziel}$ sorgt, indem in jedem Zeitschritt nur ein Teil der Differenz in Abhängigkeit der Dämpfungszeit $\tau$ angeglichen wird (Gleichung \ref{eq:berendsen}).
+Eine Anpassung bietet das \textbf{Berendsen-Thermostat}\cite{berendsen_molecular_1984}, welches ebenfalls mit einer Reskalierung der Teilchengeschwindigkeiten arbeitet, aber für eine exponentielle Annäherung an die Zieltemperatur $T_\text{Ziel}$ sorgt, indem in jedem Zeitschritt nur ein Teil der Differenz in Abhängigkeit der Dämpfungszeit $\tau$ angeglichen wird (Gleichung \ref{eq:berendsen}).
 Dabei werden ebenfalls die Fluktuationen in der Systemtemperatur unterbunden, doch zeigt sich für große Systeme eine gute Annäherung an das kanonische Ensemble bei vertretbarem Verbrauch von Rechenzeit.
 
 \begin{equation}
@@ -69,27 +69,26 @@ Dabei werden ebenfalls die Fluktuationen in der Systemtemperatur unterbunden, do
   \label{eq:berendsen}
 \end{equation}
 
-Für kleine Systeme müssen jedoch Methoden benutzt werden, die das kanonische Ensemble bewahren.
-Das \textbf{Andersen-Thermostat} beispielsweise tauscht über die Systemgrenzen hinweg Energie in Form von poissonverteilten Stößen mit virtuellen Teilchen aus und bewahrt so die Temperatur des Systems.
-Zwar hat diese Vorgehensweise den Vorteil, mit einer geringen Anzahl an äußeren Einflüssen die Temperatur konstant zu halten, jedoch eignet es sich nur für die Betrachtung zeitgemittelter Größen, da lokale Energieeinträge in das System die Trajektorien einzelner Teilchen stören können.
-In Zusammenhang mit der Untersuchung dynamischer Eigenschaften ist dieses Thermostat daher nicht zu empfehlen und sollte nur bei ausreichend großen Systemen Anwendung finden.
+%% Für kleine Systeme müssen jedoch Methoden benutzt werden, die das kanonische Ensemble bewahren.
+%% Das \textbf{Andersen-Thermostat} beispielsweise tauscht über die Systemgrenzen hinweg Energie in Form von poissonverteilten Stößen mit virtuellen Teilchen aus und bewahrt so die Temperatur des Systems.
+%% Zwar hat diese Vorgehensweise den Vorteil, mit einer geringen Anzahl an äußeren Einflüssen die Temperatur konstant zu halten, jedoch eignet es sich nur für die Betrachtung zeitgemittelter Größen, da lokale Energieeinträge in das System die Trajektorien einzelner Teilchen stören können.
+%% In Zusammenhang mit der Untersuchung dynamischer Eigenschaften ist dieses Thermostat daher nicht zu empfehlen und sollte nur bei ausreichend großen Systemen Anwendung finden.
 
-Die beste Alternative für kleine Systeme ist das \textbf{Nosé-Hoover-Thermostat}, das dem System einen zusätzlichen Freiheitsgrad $s$ hinzufügt, über den die Temperatur des Systems beeinflusst werden kann.
+Die beste Alternative für kleine Systeme ist das \textbf{Nosé-Hoover-Thermostat}\cite{nose_unified_1984}\cite{hoover_canonical_1985}, das dem System einen zusätzlichen Freiheitsgrad $s$ hinzufügt, über den die Temperatur des Systems beeinflusst werden kann.
+Durch die Bewahrung der Eigenschaften des kanonischen Ensembles hat sich das Nosé-Hoover-Thermostat als Standard-Thermostat in der Molekulardynamik durchgesetzt.
 Der Einfluss auf die Teilchenenergien äußert sich in der Einführung einer zusätzlichen Reibungskraft entlang des Impulses jedes Teilchens:
 
 \begin{equation}
   \dot{\vec p_i} = \vec{F_i} - s \vec{p_i}
 \end{equation}
 
-Der Reibungskoeffizient $s$ ändert sich dabei in Abhängigkeit der Systemtemperatur, wobei er auch negative Werte annehmen und so Teilchen entlang ihrer Bewegungsrichtung beschleunigen kann.
-Auch bei diesem Thermostat fungiert der Zeitfaktor $\tau$ als Größe für die Stellgeschwindigkeit des Thermostates.
+Der Reibungskoeffizient $s$ ändert sich in Abhängigkeit der Systemtemperatur, wobei er auch negative Werte annehmen und so Teilchen entlang ihrer Bewegungsrichtung beschleunigen kann.
+Auch bei diesem Thermostat bestimmt der Faktor $\tau$, welcher mit der frei wählbaren Konstante $M$ multipliziert wird, das Zeitverhalten des Thermostates, also die mittlere Dauer zur Einstellung des thermodynamischen Gleichgewichtes.
+$M$ enthält neben Einheitenfaktoren auch die virtuelle Masse des Wärmebades und wird üblicherweise so gewählt, dass $\tau$ unabhängig von der Masse und Größe des Systems ist.
 
 \begin{equation}
-  \dot s = \frac{\tau}{M} \sum_i{\frac{p_i^2}{2m_i}} - \frac{N d}{k_B T}
+  \dot s = \frac{1}{\tau M} \left(\sum_i{\frac{p_i^2}{2m_i}} - N d k_B T\right)
 \end{equation}
-\todo[inline]{Was ist M?}
-
-Durch die Bewahrung der Eigenschaften des kanonischen Ensembles hat sich das Nosé-Hoover-Thermostat als Standard-Thermostat in der Molekulardynamik durchgesetzt.
 
 \subsubsection{Großkanonisches Ensemble (NPT)}
 

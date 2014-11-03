@@ -1,6 +1,8 @@
+Verlaufs
 Abbruchkriterien
 Abbruchrate
 Abbrüchen
+Ablösen
 Abscheidungsart
 Abscheidungskammern
 Abscheidungsmodi
@@ -14,6 +16,7 @@ Abscheidungssimulation
 Abscheidungstemperatur
 Abscheidungszeitraum
 Abschließend
+Abstandes
 Abstandsrelationen
 Abstandssuche
 Aktivierungsenergie
@@ -24,7 +27,9 @@ Analysemethoden
 Andernfalls
 Anders
 Anfangsbedingungen
+Angelagerte
 Annealing
+Anschlussbedingungen
 Anwendungsfeld
 Anwendungsfälle
 Anwendungsszenarien
@@ -35,7 +40,6 @@ Atomlagen
 Atomlagenabscheidung
 Atomlisten
 Atompositionen
-Atomsorte
 Atomzentrum
 Aufbauend
 Auftreffen
@@ -90,6 +94,7 @@ Computerclustern
 D_T
 Darstellbarkeit
 Dateiformate
+Datensätzen
 Dauerschleife
 Defekte
 Derartige
@@ -109,6 +114,7 @@ Diskontinuitäten
 Doppelbindung
 Dreifachbindung
 Dreifachbindungskorrektur
+Dämpfungskonstante
 Dämpfungsparameter
 Dämpfungszeit
 Dünnfilm
@@ -119,7 +125,10 @@ Einbettungsenergie
 Einbettungsfunktion
 Eingabedateien
 Eingaben
+Eingabewerte
 Eingebettete
+Einheitenfaktoren
+Einheitszellen
 Einkapseln
 Einzig
 Elektrodeposition
@@ -140,8 +149,10 @@ Ensembleformulierung
 Ensembles
 Ereignisarten
 Ereignisdichte
+Ereignisliste
 Ereignismaske
 Ereignisorte
+Ereignisraten
 Ereignisse
 Ergebnisse
 Ergodizität
@@ -178,11 +189,13 @@ Geschwindigkeiten
 Gitterkonfigurationen
 Gitterkonstanten
 Gitternäherungen
+Gitterplätze
 Gitterpunkten
 Gitters
 Gitterversetzungen
 Glatte
 Glattes
+Gleichgewichtes
 Gleichverteilung
 Goldatomen
 Goldkristall
@@ -217,6 +230,7 @@ Höherdimensionale
 Impulses
 Ingenieurswissenschaften
 Injektions
+Integral
 Integrationsmethode
 Integratoren
 Interaktionspotentiale
@@ -240,6 +254,7 @@ Konstruktionsalgorithmen
 Konstruktionsmethoden
 Konvergenzverhalten
 Koordinate
+Koordinationslänge
 Koordinationszahl
 Korrelationslänge
 Kraftfeldern
@@ -248,12 +263,15 @@ Kreisflächen
 Kristall
 Kristalldefekte
 Kristalle
+Kristallebene
 Kristallebenen
 Kristalleigenschaften
 Kristallen
 Kristalloberfläche
 Kristallschichten
 Kristallsubstrat
+Kristallsubstrates
+Kugelschalen
 Kupferatomes
 Kupferkratern
 Kupferoberflächen
@@ -309,6 +327,7 @@ Multilagensystem
 Nachbarn
 Nachbarschaftslisten
 Nachbarschaftssuche
+Nachdem
 Nano
 Nanoelektronik
 Nanopartikel
@@ -323,6 +342,7 @@ Neubalancieren
 Neubalancierung
 Nichtgleichgewichtssysteme
 Niedriger
+Nimmt
 Normaldruck
 Numerisch
 Nächstnachbarabstände
@@ -331,6 +351,7 @@ Nächstnachbargraph
 Nächstnachbarn
 Oberflächenabscheidungen
 Oberflächenatome
+Oberflächenbeschaffenheit
 Oberflächendichte
 Oberflächendiffusion
 Oberflächendreiecke
@@ -390,6 +411,7 @@ Reaktionsbarrieren
 Reaktionsorte
 Reaktionspfad
 Reaktionspfade
+Reaktionsrate
 Reaktionsraten
 Reaktionsräume
 Reaktionssimulationen
@@ -429,6 +451,7 @@ Scharfe
 Schichtabscheidung
 Schichtdicke
 Schichteigenschaften
+Schichthöhe
 Schichtqualität
 Schichtwachstum
 Schlagen
@@ -450,6 +473,7 @@ Siliziumschicht
 Simplices
 Simulationsdauer
 Simulationsergebnisse
+Simulationsgitter
 Simulationsgruppe
 Simulationsgröße
 Simulationslaufzeiten
@@ -463,6 +487,7 @@ Simulationsschritten
 Simulationszeit
 Situationen
 Skalierbarkeit
+Skalierungsverhalten
 Softwarepakete
 Sonstige
 Speicherabschätzungen
@@ -478,11 +503,13 @@ Sputterdauer
 Sputterenergien
 Sputtersimulation
 Spülschritte
+Stabilitätssimulationen
 Stabilitätsuntersuchungen
 Standardalgorithmen
 Standardliteratur
 Standardthermostat
 Stapeln
+Startzustand
 Statistiken
 Stattdessen
 Stellgeschwindigkeit
@@ -498,6 +525,7 @@ Strukturierte
 Strukturierten
 Strukturoptimierung
 Stöchiometrien
+Störstellen
 Sub
 Subgraphen
 Substrateinfluss
@@ -579,6 +607,7 @@ Verformungsenergie
 Vergleiche
 Verknüpfungsoperationen
 Verlet
+Verschieben
 Verspannung
 Versuchen
 Versuchsreihe
@@ -618,10 +647,12 @@ Zeile
 Zeit
 Zeitbegrenzung
 Zeitfaktor
+Zeitmittelwertes
 Zeitschritt
 Zeitschrittweite
 Zeitskala
 Zeitskalen
+Zeitverhaltens
 Zeitverlauf
 Zell
 Zellgittern
@@ -635,7 +666,9 @@ Zielsystem
 Zieltemperatur
 Zieltriangulation
 Zielzelle
+Zielzustand
 Zudem
+Zufallszahl
 Zugriffes
 Zuletzt
 Zusammenfassend
@@ -645,6 +678,8 @@ abgedeckten
 abzurufen
 abzuscheidendes
 additiver
+adsorbierten
+akkumulierte
 akzeptabler
 amorphem
 angelagerte
@@ -652,6 +687,7 @@ angenähert
 anwendbaren
 asymptotische
 atomistische
+auftreffende
 aufwächst
 aufzuzwingen
 ausführlichere
@@ -682,9 +718,11 @@ fluktuiert
 gefittet
 gekapselten
 gelegene
+gemittelt
 geraden
 gesputterten
 gitterbasiert
+gleichverteilten
 großkanonischen
 hinweist
 hochparallele
@@ -701,6 +739,7 @@ involvierten
 ionischen
 kanonische
 kartesischen
+katalytischen
 kollidierende
 konfigurationen
 konjugierte
@@ -738,6 +777,7 @@ poröser
 positionierter
 prozessbedingt
 quaderförmige
+rauheit
 reaktoren
 rechenaufwendig
 rechenaufwendigeren
@@ -777,6 +817,7 @@ zufallsbestimmte
 zulässt
 zwischenspeichert
 zyklen
+Ätzen
 Über
 Überdeckung
 Übergangswahrscheinlichkeit
@@ -788,5 +829,6 @@ zyklen
 Übertreten
 Üblicherweise
 ähnelt
+überabzählbar
 übergeordneten
 überschüssigen

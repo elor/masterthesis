@@ -1,9 +1,7 @@
-\section{Methoden zur Nutzung und Auswertung von MD-Simulationen}
+\section{MD-Simulationen: Methoden und Auswertungen}
 
-\todo{gibt's den Titel auch in schön?}
-
-\todo[inline]{zu trocken}
-In diesem Abschnitt soll ein kurzer Überblick über die Vorgehensweise bei der Präparation und Auswertung von MD-Simulationen gegeben werden, um Verständnis für die in den nachfolgenden Kapiteln genutzten Begriffe zu schaffen.
+Nachdem in Abschnitt \ref{md} die Funktionsweise der Molekulardynamik beschrieben wurde, soll in diesem Abschnitt ein kurzer Überblick über die Vorgehensweisen und Methoden bei der Auswertung von MD-Simulationen gegeben werden, die in den folgenden Kapiteln wiederholt eingesetzt werden.
+Dies beinhaltet sowohl die Simulationsmethoden selbst, wie etwa Relaxierungen von Substraten, Reaktionen und Stabilitätssimulationen von Molekülen, als auch die Auswertung deren Ergebnisse durch externe Werkzeuge.
 
 \subsection{Relaxierungen}
 
@@ -18,8 +16,8 @@ Im Anschluss können die Dichte, Radiale Verteilungsfunktion, Bindungslänge und
 
 \subsection{Bestimmung der Dichte und Temperatur}
 
-Zur Bestimmung der Dichte stehen verschiedene Möglichkeiten zur Verfügung, die letzendlich alle auf Zählung der Atome innerhalb eines begrenzten Volumens zurückgeführt werden können.
-Da sie im großkanonischen Ensemble durch die Reskalierung der Raumachsen fluktuiert, muss sie zeitlich über einen größeren Zeitraum als die Dämpfungskonstante $\tau_p$ gemittelt werden, da sie sonst nicht über die gesamte Periode der Fluktuation betrachtet wird.
+Zur Bestimmung der Dichte stehen verschiedene Möglichkeiten zur Verfügung, die letztendlich alle auf Zählung der Atome innerhalb eines begrenzten Volumens zurückgeführt werden können.
+Da sie im großkanonischen Ensemble durch die Reskalierung des Simulationsraumes fluktuiert, muss sie zeitlich über einen größeren Zeitraum als die Dämpfungskonstante $\tau_p$ gemittelt werden, da sie sonst nicht über die gesamte Periode der Fluktuation betrachtet wird.
 
 Ebenso muss zur Bestimmung der Temperatur auf das Konvergenzverhalten des Thermostates geachtet werden.
 Die Temperatur wird aus dem Mittelwert der kinetischen Energie aller Teilchen bestimmt, welche jedoch schwanken kann, weshalb wiederum die Bildung eines Zeitmittelwertes notwendig wird.
@@ -29,9 +27,10 @@ Die Temperatur wird aus dem Mittelwert der kinetischen Energie aller Teilchen be
 Die Radiale Verteilungsfunktion (RDF) ergibt sich als Histogramm der Zahl der Atome in Abhängigkeit des radialen Abstandes voneinander, gewichtet über die Volumen der Bins, welche durch die radiale Beschreibung die Form von Kugelschalen annehmen.
 Ihr erstes Maximum bildet die Bindungslänge, während das Integral bis zur Koordinationslänge (erstes Minimum nach der Bindungslänge) die erste Koordinationszahl ergibt.
 An der RDF-Darstellung lässt sich außerdem die Reichweite der Ordnung erkennen:
-Sobald die Funktion gegen den konstanten Wert von 1 konvergiert, ist keine langreichweitige Ordnung mehr vorhanden.
-Radiale Verteilungen von perfekten Kristallen bestehen hingegen aus Spitzen, zwischen denen Nullwerte liegen, da sie in absoluter Ordnung zu einander sind.
+Radiale Verteilungen von perfekten Kristallen bestehen ausschließlich aus Spitzen an den Gitterpunkten, die auch für große Abstände noch klar erkennbar sind.
+Bei amorphen Materialien hingegen konvergiert die Funktion schnell gegen den Grenzwert von 1, der anzeigt, dass keine langreichweitige Ordnung mehr vorhanden ist.
 \todo[inline]{Beispiel?}
+\todo[inline]{Formel?}
 
 \subsection{Schichtdicke und Oberflächenbeschaffenheit}
 
@@ -43,5 +42,5 @@ Durch Begutachtung der Oberflächen-Punktwolke kann man außerdem Rückschlüsse
 \subsection{Reaktionen und Stabilität von Molekülen}
 
 Einzelne Moleküle werden mit externer Software präpariert, mit Geschwindigkeiten im Rahmen der Zieltemperatur versehen und im mikrokanonischen Ensemble simuliert, um Aussagen über ihre Stabilität zu erhalten.
-Diese wird bei kleinen Datenmengen manuell durch Begutachtung der dynamischen Eigenschaften und der entstandenen Moleküle durchgeführt, bei vielen Datensätzen wird eine automatische Auswertung auf Konnektivität der Atome durchgeführt, wodurch Aussagen über die entstandenen Moleküle getroffen werden können.
+Diese wird bei kleinen Datenmengen manuell durch Begutachtung der dynamischen Eigenschaften und der entstandenen Moleküle ermittelt, bei vielen Datensätzen wird eine automatische Auswertung auf Konnektivität der Atome durchgeführt, wodurch Aussagen über die entstandenen Moleküle getroffen werden können.
 Die gleichen Untersuchungen geben Aufschluss über den Erfolg einer Reaktion.

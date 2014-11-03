@@ -1,0 +1,31 @@
+\chapter{Parsivald: Probleme mit LAMMPS}
+\label{lammpssucks}
+
+Der hervorragende LAMMPS-Code wurde als MD-Bibliothek genutzt, da er gut optimiert und auf Funktionsebene in eigene Programme integrierbar ist sowie ReaxFF-Potentiale im Standardformat unterstützt.
+Damit ist LAMMPS \todo{faktisch}faktisch konkurrenzlos, allerdings stößt man bei der Nutzung auf verschiedene Probleme.
+
+Ein hauptsächliches Problem besteht in der Interaktion mit MPI-Bibliotheken.
+Es liegt nahe, für hochparallele Systeme wie Parsivald auf MPI zu setzen, um Tasks vom Host an seine Worker zu vermitteln.
+LAMMPS nutzt jedoch intern \todo{lammps.cpp, Zeile 247}globale MPI-Calls, auch wenn nur kleine Systeme untersucht werden oder explizit auf MPI verzichtet wird.
+Zwar wird LAMMPS statisch verlinkt, nicht aber die MPI-Bibliothek\footnote{LAMMPS liegt auch ein MPI-Platzhalter (Stub) für serielle Anwendungsfälle bei, der aber separat verlinkt werden muss, statt in LAMMPS hinein kompiliert zu werden}, so dass ein Umschreiben der exportierten Symbole nicht zum gewünschten Erfolg führt.
+Dieses Problem lässt sich durch fork-Prozesse oder proprietäre Patches umgehen, ist aber keine sichere Lösung für umfangreiche Software.
+Zwar lässt sich LAMMPS auch mit einem MPI-Stub kompilieren, jedoch führt dieser durch kollidierende Namen globaler Funktionen der notwendigerweise dynamisch verlinkten MPI-Bibliotheken unweigerlich zu Problemen.
+
+Weiterhin ruft LAMMPS nach jedem Berechnungsfehler \texttt{exit} auf, wodurch der aktuelle Prozess ohne Möglichkeit der Fehlerkorrektur beendet und die Kommunikation mit dem Hostprozess hart unterbrochen wird.
+Geschieht dies in einem MPI-Prozess, werden alle beteiligten Prozesse auf allen Knoten unter Annahme eines kritischen Fehlers beendet.
+Unerwartetes Übertreten von Systemgrenzen, hohen Teilchengeschwindigkeiten oder Ausnahmesituationen durch fehlgeformte Potentiale verursachen regelmäßig und unvorhergesehen \texttt{exit}-Calls und beenden ungeplant die gesamte Simulation.
+Eine mögliche Lösung wäre die Nutzung von Prozess-Forks, die vom eigentlichen MPI-Prozess überwacht werden, wie es in Workerpools der Fall ist.
+
+Darüber hinaus fallen einige Rechnungen unerwartet in eine nichtreproduzierbare Dauerschleife innerhalb der LAMMPS-Bibliothek, die sich aufgrund deren blockierender Architektur nicht ohne separaten Prozess diagnostizieren oder beenden lässt.
+Hier besteht die Lösung schlicht in einem hostseitigen Timeout der Verbindung zu jedem verbundenen Worker.
+Eine unbestimmte Zeit nach dem Verbindungsabbruch startet sich der Worker selbsttätig neu.
+Im Worst-Case-Szenario endet ein Großteil der Worker in Dauerschleifen, wodurch die Simulation signifikant ausgebremst wird, jedoch weiterhin stabil läuft.
+
+
+Als Lösung der vorgestellten Probleme wurde das in Parsivald vorhandene Host-Worker-System so umgestaltet, dass LAMMPS in gekapselten Prozessen lokal oder auf entfernten Knoten läuft, aber nur die Anfangsbedingungen und Ergebnisse kommuniziert.
+Worker werden in Pools organisiert, sind ansonsten aber unabhängig, was sich in der direkten Nutzung des Netzwerkstacks ohne Umweg über den Management-Prozess zeigt.
+Auf der einen Seite ist die Stabilität der Worker unabhängig von anderen Workern, andererseits bleiben die eigentlichen Fehlerursachen weiterhin verborgen.
+Stattdessen werden fehlgeschlagene MD-Simulationen erneut gestartet und bei wiederholtem Berechnungsfehler als fehlgeschlagen markiert und verworfen.
+
+Vom Hostprozess werden für statistische Auswertungen Zähler der erfolgreichen und fehlerhaften MD-Simulationen geführt, mit denen Fehlerraten mit Prozess- und Struktureigenschaften korreliert werden können.
+Eine Anwendung davon befindet sich in Abbildung \ref{fig:copperparsivald}.

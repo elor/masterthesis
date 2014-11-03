@@ -69,3 +69,7 @@ v_i
 wu_cu
 x_i
 xy
+E_i
+R_N
+t_n
+X_n

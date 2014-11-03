@@ -2,7 +2,6 @@
 #
 # shows all minor latex mishaps for all .tex files
 
-
 cuttooneline(){
     [ -z "$COLUMNS" ] && local COLUMNS=80
     sed -r 's/(^.{1,'$COLUMNS'}).*/\1/'    

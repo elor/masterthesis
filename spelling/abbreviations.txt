@@ -44,5 +44,5 @@ Su
 TMA
 vs
 Wachst
-rauheit
-
+NVT
+NPT

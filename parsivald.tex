@@ -10,7 +10,7 @@ Das Programm war beschränkt auf die atomistische Simulation von Metall\-oxid-AL
 Hauptaufgabe von Parsivald ist es, Atomlagenabscheidungen auf großen Oberflächen per Kombination von KMC- und MD-Methoden mit atomistischer \todo{Genauigkeit}Präzision simulieren zu können.
 Abbildung \ref{fig:parsivald-stephierarchy} stellt die Funktionsweise des Parsivald-Modelles vor, die im Wesentlichen aus Vor- und Nachbereitung sowie einer Prozessschleife besteht.
 Innerhalb der Hauptschleife werden nacheinander in mehreren Prozessschritten mögliche Adsorptionen, Ligandenaustausch-Reaktionen oder Relaxationen mit KMC-Mechanismen ausgewählt, mittels Molekulardynamik lokal simuliert und die Ergebnisse schließlich in die globale Struktur zurückgeführt (Abbildung \ref{fig:parsivald-schema}).
-KMC-Ereignisse sind in diesem Modell auf eine dünne Oberflächenschicht begrenzt, wo sie jeweils innerhalb eines Kastens beschränker Größe, der MD-Box, wirken (Abbildung \ref{fig:parsivald-schema}).
+KMC-Ereignisse sind in diesem Modell auf eine dünne Oberflächenschicht begrenzt, wo sie jeweils innerhalb eines Kastens beschränkter Größe, der MD-Box, wirken (Abbildung \ref{fig:parsivald-schema}).
 Das setzt zwar diffusionsarme Prozesse voraus, ermöglicht dafür jedoch die effiziente Beschreibung von Atomlagenabscheidungen mit vielen Millionen Atomen auf der Mikrometerskala.
 
 \begin{figure}
@@ -39,7 +39,7 @@ Das setzt zwar diffusionsarme Prozesse voraus, ermöglicht dafür jedoch die eff
 Als Eingaben der Simulation dienen das Substrat, eine Sammlung verschiedener Prozessparameter wie Umgebungstemperaturen, Expositionszeiten und Abscheidungsmodi (Abbildung \ref{fig:parsivald-modes}), sowie MD-Befehlslisten mit Platzhaltern (MD-Maske) samt Potentialparametrisierung.
 Die Konfiguration legt Umgebungseigenschaften, Abscheidungsart (Abbildung \ref{fig:parsivald-modes}), Größe des Simulations- und MD-Raumes und Laufzeitbedingungen des Hostprogrammes fest.
 Die Ausgabe erfolgt kontinuierlich in Ereignis-Logs sowie nach jedem Prozess-Schritt in Form aller Atompositionen, aus denen die Schichteigenschaften bestimmt werden können.
-Optional lassen sich auch einzelne Events zur späteren Neuberechnung zwecks Fehlersuche speichern.
+Optional lassen sich auch einzelne zur späteren Neuberechnung zwecks Fehlersuche speichern.
 
 Eine typische Abscheidungs-Simulation verläuft nach folgendem Schema:
 Zuerst wird das Substrat aus einer Datei gelesen und periodisch auf die Größe des Simulationsraums erweitert.
@@ -114,7 +114,7 @@ Ein standardisiertes Buildsystem sorgt für schnelle und sichere Kompilierung de
 Diese Änderungen ermöglichen eine einfachere Vorbereitung, Simulation und Untersuchung verschiedener Prozesse und eine aussagekräftigere Analyse der Ergebnisse.
 Auch eine automatisierte Optimierung der Prozessparameter wie Temperatur, Druck und Expositionszeit oder MD-spezifischer Parameter wie Thermostatdämpfung, Relaxationsdauer oder Länge des Zeitschrittes ist mittels des Konfigurationsmechanismus' denkbar.
 
-Zusätzlicher Aufwand musste beim Einkapseln der MD-Bibliothek LAMMPS betrieben werden (Abschnitt \ref{lammpssucks}).
+%% Zusätzlicher Aufwand musste beim Einkapseln der MD-Bibliothek LAMMPS betrieben werden (Abschnitt \ref{lammpssucks}).
 
 \subsection{Ausgabewerte}
 
@@ -129,43 +129,10 @@ Schlagen sie auch bei wiederholten Versuchen fehl, werden sie endgültig als feh
 
 Da auf diese Weise bereits ausgewählte Ereignisse verworfen werden und somit die Abscheidungsraten leicht unterschätzt werden, müssen die Prozessraten entsprechend angepasst werden.
 PVD-Prozesse weisen häufig vergleichsweise konstante Abbruchraten \SI{<1}{\percent} auf, weshalb es genügt, den Zielwert der Abscheidungsrate um die Abbruchrate zu erhöhen, was theoretisch auch automatisiert durchgeführt werden kann.
-Bei ALD- und CVD-Prozessen sind solche Korrekturen auch möglich, allerdings aufgrund der Abhängigkeit von Reaktionsorten nicht notwendig:
+Bei ALD- und CVD-Prozessen sind solche Korrekturen auch möglich, allerdings aufgrund der Abhängigkeit von benachbarten Ereignissen nicht notwendig:
 Vor Ausführung jedes Ereignisses wird dessen lokale Nachbarschaft auf Übereinstimmung mit den Kriterien überprüft.
 Wurde in dieser Zeit ein anderes Ereignis in direkter Nachbarschaft abgeschlossen, verbietet die sterische Hinderung seiner Oberflächenliganden das zweite Ereignis und es wird verworfen.
 Schlägt das erste Ereignis jedoch fehl, werden dessen Abhängigkeiten aufgehoben, das zweite Ereignis wird überprüft und mangels Oberflächenliganden zur Ausführung freigegeben.
 
 Problematisch sind Situationen, in denen die Vielzahl der Ereignisse fehlschlägt, wie es bei strukturellen Fehlern oder schlecht gewählten Parametern der Fall sein kann, da hier die Abscheidungsraten nicht verlässlich korrigiert werden können.
-Für die Fälle, für die das Modell gestaltet wurde, wird die obere Schranke der Abbruchrate mit \SI{10}{\percent} abgeschätzt\todo{wie abgeschätzt?}.
-
-\subsection{Probleme mit LAMMPS}
-\label{lammpssucks}
-\todo[inline]{Abschnitt überdenken}
-
-Der hervorragende LAMMPS-Code wurde als MD-Bibliothek genutzt, da er gut optimiert und auf Funktionsebene in eigene Programme integrierbar ist sowie ReaxFF-Potentiale im Standardformat unterstützt.
-Damit ist LAMMPS \todo{faktisch}faktisch konkurrenzlos, allerdings stößt man bei der Nutzung auf verschiedene Probleme.
-
-Ein hauptsächliches Problem besteht in der Interaktion mit MPI-Bibliotheken.
-Es liegt nahe, für hochparallele Systeme wie Parsivald auf MPI zu setzen, um Tasks vom Host an seine Worker zu vermitteln.
-LAMMPS nutzt jedoch intern \todo{lammps.cpp, Zeile 247}globale MPI-Calls, auch wenn nur kleine Systeme untersucht werden oder explizit auf MPI verzichtet wird.
-Zwar wird LAMMPS statisch verlinkt, nicht aber die MPI-Bibliothek\footnote{LAMMPS liegt auch ein MPI-Platzhalter(Stub) für serielle Anwendungsfälle bei, der aber separat verlinkt werden muss, statt in LAMMPS hinein kompiliert zu werden}, so dass ein Umschreiben der exportierten Symbole nicht zum gewünschten Erfolg führt.
-Dieses Problem lässt sich durch fork-Prozesse oder proprietäre Patches umgehen, ist aber keine sichere Lösung für umfangreiche Software.
-Zwar lässt sich LAMMPS auch mit einem MPI-Stub kompilieren, jedoch führt dieser durch kollidierende Namen globaler Funktionen der notwendigerweise dynamisch verlinkten MPI-Bibliotheken unweigerlich zu Problemen.
-
-Weiterhin ruft LAMMPS nach jedem Berechnungsfehler \texttt{exit} auf, wodurch der aktuelle Prozess ohne Möglichkeit der Fehlerkorrektur beendet und die Kommunikation mit dem Hostprozess hart unterbrochen wird.
-Geschieht dies in einem MPI-Prozess, werden alle beteiligten Prozesse auf allen Knoten unter Annahme eines kritischen Fehlers beendet.
-Unerwartetes Übertreten von Systemgrenzen, hohen Teilchengeschwindigkeiten oder Ausnahmesituationen durch fehlgeformte Potentiale verursachen regelmäßig und unvorhergesehen \texttt{exit}-Calls und beenden ungeplant die gesamte Simulation.
-Eine mögliche Lösung wäre die Nutzung von Prozess-Forks, die vom eigentlichen MPI-Prozess überwacht werden, wie es in Workerpools der Fall ist.
-
-Darüber hinaus fallen einige Rechnungen unerwartet in eine nichtreproduzierbare Dauerschleife innerhalb der LAMMPS-Bibliothek, die sich aufgrund deren blockierender Architektur nicht ohne separaten Prozess diagnostizieren oder beenden lässt.
-Hier besteht die Lösung schlicht in einem hostseitigen Timeout der Verbindung zu jedem verbundenen Worker.
-Eine unbestimmte Zeit nach dem Verbindungsabbruch startet sich der Worker selbsttätig neu.
-Im Worst-Case-Szenario endet ein Großteil der Worker in Dauerschleifen, wodurch die Simulation signifikant ausgebremst wird, jedoch weiterhin stabil läuft.
-
-
-Als Lösung der vorgestellten Probleme wurde das in Parsivald vorhandene Host-Worker-System so umgestaltet, dass LAMMPS in gekapselten Prozessen lokal oder auf entfernten Knoten läuft, aber nur die Anfangsbedingungen und Ergebnisse kommuniziert.
-Worker werden in Pools organisiert, sind ansonsten aber unabhängig, was sich in der direkten Nutzung des Netzwerkstacks ohne Umweg über den Management-Prozess zeigt.
-Auf der einen Seite ist die Stabilität der Worker unabhängig von anderen Workern, andererseits bleiben die eigentlichen Fehlerursachen weiterhin verborgen.
-Stattdessen werden fehlgeschlagene MD-Simulationen erneut gestartet und bei wiederholtem Berechnungsfehler als fehlgeschlagen markiert und verworfen.
-
-Vom Hostprozess werden für statistische Auswertungen Zähler der erfolgreichen und fehlerhaften MD-Simulationen geführt, mit denen Fehlerraten mit Prozess- und Struktureigenschaften korreliert werden können.
-Eine Anwendung davon befindet sich in Abbildung \ref{fig:copperparsivald}.
+Für die Fälle, für die das Modell gestaltet wurde, hat sich eine obere Schranke der Abbruchrate von \SI{10}{\percent} herausgebildet, oberhalb derer eine Korrektur struktureller Fehler praktisch nicht mehr statt findet.

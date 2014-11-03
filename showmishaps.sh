@@ -28,6 +28,10 @@ availablecitations(){
     sed -n 's/@[a-zA-Z-]*{\([^,]*\),.*/\1/p' *.bib | sort -u
 }
 
+citationswithlanguagetag(){
+    sed ':a;N;$!ba;s/,\s*\n/,/g' *.bib  | grep language | sed -n 's/@[a-zA-Z-]*{\([^,]*\),.*/\1/p'
+}
+
 unusedcitations(){
     local retval
     retval=$({ availablecitations; usedcitations|sed p; } | sort | uniq -u)
@@ -108,6 +112,15 @@ listlonglines(){
     echo "<= unused citations =>"
     echo
     unusedcitations || echo "ok"
+    echo
+
+    ###############################
+    # citations with language tag #
+    ###############################
+
+    echo "<= citations with language tag =>"
+    echo
+    citationswithlanguagetag || echo "ok"
     echo
 
     ##############

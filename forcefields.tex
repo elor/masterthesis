@@ -49,7 +49,7 @@ Zwar gibt es erfolgreiche \todo{kommerzielle} Anwendungen für Biomoleküle (\to
 
 \subsubsection{Embedded Atom Model}
 
-Das Embedded Atom Model (EAM) besteht aus einem Paarpotential $V_{\alpha\beta}(r_{ij})$ für jedes Atom $i$ sowie einer Einbettungsfunktion $F_\alpha$, welche die Energie des Atomes in Abhängigkeit der angenäherten lokalen Elektronendichte $\rho_\beta(r_{ij})$ modelliert (Gleichung~\ref{eq:eam-energy}).\todo{Referenz}
+Das Embedded Atom Model (EAM) besteht aus einem Paarpotential $V_{\alpha\beta}(r_{ij})$ für jedes Atom $i$ sowie einer Einbettungsfunktion $F_\alpha$, welche die Energie des Atomes in Abhängigkeit der angenäherten lokalen Elektronendichte $\rho_\beta(r_{ij})$ modelliert (Gleichung~\ref{eq:eam-energy})\cite{daw_embedded-atom_1984}.
 So lassen sich metallische Bulks und Oberflächen simulieren, für die $\alpha$ und $\beta$ verschiedene Spezies darstellen, doch führt die Formulierung für andere Systeme zwangsläufig zur Bildung von Clustern\todo{warum?}.
 Für eine Vielzahl an Metallen und Legierungen findet man in \todo{wie beispielsweise ASD}Potentialdatenbanken fertige Parametrisierungen\todo{Referenz auf Datenbank und passende Paper}, von denen viele zusätzlich zu den strukturellen Eigenschaften auch thermodynamisches Verhalten recht gut modellieren (Abschnitt~\ref{goldthermo}).
 
@@ -60,7 +60,7 @@ Für eine Vielzahl an Metallen und Legierungen findet man in \todo{wie beispiels
 
 \subsubsection{Modified Embedded Atom Model}
 
-Als Erweiterung des EAM-Potentials wurden MEAM-Potentiale entwickelt, die neben Metallen und Legierungen auch Metalloxide und andere Mischsysteme ermöglichen sollen. \todo{Referenz auf Baskes}
+Als Erweiterung des EAM-Potentials wurden MEAM-Potentiale entwickelt, die neben Metallen und Legierungen auch Metalloxide und andere Mischsysteme ermöglichen sollen\cite{baskes_modified_1992,baskes_modified_1996}.
 Sie basieren auf der gleichen Funktionsweise, stellen die Einbettungsenergie aber in Abhängigkeit einer umfangreicheren Formulierung der lokalen Elektronendichte dar.
 An dieser Stelle soll neben der oberflächlichen Formel in Gleichung~\ref{eq:meam-energy} auf die ursprüngliche Publikation von Baskes \todo[inline]{Ref!} verwiesen werden.
 
@@ -71,7 +71,7 @@ An dieser Stelle soll neben der oberflächlichen Formel in Gleichung~\ref{eq:mea
 
 \subsubsection{Reactive Force Fields}
 
-Reaktive Kraftfelder (Reactive Force Fields, ReaxFF) wurden \todo{Jahreszahl und Ref auf van Duin}mit dem Ziel entwickelt, Reaktionen zwischen Molekülen mit molekulardynamischen Methoden beschreiben zu können.
+Reaktive Kraftfelder (Reactive Force Fields, ReaxFF) wurden von \textsc{van Duin et al.}\cite{van_duin_reaxff:_2001} 2001 mit dem Ziel entwickelt, Reaktionen zwischen Molekülen mit molekulardynamischen Methoden beschreiben zu können.
 Mangels expliziter Beschreibung der involvierten Elektronen war die Beschreibung von Bindungen zuvor nur mit \todo{DFT?}Elektronenstrukturrechnungen möglich, denen eine obere Grenze von wenigen hundert Atomen gesetzt ist, \todo{Nebensatz sinnlos}und selbst dann die Berechnung dynamischer Eigenschaften mit einem immensen Rechenaufwand verbunden ist.
 Durch Beschreibung der Über- und Unterkoordination der Atome innerhalb ihrer Nachbarschaft, zusätzlich zum Ladungsaustausch zwischen den Atomen, Van-der-Waals- und elektrostatischen Kräften, lassen sich mit der ReaxFF-Formulierung Bindungen während der Simulation dynamisch formen und lösen, wodurch Reaktionen ermöglicht werden.
 Gleichung~\ref{eq:reaxformulation} und Tabelle~\ref{tab:reaxenergies} geben einen kurzen Überblick über die Bestandteile der Gesamtenergie, von denen die meisten Terme über die Bindungsordnung berechnet werden, welche sich aus Beiträgen für $\sigma$-, $\pi$- und Doppel-$\pi$-Bindungen aus dem Bindungsabstand zusammen setzt.

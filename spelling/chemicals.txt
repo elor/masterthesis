@@ -28,4 +28,5 @@ LiAlO
 Silikate
 Siliziumdioxid
 si
-
+Spinell
+MgAl

@@ -12,7 +12,10 @@ confirm(){
 removefloat(){
     local type=$1
     [ -z "$type" ] && return 1
-    sed -i '/\\begin{'$type'}/,/\\end{'$type'}/ d' *.tex
+    for file in *.tex; do
+        echo "removing $type from $file"
+        sed -i '/\\begin{'$type'}/,/\\end{'$type'}/ d' "$file"
+    done
 }
 
 removefloats(){
@@ -23,4 +26,6 @@ removefloats(){
 
 echo "This script overwrites all .tex files in this directory. To continue, please confirm your password"
 confirm || exit 1
-#removefloats
+echo "beginning to remove all float elements from .tex files"
+removefloats
+echo "done"

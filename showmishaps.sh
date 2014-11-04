@@ -20,7 +20,7 @@ imagerefs(){
 }
 
 usedcitations(){
-    sed -n 's/\\citation{\([^}]*\)}/\1/gp' *.aux | sort -u
+    sed -n 's/\\citation{\([^},]\+\(,[^},]\+\)*\)}/\1/gp' *.aux | sed 's/,/\n/g' | sort -u
 }
 
 availablecitations(){
@@ -29,7 +29,7 @@ availablecitations(){
 
 citationswithlanguagetag(){
     local lines
-    lines=$(sed ':a;N;$!ba;s/,\s*\n/,/g' *.bib  | grep language | sed -n 's/@[a-zA-Z-]*{\([^,]*\),.*/\1/p')
+    lines=$(sed ':a;N;$!ba;s/,\s*\n/,/g' *.bib  | grep 'language\s*=' | sed -n 's/@[a-zA-Z-]*{\([^,]*\),.*/\1/p')
     [ -n "$lines" ] && echo -e "$lines"
 }
 
@@ -110,15 +110,6 @@ listlonglines(){
     listlogs | { xargs -0 grep -Pi 'multipl[ey]|undefined' || echo "ok"; } | sed -r -n "s/^[^\`]*\`([^']+)'.*$/\1/p"
     echo
 
-    ####################
-    # unused citations #
-    ####################
-
-    echo "<= unused citations =>"
-    echo
-    unusedcitations || echo "ok"
-    echo
-
     ###############################
     # citations with language tag #
     ###############################
@@ -126,6 +117,15 @@ listlonglines(){
     echo "<= citations with language tag =>"
     echo
     citationswithlanguagetag || echo "ok"
+    echo
+
+    ####################
+    # unused citations #
+    ####################
+
+    echo "<= unused citations =>"
+    echo
+    unusedcitations || echo "ok"
     echo
 
     ##############

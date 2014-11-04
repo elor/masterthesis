@@ -1,20 +1,35 @@
 \section{Überblick über bisherige Methoden}
 
-\subsection{Reine KMC-Simulationen}
+In der Vergangenheit wurden reine molekulardynamische und kinetische Monte Carlo-Methoden wiederholt zur Simulation von verschiedenen Aspekten von Gasphasenabscheidungen zu Rate gezogen.
+Im Folgenden soll ein Überblick über die bisherigen Untersuchungen gegeben werden.
 
-Dwivedi
+\subsection{Bisherige KMC-Simulationen}
 
-Mazaleyrat
+\subsubsection{Dwivedi: gitterbasierte 2D-ALD}
 
-Zagros (Stamatakis)
+\todo{Titel erwähnen?}Dr. V. Dwivedi und Prof. Dr. A. Adomaitis \cite{dwivedi_multiscale_2009}\cite{dwivedi_multiscale_2009-1}\cite{dwivedi_multiscale_2010} haben ein zweidimensionales KMC-Modell von \ce{Al2O3}-ALD genutzt, um die Reaktions- und Wachstumsraten in Abhängigkeit der Partialdrücke der Precursorgase zu gewinnen und in eine Gasflusssimulation zur Beschichtung von Mikroporen einzubinden.
+Dazu werden die Plätze eines hexagonalen Gitters auf die Spezies Sauerstoff, Hydroxyl und Aluminium aufgeteilt, Zustandsübergänge in Abhängigkeit der 6 Nachbarzellen definiert und Übergangsraten ausgehend von den Energiebarrieren der entsprechenden chemischen Reaktionen ermittelt.
+Aussagen über die Schichthöhe ergeben sich über eine Festlegung Zellhöhe anhand der Einheitszelle eines \ce{Al2O3}-Kristalles und eine vertikale Bestimmung der höchsten besetzten Zelle.
+
+Damit lassen sich zwar GPC-Werte und Precursorverbrauch annähernd bestimmen, doch ist keine strukturelle Aussage möglich, obwohl elegant gewählte Ereignisse die Ziel-Stöchiometrie erzwingen.
+\todo{Sollte das hier erwähnt werden?}Eigene Tests des Modelles schlugen zudem häufig fehl, da das System eine Tendenz zur Bildung von \ce{Al-O}-Ketten und zur Verstärkung von Kratern hat, wobei die Ursache nicht klar dem eigenen Code oder dem Dwivedi-Modell zuzuordnen ist.
+
+\subsubsection{Mazaleyrat: gitterbasierte 3D-ALD}
+
+Ähnlich zum Dwivedi-Modell nutzt auch das Mazaleyrat-Modell \cite{mazaleyrat_methodology_2005} ein Simulationsgitter, das aber in drei Dimensionen definiert ist, auf dem \ce{MgAl2O4}-Spinell-basiert und als Annäherung der eigentlichen Atompositionen verstanden wird.
+Durch geschickte Rotation und Indizierung des Gitters wird eine effiziente Methode geschaffen, in ALD-Simulationen Aluminiumoxid-Schichten aufzuwachsen, deren strikte kristalline Konfiguration die eigentlich amorphe Struktur nicht darstellen kann, obwohl das Ziel des Modelles in der Abscheidung von \ce{Al2O3}-Dielektrika auf Silizium-Oberflächen liegt.
+
+Eine Betrachtung der Dichte, Rauheit, dem Besetzungsgrad der Gitterplätze und dem Wachstumsverhalten über den dritten Schritt hinaus war von den Autoren nicht vorgesehen.
+
+\subsubsection{Stamatakis: Zagros-KMC-Code}
+
+Zwar handelt es sich beim Zagros-Modell asd
 
 -> Graphbasiert, Vorausgewählte Ereignisse, Gitter
 
-Refs
-
 \todo[inline]{schreiben}
 
-\subsection{Reine MD-Methoden}
+\subsection{Bisherige MD-Simulationen}
 
 relativ verlässliche strukturelle Aussagen möglich, aber keine Stufen oder größere Strukturen
 

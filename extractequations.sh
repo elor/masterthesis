@@ -10,12 +10,12 @@
 # 4. remove leading spaces                    #
 ###############################################
 
-getequations(){
-    sed -n '/\\begin{equation}/,/\\end{equation}/{/{equation}/!{/\\label{/!p}};/\$/p' *.tex | sed -r -e 's/[^$]*\$([^$]*)\$[^$]*/\1\n/g' | sed -e '/#/d' -e 's/^\s*(\\q?quad)?\s*//' -e '/^$/d'
-}
+envs='equation\|gather\|align'
 
-formatequations(){
-    getequations | uniq | sed -e 'i\\\\begin{equation}' -e 'a\\\\end{equation}'
+getequations(){
+    sed -n '/\\begin{\('$envs'\)}/,/\\end{\('$envs'\)}/p;/\$/p' *.tex \
+        | sed -r -e 's/[^$]*\$([^$]*)\$[^$]*/\\begin{equation}\n\1\n\\end{equation}\n/g' \
+        | sed -e '/#/d' -e 's/^\s*(\\q?quad)?\s*//' -e '/^$/d'
 }
 
 preparetexcode(){
@@ -28,7 +28,7 @@ preparetexcode(){
 
 \begin{document}
 
-`formatequations`
+`getequations`
 
 \end{document}
 

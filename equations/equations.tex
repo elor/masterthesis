@@ -19,6 +19,12 @@ k=3.9
 \alpha
 \end{equation}
 \begin{equation}
+\alpha
+\end{equation}
+\begin{equation}
+\alpha
+\end{equation}
+\begin{equation}
 \gamma
 \end{equation}
 \begin{equation}
@@ -26,6 +32,12 @@ k=3.9
 \end{equation}
 \begin{equation}
 \gamma
+\end{equation}
+\begin{equation}
+\alpha
+\end{equation}
+\begin{equation}
+\alpha
 \end{equation}
 \begin{equation}
 \alpha
@@ -70,10 +82,34 @@ n
 1
 \end{equation}
 \begin{equation}
+1
+\end{equation}
+\begin{equation}
+1
+\end{equation}
+\begin{equation}
+n
+\end{equation}
+\begin{equation}
+n
+\end{equation}
+\begin{equation}
+n
+\end{equation}
+\begin{equation}
 n
 \end{equation}
 \begin{equation}
 n\log{n}
+\end{equation}
+\begin{equation}
+n
+\end{equation}
+\begin{equation}
+n
+\end{equation}
+\begin{equation}
+n
 \end{equation}
 \begin{equation}
 n
@@ -94,6 +130,15 @@ n
 1
 \end{equation}
 \begin{equation}
+1
+\end{equation}
+\begin{equation}
+1
+\end{equation}
+\begin{equation}
+r_s^3
+\end{equation}
+\begin{equation}
 r_s^3
 \end{equation}
 \begin{equation}
@@ -109,7 +154,13 @@ n\log{c}
 \log{c}
 \end{equation}
 \begin{equation}
+\log{c}
+\end{equation}
+\begin{equation}
 1
+\end{equation}
+\begin{equation}
+r_s^3\log{c}
 \end{equation}
 \begin{equation}
 r_s^3\log{c}
@@ -127,6 +178,15 @@ n\log{n}
 \log{n}
 \end{equation}
 \begin{equation}
+\log{n}
+\end{equation}
+\begin{equation}
+\log{n}
+\end{equation}
+\begin{equation}
+r_s^3\log{n}
+\end{equation}
+\begin{equation}
 r_s^3\log{n}
 \end{equation}
 \begin{equation}
@@ -137,6 +197,12 @@ n
 \end{equation}
 \begin{equation}
 n\log{n}
+\end{equation}
+\begin{equation}
+k\log{k}
+\end{equation}
+\begin{equation}
+k\log{k}
 \end{equation}
 \begin{equation}
 k\log{k}
@@ -158,6 +224,24 @@ n
 \end{equation}
 \begin{equation}
 1
+\end{equation}
+\begin{equation}
+1
+\end{equation}
+\begin{equation}
+1
+\end{equation}
+\begin{equation}
+n
+\end{equation}
+\begin{equation}
+n
+\end{equation}
+\begin{equation}
+n
+\end{equation}
+\begin{equation}
+n
 \end{equation}
 \begin{equation}
 n
@@ -182,6 +266,12 @@ r_s
 \end{equation}
 \begin{equation}
 s
+\end{equation}
+\begin{equation}
+k
+\end{equation}
+\begin{equation}
+k
 \end{equation}
 \begin{equation}
 k
@@ -236,6 +326,9 @@ cell \gets
 \end{equation}
 \begin{equation}
 root, cellindex
+\end{equation}
+\begin{equation}
+root
 \end{equation}
 \begin{equation}
 root
@@ -370,10 +463,16 @@ _0 \in
 \cap
 \end{equation}
 \begin{equation}
+\cap
+\end{equation}
+\begin{equation}
 \setminus
 \end{equation}
 \begin{equation}
 \alpha
+\end{equation}
+\begin{equation}
+r_d > \alpha^{-1}
 \end{equation}
 \begin{equation}
 r_d > \alpha^{-1}
@@ -394,6 +493,12 @@ r_d > \alpha
 r_d < \alpha
 \end{equation}
 \begin{equation}
+r_d < \alpha
+\end{equation}
+\begin{equation}
+\sim t
+\end{equation}
+\begin{equation}
 \sim t
 \end{equation}
 \begin{equation}
@@ -412,15 +517,19 @@ V(r_ij)
 r_\text{cut}
 \end{equation}
 \begin{equation}
+  \label{eq:pairforce}
   \vec F_{ij}(r_{ij}) = \vec\nabla V(r_{ij})
 \end{equation}
 \begin{equation}
+  \label{eq:pairenergy}
   E = \sum_i\sum_{j \neq i}{V(r_{ij})}
 \end{equation}
 \begin{equation}
+  \label{eq:lennardjones}
   V_\text{LJ}(r_{ij}) = 4 \epsilon \left[\left(\frac{\sigma}{r_{ij}}\right)^{12} - \left(\frac{\sigma}{r_{ij}}\right)^{6}\right]
 \end{equation}
 \begin{equation}
+  \label{eq:nbody-energy}
   E = \sum_i\sum_{j \neq i}{V_2\left(r_{ij}\right)} + \sum_i\sum_{j \neq i}\sum_{i \neq k \neq j}{V_3\left(r_{ij}, r_{ik}, \theta_{ijk}\right)} + \dots
 \end{equation}
 \begin{equation}
@@ -442,9 +551,11 @@ F_\alpha
 \beta
 \end{equation}
 \begin{equation}
+  \label{eq:eam-energy}
   E = \sum_i\left[F_\alpha\left(\sum_{j\neq i}{\rho_\beta\left(r_{ij}\right)}\right) + \frac{1}{2}\sum_{j\neq i}{V_{\alpha\beta}\left(r_{ij}\right)}\right]
 \end{equation}
 \begin{equation}
+  \label{eq:meam-energy}
   E = \sum_i\left[F_\alpha\left(\bar{\rho_i}\right) + \frac{1}{2}\sum_{j\neq i}{V_{ij}\left(r_{ij}\right)}\right]
 \end{equation}
 \begin{equation}
@@ -453,6 +564,14 @@ F_\alpha
 \begin{equation}
 \pi
 \end{equation}
+\begin{equation}
+\pi
+\end{equation}
+\begin{align}
+  \label{eq:reaxformulation}
+  E_\text{system} =~& E_\text{bond} + E_\text{lp} + E_\text{over} + E_\text{under} + E_\text{val} + E_\text{pen} + E_\text{coa} + E_\text{C2} \\
+  \nonumber  & + E_\text{tors} + E_\text{conj} + E_\text{H-bond} + E_\text{vdWaals} + E_\text{Coulomb}
+\end{align}
 \begin{equation}
 E_\text{bond}
 \end{equation}
@@ -628,6 +747,9 @@ X_n^i
 R
 \end{equation}
 \begin{equation}
+R
+\end{equation}
+\begin{equation}
 m
 \end{equation}
 \begin{equation}
@@ -650,17 +772,9 @@ E
 \end{equation}
 \begin{equation}
   N = \text{const.}
-\end{equation}
-\begin{equation}
   \qquad
-\end{equation}
-\begin{equation}
   V = \text{const.}
-\end{equation}
-\begin{equation}
   \qquad
-\end{equation}
-\begin{equation}
   E = \text{const.}
 \end{equation}
 \begin{equation}
@@ -677,17 +791,9 @@ T
 \end{equation}
 \begin{equation}
   N = \text{const.}
-\end{equation}
-\begin{equation}
   \qquad
-\end{equation}
-\begin{equation}
   V = \text{const.}
-\end{equation}
-\begin{equation}
   \qquad
-\end{equation}
-\begin{equation}
   T = \text{const.}
 \end{equation}
 \begin{equation}
@@ -695,9 +801,8 @@ T_\text{Ziel}
 \end{equation}
 \begin{equation}
   %% \overline{E_{kin}} = \frac{1}{2} \overline{m v^2} = \frac{d}{2} k_B T
-\end{equation}
-\begin{equation}
   \overline{E_{kin}} = \frac{1}{2} \overline{m v^2} = \frac{d}{2} k_B T
+  \label{eq:ekanonisch}
 \end{equation}
 \begin{equation}
 T_\text{Ziel}
@@ -707,6 +812,7 @@ T_\text{Ziel}
 \end{equation}
 \begin{equation}
   \vec v_i' = \vec v_i \cdot \sqrt{1 + \frac{\Delta t}{\tau} \left(\frac{T_\text{Ziel}}{T} - 1\right)}
+  \label{eq:berendsen}
 \end{equation}
 \begin{equation}
 s
@@ -724,6 +830,9 @@ s
 M
 \end{equation}
 \begin{equation}
+M
+\end{equation}
+\begin{equation}
 \tau
 \end{equation}
 \begin{equation}
@@ -731,17 +840,9 @@ M
 \end{equation}
 \begin{equation}
   N = \text{const.}
-\end{equation}
-\begin{equation}
   \qquad
-\end{equation}
-\begin{equation}
   p = \text{const.}
-\end{equation}
-\begin{equation}
   \qquad
-\end{equation}
-\begin{equation}
   T = \text{const.}
 \end{equation}
 \begin{equation}
@@ -755,6 +856,9 @@ M
 \end{equation}
 \begin{equation}
 \alpha
+\end{equation}
+\begin{equation}
+\Rightarrow
 \end{equation}
 \begin{equation}
 \Rightarrow
@@ -774,10 +878,18 @@ M
 \begin{equation}
 i > i_\text{tol}
 \end{equation}
+\begin{gather}
+  \label{eq:cg-linesearch1}
+  \min_\alpha f(X_i+\alpha \vec s_i) \rightarrow \alpha_i \\
+  \label{eq:cg-linesearch2}
+  \vec X_i = \vec X_{i-1} - \alpha_i \vec s_i\\
+\end{gather}
 \begin{equation}
+  \label{eq:pr1}
   \vec s_i = \Delta \vec X_i + \beta_i \vec s_{i-1}
 \end{equation}
 \begin{equation}
+  \label{eq:pr2}
   \beta_i = \max \left(0, \frac{\Delta \vec X_i \cdot \left(\Delta \vec X_i - \Delta \vec X_{i-1}\right)}{\Delta \vec X_{i-1} \cdot \Delta \vec X_{i-1}}\right) \text{~(Polak-Ribière)}
 \end{equation}
 \begin{equation}
@@ -785,6 +897,8 @@ Id
 \end{equation}
 \begin{equation}
 _2
+\end{equation}
+\begin{equation}
 \end{equation}
 
 \end{document}

@@ -30,10 +30,10 @@ Zum Abschluss des KMC-Schrittes erhöht man die Simulationszeit gemäß einer Po
 \end{equation}
 Nun kann der nächste Systemzustand $X_{n+1}$ nach der gleichen Vorgehensweise bestimmt werden.
 Die Simulation bricht ab, sobald keine weiteren Ereignisse mehr vorhanden sind ($N=0$ oder $R_N=0$) oder eine Schranke der Simulationszeit überschritten wurde ($t_n > t_\text{fin}$).
-Abbildung \ref{fig:kmctree} zeigt zur Veranschaulichung ein \todo{Wort}generisches Beispiel einer KMC-Simulation.
+Abbildung~\ref{fig:kmctree} zeigt zur Veranschaulichung ein \todo{Wort}generisches Beispiel einer KMC-Simulation.
 
 \begin{figure}
-  \centering  
+  \centering
 
   \def\svgwidth{14cm}
   \input{img/kmc_tree.pdf_tex}
@@ -56,7 +56,7 @@ Vor allem bei kristallinen Strukturen lassen sich viele Übergänge durch das Ve
 Dadurch lässt sich in endlicher Zeit durch eine Suche über alle betroffenen Gitterplätze effizient eine Ereignisliste aufbauen, die anschließend zur Auswahl eines Ereignisses genutzt werden kann.
 Amorphe Strukturen lassen sich aber nur schwer auf ein Gitter reduzieren, wodurch der Zustandsraum durch \todo{Fabian fragen}kontinuierliche Freiheitsgrade \todo{Fabian fragen}überabzählbar unendlich viele Zustände enthält und nicht mehr vollständig betrachtet werden kann.
 
-Um diese Beschränkungen zu umgehen, werden in Parsivald (Abschnitt \ref{parsivald}) alle gleichartigen Ereignisse, die sich in unmittelbarer Nachbarschaft eines bestimmten Oberflächenatomes befinden, zu einem einzigen Ereignis mit fester Reaktionsrate zusammen gefasst.
+Um diese Beschränkungen zu umgehen, werden in Parsivald (Abschnitt~\ref{parsivald}) alle gleichartigen Ereignisse, die sich in unmittelbarer Nachbarschaft eines bestimmten Oberflächenatomes befinden, zu einem einzigen Ereignis mit fester Reaktionsrate zusammen gefasst.
 Anschließend bestimmt eine Molekulardynamik-Simulation den Ausgang der Oberflächenreaktion mit atomistischer Genauigkeit.
 Trotz Ergodizität der MD-Simulationen, durch welche verschiedenen Ergebnissen des Ereignisses eine Wahrscheinlichkeit entsprechend der relativen Reaktionsrate zugewiesen werden sollte, sorgt diese Formulierung zu einer Verletzung der KMC-Formulierung durch eine Verzerrung der Simulationszeit bei fehlerhaften Ereignisraten.
 Als Vorteil sorgt die Kombination beider Methoden zu einer Beschleunigung gegenüber MD-Rechnungen und zur Möglichkeit der strukturellen Betrachtung für KMC-Simulationen, wobei für gesteigerte Effizienz der Algorithmen auf spezialisierte Datenstrukturen zurück gegriffen werden muss.

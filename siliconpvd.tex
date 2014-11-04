@@ -9,7 +9,7 @@ ASD
 
 Für die folgenden Simulationen werden ReaxFF-Potentiale mit der Aussicht genutzt, auch Reaktionen zwischen Oberflächenatomen und Precursormolekülen simulieren zu können.
 Da die ReaxFF-Formulierung erst innerhalb des letzten Jahrzehntes an Popularität gewonnen hat\todo{ref auf van Duin}, sind die verfügbaren Potentiale auf einzelne Probleme angepasst und oftmals noch nicht in den Potentialdatenbanken zu finden.
-Tabelle \ref{tab:siliconpotentials} listet die im Rahmen der Arbeit untersuchten ReaxFF-Parametrisierungen auf.
+Tabelle~\ref{tab:siliconpotentials} listet die im Rahmen der Arbeit untersuchten ReaxFF-Parametrisierungen auf.
 
 \begin{table}
   \caption[Silizium-Potentialdateien]{Potentialdateien für Silizium- und Siliziumoxidsysteme}
@@ -35,15 +35,15 @@ Tabelle \ref{tab:siliconpotentials} listet die im Rahmen der Arbeit untersuchten
 
 \subsection{Voruntersuchungen}
 
-In Ergänzung zu den bisherigen Voruntersuchungen, die hauptsächlich aus Optimierungen und Relaxierungen von Kristallen bestanden, kommen hier auch Simulationen der Precursormoleküle für \ce{SiO2}-CVD, \ce{SiH4} und \ce{O2}, sowie der Oberfläche und amorpher Strukturen hinzu, wie sie bereits in Abschnitt \ref{mdtests} vorgestellt wurden\todo{Hier beschreiben}.
+In Ergänzung zu den bisherigen Voruntersuchungen, die hauptsächlich aus Optimierungen und Relaxierungen von Kristallen bestanden, kommen hier auch Simulationen der Precursormoleküle für \ce{SiO2}-CVD, \ce{SiH4} und \ce{O2}, sowie der Oberfläche und amorpher Strukturen hinzu, wie sie bereits in Abschnitt~\ref{mdtests} vorgestellt wurden\todo{Hier beschreiben}.
 Diese zusätzlichen Untersuchungen haben umfassendere Aussagen über die Anwendbarkeit der Parametrisierungen für vollständige Abscheidungssimulationen zum Ziel.
 Lassen sich auch Reaktionen zwischen Precursormolekülen und der Oberfläche zuverlässig simulieren, könnte man die Precursormoleküle in Parsivald direkt auf der Oberfläche aufbringen, statt sie auf ihre Zentralatome zu reduzieren.
-Die Ergebnisse dieser Betrachtungen wurden in Tabelle \ref{tab:siliconpreresults} zusammen gefasst und im weiteren kurz diskutiert.
+Die Ergebnisse dieser Betrachtungen wurden in Tabelle~\ref{tab:siliconpreresults} zusammen gefasst und im weiteren kurz diskutiert.
 
 \begin{table}
   \begin{threeparttable}
     \caption[Ergebnisse der Silizium-Potential-Untersuchungen]{Zusammenfassung Ergebnisse der Untersuchung der Potentialuntersuchung für Silizium-Systeme.
-      Detailliertere Ergebnisse finden sich in Anhang \ref{appendix:silicon}
+      Detailliertere Ergebnisse finden sich in Anhang~\ref{appendix:silicon}
     }
     \label{tab:siliconpreresults}
 
@@ -88,19 +88,18 @@ Die Ergebnisse dieser Betrachtungen wurden in Tabelle \ref{tab:siliconpreresults
 
 \subsubsection{Kompatibilität mit der Molekulardynamiksoftware (LMP)}
 
-Einige Potentialdateien sind aus verschiedenen Gründen nicht mit der aktuellen Version der LAMMPS-Bibliothek kompatibel, was sich in harten Abbrüchen des Programmes äußert und sie nicht nutzbar für weitere Untersuchungen macht.
-Sie sollen hier der Vollständigkeit halber Erwähnung finden.
-Andere Dateien lassen sich zwar laden und benutzen, äußern jedoch regelmäßige Warnungen über ihre van-der-Waals-Parameter, die aber nicht zu sonstigen Fehlern führen und meist nur Stickstoff- oder Platzhalteratome\footnote{Typischerweise beinhalten ReaxFF-Dateien wechselwirkungsfreie Platzhalterelemente unter dem Pseudo-Element \ce{X} zum Zweck des Ausschlusses einzelner Partikel aus der Simulation} betrifft.
+Einige Potentialdateien sind aus verschiedenen Gründen nicht mit der aktuellen Version der LAMMPS-Bibliothek kompatibel, was sich in harten Abbrüchen des Programmes äußert und sie von weiteren Untersuchungen ausschließt.
+Andere Dateien lassen sich zwar laden und benutzen, äußern jedoch regelmäßige Warnungen über ihre van-der-Waals-Parameter, die aber nicht zu sonstigen Fehlern führen und meist nur Stickstoff- oder Platzhalteratome\footnote{Typischerweise beinhalten ReaxFF-Dateien wechselwirkungsfreie Platzhalterelemente unter dem Platzhalter-Element \ce{X} zum Zweck des Ausschlusses einzelner Partikel aus der Simulation} betrifft.
 
 \subsubsection{Kristalleigenschaften (c-\ce{Si}, c-\ce{SiO2})}
 
 Diese Untersuchungen decken sich mit dem bisherigen Vorgehen:
 Eine Kristallstruktur wird unterhalb des Schmelzpunktes relaxiert, minimiert und anschließend hinsichtlich Koordination, Dichte und Bindungslänge analysiert.
-Alle untersuchten Parametersätze erzeugen die korrekte Koordinationszahl von 4.0, mit klaren Spitzen in den radialen Verteilungsfunktionen und nahezu passenden Bindungslängen (Abbildung \ref{fig:sisibondlengths}).
-Der Newsome-Parametersatz generiert einen RDF-Peak vor der eigentlichen Bindungslänge, der der Vollständigkeit halber erwähnt sein soll, bei Bestimmung der Bindungslänge aus der RDF aber nicht über die Hauptbindungslänge dominiert.
-Er führt bei amorphen Systemen jedoch zu einer Unterschätzung der Bindungslänge und Koordinationszahl (Tabelle \ref{tab:amorphoussilicon}).
+Alle untersuchten Parametersätze erzeugen die korrekte Koordinationszahl von 4.0, mit klaren Spitzen in den radialen Verteilungsfunktionen und nahezu passenden Bindungslängen (Abbildung~\ref{fig:sisibondlengths}).
+Der Newsome-Parametersatz generiert einen RDF-Peak vor der eigentlichen Bindungslänge, welcher der Vollständigkeit halber erwähnt sein soll, bei Bestimmung der Bindungslänge aus der RDF aber nicht über die Hauptbindungslänge dominiert.
+Er führt bei amorphen Systemen jedoch zu einer Unterschätzung der Bindungslänge und Koordinationszahl (Tabelle~\ref{tab:amorphoussilicon}).
 Im Allgemeinen stimmen die Kristalleigenschaften gut mit den erwarteten Werten aus der Standardliteratur überein.
-Anhang \ref{appendix:silicon} beinhaltet Abbildungen eines Vergleiches der Bindungslängen sowie eine exemplarische radiale Verteilungsfunktion des Kulkarni-Potentiales im kanonischen und im großkanonischen Ensemble.
+Anhang~\ref{appendix:silicon} beinhaltet Abbildungen eines Vergleiches der Bindungslängen sowie eine exemplarische radiale Verteilungsfunktion des Kulkarni-Potentiales im kanonischen und im großkanonischen Ensemble.
 
 \subsubsection{Amorphes Silizium (a-\ce{Si})}
 
@@ -112,19 +111,19 @@ Deren Werte variieren für amorphes Silizium stärker als für kristallines, lie
 \todo[inline]{NVT? Bitte sag, dass kein kanonisches Ensemble benutzt wurde!}
 ReaxFF-Potentiale versprechen die Simulation von Molekülen und deren Reaktion miteinander, die mit den folgenden Tests für Silan und molekularen Sauerstoff überprüft werden sollen.
 Dazu wurden Simulationen einzelner und mehrerer Precursormoleküle (\ce{SiH4} und \ce{O2}) im kanonischen Ensemble bei verschiedenen Temperaturen simuliert und hinsichtlich ihrer Stabilität begutachtet.
-Abbildung \ref{fig:silanestability} zeigt eine Auswahl der Ergebnisse der Silan-Simulationen, an denen sich erkennen lässt, wie instabile Simulationen zur Ablösung der Wasserstoffatome vom Silanmolekül führen.
+Abbildung~\ref{fig:silanestability} zeigt eine Auswahl der Ergebnisse der Silan-Simulationen, an denen sich erkennen lässt, wie instabile Simulationen zur Ablösung der Wasserstoffatome vom Silanmolekül führen.
 
 \subsubsection{Reaktion der Precursormoleküle (\ce{SiH4 + O2})}
 
 \todo[inline]{NVT? Bitte sag, dass kein kanonisches Ensemble benutzt wurde!}
 Reaktionen von einzelnen Precursormolekülen wurden stichprobenartig in verschiedenen Orientierungen, Energien und Temperaturen vorgenommen, um einen Überblick über die Verlässlichkeit zu bekommen.
 Zusätzlich wurden durchmischte Precursorgase mit dem Ziel eventueller Reaktionen simuliert, was jedoch mit keiner der Parametrisierungen zum gewünschten Erfolg bei hoher Zuverlässigkeit führte.
-Einige Parametrisierungen zeigen jedoch vielversprechende Teilreaktionen, die korrekte Doppelbindungen und Bildung von Wasserstoffmolekülen beinhalten (Abbildung \ref{fig:precursorreactions}).
-Vor allem bei größeren Reaktionsräumen bilden sich Cluster aus Precursormolekülen, die von attraktiven Termen in den Kraftfeldern dominiert werden, aber nicht durch chemische Wechselwirkungen zu erklären sind (Abbildung \ref{fig:precursorclusters}).
+Einige Parametrisierungen zeigen jedoch vielversprechende Teilreaktionen, die korrekte Doppelbindungen und Bildung von Wasserstoffmolekülen beinhalten (Abbildung~\ref{fig:precursorreactions}).
+Vor allem bei größeren Reaktionsräumen bilden sich Cluster aus Precursormolekülen, die von attraktiven Termen in den Kraftfeldern dominiert werden, aber nicht durch chemische Wechselwirkungen zu erklären sind (Abbildung~\ref{fig:precursorclusters}).
 
 \subsubsection{Abscheidungssimulationen (PVD, CVD)}
 
-Die Abscheidungssimulationen selbst verlaufen wie in Kapitel \ref{parsivald} vorgestellt und unterscheiden sich kaum von den Parsivald-Simulationen der vorherigen Abschnitte.
+Die Abscheidungssimulationen selbst verlaufen wie in Kapitel~\ref{parsivald} vorgestellt und unterscheiden sich kaum von den Parsivald-Simulationen der vorherigen Abschnitte.
 Als Ausgang werden amorphe und deshalb rauhere Schichten erwartet, die sowohl für \ce{Si}-PVD als auch \ce{SiO2}-CVD kontinuierlich wachsen, aber unterschiedlichen Bedingungen unterliegen.
 Während die Silizium-Atome des PVD-Prozesses wie für Sputter-Prozesse üblich zufällig auf der Oberfläche auftreffen, finden die Reaktionen des CVD-Prozesses nur in der Nähe von auf der Oberfläche befindlichen Liganden statt.
 Sauerstoff-Reaktionen werden also nur in der Nähe von Silan-Gruppen und Silan-Reaktionen nur in der Nähe von Hydroxyl-Gruppen oder Sauerstoffatomen generiert.
@@ -145,8 +144,8 @@ Die hohe Temperatur wurden gewählt, um Relaxationen zu beschleunigen, und über
 Durch Justierung der Relaxationszeit, Zeitschrittweite, Thermostatdämpfung und Teilchenenergie lässt sich die Temperatur auf einen realistischeren Wert bei gleicher Verlässlichkeit der Simulation senken.
 
 Das Ergebnis der Abscheidungssimulation ist eine vergleichsweise glatte, amorphe Siliziumschicht, die mit konstanter Rate wächst, jedoch eine Zunahme der Rauheit aufgrund von sich langsam verstärkenden Oberflächenunebenheiten aufweist.
-Diese Unebenheiten wachsen im Gegensatz zu den Kupfer-Kratern aus Abschnitt \ref{copperpvd} mit der Oberfläche entlang der Wachstumsrichtung, schließen sich aber ebenfalls selbsttätig, wenngleich über einen größeren Zeitraum.
-Abbildung \ref{fig:siliconresults-a} stellt dazu über der Simulationszeit neben der Schichtdicke die Rauheit dar, welche im Verlauf der Simulation stetig zunimmt und zuletzt einen RMS-Wert von \SI{1.15}{\nano\meter} annimmt, der experimentellen Erwartungen entspricht\todo{ref}.
+Diese Unebenheiten wachsen im Gegensatz zu den Kupfer-Kratern aus Abschnitt~\ref{copperpvd} mit der Oberfläche entlang der Wachstumsrichtung, schließen sich aber ebenfalls selbsttätig, wenngleich über einen größeren Zeitraum.
+Abbildung~\ref{fig:siliconresults-a} stellt dazu über der Simulationszeit neben der Schichtdicke die Rauheit dar, welche im Verlauf der Simulation stetig zunimmt und zuletzt einen RMS-Wert von \SI{1.15}{\nano\meter} annimmt, der experimentellen Erwartungen entspricht\todo{ref}.
 Leider ermöglicht die begrenzte Laufzeit der Simulation ermöglicht keine Aussage über den weiteren Verlauf der Rauheit, von der sublinearer Verlauf durch Schließung der Unebenheiten erwartet wird, wie er sich bei den meisten Abscheidungsprozesse zeigt.\todo{ref?}
 
 \begin{figure}
@@ -167,11 +166,11 @@ Leider ermöglicht die begrenzte Laufzeit der Simulation ermöglicht keine Aussa
   \label{fig:siliconresults}
 \end{figure}
 
-Abbildung \ref{fig:siliconprofile} stellt die räumliche Verteilung der Unebenheiten dar, die sich lokal in Kratern und Poren von bis zu \SI{32}{\angstrom} Tiefe konzentrieren, aufgrund ihrer geringen Breite aber nur zu einer RMS-Rauheit von \SI{11.5}{\angstrom} führen.
+Abbildung~\ref{fig:siliconprofile} stellt die räumliche Verteilung der Unebenheiten dar, die sich lokal in Kratern und Poren von bis zu \SI{32}{\angstrom} Tiefe konzentrieren, aufgrund ihrer geringen Breite aber nur zu einer RMS-Rauheit von \SI{11.5}{\angstrom} führen.
 Breitere Krater haben sich durch die geringe Größe des Simulationsraumes nicht entwickelt, jedoch wäre eine Untersuchung einer ca. \SI{500x500}{\angstrom} breiten Struktur auf deren Bildung interessant\todo{in den Ausblick packen?}.
 Anhand des Profiles lässt sich auch erkennen, dass mitunter längere Relaxationszeiten oder höhere Teilchenenergien notwendig wären, um Porenbildung weiter zu verringern und langreichweitigere Unebenheiten zu befördern, wie sie etwa bei der Bildung nanoskopischer Silizium-Partikel gebildet würden.
 
-Zum Vergleich beinhaltet Abbildung \ref{fig:siliconunderrelaxedprofile} das Oberflächenprofil einer unterrelaxierten Oberfläche, wie sie während der Anpassung der Parsivald-Parameter entstanden sind.
+Zum Vergleich beinhaltet Abbildung~\ref{fig:siliconunderrelaxedprofile} das Oberflächenprofil einer unterrelaxierten Oberfläche, wie sie während der Anpassung der Parsivald-Parameter entstanden sind.
 Es zeigen sich stärkere Unterschiede und steilere Hänge, die sich aus der hohen Porösität des Materiales ergeben.
 Somit ist zu erwarten, dass die Rauheit der Schicht mit stärkerer Relaxierung erwartungsgemäß weiter abnimmt.
 

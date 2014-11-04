@@ -8,9 +8,9 @@
 Parsivald\footnote{Parallel Atomistic Reaction SImulator for Vapor / Atomic Layer Depositions} entstand 2012 als namenloses Resultat meiner Bachelorarbeit\cite{lorenz_entwicklung_2012} am Fraunhofer ENAS mit dem Ziel der Simulation von Atom\-lagen\-abscheidungs-Prozessen.
 Das Programm war beschränkt auf die atomistische Simulation von Metall\-oxid-ALD mittels MEAM-Potentialen.
 Hauptaufgabe von Parsivald ist es, Atomlagenabscheidungen auf großen Oberflächen per Kombination von KMC- und MD-Methoden mit atomistischer \todo{Genauigkeit}Präzision simulieren zu können.
-Abbildung \ref{fig:parsivald-stephierarchy} stellt die Funktionsweise des Parsivald-Modelles vor, die im Wesentlichen aus Vor- und Nachbereitung sowie einer Prozessschleife besteht.
-Innerhalb der Hauptschleife werden nacheinander in mehreren Prozessschritten mögliche Adsorptionen, Ligandenaustausch-Reaktionen oder Relaxationen mit KMC-Mechanismen ausgewählt, mittels Molekulardynamik lokal simuliert und die Ergebnisse schließlich in die globale Struktur zurückgeführt (Abbildung \ref{fig:parsivald-schema}).
-KMC-Ereignisse sind in diesem Modell auf eine dünne Oberflächenschicht begrenzt, wo sie jeweils innerhalb eines Kastens beschränkter Größe, der MD-Box, wirken (Abbildung \ref{fig:parsivald-schema}).
+Abbildung~\ref{fig:parsivald-stephierarchy} stellt die Funktionsweise des Parsivald-Modelles vor, die im Wesentlichen aus Vor- und Nachbereitung sowie einer Prozessschleife besteht.
+Innerhalb der Hauptschleife werden nacheinander in mehreren Prozessschritten mögliche Adsorptionen, Ligandenaustausch-Reaktionen oder Relaxationen mit KMC-Mechanismen ausgewählt, mittels Molekulardynamik lokal simuliert und die Ergebnisse schließlich in die globale Struktur zurückgeführt (Abbildung~\ref{fig:parsivald-schema}).
+KMC-Ereignisse sind in diesem Modell auf eine dünne Oberflächenschicht begrenzt, wo sie jeweils innerhalb eines Kastens beschränkter Größe, der MD-Box, wirken (Abbildung~\ref{fig:parsivald-schema}).
 Das setzt zwar diffusionsarme Prozesse voraus, ermöglicht dafür jedoch die effiziente Beschreibung von Atomlagenabscheidungen mit vielen Millionen Atomen auf der Mikrometerskala.
 
 \begin{figure}
@@ -31,19 +31,19 @@ Das setzt zwar diffusionsarme Prozesse voraus, ermöglicht dafür jedoch die eff
     Schema der Funktionsweise des Parsivald-Modelles für allgemeine Prozessarten.
     \\
     Event-Typen unterscheiden sich durch Art der MD-Simulation (Relaxation, Abscheidung) oder Art des Precursors.
-    Siehe auch Abbildung \ref{fig:parsivald-modes}.
+    Siehe auch Abbildung~\ref{fig:parsivald-modes}.
   }
   \label{fig:parsivald-stephierarchy}
 \end{figure}
 
-Als Eingaben der Simulation dienen das Substrat, eine Sammlung verschiedener Prozessparameter wie Umgebungstemperaturen, Expositionszeiten und Abscheidungsmodi (Abbildung \ref{fig:parsivald-modes}), sowie MD-Befehlslisten mit Platzhaltern (MD-Maske) samt Potentialparametrisierung.
-Die Konfiguration legt Umgebungseigenschaften, Abscheidungsart (Abbildung \ref{fig:parsivald-modes}), Größe des Simulations- und MD-Raumes und Laufzeitbedingungen des Hostprogrammes fest.
+Als Eingaben der Simulation dienen das Substrat, eine Sammlung verschiedener Prozessparameter wie Umgebungstemperaturen, Expositionszeiten und Abscheidungsmodi (Abbildung~\ref{fig:parsivald-modes}), sowie MD-Befehlslisten mit Platzhaltern (MD-Maske) samt Potentialparametrisierung.
+Die Konfiguration legt Umgebungseigenschaften, Abscheidungsart (Abbildung~\ref{fig:parsivald-modes}), Größe des Simulations- und MD-Raumes und Laufzeitbedingungen des Hostprogrammes fest.
 Die Ausgabe erfolgt kontinuierlich in Ereignis-Logs sowie nach jedem Prozess-Schritt in Form aller Atompositionen, aus denen die Schichteigenschaften bestimmt werden können.
 Optional lassen sich auch einzelne zur späteren Neuberechnung zwecks Fehlersuche speichern.
 
 Eine typische Abscheidungs-Simulation verläuft nach folgendem Schema:
 Zuerst wird das Substrat aus einer Datei gelesen und periodisch auf die Größe des Simulationsraums erweitert.
-Pro Precursorart und \todo{entweder oder}Halbzyklus wird eine Ereignismaske vorbereitet, die die physikalischen und numerischen Parameter inklusive der angepassten Steuerbefehle für die MD-Bibliothek zwischenspeichert.
+Pro Precursorart und \todo{entweder oder}Halbzyklus wird eine Ereignismaske vorbereitet, welche die physikalischen und numerischen Parameter inklusive der angepassten Steuerbefehle für die MD-Bibliothek zwischenspeichert.
 Anschließend beginnt die Hauptschleife mit Schritt 1, der den ersten Halbzyklus mit Precursor A darstellt.
 Es werden nun mögliche Ereignisorte auf der Oberfläche gesucht, per KMC-Algorithmus Ereignisse an diesen Orten ausgewählt und von MD-Workern simuliert.
 Bei Erreichen des Timeouts startet der nächste Schritt oder ein neuer Zyklus.
@@ -92,7 +92,7 @@ Für ALD und CVD lässt sich die Abscheidungsrate aus der Reaktionskinetik absch
 
 Die Beschränkung des Modelles auf diffusionsarme Oberflächenabscheidungen ergibt sich aus der Notwendigkeit, Bereiche des Simulationsraumes, in denen keine Reaktion statt findet, bei der MD-Simulation zu vernachlässigen.
 Das betrifft die Gasphase und den größten Teil des Bulks ebenso wie abgeschirmte Bereiche der Oberfläche.
-Für Prozesse, die die oben aufgelisteten Annahmen nicht unterstützen, degeneriert Parsivald zu einer reinen MD-Simulation, für die mit Binning und Nachbarschaftslisten effizientere Parallelisierungsmethoden existieren.
+Für Prozesse, welche die oben aufgelisteten Annahmen nicht unterstützen, degeneriert Parsivald zu einer reinen MD-Simulation, für die mit Binning und Nachbarschaftslisten effizientere Parallelisierungsmethoden existieren.
 Ein beschränktes Maß an Oberflächendiffusion lässt sich jedoch mit  längeren Relaxationszeiten oder separaten Relaxations-Ereignissen annähernd behandeln.
 
 Weiterhin ist Parsivald auf die zugrunde liegende Molekulardynamik beschränkt.
@@ -107,14 +107,14 @@ Eine tatsächliche Anwendbarkeit beider Methoden muss für jeden Prozess einzeln
 \subsection{Erweiterung im Rahmen der Masterarbeit}
 
 \todo[inline]{das ist wohl zu viel}
-Seit Beginn dieser Arbeit wurde das Parsivald-Modell und seine Implementierung um PVD- und CVD-Modi (Abbildung \ref{fig:parsivald-modes}), eventgebundene sterische Hinderung zum Zweck der CVD-Simu\-lation, ein allgemeines Konfigurationsformat\todo{Anhang?} und MD-Befehle mit Platzhaltern (sogenannte MD-Masken) erweitert.
+Seit Beginn dieser Arbeit wurde das Parsivald-Modell und seine Implementierung um PVD- und CVD-Modi (Abbildung~\ref{fig:parsivald-modes}), eventgebundene sterische Hinderung zum Zweck der CVD-Simu\-lation, ein allgemeines Konfigurationsformat\todo{Anhang?} und MD-Befehle mit Platzhaltern (sogenannte MD-Masken) erweitert.
 Intern kam die Unterstützung verschiedener atomistischer Dateiformate, die Einbettung der LAMMPS-Umgebungs\-variablen zur Potentialsuche, globale und lokale Suchpfade für alle Eingabedateien und ein interner sowie beliebig viele externe Workerpools dazu.
 Ein standardisiertes Buildsystem sorgt für schnelle und sichere Kompilierung der Software, und eine Vielzahl externer \todo{ref oder Anhang}Werkzeuge zur Prozess-Vorbereitung und -Analyse, wie sie in \todo{Referenz auf das Kapitel, in dem die Methoden vorgestellt werden} vorgestellt werden, ermöglicht schnelle Zyklen der Parameteroptimierung und Auswertung.
 
 Diese Änderungen ermöglichen eine einfachere Vorbereitung, Simulation und Untersuchung verschiedener Prozesse und eine aussagekräftigere Analyse der Ergebnisse.
 Auch eine automatisierte Optimierung der Prozessparameter wie Temperatur, Druck und Expositionszeit oder MD-spezifischer Parameter wie Thermostatdämpfung, Relaxationsdauer oder Länge des Zeitschrittes ist mittels des Konfigurationsmechanismus' denkbar.
 
-%% Zusätzlicher Aufwand musste beim Einkapseln der MD-Bibliothek LAMMPS betrieben werden (Abschnitt \ref{lammpssucks}).
+%% Zusätzlicher Aufwand musste beim Einkapseln der MD-Bibliothek LAMMPS betrieben werden (Abschnitt~\ref{lammpssucks}).
 
 \subsection{Ausgabewerte}
 
@@ -123,7 +123,7 @@ Das beinhaltet die Zahl der versuchten, erfolgreichen und fehlgeschlagenen Ereig
 Optional lässt sich eine Verteilung der Häufigkeit eines Zugriffes auf Positionen in der xy-Ebene angeben, um bei ALD- und CVD-Prozessen die Auswahlkriterien von Ereignisorten überprüfen zu können, was aber in dieser Arbeit nicht präsentiert wird\todo{Ergänzung im Anhang?}.
 Anhand der atomistischen Struktur lassen sich Oberflächenrauheiten, Porenverteilungen, Dichten, Schichtdicken und Eigenschaften eventueller Kristalle bestimmen.\todo{Verweis auf Anhang -> Methoden}
 
-Eine Auswertung der Abbruchrate ist besonders wichtig, während man nach validen Prozessparametern sucht, da sich über sie Fehler in der Prozesskonfiguration oder in der gebildeten Struktur abschätzen lassen (Siehe Abbildung \ref{fig:copperparsivald}).
+Eine Auswertung der Abbruchrate ist besonders wichtig, während man nach validen Prozessparametern sucht, da sich über sie Fehler in der Prozesskonfiguration oder in der gebildeten Struktur abschätzen lassen (Siehe Abbildung~\ref{fig:copperparsivald}).
 Ereignisse, die einem Abbruch der LAMMPS-Bibliothek unterliegen, ihre Zeitbegrenzung erreichen oder unzulässige \todo{was ist unzulässig?}Strukturen bilden, werden einem Worker zur erneuten Berechnung übergeben.
 Schlagen sie auch bei wiederholten Versuchen fehl, werden sie endgültig als fehlgeschlagen markiert und abgebrochen.
 

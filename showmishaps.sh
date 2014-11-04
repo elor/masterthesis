@@ -8,11 +8,11 @@ cuttooneline(){
 }
 
 listfiles(){
-    find * -name '*.tex' -print0
+    find * -maxdepth 0 -name '*.tex' -print0
 }
 
 listlogs(){
-    find * -name '*.log' -print0
+    find * -maxdepth 0 -name '*.log' -print0
 }
 
 imagerefs(){
@@ -28,13 +28,19 @@ availablecitations(){
 }
 
 citationswithlanguagetag(){
-    sed ':a;N;$!ba;s/,\s*\n/,/g' *.bib  | grep language | sed -n 's/@[a-zA-Z-]*{\([^,]*\),.*/\1/p'
+    local lines
+    lines=$(sed ':a;N;$!ba;s/,\s*\n/,/g' *.bib  | grep language | sed -n 's/@[a-zA-Z-]*{\([^,]*\),.*/\1/p')
+    [ -n "$lines" ] && echo -e "$lines"
 }
 
 unusedcitations(){
     local retval
     retval=$({ availablecitations; usedcitations|sed p; } | sort | uniq -u)
     [ -n "$retval" ] && echo -e "$retval"
+}
+
+doublewords(){
+    listfiles | xargs -0 grep -Pon '\b(\S+)(?<![0-9])\b\s+\b\1\b'
 }
 
 updateallwords(){
@@ -147,6 +153,15 @@ listlonglines(){
     echo "<= dots within lines (multiple sentences) =>"
     echo
     { listfiles | xargs -0 grep -Pn '^[^%&]*(?<!engl|Kap|S|Abb|Tab|Gl|Anh|Ref|Prof|vs|Dr|z\.B|et al|unters|ca|eam|[0-9])\.(?!$|[0-9]|pdf|cpp|com|eam|\s*(\&|\\todo|%|\\\\|,|\})|Sc\.|B\.)' | grep -Pv '\\(If|State)|\\dcauthoremail|Stefan E\. Schulz' || echo "ok"; } | cuttooneline
+    echo
+
+    ###############################
+    # search for word repetitions #
+    ###############################
+
+    echo "<= word repetitions =>"
+    echo
+    doublewords || echo "ok"
     echo
 
     ###################################

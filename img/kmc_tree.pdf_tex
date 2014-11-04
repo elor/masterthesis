@@ -50,38 +50,38 @@
   \makeatother%
   \begin{picture}(1,0.5)%
     \put(0,0){\includegraphics[width=\unitlength]{kmc_tree.pdf}}%
-    \put(0.08730817,0.5052377){\color[rgb]{0.76862745,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\centering $X_0$\end{minipage}}}%
-    \put(0.12072483,0.36441639){\color[rgb]{0.76862745,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\centering $X_1^2 = X_1$\end{minipage}}}%
+    \put(0.08730817,0.5052377){\color[rgb]{0,0.6627451,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\centering $X_0$\end{minipage}}}%
+    \put(0.12072483,0.36441639){\color[rgb]{0,0.6627451,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\centering $X_1^2 = X_1$\end{minipage}}}%
     \put(-0.06496157,0.36441639){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\centering $X_1^1$\end{minipage}}}%
     \put(0.24784597,0.36441639){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\centering $X_1^3$\end{minipage}}}%
-    \put(0.02910382,0.22359508){\color[rgb]{0.76862745,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\centering $X_2^1 = X_2$\end{minipage}}}%
+    \put(0.02910382,0.22359508){\color[rgb]{0,0.6627451,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\centering $X_2^1 = X_2$\end{minipage}}}%
     \put(0.17439173,0.22359508){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\centering $X_2^2$\end{minipage}}}%
     \put(0.08009345,0.08277366){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\centering $X_3^2$\end{minipage}}}%
     \put(-0.06496157,0.08277366){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\centering $X_3^1$\end{minipage}}}%
-    \put(0.24784597,0.08277366){\color[rgb]{0.76862745,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\centering $X_3^3 = X_3$\end{minipage}}}%
+    \put(0.24784597,0.08277366){\color[rgb]{0,0.6627451,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\centering $X_3^3 = X_3$\end{minipage}}}%
     \put(-0.17893608,0.15902706){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\raggedleft $E_1$\end{minipage}}}%
     \put(-0.10207095,0.12381299){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\raggedleft $E_2$\end{minipage}}}%
-    \put(0.24677343,0.15897215){\color[rgb]{0.76862745,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\raggedright $E_3$\end{minipage}}}%
-    \put(-0.11159395,0.29854763){\color[rgb]{0.76862745,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\raggedleft $E_1$\end{minipage}}}%
+    \put(0.24677343,0.15897215){\color[rgb]{0,0.6627451,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\raggedright $E_3$\end{minipage}}}%
+    \put(-0.11159395,0.29854763){\color[rgb]{0,0.6627451,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\raggedleft $E_1$\end{minipage}}}%
     \put(0.27200327,0.29854763){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\raggedright $E_2$\end{minipage}}}%
     \put(-0.11801482,0.45365231){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\raggedleft $E_1$\end{minipage}}}%
-    \put(0.22924287,0.41416263){\color[rgb]{0.76862745,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\raggedright $E_2$\end{minipage}}}%
+    \put(0.22924287,0.41416263){\color[rgb]{0,0.6627451,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\raggedright $E_2$\end{minipage}}}%
     \put(0.28866401,0.45365231){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\raggedright $E_3$\end{minipage}}}%
-    \put(0.82963985,0.50523771){\color[rgb]{0.76862745,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\centering $X_0$\end{minipage}}}%
-    \put(0.82963985,0.3644164){\color[rgb]{0.76862745,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\centering $X_1$\end{minipage}}}%
-    \put(0.82963985,0.22359506){\color[rgb]{0.76862745,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\centering $X_2$\end{minipage}}}%
-    \put(0.82963985,0.08277373){\color[rgb]{0.76862745,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\centering $X_3$\end{minipage}}}%
-    \put(0.64526342,0.43492627){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$u R_N$}}}%
-    \put(0.5465928,0.38822923){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$R_1$}}}%
-    \put(0.67761016,0.38822923){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$R_2$}}}%
-    \put(0.81615387,0.38822923){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$R_3=R_N$}}}%
-    \put(0.52989775,0.29387327){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$u R_N$}}}%
-    \put(0.62110302,0.24717624){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$R_1$}}}%
-    \put(0.7370279,0.24717624){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$R_2=R_N$}}}%
-    \put(0.77665259,0.15191554){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$u R_N$}}}%
-    \put(0.62374055,0.1052185){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$R_1$}}}%
-    \put(0.69409469,0.1052185){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$R_2$}}}%
-    \put(0.84714484,0.1052185){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$R_3=R_N$}}}%
+    \put(0.82963985,0.5052377){\color[rgb]{0,0.6627451,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\centering $X_0$\end{minipage}}}%
+    \put(0.82963985,0.36441639){\color[rgb]{0,0.6627451,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\centering $X_1$\end{minipage}}}%
+    \put(0.82963985,0.22359508){\color[rgb]{0,0.6627451,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\centering $X_2$\end{minipage}}}%
+    \put(0.82963985,0.08277374){\color[rgb]{0,0.6627451,0}\makebox(0,0)[lt]{\begin{minipage}{0.2757546\unitlength}\centering $X_3$\end{minipage}}}%
+    \put(0.64526342,0.43492622){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$u R_N$}}}%
+    \put(0.54659281,0.38822918){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$R_1$}}}%
+    \put(0.67761016,0.38822918){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$R_2$}}}%
+    \put(0.81615388,0.38822918){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$R_3=R_N$}}}%
+    \put(0.52989776,0.2938733){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$u R_N$}}}%
+    \put(0.62110303,0.24717626){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$R_1$}}}%
+    \put(0.73702791,0.24717626){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$R_2=R_N$}}}%
+    \put(0.7766526,0.15191556){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$u R_N$}}}%
+    \put(0.62374056,0.10521852){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$R_1$}}}%
+    \put(0.6940947,0.10521852){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$R_2$}}}%
+    \put(0.84714485,0.10521852){\color[rgb]{0,0,0}\makebox(0,0)[b]{\smash{$R_3=R_N$}}}%
     \put(-0.00242733,0.43253086){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.06425415\unitlength}\raggedright 1)\end{minipage}}}%
     \put(-0.00161525,0.29147787){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.06425415\unitlength}\raggedright 2)\end{minipage}}}%
     \put(-0.00168022,0.14952013){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.06425415\unitlength}\raggedright 3)\end{minipage}}}%

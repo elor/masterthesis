@@ -55,8 +55,8 @@ Ohne diese Annahmen stellten einige der ausgewählten Operationen das System nur
 \subsection{Benutzte Operationen}
 
 Durch Abstraktion besteht die Interaktion mit den zugrunde liegenden Datenstrukturen in Operationen, die auf die Menge von Atomen wirken.
-Die möglichen Operationen werden in Tabelle \ref{tab:dataops} vorgestellt und umfassen einmalige Aufgaben wie die Konstruktion der Datenstruktur, schreibende Operationen wie Hinzufügen und Entfernen von Atomen sowie lesende Operationen wie die Ausgabe von Atomen innerhalb eines bestimmten Bereiches.
-Ein Vergleich der asymptotischen Laufzeiten auf verschiedenen Datenstrukturen ist in Tabelle \ref{tab:dataruntimes} dargestellt.
+Die möglichen Operationen werden in Tabelle~\ref{tab:dataops} vorgestellt und umfassen einmalige Aufgaben wie die Konstruktion der Datenstruktur, schreibende Operationen wie Hinzufügen und Entfernen von Atomen sowie lesende Operationen wie die Ausgabe von Atomen innerhalb eines bestimmten Bereiches.
+Ein Vergleich der asymptotischen Laufzeiten auf verschiedenen Datenstrukturen ist in Tabelle~\ref{tab:dataruntimes} dargestellt.
 
 \begin{table}
   \centering
@@ -183,16 +183,16 @@ Während der Entwicklung und Implementierung des Parsivald-Modelles wurden Algor
     Bins &
     Beim Binning werden Punkte in meist quaderförmige Raumbereiche, Bins genannt, eingeteilt, wodurch bei Suchoperationen nur Punkte in Bins im Suchbereich geprüft werden müssen.
     Die Koordinate des Bins ergibt sich aus der globalen Position.
-    Bins selbst können in einer übergeordneten Datenstruktur verwaltet werden, beispielsweise die in Abschnitt \ref{dataoctree} verwendeten Octrees
+    Bins selbst können in einer übergeordneten Datenstruktur verwaltet werden, beispielsweise die in Abschnitt~\ref{dataoctree} verwendeten Octrees
     \\
     Suchbäume &
     Die Punkte werden als Knoten eines globalen Baumes gespeichert, der für Suchoperationen optimiert ist.
     Änderungen an Punkten benötigen dafür mehr Aufwand und können den kompletten Baum restrukturieren.
-    Abschnitt \ref{datakdtree} stellt k-d-Bäume vor.
+    Abschnitt~\ref{datakdtree} stellt k-d-Bäume vor.
     \\
     Triangulationen &
     Triangulationen zerlegen den Simulationsraum raumfüllend in $k$-Simplexe\footnotemark, deren Eckpunkte auf den Elementen der Punktwolke liegen.
-    Delaunay-Triangulationen (Abschnitt \ref{datadelaunay}) ermöglichen durch ihre Eigenschaften besonders schnelle Oberflächen- und Nachbarschaftssuchen.
+    Delaunay-Triangulationen (Abschnitt~\ref{datadelaunay}) ermöglichen durch ihre Eigenschaften besonders schnelle Oberflächen- und Nachbarschaftssuchen.
     \\
     \hline
   \end{tabularx}
@@ -202,17 +202,17 @@ Während der Entwicklung und Implementierung des Parsivald-Modelles wurden Algor
 
 \subsection{Effiziente Datenstrukturen}
 
-Zur Betrachtung der in Abschnitt \ref{parsivald} vorgestellten Problemstellungen bieten sich nur eine Auswahl der angesprochenen Datenstrukturen an, da die sonstigen asymptotischen Laufzeiten der Suchoperationen zu impraktikablen Laufzeiten der Simulation führten.
+Zur Betrachtung der in Abschnitt~\ref{parsivald} vorgestellten Problemstellungen bieten sich nur eine Auswahl der angesprochenen Datenstrukturen an, da die sonstigen asymptotischen Laufzeiten der Suchoperationen zu impraktikablen Laufzeiten der Simulation führten.
 Als Auswahl effizienter Datenstrukturen werden weiterhin Octrees, k-d-Bäume und Delaunay-Triangulationen behandelt.
 
 \subsubsection{Octrees}\label{dataoctree}
 Octrees können als Optimierungen für Binning-Methoden genutzt werden, indem man die Zellen in einem Suchbaum statt in Zellgittern organisiert.
 Dazu wird der Simulationsraum rekursiv in 8 geometrisch ähnliche Unterzellen halber Breite aufgeteilt, bis die gewünschte Auflösung erreicht ist.
-Als Vorteil ergeben sich die ausschließliche Erstellung für die Simulation relevanter Unterzellen, sowie die Betrachtung leerer Raumbereiche als zusammengefasste Superzelle, wie in Abbildung \ref{fig:octree} dargestellt.
+Als Vorteil ergeben sich die ausschließliche Erstellung für die Simulation relevanter Unterzellen, sowie die Betrachtung leerer Raumbereiche als zusammengefasste Superzelle, wie in Abbildung~\ref{fig:octree} dargestellt.
 Resultat sind verringerter Speicherbedarf und beschleunigte Suchoptionen, die irrelevante Gebiete schneller überspringen können.
 
 Theoretisch sind mit Access Caching, Bitweiser Adressierung, Surface Flagging oder Height Mapping noch weitere Anpassungen möglich, allerdings verbessert sich dabei nur der Laufzeitfaktor, nicht die asymptotische Laufzeit, weshalb sie nur am Rand genannt sein sollen.
-Algorithmus \ref{algo:octreeaddressing} skizziert die Adressierung der Zelle eines Octrees und zeigt auch deren Schwachpunkt:
+Algorithmus~\ref{algo:octreeaddressing} skizziert die Adressierung der Zelle eines Octrees und zeigt auch deren Schwachpunkt:
 Um eine einzige Zelle per absolutem oder relativem Index abzurufen, sind Operationen der Komplexität \BigO{\log{c}} notwendig, die bei häufigen Zellzugriffen und großen Systemen sowie kleinen Zellen zu Leistungseinbrüchen führen können.
 
 %% \begin{algorithm}
@@ -353,10 +353,10 @@ Aus diesen Gründen lassen sich k-d-Bäume nicht zufriedenstellend im Parsivald-
   \label{fig:delaunay}
 \end{figure}
 
-Eine alternative Partitionsmethode findet sich in Triangulationen, die die konvexe Hülle der Punktwolke raumfüllend in nichtüberlappende k-dimensionale Simplexe entsprechend einer weiterhin Delaunay-Kriterium genannten Beziehung zerlegen:
+Eine alternative Partitionsmethode findet sich in Triangulationen, welche die konvexe Hülle der Punktwolke raumfüllend in nichtüberlappende k-dimensionale Simplexe entsprechend einer weiterhin Delaunay-Kriterium genannten Beziehung zerlegen:
 Im Umkreis eines Simplexes befinden sich keine weiteren Punkte aus der Punktwolke.
 Damit ergibt sich eine Vielzahl an Eigenschaften, die für verschiedene Problemstellungen zu effizienten Lösungen führen.
-So beinhaltet eine Delaunay-Triangulation als Subgraphen den Nächstnachbargraphen, die Alpha-Form (Abschnitt \ref{dataalphaform}) und die konvexe Hülle, ist dual zum Voronoi-Diagramm und es lässt sich effizient auf Konnektivität prüfen.
+So beinhaltet eine Delaunay-Triangulation als Subgraphen den Nächstnachbargraphen, die Alpha-Form (Abschnitt~\ref{dataalphaform}) und die konvexe Hülle, ist dual zum Voronoi-Diagramm und es lässt sich effizient auf Konnektivität prüfen.
 
 \begin{itemize}
 \item Jeder Punkt ist Eckpunkt eines oder mehrerer Simplexe
@@ -381,7 +381,7 @@ Zur Delaunay-Triangulierung aus einer Punktmenge stehen verschiedene Algorithmen
 
 \begin{itemize}
 \item Flip-basierte Algorithmen (Local Improvement)\\
-  Man startet mit einer beliebigen Triangulation, prüft den Umkreis aller Simplexe auf enthaltene Punkte und korrigiert gegebenenfalls per Flip-Algorithmus, der in Abbildung \ref{fig:delaunay-flip} dargestellt ist.
+  Man startet mit einer beliebigen Triangulation, prüft den Umkreis aller Simplexe auf enthaltene Punkte und korrigiert gegebenenfalls per Flip-Algorithmus, der in Abbildung~\ref{fig:delaunay-flip} dargestellt ist.
   Diese Algorithmen konvergieren typischerweise in \BigO{n^2} und sind damit vergleichsweise langsam.
 
 \item Scan-Algorithmus (Incremental Construction)\\
@@ -444,7 +444,7 @@ Zur Delaunay-Triangulierung aus einer Punktmenge stehen verschiedene Algorithmen
   \label{fig:delaunay-flip}
 \end{figure}
 
-Basis vieler Algorithmen auf Delaunay-Triangulationen basieren auf dem \textbf{Flip-Verfahren} (Abbildung \ref{fig:delaunay-flip}), mit dem unzulässige in zulässige Simplexe überführt werden.
+Basis vieler Algorithmen auf Delaunay-Triangulationen basieren auf dem \textbf{Flip-Verfahren} (Abbildung~\ref{fig:delaunay-flip}), mit dem unzulässige in zulässige Simplexe überführt werden.
 Dabei werden Grenzen zu dem benachbarten Simplex, dessen Punkt innerhalb des Umkreises liegt, aufgelöst und aus den dann verfügbaren Punkten zwei neue Simplexe gebildet.
 Im Anschluss ist es häufig notwendig, die neu entstandenen Simplexe sowie die ursprünglichen Nachbarn des zweiten Simplexes auf die gleiche Art zu prüfen.
 
@@ -455,7 +455,7 @@ Im Anschluss ist es häufig notwendig, die neu entstandenen Simplexe sowie die u
 %% Der notwendigerweise konvexe, sonst aber beliebige Suchbereich um den Referenzpunkt wird von Simplexen überdeckt, die in direkter oder indirekter Nachbarschaft des Punktes liegen.
 %% Somit teilen sich alle Punkte innerhalb des Suchbereiches eine Kante eines Simplexes mit einem anderen Punkt im Suchbereich, sofern der Suchbereich hinreichend groß ist.
 %% Ausgehend vom Referenzpunkt sucht man entlang aller Kanten nach Punkten, die innerhalb des Suchbereiches liegen, bis alle potentiellen Punkte überprüft wurden.
-%% Diese Vorgehensweise ist in Algorithmus \ref{algo:delaunay-neigbors} ausführlich beschrieben.
+%% Diese Vorgehensweise ist in Algorithmus~\ref{algo:delaunay-neigbors} ausführlich beschrieben.
 
 %% \begin{algorithm}
 %%   \centering
@@ -480,7 +480,7 @@ Im Anschluss ist es häufig notwendig, die neu entstandenen Simplexe sowie die u
 \subsubsection{Alpha-Form}
 \label{dataalphaform}
 
-Die Alpha-Form (Abbildung \ref{fig:delaunay-alpha}) beschreibt anschaulich, aus welchen Punkten, Linien und Flächen die Oberfläche einer Punktmenge besteht.
+Die Alpha-Form (Abbildung~\ref{fig:delaunay-alpha}) beschreibt anschaulich, aus welchen Punkten, Linien und Flächen die Oberfläche einer Punktmenge besteht.
 Im Gegensatz zur konvexen Hülle kann sie auch Einschlüsse, Poren und Oberflächenrauheiten je nach Wahl des $\alpha$-Wertes darstellen.
 Allgemeine Hüllen von Triangulationen werden dabei als Vereinigung der Menge genau der Flächen gewonnen, die nur einem Simplex zugeordnet sind, so dass man die konvexe Hülle beispielsweise als Hülle einer Delaunay-Triangulation erhält.
 %% Abhängig vom Anwendungsfall lassen sie sich als Menge von Punkten, Verbindungslinien oder Flächen ausdrücken.

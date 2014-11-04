@@ -4,7 +4,7 @@
 Ursprünglich mit dem Ziel der klassischen Simulation idealer Gase entwickelt, wurde die Molekulardynamik seither um die Fähigkeit zur Simulation von Festkörpern, organischen Molekülen und Reaktionen erweitert.
 Dadurch findet sie Anwendung in Simulationen von Materialien und chemischen Stoffen bei beliebigen Temperaturen und Drücken, um deren Verhalten vorhersagen und auf reale Prozesse zurückführen zu können.
 
-Nachfolgend möchte ich einen kurzen Überblick über die Formulierung molekulardynamischer Methoden geben (Abschnitt \ref{mdformulation}) und im Anschluss auf die Unterschiede und Möglichkeiten der Kraftfelder eingehen (Abschnitt \ref{mdforcefields}).
+Nachfolgend möchte ich einen kurzen Überblick über die Formulierung molekulardynamischer Methoden geben (Abschnitt~\ref{mdformulation}) und im Anschluss auf die Unterschiede und Möglichkeiten der Kraftfelder eingehen (Abschnitt~\ref{mdforcefields}).
 
 \subsection{Formulierung}
 \label{mdformulation}
@@ -52,7 +52,7 @@ Aufbauend auf dem mikrokanonischen Ensemble tauscht das kanonische Ensemble zus�
 
 Numerisch wird diese zusätzliche Randbedingung durch ein Thermostat ermöglicht, das die Teilchenenergien beeinflusst und so für eine Korrektur der mittleren Systemtemperatur in Richtung der Temperatur des Wärmebades sorgt.
 
-Ein naives Thermostat skalierte also in jedem Zeitschritt die Teilchengeschwindigkeiten entsprechend der Maxwell-Boltzmann-Verteilung auf den Vorgabewert $T_\text{Ziel}$ (Gleichung \ref{eq:ekanonisch}), wodurch zwar die korrekte Temperatur erzeugt wird, aber die Eigenschaften des Ensembles, z.B. die Ergodizität, verletzt werden.
+Ein naives Thermostat skalierte also in jedem Zeitschritt die Teilchengeschwindigkeiten entsprechend der Maxwell-Boltzmann-Verteilung auf den Vorgabewert $T_\text{Ziel}$ (Gleichung~\ref{eq:ekanonisch}), wodurch zwar die korrekte Temperatur erzeugt wird, aber die Eigenschaften des Ensembles, z.B. die Ergodizität, verletzt werden.
 So werden \todo{Fluktuationen der Temperatur}Systemzustände verhindert, die eine geringere oder höhere Temperatur aufweisen und als Übergänge zu anderen Systemzuständen dienen können, wodurch das System in einem lokalen Energieminimum gefangen sein kann.
 
 \begin{equation}
@@ -61,7 +61,7 @@ So werden \todo{Fluktuationen der Temperatur}Systemzustände verhindert, die ein
   \label{eq:ekanonisch}
 \end{equation}
 
-Eine Anpassung bietet das \textbf{Berendsen-Thermostat}\cite{berendsen_molecular_1984}, welches ebenfalls mit einer Reskalierung der Teilchengeschwindigkeiten arbeitet, aber für eine exponentielle Annäherung an die Zieltemperatur $T_\text{Ziel}$ sorgt, indem in jedem Zeitschritt nur ein Teil der Differenz in Abhängigkeit der Dämpfungszeit $\tau$ angeglichen wird (Gleichung \ref{eq:berendsen}).
+Eine Anpassung bietet das \textbf{Berendsen-Thermostat}\cite{berendsen_molecular_1984}, welches ebenfalls mit einer Reskalierung der Teilchengeschwindigkeiten arbeitet, aber für eine exponentielle Annäherung an die Zieltemperatur $T_\text{Ziel}$ sorgt, indem in jedem Zeitschritt nur ein Teil der Differenz in Abhängigkeit der Dämpfungszeit $\tau$ angeglichen wird (Gleichung~\ref{eq:berendsen}).
 Dabei werden ebenfalls die Fluktuationen in der Systemtemperatur unterbunden, doch zeigt sich für große Systeme eine gute Annäherung an das kanonische Ensemble bei vertretbarem Verbrauch von Rechenzeit.
 
 \begin{equation}
@@ -134,8 +134,8 @@ Als Abbruchkriterien stehen je nach Verhalten des Systems währen der Optimierun
 die Stärke des Gradienten ($\left|\nabla E(\vec X_{i-1})\right| < E_\text{tol}$), eine Anzahl an Zeitschritten ($i > i_\text{tol}$) oder eine Kombination daraus zur Verfügung.
 
 Eine Optimierung durch minimierte Gradienten ist für eine Große Zahl an Freiheitsgraden zwar schnell, stößt aber an seine Grenzen, wenn man allgemeine, nichtlineare Funktionen minimieren möchte, weshalb Variationen des CG-Algorithmus' entwickelt wurden.
-Einerseits kann man den Optimierungsschritt durch eine Minimierung entlang der Schrittrichtung (Gleichungen \ref{eq:cg-linesearch1} und \ref{eq:cg-linesearch2}) ersetzen, andererseits steht die Manipulation der Schrittrichtung in Abhängigkeit vorheriger Schritte zur Verfügung (Gleichung \ref{eq:pr1}).
-In LAMMPS wird die Polak-Ribière-Variante genutzt (Gleichungen \ref{eq:pr1} und \ref{eq:pr2}), doch existieren \todo{wofür?}verschiedene gleichwertige Methoden mit anderen Zielsetzungen und Formulierungen.
+Einerseits kann man den Optimierungsschritt durch eine Minimierung entlang der Schrittrichtung (Gleichungen~\ref{eq:cg-linesearch1} und~\ref{eq:cg-linesearch2}) ersetzen, andererseits steht die Manipulation der Schrittrichtung in Abhängigkeit vorheriger Schritte zur Verfügung (Gleichung~\ref{eq:pr1}).
+In LAMMPS wird die Polak-Ribière-Variante genutzt (Gleichungen~\ref{eq:pr1} und~\ref{eq:pr2}), doch existieren \todo{wofür?}verschiedene gleichwertige Methoden mit anderen Zielsetzungen und Formulierungen.
 Diese Anpassungen verbessern einerseits das erwartete Konvergenzverhalten, andererseits stabilisieren sie den Optimierungsalgorithmus gegenüber Nichtlinearitäten und Unstetigkeiten.
 
 \begin{gather}
@@ -169,7 +169,7 @@ Diese Anpassungen verbessern einerseits das erwartete Konvergenzverhalten, ander
 Für molekulardynamische Simulationen stehen sowohl kommerzielle als auch freie Softwarepakete zur Verfügung, die jeweils eigene Parametersätze mitbringen.
 In LAMMPS lassen sich zudem auch externe Parametersätze einbinden, wodurch die Betrachtung neuer Problemstellungen erleichtert wird.
 Weiterhin unterscheiden sich die Programme in ihrer Nutzerfreundlichkeit (Kommandozeile oder grafische Oberfläche) und der Möglichkeit, sie als Bibliothek in eigene Programme einzubinden.
-Tabelle \ref{tab:mdsoftware} stellt die wichtigsten Vertreter moderner Molekulardynamiksoftware dar.
+Tabelle~\ref{tab:mdsoftware} stellt die wichtigsten Vertreter moderner Molekulardynamiksoftware dar.
 
 \begin{table}
   \oddrowcolors

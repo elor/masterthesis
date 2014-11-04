@@ -64,12 +64,12 @@ Bindungslängen und Koordinationszahlen wurden direkt aus der radialen Verteilun
   \end{tabularx}
 \end{table}
 
-Die Ergebnisse dieser Untersuchungen (Tabelle \ref{tab:aluminabulks}) zeichnen ein vielseitiges Bild.
+Die Ergebnisse dieser Untersuchungen (Tabelle~\ref{tab:aluminabulks}) zeichnen ein vielseitiges Bild.
 Einerseits stimmen die Bindungslängen für alle Parametrisierungen auf \SI{2}{\percent} überein, andererseits ergeben sich aber große Unterschiede in der Dichte der Kristalle, die sich nicht mit den Bindungslängen korreliert sind.
 
 So liegt für die Al\_AlO\_AlN-Parameter eine Abweichung um \SI{+12}{\percent} in der Dichte vor, allerdings ist die Bindungslänge um \SI{2}{\percent} erhöht, was für ähnliche Strukturen zu einer Ausdehnung des Kristalles und somit eine Verringerung der Dichte um \SI{6}{\percent} führen müsste.
 Erst bei Betrachtung der Koordinationszahlen zeigt sich die Ursache der Abweichung, die mit einer \ce{Al-O}-Koordinationszahl von \num{5.4} (Kristall: \num{4.0}) in einer Verformung des Kristalles liegt.
-Da $\alpha$-\ce{Al2O3} mit \SI{3.95}{\gpcc} eigentlich die dichteste Phase bei Normaldruck ist, sollten nur Übergänge zu weniger dichten Konfigurationen wie amorphem Aluminiumoxid oder etwa $\gamma$-\ce{Al2O3} möglich sein, das aufgrund seiner Porösität eine geringere Dichte von etwa \todo{Ref}\SI{3.6}{\gpcc} aufweist.
+Da $\alpha$-\ce{Al2O3} mit \SI{3.95}{\gpcc} eigentlich die dichteste Phase bei Normaldruck ist, sollten nur Übergänge zu weniger dichten Konfigurationen wie amorphem Aluminiumoxid oder etwa $\gamma$-\ce{Al2O3} möglich sein, das aufgrund seiner Porösität eine geringere Dichte von etwa \SI{3.67}{\gpcc}\cite{dynys_alpha_1982} aufweist.
 Da hier das Gegenteil der Fall ist, wurde die Al\_AlO\_AlN-Parameterdatei in vielen der nachfolgenden Untersuchungen nicht weiter betrachtet.
 
 Die Liu-Parametrisierung weist ebenfalls eine geringe Änderung aller Koordinationszahlen auf, die sich in einer nur minimalen Verringerung der Dichte äußert.
@@ -95,7 +95,7 @@ Es zeigt sich, dass die \ce{Al-C}-Bindungen entweder zu stark oder in zu großem
 \subsubsection{Precursor-Oberflächen-Reaktionen}
 
 Anstatt die Precursormoleküle in der Gasphase reagieren zu lassen, werden hier einzelne Wassermoleküle auf eine $\alpha$-\ce{Al2O3}-Kristalloberfläche gebracht, die mit den darauf befindlichen Sauerstoffatomen reagieren und die Oberfläche so hydroxylieren sollen\todo{Ref}.
-Zu diesem Zweck wurde ein mehrschichtiges System mit einem kristallinen Substrat und einer Schicht von Wassermolekülen in Gasphase präpariert, wie es in Abbildung \ref{fig:wateraluminasurface-a} dargestellt ist.
+Zu diesem Zweck wurde ein mehrschichtiges System mit einem kristallinen Substrat und einer Schicht von Wassermolekülen in Gasphase präpariert, wie es in Abbildung~\ref{fig:wateraluminasurface-a} dargestellt ist.
 In der Simulation werden die Wassermoleküle mit einer maxwellschen Geschwindigkeit entsprechend \SI{500}{\kelvin} versehen, die Atome an der Unterseite des Substrates fest gehalten und das Berendsen-Thermostat auf den verbleibenden Teil des Substrates angewandt.
 Damit handelt es sich zwar streng gesehen nicht mehr um eine Simulation im kanonischen Ensemble, aber man verzichtet auf separate Integratoren für Substrat (NVT) und Wasser (NVE), deren Grenzen bei erfolgreichen Reaktionen ohnehin aufgelöst werden.
 
@@ -127,11 +127,11 @@ Damit handelt es sich zwar streng gesehen nicht mehr um eine Simulation im kanon
   \label{fig:wateraluminasurface}
 \end{figure}
 
-Das Ergebnis der Simulationen für die Liu-Parameter (Abbildungen \ref{fig:wateraluminasurface-b} und \ref{fig:wateraluminasurface-c}) zeigt die gleichmäßige Bedeckung der Oberfläche mit Hydroxylgruppen (\todo{tatsächlicher Wert!}\SI{19}{\per\square\nano\meter}) neben gelegentlich adsorbierten Wassermolekülen, die keine Oberflächenreaktion eingegangen sind.
+Das Ergebnis der Simulationen für die Liu-Parameter (Abbildungen~\ref{fig:wateraluminasurface-b} und~\ref{fig:wateraluminasurface-c}) zeigt die gleichmäßige Bedeckung der Oberfläche mit Hydroxylgruppen (\todo{tatsächlicher Wert!}\SI{19}{\per\square\nano\meter}) neben gelegentlich adsorbierten Wassermolekülen, die keine Oberflächenreaktion eingegangen sind.
 Letztere sollten aber auf längere Sicht durch die Einflüsse der Überkoordinationsterme des ReaxFF-Potentiales entweder zerfallen oder sich von der Oberfläche lösen.
 Trotz unterschiedlicher Startbedingungen stimmt der maximale Bedeckungsgrad der Oberfläche mit Hydroxylgruppen mit experimentell bestimmten Werten von \todo{eigentlicher Wert}\todo{Ref!}\SI{19}{\per\square\nano\meter} überein.
-Zu Beginn der Simulationen wurden ausreichende Mengen von Wassermolekülen für Bedeckungsgrade von \todo{tatsächliche Werte!}\SI{20}{\per\square\nano\meter}, \SI{50}{\per\square\nano\meter} und \SI{100}{\per\square\nano\meter} präpariert, von denen die überschüssigen Moleküle im Verlauf der Simulationen stets in der Gasphase verblieben sind, wie in Abbildung \ref{fig:wateraluminasurface-b} am oberen Rand des periodischen Simulationsraumes erkennbar ist.
-Einige der Wassermoleküle sind durch periodische Randbedingungen des Simulationsraumes zerteilt, weshalb es es sich scheinbar um Hydroxylmoleküle handelt, tatsächlich aber komplette Wassermoleküle verbleiben.
+Zu Beginn der Simulationen wurden ausreichende Mengen von Wassermolekülen für Bedeckungsgrade von \todo{tatsächliche Werte!}\SI{20}{\per\square\nano\meter}, \SI{50}{\per\square\nano\meter} und \SI{100}{\per\square\nano\meter} präpariert, von denen die überschüssigen Moleküle im Verlauf der Simulationen stets in der Gasphase verblieben sind, wie in Abbildung~\ref{fig:wateraluminasurface-b} am oberen Rand des periodischen Simulationsraumes erkennbar ist.
+Einige der Wassermoleküle sind durch periodische Randbedingungen des Simulationsraumes zerteilt, weshalb es sich scheinbar um Hydroxylmoleküle handelt, tatsächlich aber komplette Wassermoleküle verbleiben.
 Es zeigt sich also die sterische Hinderung der Wasserstoffmoleküle gegenüber weiteren Reaktionen von Wasser mit der Oberfläche.
 
 Eine repulsive Kraft zwischen den Wassermolekülen und der Oberfläche verhindert diese Reaktionen unter Nutzung der Narayanan-Parameter.

@@ -36,8 +36,6 @@ k_B
 k_d
 k_r
 kerning
-lCCCCCCC
-lCCCCCCCC
 listof
 m_i
 nk

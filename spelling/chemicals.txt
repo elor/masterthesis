@@ -30,3 +30,5 @@ Siliziumdioxid
 si
 Spinell
 MgAl
+Edelgas
+Kupferatome

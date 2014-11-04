@@ -7,55 +7,56 @@ Im Folgenden soll ein Überblick über die bisherigen Untersuchungen gegeben wer
 
 \subsubsection{Dwivedi: gitterbasierte 2D-ALD}
 
-\textsc{V. Dwivedi} und \textsc{A. Adomaitis} haben ein zweidimensionales KMC-Modell für \ce{Al2O3}-ALD entwickelt\cite{dwivedi_multiscale_2009, dwivedi_multiscale_2009-1, dwivedi_multiscale_2010}, um die Reaktions- und Wachstumsraten in Abhängigkeit der Partialdrücke der Precursorgase zu gewinnen und in eine Gasflusssimulation zur Kontrolle des Durchmessers von Mikroporen einzubinden.
+\textsc{V. Dwivedi} und \textsc{A. Adomaitis} haben ein zweidimensionales KMC-Modell für \ce{Al2O3}-ALD entwickelt\cite{dwivedi_multiscale_2009,dwivedi_multiscale_2009-1,dwivedi_multiscale_2010}, um den Gasverbrauch und den GPC-Wert in Abhängigkeit der Partialdrücke der Precursorgase zu ermitteln und in eine Gasflusssimulation zur Kontrolle des Durchmessers von Mikroporen einzubinden.
 Dazu werden die Plätze eines hexagonalen Gitters auf die Spezies Sauerstoff, Hydroxyl und Aluminium aufgeteilt, Zustandsübergänge in Abhängigkeit der 6 Nachbarzellen definiert und Übergangsraten ausgehend von den Energiebarrieren der entsprechenden chemischen Reaktionen ermittelt.
 Aussagen über die Schichthöhe ergeben sich über die Festlegung des vertikalen Gitterabstandes anhand der Einheitszelle eines \ce{Al2O3}-Kristalles mit anschließender vertikaler Oberflächensuche.
 
-Damit lassen sich zwar GPC-Werte und Precursorverbrauch annähernd bestimmen, doch ist keine strukturelle Aussage möglich, obwohl elegant gewählte Ereignisse die Ziel-Stöchiometrie erzwingen.
-\todo{Sollte das hier erwähnt werden?}Eigene Tests des Modelles schlugen zudem häufig fehl, da das System eine Tendenz zur Bildung von \ce{Al-O}-Ketten und zur Verstärkung von Kratern hat, wobei die Ursache nicht klar dem eigenen Code oder dem Dwivedi-Modell zuzuordnen ist.
+Damit lassen sich zwar GPC-Werte und Precursorverbrauch annähernd bestimmen, doch ist keine strukturelle Aussage möglich, obwohl elegant gewählte Ereignisse die \ce{Al2O3}-Stöchiometrie erzwingen.
+%% Tests des Modelles schlugen zudem häufig fehl, da das System eine Tendenz zur Bildung von \ce{Al-O}-Ketten und zur Verstärkung von Kratern hat, wobei die Ursache nicht klar dem eigenen Code oder dem Dwivedi-Modell zuzuordnen ist.
 
 \subsubsection{Mazaleyrat: gitterbasierte 3D-ALD}
 
-Ähnlich zum Dwivedi-Modell nutzt auch das Modell von \textsc{Mazaleyrat et al.}\cite{mazaleyrat_methodology_2005} ein Simulationsgitter, das aber in drei Dimensionen definiert ist, auf dem \ce{MgAl2O4}-Spinell-basiert und als Annäherung der eigentlichen Atompositionen verstanden wird.
-Durch geschickte Rotation und Indizierung des Gitters wird eine effiziente Methode geschaffen, in ALD-Simulationen Aluminiumoxid-Schichten aufzuwachsen, deren strikte kristalline Konfiguration die eigentlich amorphe Struktur nicht darstellen kann, obwohl das Ziel des Modelles in der Abscheidung von \ce{Al2O3}-Dielektrika auf Silizium-Oberflächen liegt.
-
-Eine Betrachtung der Dichte, Rauheit, dem Besetzungsgrad der Gitterplätze und dem Wachstumsverhalten über den dritten Schritt hinaus war von den Autoren nicht vorgesehen.
+Ähnlich zum Dwivedi-Modell nutzt auch das Modell von \textsc{Mazaleyrat et al.}\cite{mazaleyrat_methodology_2005} ein Simulationsgitter, das aber über drei Dimensionen definiert ist, auf dem \ce{MgAl2O4}-Spinell-basiert und als Annäherung der eigentlichen Atompositionen verstanden wird.
+Durch geschickte Indizierung des Gitters wird eine effiziente Methode geschaffen, \ce{Al2O3} in KMC-Simulationen aufzuwachsen, deren strikt kristalline Repräsentation die eigentlich amorphe Struktur eigentlich nicht darstellen kann, obwohl das Ziel des Modelles in der Abscheidung von Dielektrika auf Silizium-Substraten liegt.
+Von den Autoren wurde keine Betrachtung der Rauheit, des Besetzungsgrades der Gitterplätze oder des Wachstumsverhaltens jenseits des dritten Schrittes veröffentlicht.
 
 \subsubsection{Stamatakis: Oberflächen-Reaktionen mit Zacros}
 
-Zwar handelt es sich beim Zacros-Modell von der Forschergruppe um \textsc{M. Stamatakis}\cite{stamatakis_graph-theoretical_2011, nielsen_parallel_2013, stamatakis_zacros_2014} um eine zweidimensionale Oberflächenbeschreibung für katalytische Reaktionen, doch liegt nahe, seinen effizienten graphenbasierten Suchansatz für Ereignisse auch für Oberflächenabscheidungen nutzen zu wollen.
-Die Besonderheit von Zacros liegt in einer vereinheitlichten Formulierung der lokalen Zustände und Zustandsänderungen als Untergraphen des Simulationsgitters in Kombination mit effizienten Vergleichsalgorithmen für Untergraphen.
-Ergänzt durch quantenmechanische Simulationen zur Bestimmung der Reaktionsraten ergibt sich ein wertvolles Werkzeug zur stochastischen Simulation der Reaktionskinetik von Oberflächenprozessen.
-
-Aufgrund seiner Formulierung ist auch Zacros auf ein periodisches Simulationsgitter begrenzt, das durch seine Beschreibung als Graph beliebig geformte Einheitszellen darstellen kann.
+Zwar handelt es sich beim Zacros-Modell von der Forschergruppe um \textsc{M. Stamatakis}\cite{stamatakis_graph-theoretical_2011,nielsen_parallel_2013,stamatakis_zacros_2014} um eine zweidimensionale Oberflächenbeschreibung für katalytische Reaktionen, doch liegt nahe, seinen effizienten graph-basierten Suchansatz für Ereignisse auch für Gasphasenabscheidungen nutzen zu wollen.
+Die Besonderheit von Zacros liegt in einer vereinheitlichten Formulierung der lokalen Zustände und Zustandsübergänge als Teilgraphen des Simulationsgitters, welche effizient durch Algorithmen zum Teilgraphen-Vergleichs überprüft werden können.
+Ergänzt durch quantenmechanische Simulationen für die Bestimmung der Reaktionsraten, ergibt sich ein wertvolles Werkzeug zur stochastischen Simulation der Reaktionskinetik von Oberflächenprozessen.
+Aufgrund seiner Formulierung ist aber auch Zacros auf ein periodisches Simulationsgitter begrenzt, welches durch seine Beschreibung als Graph jedoch aus beliebig geformten Einheitszellen bestehen kann.
 
 \subsection{Bisherige MD-Simulationen}
 
-Molekulardynamische Simulationen werden seit vielen Jahrzehnten zur Bestimmung struktureller und thermodynamischer Eigenschaften verschiedener Materialien eingesetzt, haben aber nur selten Gasphasenabscheidungen selbst simuliert.
-Durch die Simulation einer periodischen Struktur werden mit molekulardynamischen Methoden Rückschlüsse auf besagte Eigenschaften bei verschiedenen Drücken und Temperaturen gezogen.
+Molekulardynamische Simulationen werden seit vielen Jahrzehnten zur Bestimmung struktureller und thermodynamischer Eigenschaften verschiedener Materialien eingesetzt, aber nur selten zur Beschreibung von Gasphasenabscheidungen.
+Sie lassen sich aber zur Beschreibung von Teilaspekten nutzen, wofür meist durch die Simulation periodischer Strukturen Rückschlüsse auf bestimmte Eigenschaften gezogen werden.
 
 \subsubsection{Gold}
-\textsc{Chamati et al.}\cite{chamati_second-moment_2004} haben das thermische Verhalten von Gold-Bulks untersucht, wo hingegen \textsc{Chui et al.}\cite{chui_molecular_2007}, \textsc{Liu et al.}\cite{liu_melting_2001} und \textsc{Shim et al.}\cite{shim_molecular_2003} strukturelle und thermodynamische Eigenschaften von Gold Nanoclustern untersucht haben.
-Veröffentlichungen zu MD-Simulationen von Aspekten der Gold-PVD finden sich ebenfalls vereinzelt, doch simulieren die meisten den Einschlag von Edelgas-Ionen auf dem Target mit Energien von \SIrange{1}{400}{\kilo\electronvolt}\cite{insepov_molecular_1995,shapiro_simulation_1999} oder benutzen komplette Cluster statt einzelner Atome\cite{inoue_molecular_2008}.
+\textsc{Chamati et al.}\cite{chamati_second-moment_2004} haben das thermische Verhalten von Gold-Bulks untersucht, wo hingegen \textsc{Chui et al.}\cite{chui_molecular_2007}, \textsc{Liu et al.}\cite{liu_melting_2001} und \textsc{Shim et al.}\cite{shim_molecular_2003} strukturelle und thermodynamische Eigenschaften von Gold-Nanoclustern betrachtet haben.
+Veröffentlichungen zu MD-Simulationen von Aspekten der Gold-PVD finden sich ebenfalls vereinzelt, doch simulieren die meisten den Einschlag von Edelgas-Ionen auf dem Target mit Energien von \SIrange{1}{400}{\kilo\electronvolt}\cite{insepov_molecular_1995,shapiro_simulation_1999} oder tragen komplette Cluster statt einzelner Atome auf\cite{inoue_molecular_2008}.
 
 \subsubsection{Kupfer und Nickel}
-Kupfer-Nickel-Multilagensysteme wurden unter anderem von \textsc{Foiles et al.}\cite{foiles_calculation_1985} simuliert, wo hingegen die Abhängigkeit der Einschlagsenergie der Atome auf die Rauheit der Oberfläche von \textsc{Zhou et al.}\cite{zhou_atomistic_1998} untersucht wurde.
+Kupfer-Nickel-Multilagensysteme wurden unter anderem von \textsc{Foiles et al.}\cite{foiles_calculation_1985} simuliert, wobei der Einfluss der Sputterenergie der Atome auf die Rauheit der abgeschiedenen Oberflächen und Schichten hauptsächlich von \textsc{Zhou et al.}\cite{zhou_atomistic_1998} untersucht wurde.
 Der durch unterschiedliche Bindungslängen entstehende Versatz zwischen den Kupfer- und Nickel-Kristallen wurde von \textsc{Rao et al.}\cite{rao_atomistic_2000} simuliert.
 
 \subsubsection{Silizium}
 Für Silizium finden sich thermodynamische Expansions-Simulationen von \textsc{Buda et al.}\cite{buda_thermal_1990} sowie Untersuchungen von \textsc{Insepov et al.}\cite{insepov_molecular_1995} zur Auswirkung von gerichteten Cluster-Einschlägen in Abhängigkeit der Einschlagsenergie.
+\todo[inline]{PVD, Oberflächenoxidierung}
 
 \subsubsection{Aluminiumoxid}
-Beispiele finden sich für amorphe und kristalline \ce{Al2O3}-Bulks von \textsc{Alvarez et al.}\cite{alvarez_computer_1995,alvarez_molecular_1992} und von \textsc{Gutierrez et al.}\cite{gutierrez_molecular_2002} sowie für \ce{Al2O3}-Oberflächen von \textsc{Adiga et al.}\cite{adiga_atomistic_2006}.
+Für amorphe und kristalline \ce{Al2O3}-Bulks finden sich Simulationsergebnisse von \textsc{Alvarez et al.}\cite{alvarez_computer_1995,alvarez_molecular_1992} und von \textsc{Gutierrez et al.}\cite{gutierrez_molecular_2002} sowie für \ce{Al2O3}-Oberflächen von \textsc{Adiga et al.}\cite{adiga_atomistic_2006}.
 Sowohl Schmelzen als auch amorphes \ce{Al2O3} wurden unter anderem von \textsc{Gutierrez et al.}\cite{gutierrez_structural_2000} und \textsc{Vashishta et al.}\cite{vashishta_interaction_2008} simuliert.
 \textsc{Russo et al.}\cite{russo_molecular_2011} haben erfolgreich Oberflächen-Reaktionen zwischen einem Aluminium-Cluster und Wassermolekülen unter Nutzung der ReaxFF-Formulierung simuliert, während \textsc{Puri et al.}\cite{puri_thermo-mechanical_2010} das Schmelz- und Diffusionsverhalten von \ce{Al2O3}-ummantelten \ce{Al}-Nanopartikeln untersuchten.
+Diese Fülle an Simulationen wird jedoch nicht durch eine Veröffentlichung der Potentialparametrisierungen \todo{Wort}gedeckt, so dass dennoch nur eine kleine Zahl an \ce{Al2O3}-Potentialen zur Verfügung stehen.
 
 \subsubsection{Fazit}
-Zwar werden molekulardynamische Simulationen neben der Bestimmung thermodynamischer Eigenschaften auch für die Bestimmung struktureller Eigenschaften genutzt, doch werden dafür zumeist Systeme mit \num{<10000} Atomen berechnet, wodurch sich Finite Size-Effekten bemerkbar machen können.
-Zudem finden sich für die recherchierten Systeme verschiedenartige Kraftfelder, die teilweise mit eigenen Parametern versehen werden und nicht auf andere Probleme übertragbar sind.
-Eine Suche nach EAM-Kraftfeldern für Kupferatome in der Potentialdatenbank der NIST\cite{_interatomic_2014} ergab beispielsweise eine zweistellige Zahl an Kandidaten, welche für eigene Anwendungen einzeln überprüft werden müssen (Abschnitt \ref{copperpvd}).
+Die Untersuchungen beschränken sich meist auf \num{<10000} Atom, wodurch sich insbesondere bei der Bestimmung struktureller Eigenschaften Finite Size-Effekte bemerkbar machen können.
+Darüber hinaus werden einige der genutzten Potentialparametrisierungen nicht veröffentlicht, wodurch die entsprechenden Ergebnisse nicht reproduzierbar oder auf andere Probleme übertragbar sind.
+Dem steht die Vielzahl von verschiedenen Parametrisierungen gegenüber, von denen jede einzelne nur auf ein spezielles Problem anwendbar ist.
+Eine Suche nach EAM-Kraftfeldern für Kupferatome in der Potentialdatenbank der NIST\cite{_interatomic_2014} ergibt beispielsweise eine zweistellige Zahl an Kupfer-Parametrisierungen, die einzeln hinsichtlich eigener Problemstellungen überprüft werden müssen (Abschnitt \ref{copperpvd}).
 
 \subsection{Zielsetzung für Parsivald}
 
 Das nachfolgend vorgestellte Parsivald-Modell soll die Stärken beider Simulationsmethoden vereinen, um so Gasphasenabscheidungen in großen Simulationsräumen mit atomistischer Genauigkeit simulieren zu können.
-Dabei sollen in Substratgrößen bis in den unteren Mikrometer-Bereich, also mit bis zu einer Milliarde Atomen, Schichtzunahmen von \SI{100}{\nano\meter} innerhalb weniger Wochen, \todo{das muss besser}für kleinere Systeme entsprechend innerhalb weniger Tage ermöglicht werden.
+Dabei sollen Substrate einer Größe von \SI{10x10}{\nano\meter} bis \SI{1x1}{\micro\meter} und Schichtwachstum über \SI{100}{\nano\meter} (\num{1000} ALD-Zyklen) in \SI{8}{\hour} bis \SI{3}{\week} berechnet werden können, wobei \num{2e9} Atome erreicht werden können.

@@ -45,7 +45,7 @@ Abbildung~\ref{fig:kmctree} zeigt zur Veranschaulichung ein \todo{Wort}generisch
 \end{figure}
 
 Eine mögliche Anwendung von KMC-Simulationen besteht in der Beschreibung der Kinetik chemischer Reaktionen, beispielsweise beim Ätzen von Kristallen\cite{gosalvez_atomistic_2008} oder bei katalytischen Reaktionen\cite{stamatakis_unraveling_2012}.
-Die Ereignisse entsprechen dann einzelnen chemischen oder physikalischen Vorgängen wie dem \todo{Wort}Ablösen eines Atomes von der Kristalloberfläche, der Adsorption eines Moleküls auf der Oberfläche oder der Reaktion zwischen zwei Molekülen, wobei die Reaktionsraten direkt als Ereignisraten genutzt werden.
+Die Ereignisse entsprechen dann einzelnen chemischen oder physikalischen Vorgängen wie der Desorption eines Atomes von der Kristalloberfläche, der Adsorption eines Moleküls auf der Oberfläche oder der Reaktion zwischen zwei Molekülen, wobei die Reaktionsraten direkt als Ereignisraten genutzt werden.
 
 Darin zeigt sich ein Problem der KMC-Formulierung:
 Die Ereignisraten sind Eingabewerte und müssen vor der Auswahl der Ereignisse bekannt sein.
@@ -54,7 +54,7 @@ Deshalb wird oft auf ein Simulationsgitter zurück gegriffen, um die Zahl der ve
 
 Vor allem bei kristallinen Strukturen lassen sich viele Übergänge durch das Verschieben, Entfernen oder Hinzufügen von Atomen auf den Gitterplätzen beschreiben, deren Ereignisraten jeweils von den benachbarten Atomen abhängen.
 Dadurch lässt sich in endlicher Zeit durch eine Suche über alle betroffenen Gitterplätze effizient eine Ereignisliste aufbauen, die anschließend zur Auswahl eines Ereignisses genutzt werden kann.
-Amorphe Strukturen lassen sich aber nur schwer auf ein Gitter reduzieren, wodurch der Zustandsraum durch \todo{Fabian fragen}kontinuierliche Freiheitsgrade \todo{Fabian fragen}überabzählbar unendlich viele Zustände enthält und nicht mehr vollständig betrachtet werden kann.
+Amorphe Strukturen lassen sich aber nur schwer auf ein Gitter reduzieren, wodurch der Zustandsraum durch kontinuierliche Freiheitsgrade überabzählbar unendlich viele Zustände enthält und nicht mehr vollständig betrachtet werden kann.
 
 Um diese Beschränkungen zu umgehen, werden in Parsivald (Abschnitt~\ref{parsivald}) alle gleichartigen Ereignisse, die sich in unmittelbarer Nachbarschaft eines bestimmten Oberflächenatomes befinden, zu einem einzigen Ereignis mit fester Reaktionsrate zusammen gefasst.
 Anschließend bestimmt eine Molekulardynamik-Simulation den Ausgang der Oberflächenreaktion mit atomistischer Genauigkeit.

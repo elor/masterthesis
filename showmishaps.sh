@@ -2,6 +2,10 @@
 #
 # shows all minor latex mishaps for all .tex files
 
+compilationfinished(){
+    [ "$(date --reference masterthesis.pdf +%s 2>/dev/null)" == "$(date --reference masterthesis.pdf +%s 2>/dev/null)" ]
+}
+
 cuttooneline(){
     [ -z "$COLUMNS" ] && local COLUMNS=80
     sed -r 's/(^.{1,'$COLUMNS'}).*/\1/'    
@@ -34,9 +38,14 @@ citationswithlanguagetag(){
 }
 
 unusedcitations(){
+    compilationfinished || { echo "latex compilation in progress"; return; }
     local retval
     retval=$({ availablecitations; usedcitations|sed p; } | sort | uniq -u)
     [ -n "$retval" ] && echo -e "$retval"
+}
+
+spacerefs(){
+    listfiles | grep -Pn '(^|\s)\\(ref|cite)'
 }
 
 doublewords(){
@@ -107,7 +116,7 @@ listlonglines(){
 
     echo "<= undefined references and multiple labels =>"
     echo
-    listlogs | { xargs -0 grep -Pi 'multipl[ey]|undefined' || echo "ok"; } | sed -r -n "s/^[^\`]*\`([^']+)'.*$/\1/p"
+    listlogs | { xargs -0 grep -Pi 'multipl[ey]|undefined' || echo "ok"; } | sed -r -n "s/^[^\`]*\`([^']+)'.*$/\1/p" | sort -u
     echo
 
     ###############################
@@ -144,6 +153,15 @@ listlonglines(){
     echo "<= trailing spaces =>"
     echo
     listfiles | xargs -0 grep -Pn '\s+$' || echo "ok"
+    echo
+
+    ##################################
+    # cites/refs with leading spaces #
+    ##################################
+
+    echo "<= cites/refs with leading spaces =>"
+    echo
+    spacerefs || echo "ok"
     echo
 
     ######################

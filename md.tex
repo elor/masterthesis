@@ -52,17 +52,15 @@ Aufbauend auf dem mikrokanonischen Ensemble tauscht das kanonische Ensemble zus�
 
 Numerisch wird diese zusätzliche Randbedingung durch ein Thermostat ermöglicht, das die Teilchenenergien beeinflusst und so für eine Korrektur der mittleren Systemtemperatur in Richtung der Temperatur des Wärmebades sorgt.
 
-Ein naives Thermostat skalierte also in jedem Zeitschritt die Teilchengeschwindigkeiten entsprechend der Maxwell-Boltzmann-Verteilung auf den Vorgabewert $T_\text{Ziel}$ (Gleichung~\ref{eq:ekanonisch}), wodurch zwar die korrekte Temperatur erzeugt wird, aber die Eigenschaften des Ensembles, z.B. die Ergodizität, verletzt werden.
-So werden \todo{Fluktuationen der Temperatur}Systemzustände verhindert, die eine geringere oder höhere Temperatur aufweisen und als Übergänge zu anderen Systemzuständen dienen können, wodurch das System in einem lokalen Energieminimum gefangen sein kann.
+Das \textbf{Berendsen-Thermostat}\cite{berendsen_molecular_1984} etwa skaliert die Teilchengeschwindigkeiten in Richtung des Mittelwertes der Maxwell-Boltzmann-Verteilung für die Zieltemperatur $T_\text{Ziel}$ (Gleichung~\ref{eq:ekanonisch}).
+Anstatt einer harten Reskalierung wird für eine exponentielle Annäherung der Temperatur an $T_\text{Ziel}$ sorgt, indem in jedem Zeitschritt nur ein Teil der Differenz in Abhängigkeit der Dämpfungszeit $\tau$ angeglichen wird (Gleichung~\ref{eq:berendsen}).
+Dabei werden Fluktuationen in der Systemtemperatur unterdrückt und somit die Ergodizität verletzt, doch zeigt sich für große Systeme eine gute Annäherung an das kanonische Ensemble bei vertretbarer Rechenzeit.
 
 \begin{equation}
   %% \overline{E_{kin}} = \frac{1}{2} \overline{m v^2} = \frac{d}{2} k_B T
   \overline{E_{kin}} = \frac{1}{2} \overline{m v^2} = \frac{d}{2} k_B T
   \label{eq:ekanonisch}
 \end{equation}
-
-Eine Anpassung bietet das \textbf{Berendsen-Thermostat}\cite{berendsen_molecular_1984}, welches ebenfalls mit einer Reskalierung der Teilchengeschwindigkeiten arbeitet, aber für eine exponentielle Annäherung an die Zieltemperatur $T_\text{Ziel}$ sorgt, indem in jedem Zeitschritt nur ein Teil der Differenz in Abhängigkeit der Dämpfungszeit $\tau$ angeglichen wird (Gleichung~\ref{eq:berendsen}).
-Dabei werden ebenfalls die Fluktuationen in der Systemtemperatur unterbunden, doch zeigt sich für große Systeme eine gute Annäherung an das kanonische Ensemble bei vertretbarem Verbrauch von Rechenzeit.
 
 \begin{equation}
   \vec v_i' = \vec v_i \cdot \sqrt{1 + \frac{\Delta t}{\tau} \left(\frac{T_\text{Ziel}}{T} - 1\right)}
@@ -177,15 +175,14 @@ Tabelle~\ref{tab:mdsoftware} stellt die wichtigsten Vertreter moderner Molekular
   \label{tab:mdsoftware}
   \begin{tabularx}{\textwidth}{|llX|}
     \hline
-    \textbf{Paket}        & \textbf{Rechteinhaber}   & \textbf{Kommentare}                                              \\
+    \textbf{Paket}                                                                                 & \textbf{Rechteinhaber}   & \textbf{Kommentare}                                              \\
     \hline
-    LAMMPS                & SANDIA                   & quelloffen, CLI-bedienbar, Bibliothek, eigene Potentiale möglich \\
-    Materials Studio GULP & Accelrys                 & Grafische Oberfläche, lizenzpflichtig                            \\
-    AMBER                 & University of California & Biomoleküle, lizenzpflichtig                                     \\
-    CHARMM                & Accelrys                 & Proteine, lizenzpflichtig                                        \\
-    GROMACS               & Uppsala University       & Biomoleküle, quelloffen                                          \\
+    LAMMPS\cite{plimpton_lammps_2014}                                                              & SANDIA                   & quelloffen, CLI-bedienbar, Bibliothek, eigene Potentiale möglich \\
+    Materials Studio GULP\cite{accelrys_materials_2014}                                            & Accelrys                 & Grafische Oberfläche, lizenzpflichtig                            \\
+    AMBER\cite{case_amber_2014}                                                                    & University of California & Biomoleküle, lizenzpflichtig                                     \\
+    CHARMM\cite{brooks_charmm_2014,brooks_charmm:_1983,mackerell_charmm:_2002,brooks_charmm:_2009} & Accelrys                 & Proteine, lizenzpflichtig                                        \\
+    GROMACS\cite{lindahl_gromacs_2014}                                                             & Uppsala University       & Biomoleküle, quelloffen                                          \\
     \hline
   \end{tabularx}
-  \todo[inline]{References!}
   \todo[inline]{bessere Beschreibungen?}
 \end{table}

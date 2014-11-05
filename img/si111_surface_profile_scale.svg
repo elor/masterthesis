@@ -15,7 +15,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="si111_surface_profile_scale.pdf">
+   sodipodi:docname="si111_surface_profile_scale.svg">
   <defs
      id="defs4">
     <linearGradient
@@ -68,9 +68,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.4273569"
-     inkscape:cx="-41.453092"
-     inkscape:cy="131.59065"
+     inkscape:zoom="3.4629722"
+     inkscape:cx="38.084721"
+     inkscape:cy="158.62931"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -91,7 +91,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -100,14 +100,11 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(-89.834936,-146.45923)">
-    <rect
-       style="fill:url(#linearGradient4122);fill-opacity:1;stroke:#000000;stroke-width:1.25;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       id="rect2985"
-       width="259.14081"
-       height="23.558306"
-       x="-406.45813"
-       y="-114.01824"
-       transform="matrix(0,-1,-1,0,0,0)" />
+    <path
+       transform="matrix(0,-1,-1,0,0,0)"
+       style="fill:url(#linearGradient4122);fill-opacity:1;stroke:#000000;stroke-width:1.25;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dashoffset:0;stroke-opacity:1"
+       d="m -406.45813,-114.01824 259.14081,0 0,23.558304 -259.14081,0 z"
+       id="rect2985" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 108.40451,363.26802 5.71107,0"

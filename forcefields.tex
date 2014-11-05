@@ -32,7 +32,7 @@ Unterhalb dieses Radius' dominiert ein repulsiver Term, wo hingegen oberhalb dav
   \label{fig:mdpairpotentials}
 \end{figure}
 
-Zwar zeigen Paarpotentiale gute thermodynamische Eigenschaften bei hoher Effizienz, doch können sie aufgrund ihrer Schlichtheit kein atomistischen Strukturen verlässlich vorhersagen, weshalb die umfangreicheren Mehrteilchen-Potentiale entwickelt wurden.
+Zwar zeigen Paarpotentiale gute thermodynamische Eigenschaften bei geringem Rechenaufwand, doch können sie aufgrund ihrer simplen Formulierung keine atomistischen Strukturen verlässlich vorhersagen.
 
 \subsubsection{N-Teilchen-Potentiale}
 
@@ -58,23 +58,25 @@ Für eine Vielzahl an Metallen und Legierungen findet man in \todo{wie beispiels
   E = \sum_i\left[F_\alpha\left(\sum_{j\neq i}{\rho_\beta\left(r_{ij}\right)}\right) + \frac{1}{2}\sum_{j\neq i}{V_{\alpha\beta}\left(r_{ij}\right)}\right]
 \end{equation}
 
-\subsubsection{Modified Embedded Atom Model}
+%% \subsubsection{Modified Embedded Atom Model}
 
-Als Erweiterung des EAM-Potentials wurden MEAM-Potentiale entwickelt, die neben Metallen und Legierungen auch Metalloxide und andere Mischsysteme ermöglichen sollen\cite{baskes_modified_1992,baskes_modified_1996}.
-Sie basieren auf der gleichen Funktionsweise, stellen die Einbettungsenergie aber in Abhängigkeit einer umfangreicheren Formulierung der lokalen Elektronendichte dar.
-An dieser Stelle soll neben der oberflächlichen Formel in Gleichung~\ref{eq:meam-energy} auf die ursprüngliche Publikation von Baskes \todo[inline]{Ref!} verwiesen werden.
+Für Metalloxide und weitere Mischsysteme existiert eine Erweiterung in Form des Modified Embedded Atom Models\cite{baskes_modified_1992}, dem eine umfangreichere Formulierung der lokalen Elektronendichten zugrunde liegt.
 
-\begin{equation}
-  \label{eq:meam-energy}
-  E = \sum_i\left[F_\alpha\left(\bar{\rho_i}\right) + \frac{1}{2}\sum_{j\neq i}{V_{ij}\left(r_{ij}\right)}\right]
-\end{equation}
+%% Als Erweiterung des EAM-Potentials wurden MEAM-Potentiale entwickelt, die neben Metallen und Legierungen auch Metalloxide und andere Mischsysteme ermöglichen sollen\cite{baskes_modified_1992}.
+%% Sie basieren auf der gleichen Funktionsweise, stellen die Einbettungsenergie aber in Abhängigkeit einer umfangreicheren Formulierung der lokalen Elektronendichte dar.
+%% Aufgrund der umfangreichen Formulierung soll auf die ursprüngliche Publikation von Baskes\cite{baskes_modified_1992} verwiesen werden.
+
+%% \begin{equation}
+%%   \label{eq:meam-energy}
+%%   E = \sum_i\left[F_\alpha\left(\bar{\rho_i}\right) + \frac{1}{2}\sum_{j\neq i}{V_{ij}\left(r_{ij}\right)}\right]
+%% \end{equation}
 
 \subsubsection{Reactive Force Fields}
 
 Reaktive Kraftfelder (Reactive Force Fields, ReaxFF) wurden von \textsc{van Duin et al.}\cite{van_duin_reaxff:_2001} 2001 mit dem Ziel entwickelt, Reaktionen zwischen Molekülen mit molekulardynamischen Methoden beschreiben zu können.
 Mangels expliziter Beschreibung der involvierten Elektronen war die Beschreibung von Bindungen zuvor nur mit \todo{DFT?}Elektronenstrukturrechnungen möglich, denen eine obere Grenze von wenigen hundert Atomen gesetzt ist, \todo{Nebensatz sinnlos}und selbst dann die Berechnung dynamischer Eigenschaften mit einem immensen Rechenaufwand verbunden ist.
 Durch Beschreibung der Über- und Unterkoordination der Atome innerhalb ihrer Nachbarschaft, zusätzlich zum Ladungsaustausch zwischen den Atomen, Van-der-Waals- und elektrostatischen Kräften, lassen sich mit der ReaxFF-Formulierung Bindungen während der Simulation dynamisch formen und lösen, wodurch Reaktionen ermöglicht werden.
-Gleichung~\ref{eq:reaxformulation} und Tabelle~\ref{tab:reaxenergies} geben einen kurzen Überblick über die Bestandteile der Gesamtenergie, von denen die meisten Terme über die Bindungsordnung berechnet werden, welche sich aus Beiträgen für $\sigma$-, $\pi$- und Doppel-$\pi$-Bindungen aus dem Bindungsabstand zusammen setzt.
+Gleichung~\ref{eq:reaxformulation} und Tabelle~\ref{tab:reaxenergies} geben einen kurzen Überblick über die Summanden der Gesamtenergie, von denen die meisten Terme über die Bindungsordnung berechnet werden, welche sich aus Beiträgen für $\sigma$-, $\pi$- und Doppel-$\pi$-Bindungen aus dem Bindungsabstand zusammen setzt.
 Darüber hinaus werden einige Terme durch Taper-Korrektur\todo{ref} in der Nähe des Cutoff-Abstands auf 0 gesenkt, um Diskontinuitäten zu vermeiden und einen fließenden Übergang zwischen Bindungszuständen zu ermöglichen.
 
 \begin{align}

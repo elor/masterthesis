@@ -15,7 +15,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="si111_surface_profile_halfscale.pdf">
+   sodipodi:docname="si111_surface_profile_halfscale.svg">
   <defs
      id="defs4">
     <linearGradient
@@ -78,14 +78,14 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.5363983"
-     inkscape:cx="-57.626742"
-     inkscape:cy="80.462762"
+     inkscape:zoom="3.6185353"
+     inkscape:cx="73.790189"
+     inkscape:cy="54.583998"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1918"
-     inkscape:window-height="1198"
+     inkscape:window-width="1920"
+     inkscape:window-height="1200"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
@@ -102,7 +102,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -162,14 +162,11 @@
            x="144.2251"
            y="198.72736" /></flowRegion><flowPara
          id="flowPara3974-3"
-         style="font-size:14.12630463px;letter-spacing:0px">0</flowPara></flowRoot>    <rect
-       style="fill:url(#linearGradient3912);fill-opacity:1;stroke:#000000;stroke-width:1.25;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-       id="rect2985"
-       width="129.5704"
-       height="23.558306"
-       x="-406.45828"
-       y="-114.01824"
-       transform="matrix(0,-1,-1,0,0,0)" />
+         style="font-size:14.12630463px;letter-spacing:0px">0</flowPara></flowRoot>    <path
+       transform="matrix(0,-1,-1,0,0,0)"
+       style="fill:url(#linearGradient3912);fill-opacity:1;stroke:#000000;stroke-width:1.25;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dashoffset:0;stroke-opacity:1"
+       d="m -406.45828,-114.01824 129.5704,0 0,23.558304 -129.5704,0 z"
+       id="rect2985" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 108.40451,363.26815 5.71107,0"
@@ -205,5 +202,5 @@
            height="16.558914"
            x="28.386709"
            y="8.9941282" /></flowRegion><flowPara
-         id="flowPara3920"></flowPara></flowRoot>  </g>
+         id="flowPara3920" /></flowRoot>  </g>
 </svg>

@@ -21,7 +21,6 @@ Abstandssuche
 Aktivierungsenergie
 Algorithmen
 Allokierung
-Alphastruktur
 Analysemethoden
 Andernfalls
 Anders
@@ -65,6 +64,7 @@ Berechnungsfehler
 Berechnungszeit
 Bereichssuche
 Beschichtungen
+Besetzungsgrades
 Bestrebungen
 Betrachtete
 Bewegungsgleichungen
@@ -107,12 +107,14 @@ Diffusionsbarrieren
 Diffusionsgrad
 Diffusionskoeffizient
 Diffusionsprozessen
+Diffusionsverhalten
 Dimensionalität
 Dimensionen
 Diskontinuitäten
 Doppelbindung
 Dreifachbindung
 Dreifachbindungskorrektur
+Durchmessers
 Dämpfungskonstante
 Dämpfungsparameter
 Dämpfungszeit
@@ -129,6 +131,8 @@ Eingebettete
 Einheitenfaktoren
 Einheitszellen
 Einkapseln
+Einschlagsenergie
+Einschlägen
 Einzig
 Elektrodeposition
 Elektronendichte
@@ -156,6 +160,8 @@ Ereignisse
 Ergebnisse
 Ergodizität
 Erhebungen
+Evaporation
+Expansions
 Explosionen
 Expositionszeit
 Fehlerhafte
@@ -171,6 +177,7 @@ Filmwachstums
 Fluiden
 Fluktuationen
 Flüssige
+Forschergruppe
 Freiheitsgrad
 Funktionsebene
 Gasfluss
@@ -186,6 +193,7 @@ Gesamtenergie
 Gesamtstruktur
 Geschieht
 Geschwindigkeiten
+Gitterabstandes
 Gitterkonfigurationen
 Gitterkonstanten
 Gitternäherungen
@@ -300,6 +308,7 @@ Materiales
 Materialien
 Materialuntersuchungen
 Materialwissenschaften
+Maximalwerten
 Mechanismen
 Mehraufwand
 Mehrteilchen
@@ -329,6 +338,7 @@ Nachbarschaftslisten
 Nachbarschaftssuche
 Nachdem
 Nano
+Nanoclustern
 Nanoelektronik
 Nanopartikel
 Nanoporen
@@ -352,12 +362,14 @@ Nächstnachbarn
 Oberflächenabscheidungen
 Oberflächenatome
 Oberflächenbeschaffenheit
+Oberflächenbeschreibung
 Oberflächendichte
 Oberflächendiffusion
 Oberflächendreiecke
 Oberflächenereignissen
 Oberflächenliganden
 Oberflächenprofil
+Oberflächenprozessen
 Oberflächenrauheit
 Oberflächenreaktion
 Oberflächenschicht
@@ -404,6 +416,7 @@ Porenverteilungen
 Porösität
 Potentialart
 Potentialdatei
+Potentialdatenbank
 Potentialdatenbanken
 Potentiale
 Potentialformulierungen
@@ -554,6 +567,7 @@ Speicherverbrauch
 Sputter
 Sputterbedingungen
 Sputterdauer
+Sputterenergie
 Sputterenergien
 Sputtersimulation
 Spülschritte
@@ -587,15 +601,16 @@ Substraten
 Substratgrößen
 Substratoberfläche
 Substrattemperatur
+Suchansatz
 Suchbaum
 Suchbereich
 Suchbäume
 Sucheffizienz
 Suchlaufzeiten
 Suchoperationen
-Suchoptionen
 Suchpfade
 Suchradius
+Summanden
 Superzelle
 Systemeigenschaften
 Systemen
@@ -615,6 +630,7 @@ Teilchenstrom
 Teilchenstromdichte
 Teilchenstöße
 Teilchenzahl
+Teilgraphen
 Teilmengen
 Teilreaktionen
 Teiltriangulierungen
@@ -681,6 +697,7 @@ Wachstumsdefekte
 Wachstumsrichtung
 Wachstumssimulation
 Wachstumssimulationen
+Wachstumsverhaltens
 Wars
 Wassermoleküle
 Wassermolekülen
@@ -777,6 +794,7 @@ geraden
 gesputterten
 gitterbasiert
 gleichverteilten
+graph
 großkanonischen
 hinweist
 hochparallele
@@ -832,6 +850,7 @@ positionierter
 proprietäre
 prozessbedingt
 quaderförmige
+quantenmechanische
 quantenmechanischen
 quelloffen
 radiale
@@ -845,6 +864,7 @@ relaxierenden
 relaxiert
 steilere
 sterische
+stochastischen
 stoffabhängigen
 strukturierten
 stöchiometrisch
@@ -855,6 +875,7 @@ teilperiodischer
 terminierten
 thermodynamische
 trianguliert
+ummantelten
 unrelaxierte
 unterkoordinierten
 unterrelaxierten
@@ -873,6 +894,7 @@ zeitinvariant
 zellweises
 zufallsbestimmte
 zulässt
+zweidimensionale
 zwischenspeichert
 zyklen
 Ätzen
@@ -890,26 +912,3 @@ zyklen
 überabzählbar
 übergeordneten
 überschüssigen
-Evaporation
-Teilgraphen
-stochastischen
-Sputterenergie
-zweidimensionale
-Wachstumsverhaltens
-ummantelten
-Potentialdatenbank
-Oberflächenprozessen
-Oberflächenbeschreibung
-Nanoclustern
-Maximalwerten
-Gitterabstandes
-Forschergruppe
-Expansions
-Durchmessers
-Besetzungsgrades
-graph
-quantenmechanische
-Diffusionsverhalten
-Suchansatz
-Einschlägen
-Einschlagsenergie

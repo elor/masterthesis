@@ -1,65 +1,45 @@
 \section{Datenstrukturen}
 \label{datastructures}
 
-%% Einführung in die übliche Arbeitsweise bei atomistischen Simulationen
+Zur Beschleunigung von wissenschaftlichen Simulationen finden effiziente Algorithmen zur Suche und Manipulation von Zuständen Anwendung, deren Effizienz auf den zugrunde liegenden Datenstrukturen \todo{Wort}beruht.
+Für allgemeine Probleme sind die schnellsten Algorithmen zwar hinreichend erforscht und in Standardsoftware \todo{Wort}integriert, doch stellen sie für spezielle Problemstellungen wie der Simulation von Oberflächenabscheidungen nicht zwangsläufig die beste Wahl dar.
+So ermöglicht bessere Systemkenntnis eine genauere Abschätzung der Häufigkeit aller involvierter Operationen und somit die Wahl und Anpassung von Algorithmen auf die Klasse der zu untersuchenden Systeme
+Damit ist die Wahl der Datenstruktur zur Darstellung der Atompositionen im Simulationsraum wesentlich für die Effizienz der Gesamtsimulation.
 
-Teilaspekte von Schichtabscheidungen wie Oberflächenreaktionen werden seit vielen Jahren erfolgreich mit KMC- und MD-Methoden simuliert\todo{refs}.
-Zur Beschleunigung des Arbeitsablaufes kommt dabei häufig Standardsoftware zum Einsatz, die zwar für allgemeine Systeme optimiert wurde,
-im Gegenzug allerdings für spezielle Probleme zu erhöhten Laufzeiten gegenüber spezialisierten Ansätzen führt.
-Zu solchen Systemen zählen auch Oberflächenabscheidungen, die aufgrund ihrer geringen Dimensionalität (Oberflächen mit 2 effektiven Dimensionen), langen Laufzeiten (viele Millionen MD-Schritte) und additiver Arbeitsweise (Schrittweises Hinzufügen einzelner Atome) stark von speziellen Optimierungen profitieren können.
+Zu diesem Zweck werden im folgenden die asymptotischen Laufzeiten der Operationen mit deren Häufigkeit und Speicherverbrauch der Datenstruktur abgewogen, um die Effizienz und somit Systemgröße, Genauigkeit und Geschwindigkeit von Oberflächensimulationen im Allgemeinen und Parsivald (Abschnitt~\ref{parsivald}) im Speziellen zu steigern.
+Parsivald vereint KMC und MD zu einer Simulationsmethode, deren Laufzeitschranke von der Erstellung von KMC-Ereignissen in atomistischen Räumen (\todo{nicht in Klammern}Off-Lattice) dominiert wird, \todo{neu schreiben}weshalb hier das Hauptaugenmerk der Effizienzsteigerung liegt.
 
-%% Vorteile von und Vorgehensweise für Expertensysteme
+\subsection{\todo{Numerische?}Algorithmische Eigenschaften von Oberflächenabscheidungen}
 
-Die Unterschiede zwischen der Betrachtung allgemeiner und spezieller Systeme liegen dabei in den genutzten Algorithmen und Datenstrukturen:
-Bessere Systemkenntnis ermöglicht eine genauere Abschätzung der Häufigkeit bestimmter Operationen, und somit die Wahl und Anpassung von Algorithmen auf die Klasse der zu untersuchenden Systeme.
-Dafür werden die Vor- und Nachteile in Form der asymptotischen Laufzeiten von Operationen gegenüber deren Häufigkeit und Speicherverbrauch der Datenstruktur abgewogen.
-Als Resultat werden häufige Operationen beschleunigt, wodurch die Effizienz der gesamten Simulation gesteigert und größere Systeme ermöglicht werden.
-Es bleibt zu erwähnen, dass der Speicherverbrauch bei den auf das Problem anwendbaren Datenstrukturen linear mit der Systemgröße skaliert, weshalb der primäre Engpass in der Rechenzeit und nicht im Speicherverbrauch liegt.
+Die zu simulierenden Oberflächenabscheidungen unterliegen gewissen Eigenschaften, die von der Simulation beachtet werden müssen.
+So sind ihre Reaktionen und Ereignisse \textbf{lokal}, also auf eine geringe Reichweite begrenzt.
+Das bedeutet auch, dass sie über \textbf{geringen Diffusionskoeffizienten} verfügen, was sich weniger aus den eigentlichen Eigenschaften von Oberflächenabscheidungen als aus der Notwendigkeit ergibt, große Bereiche des Systems, die sich im statischen Gleichgewicht befinden, nicht atomistisch simulieren zu können.
+Die Systeme verfügen außerdem über \textbf{scharfe Oberflächen}, also eine Oberfläche, die sich anhand einer annähernd zweidimensionalen Menge von Punkten darstellen lässt, was sich aus dem Ziel der Abscheidung von Festkörpern automatisch ergibt.
+Innerhalb dieser Körper herrscht eine annähernde \textbf{Gleichverteilung der Teilchendichte}, so dass sich eine untere und eine obere Grenze für Nächstnachbarabstände angeben lässt.
+Zuletzt finden die Simulationen aus praktischen Gründen in \textbf{teilperiodischen Räumen} statt, also Räumen, die in der xy-Ebene periodisch, aber in z-Richtung beliebig ausgedehnt sein können.
 
-\subsection{Systemeigenschaften}
+Daraus ergeben sich jeweils Vor- und Nachteile für verschiedene Datenstrukturen, so dass etwa die Vereinigung zweier disjunkter zu einer zusammenhängenden Triangulation (Stitching) in periodischen Räumen besonderer Aufwand betrieben gegenüber nichtperiodischen Räumen betrieben werden muss.
+Die größten Vorteile ergeben sich aus der Lokalität von Ereignissen, da so für die meisten Datenstrukturen nur kleine Teilstrukturen überprüft und aktualisiert werden müssen.
 
-Bei den zu betrachtenden Systemen handelt es sich um atomistische Bulks und Oberflächen ohne explizite Simulation der Gasphase.
-Für diese ergeben sich folgende Eigenschaften:
-\begin{enumerate}
-\item Lokalität\\
-  Interatomare Einflüsse sind reichweitenbegrenzt
-\item Niedriger Diffusionskoeffizient\\
-  Atome behalten ihre Nachbarschaft für relativ lange Zeiträume bei
-\item Scharfe Oberflächen\\
-  Die Oberfläche des Systems ist eindeutig durch eine Menge von Atomen festgelegt
-\item Gleichverteilung der Teilchendichte\\
-  Es lässt sich eine untere und obere Grenze für Nächstnachbarabstände angeben
-\item Teilweise Periodizität\\
-  Betrachtete Systeme können entlang ausgewählter Hauptachsen periodisch sein
-\end{enumerate}
+\subsection{Effizienz der Operationen für verschiedene Datenstrukturen}
 
-Einzig das Kriterium der geringen Diffusion ergibt sich aus der Notwendigkeit, Atompositionen über einen langen Zeitraum ohne Manipulation effizient zu speichern.
-Man könnte Diffusionen jedoch auf verschiedene Arten in das Parsivald-Modell einarbeiten.
-Dazu zählen explizite MD-Simulationen der Oberfläche ebenso wie Monte-Carlo-Simulationen der Position von Oberflächen- oder Bulkteilchen.
-Im Rahmen dieser Arbeit möchte ich zuerst auf diffusionsarme Materialien und Precursorsysteme zurück greifen, bevor der allgemeine Fall betrachtet wird.
+Die Effizienz einer Operation ergibt sich in praktischen Anwendungen aus der asymptotischen Laufzeit (worst case), welche üblicherweise in asymptotischer Notation als \BigO{} angegeben wird.
+Atomistische Simulationen beschränken sich auf die Manipulations-Operationen zur \textbf{Konstruktion}, \textbf{Einfügung}, \textbf{Modifikation} und \textbf{Entfernung} sowie die Suchoperationen der \textbf{Nachbarschaftssuche}, \textbf{Bereichssuche} und \textbf{Oberflächensuche} begrenzen, welche im Anhang in Tabelle~\ref{tab:dataops} ausführlicher beschrieben werden.
 
-Als Resultat der oben genannten Systemeigenschaften lassen sich Annahmen für dir algorithmische Betrachtung des Systemes treffen.
-Beispiele solcher Annahmen, die in der Umsetzung des Parsivald-Modelles relevant wurden, zeigt folgende Liste.
+Bei KMC-Simulationen und damit auch im Parsivald-Modell überwiegen die drei Suchoperationen, da sie für jedes Ereignis beim Aufbau der KMC-Ereignislisten durchgeführt werden müssen, wo hingegen die Manipulationen nur für das tatsächlich durchgeführte Ereignis ausgeführt werden müssen.
+Somit liegt Hauptkriterium bei der Auswahl der Datenstruktur zur Darstellung globaler Atompositionen auf der Effizienz von Suchoperationen auf dieser Datenstruktur.
+Ausnahmen bilden Nachbarschaftslisten (NB-Listen) und k-d-Bäume, deren Manipulationsoperationen die gesamte Struktur betreffen und somit besonders für große Simulationsräume zu langsam sind.
 
-\begin{enumerate}
-\item Reaktionssimulationen sind auch auf Ausschnitte der Gesamtstruktur durchführbar
-\item Nachbarschaftslisten müssen selten aktualisiert werden\\
-  Die Reichweite einer Manipulation ist begrenzt
-\item Oberflächenatome befinden sich zu einander in direkter Nachbarschaft
-\item Die Zahl der Nachbarn unterliegt einer oberen Schranke
-\item Divide-and-Conquer-Algorithmen müssen Teilsysteme aufwendig zusammen führen (Stitching)
-\end{enumerate}
+Als Datenstrukturen stehen \textbf{Atomlisten}, \textbf{Nachbarschaftslisten} (NB-Listen), \textbf{Binning}, \textbf{Octrees}, \textbf{k-d-Bäume} und \textbf{Delaunay-Triangulationen} zur Verfügung, von denen einige Partitionsmethoden in Abbildung~\ref{fig:datastructures} dargestellt sind.
+Die letzten drei Datenstrukturen werden nachfolgend vorgestellt, wo hingegen die ersten drei Datenstrukturen aus anderen numerischen Simulationen bekannt sind und deshalb nur in Anhang~\ref{appendix_dataoverview} kurz beschrieben werden.
 
-Ohne diese Annahmen stellten einige der ausgewählten Operationen das System nur unzureichend dar.
-
-\subsection{Benutzte Operationen}
-
-Durch Abstraktion besteht die Interaktion mit den zugrunde liegenden Datenstrukturen in Operationen, die auf die Menge von Atomen wirken.
-Die möglichen Operationen werden in Tabelle~\ref{tab:dataops} vorgestellt und umfassen einmalige Aufgaben wie die Konstruktion der Datenstruktur, schreibende Operationen wie Hinzufügen und Entfernen von Atomen sowie lesende Operationen wie die Ausgabe von Atomen innerhalb eines bestimmten Bereiches.
-Ein Vergleich der asymptotischen Laufzeiten auf verschiedenen Datenstrukturen ist in Tabelle~\ref{tab:dataruntimes} dargestellt.
+In Tabelle~\ref{tab:dataruntimes} wird ein Überblick über die asymptotischen Laufzeiten der Datenstrukturen für die sieben Operationen sowie über den asymptotischen Speicherverbrauch (RAM) gegeben, wofür Tabelle~\ref{tab:datasymbols} einen Überblick über die verwendeten Symbole gibt.
+Der praktische Speicherverbrauch ist für die untersuchten Datenstrukturen im Gegensatz zum asymptotischen Speicherverbrauch linear und wird deshalb nicht als Auswahlkriterium zu Rate gezogen.
+Wie Untersuchungen an Simulationsräumen verschiedener Größe zeigen, ist erst bei \num{1.9e9} Atomen die Grenze des Hauptspeichers erreicht (Abschnitt~\ref{goldscalability}).
 
 \begin{table}
   \centering
+
   \caption[Laufzeitabschätzung abstrakter Operationen auf verschiedenen Datenstrukturen]{
     Abschätzung des Speicheraufwands und der asymptotischen Laufzeit der vorgestellten Operationen auf verschiedenen Datenstrukturen für kompakte Oberflächensysteme in drei Raumdimensionen.
     \todo[inline]{Referenz oder Erklärung}.
@@ -67,153 +47,88 @@ Ein Vergleich der asymptotischen Laufzeiten auf verschiedenen Datenstrukturen is
   \label{tab:dataruntimes}
   \begin{tabularx}{\textwidth}{|X|*8c|}
     \hline
-    Datenstruktur  &  Konstr.          &  Einfüg.          &  Modif            &  Entf.            &  Ortss.                      &  NB-Su.               &  Oberfl.         &  RAM                          \\
+    \textbf{Datenstr.} & Konstr.         & Einfüg.         & Modif.          & Entf.           & Ortss.                     & NB-Su.              & Oberfl.        & RAM                         \\
     \hline
-    Atomlisten &  \cG{$n$}         &  \cG{$1$}         &  \cG{$1$}         &  \cG{$1$}         &  \cR{$n$}                    &  \cR{$n$}             &  \cR{$n$}        &  \cG{$n$}                     \\
-    NB-Listen  &  \cY{$n\log{n}$}  &  \cR{$n$}         &  \cR{$n$}         &  \cR{$n$}         &  \cR{$n$}                    &  \cG{$1$}             &  \cR{$n$}        &  \cR{$\frac{r_c^3}{s^3}n^2$}  \\
-    Binning    &  \cG{$n$}         &  \cG{$1$}         &  \cG{$1$}         &  \cG{$1$}         &  \cG{$r_s^3$}                &  \cG{$r_s^3$}         &  \cR{$c$}        &  \cY{$n+c$}                   \\
-    Octree     &  \cY{$n\log{c}$}  &  \cY{$\log{c}$}   &  \cY{$\log{c}$}   &  \cG{$1$}         &  \cY{$r_s^3\log{c}$}         &  \cY{$r_s^3\log{c}$}  &  \cY{$\log{c}$}  &  \cY{$n+c^\frac{2}{3}$}       \\
-    k-d-Baum   &  \cY{$n\log{n}$}  &  \cY{$\log{n}$}   &  \cY{$\log{n}$}   &  \cY{$\log{n}$}   &  \cY{$r_s^3\log{n}$}         &  \cY{$r_s^3\log{n}$}  &  \cY{$\log{n}$}  &  \cG{$n$}                     \\
-    Delaunay   &  \cY{$n\log{n}$}  &  \cY{$k\log{k}$}  &  \cY{$k\log{k}$}  &  \cY{$k\log{k}$}  &  \cG{$r_s^3+n^\frac{1}{3}$}  &  \cG{$r_s^3$}         &  \cG{$1$}        &  \cY{$nk$}                    \\
+    Atomlisten         & \cG{$n$}        & \cG{$1$}        & \cG{$1$}        & \cG{$1$}        & \cR{$n$}                   & \cR{$n$}            & \cR{$n$}       & \cG{$n$}                    \\
+    NB-Listen          & \cY{$n\log{n}$} & \cR{$n$}        & \cR{$n$}        & \cR{$n$}        & \cR{$n$}                   & \cG{$1$}            & \cR{$n$}       & \cR{$\frac{r_c^3}{s^3}n^2$} \\
+    Binning            & \cG{$n$}        & \cG{$1$}        & \cG{$1$}        & \cG{$1$}        & \cG{$r_s^3$}               & \cG{$r_s^3$}        & \cR{$c$}       & \cY{$n+c$}                  \\
+    Octree             & \cY{$n\log{c}$} & \cY{$\log{c}$}  & \cY{$\log{c}$}  & \cG{$1$}        & \cY{$r_s^3\log{c}$}        & \cY{$r_s^3\log{c}$} & \cY{$\log{c}$} & \cY{$n+c^\frac{2}{3}$}      \\
+    k-d-Baum           & \cY{$n\log{n}$} & \cY{$\log{n}$}  & \cY{$\log{n}$}  & \cY{$\log{n}$}  & \cY{$r_s^3\log{n}$}        & \cY{$r_s^3\log{n}$} & \cY{$\log{n}$} & \cG{$n$}                    \\
+    Delaunay           & \cY{$n\log{n}$} & \cY{$k\log{k}$} & \cY{$k\log{k}$} & \cY{$k\log{k}$} & \cG{$r_s^3+n^\frac{1}{3}$} & \cG{$r_s^3$}        & \cG{$1$}       & \cY{$nk$}                   \\
     \hline
-    %Atomfeld  &  \cG{$n$}         &  \cG{$1$}         &  \cG{$1$}         &  \cG{$1$}         &  \cR{$n$}                    &  \cR{$n$}             &  \cR{$n$}        &  \cG{$n$}                     \\
+    %Atomfeld          & \cG{$n$}        & \cG{$1$}        & \cG{$1$}        & \cG{$1$}        & \cR{$n$}                   & \cR{$n$}            & \cR{$n$}       & \cG{$n$}                    \\
   \end{tabularx}
   \vspace{1em}
   \hspace{0.15\textwidth}
   \begin{tabularx}{0.6\textwidth}{|C|C|C|}
     \hline
-    \cG{optimal} & \cY{annehmbar} & \cR{impraktikabel} \\
+    \cG{optimal} & \cY{vertretbar} & \cR{ineffizient} \\
     \hline
   \end{tabularx}
-\end{table}
 
-\begin{table}
+  \vspace{2em}
+
   \oddrowcolors
   \caption[datasymbols]{Symbole für Laufzeit- und Speicherabschätzungen}
   \label{tab:datasymbols}
   \begin{tabularx}{\textwidth}{|cX|cX|}
     \hline
-        {Symbol} & {Bedeutung} & {Symbol} & {Bedeutung} \\
-        \hline
-        \BigO{}  &  Worst-Case-Komplexität               &  $n$      &  Zahl der Atome     \\
-        $k$      &  Zahl von Nächstnachbarn              &  $b$      &  Zahl der Bins      \\
-        $k_r$    &  Zahl von Nachbarn mit $d \leq r_c$   &  $r_c$    &  Cutoff-Radius      \\
-        $r_s$    &  Suchradius                           &  $s$      &  lineare Raumgröße  \\
-        \hline
+    \textbf{Symbol} & \textbf{Bedeutung}                 & \textbf{Symbol} & \textbf{Bedeutung} \\
+    \hline
+    \BigO{}         & Worst-Case-Komplexität             & $n$             & Zahl der Atome     \\
+    $k$             & Zahl von Nächstnachbarn            & $b$             & Zahl der Bins      \\
+    $k_r$           & Zahl von Nachbarn mit $d \leq r_c$ & $r_c$           & Cutoff-Radius      \\
+    $r_s$           & Suchradius                         & $s$             & lineare Raumgröße  \\
+    \hline
   \end{tabularx}
+
 \end{table}
 
-\begin{table}
-  \oddrowcolors
-  \caption[Liste der notwendigen Operationen]{
-    Übersicht über Operationen, die auf die zugrunde liegenden Datenstrukturen ausgeführt werden.
-    Oberflächen- und Bereichssuchen sind am häufigsten.
-    %    Zeitkritisch sind die unteren die Bereichs- und Oberflächensuche, da sie für jedes potentielle KMC-Ereignis ausgeführt werden müssen, die anderen nur für jedes versuchte.
+\begin{figure}[bhpt]
+  \captionsetup[subfigure]{singlelinecheck=false}{
+    \def\subfigwidth{0.23\textwidth}
+    \def\svgwidth{\textwidth}
+    \begin{subfigure}[t]{\subfigwidth}
+      \includegraphics[width=\textwidth]{datastructures-a}
+      \subcaption{Ohne Binning}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{\subfigwidth}
+      \includegraphics[width=\textwidth]{datastructures-b}
+      \subcaption{Binning}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{\subfigwidth}
+      \includegraphics[width=\textwidth]{datastructures-c}
+      \subcaption{Octree}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{\subfigwidth}
+      \includegraphics[width=\textwidth]{datastructures-d}
+      \subcaption{k-d-Baum}
+    \end{subfigure}
   }
-  \label{tab:dataops}
-  \begin{tabularx}{\textwidth}{|lX|}
-    \hline
-    \textbf{Operation} & \textbf{Beschreibung} \\
-    \hline
-    Konstruktion &
-    Der einmalige Aufbau aus einer Punktwolke.
-    Entspricht oftmals einer einzelnen Einfügung aller Punkte.
-    Die Laufzeit ist zweitrangig gegenüber den anderen Operationen
-    \\
-    Einfügung &
-    Ergänzung eines Punktes zu einer bestehenden Struktur.
-    Wird nach erfolgten Precursor-Oberflächen-Reaktionen durchgeführt.
-    Laufzeiten: \BigO{1} (Listen) bis \BigO{n} (Nachbarschaftslisten)
-    \\
-    Modifikation &
-    Aktualisierung der Position eines Punktes.
-    Entspricht gelegentlich einer Entfernung mit anschließender Einfügung.
-    Laufzeiten: \BigO{1} (Listen) bis \BigO{n} (Nachbarschaftslisten)
-    \\
-    Entfernung &
-    Entfernung eines Punktes aus der Struktur, entspricht also oft einer inversen Einfügung.
-    Wird zur Entfernung von Oberflächen-Liganden aufgerufen.
-    Laufzeiten normalerweise wie bei Einfügung
-    \\
-    Nachbarschaftssuche &
-    Extraktion einer Menge von Punkten in der Nähe anderer Punkte, z.B. für kleinere MD-Simulationen.
-    Geschieht für jeden Reaktionsversuch.
-    Laufzeiten: \BigO{1} (Nachbarschaftslisten) bis \BigO{n} (Listen)
-    \\
-    Bereichssuche &
-    Extraktion einer Menge von Punkten in der Nähe eines beliebigen Punktes, z.B. zur Prüfung möglicher Reaktionen.
-    Wird für jede mögliche Reaktion durchgeführt und ist damit häufigste Operation.
-    Laufzeiten: \BigO{r_s^3} (Binning) bis \BigO{n} (Listen)
-    \\
-    Oberflächensuche &
-    Die Bestimmung der globalen Oberfläche oder eines Punktes auf der Oberfläche entlang einer Geraden, je nach Prozess und verfügbaren Algorithmen.
-    Ist oft der limitierende Faktor der Simulation.
-    Delaunay-Triangulationen bilden per Alpha-Form implizit die globale Oberfläche ab, die so direkt in die KMC-Formulierung einfließen kann.
-    \\
-    \hline
-  \end{tabularx}
-\end{table}
-
-\subsection{Kategorien von Datenstrukturen}
-
-Durch Unterschiede in der Funktionsweise verschiedener Algorithmen und Datenstrukturen ergeben sich für sie Kategorien, die generelle Eigenschaften wie die Laufzeit teilen\todo{teilen??}.
-Während der Entwicklung und Implementierung des Parsivald-Modelles wurden Algorithmen aus den folgenden Kategorien in Betracht gezogen.
-
-\begin{table}
-  \oddrowcolors
-  \caption[Liste der notwendigen Operationen]{
-    Übersicht über Operationen, die auf die zugrunde liegenden Datenstrukturen ausgeführt werden.
-    Oberflächen- und Bereichssuchen sind am häufigsten.
-    \todo[inline]{change text to fit the table content}
+  \caption[Übersicht über räumliche Datenstrukturen]{
+    Übersicht über Raumzerlegungen einiger Datenstrukturen.
+    k-d-Bäume (d) beinhalten in jeder Zelle nur ein Atom, weshalb sich die Zellgrenzen entlang der Atompositionen formen.
+    Octrees (c) dagegen haben vordefinierte Grenzen, aber prägen nur besetzte Zellen aus, wodurch leere Raumbereiche effizient von Suchoperationen ausgeschlossen sind.
   }
-  \label{tab:dataops2}
-  \begin{tabularx}{\textwidth}{|lX|}
-    \hline
-    \textbf{Datenstrukturen} & \textbf{Beschreibung} \\
-    \hline
-    Listen &
-    Punkte werden in globalen Listen gespeichert, ohne weitere Beziehungen zu verwalten.
-    Für Suchoperationen müssen dann alle Punkte auf das Kriterium geprüft werden, wodurch Listenansätze für große Systeme durch Laufzeiten von \BigO{n} ungeeignet sind.
-    \\
-    Nachbarschaftslisten &
-    Neben den Punkten selbst speichern Nachbarschaftslisten eine Referenz auf jeden anderen Punkt in der Nachbarschaft.
-    Diese Referenzen müssen bei jeder Schreiboperation in einer \BigO{n}-Operation aktualisiert werden, lassen sich aber dafür in konstanter Zeit \BigO{1} auslesen.
-    Sie werden häufig für MD-Simulationen genutzt, bei denen sich die Nachbarschaft nur langsam ändert.
-    \\
-    Bins &
-    Beim Binning werden Punkte in meist quaderförmige Raumbereiche, Bins genannt, eingeteilt, wodurch bei Suchoperationen nur Punkte in Bins im Suchbereich geprüft werden müssen.
-    Die Koordinate des Bins ergibt sich aus der globalen Position.
-    Bins selbst können in einer übergeordneten Datenstruktur verwaltet werden, beispielsweise die in Abschnitt~\ref{dataoctree} verwendeten Octrees
-    \\
-    Suchbäume &
-    Die Punkte werden als Knoten eines globalen Baumes gespeichert, der für Suchoperationen optimiert ist.
-    Änderungen an Punkten benötigen dafür mehr Aufwand und können den kompletten Baum restrukturieren.
-    Abschnitt~\ref{datakdtree} stellt k-d-Bäume vor.
-    \\
-    Triangulationen &
-    Triangulationen zerlegen den Simulationsraum raumfüllend in $k$-Simplexe\footnotemark, deren Eckpunkte auf den Elementen der Punktwolke liegen.
-    Delaunay-Triangulationen (Abschnitt~\ref{datadelaunay}) ermöglichen durch ihre Eigenschaften besonders schnelle Oberflächen- und Nachbarschaftssuchen.
-    \\
-    \hline
-  \end{tabularx}
-\end{table}
-\footnotetext{Ein $k$-Simplex ist ein Objekt in $k$ Dimensionen mit $k+1$ Eckpunkten, die untereinander mit geraden Kanten verbunden sind.
-  Somit ist ein 1-Simplex eine Linie, ein 2-Simplex ein Dreieck, ein 3-Simplex ein Tetraeder, usw.}
+  \label{fig:datastructures}
+\end{figure}
 
 \subsection{Effiziente Datenstrukturen}
 
-Zur Betrachtung der in Abschnitt~\ref{parsivald} vorgestellten Problemstellungen bieten sich nur eine Auswahl der angesprochenen Datenstrukturen an, da die sonstigen asymptotischen Laufzeiten der Suchoperationen zu impraktikablen Laufzeiten der Simulation führten.
-Als Auswahl effizienter Datenstrukturen werden weiterhin Octrees, k-d-Bäume und Delaunay-Triangulationen behandelt.
+Beim Vergleich der Datenstrukturen in Tabelle~\ref{tab:dataruntimes} stellen sich Octrees, k-d-Bäume und Delaunay-Triangulationen als Favoriten für Off-Lattice KMC-Simulationen heraus, die in den folgenden Abschnitten kurz eingehender vorgestellt und diskutiert werden sollen.
 
-\subsubsection{Octrees}\label{dataoctree}
-Octrees können als Optimierungen für Binning-Methoden genutzt werden, indem man die Zellen in einem Suchbaum statt in Zellgittern organisiert.
-Dazu wird der Simulationsraum rekursiv in 8 geometrisch ähnliche Unterzellen halber Breite aufgeteilt, bis die gewünschte Auflösung erreicht ist.
-Als Vorteil ergeben sich die ausschließliche Erstellung für die Simulation relevanter Unterzellen, sowie die Betrachtung leerer Raumbereiche als zusammengefasste Superzelle, wie in Abbildung~\ref{fig:octree} dargestellt.
-Resultat sind verringerter Speicherbedarf und beschleunigte Suchoptionen, die irrelevante Gebiete schneller überspringen können.
+\subsubsection{Octrees}
+\label{dataoctree}
 
+Octrees sind eine Optimierung raumfüllender orthogonaler Partitionierungen, wie sie üblicherweise für Binning-Methoden genutzt werden, bei der statt linearer Addressierung auf einen mehrdimensionalen Binärbaum zurück gegriffen wird, woher auch der Name stammt (1D: Binary Tree, 2D: Quadtree, 3D: Octree, etc.).
+Der Simulationsraum wird rekursiv in jeweils 8 disjunkte geometrisch ähnliche Unterzellen halber Breite aufgeteilt, wodurch die eigentlichen Bins in der festen Tiefe $\frac{\log{c}}{d\log{2}}$ liegen.
+
+Damit steigt die Addressierungszeit für einzelne Zellen auf \BigO{\log{c}}, doch werden nur die Bins allokiert, die tatsächlich gefüllt sind (Abbildung~\ref{fig:octree}), wodurch leere Superzellen bei Suchoperationen automatisch übergangen werden.
+Als Resultat sind für Oberflächensysteme der Speicherbedarf und die Laufzeit von Suchoperationen eines dreidimensionalen Simulationsraumes auf die eines zweidimensionalen Systemes reduziert.
 Theoretisch sind mit Access Caching, Bitweiser Adressierung, Surface Flagging oder Height Mapping noch weitere Anpassungen möglich, allerdings verbessert sich dabei nur der Laufzeitfaktor, nicht die asymptotische Laufzeit, weshalb sie nur am Rand genannt sein sollen.
-Algorithmus~\ref{algo:octreeaddressing} skizziert die Adressierung der Zelle eines Octrees und zeigt auch deren Schwachpunkt:
-Um eine einzige Zelle per absolutem oder relativem Index abzurufen, sind Operationen der Komplexität \BigO{\log{c}} notwendig, die bei häufigen Zellzugriffen und großen Systemen sowie kleinen Zellen zu Leistungseinbrüchen führen können.
 
 %% \begin{algorithm}
 %%   \begin{algorithmic}
@@ -252,52 +167,46 @@ Um eine einzige Zelle per absolutem oder relativem Index abzurufen, sind Operati
   \label{fig:octree}
 \end{figure}
 
-\begin{algorithm}
-  \begin{algorithmic}
-    %    \Input $root$ - Stammzelle des Octrees
-    %    \Input $i[3]$ - globale Adresse der Zielzelle
-    %    \Input $allocate$ - Ob die Zelle neu erstellt werden soll
-    \Result null falls leer, sonst Zielzelle
-    \State
-    \Function{getcell-octree}{$cell, id, allocate$}
-    \State $d \gets $\Call{depth}{root}
-    \Comment{Relative Tiefe, an der sich die Zielzellen befinden}
-    \If{$d = 0$}
-    \State\Return cell
-    \EndIf
-    \If{not $cell.children$}
-    \If{allocate}
-    \State $cell.children \gets $new cell[8]
-    \Else
-    \State \Return null
-    \EndIf
-    \EndIf
-    \State $childid \gets $\Call{bitand}{id[0], $2^{d-1}$}
-    + $2\cdot$\Call{bitand}{id[1], $2^{d-1}$}
-    + $4\cdot$\Call{bitand}{id[2], $2^{d-1}$}
-    %    \State \Comment{Indiziert die Subzelle aus der globalen Position}
-    \State \Return\Call{getcell-octree}{$cell.children[childid], i, allocate$}
-    \EndFunction
-  \end{algorithmic}
-  \caption[Zell-Adressierung in Octrees]{Rekursive Zell-Adressierung und -Allokierung im Octree: Bei jedem Schritt wird das Problem in 8 Unterzellen geteilt, woraus eine Laufzeit von \BigO{d}$=$\BigO{\log{c}} resultiert}
-  \label{algo:octreeaddressing}
-\end{algorithm}
-
-\todo[inline]{Wars das? Formeln?}
+%% \begin{algorithm}
+%%   \begin{algorithmic}
+%%     %    \Input $root$ - Stammzelle des Octrees
+%%     %    \Input $i[3]$ - globale Adresse der Zielzelle
+%%     %    \Input $allocate$ - Ob die Zelle neu erstellt werden soll
+%%     \Result null falls leer, sonst Zielzelle
+%%     \State
+%%     \Function{getcell-octree}{$cell, id, allocate$}
+%%     \State $d \gets $\Call{depth}{root}
+%%     \Comment{Relative Tiefe, an der sich die Zielzellen befinden}
+%%     \If{$d = 0$}
+%%     \State\Return cell
+%%     \EndIf
+%%     \If{not $cell.children$}
+%%     \If{allocate}
+%%     \State $cell.children \gets $new cell[8]
+%%     \Else
+%%     \State \Return null
+%%     \EndIf
+%%     \EndIf
+%%     \State $childid \gets $\Call{bitand}{id[0], $2^{d-1}$}
+%%     + $2\cdot$\Call{bitand}{id[1], $2^{d-1}$}
+%%     + $4\cdot$\Call{bitand}{id[2], $2^{d-1}$}
+%%     %    \State \Comment{Indiziert die Subzelle aus der globalen Position}
+%%     \State \Return\Call{getcell-octree}{$cell.children[childid], i, allocate$}
+%%     \EndFunction
+%%   \end{algorithmic}
+%%   \caption[Zell-Adressierung in Octrees]{Rekursive Zell-Adressierung und -Allokierung im Octree: Bei jedem Schritt wird das Problem in 8 Unterzellen geteilt, woraus eine Laufzeit von \BigO{d}$=$\BigO{\log{c}} resultiert}
+%%   \label{algo:octreeaddressing}
+%% \end{algorithm}
 
 \subsection{k-d-Bäume}
 \label{datakdtree}
 
-Für Nachbarschafts- und Bereichssuchen wird wegen ihrer hervorragenden Sucheffizienz auf k-d-Bäume zurückgegriffen, die einen kartesischen Raum in orthogonale Zellen mit jeweils einem Atom unterteilen.
-Es ergibt sich ein balancierter Binärbaum mit Atomen als Knoten, dessen herausragende Eigenschaft in impliziter Betrachtung von Abstandsrelationen liegt.
-So lassen sich große Bereiche aus einer Abstandssuche oder Bereichssuche ausschließen, sobald ein Atom mit geringerem Abstand gefunden wurde.
-Somit lässt sich per binärer Suche das nächste Atom eines beliebigen Punktes in \BigO{\log{n}} finden.
-Sucht man $N$ Nächstnachbaratome, lassen sie sich durch Kombination mit einem Heap in \BigO{\log{n}\log{N_r}} finden, was zwar im Vergleich zu Octrees zu höheren asymptotischen Laufzeiten führt, jedoch zu kürzeren realen Laufzeiten führt.
-\footnote{Vergleich dazu auch Heapsort vs. Quicksort: Cachingeffekte}
-Aktualisierungen von Knoten behandelt man durch Standardalgorithmen wie Baumrotation in \BigO{\log{n}}.
+Für Nachbarschafts- und Bereichssuchen wird wegen ihrer hervorragenden Sucheffizienz oft auf k-d-Bäume zurückgegriffen, die einen kartesischen Raum in orthogonale Zellen mit jeweils einem Atom unterteilen, wodurch sich ein balancierter Binärbaum ergibt, an dessen Knoten die Atome liegen.
+Durch implizite Betrachtung von Abstandsrelationen bei der Konstruktion (Abbildung~\ref{fig:kdtree}) lassen sich Abstands- oder Bereichssuchen in \BigO{\log{n}} durchführen, während Nachbarschaftssuchen von $N$ Atomen in Kombination mit einem Heap in \BigO{\log{n}\log{N}} möglich sind.
 
-Eine weitere Eigenschaft von k-d-Bäumen ist außerdem, dass sie nicht auf endliche Räume beschränkt sind und zuverlässig beliebig große Systeme beschreiben können.
-Durch adaptives Neubalancieren erreicht man dennoch bei typischerweise einseitigem Schichtwachstum die oben erwähnten Suchlaufzeiten auf Kosten der Effizienz von Manipulationen.
+Nachteile ergeben sich bei Modifikationen von Atomen, die durch Baumrotation in in \BigO{\log{n}} aufgelöst werden müssen und im schlimmsten Fall den gesamten Baum neu strukturieren.
+Durch die einseitige, dichte und gleichverteilte Hinzufügung von Atomen während einer Oberflächenabscheidung ist dieser Fall allerdings wahrscheinlich, da der Baum auch für große Mengen von Atomen regelmäßig in z-Richtung aus der Balance gebracht wird.
+Deshalb bieten sich k-d-Bäume zwar für allgemeine Suchoperationen in Off-Lattice-Strukturen an, sind aber nicht für effiziente KMC-Simulationen geeignet.
 
 \begin{figure}
   \includegraphics[width=\textwidth]{kdtree-tree}
@@ -332,13 +241,6 @@ Durch adaptives Neubalancieren erreicht man dennoch bei typischerweise einseitig
 %%   \label{algo:kdtree-construction}
 %% \end{algorithm}
 
-Probleme von k-d-Bäumen zeigen sich bei der Suche nach einer Oberfläche einerseits und bei periodischen Räumen andererseits.
-Die Oberfläche entlang einer Hauptachse lässt sich per Range Search effizient ermitteln, allerdings kann man auf keine optimale Methode zurückgreifen, wenn man ein Auftreffen eines Precursormoleküles mit beliebiger Inklination darstellen möchte, sondern muss den Suchbereich diagonal ausweiten.
-Zudem führen lokale Aktualisierungen im schlimmsten Fall zur Neubalancierung des gesamten Baumes, wodurch die Betrachtung paralleler verzögerter Aktualisierungen erschwert wird.
-Periodische Simulationsräume führen außerdem in der Nähe der Systemgrenze zu identischen Operationen auf periodischen Bildern des Baumes, die bei eventuellen Aktualisierungen ebenso weitreichende Restrukturierungen zur Folge haben.
-
-Aus diesen Gründen lassen sich k-d-Bäume nicht zufriedenstellend im Parsivald-Modell nutzen.
-
 \subsection{Delaunay-Triangulation}
 \label{datadelaunay}
 
@@ -353,100 +255,22 @@ Aus diesen Gründen lassen sich k-d-Bäume nicht zufriedenstellend im Parsivald-
   \label{fig:delaunay}
 \end{figure}
 
-Eine alternative Partitionsmethode findet sich in Triangulationen, welche die konvexe Hülle der Punktwolke raumfüllend in nichtüberlappende k-dimensionale Simplexe entsprechend einer weiterhin Delaunay-Kriterium genannten Beziehung zerlegen:
-Im Umkreis eines Simplexes befinden sich keine weiteren Punkte aus der Punktwolke.
-Damit ergibt sich eine Vielzahl an Eigenschaften, die für verschiedene Problemstellungen zu effizienten Lösungen führen.
-So beinhaltet eine Delaunay-Triangulation als Subgraphen den Nächstnachbargraphen, die Alpha-Form (Abschnitt~\ref{dataalphaform}) und die konvexe Hülle, ist dual zum Voronoi-Diagramm und es lässt sich effizient auf Konnektivität prüfen.
+Eine dritte Partitionsmethode findet sich in der Delaunay-Triangulation\todo{Ref?}, welche jedoch asymmetrisch und nicht-orthogonal arbeitet, indem die konvexe Hülle der Punktwolke raumfüllend in disjunkte k-dimensionale Simplexe\footnote{Ein $k$-Simplex ist ein Objekt in $k$ Dimensionen mit $k+1$ Eckpunkten, die untereinander mit geraden Kanten verbunden sind. Somit ist ein 1-Simplex eine Linie, ein 2-Simplex ein Dreieck, ein 3-Simplex ein Tetraeder, etc.} entsprechend der Delaunay-Kriterium genannten Beziehung zerlegen, nach der sich im Umkreis eines Simplexes keine anderen Punkte der Punktwolke befinden dürfen.
+Damit ergibt sich ein Graph, welcher dual zun Voronoi-Diagramm ist, also ein Supergraph des Nächstnachbargraphen ist, der Alpha-Form (Abschnitt~\ref{dataalphaform}) sowie der konvexen Hülle der Punktwolke ist und in \BigO{n\log{n}} vergleichsweise effizient konstruiert werden kann.
+Die Konstruktion lässt sich im Gegensatz zu den anderen Datenstrukturen für große Simulationsräume mit entsprechenden Divide-and-Conquer-Algorithmen parallelisieren, oder vor einer etwaigen periodischen Erweiterung einer Einheitszelle zum Simulationsraum durchführen.
+Eine Liste von Eigenschaften der Simplexe sowie einer Übersicht über die verschiedenen Konstruktionsmethoden \todo{Wort}liegt in Anhang~\ref{appendix_delaunay}.
 
-\begin{itemize}
-\item Jeder Punkt ist Eckpunkt eines oder mehrerer Simplexe
-\item Simplexe überschneiden sich nicht
-\item Im Umkreis eines Simplexes befinden sich keine weiteren Punkte
-\item Die Vereinigung aller Simplexe ergibt die konvexe Hülle
-\item Alpha-Form $\subset$ Delaunay-Triangulation
-\item %Ein Punkt teilt sich mit seinem nächsten Nachbarn mindestens einen Simplex \\
-  %$\Leftrightarrow$
-  Nächstnachbargraph $\subset$ Delaunay-Triangulation
-  %% \item Die Delaunay-Triangulation und das Voronoi-Diagramm über die selben Punkte sind dual\\
-  %% $\Rightarrow$ Allgemeine Nachbarschaftssuche ist \BigO{k\log k}
-\end{itemize}
+Delaunay-Triangulationen werden noch nicht direkt im KMC-Algorithmus für Off-Lattice-Systeme genutzt, doch sind sie aufgrund ihrer Beziehung zu Alpha-Formen für die Analyse von Oberflächen unentbehrlich (Abschnitt~\ref{mdmethods}).
 
-Delaunay-Triangulationen werden somit für Betrachtungen von Oberflächen interessant, da sie über die Alpha-Form, welche durch Auswahl der Punkte aller Simplexe mit Umkreisradien oberhalb einer stoffabhängigen Grenze ermittelt wird und die wahrgenommene Oberfläche eines Systems darstellt.
-Somit lassen sich Oberflächenrauheiten, Nanoporen und bei Alpha-Werten nahe der Bindungslänge auch Kristalldefekte bestimmen.
-Mit wenig Mehraufwand gegenüber reinen Delaunay-Triangulationen ließen sich somit einerseits Auswertungen bei laufenden Simulationen durchführen und Prozesse gegebenenfalls direkt optimieren, andererseits ist die gesamte Oberfläche zur Simulation von Oberflächenereignissen bekannt und direkt parametrisiert.
+\subsection{Alpha-Form}
 
-\subsubsection{Algorithmen zur Konstruktion einer Delaunay-Triangulation}
+Delaunay-Triangulationen werden für Betrachtungen von Oberflächen interessant, da sie die konkave Oberfläche von Punktwolken über die Alpha-Form bestimmen können.
+Man erhält sie durch Vereinigung genau der Simplexe, deren Umkreisradius unterhalb einer frei wählbaren Grenze $\alpha$ liegt, oder durch komplementäre Algorithmen (Abbildung~\ref{fig:delaunay-alpha}).
+Als Resultat erhält man eine Menge von Punkten und Dreiecken, die die scheinbare Oberfläche der Punktwolke bilden, die man für weitere Untersuchungen wie die Bestimmung von Oberflächenrauheiten benutzen kann.
+Für Grenzwerte von $\alpha$ ergibt sich für $\alpha \rightarrow \infty$ die konvexe Hülle und für $\alpha \rightarrow 0$ die Gesamtheit der Atome.
 
-Zur Delaunay-Triangulierung aus einer Punktmenge stehen verschiedene Algorithmen zur Verfügung, die auf unterschiedlichen Methoden aufbauen.
-
-\begin{itemize}
-\item Flip-basierte Algorithmen (Local Improvement)\\
-  Man startet mit einer beliebigen Triangulation, prüft den Umkreis aller Simplexe auf enthaltene Punkte und korrigiert gegebenenfalls per Flip-Algorithmus, der in Abbildung~\ref{fig:delaunay-flip} dargestellt ist.
-  Diese Algorithmen konvergieren typischerweise in \BigO{n^2} und sind damit vergleichsweise langsam.
-
-\item Scan-Algorithmus (Incremental Construction)\\
-  Man konstruiert schrittweise Simplexe, die das Delaunay-Kriterium erfüllen und keine nachträgliche Änderung benötigen.
-  Durch viele Vergleiche und Sortierungen variieren typische asymptotische Laufzeiten zwischen \BigO{n\log{n}} und \BigO{n^2}.
-
-\item Einfügungs-Algorithmen (Incremental Insertion)\\
-  Man erstellt einen beliebig großen Simplex, der die gesamte Punktmenge beinhaltet, und fügt schrittweise einzelne Punkte in die Triangulation ein.
-  Der den eingefügten Punkt umfassende Simplex wird an ihm in mehrere Unter-Simplexe geteilt, auf den und dessen unmittelbare Nachbarn ein Flip-basierter Algorithmus ausgeführt wird.
-  Laufzeiten sind typischerweise gering mit \BigO{n\log{n} + n^{\lceil d/2 \rceil}}.
-
-\item Divide-and-Conquer-Algorithmen\\
-  Man teilt die Punktmenge in Untermengen, die rekursiv trianguliert und anschließend an ihren Grenzen miteinander zur Zieltriangulation vereinigt werden.
-  Größter Rechenaufwand ist für die Vereinigung der Teiltriangulierungen notwendig, die in zwei Dimensionen aufgrund von Ordnungsrelationen entlang der Grenze beinahe trivial, in höheren Dimensionen jedoch mit Problemen verbunden ist.
-  Eine mögliche Lösung ist der DeWall-Algorithmus\cite{cignoni_dewall:_1998}, dessen Methode zur Vereinigung über die Grenzen teilperiodischer Räume interessant wird.
-  In zwei Dimensionen erreicht man \BigO{n\log{n}}, höhere Dimensionen können per DeWall-Algorithmus mit einer Laufzeit von \BigO{n^{\lceil d/2 \rceil + 1}} behandelt werden, die sich jedoch nur in pathologischen Fällen zeigt.
-  Nimmt man annähernde Gleichverteilungen an, konvergiert dieser Algorithmus in drei Dimensionen subquadratisch, man sollte jedoch betrachten, dass er sich gegenüber anderer Konstruktionsalgorithmen durch einfache Parallelisierung sowie der Möglichkeit der Aktualisierung großer Raumbereiche auszeichnet.
-
-\item Höherdimensionale Einbettung\\
-  Hier wird die Punktmenge in eine höhere Dimension transformiert, in der deren konvexe Hülle berechnet wird, die dann in den ursprünglichen Raum herunter projiziert wird und darin eine gültige Delaunay-Triangulation ergibt.
-  Dieser Algorithmus ist von rein akademischem Interesse, da Einfügungs-Algorithmen für allgemeine Fälle geringere Laufzeiten ermöglichen.
-  Interessant wird diese Methode ebenfalls bei Hinzufügung und Aktualisierung von Punkten.
-
-\end{itemize}
-
-\subsubsection{Flip-Algorithmus}
-
-\begin{figure}
-  \captionsetup[subfigure]{singlelinecheck=false}{
-    \def\subfigwidth{0.23\textwidth}
-    \def\svgwidth{\textwidth}
-    \begin{subfigure}[t]{\subfigwidth}
-      \includegraphics[width=\textwidth]{delaunay-flip-a}
-      \subcaption{Ausgangstriangulation}
-      \label{fig:delaunay-flip-a}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{\subfigwidth}
-      \includegraphics[width=\textwidth]{delaunay-flip-b}
-      \subcaption{Vereinigung invalider Simplexe}
-      \label{fig:delaunay-flip-b}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{\subfigwidth}
-      \includegraphics[width=\textwidth]{delaunay-flip-c}
-      \subcaption{Aufteilung in neue valide Simplexe}
-      \label{fig:delaunay-flip-c}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{\subfigwidth}
-      \includegraphics[width=\textwidth]{delaunay-flip-d}
-      \subcaption{Ergebnis}
-      \label{fig:delaunay-flip-d}
-    \end{subfigure}
-  }
-  \caption[Flip-Algorithmus]{
-    Flip-Algorithmus: Invalide Simplexe werden aufgelöst und entlang einer neuen Grenze in neue Simplexe überführt.
-    Diese Operation läuft in \BigO{k_d\log{k_d}} Prüfungen bei Aktualisierung der Punkte eines Simplexes, mit $k_d$ als oberer Schranke der Zahl der Simplexe eines Punktes.
-  }
-  \label{fig:delaunay-flip}
-\end{figure}
-
-Basis vieler Algorithmen auf Delaunay-Triangulationen basieren auf dem \textbf{Flip-Verfahren} (Abbildung~\ref{fig:delaunay-flip}), mit dem unzulässige in zulässige Simplexe überführt werden.
-Dabei werden Grenzen zu dem benachbarten Simplex, dessen Punkt innerhalb des Umkreises liegt, aufgelöst und aus den dann verfügbaren Punkten zwei neue Simplexe gebildet.
-Im Anschluss ist es häufig notwendig, die neu entstandenen Simplexe sowie die ursprünglichen Nachbarn des zweiten Simplexes auf die gleiche Art zu prüfen.
+Alpha-Formen beschreiben ebenfalls Hohlräume und Poren innerhalb der Struktur und können für $\alpha \approx r_\text{bond}$ sogar Kristalldefekte lokalisieren, die zuvor per Konnektivitätsprüfung der Alpha-Form \todo{Verweis auf Newman-Ziff-Algorithmus?} von der Oberfläche isoliert werden müssen.
+Dabei sind Anwendungen auf auch periodische und teilperiodische Räume möglich.
 
 %% Nachbarschaftssuche nicht notwendig
 
@@ -476,28 +300,6 @@ Im Anschluss ist es häufig notwendig, die neu entstandenen Simplexe sowie die u
 %%   }
 %%   \label{algo:delaunay-neighbors}
 %% \end{algorithm}
-
-\subsubsection{Alpha-Form}
-\label{dataalphaform}
-
-Die Alpha-Form (Abbildung~\ref{fig:delaunay-alpha}) beschreibt anschaulich, aus welchen Punkten, Linien und Flächen die Oberfläche einer Punktmenge besteht.
-Im Gegensatz zur konvexen Hülle kann sie auch Einschlüsse, Poren und Oberflächenrauheiten je nach Wahl des $\alpha$-Wertes darstellen.
-Allgemeine Hüllen von Triangulationen werden dabei als Vereinigung der Menge genau der Flächen gewonnen, die nur einem Simplex zugeordnet sind, so dass man die konvexe Hülle beispielsweise als Hülle einer Delaunay-Triangulation erhält.
-%% Abhängig vom Anwendungsfall lassen sie sich als Menge von Punkten, Verbindungslinien oder Flächen ausdrücken.
-
-Für die Konstruktion von Alpha-Formen aus Delaunay-Triangulationen gibt es dabei zwei äquivalente Ansätze:
-Einerseits kann man alle Simplexe mit einem Umkreisradius $r_d > \alpha^{-1}$ aus der Delaunay-Triangulation entfernen und die Hülle der so entstandenen Triangulation bilden.
-Andererseits kann man alle Simplexe mit einem Umkreisradius $r_d > \alpha^{-1}$ aus der Delaunay-Triangulation auswählen und deren Hülle bilden.
-Die Nutzung des $\alpha$ als inversen Parameter ergibt sich hierbei aus weitergehenden Überlegungen, die konvexe Hülle als $\alpha=0$ und Tests mit invertierten Kreisflächen als $\alpha<0$ darzustellen.
-
-Beide Methoden erzeugen dabei leicht unterschiedliche Ergebnisse:
-Ansatz 1 garantiert, dass die so entstandenen Oberflächen aus Simplexen aufgebaut sind, also keine einzelnen Punkte oder Dreiecke beinhalten und somit eines oder mehrere Volumen beschreiben.
-Ansatz 2 erzeugt in erster Linie die gleiche Oberfläche, erfasst allerdings zusätzlich innerhalb der Auswahl auch einzelne Atome, Verbindungslinien oder Flächen, die keinem Volumen zugeordnet sind und somit im atomistischen Kontext einzelne Atome oder kleine Moleküle darstellen.
-Um beim zweiten Ansatz auch Elemente der konvexen Hülle erfassen zu können, wird die Triangulation häufig innerhalb und inklusive der Eckpunkte eines unendlichen virtuellen Simplexes vorgenommen, wie es auch bei einigen Konstruktionsmethoden üblich ist.
-Per Konnektivitätsprüfung der Oberflächendreiecke lässt sich zwischen zusammenhängenden Oberflächen, Einschlüssen und eigenständigen Punkten unterscheiden.
-
-In der Anwendung werden Alpha-Oberflächen für die Bestimmung von Rauheiten von Oberflächen oder Volumen poröser Materialien interessant, da sie sich als Punktmengen- beziehungsweise Polygonoperationen gestalten.
-Für Simulationen von Oberflächenabscheidungen ließen sich auf diese Weise auch Bedeckungen mit Precursorliganden ermitteln.
 
 \begin{figure}
   \centering

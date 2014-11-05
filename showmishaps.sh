@@ -2,6 +2,31 @@
 #
 # shows all minor latex mishaps for all .tex files
 
+#############################
+# functions and definitions #
+#############################
+
+register(){
+    local name="$1"
+    shift
+    local function="$1"
+    shift
+
+    [ -z "$name" ] && { echo "register(): name not set">&2; return 1; }
+    [ -z "$function" ] && { echo "register(): function not set">&2; return 1; }
+
+    local output="$("$function" $@ 2>&1)"
+
+    if [ -n "$output" ]; then
+        cat <<EOF
+<===== $name =====>
+
+$output
+
+EOF
+    fi
+}
+
 compilationfinished(){
     [ "$(date --reference masterthesis.pdf +%s 2>/dev/null)" == "$(date --reference masterthesis.pdf +%s 2>/dev/null)" ]
 }
@@ -95,109 +120,46 @@ listlonglines(){
     [ -n "$lines" ] && echo -e "$lines"
 }
 
+undefinedreferences(){
+    listlogs | { xargs -0 grep -Pi 'undefined' || echo "ok"; } | sed -r -n "s/^[^\`]*\`([^']+)'.*$/\1/p" | sort -u
+}
+
+multiplelabels(){
+    listlogs | { xargs -0 grep -Pi 'multipl[ey]' || echo "ok"; } | sed -r -n "s/^[^\`]*\`([^']+)'.*$/\1/p" | sort -u
+}
+
+trailingspaces(){
+    listfiles | xargs -0 grep -Pn '\s+$'
+}
+
+dotlines(){
+    listfiles | xargs -0 grep -Pn '^[^%&]*(?<!engl|Kap|S|Abb|Tab|Gl|Anh|Ref|Prof|vs|Dr|z\.B|et al|unters|ca|eam|[0-9]|\s[A-Z])\.(?!$|[0-9]|pdf|cpp|com|eam|\s*(\&|\\todo|%|\\\\|,|\})|Sc\.|B\.)' | grep -Pv '\\(If|State)|\\dcauthoremail|Stefan E\. Schulz' | cuttooneline
+}
+
+asddsa(){
+    listfiles | xargs -0 grep -Pin 'asd|dsa'
+}
+
+todonotes(){
+    listfiles | xargs -0 grep -Pno '\\todo(\[inline\])?(\{[^}]*\})?'
+}
+
 #####################
 # begin actual work #
 #####################
 {
-    findmatch='listfiles | xargs grep -n'
 
-    ##############
-    # list typos #
-    ##############
-
-    echo "<= possible typos =>"
-    echo
-    listunknownwords || echo "ok"
-    echo
-
-    ###########################################
-    # undefined or multiple labels/references #
-    ###########################################
-
-    echo "<= undefined references and multiple labels =>"
-    echo
-    listlogs | { xargs -0 grep -Pi 'multipl[ey]|undefined' || echo "ok"; } | sed -r -n "s/^[^\`]*\`([^']+)'.*$/\1/p" | sort -u
-    echo
-
-    ###############################
-    # citations with language tag #
-    ###############################
-
-    echo "<= citations with language tag =>"
-    echo
-    citationswithlanguagetag || echo "ok"
-    echo
-
-    ####################
-    # unused citations #
-    ####################
-
-    echo "<= unused citations =>"
-    echo
-    unusedcitations || echo "ok"
-    echo
-
-    ##############
-    # long lines #
-    ##############
-
-    echo "<= lines > 333 chars =>"
-    echo
-    listlonglines 333 || echo "ok"
-    echo
-
-    ####################
-    # trailing  spaces #
-    ####################
-
-    echo "<= trailing spaces =>"
-    echo
-    listfiles | xargs -0 grep -Pn '\s+$' || echo "ok"
-    echo
-
-    ##################################
-    # cites/refs with leading spaces #
-    ##################################
-
-    echo "<= cites/refs with leading spaces =>"
-    echo
-    spacerefs || echo "ok"
-    echo
-
-    ######################
-    # dots within a line #
-    ######################
-
-    echo "<= dots within lines (multiple sentences) =>"
-    echo
-    { listfiles | xargs -0 grep -Pn '^[^%&]*(?<!engl|Kap|S|Abb|Tab|Gl|Anh|Ref|Prof|vs|Dr|z\.B|et al|unters|ca|eam|[0-9]|\s[A-Z])\.(?!$|[0-9]|pdf|cpp|com|eam|\s*(\&|\\todo|%|\\\\|,|\})|Sc\.|B\.)' | grep -Pv '\\(If|State)|\\dcauthoremail|Stefan E\. Schulz' || echo "ok"; } | cuttooneline
-    echo
-
-    ###############################
-    # search for word repetitions #
-    ###############################
-
-    echo "<= word repetitions =>"
-    echo
-    doublewords || echo "ok"
-    echo
-
-    ###################################
-    # search for asd and its variants #
-    ###################################
-
-    echo "<= ASD occurences =>"
-    echo
-    listfiles | { xargs -0 grep -Pin 'asd|dsa' || echo "ok"; }
-    echo
-
-    ##############
-    # todo notes #
-    ##############
-
-    echo "<= todos =>"
-    echo
-    listfiles | { xargs -0 grep -Pno '\\todo(\[inline\])?(\{[^}]*\})?'; }
-    echo
+    register "possible typos" listunknownwords
+    register "word repetitions" doublewords
+    register "undefined references" undefinedreferences
+    register "multiplelabels" multiplelabels
+    register "citations with language tag" citationswithlanguagetag
+    register "unused citations" unusedcitations
+    register "long lines" listlonglines 333
+    register "dots within a line" dotlines
+    register "trailing spaces" trailingspaces
+    register "cites/refs with leading spaces" spacerefs
+    register "ASD occurences" asddsa
+    register "todo notes" todonotes
 
 } 2>&1

@@ -179,3 +179,43 @@ Im Anschluss ist es häufig notwendig, die neu entstandenen Simplexe sowie die u
   \label{fig:delaunay-flip}
 \end{figure}
 
+\subsection{Alpha-Form}
+
+\begin{figure}
+  \centering
+  \captionsetup[subfigure]{singlelinecheck=false}{
+    \def\subwidth{0.4\textwidth}
+    \def\svgwidth{\textwidth}
+    \begin{subfigure}[t]{\subwidth}
+      \includegraphics[width=\textwidth]{delaunay-alpha-a}
+      \subcaption{Delaunay Triangulation einer beliebigen Punktmenge}
+      \label{fig:delaunay-alpha-a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{\subwidth}
+      \includegraphics[width=\textwidth]{delaunay-alpha-b}
+      \subcaption{Konvexe Hülle: Hülle der Triangulation}
+      \label{fig:delaunay-alpha-b}
+    \end{subfigure}
+  }
+  \vspace{2em}
+  \captionsetup[subfigure]{singlelinecheck=false}{
+    \def\subwidth{0.4\textwidth}
+    \def\svgwidth{\textwidth}
+    \begin{subfigure}[t]{\subwidth}
+      \includegraphics[width=\textwidth]{delaunay-alpha-c}
+      \subcaption{Alpha-Form: Hülle nach Entfernung von Simplexen mit $r_d > \alpha$}
+      \label{fig:delaunay-alpha-c}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{\subwidth}
+      \includegraphics[width=\textwidth]{delaunay-alpha-d}
+      \subcaption{Alpha-Form: Hülle (nur innen) nach Entfernung von Simplexen mit $r_d < \alpha$}
+      \label{fig:delaunay-alpha-d}
+    \end{subfigure}
+  }
+  \caption[Methoden zur Bestimmung der Oberfläche per Delaunay-Triangulation]{Verschiedene Methoden zur Bestimmung der Oberfläche per Delaunay-Triangulation.
+    Man beachte, dass die in (d) genutzte Methode den Ausreißer-Punkt oben rechts mit trianguliert, jedoch nicht zur Oberfläche zählt, da für keinen seiner Simplexe $r_d < \alpha$ gilt
+  }
+  \label{fig:delaunay-alpha}
+\end{figure}

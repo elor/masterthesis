@@ -1,43 +1,65 @@
 \section{Datenstrukturen}
 \label{datastructures}
 
-Zur Beschleunigung von wissenschaftlichen Simulationen finden effiziente Algorithmen zur Suche und Manipulation von Zuständen Anwendung, deren Effizienz auf den zugrunde liegenden Datenstrukturen \todo{Wort}beruht.
-Für allgemeine Probleme sind die schnellsten Algorithmen zwar hinreichend erforscht und in Standardsoftware \todo{Wort}integriert, doch stellen sie für spezielle Problemstellungen wie der Simulation von Oberflächenabscheidungen nicht zwangsläufig die beste Wahl dar.
-So ermöglicht bessere Systemkenntnis eine genauere Abschätzung der Häufigkeit aller involvierter Operationen und somit die Wahl und Anpassung von Algorithmen auf die Klasse der zu untersuchenden Systeme
-Damit ist die Wahl der Datenstruktur zur Darstellung der Atompositionen im Simulationsraum wesentlich für die Effizienz der Gesamtsimulation.
+Zur Beschleunigung von wissenschaftlichen Simulationen finden effiziente Algorithmen zur Suche und Manipulation von Atomen auf Basis verschiedener Datenstrukturen Anwendung, welche im Folgenden zwecks der Beschreibung von Atompositionen in teilperiodischen Simulationsräumen für Off-Lattice-KMC-Simulationen untersucht werden sollen.
+Gegenüber optimalen Algorithmen für allgemeine Probleme, wie sie in verfügbarer Software genutzt werden, ermöglicht die genaue Modell- und Systemkenntnis die Abwägung der Häufigkeit von Operationen gegen deren Laufzeiten, wodurch die Wahl der optimalen Datenstruktur zur Maximierung von Größe, Genauigkeit und Geschwindigkeit von Off-Lattice-KMC-Simulationen von Gasphasenabscheidungen ermöglicht wird.
 
-Zu diesem Zweck werden im folgenden die asymptotischen Laufzeiten der Operationen mit deren Häufigkeit und Speicherverbrauch der Datenstruktur abgewogen, um die Effizienz und somit Systemgröße, Genauigkeit und Geschwindigkeit von Oberflächensimulationen im Allgemeinen und Parsivald (Abschnitt~\ref{parsivald}) im Speziellen zu steigern.
-Parsivald vereint KMC und MD zu einer Simulationsmethode, deren Laufzeitschranke von der Erstellung von KMC-Ereignissen in atomistischen Räumen (\todo{nicht in Klammern}Off-Lattice) dominiert wird, \todo{neu schreiben}weshalb hier das Hauptaugenmerk der Effizienzsteigerung liegt.
+\subsection{Numerische Voraussetzungen an Gasphasenabscheidungen}
 
-\subsection{\todo{Numerische?}Algorithmische Eigenschaften von Oberflächenabscheidungen}
-
-Die zu simulierenden Oberflächenabscheidungen unterliegen gewissen Eigenschaften, die von der Simulation beachtet werden müssen.
-So sind ihre Reaktionen und Ereignisse \textbf{lokal}, also auf eine geringe Reichweite begrenzt.
-Das bedeutet auch, dass sie über \textbf{geringen Diffusionskoeffizienten} verfügen, was sich weniger aus den eigentlichen Eigenschaften von Oberflächenabscheidungen als aus der Notwendigkeit ergibt, große Bereiche des Systems, die sich im statischen Gleichgewicht befinden, nicht atomistisch simulieren zu können.
-Die Systeme verfügen außerdem über \textbf{scharfe Oberflächen}, also eine Oberfläche, die sich anhand einer annähernd zweidimensionalen Menge von Punkten darstellen lässt, was sich aus dem Ziel der Abscheidung von Festkörpern automatisch ergibt.
-Innerhalb dieser Körper herrscht eine annähernde \textbf{Gleichverteilung der Teilchendichte}, so dass sich eine untere und eine obere Grenze für Nächstnachbarabstände angeben lässt.
+Für eine effiziente KMC-Simulation werden für zu untersuchende Gasphasenabscheidungen folgende Voraussetzungen getroffen:
+Zuerst sollten die KMC-Ereignisse \textbf{lokal}, also auf eine geringe Reichweite begrenzt sein.
+Das bedeutet auch, dass die Atome über \textbf{niedrige Diffusionskoeffizienten} verfügen, was sich aus der Notwendigkeit ergibt, im statischen Gleichgewicht befindliche Bereiche des Simulationsraumes von atomistischen Simulationen auszuschließen.
+Weiterhin werden \textbf{scharfe Phasengrenzen} vorausgesetzt, also zweidimensionale Grenzflächen, die sich durch eine vergleichsweise geringe Menge von Atomen darstellen lassen.
 Zuletzt finden die Simulationen aus praktischen Gründen in \textbf{teilperiodischen Räumen} statt, also Räumen, die in der xy-Ebene periodisch, aber in z-Richtung beliebig ausgedehnt sein können.
 
-Daraus ergeben sich jeweils Vor- und Nachteile für verschiedene Datenstrukturen, so dass etwa die Vereinigung zweier disjunkter zu einer zusammenhängenden Triangulation (Stitching) in periodischen Räumen besonderer Aufwand betrieben gegenüber nichtperiodischen Räumen betrieben werden muss.
-Die größten Vorteile ergeben sich aus der Lokalität von Ereignissen, da so für die meisten Datenstrukturen nur kleine Teilstrukturen überprüft und aktualisiert werden müssen.
+%% Daraus ergeben sich jeweils Vor- und Nachteile für verschiedene Datenstrukturen, so dass etwa für die Vereinigung zweier disjunkter Triangulation (Stitching) in periodischen Räumen zusätzlicher Aufwand gegenüber nichtperiodischen Räumen betrieben werden muss.
+%% Die größten Vorteile ergeben sich aus der Lokalität von Ereignissen, da so für die meisten Datenstrukturen nur kleine Teilstrukturen überprüft und aktualisiert werden müssen.
 
-\subsection{Effizienz der Operationen für verschiedene Datenstrukturen}
+\subsection{Vergleich der Laufzeiten mit verschiedenen Datenstrukturen}
 
-Die Effizienz einer Operation ergibt sich in praktischen Anwendungen aus der asymptotischen Laufzeit (worst case), welche üblicherweise in asymptotischer Notation als \BigO{} angegeben wird.
-Atomistische Simulationen beschränken sich auf die Manipulations-Operationen zur \textbf{Konstruktion}, \textbf{Einfügung}, \textbf{Modifikation} und \textbf{Entfernung} sowie die Suchoperationen der \textbf{Nachbarschaftssuche}, \textbf{Bereichssuche} und \textbf{Oberflächensuche} begrenzen, welche im Anhang in Tabelle~\ref{tab:dataops} ausführlicher beschrieben werden.
+Als Datenstrukturen stehen \textbf{Atomlisten}, \textbf{Nachbarschaftslisten} (NB-Listen), lineares \textbf{Binning}, Binning in \textbf{Octrees}, \textbf{k-d-Bäume} und \textbf{Delaunay-Triangulationen} zur Auswahl, von denen eine Auswahl in Abbildung~\ref{fig:datastructures} dargestellt ist.
+In Anhang~\ref{appendix_dataoverview} werden diese knapp vorgestellt, wobei auf drei zuletzt genannten in den folgenden Abschnitten näher eingegangen wird.
 
-Bei KMC-Simulationen und damit auch im Parsivald-Modell überwiegen die drei Suchoperationen, da sie für jedes Ereignis beim Aufbau der KMC-Ereignislisten durchgeführt werden müssen, wo hingegen die Manipulationen nur für das tatsächlich durchgeführte Ereignis ausgeführt werden müssen.
-Somit liegt Hauptkriterium bei der Auswahl der Datenstruktur zur Darstellung globaler Atompositionen auf der Effizienz von Suchoperationen auf dieser Datenstruktur.
-Ausnahmen bilden Nachbarschaftslisten (NB-Listen) und k-d-Bäume, deren Manipulationsoperationen die gesamte Struktur betreffen und somit besonders für große Simulationsräume zu langsam sind.
+Atomistische KMC-Simulationen beschränken sich auf die Manipulations-Operationen zur \textbf{Einfügung}, \textbf{Modifikation} und \textbf{Entfernung} von Atomen, \textbf{Konstruktion} der Datenstruktur sowie auf die Suchoperationen der \textbf{Nachbarschaftssuche}, \textbf{Bereichssuche} und \textbf{Oberflächensuche}, die jeweils im Anhang in Tabelle~\ref{tab:dataops} kurz beschrieben werden.
+Die Effizienz dieser Operationen geht dabei aus deren asymptotischer Laufzeit hervor, welche üblicherweise in asymptotischer Notation (\BigO{}) angegeben wird.
 
-Als Datenstrukturen stehen \textbf{Atomlisten}, \textbf{Nachbarschaftslisten} (NB-Listen), \textbf{Binning}, \textbf{Octrees}, \textbf{k-d-Bäume} und \textbf{Delaunay-Triangulationen} zur Verfügung, von denen einige Partitionsmethoden in Abbildung~\ref{fig:datastructures} dargestellt sind.
-Die letzten drei Datenstrukturen werden nachfolgend vorgestellt, wo hingegen die ersten drei Datenstrukturen aus anderen numerischen Simulationen bekannt sind und deshalb nur in Anhang~\ref{appendix_dataoverview} kurz beschrieben werden.
+Bei KMC-Simulationen überwiegen die drei Suchoperationen, da sie für jedes Ereignis beim Aufbau der KMC-Ereignislisten durchgeführt werden müssen, wo hingegen die Manipulationen nur für das tatsächlich durchgeführte Ereignis ausgeführt werden müssen.
+Somit liegt das Hauptkriterium bei der Wahl der Datenstruktur auf der Effizienz ihrer Suchoperationen, mit Ausnahme der Nachbarschaftslisten und k-d-Bäume, deren Manipulationsoperationen für große Simulationsräume \todo{phrasing}zu langsam sind.
+Die Ergebnisse der Laufzeit-Analysen sind der sieben Operationen für die sechs vorgestellten Datenstrukturen werden in Tabelle~\ref{tab:dataruntimes} zusammen gefasst, wofür Tabelle~\ref{tab:datasymbols} die verwendeten Symbole erklärt.
 
-In Tabelle~\ref{tab:dataruntimes} wird ein Überblick über die asymptotischen Laufzeiten der Datenstrukturen für die sieben Operationen sowie über den asymptotischen Speicherverbrauch (RAM) gegeben, wofür Tabelle~\ref{tab:datasymbols} einen Überblick über die verwendeten Symbole gibt.
-Der praktische Speicherverbrauch ist für die untersuchten Datenstrukturen im Gegensatz zum asymptotischen Speicherverbrauch linear und wird deshalb nicht als Auswahlkriterium zu Rate gezogen.
-Wie Untersuchungen an Simulationsräumen verschiedener Größe zeigen, ist erst bei \num{1.9e9} Atomen die Grenze des Hauptspeichers erreicht (Abschnitt~\ref{goldscalability}).
+\begin{figure}[h]
+  \captionsetup[subfigure]{singlelinecheck=false}{
+    \def\subfigwidth{0.23\textwidth}
+    \def\svgwidth{\textwidth}
+    \begin{subfigure}[t]{\subfigwidth}
+      \includegraphics[width=\textwidth]{datastructures-a}
+      \subcaption{Ohne Binning}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{\subfigwidth}
+      \includegraphics[width=\textwidth]{datastructures-b}
+      \subcaption{Binning}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{\subfigwidth}
+      \includegraphics[width=\textwidth]{datastructures-c}
+      \subcaption{Octree}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{\subfigwidth}
+      \includegraphics[width=\textwidth]{datastructures-d}
+      \subcaption{k-d-Baum}
+    \end{subfigure}
+  }
+  \caption[Übersicht über räumliche Datenstrukturen]{
+    Übersicht über Partition des Simulationsraumes für einige Datenstrukturen.
+    Die Partition mit k-d-Bäumen ist dynamisch und ändert sich mit jeder Manipulation.
+  }
+  \label{fig:datastructures}
+\end{figure}
 
-\begin{table}
+
+\begin{table}[h]
   \centering
 
   \caption[Laufzeitabschätzung abstrakter Operationen auf verschiedenen Datenstrukturen]{
@@ -66,7 +88,7 @@ Wie Untersuchungen an Simulationsräumen verschiedener Größe zeigen, ist erst 
     \hline
   \end{tabularx}
 
-  \vspace{2em}
+  \vspace{1em}
 
   \oddrowcolors
   \caption[datasymbols]{Symbole für Laufzeit- und Speicherabschätzungen}
@@ -84,41 +106,12 @@ Wie Untersuchungen an Simulationsräumen verschiedener Größe zeigen, ist erst 
 
 \end{table}
 
-\begin{figure}[bhpt]
-  \captionsetup[subfigure]{singlelinecheck=false}{
-    \def\subfigwidth{0.23\textwidth}
-    \def\svgwidth{\textwidth}
-    \begin{subfigure}[t]{\subfigwidth}
-      \includegraphics[width=\textwidth]{datastructures-a}
-      \subcaption{Ohne Binning}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{\subfigwidth}
-      \includegraphics[width=\textwidth]{datastructures-b}
-      \subcaption{Binning}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{\subfigwidth}
-      \includegraphics[width=\textwidth]{datastructures-c}
-      \subcaption{Octree}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{\subfigwidth}
-      \includegraphics[width=\textwidth]{datastructures-d}
-      \subcaption{k-d-Baum}
-    \end{subfigure}
-  }
-  \caption[Übersicht über räumliche Datenstrukturen]{
-    Übersicht über Raumzerlegungen einiger Datenstrukturen.
-    k-d-Bäume (d) beinhalten in jeder Zelle nur ein Atom, weshalb sich die Zellgrenzen entlang der Atompositionen formen.
-    Octrees (c) dagegen haben vordefinierte Grenzen, aber prägen nur besetzte Zellen aus, wodurch leere Raumbereiche effizient von Suchoperationen ausgeschlossen sind.
-  }
-  \label{fig:datastructures}
-\end{figure}
-
+\clearpage
 \subsection{Effiziente Datenstrukturen}
 
 Beim Vergleich der Datenstrukturen in Tabelle~\ref{tab:dataruntimes} stellen sich Octrees, k-d-Bäume und Delaunay-Triangulationen als Favoriten für Off-Lattice KMC-Simulationen heraus, die in den folgenden Abschnitten kurz eingehender vorgestellt und diskutiert werden sollen.
+Der Speicherverbrauch ist der untersuchten Datenstrukturen ist praktisch linear und wird deshalb nicht als Auswahlkriterium zu Rate gezogen.
+Wie Untersuchungen an Simulationsräumen verschiedener Größe zeigen, wird erst für \num{1.9e9} Atome die Grenze des Hauptspeichers erreicht (Abschnitt~\ref{goldscalability}).
 
 \subsubsection{Octrees}
 \label{dataoctree}
@@ -204,7 +197,7 @@ Theoretisch sind mit Access Caching, Bitweiser Adressierung, Surface Flagging od
 Für Nachbarschafts- und Bereichssuchen wird wegen ihrer hervorragenden Sucheffizienz oft auf k-d-Bäume zurückgegriffen, die einen kartesischen Raum in orthogonale Zellen mit jeweils einem Atom unterteilen, wodurch sich ein balancierter Binärbaum ergibt, an dessen Knoten die Atome liegen.
 Durch implizite Betrachtung von Abstandsrelationen bei der Konstruktion (Abbildung~\ref{fig:kdtree}) lassen sich Abstands- oder Bereichssuchen in \BigO{\log{n}} durchführen, während Nachbarschaftssuchen von $N$ Atomen in Kombination mit einem Heap in \BigO{\log{n}\log{N}} möglich sind.
 
-Nachteile ergeben sich bei Modifikationen von Atomen, die durch Baumrotation in in \BigO{\log{n}} aufgelöst werden müssen und im schlimmsten Fall den gesamten Baum neu strukturieren.
+Nachteile ergeben sich bei Modifikationen von Atomen, die durch Baumrotation in \BigO{\log{n}} aufgelöst werden müssen und im schlimmsten Fall den gesamten Baum neu strukturieren.
 Durch die einseitige, dichte und gleichverteilte Hinzufügung von Atomen während einer Oberflächenabscheidung ist dieser Fall allerdings wahrscheinlich, da der Baum auch für große Mengen von Atomen regelmäßig in z-Richtung aus der Balance gebracht wird.
 Deshalb bieten sich k-d-Bäume zwar für allgemeine Suchoperationen in Off-Lattice-Strukturen an, sind aber nicht für effiziente KMC-Simulationen geeignet.
 
@@ -256,7 +249,7 @@ Deshalb bieten sich k-d-Bäume zwar für allgemeine Suchoperationen in Off-Latti
 \end{figure}
 
 Eine dritte Partitionsmethode findet sich in der Delaunay-Triangulation\todo{Ref?}, welche jedoch asymmetrisch und nicht-orthogonal arbeitet, indem die konvexe Hülle der Punktwolke raumfüllend in disjunkte k-dimensionale Simplexe\footnote{Ein $k$-Simplex ist ein Objekt in $k$ Dimensionen mit $k+1$ Eckpunkten, die untereinander mit geraden Kanten verbunden sind. Somit ist ein 1-Simplex eine Linie, ein 2-Simplex ein Dreieck, ein 3-Simplex ein Tetraeder, etc.} entsprechend der Delaunay-Kriterium genannten Beziehung zerlegen, nach der sich im Umkreis eines Simplexes keine anderen Punkte der Punktwolke befinden dürfen.
-Damit ergibt sich ein Graph, welcher dual zun Voronoi-Diagramm ist, also ein Supergraph des Nächstnachbargraphen ist, der Alpha-Form (Abschnitt~\ref{dataalphaform}) sowie der konvexen Hülle der Punktwolke ist und in \BigO{n\log{n}} vergleichsweise effizient konstruiert werden kann.
+Damit ergibt sich ein Graph, welcher dual zum Voronoi-Diagramm ist, also ein Supergraph des Nächstnachbargraphen ist, der Alpha-Form (Abschnitt~\ref{dataalphaform}) sowie der konvexen Hülle der Punktwolke ist und in \BigO{n\log{n}} vergleichsweise effizient konstruiert werden kann.
 Die Konstruktion lässt sich im Gegensatz zu den anderen Datenstrukturen für große Simulationsräume mit entsprechenden Divide-and-Conquer-Algorithmen parallelisieren, oder vor einer etwaigen periodischen Erweiterung einer Einheitszelle zum Simulationsraum durchführen.
 Eine Liste von Eigenschaften der Simplexe sowie einer Übersicht über die verschiedenen Konstruktionsmethoden \todo{Wort}liegt in Anhang~\ref{appendix_delaunay}.
 
@@ -265,8 +258,8 @@ Delaunay-Triangulationen werden noch nicht direkt im KMC-Algorithmus für Off-La
 \subsection{Alpha-Form}
 
 Delaunay-Triangulationen werden für Betrachtungen von Oberflächen interessant, da sie die konkave Oberfläche von Punktwolken über die Alpha-Form bestimmen können.
-Man erhält sie durch Vereinigung genau der Simplexe, deren Umkreisradius unterhalb einer frei wählbaren Grenze $\alpha$ liegt, oder durch komplementäre Algorithmen (Abbildung~\ref{fig:delaunay-alpha}).
-Als Resultat erhält man eine Menge von Punkten und Dreiecken, die die scheinbare Oberfläche der Punktwolke bilden, die man für weitere Untersuchungen wie die Bestimmung von Oberflächenrauheiten benutzen kann.
+Man erhält sie durch Vereinigung genau der Simplexe, deren Umkreisradius unterhalb einer frei wählbaren Grenze $\alpha$ liegt, oder durch komplementäre Algorithmen, wie sie im \todo{soll das vielleicht gleich hier mit rein?} Anhang in Abbildung~\ref{fig:delaunay-alpha} veranschaulicht sind.
+Als Resultat erhält man eine Menge von Punkten und Dreiecken, welche die scheinbare Oberfläche der Punktwolke bilden, die man für weitere Untersuchungen wie die Bestimmung von Oberflächenrauheiten benutzen kann.
 Für Grenzwerte von $\alpha$ ergibt sich für $\alpha \rightarrow \infty$ die konvexe Hülle und für $\alpha \rightarrow 0$ die Gesamtheit der Atome.
 
 Alpha-Formen beschreiben ebenfalls Hohlräume und Poren innerhalb der Struktur und können für $\alpha \approx r_\text{bond}$ sogar Kristalldefekte lokalisieren, die zuvor per Konnektivitätsprüfung der Alpha-Form \todo{Verweis auf Newman-Ziff-Algorithmus?} von der Oberfläche isoliert werden müssen.
@@ -300,42 +293,3 @@ Dabei sind Anwendungen auf auch periodische und teilperiodische Räume möglich.
 %%   }
 %%   \label{algo:delaunay-neighbors}
 %% \end{algorithm}
-
-\begin{figure}
-  \centering
-  \captionsetup[subfigure]{singlelinecheck=false}{
-    \def\subwidth{0.4\textwidth}
-    \def\svgwidth{\textwidth}
-    \begin{subfigure}[t]{\subwidth}
-      \includegraphics[width=\textwidth]{delaunay-alpha-a}
-      \subcaption{Delaunay Triangulation einer beliebigen Punktmenge}
-      \label{fig:delaunay-alpha-a}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{\subwidth}
-      \includegraphics[width=\textwidth]{delaunay-alpha-b}
-      \subcaption{Konvexe Hülle: Hülle der Triangulation}
-      \label{fig:delaunay-alpha-b}
-    \end{subfigure}
-  }
-  \vspace{2em}
-  \captionsetup[subfigure]{singlelinecheck=false}{
-    \def\subwidth{0.4\textwidth}
-    \def\svgwidth{\textwidth}
-    \begin{subfigure}[t]{\subwidth}
-      \includegraphics[width=\textwidth]{delaunay-alpha-c}
-      \subcaption{Alpha-Form: Hülle nach Entfernung von Simplexen mit $r_d > \alpha$}
-      \label{fig:delaunay-alpha-c}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{\subwidth}
-      \includegraphics[width=\textwidth]{delaunay-alpha-d}
-      \subcaption{Alpha-Form: Hülle (nur innen) nach Entfernung von Simplexen mit $r_d < \alpha$}
-      \label{fig:delaunay-alpha-d}
-    \end{subfigure}
-  }
-  \caption[Methoden zur Bestimmung der Oberfläche per Delaunay-Triangulation]{Verschiedene Methoden zur Bestimmung der Oberfläche per Delaunay-Triangulation.
-    Man beachte, dass die in (d) genutzte Methode den Ausreißer-Punkt oben rechts mit trianguliert, jedoch nicht zur Oberfläche zählt, da für keinen seiner Simplexe $r_d < \alpha$ gilt
-  }
-  \label{fig:delaunay-alpha}
-\end{figure}

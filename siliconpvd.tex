@@ -3,7 +3,7 @@
 
 Anhand von Silizium-PVD sollen einerseits amorphe Schichten abgeschieden, andererseits zur \ce{SiH4}-\ce{O2}-CVD hingeführt werden.
 Nach Voruntersuchungen verschiedener ReaxFF-Para\-metrisierungen werden Abscheidungen auf kristallinen Silizium-Substraten unterschiedlicher Schnittebenen simuliert.
-ASD
+\todo[inline]{Einleitung nochmal versuchen}
 
 \subsection{Potentialdateien}
 
@@ -12,7 +12,7 @@ Da die ReaxFF-Formulierung erst innerhalb des letzten Jahrzehntes an Popularitä
 Tabelle~\ref{tab:siliconpotentials} listet die im Rahmen der Arbeit untersuchten ReaxFF-Parametrisierungen auf.
 
 \begin{table}
-  \caption[Silizium-Potentialdateien]{Potentialdateien für Silizium- und Siliziumoxidsysteme}
+  \caption{Untersuchte ReaxFF-Parametrisierungen für Silizium- und Siliziumoxidsysteme}
   \label{tab:siliconpotentials}
   \oddrowcolors
   \begin{tabularx}{1\textwidth}{|lXc|}
@@ -42,15 +42,16 @@ Die Ergebnisse dieser Betrachtungen wurden in Tabelle~\ref{tab:siliconpreresults
 
 \begin{table}
   \begin{threeparttable}
-    \caption[Ergebnisse der Silizium-Potential-Untersuchungen]{Zusammenfassung Ergebnisse der Untersuchung der Potentialuntersuchung für Silizium-Systeme.
-      Detailliertere Ergebnisse finden sich in Anhang~\ref{appendix:silicon}
+    \caption[Zusammenfassung der Voruntersuchungen für Silizium-Systeme]{
+      Zusammenfassung der Voruntersuchungen für Silizium-Systeme.
+      Siehe Anhang~\ref{appendix:silicon}
     }
     \label{tab:siliconpreresults}
 
     \oddrowcolors
     \begin{tabularx}{\textwidth}{|lCCCCCCC|}
       \hline
-      \textbf{Bezeichnung}    & LMP    & c-\ce{Si} & c-\ce{SiO2} & a-\ce{Si} & \ce{SiH4} & \ce{+O2} & PVD\tnote{a} \\
+      \textbf{Bezeichnung}    & LMP\tnote{a}    & c-\ce{Si} & c-\ce{SiO2} & a-\ce{Si} & \ce{SiH4} & \ce{+O2} & PVD\tnote{b} \\
       \hline                % & LAMMPS & c-Si      & c-SiO2      & a-Si      & Silane    & +O2      & PVD          \\
       Al\_AlO\_AlN            & \cmark & ~         & (\cmark)    &  \cmark   & \cmark    & ~        & \cmark       \\
       chenoweth               & ~      & ~         & ~           &  ~        & ~         & ~        & ~            \\
@@ -80,8 +81,9 @@ Die Ergebnisse dieser Betrachtungen wurden in Tabelle~\ref{tab:siliconpreresults
  %% & ~
 
     \begin{tablenotes}[para]
-      \item[a] PVD: a-\ce{Si}-PVD mit Parsivald
-      \item[b] CVD: a-\ce{SiO2}-CVD mit Parsivald
+      \item[b] LMP: Kompatibilität mit LAMMPS
+      \item[b] PVD: a-\ce{Si}-PVD mit Parsivald
+      %% \item[b] CVD: a-\ce{SiO2}-CVD mit Parsivald
     \end{tablenotes}
   \end{threeparttable}
 \end{table}
@@ -151,16 +153,18 @@ Leider ermöglicht die begrenzte Laufzeit der Simulation ermöglicht keine Aussa
   \def\subfigwidth{0.48\textwidth}
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{Si111_combined}
-    \subcaption{Schichtdicke und Rauheit der aufgewachsenen Schicht}
+    \subcaption{Dicke und Rauheit der Schicht}
     \label{fig:siliconresults-a}
   \end{subfigure}
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{si111_rdf}
-    \subcaption{Radiale Verteilungsfunktion der aufgewachsenen Schicht}
+    \subcaption{Radiale Verteilungsfunktion bei $t=80$}
     \label{fig:siliconresults-b}
   \end{subfigure}
   \hfill
-  \caption[Ergebnisse der Simulation einer Silizium-PVD]{Ergebnis der Simulation einer Silizium-PVD (\SI{10x10}{\nano\meter})}
+  \caption[Struktur einer Silizium-PVD-Schicht aus Parsivald]{
+    Struktur einer Silizium-PVD-Schicht aus Parsivald (\SI{10x10}{\nano\meter})
+  }
   \label{fig:siliconresults}
 \end{figure}
 
@@ -170,7 +174,8 @@ Anhand des Profiles lässt sich auch erkennen, dass mitunter längere Relaxation
 
 Zum Vergleich beinhaltet Abbildung~\ref{fig:siliconunderrelaxedprofile} das Oberflächenprofil einer unterrelaxierten Oberfläche, wie sie während der Anpassung der Parsivald-Parameter entstanden sind.
 Es zeigen sich stärkere Unterschiede und steilere Hänge, die sich aus der hohen Porösität des Materiales ergeben.
-Somit ist zu erwarten, dass die Rauheit der Schicht mit stärkerer Relaxierung erwartungsgemäß weiter abnimmt.
+Die Porentiefen betragen \SI{6}{\nano\meter} und wachsen linear mit der Schichtdicke.\todo{Dichte?}
+Somit ist zu erwarten, dass die Rauheit der Schicht mit stärkerer Relaxierung während der Abscheidung weiter abnimmt.
 
 \todo{Abschnitt viel weiter nach oben schieben?}
 Zur Charakterisierung der Kristalleigenschaften der abgeschiedenen Schicht wurden ihre RDF-Funktionen berechnet, aus denen ersichtlich ist, dass bereits nach \SI{4}{\angstrom}, also kurz vor der zweiten Korrelationslänge bei \SI{4.4}{\angstrom}, keine langreichweitige Ordnung mehr vorhanden ist.
@@ -188,7 +193,9 @@ Somit zeigt sich die ReaxFF-Formulierung erfolgreich in der Darstellung der chem
     \def\svgwidth{\textwidth}
     \input{img/si111_surface_profile_halfscale.pdf_tex}
   \end{subfigure}
-  \caption[Oberflächenprofil einer Silizium-PVD-Schicht]{Oberflächenprofil einer auf Si-(111) per PVD erzeugten Silizium-Schicht}
+  \caption[Oberflächenprofil einer Silizium-PVD-Schicht]{
+    Oberflächenprofil einer auf Si-(111) per PVD abgeschiedenen Schicht
+  }
   \label{fig:siliconprofile}
 \end{figure}
 
@@ -203,10 +210,7 @@ Somit zeigt sich die ReaxFF-Formulierung erfolgreich in der Darstellung der chem
     \input{img/si111_underrelaxed_profile_scale.pdf_tex}
   \end{subfigure}
   \caption[Oberflächenprofil einer unterrelaxierten Siliziumschicht]{
-    Oberflächenprofil einer unterrelaxierten Silizium-Schicht:
-    Es bildet sich ein poröses Material mit Porentiefen oberhalb von \SI{6}{\nano\meter}, die linear mit der Schichtdicke wachsen
+    Oberflächenprofil einer unterrelaxierten, porösen Silizium-PVD-Schicht
   }
   \label{fig:siliconunderrelaxedprofile}
 \end{figure}
-
-\todo[inline]{beide Profile auf eine Seite}

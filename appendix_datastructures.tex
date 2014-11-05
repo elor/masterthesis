@@ -3,7 +3,7 @@
 
 \section{Übersicht über KMC-Operationen}
 
-\begin{table}[h]
+\begin{table}[h!]
   \oddrowcolors
   \caption[Liste der notwendigen Operationen]{
     Übersicht über Operationen, die auf die zugrunde liegenden Datenstrukturen ausgeführt werden.
@@ -144,7 +144,7 @@ Basis vieler Algorithmen auf Delaunay-Triangulationen basieren auf dem \textbf{F
 Dabei werden Grenzen zu dem benachbarten Simplex, dessen Punkt innerhalb des Umkreises liegt, aufgelöst und aus den dann verfügbaren Punkten zwei neue Simplexe gebildet.
 Im Anschluss ist es häufig notwendig, die neu entstandenen Simplexe sowie die ursprünglichen Nachbarn des zweiten Simplexes auf die gleiche Art zu prüfen.
 
-\begin{figure}
+\begin{figure}[h!]
   \captionsetup[subfigure]{singlelinecheck=false}{
     \def\subfigwidth{0.23\textwidth}
     \def\svgwidth{\textwidth}
@@ -172,9 +172,10 @@ Im Anschluss ist es häufig notwendig, die neu entstandenen Simplexe sowie die u
       \label{fig:delaunay-flip-d}
     \end{subfigure}
   }
-  \caption[Flip-Algorithmus]{
-    Flip-Algorithmus: Invalide Simplexe werden aufgelöst und entlang einer neuen Grenze in neue Simplexe überführt.
-    Diese Operation läuft in \BigO{k_d\log{k_d}} Prüfungen bei Aktualisierung der Punkte eines Simplexes, mit $k_d$ als oberer Schranke der Zahl der Simplexe eines Punktes.
+  \caption[Flip-Algorithmus für Delaunay-Triangulationen]{
+    Flip-Algorithmus: Invalide Simplexe werden aufgelöst und entlang einer neuen Kontaktfläche in valide Simplexe überführt.
+    %% Diese Operation läuft in \BigO{k_d\log{k_d}} Prüfungen bei Aktualisierung der Punkte eines Simplexes, mit $k_d$ als oberer Schranke der Zahl der Simplexe eines Punktes.
   }
+  \todo[inline]{Flip-Algorithmus: Lässt sich nicht mit dem Multifunktionsdrucker drucken}
   \label{fig:delaunay-flip}
 \end{figure}

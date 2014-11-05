@@ -11,10 +11,10 @@ Die Auftreffenergie wird jedoch hauptsächlich Teil vom Thermostat abgefangen, s
 
 Als Resultat bilden sich Poren (Abbildung~\ref{fig:multilayer_surfacefail}), die sich vergleichbar zu den Kupferkratern in Abbildung~\ref{fig:coppercrater} entwickeln, sich aber erst spät wieder schließen.
 
-\begin{figure}[h]
+\begin{figure}[h!]
   \centering
   \includegraphics[height=10cm]{CuNi_surface8_noalpha}
-  \caption{Draufsicht einer CuNi-Oberfläche nach nur 4 Lagen (insgesamt \SI{60}{\angstrom})}
+  \caption{Oberflächenprofil einer CuNi-Oberfläche nach nur 4 Lagen (\SI{60}{\angstrom})}
   \label{fig:multilayer_surfacefail}
 \end{figure}
 
@@ -23,21 +23,21 @@ Abbildung~\ref{fig:multilayer_columnfail} zeigt ein gleichartiges Resultat, das 
 Hier ist erkennbar, wie sich die gebildeten Poren wieder schließen.
 Zur einfacheren Veranschaulichung wurde nur ein wenige Nanometer dünnes Profil abgebildet.
 
-\begin{figure}[h]
-  \caption{Profile fehlgeschlagener Simulationen von Multilagen-Abscheidungen}
+\begin{figure}[h!]
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{7cm}
   \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{CuNi_columnfail}
-    \subcaption{Dünnes Profil eines anderen Systemes nach 24 Lagen (\SI{180}{\angstrom})}
-    \label{fig:multilayer_columnfail}
+    \includegraphics[width=\textwidth]{CuNi_thicklayers}
+    \caption{Profil einer Schicht mit 6 Lagen je \SI{6}{\nano\meter}}
+    \label{fig:multilayer_thickfail}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{CuNi_thicklayers}
-    \caption{Profil eines Systemes nach 6 Lagen je \SI{6}{\nano\meter}}
-    \label{fig:multilayer_thickfail}
+    \includegraphics[width=\textwidth]{CuNi_columnfail}
+    \subcaption{Dünnes Profil nach 24 Lagen (\SI{180}{\angstrom})}
+    \label{fig:multilayer_columnfail}
   \end{subfigure}
+  \caption{Fehlgeschlagene \ce{CuNi}-Abscheidungen während der Parameter-Optimierung}
 \end{figure}
 
 \section{Multilagen mit einer Dicke von 5 nm}

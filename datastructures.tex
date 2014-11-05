@@ -34,7 +34,7 @@ Die Ergebnisse der Laufzeit-Analysen sind der sieben Operationen für die sechs 
     \def\svgwidth{\textwidth}
     \begin{subfigure}[t]{\subfigwidth}
       \includegraphics[width=\textwidth]{datastructures-a}
-      \subcaption{Ohne Binning}
+      \subcaption{Listen}
     \end{subfigure}
     \hfill
     \begin{subfigure}[t]{\subfigwidth}
@@ -52,9 +52,9 @@ Die Ergebnisse der Laufzeit-Analysen sind der sieben Operationen für die sechs 
       \subcaption{k-d-Baum}
     \end{subfigure}
   }
-  \caption[Übersicht über räumliche Datenstrukturen]{
-    Übersicht über Partition des Simulationsraumes für einige Datenstrukturen.
-    Die Partition mit k-d-Bäumen ist dynamisch und ändert sich mit jeder Manipulation.
+  \caption[Übersicht über Partitionen des Simulationsraumes]{
+    Übersicht über Partitionen des Simulationsraumes für einige Datenstrukturen.
+    k-d-Baum-Partitionen sind dynamisch und ändern sich mit jeder Manipulation.
   }
   \label{fig:datastructures}
 \end{figure}
@@ -63,10 +63,7 @@ Die Ergebnisse der Laufzeit-Analysen sind der sieben Operationen für die sechs 
 \begin{table}[h]
   \centering
 
-  \caption[Laufzeitabschätzung abstrakter Operationen auf verschiedenen Datenstrukturen]{
-    Abschätzung des Speicheraufwands und der asymptotischen Laufzeit der vorgestellten Operationen auf verschiedenen Datenstrukturen für kompakte Oberflächensysteme in drei Raumdimensionen.
-    \todo[inline]{Referenz oder Erklärung}.
-  }
+  \caption{Abschätzung der Komplexität für verschiedene Datenstrukturen und Operationen}
   \label{tab:dataruntimes}
   \begin{tabularx}{\textwidth}{|X|*8c|}
     \hline
@@ -92,7 +89,7 @@ Die Ergebnisse der Laufzeit-Analysen sind der sieben Operationen für die sechs 
   \vspace{1em}
 
   \oddrowcolors
-  \caption[datasymbols]{Symbole für Laufzeit- und Speicherabschätzungen}
+  \caption{Symbole für Laufzeit- und Speicherabschätzungen}
   \label{tab:datasymbols}
   \begin{tabularx}{\textwidth}{|cX|cX|}
     \hline
@@ -154,9 +151,9 @@ Theoretisch sind mit Access Caching, Bitweiser Adressierung, Surface Flagging od
 \begin{figure}
   \centering
   \includegraphics[width=\textwidth]{octree}
-  \caption[Funktionsweise eines Octrees]{Quadtree (2d-Äquivalent des Octrees) zur Veranschaulichung der Funktionsweise eines Octrees:
-    Räumliche Unterteilung und deren die Baum-Darstellung.
-    Rekursive Zerlegung der interessanten Zellen bis zur gewünschten Auflösung in Ebene 4, dann zellweises Binning der Atome.
+  \caption[Veranschaulichung der Funktionsweise eines Octrees]{
+    Quadtree zur Veranschaulichung der Funktionsweise eines Octrees:\\
+    Räumliche Unterteilung eines Raumes mit zugehörigem Baum von Zellen.
   }
   \label{fig:octree}
 \end{figure}
@@ -205,8 +202,8 @@ Deshalb bieten sich k-d-Bäume zwar für allgemeine Suchoperationen in Off-Latti
 \begin{figure}
   \includegraphics[width=\textwidth]{kdtree-tree}
   \caption[Konstruktion eines k-d-Baumes]{
-    Rekursive Konstruktion eines k-d-Baumes: Die Punktmenge wird sortiert, der Median zum Baum hinzugefügt und seine Kinder aus den beiden Teilmengen per k-d-Baum-Konstruktion gewonnen.
-    Der gewonnene Suchbaum ist effizient in Speicherplatz und Laufzeit der Suchoperationen.
+    Konstruktion eines k-d-Baumes:
+    Der Median der sortierten Punkte wird zur Wurzel des Baumes; die beiden Teilmengen rekursiv zu k-d-Bäumen
   }
   \label{fig:kdtree}
 \end{figure}
@@ -242,9 +239,8 @@ Deshalb bieten sich k-d-Bäume zwar für allgemeine Suchoperationen in Off-Latti
   \centering
   \def\svgwidth{\textwidth}
   \input{img/delaunay.pdf_tex}
-  \caption[Delaunay-Triangulation]{Beispiel der Konstruktion einer Delaunay-Triangulation (c) aus einer Punktwolke (a).
-    Für jedes Simplex (hier 2d-Simplex, also Dreieck) muss das Delaunay-Kriterium eingehalten werden:
-    Es dürfen sich keine weiteren Punkte im Umkreis des Simplices befinden (b).
+  \caption[Beispiel des Delaunay-Kriteriums]{
+    In der Delaunay-Triangulation (c) einer Punktwolke (a) dürfen sich keine weiteren Punkte im Umkreis jedes Simplexes (b) befinden
   }
   \label{fig:delaunay}
 \end{figure}
@@ -260,7 +256,7 @@ Delaunay-Triangulationen werden noch nicht direkt im KMC-Algorithmus für Off-La
 \label{dataalphaform}
 
 Delaunay-Triangulationen werden für Betrachtungen von Oberflächen interessant, da sie die konkave Oberfläche von Punktwolken über die Alpha-Form bestimmen können.
-Man erhält sie durch Vereinigung genau der Simplexe, deren Umkreisradius unterhalb einer frei wählbaren Grenze $\alpha$ liegt, oder durch komplementäre Algorithmen, wie sie in Abbildung~\ref{fig:delaunay-alpha} veranschaulicht sind.
+Man erhält sie durch Vereinigung genau der Simplexe, deren Umkreisradius $r_d$ unterhalb einer frei wählbaren Grenze $\alpha$ liegt, oder durch komplementäre Algorithmen, wie sie in Abbildung~\ref{fig:delaunay-alpha} veranschaulicht sind.
 Als Resultat erhält man eine Menge von Punkten und Dreiecken, welche die scheinbare Oberfläche der Punktwolke bilden, die man für weitere Untersuchungen wie die Bestimmung von Oberflächenrauheiten benutzen kann.
 Für Grenzwerte von $\alpha$ ergibt sich für $\alpha \rightarrow \infty$ die konvexe Hülle und für $\alpha \rightarrow 0$ die Gesamtheit der Atome.
 
@@ -325,12 +321,13 @@ Dabei sind Anwendungen auf auch periodische und teilperiodische Räume möglich.
     \hfill
     \begin{subfigure}[t]{\subwidth}
       \includegraphics[width=\textwidth]{delaunay-alpha-d}
-      \subcaption{Alpha-Form: Hülle (nur innen) nach Entfernung von Simplexen mit $r_d < \alpha$}
+      \subcaption{Alpha-Form: Hülle nach Entfernung von Simplexen mit $r_d < \alpha$}
       \label{fig:delaunay-alpha-d}
     \end{subfigure}
   }
-  \caption[Methoden zur Bestimmung der Oberfläche per Delaunay-Triangulation]{Verschiedene Methoden zur Bestimmung der Oberfläche per Delaunay-Triangulation.
-    Man beachte, dass die in (d) genutzte Methode den Ausreißer-Punkt oben rechts mit trianguliert, jedoch nicht zur Oberfläche zählt, da für keinen seiner Simplexe $r_d < \alpha$ gilt
+  \caption[Bestimmung der Oberfläche per Delaunay-Triangulation]{
+    Bestimmung der Oberfläche per Delaunay-Triangulation.
+    Die Alpha-Form in (d) trianguliert auch Ausreißer-Punkte, zählt sie aber ebenfalls nicht zur Hülle
   }
   \label{fig:delaunay-alpha}
 \end{figure}

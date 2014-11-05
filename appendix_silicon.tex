@@ -3,31 +3,35 @@
 
 \section{Voruntersuchungen}
 
-\begin{figure}[h]
+\begin{figure}[h!]
   \centering
   \includegraphics[width=10cm]{SiSi_npt_bondlengths}
-  \caption[Bindungslängen von Kupfer im relaxierten Kristall für verschiedene Parametersätze]{Bindungslängen von Kupfer im relaxierten Kristall für verschiedene Parametersätze}
+  \caption{Bindungslängen von c-\ce{Si} für ReaxFF-Parametrisierungen}
   \label{fig:sisibondlengths}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[h!]
   \centering
   \includegraphics[width=10cm]{kulkarni_rdf_crystal}
-  \caption[Radiale Verteilungsfunktion von kristallinem Silizium nach Relaxation mit Kulkarni-Parametersatz]{Radiale Verteilungsfunktion von kristallinem Silizium nach Relaxation mit Kulkarni-Parametersatz}
+  \caption[Radiale Verteilungsfunktionen von relaxiertem c-\ce{Si}]{
+    Radiale Verteilungsfunktionen von relaxiertem c-\ce{Si} mit kulkarni
+  }
   \label{fig:kulkarnirdf}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[h!]
   \centering
   \includegraphics[width=\textwidth]{kulkarni_rdf_amorphous}
-  \caption[Radiale Verteilungsfunktion von amorphem Silizium nach Relaxation mit Kulkarni-Parametersatz]{Radiale Verteilungsfunktion von amorphem Silizium nach Relaxation mit Kulkarni-Parametersatz}
+  \caption[Radiale Verteilungsfunktionen von relaxiertem a-\ce{Si}]{
+    Radiale Verteilungsfunktionen von relaxiertem a-\ce{Si} mit kulkarni
+    }
   \label{fig:amorphousrdf}
 \end{figure}
 
-\begin{table}
+\begin{table}[h!]
   \begin{threeparttable}
 
-    \caption[Vergleich der Eigenschaften amorpher Silizium-Materialien]{Vergleich der Eigenschaften amorpher Silizium-Materialien}
+    \caption{Vergleich der Struktur amorphen Siliziums}
     \label{tab:amorphoussilicon}
 
     \oddrowcolors
@@ -53,7 +57,7 @@
 \clearpage
 \section{Precursorsimulationen}
 
-\begin{figure}[h]
+\begin{figure}[h!]
 
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{0.32\textwidth}
@@ -72,12 +76,14 @@
     \subcaption{liu-ettringite: instabil}
   \end{subfigure}
 
-  \caption[Stabilität von Silan]{Stabilitätsuntersuchungen von Silan bei 600K (\ce{SiH4}, Abscheidungstemperatur)}
+  \caption[Stabilitätsuntersuchungen von Silan]{
+    Stabilitätsuntersuchungen von Silan (\ce{SiH4}) bei 600K (CVD-Temperatur)
+  }
   \label{fig:silanestability}
 
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[h!]
 
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{0.32\textwidth}
@@ -88,21 +94,22 @@
   \hfill
   \begin{subfigure}[t]{5cm}
     \includegraphics[width=\textwidth]{silane_reaction_newsome}
-    \subcaption{newsome: stöchiometrisch perfekter Ausgang}
+    \subcaption{newsome: korrekte Stöchiometrie}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{4.5cm}
     \includegraphics[width=\textwidth]{silane_reaction_kulkarni}
-    \subcaption{kulkarni: Korrekte Bindungszahl, aber freier Sauerstoff}
+    \subcaption{kulkarni: Korrekte \ce{Si}-Bindungen, aber \ce{O}-Atom}
   \end{subfigure}
 
-
-  \caption[Reaktionen von Precursormolekülen]{Reaktionen einzelner Precursormoleküle}
+  \caption[Reaktionen von \ce{SiH4} mit \ce{O2}]{
+    Reaktion von \ce{SiH4} mit \ce{O2}
+  }
   \label{fig:precursorreactions}
 
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[h!]
 
   \captionsetup[subfigure]{singlelinecheck=false}
   \begin{subfigure}[t]{4cm}
@@ -112,12 +119,12 @@
   \hfill
   \begin{subfigure}[t]{5.5cm}
     \includegraphics[width=\textwidth]{kulkarni_precursor_cluster}
-    \subcaption{kulkarni: Cluster von Precursor-Molekülen}
+    \subcaption{kulkarni: Cluster von Precursorn}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{4.5cm}
     \includegraphics[width=\textwidth]{zhang_precursor_cluster}
-    \subcaption{zhang: Cluster von Precursor-Molekülen}
+    \subcaption{zhang: Cluster von Precursorn}
   \end{subfigure}
 
 
@@ -125,3 +132,5 @@
   \label{fig:precursorclusters}
 
 \end{figure}
+
+\todo[inline]{Erläuterungen zu allen Abbildungen}

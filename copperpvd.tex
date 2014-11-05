@@ -7,14 +7,14 @@ Der Prozess ähnelt dem Gold-Prozess in seinen Parametern, jedoch konnten viele 
 Aus diesem Grund ist eine einfache Voruntersuchung der verfügbaren Parametersätze notwendig, anhand derer Kandidaten für Parsivald für vollständige Abscheidungssimulationen gesucht werden.
 
 \begin{table}
-  \caption[EAM-Parametrisierungen für Kupfersysteme]{EAM-Parametrisierungen für Kupfersysteme.}
-  \label{tab:copperpots}
   \oddrowcolors
+  \caption{Untersuchte EAM-Parametrisierungen für Kupfersysteme}
+  \label{tab:copperpots}
   \begin{tabularx}{\textwidth}{|lXc|}
     \hline
     \textbf{Bezeichnung}        & \textbf{Anwendung \& Kommentare}                                             & \textbf{Ref.}                            \\
     \hline
-    CuAg.eam.alloy              & Struktur und thermodynamische Eigenschaften von \ce{Cu-Ag}                   & \cite{williams_embedded-atom_2006}       \\
+    CuAg.eam.alloy              & struktur. und thermodyn. Eigenschaften von \ce{Cu-Ag}                        & \cite{williams_embedded-atom_2006}       \\
     cu\_ag\_ymwu.eam.alloy      & Mono-, Di-, Trimere und Inseln von \ce{Cu} auf \ce{Ag}                       & \cite{wu_cu/ag_2009}                     \\
     Cu\_smf7.eam                & Oberflächen von \ce{Ni-Cu}-Legierungen bei \SI{800}{\kelvin}                 & \cite{foiles_calculation_1985}           \\
     Cu\_u3.eam                  & Oberflächen und Bulks verschiedener Legierungen                              & \cite{foiles_embedded-atom-method_1986}  \\
@@ -41,28 +41,29 @@ Wie Tabelle~\ref{tab:copperpots} zu entnehmen ist, wurden die verfügbaren Param
 \begin{table}
   \begin{threeparttable}
     \oddrowcolors
-    \caption[Eigenschaften von Kupfer]{Voruntersuchungen: Vergleich der Simulationsergebnisse mit Literaturdaten}
+    \caption{Vergleich struktureller Eigenschaften von Kupfer mit Literaturdaten}
     \label{tab:copperpreresults}
     \begin{tabularx}{\textwidth}{|Xrrrrr|}
       \hline
-      \textbf{Parametersatz}      &  \textbf{Koord.}  &  \multicolumn{2}{c}{\textbf{Bindungslänge}\tnote{a}}  ~  ~                       &  \textbf{Dichte}\tnote{a} &  ~                       \\
+      \textbf{Parametersatz}      &  \textbf{Koord.}  &  \multicolumn{2}{c}{\textbf{Bindungslänge}}  ~  ~                       &  \textbf{Dichte}    &  ~                       \\
       \hline
-      Experiment                  &  \num{12.00}      &  \SI{2.556}{\angstrom}                                &  ~                       &  \SI{8.92}{\gpcc}         &  ~                       \\
-      CuAg.eam.alloy              &  \num{12.09}      &  \SI{2.559}{\angstrom}                                &  (\SI{-0.12}{\percent})  &  \SI{8.893}{\gpcc}        &  (\SI{-0.30}{\percent})  \\
-      cu\_ag\_ymwu.eam.alloy      &  \num{12.03}      &  \SI{2.473}{\angstrom}                                &  (\SI{-3.25}{\percent})  &  \SI{9.846}{\gpcc}        &  (+\SI{10.4}{\percent})  \\
-      Cu\_smf7.eam                &  \num{12.03}      &  \SI{2.558}{\angstrom}                                &  (\SI{+0.08}{\percent})  &  \SI{8.908}{\gpcc}        &  (\SI{-0.13}{\percent})  \\
-      Cu\_u3.eam                  &  \num{12.00}      &  \SI{2.558}{\angstrom}                                &  (\SI{+0.08}{\percent})  &  \SI{8.915}{\gpcc}        &  (\SI{-0.06}{\percent})  \\
-      Cu\_u6.eam                  &  \num{12.00}      &  \SI{2.558}{\angstrom}                                &  (\SI{+0.08}{\percent})  &  \SI{8.910}{\gpcc}        &  (\SI{-0.11}{\percent})  \\
-      CuNi.eam.alloy              &  \num{12.10}      &  \SI{2.559}{\angstrom}                                &  (\SI{-0.12}{\percent})  &  \SI{8.895}{\gpcc}        &  (\SI{-0.28}{\percent})  \\
-      Cu-Zr\_2.eam.fs             &  \num{12.05}      &  \SI{2.575}{\angstrom}                                &  (\SI{-0.74}{\percent})  &  \SI{8.738}{\gpcc}        &  (\SI{-2.04}{\percent})  \\
-      Cu-Zr.eam.fs                &  \num{12.09}      &  \SI{2.575}{\angstrom}                                &  (\SI{-0.74}{\percent})  &  \SI{8.738}{\gpcc}        &  (\SI{-2.04}{\percent})  \\
-      Mendelev\_Cu2\_2012.eam.fs  &  \num{12.07}      &  \SI{2.575}{\angstrom}                                &  (\SI{-0.74}{\percent})  &  \SI{8.747}{\gpcc}        &  (\SI{-1.94}{\percent})  \\
+      Referenz                    &  \num{12.00}      &  \SI{2.556}{\angstrom}                       &  ~                       &  \SI{8.92}{\gpcc}   &  ~                       \\
+      CuAg.eam.alloy              &  \num{12.09}      &  \SI{2.559}{\angstrom}                       &  (\SI{-0.12}{\percent})  &  \SI{8.893}{\gpcc}  &  (\SI{-0.30}{\percent})  \\
+      cu\_ag\_ymwu.eam.alloy      &  \num{12.03}      &  \SI{2.473}{\angstrom}                       &  (\SI{-3.25}{\percent})  &  \SI{9.846}{\gpcc}  &  (+\SI{10.4}{\percent})  \\
+      Cu\_smf7.eam                &  \num{12.03}      &  \SI{2.558}{\angstrom}                       &  (\SI{+0.08}{\percent})  &  \SI{8.908}{\gpcc}  &  (\SI{-0.13}{\percent})  \\
+      Cu\_u3.eam                  &  \num{12.00}      &  \SI{2.558}{\angstrom}                       &  (\SI{+0.08}{\percent})  &  \SI{8.915}{\gpcc}  &  (\SI{-0.06}{\percent})  \\
+      Cu\_u6.eam                  &  \num{12.00}      &  \SI{2.558}{\angstrom}                       &  (\SI{+0.08}{\percent})  &  \SI{8.910}{\gpcc}  &  (\SI{-0.11}{\percent})  \\
+      CuNi.eam.alloy              &  \num{12.10}      &  \SI{2.559}{\angstrom}                       &  (\SI{-0.12}{\percent})  &  \SI{8.895}{\gpcc}  &  (\SI{-0.28}{\percent})  \\
+      Cu-Zr\_2.eam.fs             &  \num{12.05}      &  \SI{2.575}{\angstrom}                       &  (\SI{-0.74}{\percent})  &  \SI{8.738}{\gpcc}  &  (\SI{-2.04}{\percent})  \\
+      Cu-Zr.eam.fs                &  \num{12.09}      &  \SI{2.575}{\angstrom}                       &  (\SI{-0.74}{\percent})  &  \SI{8.738}{\gpcc}  &  (\SI{-2.04}{\percent})  \\
+      Mendelev\_Cu2\_2012.eam.fs  &  \num{12.07}      &  \SI{2.575}{\angstrom}                       &  (\SI{-0.74}{\percent})  &  \SI{8.747}{\gpcc}  &  (\SI{-1.94}{\percent})  \\
       \hline
     \end{tabularx}
 
-    \begin{tablenotes}
-      \item[a] Der Wert in Klammern ist die Abweichung vom experimentellen Wert
-    \end{tablenotes}
+    %% \tnote{a}
+    %% \begin{tablenotes}
+    %%   \item[a] Der Wert in Klammern ist die Abweichung vom experimentellen Wert
+    %% \end{tablenotes}
   \end{threeparttable}
 \end{table}
 
@@ -71,16 +72,16 @@ Wie Tabelle~\ref{tab:copperpots} zu entnehmen ist, wurden die verfügbaren Param
   \def\subfigwidth{7cm}
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{Cu_trelax_all}
-    \subcaption{Phasenübergänge mit allen Parametersätzen}
+    \subcaption{Schmelzpunkte aller Parametrisierungen}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{Cu_smf7_meltingpoint}
-    \subcaption{Phasenübergang mit Cu\_smf7.eam bei unterschiedlichen $t_\text{relax}$}
+    \subcaption{Schmelzpunkte mit smf7 in Abh. von $t_\text{relax}$}
   \end{subfigure}
-  \caption[Abweichung der Schmelztemperaturen bei Kupfer-MD]{
-    Abweichung der Schmelztemperatur mit verschiedenen Parametrisierungen.
-    Experimentelle Werte von \textsc{Brillo et al.}\cite{brillo_density_2006}.
+  \caption[Vergleich der Schmelztemperatur von Kupfer]{
+    Vergleich der Schmelztemperatur von Kupfer.
+    Experimentelle Dichte: \cite{brillo_density_2006}
   }
   \label{fig:copperthermo}
 \end{figure}
@@ -93,7 +94,7 @@ Wie Tabelle~\ref{tab:copperpots} zu entnehmen ist, wurden die verfügbaren Param
   \def\subfigwidth{0.49\textwidth}
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{Cu_abortstatplot}
-    \subcaption{Verlauf der Abbruchraten}
+    \subcaption{Abbruchraten von Kupfer-Simulationen}
     \label{fig:copperparsivald-a}
   \end{subfigure}
   \hfill
@@ -110,10 +111,10 @@ Wie Tabelle~\ref{tab:copperpots} zu entnehmen ist, wurden die verfügbaren Param
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{Cu_eventhistogram}
-    \subcaption{Häufigkeit gleichzeitiger Ereignisse}
+    \subcaption{Histogramm gleichzeitiger Ereignisse}
     \label{fig:copperparsivald-d}
   \end{subfigure}
-  \caption{Vergleich der Kupfer-Potentiale in ausgewählten Parsivald-Rechnungen für \SI{200x200x24}{\angstrom} große Substrate}
+  \caption{Simulationen von Kupfer-PVD auf \SI{200x200x24}{\angstrom} großen Substraten}
   \label{fig:copperparsivald}
 \end{figure}
 
@@ -169,8 +170,9 @@ Das gleiche Verhalten zeigt sich in weiteren Simulationen auch für die anderen 
     \subcaption{$t=100$}
   \end{subfigure}
 
-  \caption{Wachstum und Abschluss des Kupfer-Kraters bei Cu\_u3.eam.\\
-    Seitenansicht der extrahierten Oberflächenatome (\SI{3x3}{\nano\meter})
+  \caption[Bildung und Abschluss eines Kupfer-Kraters]{
+    Bildung und Abschluss eines Kupfer-Kraters mit Cu\_u3.eam.\\
+    Seitenansicht der extrahierten Oberflächenatome (\SI{30x03}{\angstrom})
   }
   \label{fig:coppercrater}
 \end{figure}

@@ -1,7 +1,7 @@
 \section{Parsivald-Modell}
 \label{parsivald}
 
-Parsivald (Parallel Atomistic Reaction SImulator for Vapor / Atomic Layer Depositions) entstand 2012 als namenloses Resultat meiner Bachelorarbeit\cite{lorenz_entwicklung_2012} am Fraunhofer ENAS mit dem Ziel der Simulation von Atom\-lagen\-abscheidungs-Prozessen.
+Parsivald (Parallel Atomistic Reaction Simulator for Vapor / Atomic Layer Depositions) entstand 2012 als namenloses Resultat meiner Bachelorarbeit\cite{lorenz_entwicklung_2012} am Fraunhofer ENAS mit dem Ziel der Simulation von Atom\-lagen\-abscheidungs-Prozessen.
 Das Programm war beschränkt auf die atomistische Simulation von Metall\-oxid-ALD mittels MEAM-Potentialen, die in dieser Arbeit auf PVD, CVD mit beliebigen Potentialen erweitert wurde.
 
 \subsection{Beschreibung}
@@ -16,9 +16,7 @@ Das setzt zwar diffusionsarme Prozesse voraus, ermöglicht dafür jedoch die eff
   \centering
   \def\svgwidth{\textwidth}
   \input{img/parsivald-schema-flat.pdf_tex}
-  \caption[Parsivald-Schema]{
-    Auswahl und Durchführung eines Oberflächenereignisses, verteilt auf KMC und MD.
-  }
+  \caption{Auswahl und Durchführung einer Reaktion, verteilt auf KMC und MD}
   \label{fig:parsivald-schema}
 \end{figure}
 
@@ -26,10 +24,9 @@ Das setzt zwar diffusionsarme Prozesse voraus, ermöglicht dafür jedoch die eff
   \centering
   \def\svgwidth{\textwidth}
   \input{img/parsivald-stephierarchy.pdf_tex}
-  \caption[Parsivald-Funktionsweise asd]{
-    Schema der Funktionsweise des Parsivald-Modelles für allgemeine Prozessarten.
-    \\
-    Event-Typen unterscheiden sich durch Art der MD-Simulation (Relaxation, Abscheidung) oder Art des Precursors.
+  \caption[Funktionsweise des Parsivald-Programmes]{
+    Funktionsweise des Parsivald-Programmes.
+    Event-Typen unterscheiden sich durch die MD-Simulation (Relaxation, Reaktion) oder dasPrecursorgas.\\
     Siehe auch Abbildung~\ref{fig:parsivald-modes}.
   }
   \label{fig:parsivald-stephierarchy}
@@ -72,10 +69,10 @@ Für ALD und CVD lässt sich die Abscheidungsrate aus der Reaktionskinetik absch
     \input{img/parsivald-modes-pvd.pdf_tex}
     \subcaption{PVD-Modus}
   \end{subfigure}
-  \caption[Parsivald-Modi]{
-    Verschiedene Parsivald-Modi im Prozesszyklus.
+  \caption[Prozesszyklen für ALD, CVD und PVD]{
+    Prozesszyklen für ALD, CVD und PVD.
     Atomistische und statistische Ausgaben erfolgen nach jedem Schritt.
-    ALD nutzt einen Schritt pro Halbzyklus.
+    ALD (a) nutzt einen Schritt pro Halbzyklus.
   }
   \label{fig:parsivald-modes}
 \end{figure}

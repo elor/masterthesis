@@ -14,19 +14,19 @@ Wie man den Ergebnissen ansehen kann, bleibt die Kristallstruktur erwartungsgem�
 Die Parametrisierung repräsentiert somit das Zielsystem in Dichte und Struktur.
 
 \begin{table}
-  %% \oddrowcolors
-  \caption[Eigenschaften von Gold]{Vergleich der Eigenschaften von Gold mit experimentellen und Literaturdaten als Voruntersuchung des PVD-Prozesses
-    %% \todo[inline]{ref}
+  \oddrowcolors
+  \caption[Vergleich struktureller Eigenschaften von Gold]{
+    Vergleich der strukturellen Eigenschaften von Gold mit experimentellen und Literatur-Daten als Voruntersuchung des PVD-Prozesses
   }
   \label{tab:goldpreresults}
   \begin{tabularx}{\textwidth}{|lXXXX|}
     \hline
-    \textbf{unters. Größe} & \textbf{Temperatur} & \textbf{Simulation} & \textbf{Experiment} & \textbf{Abweichung}\\
+    \textbf{unters. Größe} & \textbf{Temperatur} & \textbf{Simulation}                     & \textbf{Referenz}                       & \textbf{Abweichung} \\
     \hline
-    Bindungslänge  &  \SI{50}{\kelvin}   &  \SI{2.885}{\angstrom}                    &  \SI{2.884}{\angstrom}                    &  \SI{0.05}{\percent}  \\
-    Koordination   &  \SI{50}{\kelvin}   &  \SI{12.00}{}                             &  \SI{12.00}{}                             &  \SI{0}{\percent}     \\
-    Dichte         &  \SI{300}{\kelvin}  &  \SI{18.99}{\gram\per\cubic\centi\meter}  &  \SI{19.30}{\gram\per\cubic\centi\meter}  &  \SI{1.6}{\percent}   \\
-    Dichte         &  \SI{500}{\kelvin}  &  \SI{18.89}{\gram\per\cubic\centi\meter}  &  \SI{19.13}{\gram\per\cubic\centi\meter}  &  \SI{1.2}{\percent}   \\
+    Bindungslänge          & \SI{50}{\kelvin}    & \SI{2.885}{\angstrom}                   & \SI{2.884}{\angstrom}                   & \SI{0.05}{\percent} \\
+    Koordination           & \SI{50}{\kelvin}    & \SI{12.00}{}                            & \SI{12.00}{}                            & \SI{0}{\percent}    \\
+    Dichte                 & \SI{300}{\kelvin}   & \SI{18.99}{\gram\per\cubic\centi\meter} & \SI{19.30}{\gram\per\cubic\centi\meter} & \SI{1.6}{\percent}  \\
+    Dichte                 & \SI{500}{\kelvin}   & \SI{18.89}{\gram\per\cubic\centi\meter} & \SI{19.13}{\gram\per\cubic\centi\meter} & \SI{1.2}{\percent}  \\
     \hline
   \end{tabularx}
 \end{table}
@@ -46,17 +46,17 @@ Bei geringeren $t_\text{relax}$ oder $\tau$ relaxiert das System innerhalb eines
   \def\subfigwidth{7cm}
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{gold_bestthermo}
-    \subcaption{Temperaturverlauf bei $ t_\text{relax}=\SI{50}{\pico\second}$ und $\tau=\SI{0.02}{\femto\second}$}
+    \subcaption{Dichte bei $ t_\text{relax}=\SI{50}{\pico\second}$ und $\tau=\SI{0.02}{\femto\second}$}
     \label{fig:goldthermo-a}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{gold_relaxtime}
-    \subcaption{Abhängigkeit des simulierten Schmelzpunktes von der Relaxationszeit}
+    \subcaption{Schmelzpunkt in Abh. der Relaxationszeit}
     \label{fig:goldthermo-b}
   \end{subfigure}
-  \caption[Ergebnisse thermodynamischer Simulationen von Gold]{Ergebnisse thermodynamischer Simulationen von Gold.
-    Verlauf stimmt gut mit experimentellen Daten (schwarze Linien) überein.
+  \caption[Vergleich thermodynamischer Daten von Gold]{
+    Vergleich thermodynamischer Daten von Gold.
     Experimentelle Werte stammen aus Standardliteratur sowie von \textsc{Brillo et al.}\cite{brillo_density_2006}.
   }
   \label{fig:goldthermo}
@@ -126,7 +126,7 @@ Diese Störstellen zeigten nach einer kurzen Relaxierung keine strukturellen Unt
     \label{fig:golddepositions-f}
   \end{subfigure}
   \caption[Gold-Abscheidung auf strukturierten Substraten]{
-    Goldschicht nach 50 Abscheidungsschritten (\SI{47}{\angstrom}) auf verschiedenen Substraten
+    Goldschicht nach 50 Abscheidungsschritten (\SI{47}{\angstrom}) auf strukturierten Substraten
   }
   \label{fig:golddepositions}
 \end{figure}
@@ -147,7 +147,7 @@ Diese Störstellen zeigten nach einer kurzen Relaxierung keine strukturellen Unt
     \label{fig:goldpockets-b}
   \end{subfigure}
 
-  \caption[Porenbildung bei Gold-Strukturen]{Porenbildung bei Gold-Strukturen nach 40 Abscheidungsschritten (ca. \num{22000} PVD-Ereignisse $\hat{=}$ \SI{38}{\angstrom}).
+  \caption[Porenbildung bei Gold-Strukturen]{Porenbildung bei Gold-Strukturen nach 40 Schritten (\num{22000} Ereignisse $\hat{=}$ \SI{38}{\angstrom}).
   }
   \label{fig:goldpockets}
 \end{figure}
@@ -185,20 +185,18 @@ Bei Abscheidung amorpher Schichten, wie für CVD- und ALD-Prozesse üblich, konn
 
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{gold_goodroughness}
-    \subcaption{Zeitverlauf der Rauheit von glatten (Flat) und fein strukturierten Oberflächen (Fins, Pillars: \SI{10}{\angstrom} breite Erhebungen)}
+    \subcaption{RMS-Rauheit auf glatten Substraten}
     \label{fig:goldroughness-a}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{gold_tiproughness}
-    \subcaption{Zeitverlauf der Rauheit von \SI{50}{\angstrom} breiten Spitzen variabler Steigung.
-      Oberflächenrauheiten werden nicht verringert
-    }
+    \subcaption{Rauheit auf Spitzen von \SIrange{0}{90}{\degree}}
     \label{fig:goldroughness-b}
   \end{subfigure}
 
-  \caption[Oberflächenrauheit von Gold]{Oberflächenrauheit von Gold.
-    Im idealen Fall konvergiert die Rauheit gegen einen konstanten Wert von \SI{1.2}{\angstrom}
+  \caption[Oberflächenrauheit von Gold]{
+    Oberflächenrauheit von Gold auf verschiedenen Substraten (ideal: \SI{1.2}{\angstrom})
   }
   \label{fig:goldroughness}
 
@@ -216,7 +214,7 @@ Dazu werden verschiedene quadratische Substrate mit Breiten von \SI{100}{\angstr
 
 \begin{table}\begin{threeparttable}
 
-    \caption[asd]{Untersuchungen zur Skalierbarkeit des Systemes}
+    \caption{Untersuchungen zur Skalierbarkeit von Parsivald}
     \label{tab:goldscalability}
 
     \begin{tabularx}{\textwidth}{|Xrrrrrrr|}
@@ -228,7 +226,7 @@ Dazu werden verschiedene quadratische Substrate mit Breiten von \SI{100}{\angstr
       \SI{204}{\angstrom}      &  \SI{42}{\angstrom}   &  \num{152374}    &  \num{102374}         &  \num{14.5}\tnote{b}       (\num{18})   &  \SI{47.7}{\percent}     &  \SI{25.5}{\hour}   &  \SI{257}{\mebi\byte}   \\
       \SI{500}{\angstrom}      &  \SI{93}{\angstrom}   &  \num{1708600}   &  \num{1401081}        &  \num{24.8}                (\num{50})   &  \SI{13.6}{\percent}     &  \SI{73.6}{\hour}   &  \SI{282}{\mebi\byte}   \\
       \SI{1000}{\angstrom}     &  \SI{5.4}{\angstrom}  &  \num{1591908}   &  \num{381588}         &  \num{44.8}                (\num{46})   &  \SI{6.1}{\percent}      &  \SI{1.5}{\hour}    &  \SI{368}{\mebi\byte}   \\
-      \SI{1000}{\angstrom}     &  ~                    &  \num{6733948}   &  \num{5539942}        &  \num{75.4}                (\num{149})  &  \SI{10.3}{\percent}     &  \SI{97.5}{\hour}   &  ~                      \\
+      \SI{1000}{\angstrom}     &  ~                    &  \num{6733948}   &  \num{5539942}        &  \num{75.4}\tnote{b}       (\num{149})  &  \SI{10.3}{\percent}     &  \SI{97.5}{\hour}   &  ~                      \\
       \SI{1}{\micro\meter}     &  \SI{1.3}{\angstrom}  &  \num{1.3e8}     &  \num{8186990}        &  \num{25.4}\tnote{c}       (\num{46})   &  \SI{0.03}{\percent}     &  \SI{117.5}{\hour}  &  \SI{11.5}{\gibi\byte}  \\
       \SI{2}{\micro\meter}     &  \SI{0.4}{\angstrom}  &  \num{4.9e8}     &  \num{10356031}       &  \num{26.3}\tnote{c}       (\num{46})   &  \SI{0.009}{\percent}    &  \SI{117.5}{\hour}  &  ~                      \\
       \SI{2}{\micro\meter}     &  \SI{1.0}{\angstrom}  &  \num{5.1e8}     &  \num{25855695}       &  \num{189}\tnote{d}        (\num{245})  &  \SI{0.06}{\percent}     &  \SI{186.8}{\hour}  &  \SI{45.4}{\gibi\byte}  \\
@@ -239,16 +237,15 @@ Dazu werden verschiedene quadratische Substrate mit Breiten von \SI{100}{\angstr
     \begin{tablenotes}
     \item[2] Breite der quadratischen Oberfläche
     \item[a] Mittelwert und Maximum der zeitgleich bearbeiteten Ereignisse
-    \item[b] Maximale Ereignisdichte erreicht.
-      Restliche Worker sind im Wartezustand.
-    \item[c] Inzwischen behobener Fehler im Host-Code hat Workerneustart verhindert
-    \item[d] Maximale Bandbreite des Hosts erreicht.
-      Längere MD-Simulationen erlauben mehr Worker.
+    \item[b] Maximale Ereignisdichte erreicht, restliche Worker sind im Wartezustand
+    \item[c] Inzwischen behobener Fehler in Parsivald hat Workerneustart verhindert
+    \item[d] Maximaler Ereignisdurchsatz des Hosts erreicht
     \item[e] Bedeckung: Anteil der von laufenden Ereignissen abgedeckten Oberfläche
-    \item[f] Vom Hostprozess verbrauchten
+    \item[f] vom Hostprozess verbrauchter Arbeitsspeicher
     \end{tablenotes}
 
-\end{threeparttable}\end{table}
+  \end{threeparttable}
+\end{table}
 
 Mit \SI{94}{\byte} pro Atom, zusätzlich zum konstanten Programmspeicher von \SI{253}{\mebi\byte}, können auch extreme Simulationsräume mit 2 Milliarden Atomen auf einer Oberfläche von \SI{4x4}{\micro\meter} vom Arbeitsspeicher moderner Hochleistungsrechner verwaltet werden können.
 

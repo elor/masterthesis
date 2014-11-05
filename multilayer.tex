@@ -34,19 +34,18 @@ Bei größeren Systemen ist zudem mit Verspannungen aufgrund der unterschiedlich
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{CuNi_layerroughness_comparison}
     \subcaption{
-      Vergleich der Rauheit zwischen LAMMPS und Parsivald (Abb.~\ref{fig:multilayerresults})
+      Vergleich der Lagen-Rauheit (Abb.~\ref{fig:multilayerresults})
     }
     \label{fig:multilayerplots-a}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{CuNi_atomdistribution_relax}
-    \subcaption{Verteilung der Kupfer- und Nickelatome innerhalb der Schicht}
+    \subcaption{Einfluss von $t_\text{relax}$ auf die Lagen-Qualität}
     \label{fig:multilayerplots-b}
   \end{subfigure}
-  \caption[Ergebnisse der Multilagen-Abscheidung von Kupfer und Nickel]{
-    Ergebnisse der Multilagen-Abscheidung von Kupfer und Nickel:
-    Vergleich der zwischen LAMMPS und Parsivald (a) und Einfluss der Relaxationszeit auf die Schichtqualität in Parsivald (b)
+  \caption[Rauheit und Qualität von Kupfer-Nickel-Multilagen]{
+    Rauheit und Qualität von Kupfer-Nickel-Multilagen
   }
   \label{fig:multilayerplots}
 \end{figure}
@@ -56,15 +55,13 @@ Bei größeren Systemen ist zudem mit Verspannungen aufgrund der unterschiedlich
   \def\subfigwidth{7cm}
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{CuNi_profile_LAMMPS_nice}
-    \subcaption{Profil einer per LAMMPS simulierten Multilagen-Abscheidung}
+    \subcaption{Profil einer \ce{CuNi}-Multilage mit LAMMPS}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{CuNi_profile_Parsivald}
-    \subcaption{Profil einer per Parsivald simulierten Multilagen-Abscheidung}
+    \subcaption{Profil einer \ce{CuNi}-Multilage mit Parsivald}
   \end{subfigure}
-  \caption[Vergleich zwischen Simulationen von Multilagensystemen mit Parsivald und LAMMPS]{
-    Vergleich zwischen Simulationen von Multilagensystemen mit Parsivald und LAMMPS unter Nutzung optimierter Parameter.
-  }
+  \caption{Vergleich von Multilagen-Profilen mit LAMMPS und Parsivald}
   \label{fig:multilayerresults}
 \end{figure}

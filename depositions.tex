@@ -19,7 +19,7 @@ Alle Prozesse finden in speziellen Abscheidungskammern oder Reaktoren statt, üb
   }\hfill
   \parbox[c]{\subcaptionwidth}{
     \subcaption{Sputter-Kammer (PVD):
-      Ein Elektronen- oder Ionenstrahl (links) schlägt Atome aus dem Target (oben), die sich auf dem Substrat (unten) als dünne Schicht absetzen
+      Ein Elektronen- oder Ionenstrahl (links) schlägt Atome aus dem Target (oben), die sich auf dem Substrat (unten) als dünne Schicht absetzen.
     }
     \label{fig:depochamber-a}
   }
@@ -31,8 +31,8 @@ Alle Prozesse finden in speziellen Abscheidungskammern oder Reaktoren statt, üb
   }\hfill
   \parbox[c]{\subcaptionwidth}{
     \subcaption{Injektions-Kammer (CVD, ALD):
-      Precursorgase strömen von oben über das Substrat, wo sie durch chemische Reaktionen dünne Schichten bilden.
-      Nebenprodukte der Oberflächenreaktionen werden nach unten aus dem Reaktor gespült
+      Precursorgase strömen über ein Substrat, auf dem sie durch chemische Reaktionen dünne Schichten abscheiden.
+      Nebenprodukte der Oberflächenreaktionen werden mit dem Gasstromaus dem Reaktor gespült.
     }
     \label{fig:depochamber-b}
   }
@@ -44,22 +44,21 @@ Alle Prozesse finden in speziellen Abscheidungskammern oder Reaktoren statt, üb
   }\hfill
   \parbox[c]{\subcaptionwidth}{
     \subcaption{Batch-Reaktor (CVD, ALD):
-      Gase strömen zwischen Stapeln von Substraten, auf deren Oberfläche durch chemische Reaktionen dünne Schichten abgeschieden werden.
-      Nebenprodukte werden mit dem Gasstrom aus dem Reaktor gespült
+      Wie Injektions-Kammer, aber mit Stapeln von Substraten.
+      Effiziente Methode zur industriellen Beschichtung per CVD oder ALD.
     }
     \label{fig:depochamber-c}
   }
 
-  \caption[Abscheidungskammern und -reaktoren]{
-    Abscheidungskammern und -reaktoren.
-    Weitere Details können Referenz~\cite{granneman_batch_2007} entnommen werden.
+  \caption[Arten von Abscheidungskammern]{
+    Arten von Abscheidungskammern für PVD, CVD und ALD\cite{granneman_batch_2007}.
   }
   \label{fig:reactors}
 \end{figure}
 
 \begin{table}
   \oddrowcolors
-  \caption[Prozesscharakteristiken der Abscheidungsarten]{Vergleich der Abscheidungsarten}
+  \caption[Eigenschaften von PVD-, CVD- und ALD-Prozessen]{Eigenschaften von PVD-, CVD- und ALD-Prozessen}
   \label{tab:deposition-comparison}
   \begin{tabularx}{\textwidth}{|Xccc|}
     \hline
@@ -76,28 +75,34 @@ Alle Prozesse finden in speziellen Abscheidungskammern oder Reaktoren statt, üb
 \end{table}
 
 \begin{table}
-  \centering
   \oddrowcolors
-  \begin{tabularx}{\textwidth}{|XXXXXXXXX|}
-    \hline
-    ~            & \angled{Metalle} & \angled{Legierungen} & \angled{Metalloxide} & \angled{Nitride} & \angled{Chloride} & \angled{Silizium} & \angled{Siliziumoxid} & \angled{Diamant} \\
-    \hline
-    \textbf{PVD} & \cmark           & \cmark               & ~                    & ~                & ~                 & \cmark            & ~                     & ~                \\
-    \textbf{CVD} & \cmark           & \cmark               & \cmark               & \cmark           & \cmark            & \cmark            & \cmark                & \cmark           \\
-    \textbf{ALD} & \cmark           & ~                    & \cmark               & \cmark           & \cmark            & \cmark            & \cmark                & \cmark           \\
-    \hline
-  \end{tabularx}
-  \caption[Mögliche Produkte der Abscheidungsarten]{Mögliche Produkte der Abscheidungsarten.
-    Übersichten über mögliche Prozesse und Precursor finden sich in den Referenzen für PVD\cite{mattox_handbook_2010,helmersson_ionized_2006}, CVD\cite{pierson_handbook_1999} und ALD\cite{puurunen_surface_2005,elliott_atomic-scale_2012}.
+  \centering
+  \caption[Auswahl möglicher Produkte von PVD, CVD und ALD]{
+    Auswahl möglicher Produkte von PVD, CVD und ALD.
+    Weitere Produkte und Precursor finden sich in den Referenzen für PVD\cite{mattox_handbook_2010,helmersson_ionized_2006}, CVD\cite{pierson_handbook_1999} und ALD\cite{puurunen_surface_2005,elliott_atomic-scale_2012}.
   }
   \label{tab:deposition-materials}
+  \begin{tabular}{|lccc|}
+    \hline
+    \textbf{Produkt} & \textbf{PVD} & \textbf{CVD} & \textbf{ALD} \\
+    \hline
+    Metalle          & \cmark       & \cmark       & \cmark       \\
+    Legierungen      & \cmark       & \cmark       & ~            \\
+    Metalloxide      & ~            & \cmark       & \cmark       \\
+    Nitride          & ~            & \cmark       & \cmark       \\
+    Chloride         & ~            & \cmark       & \cmark       \\
+    Silizium         & \cmark       & \cmark       & \cmark       \\
+    Siliziumoxid     & ~            & \cmark       & \cmark       \\
+    Diamant          & ~            & \cmark       & \cmark       \\
+    \hline
+  \end{tabular}
 \end{table}
 
 \subsection{Physikalische Gasphasenabscheidung}
 
 Physikalische Gasphasenabscheidungen (PVD, Physical Vapor Deposition) sind eine grundlegende Art von Abscheidungsprozessen, bei denen einzelne Atome nichtreaktiv auf einer Oberfläche adsorbieren.
 Zu ihnen zählt neben und Vakuum-Evaporation vor allem Sputtering, bei dem aus einem Block des gewünschten Materiales (Target) per Elektronen- oder Ionenstrahl kontinuierlich Atome herausgeschlagen werden, die sich dann auf dem Substrat absetzen und dort zu einer dünnen Schicht verbinden.
-Anhand der Energien der herausschlagenden Partikel und deren \todo{Größe des?}Teilchenstrom lässt sich dabei die Wachstumsrate und Qualität des abgeschiedenen Dünnfilmes beeinflussen.
+Anhand der Energien der herausschlagenden Partikel und deren \todo{Größe des?}Teilchenstroms lässt sich dabei die Wachstumsrate und Qualität des abgeschiedenen Dünnfilmes beeinflussen.
 Durch den statistischen Charakter der Abscheidungsorte resultiert Sputtering in Abhängigkeit des abgeschiedenen Materiales und der Umgebungsbedingungen meist in glatten Filmen\cite{svorcik_annealing_2011}, bei denen prozessbedingt keine Kontrolle der Schichtdicke im Sub-Nanometer-Bereich möglich ist.
 Gemischte Systeme wie Legierungen und mehrlagige Schichten werden durch Nutzung mehrerer Targets ermöglicht\cite{cammarata_nanoindentation_1990}.
 
@@ -123,7 +128,10 @@ Wie bei PVD lässt sich die Schichtdicke auf mehrere Nanometer genau kontrollier
   \centering
   \def\svgwidth{\textwidth}
   \input{img/ald-schema.pdf_tex}
-  \caption[ALD-Schema]{ALD-Schema: asd ald}
+  \caption[Schema eines vollständigen ALD-Zyklus']{
+    Schema eines vollständigen ALD-Zyklus':
+    Pulse von reaktiven Precursorgasen A (a) und B (c) werden durch Spül-Schritte mit intertem Gas (b), (d) von einander getrennt
+  }
   \label{fig:ald-schema}
 \end{figure}
 
@@ -142,9 +150,9 @@ Eine ausführlichere Übersicht zu Atomlagenabscheidungen und zu möglichen Prec
 \begin{figure}
   \centering
   \includegraphics[width=0.5\textwidth]{sterichindrance_noalpha}
-  \caption[Sterische Hinderung]{Sterische Hinderung auf einem Gitter:
-    Angelagerte Precursor-Liganden verhindern Reaktionen auf benachbarten Gitterpunkten.
-    Überlagerungsfreie Positionen in größerem Abstand akzeptieren weiterhin Precursor-Reaktionen.
+  \caption[Sterische Hinderung auf einem Gitter]{
+    Sterische Hinderung auf einem Gitter:
+    Adsorbierte Liganden schirmen benachbarte Gitterpunkte von weiteren Precursormolekülen ab.
   }
   \label{fig:sterichindrance}
 \end{figure}
@@ -153,17 +161,16 @@ Eine ausführlichere Übersicht zu Atomlagenabscheidungen und zu möglichen Prec
 
 \begin{table}
   \oddrowcolors
-  \caption[Überblick über Methoden zur Simulation von Gasphasenabscheidungen]{Überblick über Methoden zur Simulation von Gasphasenabscheidungen}
+  \caption{Überblick über Methoden zur Simulation von Gasphasenabscheidungen}
   \label{tab:deposition-simulations}
-  \todo[inline]{Referenzen notwendig?}
   \begin{tabularx}{\textwidth}{|XXlX|}
     \hline
-    Methode                           & Anwendungsfeld                       & Größenordnung     & Grundlagen                          \\
+    \textbf{Methode}                  & \textbf{Anwendungsfeld}                   & \textbf{Größenordnung} & \textbf{Grundlagen}                 \\
     \hline
-    Finite Elemente Methode (FEM)     & Gasfluss und -verbrauch in Reaktoren & makroskopisch     & Navier-Stokes-Gl., Reaktionskinetik \\
-    Kinetic Monte Carlo (KMC)         & Wachstums\-simulationen              & mikroskopisch     & Reaktionsraten, Gitternäherungen    \\
-    Molekular\-dynamik (MD)           & Material\-unter\-suchungen           & < 1.000.000 Atome & klassische Interaktionspotentiale   \\
-    Dichte\-funktional\-theorie (DFT) & Reaktionspfade                       & < 1.000 Atome     & Elektronendichten                   \\
+    Finite Elemente Methode (FEM)     & Gasfluss in Reaktoren                     & makroskopisch          & Navier-Stokes-Gl., Reaktionskinetik \\
+    Kinetic Monte Carlo (KMC)         & Reaktionskinetik                          & mikroskopisch          & Reaktionsraten, Simulationsgitter   \\
+    Molekular\-dynamik (MD)           & thermische und strukturelle Eigenschaften & \num{<1000000} Atome   & klassische Interaktionspotentiale   \\
+    Dichte\-funktional\-theorie (DFT) & atomistische Struktur, Reaktionspfade     & \num{<1000} Atome      & Elektronendichten                   \\
     \hline
   \end{tabularx}
 \end{table}

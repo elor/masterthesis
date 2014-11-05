@@ -116,7 +116,8 @@ Dabei läuft man den Systemzustand von einem Startpunkt $\vec X_0$ aus entlang d
   \centering
   \def\svgwidth{0.5\textwidth}
   \input{img/cg-gradient.pdf_tex}
-  \caption[CG-Methode]{Klassische Minimierung durch konjugierte Gradienten:\\
+  \caption[Minimierung durch Konjugierte Gradienten]{
+    Minimierung durch konjugierte Gradienten:\\
     a) Optimale Schrittweite\\
     b) Kleine Schrittweite $\Rightarrow$ viele unnötige Schritte\\
     c) Große Schrittweite $\Rightarrow$ langsames Konvergenzverhalten
@@ -171,17 +172,20 @@ Tabelle~\ref{tab:mdsoftware} stellt die wichtigsten Vertreter moderner Molekular
 
 \begin{table}
   \oddrowcolors
-  \caption[MD-Software]{MD-Software}
+  \caption[Verfügbare Molekulardynamik-Software]{
+    Verfügbare Molekulardynamik-Software
+  }
   \label{tab:mdsoftware}
   \begin{tabularx}{\textwidth}{|llX|}
     \hline
-    \textbf{Paket}                                                                                 & \textbf{Rechteinhaber}   & \textbf{Kommentare}                                              \\
+    \textbf{Paket}                                                                                 & \textbf{Rechteinhaber}   & \textbf{Beschränkungen \& Kommentare}                                              \\
     \hline
-    LAMMPS\cite{plimpton_lammps_2014}                                                              & SANDIA                   & quelloffen, CLI-bedienbar, Bibliothek, eigene Potentiale möglich \\
-    Materials Studio GULP\cite{accelrys_materials_2014}                                            & Accelrys                 & Grafische Oberfläche, lizenzpflichtig                            \\
+    LAMMPS\cite{plimpton_lammps_2014}                                                              & SANDIA                   & quelloffen, Kommandozeile, Bibliothek, eigene Potentiale möglich \\
+    Materials Studio\cite{accelrys_materials_2014}                                                 & Accelrys                 & Grafische Oberfläche, lizenzpflichtig                            \\
     AMBER\cite{case_amber_2014}                                                                    & University of California & Biomoleküle, lizenzpflichtig                                     \\
     CHARMM\cite{brooks_charmm_2014,brooks_charmm:_1983,mackerell_charmm:_2002,brooks_charmm:_2009} & Accelrys                 & Proteine, lizenzpflichtig                                        \\
     GROMACS\cite{lindahl_gromacs_2014}                                                             & Uppsala University       & Biomoleküle, quelloffen                                          \\
     \hline
   \end{tabularx}
+  \todo[inline]{Link auf das LAMMPS-Paper}
 \end{table}

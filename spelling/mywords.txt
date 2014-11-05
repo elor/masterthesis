@@ -24,7 +24,6 @@ Abbruchkriterien
 Abbruchrate
 Abbrüchen
 Ablösen
-Abscheidungsart
 Abscheidungskammern
 Abscheidungsmodi
 Abscheidungsorte

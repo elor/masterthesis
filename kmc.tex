@@ -5,7 +5,7 @@ Kinetische Monte Carlo-Methoden (KMC) wurden ursprünglich zur Simulation von Di
 Sie beschreiben den Zeitverlauf eines Systemes als eine Abfolge von diskreten Übergängen (Ereignissen) zwischen Systemzuständen, die mit ihrer charakteristischen Rate gewichtet werden.
 Damit bieten sie sich hauptsächlich zur Simulation stochastischer Prozesse an, wobei sie auch Nichtgleichgewichtssysteme beschreiben können und somit unter anderem zur Simulation von Oberflächenreaktionen und Schichtabscheidung geeignet.
 
-Ausgehend von einem Startzustand $X_0$ aus dem Zustandsraum $\mathbb{X}$ zum Zeitpunkt $t_0 = 0$ wird eine zeitliche Abfolge von Zuständen $X_n \in \mathbb{X}$ nach dem folgenden \todo{Algorithmus}Schema erzeugt:\\
+Ausgehend von einem Startzustand $X_0$ aus dem Zustandsraum $\mathbb{X}$ zum Zeitpunkt $t_0 = 0$ wird eine zeitliche Abfolge von Zuständen $X_n \in \mathbb{X}$ nach dem folgenden Algorithmus erzeugt:\\
 Zuerst werden alle Ereignisse $E_i$, die einen Übergang vom vorherigen Zustand $X_{n-1}$ zu einem beliebigen Zustand $X_n^i$ ermöglichen, ermittelt und gesammelt:
 \begin{equation}
   E_i : X_{n-1} \rightarrow X_n^i \in \mathbb{X} ~~,\quad i \in [1, N]
@@ -20,7 +20,6 @@ Die Summe aller Raten ist somit $R_N$.
   R_i = \sum_{j \le i}{r_j}
 \end{equation}
 Anschließend wählt man anhand einer gleichverteilten Zufallszahl $u$ ein Ereignis und wendet es an, indem man seinen Zielzustand $X_n^i$ als neuen Zustand $X_n$ akzeptiert.
-%% \todo{selbsterklärend?}Gilt $N = 0$ oder $R_N = 0$, existiert kein weiterer Übergang und die Simulation bricht ab.
 \begin{equation}
   X_n = X_n^i : R_{i-1} \le u R_N < R_i ~~,\quad u \in [0,1)~\text{gleichverteilt}
 \end{equation}
@@ -30,7 +29,7 @@ Zum Abschluss des KMC-Schrittes erhöht man die Simulationszeit gemäß einer Po
 \end{equation}
 Nun kann der nächste Systemzustand $X_{n+1}$ nach der gleichen Vorgehensweise bestimmt werden.
 Die Simulation bricht ab, sobald keine weiteren Ereignisse mehr vorhanden sind ($N=0$ oder $R_N=0$) oder eine Schranke der Simulationszeit überschritten wurde ($t_n > t_\text{fin}$).
-Abbildung~\ref{fig:kmctree} zeigt zur Veranschaulichung ein \todo{Wort}generisches Beispiel einer KMC-Simulation.
+Abbildung~\ref{fig:kmctree} zeigt zur Veranschaulichung ein generisches Beispiel einer KMC-Simulation.
 
 \begin{figure}
   \centering
@@ -39,7 +38,7 @@ Abbildung~\ref{fig:kmctree} zeigt zur Veranschaulichung ein \todo{Wort}generisch
   \input{img/kmc_tree.pdf_tex}
 
   \caption[KMC-Baum]{Beispiel des Verlaufs einer KMC-Simulation:
-    Ein Ereignis $E_i$ wird zufällig ausgeführt, um den nachfolgenden Zustand $X_n$ aus den möglichen Zuständen $X_n^i$ auszuwählen.
+    Ein Ereignis $E_i$ wird zufällig ausgeführt, um die Zustände $X_n$ aus den möglichen Zuständen $X_n^i$ auszuwählen.
   }
   \label{fig:kmctree}
 \end{figure}
@@ -52,13 +51,11 @@ Die Ereignisraten sind Eingabewerte und müssen vor der Auswahl der Ereignisse b
 Zwar lassen sie sich durch exaktere Methoden wie Elektronenstrukturrechnungen vorausberechnen, allerdings scheitern diese Methoden bei einer Vielzahl verschiedenartiger Ereignisse an der notwendigen Rechenzeit.
 Deshalb wird oft auf ein Simulationsgitter zurück gegriffen, um die Zahl der verschiedenartigen Zustands-Übergänge gering zu halten.
 
-Vor allem bei kristallinen Strukturen lassen sich viele Übergänge durch das Verschieben, Entfernen oder Hinzufügen von Atomen auf den Gitterplätzen beschreiben, deren Ereignisraten jeweils von den benachbarten Atomen abhängen.
-Dadurch lässt sich in endlicher Zeit durch eine Suche über alle betroffenen Gitterplätze effizient eine Ereignisliste aufbauen, die anschließend zur Auswahl eines Ereignisses genutzt werden kann.
+Vor allem bei kristallinen Strukturen lassen sich viele Übergänge durch das Verschieben, Entfernen oder Hinzufügen von Atomen auf den Gitterplätzen beschreiben, wobei die Ereignisraten jeweils von den benachbarten Gitterplätzen abhängig sind.
+Dadurch lässt sich durch eine Suche über alle betroffenen Gitterplätze effizient eine Ereignisliste aufbauen, die anschließend zur Auswahl eines Ereignisses genutzt werden kann.
 Amorphe Strukturen lassen sich aber nur schwer auf ein Gitter reduzieren, wodurch der Zustandsraum durch kontinuierliche Freiheitsgrade überabzählbar unendlich viele Zustände enthält und nicht mehr vollständig betrachtet werden kann.
 
 Um diese Beschränkungen zu umgehen, werden in Parsivald (Abschnitt~\ref{parsivald}) alle gleichartigen Ereignisse, die sich in unmittelbarer Nachbarschaft eines bestimmten Oberflächenatomes befinden, zu einem einzigen Ereignis mit fester Reaktionsrate zusammen gefasst.
 Anschließend bestimmt eine Molekulardynamik-Simulation den Ausgang der Oberflächenreaktion mit atomistischer Genauigkeit.
 Trotz Ergodizität der MD-Simulationen, durch welche verschiedenen Ergebnissen des Ereignisses eine Wahrscheinlichkeit entsprechend der relativen Reaktionsrate zugewiesen werden sollte, sorgt diese Formulierung zu einer Verletzung der KMC-Formulierung durch eine Verzerrung der Simulationszeit bei fehlerhaften Ereignisraten.
 Als Vorteil sorgt die Kombination beider Methoden zu einer Beschleunigung gegenüber MD-Rechnungen und zur Möglichkeit der strukturellen Betrachtung für KMC-Simulationen, wobei für gesteigerte Effizienz der Algorithmen auf spezialisierte Datenstrukturen zurück gegriffen werden muss.
-
-\todo[inline]{auf zwei Seiten begrenzen}

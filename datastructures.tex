@@ -2,7 +2,8 @@
 \label{datastructures}
 
 Zur Beschleunigung von wissenschaftlichen Simulationen finden effiziente Algorithmen zur Suche und Manipulation von Atomen auf Basis verschiedener Datenstrukturen Anwendung, welche im Folgenden zwecks der Beschreibung von Atompositionen in teilperiodischen Simulationsräumen für Off-Lattice-KMC-Simulationen untersucht werden sollen.
-Gegenüber optimalen Algorithmen für allgemeine Probleme, wie sie in verfügbarer Software genutzt werden, ermöglicht die genaue Modell- und Systemkenntnis die Abwägung der Häufigkeit von Operationen gegen deren Laufzeiten, wodurch die Wahl der optimalen Datenstruktur zur Maximierung von Größe, Genauigkeit und Geschwindigkeit von Off-Lattice-KMC-Simulationen von Gasphasenabscheidungen ermöglicht wird.
+Gegenüber optimalen Algorithmen für allgemeine Probleme, wie sie in verfügbarer Software genutzt werden, ermöglicht die genaue Modell- und Systemkenntnis die Abwägung der Häufigkeit von Operationen gegen deren Laufzeiten,
+wodurch die Wahl der optimalen Datenstruktur zur Maximierung von Größe, Genauigkeit und Geschwindigkeit von Off-Lattice-KMC-Simulationen von Gasphasenabscheidungen ermöglicht wird.
 
 \subsection{Numerische Voraussetzungen an Gasphasenabscheidungen}
 
@@ -24,7 +25,7 @@ Atomistische KMC-Simulationen beschränken sich auf die Manipulations-Operatione
 Die Effizienz dieser Operationen geht dabei aus deren asymptotischer Laufzeit hervor, welche üblicherweise in asymptotischer Notation (\BigO{}) angegeben wird.
 
 Bei KMC-Simulationen überwiegen die drei Suchoperationen, da sie für jedes Ereignis beim Aufbau der KMC-Ereignislisten durchgeführt werden müssen, wo hingegen die Manipulationen nur für das tatsächlich durchgeführte Ereignis ausgeführt werden müssen.
-Somit liegt das Hauptkriterium bei der Wahl der Datenstruktur auf der Effizienz ihrer Suchoperationen, mit Ausnahme der Nachbarschaftslisten und k-d-Bäume, deren Manipulationsoperationen für große Simulationsräume \todo{phrasing}zu langsam sind.
+Somit liegt das Auswahlkriterium der Datenstruktur bei der Effizienz ihrer Suchoperationen, mit Ausnahme der Nachbarschaftslisten und k-d-Bäume, deren Manipulationsoperationen für große Simulationsräume \todo{phrasing}zu langsam sind.
 Die Ergebnisse der Laufzeit-Analysen sind der sieben Operationen für die sechs vorgestellten Datenstrukturen werden in Tabelle~\ref{tab:dataruntimes} zusammen gefasst, wofür Tabelle~\ref{tab:datasymbols} die verwendeten Symbole erklärt.
 
 \begin{figure}[h]
@@ -116,10 +117,10 @@ Wie Untersuchungen an Simulationsräumen verschiedener Größe zeigen, wird erst
 \subsubsection{Octrees}
 \label{dataoctree}
 
-Octrees sind eine Optimierung raumfüllender orthogonaler Partitionierungen, wie sie üblicherweise für Binning-Methoden genutzt werden, bei der statt linearer Addressierung auf einen mehrdimensionalen Binärbaum zurück gegriffen wird, woher auch der Name stammt (1D: Binary Tree, 2D: Quadtree, 3D: Octree, etc.).
+Octrees sind eine Optimierung raumfüllender orthogonaler Partitionierungen, wie sie üblicherweise für Binning-Methoden genutzt werden, bei der statt linearer Adressierung auf einen mehrdimensionalen Binärbaum zurück gegriffen wird, woher auch der Name stammt (1D: Binary Tree, 2D: Quadtree, 3D: Octree, etc.).
 Der Simulationsraum wird rekursiv in jeweils 8 disjunkte geometrisch ähnliche Unterzellen halber Breite aufgeteilt, wodurch die eigentlichen Bins in der festen Tiefe $\frac{\log{c}}{d\log{2}}$ liegen.
 
-Damit steigt die Addressierungszeit für einzelne Zellen auf \BigO{\log{c}}, doch werden nur die Bins allokiert, die tatsächlich gefüllt sind (Abbildung~\ref{fig:octree}), wodurch leere Superzellen bei Suchoperationen automatisch übergangen werden.
+Damit steigt die Adressierungszeit für einzelne Zellen auf \BigO{\log{c}}, doch werden nur die Bins allokiert, die tatsächlich gefüllt sind (Abbildung~\ref{fig:octree}), wodurch leere Superzellen bei Suchoperationen automatisch übergangen werden.
 Als Resultat sind für Oberflächensysteme der Speicherbedarf und die Laufzeit von Suchoperationen eines dreidimensionalen Simulationsraumes auf die eines zweidimensionalen Systemes reduziert.
 Theoretisch sind mit Access Caching, Bitweiser Adressierung, Surface Flagging oder Height Mapping noch weitere Anpassungen möglich, allerdings verbessert sich dabei nur der Laufzeitfaktor, nicht die asymptotische Laufzeit, weshalb sie nur am Rand genannt sein sollen.
 
@@ -248,7 +249,7 @@ Deshalb bieten sich k-d-Bäume zwar für allgemeine Suchoperationen in Off-Latti
   \label{fig:delaunay}
 \end{figure}
 
-Eine dritte Partitionsmethode findet sich in der Delaunay-Triangulation\todo{Ref?}, welche jedoch asymmetrisch und nicht-orthogonal arbeitet, indem die konvexe Hülle der Punktwolke raumfüllend in disjunkte k-dimensionale Simplexe\footnote{Ein $k$-Simplex ist ein Objekt in $k$ Dimensionen mit $k+1$ Eckpunkten, die untereinander mit geraden Kanten verbunden sind. Somit ist ein 1-Simplex eine Linie, ein 2-Simplex ein Dreieck, ein 3-Simplex ein Tetraeder, etc.} entsprechend der Delaunay-Kriterium genannten Beziehung zerlegen, nach der sich im Umkreis eines Simplexes keine anderen Punkte der Punktwolke befinden dürfen.
+Eine dritte Partitionsmethode findet sich in der Delaunay-Triangulation\todo{Ref?}, welche jedoch asymmetrisch und nicht-orthogonal arbeitet, indem die konvexe Hülle der Punktwolke raumfüllend in disjunkte k-dimensionale Simplexe\footnote{Ein $k$-Simplex ist ein Objekt in $k$ Dimensionen mit $k+1$ Eckpunkten, die untereinander mit geraden Kanten verbunden sind. Somit ist ein 1-Simplex eine Linie, ein 2-Simplex ein Dreieck, ein 3-Simplex ein Tetraeder, etc.} entsprechend des Delaunay-Kriteriums, nach dem sich im Umkreis eines Simplexes keine anderen Punkte der Punktwolke befinden dürfen, zerlegt wird.
 Damit ergibt sich ein Graph, welcher dual zum Voronoi-Diagramm ist, also ein Supergraph des Nächstnachbargraphen ist, der Alpha-Form (Abschnitt~\ref{dataalphaform}) sowie der konvexen Hülle der Punktwolke ist und in \BigO{n\log{n}} vergleichsweise effizient konstruiert werden kann.
 Die Konstruktion lässt sich im Gegensatz zu den anderen Datenstrukturen für große Simulationsräume mit entsprechenden Divide-and-Conquer-Algorithmen parallelisieren, oder vor einer etwaigen periodischen Erweiterung einer Einheitszelle zum Simulationsraum durchführen.
 Eine Liste von Eigenschaften der Simplexe sowie einer Übersicht über die verschiedenen Konstruktionsmethoden \todo{Wort}liegt in Anhang~\ref{appendix_delaunay}.
@@ -256,9 +257,10 @@ Eine Liste von Eigenschaften der Simplexe sowie einer Übersicht über die versc
 Delaunay-Triangulationen werden noch nicht direkt im KMC-Algorithmus für Off-Lattice-Systeme genutzt, doch sind sie aufgrund ihrer Beziehung zu Alpha-Formen für die Analyse von Oberflächen unentbehrlich (Abschnitt~\ref{mdmethods}).
 
 \subsection{Alpha-Form}
+\label{dataalphaform}
 
 Delaunay-Triangulationen werden für Betrachtungen von Oberflächen interessant, da sie die konkave Oberfläche von Punktwolken über die Alpha-Form bestimmen können.
-Man erhält sie durch Vereinigung genau der Simplexe, deren Umkreisradius unterhalb einer frei wählbaren Grenze $\alpha$ liegt, oder durch komplementäre Algorithmen, wie sie im \todo{soll das vielleicht gleich hier mit rein?} Anhang in Abbildung~\ref{fig:delaunay-alpha} veranschaulicht sind.
+Man erhält sie durch Vereinigung genau der Simplexe, deren Umkreisradius unterhalb einer frei wählbaren Grenze $\alpha$ liegt, oder durch komplementäre Algorithmen, wie sie in Abbildung~\ref{fig:delaunay-alpha} veranschaulicht sind.
 Als Resultat erhält man eine Menge von Punkten und Dreiecken, welche die scheinbare Oberfläche der Punktwolke bilden, die man für weitere Untersuchungen wie die Bestimmung von Oberflächenrauheiten benutzen kann.
 Für Grenzwerte von $\alpha$ ergibt sich für $\alpha \rightarrow \infty$ die konvexe Hülle und für $\alpha \rightarrow 0$ die Gesamtheit der Atome.
 
@@ -293,3 +295,42 @@ Dabei sind Anwendungen auf auch periodische und teilperiodische Räume möglich.
 %%   }
 %%   \label{algo:delaunay-neighbors}
 %% \end{algorithm}
+
+\begin{figure}
+  \centering
+  \captionsetup[subfigure]{singlelinecheck=false}{
+    \def\subwidth{0.4\textwidth}
+    \def\svgwidth{\textwidth}
+    \begin{subfigure}[t]{\subwidth}
+      \includegraphics[width=\textwidth]{delaunay-alpha-a}
+      \subcaption{Delaunay Triangulation einer beliebigen Punktmenge}
+      \label{fig:delaunay-alpha-a}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{\subwidth}
+      \includegraphics[width=\textwidth]{delaunay-alpha-b}
+      \subcaption{Konvexe Hülle: Hülle der Triangulation}
+      \label{fig:delaunay-alpha-b}
+    \end{subfigure}
+  }
+  \vspace{2em}
+  \captionsetup[subfigure]{singlelinecheck=false}{
+    \def\subwidth{0.4\textwidth}
+    \def\svgwidth{\textwidth}
+    \begin{subfigure}[t]{\subwidth}
+      \includegraphics[width=\textwidth]{delaunay-alpha-c}
+      \subcaption{Alpha-Form: Hülle nach Entfernung von Simplexen mit $r_d > \alpha$}
+      \label{fig:delaunay-alpha-c}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{\subwidth}
+      \includegraphics[width=\textwidth]{delaunay-alpha-d}
+      \subcaption{Alpha-Form: Hülle (nur innen) nach Entfernung von Simplexen mit $r_d < \alpha$}
+      \label{fig:delaunay-alpha-d}
+    \end{subfigure}
+  }
+  \caption[Methoden zur Bestimmung der Oberfläche per Delaunay-Triangulation]{Verschiedene Methoden zur Bestimmung der Oberfläche per Delaunay-Triangulation.
+    Man beachte, dass die in (d) genutzte Methode den Ausreißer-Punkt oben rechts mit trianguliert, jedoch nicht zur Oberfläche zählt, da für keinen seiner Simplexe $r_d < \alpha$ gilt
+  }
+  \label{fig:delaunay-alpha}
+\end{figure}

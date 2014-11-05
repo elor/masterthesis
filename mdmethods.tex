@@ -13,7 +13,7 @@ Erwärmung und Abkühlung sind zwar optional, allerdings bei einigen Strukturen 
 
 Zur Auswertung einer Struktur bietet sich zuerst eine visuelle Beurteilung an, die mit entsprechenden Programmen vorgenommen werden kann.
 Im Anschluss können die Dichte, Radiale Verteilungsfunktion, Bindungslänge und Koordinationszahl bestimmt werden, um die Struktur weiter zu charakterisieren und Aussagen über Kristallbildung treffen zu können.
-\todo{Beispiel?}Bei Kristallen kann eine Alpha-Form mit einem $\alpha$-Wert knapp oberhalb der Bindungslänge genutzt werden, um Fehlstellen im Gitter oder Gitterversetzungen zu identifizieren.
+Bei Kristallen kann eine Alpha-Form mit einem $\alpha$-Wert knapp oberhalb der Bindungslänge genutzt werden, um Fehlstellen im Gitter oder Gitterversetzungen zu identifizieren.
 
 \subsection{Bestimmung der Dichte und Temperatur}
 
@@ -30,15 +30,18 @@ Ihr erstes Maximum bildet die Bindungslänge, während das Integral bis zur Koor
 An der RDF-Darstellung lässt sich außerdem die Reichweite der Ordnung erkennen:
 Radiale Verteilungen von perfekten Kristallen bestehen ausschließlich aus Spitzen an den Gitterpunkten, die auch für große Abstände noch klar erkennbar sind.
 Bei amorphen Materialien hingegen konvergiert die Funktion schnell gegen den Grenzwert von 1, der anzeigt, dass keine langreichweitige Ordnung mehr vorhanden ist.
-\todo[inline]{Beispiel?}
-\todo[inline]{Formel?}
+
+Beispiele radialer Verteilungsfunktionen finden sich in Abbildungen \ref{fig:siliconresults-b}, \ref{fig:kulkarnirdf} und \ref{fig:amorphousrdf}.
+
+\todo[inline]{Formel zur Berechnung der RDF aus einer Punktwolke}
 
 \subsection{Schichtdicke und Oberflächenbeschaffenheit}
+\label{mdmethods-surface}
 
 Zur Bestimmung der Schichtdicke, Oberflächenrauheit oder Porösität muss zuerst die Oberfläche einer Schicht aus der Alpha-Form mittels Delaunay-Triangulation in Form einer Punktwolke bestimmen (Abschnitt~\ref{datadelaunay}).
 Im Anschluss lässt sich aus der entstandenen Punktwolke der tiefste und höchste Punkt der Oberfläche sowie die Spannweite bestimmen, und durch Bildung des Mittelwertes die mittlere Schichtdicke ermitteln.
 Durch Zählung der Elemente in der Punktwolke lässt sich zudem die Bedeckung der Oberfläche mit chemischen Gruppen bestimmen.
-Durch Begutachtung der Oberflächen-Punktwolke kann man außerdem Rückschlüsse auf die Porösität führen, indem man neben der eigentlichen Oberfläche auch sämtliche Einschlüsse innerhalb der Struktur aus der Alpha-Form extrahiert.
+Durch Begutachtung der Oberflächen-Punktwolke kann man außerdem Rückschlüsse auf die Porösität führen, indem man neben der eigentlichen Oberfläche auch sämtliche Poren und Hohlräume innerhalb der Struktur aus der Alpha-Form extrahiert.
 
 \subsection{Reaktionen und Stabilität von Molekülen}
 

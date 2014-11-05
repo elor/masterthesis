@@ -40,18 +40,17 @@ N-Teilchen-Potentiale erweitern Paarpotentiale um weitere Terme, die von einer f
 
 \begin{equation}
   \label{eq:nbody-energy}
-  E = \sum_i\sum_{j \neq i}{V_2\left(r_{ij}\right)} + \sum_i\sum_{j \neq i}\sum_{i \neq k \neq j}{V_3\left(r_{ij}, r_{ik}, \theta_{ijk}\right)} + \dots
+  E = \sum_i\sum_{j \neq i}{V_2\left(r_{ij}\right)} + \sum_i\sum_{j \neq i}\sum_{\substack{k \neq i \\ k \neq j}}{V_3\left(r_{ij}, r_{ik}, \theta_{ijk}\right)} + \dots
 \end{equation}
-\todo{letzte Summe: Indizes aufspalten}
 
 Obwohl sich mit N-Teilchen-Potentialen komplexere Systeme betrachten lassen, zeigen sie die gleichen Schwachstellen wie Paarpotentiale, benötigen aber eine größere Anzahl an Parametern,
-Zwar gibt es erfolgreiche \todo{kommerzielle} Anwendungen für Biomoleküle (\todo{CHARMM} \todo{GROMACS} \todo{AMBER}), die allerdings aufgrund ihrer Spezialisierung nicht auf andere Stoffsysteme wie Festkörper oder Oberflächen übertragbar sind.
+Zwar gibt es erfolgreiche Anwendungen für Biomoleküle (\todo{CHARMM} \todo{GROMACS} \todo{AMBER}), die allerdings aufgrund ihrer Spezialisierung nicht auf andere Stoffsysteme wie Festkörper oder Oberflächen übertragbar sind.
 
 \subsubsection{Embedded Atom Model}
 
 Das Embedded Atom Model (EAM) besteht aus einem Paarpotential $V_{\alpha\beta}(r_{ij})$ für jedes Atom $i$ sowie einer Einbettungsfunktion $F_\alpha$, welche die Energie des Atomes in Abhängigkeit der angenäherten lokalen Elektronendichte $\rho_\beta(r_{ij})$ modelliert (Gleichung~\ref{eq:eam-energy})\cite{daw_embedded-atom_1984}.
 So lassen sich metallische Bulks und Oberflächen simulieren, für die $\alpha$ und $\beta$ verschiedene Spezies darstellen, doch führt die Formulierung für andere Systeme zwangsläufig zur Bildung von Clustern\todo{warum?}.
-Für eine Vielzahl an Metallen und Legierungen findet man in \todo{wie beispielsweise ASD}Potentialdatenbanken fertige Parametrisierungen\todo{Referenz auf Datenbank und passende Paper}, von denen viele zusätzlich zu den strukturellen Eigenschaften auch thermodynamisches Verhalten recht gut modellieren (Abschnitt~\ref{goldthermo}).
+Für eine Vielzahl an Metallen und Legierungen findet man in Potentialdatenbanken fertige Parametrisierungen\ref{becker_interatomic_2014}, von denen viele zusätzlich zu den strukturellen Eigenschaften auch thermodynamisches Verhalten recht gut modellieren (Abschnitt~\ref{goldthermo}).
 
 \begin{equation}
   \label{eq:eam-energy}
@@ -74,10 +73,10 @@ Für Metalloxide und weitere Mischsysteme existiert eine Erweiterung in Form des
 \subsubsection{Reactive Force Fields}
 
 Reaktive Kraftfelder (Reactive Force Fields, ReaxFF) wurden von \textsc{van Duin et al.}\cite{van_duin_reaxff:_2001} 2001 mit dem Ziel entwickelt, Reaktionen zwischen Molekülen mit molekulardynamischen Methoden beschreiben zu können.
-Mangels expliziter Beschreibung der involvierten Elektronen war die Beschreibung von Bindungen zuvor nur mit \todo{DFT?}Elektronenstrukturrechnungen möglich, denen eine obere Grenze von wenigen hundert Atomen gesetzt ist, \todo{Nebensatz sinnlos}und selbst dann die Berechnung dynamischer Eigenschaften mit einem immensen Rechenaufwand verbunden ist.
+Mangels expliziter Beschreibung der involvierten Elektronen war die Beschreibung von Bindungen zuvor nur mit Elektronenstrukturrechnungen möglich, denen aber eine obere Grenze von wenigen hundert Atomen gesetzt ist.
 Durch Beschreibung der Über- und Unterkoordination der Atome innerhalb ihrer Nachbarschaft, zusätzlich zum Ladungsaustausch zwischen den Atomen, Van-der-Waals- und elektrostatischen Kräften, lassen sich mit der ReaxFF-Formulierung Bindungen während der Simulation dynamisch formen und lösen, wodurch Reaktionen ermöglicht werden.
 Gleichung~\ref{eq:reaxformulation} und Tabelle~\ref{tab:reaxenergies} geben einen kurzen Überblick über die Summanden der Gesamtenergie, von denen die meisten Terme über die Bindungsordnung berechnet werden, welche sich aus Beiträgen für $\sigma$-, $\pi$- und Doppel-$\pi$-Bindungen aus dem Bindungsabstand zusammen setzt.
-Darüber hinaus werden einige Terme durch Taper-Korrektur\todo{ref} in der Nähe des Cutoff-Abstands auf 0 gesenkt, um Diskontinuitäten zu vermeiden und einen fließenden Übergang zwischen Bindungszuständen zu ermöglichen.
+Darüber hinaus werden einige Terme in der Nähe des Cutoff-Abstands sowie an Koordinations-Übergängen auf 0 gesenkt, um Diskontinuitäten zu vermeiden und einen fließenden Übergang zwischen Bindungszuständen zu ermöglichen.
 
 \begin{align}
   \label{eq:reaxformulation}
@@ -85,9 +84,8 @@ Darüber hinaus werden einige Terme durch Taper-Korrektur\todo{ref} in der Nähe
   \nonumber  & + E_\text{tors} + E_\text{conj} + E_\text{H-bond} + E_\text{vdWaals} + E_\text{Coulomb}
 \end{align}
 
-\todo{Referenz auf Equations\_Reax.pdf}
-
 \begin{table}
+  \oddrowcolors
   \caption[ReaxFF Energiebeiträge]{ReaxFF Energiebeiträge aus Gleichung~\ref{eq:reaxformulation}}
   \label{tab:reaxenergies}
   \begin{tabularx}{\textwidth}{|llX|}
@@ -117,4 +115,4 @@ So kann die Parametrisierung am Ende maximal die Strukturen und Materialien zuve
 
 In den letzten fünf Jahren haben Reactive Force Fields jedoch langsam an Aufmerksamkeit gewonnen, so dass die Zahl spezialisierter Parametrisierungen stetig zunimmt.
 Es gibt auch Bestrebungen, sich ergänzende ReaxFF-Parametrisierungen zu kombinieren und somit mit einer Parametrisierung jedes gewünschte System betrachten zu können.
-Besonders in kommerzieller MD-Software\todo{Referenz auf GULP} versucht man so, dem Nutzer ein umfassendes Paket für die Simulation beliebiger Strukturen zu präsentieren, ohne ihm aber die Grenzen des Parametersatzes erkenntlich zu machen.
+Besonders in kommerzieller MD-Software\cite{accelrys_materials_2014} versucht man so, dem Nutzer ein umfassendes Paket für die Simulation beliebiger Strukturen zu präsentieren, ohne ihm aber die Grenzen des Parametersatzes erkenntlich zu machen.

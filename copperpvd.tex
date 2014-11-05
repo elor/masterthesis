@@ -118,11 +118,11 @@ Wie Tabelle~\ref{tab:copperpots} zu entnehmen ist, wurden die verfügbaren Param
 \end{figure}
 
 In einer PVD-Simulation soll zunächst überprüft werden, ob Kupfer im PVD-Modus von Parsivald fehlerfrei abgeschieden werden kann.
-Weiterhin werden die abgeschiedenen Schichten auf Unebenheiten, Fehlstellen und Einschlüsse untersucht, um Aussagen über deren Qualität zu gewinnen.
+Weiterhin werden die abgeschiedenen Schichten auf Unebenheiten, Fehlstellen und Hohlräume untersucht, um Aussagen über deren Qualität zu gewinnen.
 Durch die Ähnlichkeiten zwischen Kupfer und Gold wurden die Prozess-Parameter der Gold-PVD für den Kupfer-Prozess adaptiert.
 Unterschiede liegen in den Auftreffenergien von \SI{5.4}{\electronvolt}, die ebenfalls oberhalb experimenteller Werte liegen und vom Thermostat vor dem eigentlichen Auftreffen der Atome auf der Oberfläche noch weiter abgeschwächt werden.
 
-Zu Beginn der einzelnen Simulation ergeben sich extreme Abbruchraten von \SI{25}{\percent}, die durch Herausschlagen einzelner Oberflächenatome bei Ankunft des \todo{gesputterten?}gesputterten Atomes verursacht werden.
+Zu Beginn der einzelnen Simulation ergeben sich extreme Abbruchraten von \SI{25}{\percent}, die durch Herausschlagen einzelner Oberflächenatome bei Ankunft des gesputterten Atomes verursacht werden\todo{Energie trotzdem zu hoch?}.
 Bereits nach wenigen Ereignissen sinkt die Abbruchrate auf \SI{3}{\percent}, was auf eine Reduktion des Effektes durch thermische Relaxation und Bedeckung der Oberfläche mit temporären Off-Lattice-Atomen hinweist.
 Die kritische Bedeckung dafür liegt zwischen \SI{0.034}{\per\nano\meter\squared} und \SI{0.074}{\per\nano\meter\squared} und deckt sich somit mit der maximalen MD-Ereignisdichte von \SI{0.073}{\per\nano\meter\squared}.
 Das deutet darauf hin, dass perfekte Gitterkonfigurationen nicht robust gegenüber gerichteten Energieeinträgen sind, kleine Störungen des Gitters aber zur gleichmäßigeren Verteilung der eingebrachten Energien auf die umliegenden Atome führen.
@@ -130,7 +130,7 @@ Das deutet darauf hin, dass perfekte Gitterkonfigurationen nicht robust gegenüb
 Im weiteren Verlauf der Simulation liegt die Abbruchrate unterhalb von \SI{2}{\percent} (Abbildung~\ref{fig:copperparsivald-a}), unterliegt aber weiteren Schwankungen, die mit der RMS-Rauheit korrelieren (Abbildung~\ref{fig:copperparsivald-c}), welche durch Unebenheiten der Oberfläche auf der Nanometer-Skala dominiert wird.
 Mit einem nahezu konstanten RMS-Wert um \SI{1}{\angstrom} sind die gewachsenen Schichten durchgehend glatt, mit Ausnahme einzelner Simulationen.
 
-Eines der untersuchten Cu\_u3.eam-Systeme bildet ab Schritt 70 einen \SI{2.6}{\nano\meter} breiten und \SI{3.0}{\nano\meter} tiefen Krater aus, der schließlich zu einem \SI{1}{\nano\meter} großen \todo{void}Einschluss abgeschlossen wird (Abbildung~\ref{fig:coppercrater}).
+Eines der untersuchten Cu\_u3.eam-Systeme bildet ab Schritt 70 einen \SI{2.6}{\nano\meter} breiten und \SI{3.0}{\nano\meter} tiefen Krater aus, der schließlich zu einem \SI{1}{\nano\meter} großen Hohlraum abgeschlossen wird (Abbildung~\ref{fig:coppercrater}).
 Die Auswirkungen dieses Kraters auf die Rauheit sind klar in Abbildung~\ref{fig:copperparsivald-c} als stetige Zunahme, gefolgt von einer schlagartigen Abnahme in Schritt 96, und in den Abbruchraten (Abbildung~\ref{fig:copperparsivald-a}) als Anstieg zwischen den Schritten 60 und 90 erkennbar, beeinflussen aber nicht die Wachstumsrate (Abbildung~\ref{fig:copperparsivald-b}).
 Das gleiche Verhalten zeigt sich in weiteren Simulationen auch für die anderen Parametersätze und ist nicht auf Cu\_u3.eam begrenzt.
 
@@ -179,4 +179,4 @@ Das gleiche Verhalten zeigt sich in weiteren Simulationen auch für die anderen 
 Ergänzend ist in Abbildung~\ref{fig:copperparsivald-d} ein Histogramm der Zahl paralleler Ereignisse dargestellt.
 Die maximale Oberflächendichte der Ereignisse liegt bei der gewählten MD-Box-Größe von \SI{37x37}{\angstrom} bei \SI{0.073}{\per\nano\meter\squared}.
 Dem stehen beobachtete Maxima von \num{12} aktiven Ereignissen gegenüber, die einer Dichte von \SI{0.03}{\per\nano\meter\squared} und somit \SI{40}{\percent} maximaler Bedeckung entsprechen, wobei im Schnitt nur \num{5.3} Worker aktiv sind, was einer mittleren Bedeckung von \SI{18.5}{\percent} entspricht.
-Die Bedeckungsdichten für Systeme unterschiedlicher Größe wurden bereits in Tabelle~\ref{tab:goldscalability} für Gold-Abscheidungen aufgelistet und zeigen ähnliche Werte für kleine Systeme, können für Substrate auf der Mikrometer-Skala mangels Rechenleistung jedoch nicht \todo{phrasing}aufrecht erhalten werden.
+Die Bedeckungsdichten für Systeme unterschiedlicher Größe wurden bereits in Tabelle~\ref{tab:goldscalability} für Gold-Abscheidungen aufgelistet und zeigen ähnliche Werte für kleine Systeme, können für Substrate auf der Mikrometer-Skala mangels verfügbarer Rechenleistung jedoch nicht aufrecht erhalten werden.

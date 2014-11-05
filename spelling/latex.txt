@@ -71,3 +71,7 @@ E_i
 R_N
 t_n
 X_n
+Ausg
+bibteichert
+Binär
+bibstyles

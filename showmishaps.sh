@@ -144,6 +144,10 @@ todonotes(){
     listfiles | xargs -0 grep -Pno '\\todo(\[inline\])?(\{[^}]*\})?'
 }
 
+getdrafts(){
+    listfiles | xargs -0 grep -Pn 'draft'
+}
+
 #####################
 # begin actual work #
 #####################
@@ -161,5 +165,6 @@ todonotes(){
     register "cites/refs with leading spaces" spacerefs
     register "ASD occurences" asddsa
     register "todo notes" todonotes
+    register "draft modes" getdrafts
 
 } 2>&1

@@ -46,3 +46,6 @@ vs
 Wachst
 NVT
 NPT
+Abh
+struktur
+thermodyn

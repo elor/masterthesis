@@ -6,6 +6,8 @@
 # functions and definitions #
 #############################
 
+everythingok=true
+
 register(){
     local name="$1"
     shift
@@ -18,10 +20,21 @@ register(){
     local output="$("$function" $@ 2>&1)"
 
     if [ -n "$output" ]; then
+        everythingok=false
         cat <<EOF
 <===== $name =====>
 
 $output
+
+EOF
+    fi
+}
+
+printfinalstate(){
+    if $everythingok; then
+        cat <<EOF
+
+Congratulations! No mishaps found!
 
 EOF
     fi
@@ -114,14 +127,18 @@ listlonglines(){
     [ -z "$maxchars" ] && maxchars=300
     lines=$(
         listfiles|xargs -0n1 | while IFS= read file; do
-            sed -r 's/\{[^{}]+(\{[^{}]*\}[^{}]*)*\}//g' $file | sed 's/\$[^$]\+\$//' | awk '{if (length > '$maxchars') print length,"'$file':"NR":",$0}' | cuttooneline
+            sed -r 's/\{[^{}]+(\{[^{}]*\}[^{}]*)*\}//g' $file | sed -e 's/\$[^$]\+\$//' | awk '{if (length > '$maxchars') print length,"'$file':"NR":",$0}' | cuttooneline
         done | sort -nr
     )
     [ -n "$lines" ] && echo -e "$lines"
 }
 
 undefinedreferences(){
-    listlogs | { xargs -0 grep -Pi 'undefined' || echo "ok"; } | sed -r -n "s/^[^\`]*\`([^']+)'.*$/\1/p" | sort -u
+    listlogs | { xargs -0 grep -Pi 'Reference.*undefined' || echo "ok"; } | sed -r -n "s/^[^\`]*\`([^']+)'.*$/\1/p" | sort -u
+}
+
+undefinedcitations(){
+    listlogs | { xargs -0 grep -Pi 'Citation.*undefined' || echo "ok"; } | sed -r -n "s/^[^\`]*\`([^']+)'.*$/\1/p" | sort -u
 }
 
 multiplelabels(){
@@ -133,7 +150,7 @@ trailingspaces(){
 }
 
 dotlines(){
-    listfiles | xargs -0 grep -Pn '^[^%&]*(?<!engl|Kap|S|Abb|Tab|Gl|Anh|Ref|Prof|vs|Dr|z\.B|et al|unters|ca|eam|[0-9]|\s[A-Z])\.(?!$|[0-9]|pdf|cpp|com|eam|\s*(\&|\\todo|%|\\\\|,|\})|Sc\.|B\.)' | grep -Pv '\\(If|State)|\\dcauthoremail|Stefan E\. Schulz' | cuttooneline
+    listfiles | xargs -0 grep -Pn '^[^%&]*(?<!engl|Kap|S|Abb|Tab|Gl|Anh|Ref|Prof|vs|Dr|z\.B|Abh|et al|unters|ca|eam|etc|[0-9]|[^A-Z][A-Z])\.(?!$|[0-9]|pdf|cpp|com|eam|\s*(\&|\\todo|%|\\\\|,|\})|Sc\.|B\.)' | grep -Pv '\\(If|State|dcauthoremail|todo)' | cuttooneline
 }
 
 asddsa(){
@@ -148,14 +165,24 @@ getdrafts(){
     listfiles | xargs -0 grep -Pn 'draft'
 }
 
+getlatexerrors(){
+    listlogs | xargs -0 grep -Pi 'error' | grep -Pv '^Package: infwarerr [0-9]{4}/[0-9]{2}/[0-9]{2} v[0-9.]+ Providing'
+}
+
+getlatexwarnings(){
+    listlogs | xargs -0 grep -Pi 'warning' | grep -Pv '^Package: infwarerr [0-9]{4}/[0-9]{2}/[0-9]{2} v[0-9.]+ Providing' | grep -v 'pdflatex (file .*\.pdf): PDF'
+}
+
 #####################
 # begin actual work #
 #####################
 {
 
     register "possible typos" listunknownwords
+    register "LaTeX Errors" getlatexerrors
     register "word repetitions" doublewords
     register "undefined references" undefinedreferences
+    register "undefined citations" undefinedcitations
     register "multiplelabels" multiplelabels
     register "citations with language tag" citationswithlanguagetag
     register "unused citations" unusedcitations
@@ -164,7 +191,10 @@ getdrafts(){
     register "trailing spaces" trailingspaces
     register "cites/refs with leading spaces" spacerefs
     register "ASD occurences" asddsa
+    register "LaTeX Warnings" getlatexwarnings
     register "todo notes" todonotes
-    register "draft modes" getdrafts
+    # register "draft notes" getdrafts
+
+    printfinalstate
 
 } 2>&1

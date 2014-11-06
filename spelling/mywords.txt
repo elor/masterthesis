@@ -1,3 +1,5 @@
+Ereignisdurchsatz
+Teilchenstroms
 Auswahlkriterium
 parallelisieren
 Partitionierungen
@@ -26,6 +28,7 @@ Abbrüchen
 Ablösen
 Abscheidungskammern
 Abscheidungsmodi
+Abscheidungsmodus
 Abscheidungsorte
 Abscheidungsparameter
 Abscheidungsprozesse
@@ -447,6 +450,7 @@ Potentialuntersuchung
 Precursor
 Precursorart
 Precursoren
+Precursorgas
 Precursorgase
 Precursorliganden
 Precursormoleküle
@@ -943,3 +947,22 @@ Diffusionskoeffizienten
 Gebieten
 Oberflächenabscheidung
 Oberflächenabscheidungen
+Spül
+Pulse
+schirmen
+Herausforderungen
+Exemplarischer
+Anknüpfungspunkte
+Adsorbierte
+Aktueller
+Dennoch
+Gitterpunkte
+Kanonisches
+Partitionen
+Prozesszyklen
+reaktiven
+relaxiertem
+relaxierten
+strukturell
+Untersuchte
+zugehörigem

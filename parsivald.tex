@@ -26,14 +26,14 @@ Das setzt zwar diffusionsarme Prozesse voraus, ermöglicht dafür jedoch die eff
   \input{img/parsivald-stephierarchy.pdf_tex}
   \caption[Funktionsweise des Parsivald-Programmes]{
     Funktionsweise des Parsivald-Programmes.
-    Event-Typen unterscheiden sich durch die MD-Simulation (Relaxation, Reaktion) oder dasPrecursorgas.\\
+    Event-Typen unterscheiden sich durch die MD-Simulation (Relaxation, Reaktion) oder das Precursorgas.\\
     Siehe auch Abbildung~\ref{fig:parsivald-modes}.
   }
   \label{fig:parsivald-stephierarchy}
 \end{figure}
 
 Als Eingaben der Simulation dienen das Substrat, eine Sammlung verschiedener Prozessparameter wie Umgebungstemperaturen, Expositionszeiten und Abscheidungsmodi (Abbildung~\ref{fig:parsivald-modes}), sowie MD-Befehlslisten mit Platzhaltern (MD-Maske) samt Potentialparametrisierung.
-Die Konfiguration legt Umgebungseigenschaften, Abscheidungsart (Abbildung~\ref{fig:parsivald-modes}), Größe des Simulations- und MD-Raumes und Laufzeitbedingungen des Hostprogrammes fest.
+Die Konfiguration legt Umgebungseigenschaften, Abscheidungsmodus (Abbildung~\ref{fig:parsivald-modes}), Größe des Simulations- und MD-Raumes und Laufzeitbedingungen des Hostprogrammes fest.
 Die Ausgabe erfolgt kontinuierlich in Ereignis-Logs sowie nach jedem Prozess-Schritt in Form aller Atompositionen, aus denen die Schichteigenschaften bestimmt werden können.
 Optional lassen sich auch einzelne zur späteren Neuberechnung zwecks Fehlersuche speichern.
 
@@ -115,7 +115,7 @@ Auch eine automatisierte Optimierung der Prozessparameter wie Temperatur, Druck 
 
 Parsivald-Simulationsläufe geben neben der atomistischen Struktur verschiedene Statistiken und Werte in Form von Daten- und Logdateien aus.
 Das beinhaltet die Zahl der versuchten, erfolgreichen und fehlgeschlagenen Ereignisse, laufende Worker, abgeschirmte und deshalb zurückgestellte Ereignisse und die Anzahl aller Atome.
-Optional lässt sich eine Verteilung der Häufigkeit eines Zugriffes auf Positionen in der xy-Ebene angeben, um bei ALD- und CVD-Prozessen die Auswahlkriterien von Ereignisorten überprüfen zu können, was aber in dieser Arbeit nicht präsentiert wird, da die abgeschiedenen Schichten gleichmäßiges Wachstum zeigen oder der Ort von Fehlstellen offensichtlich ist.
+Optional lässt sich eine Verteilung der Häufigkeit eines Zugriffes auf Positionen in der xy-Ebene angeben, um bei reaktiven Prozessen die Auswahlkriterien von Ereignisorten zu prüfen.
 Anhand der atomistischen Struktur lassen sich Oberflächenrauheiten, Porenverteilungen, Dichten, Schichtdicken und Eigenschaften eventueller Kristalle bestimmen (Abschnitt~\ref{mdmethods}).
 
 Eine Auswertung der Abbruchrate ist besonders wichtig, während man nach validen Prozessparametern sucht, da sich über sie Fehler in der Prozesskonfiguration oder in der gebildeten Struktur abschätzen lassen (Siehe Abbildung~\ref{fig:copperparsivald}).

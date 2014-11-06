@@ -83,7 +83,11 @@ unusedcitations(){
 }
 
 spacerefs(){
-    listfiles | grep -Pn '(^|\s)\\(ref|cite)'
+    listfiles | xargs -0 grep -Pn '(^| )\\(ref|cite)\{' | grep -v '[^\\]&' | cuttooneline
+}
+
+alltabs(){
+    listfiles | xargs -0 grep -Pn '\t' | cuttooneline
 }
 
 doublewords(){
@@ -178,7 +182,7 @@ getlatexwarnings(){
 #####################
 {
 
-    register "possible typos" listunknownwords
+#    register "possible typos" listunknownwords
     register "LaTeX Errors" getlatexerrors
     register "word repetitions" doublewords
     register "undefined references" undefinedreferences
@@ -189,6 +193,7 @@ getlatexwarnings(){
     register "long lines" listlonglines 333
     register "dots within a line" dotlines
     register "trailing spaces" trailingspaces
+    register "tab stops" alltabs
     register "cites/refs with leading spaces" spacerefs
     register "ASD occurences" asddsa
     register "LaTeX Warnings" getlatexwarnings

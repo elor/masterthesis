@@ -108,6 +108,7 @@ Binärbaum
 Biomoleküle
 Bitweiser
 Breitere
+Bulksysteme
 Bulkmaterial
 Bulkmateriales
 Charakteristiken
@@ -186,6 +187,7 @@ Ergodizität
 Erhebungen
 Evaporation
 Expansions
+Experimentelle
 Explosionen
 Expositionszeit
 Fehlerhafte
@@ -966,3 +968,7 @@ relaxierten
 strukturell
 Untersuchte
 zugehörigem
+gitterbasierte
+Bulk
+Bulkdiffusion
+Bulkteilchen

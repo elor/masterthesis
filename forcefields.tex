@@ -1,4 +1,4 @@
-3\subsection{Kraftfelder}
+\subsection{Kraftfelder}
 \label{mdforcefields}
 
 Zentrales Element molekulardynamischer Methoden sind Kraftfelder $\vec F(X)$, auch Potentiale $V(X)$ genannt, welche die Interaktionen der simulierten Teilchen beschreiben.
@@ -7,11 +7,8 @@ Im Folgenden soll eine Auswahl dieser Potentialformulierungen kurz in ihrer Funk
 
 \subsubsection{Paar-Potentiale}
 
-Das einfachste MD-Potential ist das Paarpotential, welches eine Interaktion zwischen jeweils zwei benachbarten Atomen modelliert, wodurch sich das System auf Gleichungen~\ref{eq:pairforce} und~\ref{eq:pairenergy} reduziert.
-Stellvertretend steht das Lennard-Jones-Potential zur Darstellung von allgemeinen Fluiden (Gleichung~\ref{eq:lennardjones}) oder das damit verwandte Bucking\-ham-Potential (Abbildung~\ref{fig:mdpairpotentials}).
-Allen Paar-Potentialen ist gemein, eine rein radiale Abhängigkeit $V(r_ij)$ zu besitzen, die oftmals einen charakteristischen Bindungsabstand in Abhängigkeit der Parameter bildet, welcher sich als Minimum in den Potentialen äußert.
-Unterhalb dieses Radius' dominiert ein repulsiver Term, wo hingegen oberhalb davon ein leicht attraktiver Term vorherrscht, der sich für große Radien einem konstanten Wert annähert und deshalb mit einem Cutoff-Radius $r_\text{cut}$ versehen ist.
-
+Das einfachste MD-Potential ist das Paarpotential, welches Interaktionen zwischen jeweils zwei benachbarten Atomen modelliert.
+Damit vereinfacht sich die Energie des Gesamtsystems auf Summen des Potentiales $V$ über alle Paare von Atomen in Abhängigkeit ihres Abstandes $r_ij$:
 \begin{equation}
   \label{eq:pairforce}
   \vec F_{ij}(r_{ij}) = \vec\nabla V(r_{ij})
@@ -20,10 +17,17 @@ Unterhalb dieses Radius' dominiert ein repulsiver Term, wo hingegen oberhalb dav
   \label{eq:pairenergy}
   E = \sum_i\sum_{j \neq i}{V(r_{ij})}
 \end{equation}
+
+Stellvertretend steht das Lennard-Jones-Potential zur Darstellung von allgemeinen Fluiden:
 \begin{equation}
   \label{eq:lennardjones}
   V_\text{LJ}(r_{ij}) = 4 \epsilon \left[\left(\frac{\sigma}{r_{ij}}\right)^{12} - \left(\frac{\sigma}{r_{ij}}\right)^{6}\right]
 \end{equation}
+
+Weitere Paarpotentiale wie etwa das mit dem Lennard-Jones-Potential verwandte Bucking\-ham-Potential nehmen aufgrund unterschiedlicher Anwendungsgebiete andere Formen an (Abbildung~\ref{fig:mdpairpotentials}).
+Allen Paar-Potentialen ist gemein, eine rein radiale Abhängigkeit $V(r_ij)$ zu besitzen, die oftmals einen charakteristischen Bindungsabstand in Abhängigkeit der Parameter bildet, welcher sich als Minimum in den Potentialen äußert.
+Unterhalb dieses Radius' dominiert ein repulsiver Term, wo hingegen oberhalb davon ein leicht attraktiver Term vorherrscht, der sich für große Radien einem konstanten Wert annähert und deshalb mit einem Cutoff-Radius $r_\text{cut}$ versehen ist.
+
 
 \begin{figure}
   \centering
@@ -32,11 +36,12 @@ Unterhalb dieses Radius' dominiert ein repulsiver Term, wo hingegen oberhalb dav
   \label{fig:mdpairpotentials}
 \end{figure}
 
-Zwar zeigen Paarpotentiale gute thermodynamische Eigenschaften bei geringem Rechenaufwand, doch können sie aufgrund ihrer simplen Formulierung keine atomistischen Strukturen verlässlich vorhersagen.
+\todo{Beleg, Zitat, Nachweis}Zwar zeigen Paarpotentiale gute thermodynamische Eigenschaften bei geringem Rechenaufwand, doch können sie aufgrund ihrer simplen Formulierung keine atomistischen Strukturen verlässlich vorhersagen.
 
 \subsubsection{N-Teilchen-Potentiale}
 
-N-Teilchen-Potentiale erweitern Paarpotentiale um weitere Terme, die von einer festen Anzahl an Teilchen abhängen, beispielsweise Winkel- und Torsionsabhängigkeiten.
+N-Teilchen-Potentiale erweitern Paarpotentiale um weitere Terme, die von der Position einer festen Anzahl an Teilchen abhängen.
+Damit können beispielsweise Winkel- und Torsionsabhängigkeiten wiedergegeben werden.
 
 \begin{equation}
   \label{eq:nbody-energy}
@@ -49,8 +54,8 @@ Zwar gibt es erfolgreiche Anwendungen für Biomoleküle (\todo{CHARMM} \todo{GRO
 \subsubsection{Embedded Atom Model}
 
 Das Embedded Atom Model (EAM) besteht aus einem Paarpotential $V_{\alpha\beta}(r_{ij})$ für jedes Atom $i$ sowie einer Einbettungsfunktion $F_\alpha$, welche die Energie des Atomes in Abhängigkeit der angenäherten lokalen Elektronendichte $\rho_\beta(r_{ij})$ modelliert (Gleichung~\ref{eq:eam-energy})\cite{daw_embedded-atom_1984}.
-So lassen sich metallische Bulks und Oberflächen simulieren, für die $\alpha$ und $\beta$ verschiedene Spezies darstellen, doch führt die Formulierung für andere Systeme zwangsläufig zur Bildung von Clustern\todo{warum?}.
-Für eine Vielzahl an Metallen und Legierungen findet man in Potentialdatenbanken fertige Parametrisierungen\cite{becker_interatomic_2014}, von denen viele zusätzlich zu den strukturellen Eigenschaften auch thermodynamisches Verhalten recht gut modellieren (Abschnitt~\ref{goldthermo}).
+So lassen sich metallische Bulksysteme und Oberflächen simulieren, für die $\alpha$ und $\beta$ verschiedene Spezies darstellen, doch führt die Formulierung für andere Systeme zwangsläufig zur Bildung von Clustern\todo{ggfs. erläutern oder durch Zitat belegen}.
+Für eine Vielzahl an Metallen und Legierungen findet man in Potentialdatenbanken fertige Parametrisierungen\cite{becker_interatomic_2014}, von denen viele zusätzlich zu den strukturellen auch thermodynamische Eigenschaften recht gut modellieren (Abschnitt~\ref{goldthermo}).
 
 \begin{equation}
   \label{eq:eam-energy}
@@ -74,7 +79,7 @@ Für Metalloxide und weitere Mischsysteme existiert eine Erweiterung in Form des
 
 Reaktive Kraftfelder (Reactive Force Fields, ReaxFF) wurden von \textsc{van Duin et al.}\cite{van_duin_reaxff:_2001} 2001 mit dem Ziel entwickelt, Reaktionen zwischen Molekülen mit molekulardynamischen Methoden beschreiben zu können.
 Mangels expliziter Beschreibung der involvierten Elektronen war die Beschreibung von Bindungen zuvor nur mit Elektronenstrukturrechnungen möglich, denen aber eine obere Grenze von wenigen hundert Atomen gesetzt ist.
-Durch Beschreibung der Über- und Unterkoordination der Atome innerhalb ihrer Nachbarschaft, zusätzlich zum Ladungsaustausch zwischen den Atomen, Van-der-Waals- und elektrostatischen Kräften, lassen sich mit der ReaxFF-Formulierung Bindungen während der Simulation dynamisch formen und lösen, wodurch Reaktionen ermöglicht werden.
+Durch Beschreibung der Über- und Unterkoordination der Atome innerhalb ihrer Nachbarschaft, zusätzlich zum Ladungsaustausch zwischen den Atomen, Van-der-Waals- und elektrostatischen Kräften, lassen sich mit der ReaxFF-Formulierung Bindungen während der Simulation dynamisch formen und lösen, wodurch die Simulation von Reaktionen ermöglicht wird.
 Gleichung~\ref{eq:reaxformulation} und Tabelle~\ref{tab:reaxenergies} geben einen kurzen Überblick über die Summanden der Gesamtenergie, von denen die meisten Terme über die Bindungsordnung berechnet werden, welche sich aus Beiträgen für $\sigma$-, $\pi$- und Doppel-$\pi$-Bindungen aus dem Bindungsabstand zusammen setzt.
 Darüber hinaus werden einige Terme in der Nähe des Cutoff-Abstands sowie an Koordinations-Übergängen auf 0 gesenkt, um Diskontinuitäten zu vermeiden und einen fließenden Übergang zwischen Bindungszuständen zu ermöglichen.
 
@@ -111,10 +116,11 @@ Darüber hinaus werden einige Terme in der Nähe des Cutoff-Abstands sowie an Ko
   \end{tabularx}
 \end{table}
 
-Aus den Termen des ReaxFF-Potentials geht hervor, dass es ursprünglich für Reaktionen von organischen Molekülen entwickelt wurde, doch es hat sich als vielseitig genug herausgestellt, auch eine Vielzahl anderer Materialien wie Kristalle und nichtorganische Verbindungen simulieren zu können.
+Aus den Termen des ReaxFF-Potentials geht hervor, dass es ursprünglich für Reaktionen von organischen Molekülen entwickelt wurde, doch hat es sich als vielseitig genug herausgestellt, auch eine Vielzahl anderer Materialien wie Kristalle und nichtorganische Verbindungen simulieren zu können.
 Die einzige Abhängigkeit besteht zum Trainingssatz, also den Test-Strukturen, an deren Werte die Parametrisierung des Reax-Kraftfeldes angepasst wurde.
-So kann die Parametrisierung am Ende maximal die Strukturen und Materialien zuverlässig unterstützen, für die sie ursprünglich erstellt wurde.
+So kann die Parametrisierung in der Regel nur die Strukturen und Materialien zuverlässig wiedergeben, für die sie ursprünglich erstellt wurde.
+Für darüber hinaus gehende Anwendungen ist \todo{in der Regel}eine aufwendige Anpassung der Parametersätze mittels geeigneter Trainingsstrukturen erforderlich.\todo{Zitat?}
 
-In den letzten fünf Jahren haben Reactive Force Fields jedoch langsam an Aufmerksamkeit gewonnen, so dass die Zahl spezialisierter Parametrisierungen stetig zunimmt.
-Es gibt auch Bestrebungen, sich ergänzende ReaxFF-Parametrisierungen zu kombinieren und somit mit einer Parametrisierung jedes gewünschte System betrachten zu können.
-Besonders in kommerzieller MD-Software\cite{accelrys_materials_2014} versucht man so, dem Nutzer ein umfassendes Paket für die Simulation beliebiger Strukturen zu präsentieren, ohne ihm aber die Grenzen des Parametersatzes erkenntlich zu machen.
+In den letzten fünf Jahren haben Reactive Force Fields jedoch an Aufmerksamkeit gewonnen, so dass die Zahl verfügbarer spezialisierter Parametrisierungen stetig zunimmt.
+Es gibt auch Bestrebungen, sich ergänzende ReaxFF-Parametrisierungen zu kombinieren und somit mit einer Parametrisierung eine große Zahl von Zielsystemen betrachten zu können.
+Besonders in kommerzieller MD-Software\cite{biovia_materials_2014} versucht man so, dem Nutzer ein umfassendes Paket für die Simulation beliebiger Strukturen zu präsentieren, ohne ihm aber die Grenzen der Vorhersagekraft des Parametersatzes erkenntlich zu machen.

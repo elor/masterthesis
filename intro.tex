@@ -1,38 +1,47 @@
 \cleardoublepage
 \chapter{Einleitung}
 \label{intro}
+\todo[inline]{justiert -> optimiert}
+%% \todo[inline]{Aktueller Stand der Technologien und damit verbundene Herausforderungen}
 
-\todo[inline]{Aktueller Stand der Technologien und damit verbundene Herausforderungen}
+Seit vielen Jahrzehnten ist in der Mikro- und Nanoelektronik eine stetige Miniaturisierung zu beobachten, die in den letzten Jahren Strukturbreiten von wenigen Atome erreicht hat.
+Besonders bemerkbar macht sich dieser Umstand bei Transistoren, insbesondere bei MOSFETs, deren Strukturgrößen einzelne Nanometer erreicht hat, doch sorgt beim Gate-Dielektrikum die geringe Dielektrizität $\kappa = \num{3.9}$ des traditionellen Siliziumoxids zu Schichtdicken mehrerer Nanometer, die strukturell nicht mehr vertretbar sind.
+Um den Schritt zu flacheren Gate-Dielektrika zu gehen, werden seit einigen Jahren alternative Materialien verwendet, die aufgrund ihrer höheren Dielektrizität von $\kappa$ allgemein als High-$\kappa$-Dielektrika bezeichnet werden.
 
-\todo[inline]{Moore's Law? naja}
-\todo[inline]{MOSFET-Dielektrika}
-\todo[inline]{Passivation Layers}
-\todo[inline]{Diffusionsbarrieren}
-\todo[inline]{Hauptsächlich experimentelle Aussagen}
-\todo[inline]{DFT: zu klein, nur einzelne Atome}
-\todo[inline]{MD: immer noch auf atomistischer Skala}
-\todo[inline]{KMC: gitterbasiert}
+%% \vspace{1em}\todo[inline]{Kandidat zur Lösung von Herausforderungen}
 
+Die Produktion von dünnen Dielektrika wird per Gasphasenabscheidung realisiert, bei der sich Atome oder Moleküle aus der Gasphase auf einer Oberfläche absetzen und chemisch oder physikalisch langsam eine Schicht aufwachsen, deren Eigenschaften durch die Wahl und Dosierung der Gase kontrolliert werden kann.
+Ergänzend müssen die Prozessbedingungen justiert werden, um konforme Schichten abscheiden zu können.
+Experimentelle \todo{Iterationszyklen}Zyklen benötigen oftmals mehrere Monate der Justierung, bevor erste Aussagen über die Qualität und Wachstumsgeschwindigkeit der abgeschiedenen Schicht getroffen werden können.
 
-\vspace{1em}\todo[inline]{Kandidat zur Lösung von Herausforderungen}
+%% \vspace{1em}\todo[inline]{Zu untersuchender Aspekt des Kandidaten}
 
-\todo[inline]{Erforschung neuer Materialien mit atomistischer Genauigkeit}
+Atomistische Simulationen können durch systematische Erforschung der Prozessparameter helfen, diese Einstellzeit zu reduzieren, indem Aspekte des Prozesses numerisch untersucht werden.
+Dafür stehen Simulationen des Gasflusses, der Reaktionskinetik, der mittleren Zunahme der Schichtdicke sowie der Reaktionspfade zur Verfügung, doch existieren keine Simulationen der strukturellen Eigenschaften von dünnen Schichten, die per Gasphasenabscheidung produziert wurden.
+Dabei sind eben diese für heterogene und strukturierte Substrate, wie sie in der Nanoelektronik zwangsläufig genutzt werden, von Interesse.
 
+%% \vspace{1em}\todo[inline]{Möglichkeiten zur Optimierung}
 
-\vspace{1em}\todo[inline]{Zu untersuchender Aspekt des Kandidaten}
+Ansatzpunkte für die Simulation struktureller Eigenschaften bestehen in Kinetischen Monte Carlo-Methoden (KMC) einerseits und in Molekulardynamik (MD) andererseits.
+KMC kann die Reaktionskinetik komplizierter Prozesse zufriedenstellend beschreiben, scheitert jedoch an der strukturellen Darstellung.
+MD hingegen kann effizient atomistische Strukturen simulieren, lässt sich aber nur unzureichend zur Beschreibung von chemischen Reaktionen in großen Simulationsräumen nutzen.
+Eine Kombination beider Methoden stellt eine mögliche Lösung dar, wodurch die atomistische Simulation von Beschichtungen kompletter Nano-Bauelemente aussichtsreich erscheint.
 
+%% \vspace{1em}\todo[inline]{sich ergebende weitere Anwendungen des Optimierten}
 
-\vspace{1em}\todo[inline]{Möglichkeiten zur Optimierung}
+Ein solches Modell ließe sich auch für die Abscheidung von \todo{passiven?}passivierenden und protektiven Schichten und Diffusionsbarrieren nutzen, wie sie in verschiedenen Bereichen der \todo{wovon genau?}Industrie Anwendung finden.
+Auch die Simulation der Abscheidung von Multilagen-Systemen wie etwa GMR-Strukturen (Giant Magnetoresistance) stellt eine potentielle Anwendung des vorgestellten Modelles dar.
+Die Betrachtung unterschiedlicher Materialien wird unter anderem durch die Beschreibung verschiedener Arten von Gasphasenabscheidungen und Gasmolekülen ermöglicht.
+Vorhersagen über die Wachstumsraten und Qualität der dünnen Schichten in Abhängigkeit der Prozessparameter ermöglichen Optimierungen der Abscheidungsprozesse, wobei auch ungesättigte Zyklen bei Atomlagenabscheidungen und die Betrachtung von Nebenprodukten bei chemischen Abscheidungen möglich sind.
 
+%% \vspace{1em}\todo[inline]{Anknüpfungspunkte und Fokus der Arbeit}
 
-\vspace{1em}\todo[inline]{sich ergebende weitere Anwendungen des Optimierten}
+Das Ziel der vorliegenden Arbeit ist, ein bestehendes Multiskalen-Modell für Atomlagenabscheidungen per KMC und MD auf allgemeine Gasphasenabscheidungen zu erweitern und anhand von physikalischen und chemischen Gasphasenabscheidungen zu überprüfen.
+Dabei soll die Präparation neuer Abscheidungsprozesse ebenso untersucht werden wie die Möglichkeit, molekulardynamische Formulierungen reaktiver Materialien auf chemische Gasphasenabscheidungen anzuwenden.
 
-\todo[inline]{ungesättigte Zyklen}
-\todo[inline]{Raten-/GPC-Vorhersagen}
+%% \vspace{1em}\todo[inline]{Struktur der Arbeit}
 
-
-\vspace{1em}\todo[inline]{Anknüpfungspunkte und Fokus der Arbeit}
-
-
-\vspace{1em}\todo[inline]{Struktur der Arbeit}
-
+Im Anschluss an diese Einleitung wird zuerst in Kapitel~\ref{theory} ein theoretischer Überblick über Abscheidungsprozesse und verwendete Simulationsmethoden gegeben.
+Kapitel~\ref{models} behandelt danach den aktuellen Stand atomistischer Simulationen von Gasphasenabscheidungen und stellt die Erweiterungen des kombinierten KMC/MD-Modells sowie verwendete molekulardynamische Methoden zur Präparation und Analyse von Ergebnissen vor.
+Der Hauptteil der Arbeit beschäftigt sich in Kapitel~\ref{results} mit den Ergebnissen der Simulation von Gasphasenabscheidungen und den notwendigen Voruntersuchungen der molekulardynamischen Potentialparametrisierungen.
+Zum Abschluss wird die Arbeit mit Kapitel~\ref{summary} und interessante Fragestellungen für künftige Untersuchungen gegeben.

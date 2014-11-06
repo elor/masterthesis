@@ -1,7 +1,7 @@
 \section{Datenstrukturen}
 \label{datastructures}
 
-Zur Beschleunigung von wissenschaftlichen Simulationen finden effiziente Algorithmen zur Suche und Manipulation von Atomen auf Basis verschiedener Datenstrukturen Anwendung, welche im Folgenden zwecks der Beschreibung von Atompositionen in teilperiodischen Simulationsräumen für Off-Lattice-KMC-Simulationen untersucht werden sollen.
+Zur Beschleunigung von atomistischen Simulationen mit Parsivald finden effiziente Algorithmen zur Suche und Manipulation von Atomen auf Basis verschiedener Datenstrukturen Anwendung, welche im Folgenden zwecks der Beschreibung von Atompositionen in teilperiodischen Simulationsräumen für Off-Lattice-KMC-Simulationen untersucht werden sollen.
 Gegenüber optimalen Algorithmen für allgemeine Probleme, wie sie in verfügbarer Software genutzt werden, ermöglicht die genaue Modell- und Systemkenntnis die Abwägung der Häufigkeit von Operationen gegen deren Laufzeiten,
 wodurch die Wahl der optimalen Datenstruktur zur Maximierung von Größe, Genauigkeit und Geschwindigkeit von Off-Lattice-KMC-Simulationen von Gasphasenabscheidungen ermöglicht wird.
 
@@ -19,14 +19,14 @@ Zuletzt finden die Simulationen aus praktischen Gründen in \textbf{teilperiodis
 \subsection{Vergleich der Laufzeiten mit verschiedenen Datenstrukturen}
 
 Als Datenstrukturen stehen \textbf{Atomlisten}, \textbf{Nachbarschaftslisten} (NB-Listen), lineares \textbf{Binning}, Binning in \textbf{Octrees}, \textbf{k-d-Bäume} und \textbf{Delaunay-Triangulationen} zur Auswahl, von denen eine Auswahl in Abbildung~\ref{fig:datastructures} dargestellt ist.
-In Anhang~\ref{appendix_dataoverview} werden diese knapp vorgestellt, wobei auf drei zuletzt genannten in den folgenden Abschnitten näher eingegangen wird.
+In Anhang~\ref{appendix_dataoverview} werden diese knapp vorgestellt, wobei auf die drei zuletzt genannten in den folgenden Abschnitten näher eingegangen wird.
 
 Atomistische KMC-Simulationen beschränken sich auf die Manipulations-Operationen zur \textbf{Einfügung}, \textbf{Modifikation} und \textbf{Entfernung} von Atomen, \textbf{Konstruktion} der Datenstruktur sowie auf die Suchoperationen der \textbf{Nachbarschaftssuche}, \textbf{Bereichssuche} und \textbf{Oberflächensuche}, die jeweils im Anhang in Tabelle~\ref{tab:dataops} kurz beschrieben werden.
 Die Effizienz dieser Operationen geht dabei aus deren asymptotischer Laufzeit hervor, welche üblicherweise in asymptotischer Notation (\BigO{}) angegeben wird.
 
 Bei KMC-Simulationen überwiegen die drei Suchoperationen, da sie für jedes Ereignis beim Aufbau der KMC-Ereignislisten durchgeführt werden müssen, wo hingegen die Manipulationen nur für das tatsächlich durchgeführte Ereignis ausgeführt werden müssen.
 Somit liegt das Auswahlkriterium der Datenstruktur bei der Effizienz ihrer Suchoperationen, mit Ausnahme der Nachbarschaftslisten und k-d-Bäume, deren Manipulationsoperationen für große Simulationsräume \todo{phrasing}zu langsam sind.
-Die Ergebnisse der Laufzeit-Analysen sind der sieben Operationen für die sechs vorgestellten Datenstrukturen werden in Tabelle~\ref{tab:dataruntimes} zusammen gefasst, wofür Tabelle~\ref{tab:datasymbols} die verwendeten Symbole erklärt.
+Die Ergebnisse der Laufzeit-Analysen der sieben Operationen auf den vorgestellten Datenstrukturen werden in Tabelle~\ref{tab:dataruntimes} zusammen gefasst, wofür Tabelle~\ref{tab:datasymbols} die verwendeten Symbole erklärt.
 
 \begin{figure}[h]
   \captionsetup[subfigure]{singlelinecheck=false}{
@@ -56,6 +56,7 @@ Die Ergebnisse der Laufzeit-Analysen sind der sieben Operationen für die sechs 
     Übersicht über Partitionen des Simulationsraumes für einige Datenstrukturen.
     k-d-Baum-Partitionen sind dynamisch und ändern sich mit jeder Manipulation.
   }
+  \todo[inline]{Hinweis von Jörg: Bild weglassen.}
   \label{fig:datastructures}
 \end{figure}
 
@@ -108,7 +109,7 @@ Die Ergebnisse der Laufzeit-Analysen sind der sieben Operationen für die sechs 
 \subsection{Effiziente Datenstrukturen}
 
 Beim Vergleich der Datenstrukturen in Tabelle~\ref{tab:dataruntimes} stellen sich Octrees, k-d-Bäume und Delaunay-Triangulationen als Favoriten für Off-Lattice KMC-Simulationen heraus, die in den folgenden Abschnitten kurz eingehender vorgestellt und diskutiert werden sollen.
-Der Speicherverbrauch ist der untersuchten Datenstrukturen ist praktisch linear und wird deshalb nicht als Auswahlkriterium zu Rate gezogen.
+Der Speicherverbrauch der untersuchten Datenstrukturen ist praktisch linear und wird deshalb nicht als Auswahlkriterium zu Rate gezogen.
 Wie Untersuchungen an Simulationsräumen verschiedener Größe zeigen, wird erst für \num{1.9e9} Atome die Grenze des Hauptspeichers erreicht (Abschnitt~\ref{goldscalability}).
 
 \subsubsection{Octrees}
@@ -247,9 +248,9 @@ Deshalb bieten sich k-d-Bäume zwar für allgemeine Suchoperationen in Off-Latti
 
 Eine dritte Partitionsmethode findet sich in der Delaunay-Triangulation\todo{Ref?}, welche jedoch asymmetrisch und nicht-orthogonal arbeitet, indem die konvexe Hülle der Punktwolke raumfüllend in disjunkte k-dimensionale Simplexe\footnote{Ein $k$-Simplex ist ein Objekt in $k$ Dimensionen mit $k+1$ Eckpunkten, die untereinander mit geraden Kanten verbunden sind. Somit ist ein 1-Simplex eine Linie, ein 2-Simplex ein Dreieck, ein 3-Simplex ein Tetraeder, etc.}
 entsprechend des Delaunay-Kriteriums, nach dem sich im Umkreis eines Simplexes keine anderen Punkte der Punktwolke befinden dürfen, zerlegt wird.
-Damit ergibt sich ein Graph, \todo{Satzkonstrukt überarbeiten}welcher dual zum Voronoi-Diagramm ist, also ein Supergraph des Nächstnachbargraphen ist, der Alpha-Form (Abschnitt~\ref{dataalphaform}) sowie der konvexen Hülle der Punktwolke ist und in \BigO{n\log{n}} vergleichsweise effizient konstruiert werden kann.
+\todo{Anmerkung von Jörg: puuuhhh Du wirst hier ne ganze Menge Dine in den Raum, die eigentlich nach Erklärungen verlangen ...}Damit ergibt sich ein Graph, \todo{Satzkonstrukt überarbeiten}welcher dual zum Voronoi-Diagramm ist, also ein Supergraph des Nächstnachbargraphen ist, der Alpha-Form (Abschnitt~\ref{dataalphaform}) sowie der konvexen Hülle der Punktwolke ist und in \BigO{n\log{n}} vergleichsweise effizient konstruiert werden kann.
 Die Konstruktion lässt sich im Gegensatz zu den anderen Datenstrukturen für große Simulationsräume mit entsprechenden Divide-and-Conquer-Algorithmen parallelisieren, oder vor einer etwaigen periodischen Erweiterung einer Einheitszelle zum Simulationsraum durchführen.
-Eine Liste von Eigenschaften der Simplexe sowie einer Übersicht über die verschiedenen Konstruktionsmethoden \todo{Wort}liegt in Anhang~\ref{appendix_delaunay}.
+Eine Liste von Eigenschaften der Simplexe sowie einer Übersicht über die verschiedenen Konstruktionsmethoden ist in Anhang~\ref{appendix_delaunay} zu finden.
 
 Delaunay-Triangulationen werden noch nicht direkt im KMC-Algorithmus für Off-Lattice-Systeme genutzt, doch sind sie aufgrund ihrer Beziehung zu Alpha-Formen für die Analyse von Oberflächen unentbehrlich (Abschnitt~\ref{mdmethods}).
 

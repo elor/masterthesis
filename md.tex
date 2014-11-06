@@ -1,7 +1,7 @@
 \section{Molekulardynamik}
 \label{md}
 
-Ursprünglich mit dem Ziel der klassischen Simulation idealer Gase entwickelt, wurde die Molekulardynamik seither um die Fähigkeit zur Simulation von Festkörpern, organischen Molekülen und Reaktionen erweitert.
+Ursprünglich mit dem Ziel der klassischen Simulation von Gasen und anderen Fluiden entwickelt, wurde die Molekulardynamik seither um die Fähigkeit zur Simulation von Festkörpern, organischen Molekülen und Reaktionen erweitert.
 Dadurch findet sie Anwendung in Simulationen von Materialien und chemischen Stoffen bei beliebigen Temperaturen und Drücken, um deren Verhalten vorhersagen und auf reale Prozesse zurückführen zu können.
 
 Nachfolgend möchte ich einen kurzen Überblick über die Formulierung molekulardynamischer Methoden geben (Abschnitt~\ref{mdformulation}) und im Anschluss auf die Unterschiede und Möglichkeiten der Kraftfelder eingehen (Abschnitt~\ref{mdforcefields}).
@@ -11,7 +11,7 @@ Nachfolgend möchte ich einen kurzen Überblick über die Formulierung molekular
 
 Molekulardynamik ist eine klassische Vielteilchenmethode, die jedem Teilchen des Systemes \todo{wieso $R$?}$R$ eine Masse $m$, eine Position $\vec r$, einen Impuls $\vec p$ und Kräfte entsprechend eines lokalen Kraftfeldes $\vec{F}(R)$ oder eventuellen Randbedingungen zuweist.
 Entsprechend der Born-Oppenheimer-Näherung, nach der die Elektronen eines chemischen Systemes an ihre Atomkerne gebunden sind und schnell genug auf Änderungen des Systemes reagieren, genügt es, die Atome als Punktmassen an der Position ihres Atomkernes zu betrachten.
-Elektronische und sonstige Interaktionen werden dann durch die verwendeten Kraftfelder beschrieben, die ihrerseits Annäherungen vornehmen können, um die Simulationszeit auf Kosten der Genauigkeit zu verringern.
+Elektronische und sonstige Interaktionen werden dann durch die verwendeten Kraftfelder beschrieben, die auf \todo{nochmal in Ruhe überdenken}Näherungen physikalischer Effekte basieren, um die Simulationszeit auf Kosten der Genauigkeit zu senken.
 
 Der Systemzustand wird dann entweder entsprechend des gewählten Ensembles zeitlich integriert, oder hinsichtlich der Energie des Gesamt- oder eines Teilsystemes optimiert.
 Dazu stehen Integratoren für das Mikrokanonischen Ensemble (NVE), das Kanonischen Ensemble (NVT) und das Großkanonischen Ensemble (NPT) ebenso zur Verfügung wie verschiedene Optimierungsmethoden, von denen hier die Konjugierte Gradienten-Methode vorgestellt werden soll.
@@ -53,7 +53,7 @@ Aufbauend auf dem mikrokanonischen Ensemble tauscht das kanonische Ensemble zus�
 Numerisch wird diese zusätzliche Randbedingung durch ein Thermostat ermöglicht, das die Teilchenenergien beeinflusst und so für eine Korrektur der mittleren Systemtemperatur in Richtung der Temperatur des Wärmebades sorgt.
 
 Das \textbf{Berendsen-Thermostat}\cite{berendsen_molecular_1984} etwa skaliert die Teilchengeschwindigkeiten in Richtung des Mittelwertes der Maxwell-Boltzmann-Verteilung für die Zieltemperatur $T_\text{Ziel}$ (Gleichung~\ref{eq:ekanonisch}).
-Anstatt einer harten Reskalierung wird für eine exponentielle Annäherung der Temperatur an $T_\text{Ziel}$ sorgt, indem in jedem Zeitschritt nur ein Teil der Differenz in Abhängigkeit der Dämpfungszeit $\tau$ angeglichen wird (Gleichung~\ref{eq:berendsen}).
+Anstatt einer harten Reskalierung wird für eine exponentielle Annäherung der Temperatur an $T_\text{Ziel}$ gesorgt, indem in jedem Zeitschritt nur ein Teil der Differenz in Abhängigkeit der Dämpfungszeit $\tau$ angeglichen wird (Gleichung~\ref{eq:berendsen}).
 Dabei werden Fluktuationen in der Systemtemperatur unterdrückt und somit die Ergodizität verletzt, doch zeigt sich für große Systeme eine gute Annäherung an das kanonische Ensemble bei vertretbarer Rechenzeit.
 
 \begin{equation}
@@ -101,13 +101,15 @@ Wird zusätzlich noch Verformungsenergie vom System verrichtet, spricht man vom 
 \end{equation}
 
 Dies wird durch ein Barostat realisiert, das durch Skalierung des Simulationsraumes den mittleren Druck ähnlich zu den oben vorgestellten Thermostaten beeinflusst, sodass sich als Standard Nosé-Hoover-Barostate etabliert haben, gelegentlich aber auch Berendsen-Barostate verwendet werden.
-Der Druck innerhalb des Systems wird dabei über die Virialgleichung ermittelt, die eigentlich für Gase gilt, \todo{Details?}aber auch für Flüssigkeiten und Feststoffe Systeme gute Ergebnisse liefert.
+Der Druck innerhalb des Systems wird dabei über die Virialgleichung ermittelt, die eigentlich für Gase gilt, aber auch für Flüssigkeiten und Feststoffe Systeme gute Ergebnisse liefert.
 
 \begin{equation}
   PV = N k_B T + \frac{1}{d} \sum_{i=1}^N{\vec{r}_i \cdot \vec{F}_i}
 \end{equation}
 
 \subsubsection{Minimierung durch Konjugierte Gradienten (CG-Minimierung)}
+
+\todo[inline]{Hinweis von Jörg: beachte bitte, dass Prof. Hoffmann hier zuhause ist. Tiefergehende Kenntnisse können beim Vortrag nicht schaden}
 
 Möchte man mit molekulardynamischen Methoden Strukturen optimieren, greift man häufig auf Algorithmen zur Energieminimierungen zurück, wie der populären Konjugierte-Gradienten-Methode (CG, Conjugated Gradients), mit denen im Idealfall das globale Minimum der Systemenergie gesucht wird.
 Dabei läuft man den Systemzustand von einem Startpunkt $\vec X_0$ aus entlang des Gradienten der Energie $\nabla E(X)$ in Richtung des Minimums ab, kann aber über die Schrittweite $\alpha$ Einfluss auf die Qualität und Geschwindigkeit der Suche nehmen.
@@ -129,20 +131,20 @@ Dabei läuft man den Systemzustand von einem Startpunkt $\vec X_0$ aus entlang d
   \vec X_i = \vec X_{i-1} - \alpha \nabla E(\vec X_{i-1})
 \end{equation}
 
-Als Abbruchkriterien stehen je nach Verhalten des Systems währen der Optimierung die Differenz zwischen zwei Schritten ($\left|\vec X_i - \vec X_{i-1}\right| < X_\text{tol}$), die maximale Änderung eines Vektorelementes ($\max_k{\left|X_{i,k} - X_{i-1,k}\right|} < X_\text{tol}$), \todo{sieht gut aus?}% hide overlong line
-die Stärke des Gradienten ($\left|\nabla E(\vec X_{i-1})\right| < E_\text{tol}$), eine Anzahl an Zeitschritten ($i > i_\text{tol}$) oder eine Kombination daraus zur Verfügung.
+Als Abbruchkriterien stehen je nach Verhalten des Systems währen der Optimierung die Differenz zwischen zwei Schritten ($|\vec X_i - \vec X_{i-1}| < X_\text{tol}$), die maximale Änderung eines Vektorelementes ($\max_k{|X_{i,k} - X_{i-1,k}|} < X_\text{tol}$),
+die Stärke des Gradienten ($|\nabla E(\vec X_{i-1})| < E_\text{tol}$), eine Anzahl an Zeitschritten ($i > i_\text{tol}$) oder eine Kombination daraus zur Verfügung.
 
-Eine Optimierung durch minimierte Gradienten ist für eine Große Zahl an Freiheitsgraden zwar schnell, stößt aber an seine Grenzen, wenn man allgemeine, nichtlineare Funktionen minimieren möchte, weshalb Variationen des CG-Algorithmus' entwickelt wurden.
-Einerseits kann man den Optimierungsschritt durch eine Minimierung entlang der Schrittrichtung (Gleichungen~\ref{eq:cg-linesearch1} und~\ref{eq:cg-linesearch2}) ersetzen, andererseits steht die Manipulation der Schrittrichtung in Abhängigkeit vorheriger Schritte zur Verfügung (Gleichung~\ref{eq:pr1}).
-In LAMMPS wird die Polak-Ribière-Variante genutzt (Gleichungen~\ref{eq:pr1} und~\ref{eq:pr2}), doch existieren \todo{wofür?}verschiedene gleichwertige Methoden mit anderen Zielsetzungen und Formulierungen.
-Diese Anpassungen verbessern einerseits das erwartete Konvergenzverhalten, andererseits stabilisieren sie den Optimierungsalgorithmus gegenüber Nichtlinearitäten und Unstetigkeiten.
-
+Eine Optimierung durch minimierte Gradienten ist für eine große Zahl an Freiheitsgraden zwar schnell\todo{verglichen womit?}, stößt aber an Grenzen, wenn man allgemeine, nichtlineare Funktionen minimieren möchte, weshalb Variationen des CG-Algorithmus' entwickelt wurden.
+Einerseits kann man den Optimierungsschritt durch eine Minimierung entlang der Schrittrichtung (Gleichungen~\ref{eq:cg-linesearch1} und~\ref{eq:cg-linesearch2}) ersetzen:
 \begin{gather}
   \label{eq:cg-linesearch1}
   \min_\alpha f(X_i+\alpha \vec s_i) \rightarrow \alpha_i \\
   \label{eq:cg-linesearch2}
-  \vec X_i = \vec X_{i-1} - \alpha_i \vec s_i\\
+  \vec X_i = \vec X_{i-1} - \alpha_i \vec s_i
 \end{gather}
+
+Andererseits steht die Manipulation der Schrittrichtung in Abhängigkeit vorheriger Schritte zur Verfügung.
+In der populären MD-Bibliothek LAMMPS wird etwa die Polak-Ribière-Variante dieser Methode genutzt:
 \begin{equation}
   \label{eq:pr1}
   \vec s_i = \Delta \vec X_i + \beta_i \vec s_{i-1}
@@ -151,6 +153,9 @@ Diese Anpassungen verbessern einerseits das erwartete Konvergenzverhalten, ander
   \label{eq:pr2}
   \beta_i = \max \left(0, \frac{\Delta \vec X_i \cdot \left(\Delta \vec X_i - \Delta \vec X_{i-1}\right)}{\Delta \vec X_{i-1} \cdot \Delta \vec X_{i-1}}\right) \text{~(Polak-Ribière)}
 \end{equation}
+
+Es existieren noch weitere gleichwertige Methoden mit anderen Zielsetzungen und Formulierungen.\todo{welche?}
+Diese Anpassungen verbessern einerseits das erwartete Konvergenzverhalten, andererseits stabilisieren sie den Optimierungsalgorithmus gegenüber Nichtlinearitäten und Unstetigkeiten.
 
 %% \subsubsection{Weitere Minimierungsmethoden}
 
@@ -168,7 +173,7 @@ Diese Anpassungen verbessern einerseits das erwartete Konvergenzverhalten, ander
 Für molekulardynamische Simulationen stehen sowohl kommerzielle als auch freie Softwarepakete zur Verfügung, die jeweils eigene Parametersätze mitbringen.
 In LAMMPS lassen sich zudem auch externe Parametersätze einbinden, wodurch die Betrachtung neuer Problemstellungen erleichtert wird.
 Weiterhin unterscheiden sich die Programme in ihrer Nutzerfreundlichkeit (Kommandozeile oder grafische Oberfläche) und der Möglichkeit, sie als Bibliothek in eigene Programme einzubinden.
-Tabelle~\ref{tab:mdsoftware} stellt die wichtigsten Vertreter moderner Molekulardynamiksoftware dar.
+Tabelle~\ref{tab:mdsoftware} stellt ausgewählte Vertreter moderner Molekulardynamiksoftware dar.
 
 \begin{table}
   \oddrowcolors
@@ -181,7 +186,7 @@ Tabelle~\ref{tab:mdsoftware} stellt die wichtigsten Vertreter moderner Molekular
     \textbf{Paket}                                                               & \textbf{Rechteinhaber}   & \textbf{Beschränkungen \& Kommentare}                            \\
     \hline
     LAMMPS\cite{plimpton_lammps_2014,plimpton_fast_1995}                         & SANDIA                   & quelloffen, Kommandozeile, Bibliothek, eigene Potentiale möglich \\
-    Materials Studio\cite{accelrys_materials_2014}                               & Accelrys                 & Grafische Oberfläche, lizenzpflichtig                            \\
+    Materials Studio\cite{biovia_materials_2014}                                 & Accelrys                 & Grafische Oberfläche, lizenzpflichtig                            \\
     AMBER\cite{case_amber_2014,case_amber_2005}                                  & University of California & Biomoleküle, lizenzpflichtig                                     \\
     CHARMM\cite{brooks_charmm_2014,brooks_charmm:_1983,brooks_charmm:_2009}      & Accelrys                 & Proteine, lizenzpflichtig                                        \\
     GROMACS\cite{lindahl_gromacs_2014,berendsen_gromacs:_1995,hess_gromacs_2008} & Uppsala University       & Biomoleküle, quelloffen                                          \\

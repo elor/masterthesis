@@ -3,7 +3,7 @@
 
 Kinetische Monte Carlo-Methoden (KMC) wurden ursprünglich zur Simulation von Diffusionsprozessen entwickelt, finden aber inzwischen in vielen Gebieten der Natur- und Ingenieurswissenschaften Anwendung.
 Sie beschreiben den Zeitverlauf eines Systemes als eine Abfolge von diskreten Übergängen (Ereignissen) zwischen Systemzuständen, die mit ihrer charakteristischen Rate gewichtet werden.
-Damit bieten sie sich hauptsächlich zur Simulation stochastischer Prozesse an, wobei sie auch Nichtgleichgewichtssysteme beschreiben können und somit unter anderem zur Simulation von Oberflächenreaktionen und Schichtabscheidung geeignet.
+Damit bieten sie sich hauptsächlich zur Simulation stochastischer Prozesse an, wobei sie auch Nichtgleichgewichtssysteme beschreiben können und somit unter anderem zur Simulation von Oberflächenreaktionen und Schichtabscheidung geeignet sind.
 
 Ausgehend von einem Startzustand $X_0$ aus dem Zustandsraum $\mathbb{X}$ zum Zeitpunkt $t_0 = 0$ wird eine zeitliche Abfolge von Zuständen $X_n \in \mathbb{X}$ nach dem folgenden Algorithmus erzeugt:\\
 Zuerst werden alle Ereignisse $E_i$, die einen Übergang vom vorherigen Zustand $X_{n-1}$ zu einem beliebigen Zustand $X_n^i$ ermöglichen, ermittelt und gesammelt:
@@ -13,9 +13,6 @@ Zuerst werden alle Ereignisse $E_i$, die einen Übergang vom vorherigen Zustand 
 Jedem Ereignis $E_i$ wird nun eine individuelle Rate $r_i$ zugeordnet, die zugleich seine Gewichtung der Auswahl-Wahrscheinlichkeit ist.
 Zudem wird seine akkumulierte Rate $R_i$ gebildet, welche für die Auswahl eines Ereignisses genutzt wird.
 Die Summe aller Raten ist somit $R_N$.
-\begin{equation}
-  r_i = r(E_i)
-\end{equation}
 \begin{equation}
   R_i = \sum_{j \le i}{r_j}
 \end{equation}
@@ -49,15 +46,17 @@ Eine mögliche Anwendung von KMC-Simulationen besteht in der Beschreibung der Ki
 Die Ereignisse entsprechen dann einzelnen chemischen oder physikalischen Vorgängen wie der Desorption eines Atomes von der Kristalloberfläche, der Adsorption eines Moleküls auf der Oberfläche oder der Reaktion zwischen zwei Molekülen, wobei die Reaktionsraten direkt als Ereignisraten genutzt werden.
 
 Darin zeigt sich ein Problem der KMC-Formulierung:
-Die Ereignisraten sind Eingabewerte und müssen vor der Auswahl der Ereignisse bekannt sein.
-Zwar lassen sie sich durch exaktere Methoden wie Elektronenstrukturrechnungen vorausberechnen, allerdings scheitern diese Methoden bei einer Vielzahl verschiedenartiger Ereignisse an der notwendigen Rechenzeit.
+Die Ereignisraten sind Eingabewerte und müssen vor der \todo{Zacros, EON}\todo{Es stimmt schon, dass andere Software das anders macht, aber ist aufgrund der Formulierung zwingend notwendig, die Energien der Ereignisse vorher zu kennen. Weiter unten beschreibe ich, wie Parsivald diese Notwendigkeit umgeht, dabei aber die Reaktionskinetik nicht mehr beschreiben kann}Auswahl der Ereignisse bekannt sein.
+Zwar lassen sich unbekannte Raten auch während der Simulation durch exaktere Methoden wie Elektronenstrukturrechnungen ermitteln, allerdings verursachen diese Methoden bei einer Vielzahl verschiedenartiger Ereignisse einen enormen Rechenaufwand.
 Deshalb wird oft auf ein Simulationsgitter zurück gegriffen, um die Zahl der verschiedenartigen Zustands-Übergänge gering zu halten.
 
 Vor allem bei kristallinen Strukturen lassen sich viele Übergänge durch das Verschieben, Entfernen oder Hinzufügen von Atomen auf den Gitterplätzen beschreiben, wobei die Ereignisraten jeweils von den benachbarten Gitterplätzen abhängig sind.
 Dadurch lässt sich durch eine Suche über alle betroffenen Gitterplätze effizient eine Ereignisliste aufbauen, die anschließend zur Auswahl eines Ereignisses genutzt werden kann.
-Amorphe Strukturen lassen sich aber nur schwer auf ein Gitter reduzieren, wodurch der Zustandsraum durch kontinuierliche Freiheitsgrade überabzählbar unendlich viele Zustände enthält und nicht mehr vollständig betrachtet werden kann.
+Atompositionen in amorphen Strukturen lassen sich nicht Gitterpunkten zuordnen, sondern sind kontinuierlich im Raum verteilt (Off-Lattice), wodurch der Zustandsraum durch kontinuierliche Freiheitsgrade überabzählbar unendlich viele Zustände enthält und nicht mehr vollständig betrachtet werden kann.
 
 Um diese Beschränkungen zu umgehen, werden in Parsivald (Abschnitt~\ref{parsivald}) alle gleichartigen Ereignisse, die sich in unmittelbarer Nachbarschaft eines bestimmten Oberflächenatomes befinden, zu einem einzigen Ereignis mit fester Reaktionsrate zusammen gefasst.
 Anschließend bestimmt eine Molekulardynamik-Simulation den Ausgang der Oberflächenreaktion mit atomistischer Genauigkeit.
-Trotz Ergodizität der MD-Simulationen, durch welche verschiedenen Ergebnissen des Ereignisses eine Wahrscheinlichkeit entsprechend der relativen Reaktionsrate zugewiesen werden sollte, sorgt diese Formulierung zu einer Verletzung der KMC-Formulierung durch eine Verzerrung der Simulationszeit bei fehlerhaften Ereignisraten.
-Als Vorteil sorgt die Kombination beider Methoden zu einer Beschleunigung gegenüber MD-Rechnungen und zur Möglichkeit der strukturellen Betrachtung für KMC-Simulationen, wobei für gesteigerte Effizienz der Algorithmen auf spezialisierte Datenstrukturen zurück gegriffen werden muss.
+Trotz Ergodizität der MD-Simulationen, durch welche verschiedenen Ergebnissen des Ereignisses eine Wahrscheinlichkeit entsprechend der relativen Reaktionsrate zugewiesen werden sollte, führt diese Formulierung zu einer Verletzung der KMC-Formulierung durch eine Verzerrung der Simulationszeit bei fehlerhaften Ereignisraten, die bei strukturellen untersuchungen vernachlässigt werden kann.
+%% Da dies keinen Einfluss auf die strukturellen Eigenschaften hat, lassen sich Untersuchungen der Struktur damit dennoch durchführen.
+Im Gegenzug sorgt die Kombination beider Methoden zu einer enormen Beschleunigung gegenüber reinen MD-Rechnungen und zur Möglichkeit der strukturellen Betrachtung für KMC-Simulationen, wobei für gesteigerte Effizienz der Algorithmen auf spezialisierte Datenstrukturen zurück gegriffen werden muss.
+\todo{Sie erlaubt zudem die atomistische Betrachtung GIGANTISCHER Systeme.}

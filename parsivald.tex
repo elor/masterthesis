@@ -87,12 +87,12 @@ Für ALD und CVD lässt sich die Abscheidungsrate aus der Reaktionskinetik absch
 \end{enumerate}
 
 Die Beschränkung des Modelles auf diffusionsarme Oberflächenabscheidungen ergibt sich aus der Notwendigkeit, Bereiche des Simulationsraumes, in denen keine Reaktion statt findet, bei der MD-Simulation zu vernachlässigen.
-Das betrifft die Gasphase und den größten Teil des Bulks ebenso wie abgeschirmte Bereiche der Oberfläche.
+Das betrifft die Gasphase und den größten Teil des Bulksystems ebenso wie abgeschirmte Bereiche der Oberfläche.
 Für Prozesse, welche die oben aufgelisteten Annahmen nicht unterstützen, degeneriert Parsivald zu einer reinen MD-Simulation, für die mit Binning und Nachbarschaftslisten effizientere Parallelisierungsmethoden existieren.
 Ein beschränktes Maß an Oberflächendiffusion lässt sich jedoch mit  längeren Relaxationszeiten oder separaten Relaxations-Ereignissen annähernd behandeln.
 
 Weiterhin ist Parsivald auf die zugrunde liegende Molekulardynamik beschränkt.
-So lassen sich nur Systeme simulieren, für die Potentialparametrisierungen existieren, die sowohl Bulks als auch Oberflächen darstellen können, wie es bei EAM- und vielen ReaxFF-Potentialen der Fall ist.
+So lassen sich nur Systeme simulieren, für die Potentialparametrisierungen existieren, die sowohl Bulksysteme als auch Oberflächen darstellen können, wie es bei EAM- und vielen ReaxFF-Potentialen der Fall ist.
 ReaxFF-Potentiale sind um mehrere Größenordnungen rechenaufwendiger als EAM-Potentiale, welche in gleichem Maße rechenaufwendiger als Paarpotentiale sind, weshalb große Systeme nicht mehr mit reiner Molekulardynamik berechenbar sind und sich die Effizienz von Parsivald bemerkbar macht.
 
 Werden zusätzlich Moleküle und deren Reaktionen mit Oberflächenliganden dargestellt, lassen sich Precursor-Oberflächen-Reaktionen direkt in Parsivald simulieren.

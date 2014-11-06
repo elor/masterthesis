@@ -25,7 +25,6 @@ abhängen
 abhängig
 Abhängigkeit
 Abkühlung
-Abkürzungen
 Abkürzungsverzeichnis
 Ablösung
 Abnahme
@@ -35,9 +34,9 @@ abschätzen
 Abschätzung
 abscheiden
 Abscheidung
-Abscheidungsart
 Abscheidungskammern
 Abscheidungsmodi
+Abscheidungsmodus
 Abscheidungsorte
 Abscheidungsprozesse
 Abscheidungsrate
@@ -102,9 +101,7 @@ AlN
 Alpha
 als
 also
-alten
-Alternative
-altes
+alternative
 Aluminium
 Aluminiumoxid
 Alvarez
@@ -133,6 +130,7 @@ Anforderungen
 angeben
 angegeben
 angeglichen
+angekommen
 angenähert
 angenommen
 angepasst
@@ -150,6 +148,7 @@ Annealing
 annehmen
 annimmt
 Anpassung
+Ansatzpunkte
 anschließend
 Anschluss
 Anschlussbedingungen
@@ -168,6 +167,7 @@ Anwendungsszenarien
 any
 Anzahl
 anzeigt
+anzuwenden
 appendixprefix
 April
 Arbeit
@@ -176,7 +176,6 @@ Arbeitsspeicher
 Architektur
 Art
 Artikel
-ASD
 Aspekte
 Assumption
 asymmetrisch
@@ -302,7 +301,6 @@ Bedarf
 Bedeckung
 Bedeckungsdichten
 Bedeckungsgrad
-Bedeckungszahlen
 bedeutet
 Bedeutung
 Bedingungen
@@ -398,8 +396,6 @@ bibteichert
 bieten
 Bild
 bilden
-Bilder
-bildet
 Bildung
 Binär
 Binärbaum
@@ -475,7 +471,6 @@ Conquer
 const
 Construction
 Coulomb
-cpp
 cu
 CuAg
 CuNi
@@ -512,8 +507,6 @@ Darstellung
 darüber
 darzustellen
 das
-dasPrecursorgas
-dass
 Datei
 Dateiformate
 Daten
@@ -539,13 +532,13 @@ denselben
 Density
 Deposition
 der
+derart
 Derartige
 deren
 des
 deshalb
 Desorption
 dessen
-Details
 deuten
 DeWall
 Dezember
@@ -564,6 +557,7 @@ Dicke
 die
 Dielektrika
 Dielektrikum
+Dielektrizität
 dienen
 dies
 diesem
@@ -589,7 +583,9 @@ dominieren
 Doppel
 Doppelbindung
 dort
+Dosierung
 Dr
+draft
 Draufsicht
 drei
 dreidimensionalen
@@ -599,12 +595,12 @@ Dreifachbindungskorrektur
 dritte
 Druck
 drücke
-drucken
 Drücken
 dual
 Duin
 dünne
 Dünnfilm
+Dünnschichten
 durch
 durchführen
 Durchführung
@@ -642,7 +638,6 @@ Eigenschaft
 eigenständigen
 eigentlich
 ein
-einander
 Einbettung
 Einbettungsfunktion
 einbinden
@@ -670,7 +665,6 @@ Eingang
 Eingebettete
 eingebrachten
 eingefügten
-eingeführt
 eingegangen
 eingehen
 eingehender
@@ -689,6 +683,7 @@ Einschlagsenergie
 Einschränkung
 einseitige
 Einstellung
+Einstellzeit
 einzeln
 Einzig
 einzige
@@ -825,11 +820,12 @@ existieren
 Expansions
 Experiment
 experimentell
+Experimentelle
+experimentellen
 explizit
 Explosionen
 exponentielle
 exponierte
-exportieren
 exportierten
 Expositionszeit
 externe
@@ -854,7 +850,6 @@ fehl
 Fehlen
 fehlenden
 Fehler
-Fehlerabschätzung
 fehlerfrei
 Fehlerhafte
 fehlerhaften
@@ -884,6 +879,7 @@ final
 finden
 Finite
 Fitting
+flacheren
 Flagging
 flat
 fließenden
@@ -908,7 +904,6 @@ fork
 Forks
 Form
 format
-Formel
 formen
 Formulierung
 Forschergruppe
@@ -934,11 +929,13 @@ Gas
 Gasfluss
 Gasflusssimulation
 gasförmigen
+Gasmolekülen
 Gasphase
 Gasphasenabscheidung
 Gasphasenreaktionen
-Gasstromaus
+Gasstrom
 Gasverbrauch
+Gate
 geachtet
 geben
 Gebieten
@@ -963,7 +960,7 @@ Gegenzug
 geglückt
 gegriffen
 gehalten
-geht
+gehen
 gekapselten
 gekühlt
 gelegene
@@ -1033,7 +1030,7 @@ gibt
 gilt
 Gitter
 Gitterabstandes
-gitterbasiert
+gitterbasierte
 Gitterkonfigurationen
 Gitterkonstanten
 Gitterplätze
@@ -1052,7 +1049,6 @@ gleichermaßen
 Gleichgewicht
 gleichmäßige
 gleichmäßigeren
-gleichmäßiges
 Gleichung
 gleichverteilte
 Gleichverteilungen
@@ -1124,6 +1120,7 @@ headsepline
 Heap
 Height
 Heinz
+helfen
 heraus
 herausgebildet
 herausgeschlagen
@@ -1132,13 +1129,17 @@ Herausschlagen
 herausschlagenden
 Here
 hergestellt
+herrscht
 Herstellungsverfahren
 herunter
 hervor
 hervorgehoben
 hervorragende
+heterogene
 hexagonalen
 hier
+High
+hin
 hinaus
 Hinderung
 hinein
@@ -1181,7 +1182,6 @@ Hydroxyl
 Hydroxylgruppen
 hydroxylieren
 hydroxylierten
-Hydroxylierung
 Hydroxylmoleküle
 hyperref
 ich
@@ -1196,7 +1196,6 @@ ihrerseits
 ihres
 im
 img
-immer
 immerhin
 Implementierung
 implizit
@@ -1208,6 +1207,7 @@ indem
 index
 individuelle
 Indizierung
+Industrie
 industriellen
 inert
 inertem
@@ -1235,7 +1235,6 @@ interessant
 Interesse
 Interface
 intern
-intertem
 Invalide
 invalider
 inversen
@@ -1245,8 +1244,7 @@ Ionen
 Ionenstrahl
 isoliert
 ist
-itemize
-Jahre
+Jahren
 Jahrzehnten
 Januar
 je
@@ -1390,8 +1388,6 @@ Kupferkratern
 Kupferoberflächen
 Kupfersysteme
 kurz
-Kurze
-kurzen
 laden
 Ladungsaustausch
 Lage
@@ -1399,7 +1395,7 @@ lagen
 Lagendicke
 Lagenqualität
 Lamellen
-lammps
+LAMMPS
 Länge
 langen
 längere
@@ -1418,7 +1414,6 @@ Laufzeit
 Laufzeitbedingungen
 Laufzeiten
 Laufzeitfaktor
-Law
 Layer
 leere
 Leerstellen
@@ -1439,6 +1434,7 @@ liefern
 liegen
 liegende
 liegt
+ließe
 Liganden
 Ligandenaustausch
 limitierende
@@ -1446,14 +1442,12 @@ limitiert
 Line
 linear
 Linie
-Link
 links
 Liste
 listet
 listof
 Literatur
 Literaturdaten
-Literaturverzeichnis
 Literaturwerten
 Lithium
 liu
@@ -1533,6 +1527,7 @@ methodischen
 Methylgruppen
 MgAl
 Microscopy
+Mikro
 mikrokanonischen
 Mikrokanonisches
 Mikrometer
@@ -1541,6 +1536,7 @@ Mikroporen
 mikroskopisch
 Milliarden
 Millionen
+Miniaturisierung
 minimalen
 minimieren
 minimierte
@@ -1577,19 +1573,19 @@ Molekulardynamiksoftware
 molekulardynamische
 molekularen
 Moleküle
+Monate
 monatelanger
 Mono
 Monokristalle
 monokristallin
 Monolage
 Monte
-Moore
 MOSFET
 MPI
-Multifunktionsdrucker
-Multilage
+Multilagen
 Multilagensystem
 multipliziert
+Multiskalen
 muss
 müssen
 müsste
@@ -1615,12 +1611,10 @@ Nähe
 näher
 Näherung
 nahezu
-naja
 Name
 namenloses
 Nano
 Nanoclustern
-Nanodevice
 Nanoelektronik
 Nanometer
 Nanopartikel
@@ -1643,7 +1637,6 @@ Netzwerkstacks
 neu
 Neuberechnung
 neue
-Newman
 newsome
 Ni
 nicht
@@ -1674,8 +1667,7 @@ notwendigerweise
 Notwendigkeit
 November
 NPT
-Numerisch
-numerische
+numerisch
 nun
 nutzen
 Nutzer
@@ -1710,7 +1702,6 @@ Octree
 oder
 of
 Off
-offensichtlich
 offiziell
 oft
 oftmals
@@ -1730,14 +1721,13 @@ Optimierungsmethoden
 Optimierungsschritt
 Optimum
 optional
-ordentlich
 Ordnung
 Ordnungsrelationen
 organischen
 organisiert
 orientieren
 Orientierungen
-Ort
+Orten
 orthogonal
 Orthogonalität
 Ortss
@@ -1766,6 +1756,7 @@ Parametrisierung
 parsivald
 Partialdruck
 Partialdrücke
+partielle
 Partikel
 Partitionen
 partitionierbar
@@ -1773,7 +1764,7 @@ Partitionierungen
 Partitionsmethode
 passende
 Passing
-Passivation
+passivierenden
 Patches
 pathologischen
 pdf
@@ -1837,10 +1828,9 @@ präziseren
 Precursor
 Precursorart
 Precursoren
-Precursorgase
+Precursorgas
 Precursorliganden
 Precursormoleküle
-Precursorn
 Precursorpaar
 Precursorreaktionen
 Precursors
@@ -1864,6 +1854,7 @@ Programmspeicher
 projiziert
 proprietäre
 Proteine
+protektiven
 Prozess
 Prozessartefakte
 prozessbedingt
@@ -1960,7 +1951,7 @@ Rechteinhaber
 Red
 Reduktion
 reduzieren
-ref
+Ref
 Referenz
 Referenzdichte
 Referenzen
@@ -2032,7 +2023,6 @@ Schichteigenschaften
 Schichten
 Schichthöhe
 Schichtwachstum
-schieben
 schirmen
 schlagartigen
 Schlagen
@@ -2053,7 +2043,6 @@ schnell
 Schnitt
 Schnittebenen
 Schranke
-schreiben
 Schritt
 Schrittrichtung
 schrittweise
@@ -2163,7 +2152,6 @@ sortierten
 Sortierungen
 sowie
 sowohl
-spacing
 Spannweite
 spät
 späteren
@@ -2249,6 +2237,7 @@ Strukturbreite
 Struktureigenschaften
 strukturell
 Strukturen
+Strukturgrößen
 strukturieren
 strukturierte
 Stub
@@ -2259,11 +2248,8 @@ Sub
 sublinearer
 subquadratisch
 Substrat
-Substrateinfluss
-Substraten
 Substratgrößen
 Substrattemperatur
-subsubsections
 Suchansatz
 Suchbäume
 Suche
@@ -2281,7 +2267,7 @@ Surface
 Symbol
 Symbolverzeichnis
 System
-systematischen
+systematische
 Systeme
 Systemenergie
 Systemes
@@ -2329,10 +2315,10 @@ Teststruktur
 Testsystem
 Tetraeder
 TeX
-Text
 Thema
 theoretisch
 Theoretische
+theoretischer
 Theorie
 Theory
 thermische
@@ -2352,6 +2338,7 @@ Torsionsabhängigkeiten
 Torsionsbarrieren
 totoc
 tracking
+traditionellen
 tragen
 Trainingssatz
 Transfer
@@ -2368,7 +2355,6 @@ Trimethylaluminium
 Trimethylaluminum
 trivial
 trotz
-trotzdem
 true
 twoside
 Typen
@@ -2376,7 +2362,6 @@ typische
 typischerweise
 über
 überabzählbar
-überarbeiten
 Überarbeitung
 Überblick
 Überdeckung
@@ -2432,6 +2417,7 @@ Umkreisradius
 umliegenden
 ummantelten
 Umschreiben
+Umstand
 umstrukturiert
 Umweg
 unabhängig
@@ -2590,7 +2576,7 @@ verteilt
 Verteilung
 Verteilungsfunktion
 vertikalen
-vertretbarer
+vertretbar
 Vertreter
 vertriebenen
 verunreinigen
@@ -2599,7 +2585,6 @@ verursachen
 verursachte
 verwaltet
 verwandte
-Verweis
 verwendet
 verworfen
 Verzerrung
@@ -2643,6 +2628,7 @@ vorherige
 vorherrscht
 vorhersagen
 vorhersehbarer
+vorliegenden
 vornehmen
 Voronoi
 Vorteil
@@ -2654,6 +2640,7 @@ Wachst
 wächst
 Wachstum
 Wachstumsdefekte
+Wachstumsgeschwindigkeit
 Wachstumsrate
 Wachstumsrichtung
 Wachstumsverhaltens
@@ -2670,7 +2657,6 @@ wäre
 Wärmebad
 Warnungen
 Wartezustand
-warum
 was
 Wasser
 Wassermoleküle
@@ -2709,7 +2695,6 @@ wiederholt
 wiederholtem
 wiederholten
 wiederum
-wieso
 Winkel
 wird
 wirken
@@ -2727,7 +2712,6 @@ Worker
 Workerneustart
 Workerpools
 Worst
-Wort
 wu_cu
 wurde
 würde
@@ -2747,7 +2731,6 @@ zehnten
 zeichnen
 zeigen
 zeigte
-Zeile
 Zeit
 Zeitbegrenzung
 zeitgleich
@@ -2779,13 +2762,13 @@ Zieltemperatur
 Zieltriangulation
 Zielwert
 Zielzustand
-Ziff
 Zr
 zu
 zudem
 zuerst
 zufällig
 Zufallszahl
+zufriedenstellend
 zugehörigem
 zugeordnet
 zugewiesen

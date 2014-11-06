@@ -28,37 +28,37 @@ Bei KMC-Simulationen überwiegen die drei Suchoperationen, da sie für jedes Ere
 Somit liegt das Auswahlkriterium der Datenstruktur bei der Effizienz ihrer Suchoperationen, mit Ausnahme der Nachbarschaftslisten und k-d-Bäume, deren Manipulationsoperationen für große Simulationsräume \todo{phrasing}zu langsam sind.
 Die Ergebnisse der Laufzeit-Analysen der sieben Operationen auf den vorgestellten Datenstrukturen werden in Tabelle~\ref{tab:dataruntimes} zusammen gefasst, wofür Tabelle~\ref{tab:datasymbols} die verwendeten Symbole erklärt.
 
-\begin{figure}[h]
-  \captionsetup[subfigure]{singlelinecheck=false}{
-    \def\subfigwidth{0.23\textwidth}
-    \def\svgwidth{\textwidth}
-    \begin{subfigure}[t]{\subfigwidth}
-      \includegraphics[width=\textwidth]{datastructures-a}
-      \subcaption{Listen}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{\subfigwidth}
-      \includegraphics[width=\textwidth]{datastructures-b}
-      \subcaption{Binning}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{\subfigwidth}
-      \includegraphics[width=\textwidth]{datastructures-c}
-      \subcaption{Octree}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{\subfigwidth}
-      \includegraphics[width=\textwidth]{datastructures-d}
-      \subcaption{k-d-Baum}
-    \end{subfigure}
-  }
-  \caption[Übersicht über Partitionen des Simulationsraumes]{
-    Übersicht über Partitionen des Simulationsraumes für einige Datenstrukturen.
-    k-d-Baum-Partitionen sind dynamisch und ändern sich mit jeder Manipulation.
-  }
-  \todo[inline]{Hinweis von Jörg: Bild weglassen.}
-  \label{fig:datastructures}
-\end{figure}
+%% \begin{figure}[h]
+%%   \captionsetup[subfigure]{singlelinecheck=false}{
+%%     \def\subfigwidth{0.23\textwidth}
+%%     \def\svgwidth{\textwidth}
+%%     \begin{subfigure}[t]{\subfigwidth}
+%%       \includegraphics[width=\textwidth]{datastructures-a}
+%%       \subcaption{Listen}
+%%     \end{subfigure}
+%%     \hfill
+%%     \begin{subfigure}[t]{\subfigwidth}
+%%       \includegraphics[width=\textwidth]{datastructures-b}
+%%       \subcaption{Binning}
+%%     \end{subfigure}
+%%     \hfill
+%%     \begin{subfigure}[t]{\subfigwidth}
+%%       \includegraphics[width=\textwidth]{datastructures-c}
+%%       \subcaption{Octree}
+%%     \end{subfigure}
+%%     \hfill
+%%     \begin{subfigure}[t]{\subfigwidth}
+%%       \includegraphics[width=\textwidth]{datastructures-d}
+%%       \subcaption{k-d-Baum}
+%%     \end{subfigure}
+%%   }
+%%   \caption[Übersicht über Partitionen des Simulationsraumes]{
+%%     Übersicht über Partitionen des Simulationsraumes für einige Datenstrukturen.
+%%     k-d-Baum-Partitionen sind dynamisch und ändern sich mit jeder Manipulation.
+%%   }
+%%   \todo[inline]{Hinweis von Jörg: Bild weglassen.}
+%%   \label{fig:datastructures}
+%% \end{figure}
 
 
 \begin{table}[h]
@@ -248,7 +248,8 @@ Deshalb bieten sich k-d-Bäume zwar für allgemeine Suchoperationen in Off-Latti
 
 Eine dritte Partitionsmethode findet sich in der Delaunay-Triangulation\todo{Ref?}, welche jedoch asymmetrisch und nicht-orthogonal arbeitet, indem die konvexe Hülle der Punktwolke raumfüllend in disjunkte k-dimensionale Simplexe\footnote{Ein $k$-Simplex ist ein Objekt in $k$ Dimensionen mit $k+1$ Eckpunkten, die untereinander mit geraden Kanten verbunden sind. Somit ist ein 1-Simplex eine Linie, ein 2-Simplex ein Dreieck, ein 3-Simplex ein Tetraeder, etc.}
 entsprechend des Delaunay-Kriteriums, nach dem sich im Umkreis eines Simplexes keine anderen Punkte der Punktwolke befinden dürfen, zerlegt wird.
-\todo{Anmerkung von Jörg: puuuhhh Du wirst hier ne ganze Menge Dine in den Raum, die eigentlich nach Erklärungen verlangen ...}Damit ergibt sich ein Graph, \todo{Satzkonstrukt überarbeiten}welcher dual zum Voronoi-Diagramm ist, also ein Supergraph des Nächstnachbargraphen ist, der Alpha-Form (Abschnitt~\ref{dataalphaform}) sowie der konvexen Hülle der Punktwolke ist und in \BigO{n\log{n}} vergleichsweise effizient konstruiert werden kann.
+\todo{Anmerkung von Jörg: puuuhhh Du wirst hier ne ganze Menge Dine in den Raum, die eigentlich nach Erklärungen verlangen ...}
+Damit ergibt sich ein Graph, der ein Supergraph des Nächstnachbargraphen\footnote{Der Nächstnachbargraph verbindet alle Punkte des Graphen mit ihrem nächsten Nachbarn}, der Alpha-Form (Abschnitt~\ref{dataalphaform}) sowie der konvexen Hülle\footnote{Die konvexe Hülle ist ein Körper aus Dreiecken, der alle Punkte der Punktwolke einschließt. Sie ergibt sich als Vereinigung einer vollständigen Triangulation. Siehe Abbildung~\ref{fig:delaunay-alpha-b}} der Punktwolke ist und in \BigO{n\log{n}} effizient konstruiert werden kann.
 Die Konstruktion lässt sich im Gegensatz zu den anderen Datenstrukturen für große Simulationsräume mit entsprechenden Divide-and-Conquer-Algorithmen parallelisieren, oder vor einer etwaigen periodischen Erweiterung einer Einheitszelle zum Simulationsraum durchführen.
 Eine Liste von Eigenschaften der Simplexe sowie einer Übersicht über die verschiedenen Konstruktionsmethoden ist in Anhang~\ref{appendix_delaunay} zu finden.
 

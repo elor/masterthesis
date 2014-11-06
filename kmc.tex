@@ -56,7 +56,7 @@ Atompositionen in amorphen Strukturen lassen sich nicht Gitterpunkten zuordnen, 
 
 Um diese Beschränkungen zu umgehen, werden in Parsivald (Abschnitt~\ref{parsivald}) alle gleichartigen Ereignisse, die sich in unmittelbarer Nachbarschaft eines bestimmten Oberflächenatomes befinden, zu einem einzigen Ereignis mit fester Reaktionsrate zusammen gefasst.
 Anschließend bestimmt eine Molekulardynamik-Simulation den Ausgang der Oberflächenreaktion mit atomistischer Genauigkeit.
-Trotz Ergodizität der MD-Simulationen, durch welche verschiedenen Ergebnissen des Ereignisses eine Wahrscheinlichkeit entsprechend der relativen Reaktionsrate zugewiesen werden sollte, führt diese Formulierung zu einer Verletzung der KMC-Formulierung durch eine Verzerrung der Simulationszeit bei fehlerhaften Ereignisraten, die bei strukturellen untersuchungen vernachlässigt werden kann.
+Trotz Ergodizität der MD-Simulationen, durch welche verschiedenen Ergebnissen des Ereignisses eine Wahrscheinlichkeit entsprechend ihrer relativen Reaktionsrate zugewiesen werden sollte, führt diese Formulierung zu einer Verletzung der KMC-Formulierung durch eine Verzerrung der Simulationszeit bei inkorrekten Ereignisraten, die aber bei strukturellen untersuchungen vernachlässigt werden kann.
 %% Da dies keinen Einfluss auf die strukturellen Eigenschaften hat, lassen sich Untersuchungen der Struktur damit dennoch durchführen.
 Im Gegenzug sorgt die Kombination beider Methoden zu einer enormen Beschleunigung gegenüber reinen MD-Rechnungen und zur Möglichkeit der strukturellen Betrachtung für KMC-Simulationen, wobei für gesteigerte Effizienz der Algorithmen auf spezialisierte Datenstrukturen zurück gegriffen werden muss.
 \todo{Sie erlaubt zudem die atomistische Betrachtung GIGANTISCHER Systeme.}

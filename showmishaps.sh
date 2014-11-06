@@ -177,12 +177,16 @@ getlatexwarnings(){
     listlogs | xargs -0 grep -Pi 'warning' | grep -Pv '^Package: infwarerr [0-9]{4}/[0-9]{2}/[0-9]{2} v[0-9.]+ Providing' | grep -v 'pdflatex (file .*\.pdf): PDF'
 }
 
+equationreferences(){
+    listfiles | xargs -0 grep -n 'ref{eq' | cuttooneline
+}
+
 #####################
 # begin actual work #
 #####################
 {
 
-#    register "possible typos" listunknownwords
+    register "possible typos" listunknownwords
     register "LaTeX Errors" getlatexerrors
     register "word repetitions" doublewords
     register "undefined references" undefinedreferences
@@ -197,6 +201,7 @@ getlatexwarnings(){
     register "cites/refs with leading spaces" spacerefs
     register "ASD occurences" asddsa
     register "LaTeX Warnings" getlatexwarnings
+    register "Equation References" equationreferences
     register "todo notes" todonotes
     # register "draft notes" getdrafts
 

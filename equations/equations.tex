@@ -25,6 +25,12 @@ k=3.9
 \alpha
 \end{equation}
 \begin{equation}
+\alpha
+\end{equation}
+\begin{equation}
+\alpha
+\end{equation}
+\begin{equation}
 \gamma
 \end{equation}
 \begin{equation}
@@ -41,6 +47,36 @@ k=3.9
 \end{equation}
 \begin{equation}
 \alpha
+\end{equation}
+\begin{equation}
+n
+\end{equation}
+\begin{equation}
+k
+\end{equation}
+\begin{equation}
+k
+\end{equation}
+\begin{equation}
+k
+\end{equation}
+\begin{equation}
+k+1
+\end{equation}
+\begin{equation}
+\subset
+\end{equation}
+\begin{equation}
+\Leftrightarrow
+\end{equation}
+\begin{equation}
+\subset
+\end{equation}
+\begin{equation}
+\Rightarrow
+\end{equation}
+\begin{equation}
+k_d
 \end{equation}
 \begin{equation}
 E_\text{A}
@@ -49,10 +85,10 @@ E_\text{A}
 p_\text{partial}
 \end{equation}
 \begin{equation}
-\tau
+\sigma_z
 \end{equation}
 \begin{equation}
-A_S^D
+\tau
 \end{equation}
 \begin{equation}
 t_\text{relax}
@@ -268,16 +304,7 @@ r_s
 s
 \end{equation}
 \begin{equation}
-k
-\end{equation}
-\begin{equation}
-k
-\end{equation}
-\begin{equation}
-k
-\end{equation}
-\begin{equation}
-k+1
+\frac{\log{c}}{d\log{2}}
 \end{equation}
 \begin{equation}
 atoms
@@ -427,19 +454,31 @@ points\left[\lfloor\frac{n}{2}\rfloor+1:n-1\right], dim
 root
 \end{equation}
 \begin{equation}
-\subset
+k
 \end{equation}
 \begin{equation}
-\Leftrightarrow
+k
 \end{equation}
 \begin{equation}
-\subset
+k+1
 \end{equation}
 \begin{equation}
-\Rightarrow
+r_d
 \end{equation}
 \begin{equation}
-k_d
+\alpha
+\end{equation}
+\begin{equation}
+\alpha
+\end{equation}
+\begin{equation}
+\alpha \rightarrow \infty
+\end{equation}
+\begin{equation}
+\alpha \rightarrow 0
+\end{equation}
+\begin{equation}
+\alpha \approx r_\text{bond}
 \end{equation}
 \begin{equation}
 _0
@@ -469,28 +508,7 @@ _0 \in
 \setminus
 \end{equation}
 \begin{equation}
-\alpha
-\end{equation}
-\begin{equation}
-r_d > \alpha^{-1}
-\end{equation}
-\begin{equation}
-r_d > \alpha^{-1}
-\end{equation}
-\begin{equation}
-\alpha
-\end{equation}
-\begin{equation}
-\alpha=0
-\end{equation}
-\begin{equation}
-\alpha<0
-\end{equation}
-\begin{equation}
 r_d > \alpha
-\end{equation}
-\begin{equation}
-r_d < \alpha
 \end{equation}
 \begin{equation}
 r_d < \alpha
@@ -511,10 +529,10 @@ r_d < \alpha
 V(X)
 \end{equation}
 \begin{equation}
-V(r_ij)
+V
 \end{equation}
 \begin{equation}
-r_\text{cut}
+r_ij
 \end{equation}
 \begin{equation}
   \label{eq:pairforce}
@@ -529,8 +547,14 @@ r_\text{cut}
   V_\text{LJ}(r_{ij}) = 4 \epsilon \left[\left(\frac{\sigma}{r_{ij}}\right)^{12} - \left(\frac{\sigma}{r_{ij}}\right)^{6}\right]
 \end{equation}
 \begin{equation}
+V(r_ij)
+\end{equation}
+\begin{equation}
+r_\text{cut}
+\end{equation}
+\begin{equation}
   \label{eq:nbody-energy}
-  E = \sum_i\sum_{j \neq i}{V_2\left(r_{ij}\right)} + \sum_i\sum_{j \neq i}\sum_{i \neq k \neq j}{V_3\left(r_{ij}, r_{ik}, \theta_{ijk}\right)} + \dots
+  E = \sum_i\sum_{j \neq i}{V_2\left(r_{ij}\right)} + \sum_i\sum_{j \neq i}\sum_{\substack{k \neq i \\ k \neq j}}{V_3\left(r_{ij}, r_{ik}, \theta_{ijk}\right)} + \dots
 \end{equation}
 \begin{equation}
 V_{\alpha\beta}(r_{ij})
@@ -545,19 +569,19 @@ F_\alpha
 \rho_\beta(r_{ij})
 \end{equation}
 \begin{equation}
+  \label{eq:eam-energy}
+  E = \sum_i\left[F_\alpha\left(\sum_{j\neq i}{\rho_\beta\left(r_{ij}\right)}\right) + \frac{1}{2}\sum_{j\neq i}{V_{\alpha\beta}\left(r_{ij}\right)}\right]
+\end{equation}
+\begin{equation}
 \alpha
 \end{equation}
 \begin{equation}
 \beta
 \end{equation}
-\begin{equation}
-  \label{eq:eam-energy}
-  E = \sum_i\left[F_\alpha\left(\sum_{j\neq i}{\rho_\beta\left(r_{ij}\right)}\right) + \frac{1}{2}\sum_{j\neq i}{V_{\alpha\beta}\left(r_{ij}\right)}\right]
-\end{equation}
-\begin{equation}
-  \label{eq:meam-energy}
-  E = \sum_i\left[F_\alpha\left(\bar{\rho_i}\right) + \frac{1}{2}\sum_{j\neq i}{V_{ij}\left(r_{ij}\right)}\right]
-\end{equation}
+%% \begin{equation}
+%%   \label{eq:meam-energy}
+%%   E = \sum_i\left[F_\alpha\left(\bar{\rho_i}\right) + \frac{1}{2}\sum_{j\neq i}{V_{ij}\left(r_{ij}\right)}\right]
+%% \end{equation}
 \begin{equation}
 \sigma
 \end{equation}
@@ -567,11 +591,6 @@ F_\alpha
 \begin{equation}
 \pi
 \end{equation}
-\begin{align}
-  \label{eq:reaxformulation}
-  E_\text{system} =~& E_\text{bond} + E_\text{lp} + E_\text{over} + E_\text{under} + E_\text{val} + E_\text{pen} + E_\text{coa} + E_\text{C2} \\
-  \nonumber  & + E_\text{tors} + E_\text{conj} + E_\text{H-bond} + E_\text{vdWaals} + E_\text{Coulomb}
-\end{align}
 \begin{equation}
 E_\text{bond}
 \end{equation}
@@ -620,6 +639,11 @@ E_\text{vdWaals}
 \begin{equation}
 E_\text{Coulomb}
 \end{equation}
+\begin{align}
+  \label{eq:reaxformulation}
+  E_\text{system} =~& E_\text{bond} + E_\text{lp} + E_\text{over} + E_\text{under} + E_\text{val} + E_\text{pen} + E_\text{coa} + E_\text{C2} \\
+  \nonumber  & + E_\text{tors} + E_\text{conj} + E_\text{H-bond} + E_\text{vdWaals} + E_\text{Coulomb}
+\end{align}
 \begin{equation}
 t_\text{relax}
 \end{equation}
@@ -652,6 +676,18 @@ t_\text{relax}
 \end{equation}
 \begin{equation}
 \hat{=}
+\end{equation}
+\begin{equation}
+\kappa=\num{3.9}
+\end{equation}
+\begin{equation}
+\kappa
+\end{equation}
+\begin{equation}
+\kappa
+\end{equation}
+\begin{equation}
+\kappa
 \end{equation}
 \begin{equation}
 X_0
@@ -690,9 +726,6 @@ R_i
 R_N
 \end{equation}
 \begin{equation}
-  r_i = r(E_i)
-\end{equation}
-\begin{equation}
   R_i = \sum_{j \le i}{r_j}
 \end{equation}
 \begin{equation}
@@ -705,13 +738,10 @@ X_n^i
 X_n
 \end{equation}
 \begin{equation}
-N = 0
-\end{equation}
-\begin{equation}
-R_N = 0
-\end{equation}
-\begin{equation}
   X_n = X_n^i : R_{i-1} \le u R_N < R_i ~~,\quad u \in [0,1)~\text{gleichverteilt}
+\end{equation}
+\begin{equation}
+R_N
 \end{equation}
 \begin{equation}
   t_n = t_{n-1} + \frac{-\ln(u')}{R_N} ~~,\quad u' \in [0,1)~\text{gleichverteilt}
@@ -732,13 +762,19 @@ t_n > t_\text{fin}
 E_i
 \end{equation}
 \begin{equation}
+n
+\end{equation}
+\begin{equation}
 X_n
 \end{equation}
 \begin{equation}
-X_n^i
+\alpha
 \end{equation}
 \begin{equation}
-\alpha
+\tau
+\end{equation}
+\begin{equation}
+t_\text{relax}
 \end{equation}
 \begin{equation}
 \tau_p
@@ -800,8 +836,7 @@ T
 T_\text{Ziel}
 \end{equation}
 \begin{equation}
-  %% \overline{E_{kin}} = \frac{1}{2} \overline{m v^2} = \frac{d}{2} k_B T
-  \overline{E_{kin}} = \frac{1}{2} \overline{m v^2} = \frac{d}{2} k_B T
+  \overline{E_{kin}} = \frac{1}{2} \overline{m v^2} = \frac{d}{2} k_B T_\text{Ziel}
   \label{eq:ekanonisch}
 \end{equation}
 \begin{equation}
@@ -846,7 +881,7 @@ M
   T = \text{const.}
 \end{equation}
 \begin{equation}
-  PV = N k_B T + \frac{1}{d} \sum_{i=1}^N{\vec{r}_i \cdot \vec{F}_i}
+  P V = N k_B T + \frac{1}{d} \sum_{i=1}^N{\vec{r}_i \cdot \vec{F}_i}
 \end{equation}
 \begin{equation}
 \vec X_0
@@ -867,13 +902,13 @@ M
   \vec X_i = \vec X_{i-1} - \alpha \nabla E(\vec X_{i-1})
 \end{equation}
 \begin{equation}
-\left|\vec X_i - \vec X_{i-1}\right| < X_\text{tol}
+|\vec X_i - \vec X_{i-1}| < X_\text{tol}
 \end{equation}
 \begin{equation}
-\max_k{\left|X_{i,k} - X_{i-1,k}\right|} < X_\text{tol}
+\max_k{|X_{i,k} - X_{i-1,k}|} < X_\text{tol}
 \end{equation}
 \begin{equation}
-\left|\nabla E(\vec X_{i-1})\right| < E_\text{tol}
+|\nabla E(\vec X_{i-1})| < E_\text{tol}
 \end{equation}
 \begin{equation}
 i > i_\text{tol}
@@ -882,7 +917,7 @@ i > i_\text{tol}
   \label{eq:cg-linesearch1}
   \min_\alpha f(X_i+\alpha \vec s_i) \rightarrow \alpha_i \\
   \label{eq:cg-linesearch2}
-  \vec X_i = \vec X_{i-1} - \alpha_i \vec s_i\\
+  \vec X_i = \vec X_{i-1} - \alpha_i \vec s_i
 \end{gather}
 \begin{equation}
   \label{eq:pr1}
@@ -899,6 +934,12 @@ Id
 _2
 \end{equation}
 \begin{equation}
+t_\text{relax}
+\end{equation}
+\begin{equation}
+\end{equation}
+\begin{equation}
+t=80
 \end{equation}
 
 \end{document}

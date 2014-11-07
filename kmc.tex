@@ -8,7 +8,7 @@ Sie beschreiben den Zeitverlauf eines Systemes als eine Abfolge von diskreten Ü
 Damit bieten sie sich hauptsächlich zur Simulation stochastischer Prozesse an, wobei sie auch Nichtgleichgewichtssysteme beschreiben können und somit unter anderem zur Simulation von Oberflächenreaktionen und Schichtabscheidung geeignet sind.
 
 Ausgehend von einem Startzustand $X_0$ aus dem Zustandsraum $\mathbb{X}$ zum Zeitpunkt $t_0 = 0$ wird eine zeitliche Abfolge von Zuständen $X_n \in \mathbb{X}$ nach dem folgenden Algorithmus erzeugt:\\
-Zuerst werden alle Ereignisse $E_i$, die einen Übergang vom vorherigen Zustand $X_{n-1}$ zu einem beliebigen Zustand $X_n^i$ ermöglichen, ermittelt und gesammelt:
+Zuerst werden alle Ereignisse $E_i$, die einen Übergang vom vorherigen Zustand $X_{n-1}$ zu einem beliebigen anderen Zustand $X_n^i$ ermöglichen, ermittelt und gesammelt:
 \begin{equation}
   E_i : X_{n-1} \rightarrow X_n^i \in \mathbb{X} ~~,\quad i \in [1, N]
 \end{equation}
@@ -22,7 +22,7 @@ Anschließend wählt man anhand einer gleichverteilten Zufallszahl $u$ ein Ereig
 \begin{equation}
   X_n = X_n^i : R_{i-1} \le u R_N < R_i ~~,\quad u \in [0,1)~\text{gleichverteilt}
 \end{equation}
-Zum Abschluss des KMC-Schrittes erhöht man die Simulationszeit gemäß einer Poisson-Verteilung in Abhängigkeit der akkumulierten Rate \textit{aller} Ereignisse, wodurch die Zeitskala unabhängig von der Systemgröße wird:
+Zum Abschluss des KMC-Schrittes erhöht man die Simulationszeit gemäß einer Poisson-Verteilung in Abhängigkeit der akkumulierten Rate $R_N$ \textit{aller} Ereignisse, wodurch die Zeitskala unabhängig von der Systemgröße wird:
 \begin{equation}
   t_n = t_{n-1} + \frac{-\ln(u')}{R_N} ~~,\quad u' \in [0,1)~\text{gleichverteilt}
 \end{equation}
@@ -54,11 +54,11 @@ Deshalb wird oft auf ein Simulationsgitter zurück gegriffen, um die Zahl der ve
 
 Vor allem bei kristallinen Strukturen lassen sich viele Übergänge durch das Verschieben, Entfernen oder Hinzufügen von Atomen auf den Gitterplätzen beschreiben, wobei die Ereignisraten jeweils von den benachbarten Gitterplätzen abhängig sind.
 Dadurch lässt sich durch eine Suche über alle betroffenen Gitterplätze effizient eine Ereignisliste aufbauen, die anschließend zur Auswahl eines Ereignisses genutzt werden kann.
-Atompositionen in amorphen Strukturen lassen sich nicht Gitterpunkten zuordnen, sondern sind kontinuierlich im Raum verteilt (Off-Lattice), wodurch der Zustandsraum durch kontinuierliche Freiheitsgrade überabzählbar unendlich viele Zustände enthält und nicht mehr vollständig betrachtet werden kann.
+Atompositionen in amorphen Strukturen lassen sich keinen Gitterpunkten zuordnen, sondern sind kontinuierlich im Raum verteilt (Off-Lattice), wodurch der Zustandsraum durch kontinuierliche Freiheitsgrade überabzählbar unendlich viele Zustände enthält und nicht mehr vollständig betrachtet werden kann.
 
 Um diese Beschränkungen zu umgehen, werden in Parsivald (Abschnitt~\ref{parsivald}) alle gleichartigen Ereignisse, die sich in unmittelbarer Nachbarschaft eines bestimmten Oberflächenatomes befinden, zu einem einzigen Ereignis mit fester Reaktionsrate zusammen gefasst.
 Anschließend bestimmt eine Molekulardynamik-Simulation den Ausgang der Oberflächenreaktion mit atomistischer Genauigkeit.
-Trotz Ergodizität der MD-Simulationen, durch welche verschiedenen Ergebnissen des Ereignisses eine Wahrscheinlichkeit entsprechend ihrer relativen Reaktionsrate zugewiesen werden sollte, führt diese Formulierung zu einer Verletzung der KMC-Formulierung durch eine Verzerrung der Simulationszeit bei inkorrekten Ereignisraten, die aber bei strukturellen untersuchungen vernachlässigt werden kann.
+Trotz Ergodizität der MD-Simulationen, durch welche verschiedenen Ergebnissen des Ereignisses eine Wahrscheinlichkeit entsprechend ihrer relativen Reaktionsrate zugewiesen werden sollte, führt diese Formulierung zu einer Verletzung der KMC-Formulierung durch eine Verzerrung der Simulationszeit bei inkorrekten Ereignisraten, die aber bei strukturellen Untersuchungen vernachlässigt werden kann.
 %% Da dies keinen Einfluss auf die strukturellen Eigenschaften hat, lassen sich Untersuchungen der Struktur damit dennoch durchführen.
 Im Gegenzug sorgt die Kombination beider Methoden zu einer enormen Beschleunigung gegenüber reinen MD-Rechnungen und zur Möglichkeit der strukturellen Betrachtung für KMC-Simulationen, wobei für gesteigerte Effizienz der Algorithmen auf spezialisierte Datenstrukturen zurück gegriffen werden muss.
-\todo{Sie erlaubt zudem die atomistische Betrachtung GIGANTISCHER Systeme.}
+\todo{Sie erlaubt zudem die atomistische Betrachtung gigantischer Systeme.}

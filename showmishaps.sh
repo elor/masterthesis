@@ -17,11 +17,11 @@ register(){
     [ -z "$name" ] && { echo "register(): name not set">&2; return 1; }
     [ -z "$function" ] && { echo "register(): function not set">&2; return 1; }
 
-    local output="$("$function" $@ 2>&1)"
+    local output="$("$function" $@ 2>&1 | cuttooneline)"
 
     if [ -n "$output" ]; then
         everythingok=false
-        cat <<EOF
+        cat <<EOF | tr $'\t' t
 <===== $name =====>
 
 $output
@@ -46,11 +46,12 @@ compilationfinished(){
 
 cuttooneline(){
     [ -z "$COLUMNS" ] && local COLUMNS=80
-    sed -r 's/(^.{1,'$COLUMNS'}).*/\1/'    
+    sed -r 's/(^.{1,'$((COLUMNS-1))'}).*/\1/'    
 }
 
 listfiles(){
-    find * -maxdepth 0 -name '*.tex' -print0
+    find `./texorder.sh` -print0
+#    find * -maxdepth 0 -name '*.tex' -print0
 }
 
 listlogs(){
@@ -83,11 +84,11 @@ unusedcitations(){
 }
 
 spacerefs(){
-    listfiles | xargs -0 grep -Pn '(^| )\\(ref|cite)\{' | grep -v '[^\\]&' | cuttooneline
+    listfiles | xargs -0 grep -Pn '(^| )\\(ref|cite)\{' | grep -v '[^\\]&'
 }
 
 alltabs(){
-    listfiles | xargs -0 grep -Pn '\t' | cuttooneline
+    listfiles | xargs -0 grep -Pn '\t'
 }
 
 doublewords(){
@@ -131,30 +132,30 @@ listlonglines(){
     [ -z "$maxchars" ] && maxchars=300
     lines=$(
         listfiles|xargs -0n1 | while IFS= read file; do
-            sed -r 's/\{[^{}]+(\{[^{}]*\}[^{}]*)*\}//g' $file | sed -e 's/\$[^$]\+\$//' | awk '{if (length > '$maxchars') print length,"'$file':"NR":",$0}' | cuttooneline
+            sed -r 's/\{[^{}]+(\{[^{}]*\}[^{}]*)*\}//g' $file | sed -e 's/\$[^$]\+\$//' | awk '{if (length > '$maxchars') print length,"'$file':"NR":",$0}'
         done | sort -nr
     )
     [ -n "$lines" ] && echo -e "$lines"
 }
 
 undefinedreferences(){
-    listlogs | { xargs -0 grep -Pi 'Reference.*undefined' || echo "ok"; } | sed -r -n "s/^[^\`]*\`([^']+)'.*$/\1/p" | sort -u
+    listlogs | xargs -0 grep -Pi 'Reference.*undefined' | sed -r -n "s/^[^\`]*\`([^']+)'.*$/\1/p" | sort -u
 }
 
 undefinedcitations(){
-    listlogs | { xargs -0 grep -Pi 'Citation.*undefined' || echo "ok"; } | sed -r -n "s/^[^\`]*\`([^']+)'.*$/\1/p" | sort -u
+    listlogs | xargs -0 grep -Pi 'Citation.*undefined' | sed -r -n "s/^[^\`]*\`([^']+)'.*$/\1/p" | sort -u
 }
 
 multiplelabels(){
-    listlogs | { xargs -0 grep -Pi 'multipl[ey]' || echo "ok"; } | sed -r -n "s/^[^\`]*\`([^']+)'.*$/\1/p" | sort -u
+    listlogs | xargs -0 grep -Pi 'multipl[ey]' | sed -r -n "s/^[^\`]*\`([^']+)'.*$/\1/p" | sort -u
 }
 
 trailingspaces(){
-    listfiles | xargs -0 grep -Pn '\s+$'
+    listfiles | xargs -0 grep -Pn '\s+$' 
 }
 
 dotlines(){
-    listfiles | xargs -0 grep -Pn '^[^%&]*(?<!engl|Kap|S|Abb|Tab|Gl|Anh|Ref|Prof|vs|Dr|z\.B|Abh|et al|unters|ca|eam|etc|[0-9]|[^A-Z][A-Z])\.(?!$|[0-9]|pdf|cpp|com|eam|\s*(\&|\\todo|%|\\\\|,|\})|Sc\.|B\.)' | grep -Pv '\\(If|State|dcauthoremail|todo)' | cuttooneline
+    listfiles | xargs -0 grep -Pn '^[^%&]*(?<!engl|Kap|S|Abb|Tab|Gl|Anh|Ref|Prof|vs|Dr|z\.B|Abh|et al|unters|ca|eam|etc|[0-9]|[^A-Z][A-Z])\.(?!$|[0-9]|pdf|cpp|com|eam|\s*(\&|\\todo|%|\\\\|,|\})|Sc\.|B\.)' | grep -Pv '\\(If|State|dcauthoremail|todo|footnote)'
 }
 
 asddsa(){
@@ -178,7 +179,7 @@ getlatexwarnings(){
 }
 
 equationreferences(){
-    listfiles | xargs -0 grep -n 'ref{eq' | cuttooneline
+    listfiles | xargs -0 grep -n 'ref{eq'
 }
 
 doublespaces(){
@@ -190,7 +191,7 @@ listabbreviations(){
 }
 
 listofabbreviations(){
-    grep -hoP '(\s|^)[A-Z]{2,}(\s|$)' "$(listfiles | xargs -0 grep -l Abkürzungsverzeichnis | head -1)" | xargs -n1 | sort -u
+    grep -hoP '(\s|^)[A-Z]{2,}(\s|$)' "$(listfiles | xargs -0 grep -l Abkürzungsverzeichnis | head -1)" 2>/dev/null | xargs -n1 | sort -u
 }
 
 unexplainedabbreviations(){
@@ -201,12 +202,24 @@ unexplainedabbreviations(){
     } | sort | uniq -u
 }
 
+unusedabbreviations(){
+    {
+        listabbreviations
+        listabbreviations
+        listofabbreviations
+    } | sort | uniq -u
+}
+
+disabledincludes(){
+    listfiles | xargs -0 grep -Pon '%.*\\in(clude|put){[^}]+}'
+}
+
 #####################
 # begin actual work #
 #####################
 {
 
-    register "possible typos" listunknownwords
+#    register "possible typos" listunknownwords
     register "LaTeX Errors" getlatexerrors
     register "word repetitions" doublewords
     register "undefined references" undefinedreferences
@@ -214,14 +227,16 @@ unexplainedabbreviations(){
     register "unexplained abbreviations" unexplainedabbreviations
     register "multiplelabels" multiplelabels
     register "citations with language tag" citationswithlanguagetag
-    register "unused citations" unusedcitations
     register "long lines" listlonglines 333
     register "dots within a line" dotlines
     register "trailing spaces" trailingspaces
     register "double spaces" doublespaces
     register "tab stops" alltabs
     register "cites/refs with leading spaces" spacerefs
+    register "unused citations" unusedcitations
+    register "unused abbreviations" unusedabbreviations
     register "ASD occurences" asddsa
+    register "disabled includes" disabledincludes
     register "LaTeX Warnings" getlatexwarnings
     register "Equation References" equationreferences
     register "todo notes" todonotes

@@ -387,6 +387,19 @@ FUNCTION {inproceedings}
   newline$
 }
 
+FUNCTION {patent}
+{
+  cite$ format.bibitem
+  author format.author
+  ": " write$
+  title format.title
+  doi url format.doiurl
+  " " write$
+  year format.year
+  "." write$
+  newline$
+}
+
 FUNCTION {misc}
 {
   cite$ format.bibitem

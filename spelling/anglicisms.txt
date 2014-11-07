@@ -1,3 +1,8 @@
+Neighborhood
+Giant
+Large
+Magnetoresistance
+Comment
 ever
 Atomic
 Atomistic

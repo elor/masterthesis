@@ -1,24 +1,31 @@
 \section{MD-Simulationen: Methoden und Auswertungen}
 \label{mdmethods}
 
+\todo[inline]{Klar machen, dass das für Präparationen gilt, nicht nur für Parsivald}
+
 Nachdem in Abschnitt~\ref{md} die Funktionsweise der Molekulardynamik beschrieben wurde, soll in diesem Abschnitt ein kurzer Überblick über die Vorgehensweisen und Methoden bei der Auswertung von MD-Simulationen gegeben werden, die in den folgenden Kapiteln wiederholt eingesetzt werden.
 Dies beinhaltet sowohl die Simulationsmethoden selbst, wie etwa Relaxierungen von Substraten, Reaktionen und Stabilitätssimulationen von Molekülen, als auch die Auswertung deren Ergebnisse durch externe Werkzeuge.
 
 \subsection{Relaxierungen}
 
+\todo[inline]{hochfrequente Bewegungen dominieren Zeitschrittweite}
+
 Ausgehend von einer präparierten Struktur wird das System auf die Relaxationstemperatur erwärmt, dort im kanonischen Ensemble für die Relaxationsdauer simuliert und bei Bedarf wieder auf eine Zieltemperatur abgekühlt.
 Erwärmung und Abkühlung sind zwar optional, allerdings bei einigen Strukturen zur Reduktion numerischer Fehler notwendig, wie etwa zur Wahrung der Anschlussbedingungen der MD-Simulationen innerhalb von Parsivald.
+\todo[inline]{Anmerkung von Jörg: Das wirft natürlich die Frage auf, ob überhaupt die richtigen (also zur Substrattemperatur passenden) Strukturen gebildet werden, sofern diese temperaturabhängig sind}
 
 \subsection{Strukturelle Analyse}
 
 Zur Auswertung einer Struktur bietet sich zuerst eine visuelle Beurteilung an, die mit entsprechenden Programmen vorgenommen werden kann.
 Im Anschluss können die Dichte, Radiale Verteilungsfunktion, Bindungslänge und Koordinationszahl bestimmt werden, um die Struktur weiter zu charakterisieren und Aussagen über Kristallbildung treffen zu können.
-Bei Kristallen kann eine Alpha-Form mit einem $\alpha$-Wert knapp oberhalb der Bindungslänge genutzt werden, um Fehlstellen im Gitter oder Gitterversetzungen zu identifizieren.
+Bei Kristallen kann eine Alpha-Form (Abschnitt~\ref{dataalpha}) mit einem $\alpha$-Wert knapp oberhalb der Bindungslänge genutzt werden, um Fehlstellen im Gitter oder Gitterversetzungen zu identifizieren.
 
 \subsection{Bestimmung der Dichte und Temperatur}
 
-Zur Bestimmung der Dichte stehen verschiedene Möglichkeiten zur Verfügung, die letztendlich alle auf Zählung der Atome innerhalb eines begrenzten Volumens zurückgeführt werden können.
-Da sie im großkanonischen Ensemble durch die Reskalierung des Simulationsraumes fluktuiert, muss sie zeitlich über einen größeren Zeitraum als die Dämpfungskonstante $\tau_p$ gemittelt werden, da sie sonst nicht über die gesamte Periode der Fluktuation betrachtet wird.
+\todo[inline]{Vergleich der Zeiten (Schritt, $\tau$, $t_\text{relax}$, )}
+
+Zur Bestimmung der Dichte des Blocks eines amorphen Materials stehen verschiedene Möglichkeiten zur Verfügung, die letztendlich alle auf Zählung der Atome innerhalb eines begrenzten Volumens zurückgeführt werden können.
+Da das Volumen des Simulationsraumes im großkanonischen Ensemble durch das Barostat oszilliert, muss sie zeitlich über einen größeren Zeitraum als die Dämpfungskonstante $\tau_p$ gemittelt werden, da sie sonst nicht über die gesamte Periode der Oszillation betrachtet wird.
 
 Ebenso muss zur Bestimmung der Temperatur auf das Konvergenzverhalten des Thermostates geachtet werden.
 Die Temperatur wird aus dem Mittelwert der kinetischen Energie aller Teilchen bestimmt, welche jedoch schwanken kann, weshalb wiederum die Bildung eines Zeitmittelwertes notwendig wird.
@@ -38,13 +45,13 @@ Beispiele radialer Verteilungsfunktionen finden sich in Abbildungen~\ref{fig:sil
 \subsection{Schichtdicke und Oberflächenbeschaffenheit}
 \label{mdmethods-surface}
 
-Zur Bestimmung der Schichtdicke, Oberflächenrauheit oder Porösität muss zuerst die Oberfläche einer Schicht aus der Alpha-Form mittels Delaunay-Triangulation in Form einer Punktwolke bestimmen (Abschnitt~\ref{datadelaunay}).
-Im Anschluss lässt sich aus der entstandenen Punktwolke der tiefste und höchste Punkt der Oberfläche sowie die Spannweite bestimmen, und durch Bildung des Mittelwertes die mittlere Schichtdicke ermitteln.
+Zur Bestimmung der Schichtdicke, Oberflächenrauheit oder Porösität muss zuerst die Oberfläche einer Schicht aus der Alpha-Form mittels Delaunay-Triangulation in Form einer Punktwolke bestimmt werden (Abschnitt~\ref{datadelaunay}).
+Im Anschluss lässt sich aus der entstandenen Punktwolke der tiefste und höchste Punkt der Oberfläche sowie die Spannweite bestimmen und durch Bildung des Mittelwertes die mittlere Schichtdicke ermitteln.
 Durch Zählung der Elemente in der Punktwolke lässt sich zudem die Bedeckung der Oberfläche mit chemischen Gruppen bestimmen.
 Durch Begutachtung der Oberflächen-Punktwolke kann man außerdem Rückschlüsse auf die Porösität führen, indem man neben der eigentlichen Oberfläche auch sämtliche Poren und Hohlräume innerhalb der Struktur aus der Alpha-Form extrahiert.
 
 \subsection{Reaktionen und Stabilität von Molekülen}
 
-Einzelne Moleküle werden mit externer Software präpariert, mit Geschwindigkeiten im Rahmen der Zieltemperatur versehen und im mikrokanonischen Ensemble simuliert, um Aussagen über ihre Stabilität zu erhalten.
-Diese wird bei kleinen Datenmengen manuell durch Begutachtung der dynamischen Eigenschaften und der entstandenen Moleküle ermittelt, bei vielen Datensätzen wird eine automatische Auswertung auf Konnektivität der Atome durchgeführt, wodurch Aussagen über die entstandenen Moleküle getroffen werden können.
+Einzelne oder mehrere Precursormoleküle werden mit externer Software (Materials Studio\cite{biovia_materials_2014} und Packmol\todo{Link auf Packmol}) präpariert, mit Geschwindigkeiten im Rahmen der Zieltemperatur versehen und im mikrokanonischen Ensemble im Vakuum simuliert, um Aussagen über ihre molekulare Stabilität zu erhalten.
+Diese wird bei einzelnen Datensätzen manuell durch Begutachtung der dynamischen Eigenschaften und der entstandenen Moleküle ermittelt, bei vielen Datensätzen wird eine automatische Auswertung auf Konnektivität der Atome durchgeführt, wodurch Aussagen über die entstandenen Moleküle getroffen werden können.
 Die gleichen Untersuchungen geben Aufschluss über den Erfolg einer Reaktion.

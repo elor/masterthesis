@@ -18,7 +18,8 @@ Zuletzt finden die Simulationen aus praktischen Gründen in \textbf{teilperiodis
 
 \subsection{Vergleich der Laufzeiten mit verschiedenen Datenstrukturen}
 
-Als Datenstrukturen stehen \textbf{Atomlisten}, \textbf{Nachbarschaftslisten} (NB-Listen), lineares \textbf{Binning}, Binning in \textbf{Octrees}, \textbf{k-d-Bäume} und \textbf{Delaunay-Triangulationen} zur Auswahl, von denen eine Auswahl in Abbildung~\ref{fig:datastructures} dargestellt ist.
+Als Datenstrukturen stehen \textbf{Atomlisten}, \textbf{Nachbarschaftslisten} (NB-Listen), lineares \textbf{Binning}, Binning in \textbf{Octrees}, \textbf{k-d-Bäume} und \textbf{Delaunay-Triangulationen} zur Auswahl.
+%, von denen eine Auswahl in Abbildung~\ref{fig:datastructures} dargestellt ist.
 In Anhang~\ref{appendix_dataoverview} werden diese knapp vorgestellt, wobei auf die drei zuletzt genannten in den folgenden Abschnitten näher eingegangen wird.
 
 Atomistische KMC-Simulationen beschränken sich auf die Manipulations-Operationen zur \textbf{Einfügung}, \textbf{Modifikation} und \textbf{Entfernung} von Atomen, \textbf{Konstruktion} der Datenstruktur sowie auf die Suchoperationen der \textbf{Nachbarschaftssuche}, \textbf{Bereichssuche} und \textbf{Oberflächensuche}, die jeweils im Anhang in Tabelle~\ref{tab:dataops} kurz beschrieben werden.
@@ -213,7 +214,7 @@ Deshalb bieten sich k-d-Bäume zwar für allgemeine Suchoperationen in Off-Latti
 %%   \begin{algorithmic}
 %%     \Input $points$ - Liste von Punkten
 %%     \Input $k$ - Dimensionalität des Simulationsraumes
-%%     \Result Root-Element eines vollständigen KD-Baumes aus diesen Punkten
+%%     \Result Root-Element eines vollständigen k-d-Baumes aus diesen Punkten
 %%     \State
 %%     \Function{construct-kdtree}{$points, dim\gets0$}
 %%     \State $n\gets$\Call{length}{points}

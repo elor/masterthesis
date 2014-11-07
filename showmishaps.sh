@@ -181,6 +181,26 @@ equationreferences(){
     listfiles | xargs -0 grep -n 'ref{eq' | cuttooneline
 }
 
+doublespaces(){
+    listfiles | xargs -0 grep -Pn '^[^%]*\S(?<!%)\s\s' | grep -v '&'
+}
+
+listabbreviations(){
+    listfiles | xargs -0 grep -hoP '(\s|^|-)[A-Z]{2,}(\s|$|-)' | tr '-' ' ' | xargs -n1 | sort -u
+}
+
+listofabbreviations(){
+    grep -hoP '(\s|^)[A-Z]{2,}(\s|$)' "$(listfiles | xargs -0 grep -l Abkürzungsverzeichnis | head -1)" | xargs -n1 | sort -u
+}
+
+unexplainedabbreviations(){
+    {
+        listabbreviations
+        listofabbreviations
+        listofabbreviations
+    } | sort | uniq -u
+}
+
 #####################
 # begin actual work #
 #####################
@@ -191,19 +211,21 @@ equationreferences(){
     register "word repetitions" doublewords
     register "undefined references" undefinedreferences
     register "undefined citations" undefinedcitations
+    register "unexplained abbreviations" unexplainedabbreviations
     register "multiplelabels" multiplelabels
     register "citations with language tag" citationswithlanguagetag
     register "unused citations" unusedcitations
     register "long lines" listlonglines 333
     register "dots within a line" dotlines
     register "trailing spaces" trailingspaces
+    register "double spaces" doublespaces
     register "tab stops" alltabs
     register "cites/refs with leading spaces" spacerefs
     register "ASD occurences" asddsa
     register "LaTeX Warnings" getlatexwarnings
     register "Equation References" equationreferences
     register "todo notes" todonotes
-    # register "draft notes" getdrafts
+    register "draft notes" getdrafts
 
     printfinalstate
 

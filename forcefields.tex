@@ -8,7 +8,7 @@ Im Folgenden soll eine Auswahl dieser Potentialformulierungen kurz in ihrer Funk
 \subsubsection{Paar-Potentiale}
 
 Das einfachste MD-Potential ist das Paarpotential, welches Interaktionen zwischen jeweils zwei benachbarten Atomen modelliert.
-Damit vereinfacht sich die Energie des Gesamtsystems auf Summen des Potentiales $V$ über alle Paare von Atomen in Abhängigkeit ihres Abstandes $r_ij$:
+Damit vereinfacht sich die Energie des Gesamtsystems auf Summen des Potentiales $V$ über alle Paare von Atomen in Abhängigkeit ihres Abstandes $r_{ij}$:
 \begin{equation}
   \vec F_{ij}(r_{ij}) = \vec\nabla V(r_{ij})
 \end{equation}
@@ -21,7 +21,7 @@ Stellvertretend steht das Lennard-Jones-Potential zur Darstellung von allgemeine
   V_\text{LJ}(r_{ij}) = 4 \epsilon \left[\left(\frac{\sigma}{r_{ij}}\right)^{12} - \left(\frac{\sigma}{r_{ij}}\right)^{6}\right]
 \end{equation}
 Weitere Paarpotentiale wie etwa das mit dem Lennard-Jones-Potential verwandte Bucking\-ham-Potential nehmen aufgrund unterschiedlicher Anwendungsgebiete andere Formen an (Abbildung~\ref{fig:mdpairpotentials}).
-Allen Paar-Potentialen ist gemein, eine rein radiale Abhängigkeit $V(r_ij)$ zu besitzen, die oftmals einen charakteristischen Bindungsabstand in Abhängigkeit der Parameter bildet, welcher sich als Minimum in den Potentialen äußert.
+Allen Paar-Potentialen ist gemein, eine rein radiale Abhängigkeit $V(r_{ij})$ zu besitzen, die oftmals einen charakteristischen Bindungsabstand in Abhängigkeit der Parameter bildet, welcher sich als Minimum in den Potentialen äußert.
 Unterhalb dieses Radius' dominiert ein repulsiver Term, wo hingegen oberhalb davon ein leicht attraktiver Term vorherrscht, der sich für große Radien einem konstanten Wert annähert und deshalb mit einem Cutoff-Radius $r_\text{cut}$ versehen ist.
 
 \begin{figure}

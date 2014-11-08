@@ -4,7 +4,8 @@
 Kinetische Monte Carlo-Methoden (KMC) wurden ursprünglich zur Simulation von Diffusionsprozessen entwickelt, finden aber inzwischen in vielen Gebieten der Natur- und Ingenieurswissenschaften Anwendung.
 Sie beschreiben den Zeitverlauf eines Systemes als eine Abfolge von diskreten Übergängen (Ereignissen) zwischen Systemzuständen $X_n$ und $X_m$, die mit ihrer charakteristischen Rate $r_{n m}$ gewichtet werden.
 Damit stellen sie eine numerische Lösung der Mastergleichung für Markov-Prozesse dar.
-\todo{Jörg}\begin{equation}
+\todo{Jörg}
+\begin{equation}
   \frac{d \rho(X_m,t)}{d t} = \sum_n{r_{n m}\rho(X_n,t) - \sum_n{r_{m n}\rho(X_m,t)}}
 \end{equation}
 KMC-Methoden bieten sie somit hauptsächlich zur Simulation stochastischer Prozesse an, wobei sie auch Nichtgleichgewichtssysteme beschreiben können und somit unter anderem zur Simulation von Oberflächenreaktionen und Schichtabscheidung geeignet sind.

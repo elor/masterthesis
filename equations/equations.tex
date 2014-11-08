@@ -535,15 +535,12 @@ V
 r_ij
 \end{equation}
 \begin{equation}
-  \label{eq:pairforce}
   \vec F_{ij}(r_{ij}) = \vec\nabla V(r_{ij})
 \end{equation}
 \begin{equation}
-  \label{eq:pairenergy}
   E = \sum_i\sum_{j \neq i}{V(r_{ij})}
 \end{equation}
 \begin{equation}
-  \label{eq:lennardjones}
   V_\text{LJ}(r_{ij}) = 4 \epsilon \left[\left(\frac{\sigma}{r_{ij}}\right)^{12} - \left(\frac{\sigma}{r_{ij}}\right)^{6}\right]
 \end{equation}
 \begin{equation}
@@ -553,7 +550,6 @@ V(r_ij)
 r_\text{cut}
 \end{equation}
 \begin{equation}
-  \label{eq:nbody-energy}
   E = \sum_i\sum_{j \neq i}{V_2\left(r_{ij}\right)} + \sum_i\sum_{j \neq i}\sum_{\substack{k \neq i \\ k \neq j}}{V_3\left(r_{ij}, r_{ik}, \theta_{ijk}\right)} + \dots
 \end{equation}
 \begin{equation}
@@ -569,7 +565,6 @@ F_\alpha
 \rho_\beta(r_{ij})
 \end{equation}
 \begin{equation}
-  \label{eq:eam-energy}
   E = \sum_i\left[F_\alpha\left(\sum_{j\neq i}{\rho_\beta\left(r_{ij}\right)}\right) + \frac{1}{2}\sum_{j\neq i}{V_{\alpha\beta}\left(r_{ij}\right)}\right]
 \end{equation}
 \begin{equation}
@@ -579,9 +574,16 @@ F_\alpha
 \beta
 \end{equation}
 %% \begin{equation}
-%%   \label{eq:meam-energy}
 %%   E = \sum_i\left[F_\alpha\left(\bar{\rho_i}\right) + \frac{1}{2}\sum_{j\neq i}{V_{ij}\left(r_{ij}\right)}\right]
 %% \end{equation}
+\begin{equation}
+E_\text{system}
+\end{equation}
+\begin{align}
+  \label{reaxformulation}
+  E_\text{system} =~& E_\text{bond} + E_\text{lp} + E_\text{over} + E_\text{under} + E_\text{val} + E_\text{pen} + E_\text{coa} + E_\text{C2} \\
+  \nonumber  & + E_\text{tors} + E_\text{conj} + E_\text{H-bond} + E_\text{vdWaals} + E_\text{Coulomb}
+\end{align}
 \begin{equation}
 \sigma
 \end{equation}
@@ -639,11 +641,6 @@ E_\text{vdWaals}
 \begin{equation}
 E_\text{Coulomb}
 \end{equation}
-\begin{align}
-  \label{eq:reaxformulation}
-  E_\text{system} =~& E_\text{bond} + E_\text{lp} + E_\text{over} + E_\text{under} + E_\text{val} + E_\text{pen} + E_\text{coa} + E_\text{C2} \\
-  \nonumber  & + E_\text{tors} + E_\text{conj} + E_\text{H-bond} + E_\text{vdWaals} + E_\text{Coulomb}
-\end{align}
 \begin{equation}
 t_\text{relax}
 \end{equation}
@@ -688,6 +685,18 @@ t_\text{relax}
 \end{equation}
 \begin{equation}
 \kappa
+\end{equation}
+\begin{equation}
+X_n
+\end{equation}
+\begin{equation}
+X_m
+\end{equation}
+\begin{equation}
+r_{n m}
+\end{equation}
+\begin{equation}
+  \frac{d \rho(X_m,t)}{d t} = \sum_n{r_{n m}\rho(X_n,t) - \sum_n{r_{m n}\rho(X_m,t)}}
 \end{equation}
 \begin{equation}
 X_0
@@ -837,7 +846,6 @@ T_\text{Ziel}
 \end{equation}
 \begin{equation}
   \overline{E_{kin}} = \frac{1}{2} \overline{m v^2} = \frac{d}{2} k_B T_\text{Ziel}
-  \label{eq:ekanonisch}
 \end{equation}
 \begin{equation}
 T_\text{Ziel}
@@ -847,7 +855,6 @@ T_\text{Ziel}
 \end{equation}
 \begin{equation}
   \vec v_i' = \vec v_i \cdot \sqrt{1 + \frac{\Delta t}{\tau} \left(\frac{T_\text{Ziel}}{T} - 1\right)}
-  \label{eq:berendsen}
 \end{equation}
 \begin{equation}
 s
@@ -914,17 +921,13 @@ M
 i > i_\text{tol}
 \end{equation}
 \begin{gather}
-  \label{eq:cg-linesearch1}
   \min_\alpha f(X_i+\alpha \vec s_i) \rightarrow \alpha_i \\
-  \label{eq:cg-linesearch2}
   \vec X_i = \vec X_{i-1} - \alpha_i \vec s_i
 \end{gather}
 \begin{equation}
-  \label{eq:pr1}
   \vec s_i = \Delta \vec X_i + \beta_i \vec s_{i-1}
 \end{equation}
 \begin{equation}
-  \label{eq:pr2}
   \beta_i = \max \left(0, \frac{\Delta \vec X_i \cdot \left(\Delta \vec X_i - \Delta \vec X_{i-1}\right)}{\Delta \vec X_{i-1} \cdot \Delta \vec X_{i-1}}\right) \text{~(Polak-Ribière)}
 \end{equation}
 \begin{equation}
@@ -940,6 +943,9 @@ t_\text{relax}
 \end{equation}
 \begin{equation}
 t=80
+\end{equation}
+\begin{equation}
+\kappa
 \end{equation}
 
 \end{document}

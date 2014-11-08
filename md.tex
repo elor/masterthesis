@@ -9,7 +9,7 @@ Nachfolgend möchte ich einen kurzen Überblick über die Formulierung molekular
 \subsection{Formulierung}
 \label{mdformulation}
 
-Molekulardynamik ist eine klassische Vielteilchenmethode, die jedem Teilchen des Systemes \todo{wieso $R$?}$R$ eine Masse $m$, eine Position $\vec r$, einen Impuls $\vec p$ und Kräfte entsprechend eines lokalen Kraftfeldes $\vec{F}(R)$ oder eventuellen Randbedingungen zuweist.
+Molekulardynamik ist eine klassische Vielteilchenmethode, die jedem Teilchen des Systemes $X$ eine Masse $m$, eine Position $\vec r$, einen Impuls $\vec p$ und Kräfte entsprechend eines lokalen Kraftfeldes $\vec{F}(X)$ oder eventuellen Randbedingungen zuweist.
 Entsprechend der Born-Oppenheimer-Näherung, nach der die Elektronen eines chemischen Systemes an ihre Atomkerne gebunden sind und schnell genug auf Änderungen des Systemes reagieren, genügt es, die Atome als Punktmassen an der Position ihres Atomkernes zu betrachten.
 Elektronische und sonstige Interaktionen werden dann durch die verwendeten Kraftfelder beschrieben, die auf \todo{nochmal in Ruhe überdenken}Näherungen physikalischer Effekte basieren, um die Simulationszeit auf Kosten der Genauigkeit zu senken.
 
@@ -33,7 +33,7 @@ Daraus ergibt ergeben sich die Bewegungsgleichungen für jedes Teilchen $i$, wel
   \dot{\vec r_i} = \frac{\vec p_i}{m_i}
 \end{equation}
 \begin{equation}
-  \dot{\vec p_i} = m \vec a_i = \vec F_i(R)
+  \dot{\vec p_i} = m \vec a_i = \vec F_i(X)
 \end{equation}
 
 \subsubsection{Kanonisches Ensemble (NVT)}
@@ -167,7 +167,7 @@ Tabelle~\ref{tab:mdsoftware} stellt ausgewählte Vertreter moderner Molekulardyn
   \label{tab:mdsoftware}
   \begin{tabularx}{\textwidth}{|llX|}
     \hline
-    \textbf{Paket}                                                               & \textbf{Rechteinhaber}   & \textbf{Beschränkungen \& Kommentare}                            \\
+    \textbf{Paket}                                                               & \textbf{Autor/Rechteinhaber}   & \textbf{Beschränkungen \& Kommentare}                            \\
     \hline
     LAMMPS\cite{plimpton_lammps_2014,plimpton_fast_1995}                         & Sandia                   & quelloffen, Kommandozeile, Bibliothek, eigene Potentiale möglich \\
     Materials Studio\cite{biovia_materials_2014}                                 & BIOVIA                   & Grafische Oberfläche, lizenzpflichtig                            \\

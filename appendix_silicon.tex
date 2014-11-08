@@ -3,12 +3,20 @@
 
 \section{Voruntersuchungen}
 
+Die Bindungslängen für verschiedene Parametrisierungen wurden direkt aus der radialen Verteilungsfunktion für einen Silizium-Kristall ermittelt.
+In Abbildung~\ref{fig:sisibondlengths} ergibt sich dabei für die Newsome-Parametrisierung eine zusätzliche RDF-Spitze knapp vor der eigentlichen Bindungslänge, durch welche die eigentliche Bindungslänge unterschätzt wird.
+Sie entsteht durch Abspaltung von der Hauptbindungslänge und stellt somit für kristallines Silizium einen Parametrisierungs-Fehler dar.
+
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=10cm]{SiSi_npt_bondlengths}
   \caption{Bindungslängen von c-\ce{Si} für ReaxFF-Parametrisierungen}
   \label{fig:sisibondlengths}
 \end{figure}
+
+Die radialen Verteilungsfunktionen des Kulkarni-Potentiales in Abbildung~\ref{fig:kulkarnirdf} zeigen vollständige Übereinstimmung mit der RDF des Kristalles nach thermischer Relaxierung im kanonischen Ensemble.
+Im Großkanonischen Ensemble schrumpft der Kristall zwar um \SI{2.1}{\percent}, behält seine Struktur aber ohne weitere Einschränkung bei.
+Während der Relaxierung wurde der Kristall auf \SI{500}{\kelvin} erhitzt, wodurch sich die RDF-Spitzen verbreitert und dabei überlagert haben, beim Abkühlen aber wieder zur idealen Kristallstruktur zusammenzogen.
 
 \begin{figure}[!ht]
   \centering
@@ -18,6 +26,11 @@
   }
   \label{fig:kulkarnirdf}
 \end{figure}
+
+Bei Relaxierung von amorphem Silizium nach den oben beschriebenen Methoden ist anhand der RDF in Abbildung~\ref{fig:amorphousrdf} keine Kristallisation zu erkennen.
+Bereits nach \SI{4}{\angstrom} ist keine langreichweitige Ordnung erkennbar, doch ist die Bindungslänge bei \SI{2.339}{\angstrom} klar erkennbar.
+Damit liegt sie ca. \SI{3}{\percent} oberhalb ihrer kristallinen Bindungslänge.
+Weitere strukturelle Werte für alle untersuchten Parametrisierungen sind in Tabelle~\ref{tab:amorphoussilicon} zu finden.
 
 \begin{figure}[!ht]
   \centering
@@ -54,8 +67,26 @@
   \end{threeparttable}
 \end{table}
 
-\clearpage
 \section{Precursorsimulationen}
+
+Zur Simulation der Stabilität von Silan wurde dieses mit Materials Studio präpariert und anschließend im mikrokanonischen Ensemble mit einer anfänglichen Temperatur von \SIrange{300}{700}{\kelvin} relaxiert.
+Eine Strukturoptimierung wurde nicht durchgeführt, da die thermische Stabilität untersucht werden sollte und die untersuchten Moleküle keine komplizierten Strukturen beinhalten.
+
+Bei Al\_Al0\_AlN, Kulkarni, Nielson und Zhang behalten die Silan-Moleküle ihre Struktur, während die einige der \ce{Si-H}-Bindungen bei den anderen Parametrisierungen brechen und einzelne Wasserstoff-Moleküle freigeben (Abbildung~\ref{fig:silanestability}).
+Dieser Effekt ist unabhängig von der anfänglichen Temperatur.
+
+Für die Reaktion von Silan mit Wasser wurden beide Moleküle außerhalb der Cutoff-Reichweite der ReaxFF-Potentiale mit zufälligen Orientierungen platziert und zusätzlich zu einer geringen Anfangsgeschwindigkeit zueinander beschleunigt.
+Die relativen kinetischen Energien reichen von \SI{0.1}{\electronvolt} bis \SI{10}{\electronvolt} und decken somit einen breiten Geschwindigkeitsbereich ab.
+
+Die meisten Parametrisierungen zeigen keine Änderung des Bindungszustandes der Moleküle, allerdings zeigen Zhang, Newsome und Kulkarni bindendes Verhalten (Abbildung~\ref{fig:precursorreactions}).
+Einige der Zhang-Simulationen zeigen, wie in der Abbildung dargestellt, eine Überzahl an stabilen Bindungen, doch lösen sich diese bei höheren Anfangsgeschwindigkeiten.
+Die beiden anderen Potentiale zeigen meist die korrekte Zahl an Bindungen für das Silizium-Atom, doch bildet sich meist atomarer Sauer- und Wasserstoff, der allerdings bei Kontakt mit einem anderen Atom Bindungen aufbauen müsste.
+
+Bei der Reaktion mehrer Precursor-Moleküle im kanonischen Ensemble zeigen sich gravierendere Unterschiede (Abbildung~\ref{fig:precursorclusters}).
+Kulkarni-Simulationen bilden etwa Sauerstoff-Cluster sowie Bindungen zwischen den Wasserstoff-Atomen der Silan-Moleküle.
+Einzig Zhang stellt halbwegs korrekte Bindungen dar, was vermutlich durch die Anwendung zur Beschreibung von Reaktionen vergleichsweise großer Moleküle gegeben ist.
+Es zeigen sich jedoch auch hier Überkoordinationen, wie sie bereits in Abbildung~\ref{fig:precursorreactions} beobachtet werden konnten.
+Eine Simulation mit Newsome wurde aufgrund der instabilen Silan-Moleküle nicht durchgeführt.
 
 \begin{figure}[!ht]
 
@@ -127,10 +158,7 @@
     \subcaption{zhang: Reaktionen}
   \end{subfigure}
 
-
   \caption[Cluster von Precursormolekülen]{Clusterbildung und partielle Reaktionen von Precursormolekülen bei 500K}
   \label{fig:precursorclusters}
 
 \end{figure}
-
-\todo[inline]{Erläuterungen zu allen Abbildungen}

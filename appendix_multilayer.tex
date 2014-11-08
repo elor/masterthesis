@@ -3,8 +3,7 @@
 
 \section{Porenbildung bei Unterrelaxation}
 
-Nach der Adaptierung von Kupfer-Prozess-Parametern auf das Kupfer-Nickel-Multilagensystem konnten Abscheidungen von mehrlagigen Systemen simuliert werden, jedoch haben sich bei diesen verschiedene Defekte gebildet, die im Folgenden vorgestellt werden sollen.
-
+Während der Präparation von Kupfer-Nickel-Multilagen-Simulationen haben sich verschiedene defektbehaftete Strukturen gebildet.
 Typischerweise deuten Wachstumsdefekte auf geringe Relaxationszeiten, geringe Sputterenergien oder geringe Temperaturen hin.
 Das folgende System wurde bei \SI{500}{\kelvin} mit \SI{5.4}{\electronvolt} Auftreffenergie pro Teilchen für \SI{1.2}{\nano\second} relaxiert.
 Die Auftreffenergie wird jedoch vom Thermostat vor dem eigentlichen Auftreffen reduziert, so dass sie mit \SI{5.4}{\electronvolt} nach Untersuchungen der Schichtqualität eigentlich zu niedrig liegt.
@@ -27,15 +26,15 @@ Zur einfacheren Veranschaulichung wurde nur ein wenige Nanometer dünnes Profil 
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{7cm}
   \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{CuNi_thicklayers}
-    \caption{Profil einer Schicht mit 6 Lagen je \SI{6}{\nano\meter}}
-    \label{fig:multilayer_thickfail}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{CuNi_columnfail}
     \subcaption{Dünnes Profil nach 24 Lagen (\SI{180}{\angstrom})}
     \label{fig:multilayer_columnfail}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{\subfigwidth}
+    \includegraphics[width=\textwidth]{CuNi_thicklayers}
+    \caption{Profil einer Schicht mit 6 Lagen je \SI{6}{\nano\meter}}
+    \label{fig:multilayer_thickfail}
   \end{subfigure}
   \caption{Fehlgeschlagene \ce{CuNi}-Abscheidungen während der Parameter-Optimierung}
 \end{figure}

@@ -193,7 +193,6 @@ Eine ausführlichere Übersicht zu Atomlagenabscheidungen und zu möglichen Prec
     Dichte\-funktional\-theorie (DFT)  & atomistische Struktur, Reaktionspfade     & \num{<1000} Atome      & Elektronendichten                   \\
     \hline
   \end{tabularx}
-  \todo[inline]{Eventuell einen Hinweis auf FEM hinzufügen}
 \end{table}
 
 \todo[inline]{fig:methodscales}
@@ -201,7 +200,7 @@ Eine ausführlichere Übersicht zu Atomlagenabscheidungen und zu möglichen Prec
 
 Für die Simulation von Gasphasenabscheidungen stehen verschiedene numerische Methoden zur Verfügung, welche die Darstellung auf unterschiedlichen Zeit- und Größenordnungen ermöglichen (Tabelle~\ref{tab:deposition-simulations})\todo{fig:methodscales}.
 Jede dieser Methoden basiert auf anderen Annahmen und Formulierungen, so dass sich ihre Anwendungsgebiete zwar nur marginal überschneiden, aber der Transfer von Ergebnissen zwischen den Methoden zu präziseren Vorhersagen führen kann.
-So können FEM-Reaktorsimulationen den Gasverbrauch an charakteristischen Punkten der Oberfläche durch KMC-Simulationen ermitteln, welche wiederum auf DFT-Daten für Reaktionsraten und -energien zurück greift.
+So können CFD-Reaktorsimulationen den Gasverbrauch an charakteristischen Punkten der Oberfläche durch KMC-Simulationen ermitteln, welche wiederum auf DFT-Daten für Reaktionsraten und -energien zurück greift.
 \todo{Detail, warum drauf verzichtet wird}Bisherige Simulationen verzichten meist auf eine strukturelle Betrachtungen der abgeschiedenen Schicht, wie sie etwa mit molekulardynamischen Rechnungen möglich werden.
 Gerade für Anwendungen in der Nanoelektronik sind die strukturellen Eigenschaften der Schichten aber eng mit der benötigten Funktion (mechanische und elektronische Eigenschaften) verknüpft, so dass eine Vorhersage der strukturellen Eigenschaften durch Simulationen wünschenswert ist.
 \todo[inline]{begreiflich machen, dass sich aus der Struktur auch elektronische und thermodynamische Eigenschaften}

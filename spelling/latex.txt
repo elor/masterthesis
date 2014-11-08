@@ -76,3 +76,5 @@ bibteichert
 Binär
 bibstyles
 smf
+Hyperref
+Thumbpdf

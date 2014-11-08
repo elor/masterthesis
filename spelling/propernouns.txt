@@ -26,6 +26,8 @@ Zacros
 GULP
 kulkarni
 liu
+Liu
+Erik
 lammps
 Moore
 Lennard
@@ -80,3 +82,5 @@ Zhou
 NIST
 Puri
 Ziff
+Lorenz
+Parsivald

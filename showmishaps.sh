@@ -27,6 +27,9 @@ register(){
 $output
 
 EOF
+    # else
+    #     echo "<===== $name =====>"
+
     fi
 }
 
@@ -50,12 +53,21 @@ cuttooneline(){
 }
 
 listfiles(){
-    find `./texorder.sh` -print0
-#    find * -maxdepth 0 -name '*.tex' -print0
+    if [ -z "$filebuffer" ]; then
+        filebuffer="$(find `./texorder.sh` -print0 | xxd -p | tr -d '\n')"
+    #    find * -maxdepth 0 -name '*.tex' -print0
+    fi
+
+    echo -ne "$filebuffer" | xxd -r -p
 }
 
 listlogs(){
-    find * -maxdepth 0 -name '*.log' -print0
+    if [ -z "$logbuffer" ]; then
+        logbuffer="$(find * -maxdepth 0 -name '*.log' -print0)"
+    #    find * -maxdepth 0 -name '*.tex' -print0
+    fi
+
+    echo -ne "$logbuffer" | xxd -r -p
 }
 
 imagerefs(){
@@ -99,29 +111,29 @@ updateallwords(){
     ./listallwords.sh > allwords.txt
 }
 
-knownwords(){
-    cat /home/e.lorenz/usr/share/words/113_elements.txt
-    cat /home/e.lorenz/usr/share/words/200000_de.txt
-    cat /home/e.lorenz/usr/share/words/80000_de.txt
-    cat /home/e.lorenz/usr/share/words/apostrophiert.txt
-    cat spelling/abbreviations.txt
-    cat spelling/anglicisms.txt
-    cat spelling/chemicals.txt
-    cat spelling/latex.txt
-    cat spelling/mywords.txt
-    cat spelling/propernouns.txt
-    imagerefs | sed 's/[0-9]\+//g'
+printmissingwords(){
+    file="$1"
+
+    awk '{ if (FNR==NR) { main[$0]=1 } else if (main[$0] == 0) { print $0 }}' "$file" /dev/stdin
+
 }
 
 unknownwords(){
-    {
-        cat allwords.txt
-        knownwords | sed p
-    } | sort | uniq -u
+    cat allwords.txt | grep -v _ | printmissingwords /home/e.lorenz/usr/share/words/113_elements.txt \
+        | printmissingwords /home/e.lorenz/usr/share/words/200000_de.txt \
+        | printmissingwords /home/e.lorenz/usr/share/words/80000_de.txt \
+        | printmissingwords /home/e.lorenz/usr/share/words/apostrophiert.txt \
+        | printmissingwords spelling/abbreviations.txt \
+        | printmissingwords spelling/anglicisms.txt \
+        | printmissingwords spelling/chemicals.txt \
+        | printmissingwords spelling/latex.txt \
+        | printmissingwords spelling/mywords.txt \
+        | printmissingwords spelling/propernouns.txt
+    #    imagerefs | sed 's/[0-9]\+//g'
 }
 
 listunknownwords(){
-    updateallwords # taken care of by crontab
+    updateallwords
     local unknown
     unknown=`unknownwords`
     [ -n "$unknown" ] && echo -e "$unknown"
@@ -131,7 +143,7 @@ listlonglines(){
     local maxchars=$1
     [ -z "$maxchars" ] && maxchars=300
     lines=$(
-        listfiles|xargs -0n1 | while IFS= read file; do
+        listfiles | xargs -0n1 | while IFS= read file; do
             sed -r 's/\{[^{}]+(\{[^{}]*\}[^{}]*)*\}//g' $file | sed -e 's/\$[^$]\+\$//' | awk '{if (length > '$maxchars') print length,"'$file':"NR":",$0}'
         done | sort -nr
     )
@@ -187,31 +199,32 @@ doublespaces(){
 }
 
 listabbreviations(){
-    listfiles | xargs -0 grep -hoP '(\s|^|-)[A-Z]{2,}(\s|$|-)' | tr '-' ' ' | xargs -n1 | sort -u
+#    grep -Po '[A-Z]{2,}' allwords.txt
+    listfiles | xargs -0 grep -hoP '(?<!\\)\b[A-Z]{2,}s?\b' | sort -u
 }
 
 listofabbreviations(){
-    grep -hoP '(\s|^)[A-Z]{2,}(\s|$)' "$(listfiles | xargs -0 grep -l Abkürzungsverzeichnis | head -1)" 2>/dev/null | xargs -n1 | sort -u
+    grep -hoP '(?<!\\)\b[A-Z]{2,}s?\b' "$(listfiles | xargs -0 grep -l Abkürzungsverzeichnis | head -1)" 2>/dev/null | sort -u
 }
 
+# TODO use files and printmissingwords()
 unexplainedabbreviations(){
     {
         listabbreviations
-        listofabbreviations
-        listofabbreviations
+        listofabbreviations | sed p
     } | sort | uniq -u
 }
 
+# TODO use files and printmissingwords()
 unusedabbreviations(){
     {
-        listabbreviations
-        listabbreviations
+        listabbreviations | sed p
         listofabbreviations
     } | sort | uniq -u
 }
 
 disabledincludes(){
-    listfiles | xargs -0 grep -Pon '%.*\\in(clude|put){[^}]+}'
+    listfiles | xargs -0 grep -Pon '^[^%]*%.*\\in(clude|put){[^}]+}'
 }
 
 #####################
@@ -219,7 +232,7 @@ disabledincludes(){
 #####################
 {
 
-#    register "possible typos" listunknownwords
+    register "possible typos" listunknownwords
     register "LaTeX Errors" getlatexerrors
     register "word repetitions" doublewords
     register "undefined references" undefinedreferences

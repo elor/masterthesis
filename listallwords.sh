@@ -15,17 +15,12 @@
     # 7. remove punctuation marks                                        #
     # 8. remove hyphens                                                  #
     ######################################################################
-    sed -e 's/%.*$//' -e 's/\\todo\(\[inline\]\)\?{[^}]*}//g' -e 's/\\[a-zA-Z]\+/ /g' -e 's/\[[^]]*\]/ /g' -e 's/[{][XCa-z_0-9:|,-]*[}]/ /g' -e 's/\\-//g' -e 's/[^a-zA-Z_:-]/ /g' -e 's/\([a-zA-Z-]\)[,.?:]\(\s\|$\)/\1 /g' -e 's/-/ /g' *.tex
+    find `./texorder.sh` -print0 | xargs -0 sed -e 's/%.*$//' -e 's/\\todo\(\[inline\]\)\?{[^}]*}//g' -e 's/\\[a-zA-Z]\+/ /g' -e 's/\[[^]]*\]/ /g' -e 's/[{][XCa-z_0-9:|,-]*[}]/ /g' -e 's/\\-//g' -e 's/[^a-zA-Z_:-]/ /g' -e 's/\([a-zA-Z-]\)[,.?:]\(\s\|$\)/\1 /g' -e 's/-/ /g'
 } | {
     #####################
     # one word per line #
     #####################
-    xargs -n1 | sort -u
-} | {
-    #########################################
-    # remove case-insensitive-similar words #
-    #########################################
-    uniq -i
+    xargs -n1 | sort -fu
 } | {
     ########################################################
     # remove lines of up to one character or an underscore #

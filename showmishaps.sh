@@ -63,7 +63,7 @@ listfiles(){
 
 listlogs(){
     if [ -z "$logbuffer" ]; then
-        logbuffer="$(find * -maxdepth 0 -name '*.log' -print0)"
+        logbuffer="$(find * -maxdepth 0 -name '*.log' -print0 | xxd -p | tr -d '\n')"
     #    find * -maxdepth 0 -name '*.tex' -print0
     fi
 
@@ -246,7 +246,7 @@ disabledincludes(){
     register "double spaces" doublespaces
     register "tab stops" alltabs
     register "cites/refs with leading spaces" spacerefs
-    register "unused citations" unusedcitations
+#    register "unused citations" unusedcitations
     register "unused abbreviations" unusedabbreviations
     register "ASD occurences" asddsa
     register "disabled includes" disabledincludes

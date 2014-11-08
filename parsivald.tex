@@ -99,7 +99,7 @@ Für ALD und CVD lässt sich die Abscheidungsrate aus der Reaktionskinetik absch
 \item Bulkdiffusion ist vernachlässigbar
 \end{enumerate}
 
-Die Beschränkung des Modelles auf diffusionsarme Oberflächenabscheidungen ergibt sich aus der Notwendigkeit, Bereiche des Simulationsraumes im statischen Gleichgewicht, in denen keine Reaktion statt findet, bei der MD-Simulation zu vernachlässigen.
+Die Beschränkung des Modelles auf diffusionsarme Oberflächenabscheidungen ergibt sich aus der Notwendigkeit, Bereiche des Simulationsraumes im statischen Gleichgewicht, in denen keine Reaktion statt findet, bei der MD-Simulation zu \todo{Wort}vernachlässigen.
 Das betrifft die Gasphase und den größten Teil der Struktur ebenso wie abgeschirmte Bereiche der Oberfläche.
 Für Prozesse, welche die oben aufgelisteten Annahmen nicht unterstützen, degeneriert Parsivald zu einer reinen MD-Simulation, für die mit Binning und Nachbarschaftslisten effizientere Parallelisierungsmethoden existieren.
 Ein beschränktes Maß an Oberflächendiffusion lässt sich jedoch mit längeren Relaxationszeiten oder separaten Relaxations-Ereignissen annähernd behandeln, wodurch aber aufgrund der begrenzten Größe der MD-Boxen nur die Diffusion weniger Atome behandelt werden kann.
@@ -117,10 +117,10 @@ Eine tatsächliche Anwendbarkeit beider Methoden muss für jeden Prozess einzeln
 
 Mit der vorliegenden Arbeit wurde das Parsivald-Modell und seine Implementierung um PVD- und CVD-Modi (Abbildung~\ref{fig:parsivald-modes}), eventgebundene sterische Hinderung zum Zweck der CVD-Simu\-lation, ein allgemeines Konfigurationsformat und MD-Befehle mit Platzhaltern (sogenannte MD-Masken) erweitert.
 Intern kam die Unterstützung verschiedener atomistischer Dateiformate, die Einbettung der LAMMPS-Umgebungs\-variablen zur Potentialsuche, globale und lokale Suchpfade für alle Eingabedateien und ein interner sowie beliebig viele externe Workerpools dazu.
-Ein standardisiertes Buildsystem sorgt für schnelle und sichere Kompilierung der Software, und eine Vielzahl externer Werkzeuge zur Prozess-Vorbereitung und -Analyse, wie sie in Abschnitt~\ref{mdmethods} vorgestellt wird, ermöglicht schnelle Zyklen der Parameteroptimierung und Auswertung.
+Ein standardisiertes Buildsystem sorgt für schnelle und sichere Kompilierung der Software, und eine Vielzahl externer Werkzeuge zur Vorbereitung und Analyse von Prozessen, wie sie in Abschnitt~\ref{mdmethods} vorgestellt werden, ermöglicht schnelle Zyklen der Parameteroptimierung und Auswertung.
 
 Diese Änderungen ermöglichen eine einfachere Vorbereitung, Simulation und Untersuchung verschiedener Prozesse und eine aussagekräftigere Analyse der Ergebnisse.
-Auch eine automatisierte Optimierung der Simulation durch selbstständige Anpassung der Prozessparameter wie Temperatur, Druck und Expositionszeit oder MD-spezifischer Parameter wie Thermostatdämpfung, Relaxationsdauer oder Länge des Zeitschrittes ist mittels des Konfigurationsmechanismus' denkbar.
+Auch eine automatisierte Optimierung der Simulation durch selbstständige Anpassung der Prozessparameter wie Temperatur, Druck und Expositionszeit oder MD-spezifischer Parameter wie Thermostatdämpfung, Relaxationsdauer oder Zeitschrittweite ist mittels des Konfigurationsmechanismus' denkbar.
 
 %% Zusätzlicher Aufwand musste beim Einkapseln der MD-Bibliothek LAMMPS betrieben werden (Abschnitt~\ref{lammpssucks}).
 

@@ -52,12 +52,10 @@ Numerisch wird diese zusätzliche Randbedingung durch ein Thermostat ermöglicht
 Das \textbf{Berendsen-Thermostat}\cite{berendsen_molecular_1984} etwa skaliert die Teilchengeschwindigkeiten in Richtung des Mittelwertes der Maxwell-Boltzmann-Verteilung für die Zieltemperatur $T_\text{Ziel}$.
 \begin{equation}
   \overline{E_{kin}} = \frac{1}{2} \overline{m v^2} = \frac{d}{2} k_B T_\text{Ziel}
-  \label{eq:ekanonisch}
 \end{equation}
 Anstatt einer harten Reskalierung wird für eine exponentielle Annäherung der Temperatur an $T_\text{Ziel}$ gesorgt, indem in jedem Zeitschritt nur ein Teil der Differenz in Abhängigkeit der Dämpfungszeit $\tau$ angeglichen wird.
 \begin{equation}
   \vec v_i' = \vec v_i \cdot \sqrt{1 + \frac{\Delta t}{\tau} \left(\frac{T_\text{Ziel}}{T} - 1\right)}
-  \label{eq:berendsen}
 \end{equation}
 Dabei werden Fluktuationen in der Systemtemperatur unterdrückt und somit die Ergodizität verletzt, doch zeigt sich für große Systeme eine gute Annäherung an das kanonische Ensemble bei vertretbarer Rechenzeit.
 
@@ -84,7 +82,7 @@ $M$ enthält neben Einheitenfaktoren auch die virtuelle Masse des Wärmebades un
 
 \subsubsection{Großkanonisches Ensemble (NPT)}
 
-Wird zusätzlich noch Verformungsenergie vom System verrichtet, spricht man vom Großkanonischen Ensemble, für das statt des Volumens der mittlere Druck des Systems konstant bleibt.
+Wird zusätzlich noch Verformungsarbeit vom oder am System verrichtet, ergibt sich das Großkanonische Ensemble, für das statt des Volumens der mittlere Druck des Systems konstant bleibt.
 
 \begin{equation}
   N = \text{const.}
@@ -94,19 +92,22 @@ Wird zusätzlich noch Verformungsenergie vom System verrichtet, spricht man vom 
   T = \text{const.}
 \end{equation}
 Dies wird durch ein Barostat realisiert, das durch Skalierung des Simulationsraumes den mittleren Druck ähnlich zu den oben vorgestellten Thermostaten beeinflusst, sodass sich als Standard Nosé-Hoover-Barostate etabliert haben, gelegentlich aber auch Berendsen-Barostate verwendet werden.
-Der Druck innerhalb des Systems wird dabei über die Virialgleichung ermittelt, die eigentlich für Gase gilt, aber auch für Flüssigkeiten und Feststoffe Systeme gute Ergebnisse liefert.
+Der Druck innerhalb des Systems wird dabei über die Virialgleichung ermittelt, die eigentlich für Gase gilt, aber auch für Flüssigkeiten und Feststoffe gute Ergebnisse liefert.
 
 \begin{equation}
   P V = N k_B T + \frac{1}{d} \sum_{i=1}^N{\vec{r}_i \cdot \vec{F}_i}
 \end{equation}
 
+\todo[inline]{Wenn Zeit bleibt: NPH betrachten}
+\todo[inline]{Wenn Zeit bleibt: Erforschung des Ensembles per Monte Carlo}
+
 \subsubsection{Minimierung durch Konjugierte Gradienten (CG-Minimierung)}
 
 \todo[inline]{Hinweis von Jörg: beachte bitte, dass Prof. Hoffmann hier zuhause ist. Tiefergehende Kenntnisse können beim Vortrag nicht schaden}
 
-Möchte man mit molekulardynamischen Methoden Strukturen optimieren, greift man häufig auf Algorithmen zur Energieminimierungen zurück, wie der populären Konjugierte-Gradienten-Methode (CG, Conjugated Gradients), mit denen im Idealfall das globale Minimum der Systemenergie gesucht wird.
-Dabei läuft man den Systemzustand von einem Startpunkt $\vec X_0$ aus entlang des Gradienten der Energie $\nabla E(X)$ in Richtung des Minimums ab, kann aber über die Schrittweite $\alpha$ Einfluss auf die Qualität und Geschwindigkeit der Suche nehmen.
-
+\todo[inline]{Betrachtung von Minimierungs-Algorithmen, etwa auch thermal annealing}
+Für die Strukturoptimierung mit molekulardynamischen Methoden werden Algorithmen zur Energieminimierung genutzt, wie die populäre Konjugierte-Gradienten-Methode (CG, Conjugated Gradients), mit denen im Idealfall das globale Minimum der Systemenergie gesucht wird.
+\todo{0K}Bei der CG-Methode wird der Zustandsraum von einem Startzustand $\vec X_0$ aus entlang des Gradienten der Energie $\nabla E(X)$ in Richtung des Minimums abgeschritten, wobei über die Schrittweite $\alpha$ das Konvergenzverhalten beeinflusst werden kann.
 \begin{figure}
   \centering
   \def\svgwidth{0.5\textwidth}
@@ -119,32 +120,27 @@ Dabei läuft man den Systemzustand von einem Startpunkt $\vec X_0$ aus entlang d
   }
   \label{fig:cg-gradient}
 \end{figure}
-
 \begin{equation}
   \vec X_i = \vec X_{i-1} - \alpha \nabla E(\vec X_{i-1})
 \end{equation}
 Als Abbruchkriterien stehen je nach Verhalten des Systems währen der Optimierung die Differenz zwischen zwei Schritten ($|\vec X_i - \vec X_{i-1}| < X_\text{tol}$), die maximale Änderung eines Vektorelementes ($\max_k{|X_{i,k} - X_{i-1,k}|} < X_\text{tol}$),
 die Stärke des Gradienten ($|\nabla E(\vec X_{i-1})| < E_\text{tol}$), eine Anzahl an Zeitschritten ($i > i_\text{tol}$) oder eine Kombination daraus zur Verfügung.
 
-Eine Optimierung durch minimierte Gradienten ist für eine große Zahl an Freiheitsgraden zwar schnell\todo{verglichen womit?}, stößt aber an Grenzen, wenn man allgemeine, nichtlineare Funktionen minimieren möchte, weshalb Variationen des CG-Algorithmus' entwickelt wurden.
-Einerseits kann man den Optimierungsschritt durch eine Minimierung entlang der Schrittrichtung ersetzen:
+Eine Optimierung durch minimierte Gradienten ist für eine große Zahl an Freiheitsgraden zwar schnell\todo{verglichen womit?}, stößt aber an Grenzen bei der Minimierung allgemeiner nichtlinearer Funktionen, weshalb Variationen der CG-Methode mit besserem Konvergenzverhalten entwickelt wurden.
+Einerseits kann der Optimierungsschritt durch eine Minimierung entlang der Richtung des Gradienten ersetzt werden:
 \begin{gather}
-  \label{eq:cg-linesearch1}
   \min_\alpha f(X_i+\alpha \vec s_i) \rightarrow \alpha_i \\
-  \label{eq:cg-linesearch2}
   \vec X_i = \vec X_{i-1} - \alpha_i \vec s_i
 \end{gather}
 Andererseits steht die Manipulation der Schrittrichtung in Abhängigkeit vorheriger Schritte zur Verfügung.
 In der populären MD-Bibliothek LAMMPS wird etwa die Polak-Ribière-Variante dieser Methode genutzt:
 \begin{equation}
-  \label{eq:pr1}
   \vec s_i = \Delta \vec X_i + \beta_i \vec s_{i-1}
 \end{equation}
 \begin{equation}
-  \label{eq:pr2}
   \beta_i = \max \left(0, \frac{\Delta \vec X_i \cdot \left(\Delta \vec X_i - \Delta \vec X_{i-1}\right)}{\Delta \vec X_{i-1} \cdot \Delta \vec X_{i-1}}\right) \text{~(Polak-Ribière)}
 \end{equation}
-Es existieren noch weitere gleichwertige Methoden mit anderen Zielsetzungen und Formulierungen.\todo{welche?}
+Es existieren noch weitere gleichwertige Methoden mit anderen Zielsetzungen und Formulierungen.\todo{Das ist mal schwammig. Wenigstens Beispiele bringen, besser noch Referenzen}
 Diese Anpassungen verbessern einerseits das erwartete Konvergenzverhalten, andererseits stabilisieren sie den Optimierungsalgorithmus gegenüber Nichtlinearitäten und Unstetigkeiten.
 
 %% \subsubsection{Weitere Minimierungsmethoden}
@@ -153,10 +149,8 @@ Diese Anpassungen verbessern einerseits das erwartete Konvergenzverhalten, ander
 %% Obwohl diese auf dem Papier schneller konvergieren, sind für jeden Iterationsschritt durch die Berechnung der Hesse-Matrix mehr Rechenoperationen notwendig, so dass reale Berechnungszeit und Speicherverbrauch gegenüber CG-Methoden oft im Nachteil sind.
 %% \todo{Referenz für Interessierte}
 
-
 %% separate file for force fields to avoid having to scroll down
 \input{forcefields}
-
 
 \subsection{Verfügbare Software}
 

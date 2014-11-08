@@ -227,6 +227,20 @@ disabledincludes(){
     listfiles | xargs -0 grep -Pon '^[^%]*%.*\\in(clude|put){[^}]+}'
 }
 
+manoccurences(){
+    listfiles | xargs -0 grep -Pin '\bman\b' | grep -Pv '^[^:]+:[0-9]+:\s*%'
+}
+
+overfullboxes(){
+    local num=$(listlogs | xargs -0 grep -Pi 'overfull' | wc -l)
+    (( num > 0 )) && echo "$num overfull boxes left"
+}
+
+underfullboxes(){
+    local num=$(listlogs | xargs -0 grep -Pi 'underfull' | wc -l)
+    (( num > 0 )) && echo "$num underfull boxes left"
+}
+
 #####################
 # begin actual work #
 #####################
@@ -235,6 +249,7 @@ disabledincludes(){
     register "possible typos" listunknownwords
     register "LaTeX Errors" getlatexerrors
     register "word repetitions" doublewords
+    register "Man/man occurences" manoccurences
     register "undefined references" undefinedreferences
     register "undefined citations" undefinedcitations
     register "unexplained abbreviations" unexplainedabbreviations
@@ -246,13 +261,15 @@ disabledincludes(){
     register "double spaces" doublespaces
     register "tab stops" alltabs
     register "cites/refs with leading spaces" spacerefs
-#    register "unused citations" unusedcitations
+    register "unused citations" unusedcitations
     register "unused abbreviations" unusedabbreviations
     register "ASD occurences" asddsa
     register "disabled includes" disabledincludes
     register "LaTeX Warnings" getlatexwarnings
     register "Equation References" equationreferences
     register "todo notes" todonotes
+    register "overfull boxes" overfullboxes
+    register "underfull boxes" underfullboxes
     register "draft notes" getdrafts
 
     printfinalstate

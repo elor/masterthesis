@@ -5,7 +5,7 @@
 
 In der Mikro- und Nanoelektronik herrscht eine anhaltende Miniaturisierung vor, die inzwischen für Transistoren, insbesondere MOSFETs, zu Strukturbreiten im Nanometerbereich geführt hat.
 Um dabei eine hohe Kapazität des Gates bei verringerter Fläche beizubehalten, schrumpft die Schichtdicke des Gate-Dielektrikums ebenfalls auf Werte unterhalb von \SI{2}{\nano\meter}, bei denen jedoch Leckströme in Folge des Tunnel-Effektes auftreten.
-Deshalb wurde begonnen, das herkömmliche Siliziumdioxid mit seiner Dielektrizität von $\kappa=\num{3.9}$ durch Dielektrika mit einem höheren Wert für $\kappa$ zu ersetzen, die man deshalb als High-$\kappa$-Dielektrika bezeichnet.
+Deshalb wurde begonnen, das herkömmliche Siliziumdioxid mit seiner Dielektrizität von $\kappa=\num{3.9}$ durch Dielektrika mit einem höheren Wert für $\kappa$ zu ersetzen, die deshalb als High-$\kappa$-Dielektrika bezeichnet werden.
 Mit ihnen werden die gleichen Kapazitäten bei größeren Schichtdicken erreicht, wodurch Leckströme vermieden werden.
 
 %% {Kandidat zur Lösung von Herausforderungen}
@@ -20,13 +20,15 @@ Sie ermöglichen etwa die Produktion von passivierenden und protektiven Beschich
 Weiterhin erlauben sie die Herstellung vielschichtiger Materialien mit besonderen strukturellen (erhöhte Festigkeit), magnetischen (Riesenmagnetowiderstand, magnetischer Tunnelwiderstand) und optischen (Röntgenspiegel) Eigenschaften.
 Doch auch größere Oberflächen werden per Gasphasenabscheidung mit funktionellen Dünnschichten versehen, etwa zur Erhöhung der Witterungs- und Wärmebeständigkeit von Oberflächen.
 
-%% {Zu untersuchender Aspekt des Kandidaten}
-Atomistische Simulationen können helfen, unter verschiedenen Bedingungen die strukturellen Eigenschaften der abgeschiedenen Schicht zu untersuchen, anhand derer auch Rückschlüsse auf elektronische und thermodynamische Eigenschaften gezogen werden können.
+%% {Mein Gebiet}
+Dabei sind Untersuchungen der Struktur und der Wachstumseigenschaften der Dünnschichten in der Regel mit hohem experimentellen Aufwand verbunden.
+Atomistische Simulationen können an dieser Stelle helfen, unter verschiedenen Bedingungen die strukturellen Eigenschaften der abgeschiedenen Schicht zu beschreiben, anhand derer auch Rückschlüsse auf elektronische und thermodynamische Eigenschaften gezogen werden können.
 Dafür ist eine Modellierung chemischer Reaktionen und amorpher Strukturen ebenso notwendig wie die Beschreibung von Simulationsräumen auf der Größenordnung kompletter Nano-Bauelemente, um ebenfalls Aussagen über das Wachstum auf strukturierten und gemischten Substraten treffen zu können.
+Eine effiziente atomistische Simulation oberhalb der Nanometer-Skala war aufgrund des damit verbundenen Rechenaufwandes bisher allerdings nicht möglich.
 
 %% {Möglichkeiten zur Optimierung}
 
-Ansatzpunkte für die Simulation struktureller Eigenschaften bestehen in Kinetischen Monte Carlo-Methoden (KMC) einerseits und in Molekulardynamik (MD) andererseits.
+Ansatzpunkte für die Simulation von Gasphasenabscheidungen bestehen in Kinetischen Monte Carlo-Methoden (KMC) einerseits und in Molekulardynamik (MD) andererseits.
 KMC kann die Reaktionskinetik komplizierter Prozesse in großen Simulationsräumen zufriedenstellend beschreiben, ermöglicht allerdings keine detaillierte strukturelle Beschreibung der simulierten Materialien.
 MD hingegen simuliert effizient atomistische Strukturen, lässt sich aber nur unzureichend zur Beschreibung von großen Simulationsräumen nutzen.
 Mit der Einführung reaktiver Kraftfelder haben molekulardynamische Simulationen zudem die Möglichkeit gewonnen, chemische Reaktionen effizient zu simulieren, doch sind diese rechenaufwendiger als herkömmliche Kraftfelder und erlauben nur die Simulation weniger tausend Atome.
@@ -52,4 +54,4 @@ Die Simulation gemischter Systeme wird anhand der Multilagen-Abscheidung durch K
 Anschließend wird die Präparation und Abscheidung amorpher Strukturen am Silizium-PVD-System untersucht, wobei auch Betrachtungen der Gasphasen-Reaktionen für Siliziumoxid-CVD durchgeführt werden.
 Zuletzt werden die Oberflächen-Reaktionen des Aluminiumoxid-ALD-Prozesses mit den Prozessgasen Trimethylaluminium und Wasser simuliert.
 
-Zum Abschluss wird die Arbeit mit Kapitel~\ref{summary} zusammen gefasst und interessante Fragestellungen und Anknüpfungspunkte für künftige Untersuchungen gegeben.
+Zum Abschluss wird die Arbeit mit Kapitel~\ref{summary} zusammen gefasst, bevor interessante Fragestellungen und Anknüpfungspunkte für künftige Untersuchungen gegeben werden.

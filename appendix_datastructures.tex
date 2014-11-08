@@ -73,7 +73,7 @@ Für MD-Simulationen lohnen sich Nachbarschaftslisten jedoch, da sich die Nachba
 Beim Binning werden Punkte in meist quaderförmige Raumbereiche (Bins) eingeteilt, wodurch bei Suchoperationen vom Zustand der Bins Rückschlüsse auf das Suchergebnis gezogen werden können.
 Die Koordinaten des Bins ergibt sich aus der globalen Position der Atome durch lineare Beziehungen.
 Innerhalb der Bins liegen wiederum Atomlisten vor, doch werden die Maße der Bins oberhalb der Manipulations-Reichweiten gewählt, so dass die Nachteile der Atomlisten unterdrückt werden.
-Bins selbst können in einer übergeordneten Datenstruktur verwaltet werden, beispielsweise die in Abschnitt~\ref{dataoctree} verwendeten Octrees
+Bins selbst können in einer übergeordneten Datenstruktur verwaltet werden, beispielsweise die in Abschnitt~\ref{dataoctree} verwendeten Octrees.
 
 \subsection{Suchbäume}
 In Suchbäumen wird jedes Atom entsprechend seiner Position als Knoten eines balancierten Binär-Baumes verwaltet, so dass Suchoperationen in \BigO{\log{n}} terminieren.
@@ -88,6 +88,37 @@ Abschnitt~\ref{datadelaunay} stellt Delaunay-Triangulationen vor, welche durch B
 
 \section{Delaunay-Triangulationen}
 \label{appendix_delaunay}
+
+\begin{figure}[!ht]
+  \captionsetup[subfigure]{singlelinecheck=false}{
+    \def\subfigwidth{0.23\textwidth}
+    \def\svgwidth{\textwidth}
+    \begin{subfigure}[t]{\subfigwidth}
+      \includegraphics[width=\textwidth]{datastructures-a}
+      \subcaption{Listen}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{\subfigwidth}
+      \includegraphics[width=\textwidth]{datastructures-b}
+      \subcaption{Binning}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{\subfigwidth}
+      \includegraphics[width=\textwidth]{datastructures-c}
+      \subcaption{Octree}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{\subfigwidth}
+      \includegraphics[width=\textwidth]{datastructures-d}
+      \subcaption{k-d-Baum}
+    \end{subfigure}
+  }
+  \caption[Übersicht über Partitionen des Simulationsraumes]{
+    Übersicht über Partitionen des Simulationsraumes für einige Datenstrukturen.
+    k-d-Baum-Partitionen sind dynamisch und ändern sich mit jeder Manipulation.
+  }
+  \label{fig:datastructures}
+\end{figure}
 
 \subsubsection{Ausgewählte Eigenschaften einer Delaunay-Triangulation}
 
@@ -112,24 +143,24 @@ Zur Delaunay-Triangulierung aus einer Punktmenge stehen verschiedene Algorithmen
 
 \begin{itemize}
 \item Flip-basierte Algorithmen (Local Improvement)\\
-  Man startet mit einer beliebigen Triangulation, prüft den Umkreis aller Simplexe auf enthaltene Punkte und korrigiert gegebenenfalls per Flip-Algorithmus, der in Abbildung~\ref{fig:delaunay-flip} dargestellt ist.
+  Der Algorithmus startet mit einer beliebigen Triangulation, prüft den Umkreis aller Simplexe auf enthaltene Punkte und korrigiert gegebenenfalls per Flip-Algorithmus, der in Abbildung~\ref{fig:delaunay-flip} dargestellt ist.
   Diese Algorithmen konvergieren typischerweise in \BigO{n^2} und sind damit vergleichsweise langsam.
 
 \item Scan-Algorithmus (Incremental Construction)\\
-  Man konstruiert schrittweise Simplexe, die das Delaunay-Kriterium erfüllen und keine nachträgliche Änderung benötigen.
+  Der Algorithmus konstruiert schrittweise Simplexe, die das Delaunay-Kriterium erfüllen und keine nachträgliche Änderung benötigen.
   Durch viele Vergleiche und Sortierungen variieren typische asymptotische Laufzeiten zwischen \BigO{n\log{n}} und \BigO{n^2}.
 
 \item Einfügungs-Algorithmen (Incremental Insertion)\\
-  Man erstellt einen beliebig großen Simplex, der die gesamte Punktmenge beinhaltet, und fügt schrittweise einzelne Punkte in die Triangulation ein.
+  Der Algorithmus erstellt einen beliebig großen Simplex, der die gesamte Punktmenge beinhaltet, und fügt schrittweise einzelne Punkte in die Triangulation ein.
   Der den eingefügten Punkt umfassende Simplex wird an ihm in mehrere Unter-Simplexe geteilt, auf den und dessen unmittelbare Nachbarn ein Flip-basierter Algorithmus ausgeführt wird.
   Laufzeiten sind typischerweise gering mit \BigO{n\log{n} + n^{\lceil d/2 \rceil}}.
 
 \item Divide-and-Conquer-Algorithmen\\
-  Man teilt die Punktmenge in Untermengen, die rekursiv trianguliert und anschließend an ihren Grenzen miteinander zur Zieltriangulation vereinigt werden.
+  Der Algorithmus teilt die Punktmenge in Untermengen, die rekursiv trianguliert und anschließend an ihren Grenzen miteinander zur Zieltriangulation vereinigt werden.
   Größter Rechenaufwand ist für die Vereinigung der Teiltriangulierungen notwendig, die in zwei Dimensionen aufgrund von Ordnungsrelationen entlang der Grenze beinahe trivial, in höheren Dimensionen jedoch mit Problemen verbunden ist.
   Eine mögliche Lösung ist der DeWall-Algorithmus\cite{cignoni_dewall:_1998}, dessen Methode zur Vereinigung über die Grenzen teilperiodischer Räume interessant wird.
-  In zwei Dimensionen erreicht man \BigO{n\log{n}}, höhere Dimensionen können per DeWall-Algorithmus mit einer Laufzeit von \BigO{n^{\lceil d/2 \rceil + 1}} behandelt werden, die sich jedoch nur in pathologischen Fällen zeigt.
-  Nimmt man annähernde Gleichverteilungen an, konvergiert dieser Algorithmus in drei Dimensionen subquadratisch, man sollte jedoch betrachten, dass er sich gegenüber anderer Konstruktionsalgorithmen durch einfache Parallelisierung sowie der Möglichkeit der Aktualisierung großer Raumbereiche auszeichnet.
+  In zwei Dimensionen wird \BigO{n\log{n}} erreicht, höhere Dimensionen können per DeWall-Algorithmus mit einer Laufzeit von \BigO{n^{\lceil d/2 \rceil + 1}} behandelt werden, die sich jedoch nur in pathologischen Fällen zeigt.
+  Werden annähernde Gleichverteilungen angenommen, konvergiert dieser Algorithmus in drei Dimensionen subquadratisch, doch sollte beachtet werden, dass er sich gegenüber anderer Konstruktionsalgorithmen durch einfache Parallelisierung sowie der Möglichkeit der Aktualisierung großer Raumbereiche auszeichnet.
 
 \item Höherdimensionale Einbettung\\
   Hier wird die Punktmenge in eine höhere Dimension transformiert, in der deren konvexe Hülle berechnet wird, die dann in den ursprünglichen Raum herunter projiziert wird und darin eine gültige Delaunay-Triangulation ergibt.

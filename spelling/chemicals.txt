@@ -34,3 +34,5 @@ Trimethylaluminum
 cu
 si
 Siliziums
+TaN
+TiO

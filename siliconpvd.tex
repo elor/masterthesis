@@ -1,7 +1,7 @@
 \section{Silizium-PVD}
 \label{siliconpvd}
 
-Anhand von Silizium-PVD sollen einerseits amorphe Schichten abgeschieden, andererseits zur \ce{SiH4}-\ce{O2}-CVD hingeführt werden.
+Anhand von Silizium-PVD sollen einerseits amorphe Schichten abgeschieden, andererseits \todo{Nebensatz}zur \ce{SiH4}-\ce{O2}-CVD hingeführt werden.
 Nach Voruntersuchungen verschiedener ReaxFF-Para\-metrisierungen werden Abscheidungen auf kristallinen Silizium-Substraten unterschiedlicher Schnittebenen simuliert.
 \todo[inline]{Einleitung nochmal versuchen}
 
@@ -37,8 +37,8 @@ Tabelle~\ref{tab:siliconpotentials} listet die im Rahmen der Arbeit untersuchten
 
 In Ergänzung zu den bisherigen Voruntersuchungen, die hauptsächlich aus Optimierungen und Relaxierungen von Kristallen bestanden, kommen hier auch Simulationen der Stabilität der Precursormoleküle für \ce{SiO2}-CVD, \ce{SiH4} und \ce{O2}, sowie der Oberfläche und der amorphen Struktur hinzu, wie sie bereits in Abschnitt~\ref{mdmethods} vorgestellt wurden.
 Diese zusätzlichen Untersuchungen haben umfassendere Aussagen über die Anwendbarkeit der Parametrisierungen für vollständige Abscheidungssimulationen zum Ziel.
-Lassen sich auch Reaktionen zwischen Precursormolekülen und der Oberfläche zuverlässig simulieren, könnte man die Precursormoleküle in Parsivald direkt auf der Oberfläche aufbringen, statt sie auf ihre Zentralatome zu reduzieren.
-Die Ergebnisse dieser Betrachtungen wurden in Tabelle~\ref{tab:siliconpreresults} zusammen gefasst und im weiteren kurz diskutiert.
+Lassen sich auch Reaktionen zwischen Precursormolekülen und der Oberfläche zuverlässig simulieren, könnten die Precursormoleküle in Parsivald direkt auf der Oberfläche aufgebracht werden, statt sie auf ihre Zentralatome zu reduzieren.
+Die Ergebnisse dieser Betrachtungen wurden in Tabelle~\ref{tab:siliconpreresults} zusammen gefasst und im Weiteren kurz diskutiert.
 
 \begin{table}
   \begin{threeparttable}
@@ -81,7 +81,7 @@ Die Ergebnisse dieser Betrachtungen wurden in Tabelle~\ref{tab:siliconpreresults
  %% & ~
 
     \begin{tablenotes}[para]
-      \item[b] LMP: Kompatibilität mit LAMMPS
+      \item[a] LMP: Kompatibilität mit LAMMPS
       \item[b] PVD: a-\ce{Si}-PVD mit Parsivald
       %% \item[b] CVD: a-\ce{SiO2}-CVD mit Parsivald
     \end{tablenotes}
@@ -131,7 +131,7 @@ Sauerstoff-Reaktionen werden also nur in der Nähe von Silan-Gruppen und Silan-R
 \subsection{Silizium-PVD}
 
 Silizium-PVD dient in der Produktion elektronischer Artikel der Erzeugung einer dünnen, amorphen Siliziumschicht für unterschiedliche Anwendungsszenarien, für die konforme Schichten gleichbleibender Qualität gewünscht sind.
-Durch den amorphen Charakter des Materials sind nanoskopische Leerstellen und höhere Rauheiten als bei monokristallinen Schichten zu erwarten, die im folgenden kurz untersucht werden sollen.
+Durch den amorphen Charakter des Materials sind nanoskopische Leerstellen und höhere Rauheiten als bei monokristallinen Schichten zu erwarten, die im Folgenden kurz untersucht werden sollen.
 Rechenaufwendigere Rechenvorschriften des ReaxFF-Potentiales legen eine längere Simulationsdauer als bei EAM-Potentialen nahe, weshalb nur eine kleine Menge an Simulationen durchgeführt wurde.
 Typische Laufzeiten von mehreren Wochen wurden für vollständige ReaxFF-Abscheidungssimulationen untersucht, jedoch sind im Gegensatz zu rein molekulardynamischen Untersuchungen größere Simulationsräume mit isolierten Ereignissen möglich, die eine Reduktion der Finite Size-Effekte zur Folge hat.
 
@@ -140,7 +140,7 @@ Sonstige Parameter umfassen eine Temperatur von \SI{1300}{\kelvin} (der Schmelzp
 Die Auftreffenergie der Silizium-Atome liegt mit \SI{11.2}{\electronvolt} erneut vergleichsweise hoch, wird aber auch hier durch das Thermostat verringert\todo{wie weit?}.
 Damit werden im Schnitt \num{1.68} parallele Ereignisse mit durchschnittlich \num{1510.65} Atomen und einer mittleren Laufzeit von \SI{60.71}{\second} berechnet.
 Die Laufzeit lässt sich beispielsweise über die Zeitschrittweite noch minimieren, zeigt allerdings den Unterschied in der Laufzeit bei der Nutzung von EAM- und ReaxFF-Potentialen, der einem Faktor von etwa \num{12} für vergleichbare Operationen entspricht.
-Die hohe Temperatur wurden gewählt, um Relaxationen zu beschleunigen, und übersteigen Temperaturen realer Abscheidungen.
+Die hohe Temperatur wurden zur Beschleunigung der Relaxationen gewählt und übersteigen Temperaturen realer Abscheidungen.
 Durch Justierung der Relaxationszeit, Zeitschrittweite, Thermostatdämpfung und Teilchenenergie lässt sich die Temperatur auf einen realistischeren Wert bei gleicher Verlässlichkeit der Simulation senken.
 
 Das Ergebnis der Abscheidungssimulation ist eine vergleichsweise glatte, amorphe Siliziumschicht, die mit konstanter Rate wächst, jedoch eine Zunahme der Rauheit aufgrund von sich langsam verstärkenden Oberflächenunebenheiten aufweist.
@@ -156,12 +156,12 @@ Leider ermöglicht die begrenzte Laufzeit der Simulation ermöglicht keine Aussa
     \subcaption{Dicke und Rauheit der Schicht}
     \label{fig:siliconresults-a}
   \end{subfigure}
+  \hfill
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{si111_rdf}
     \subcaption{Radiale Verteilungsfunktion bei $t=80$}
     \label{fig:siliconresults-b}
   \end{subfigure}
-  \hfill
   \caption[Struktur einer Silizium-PVD-Schicht aus Parsivald]{
     Struktur einer Silizium-PVD-Schicht aus Parsivald (\SI{10x10}{\nano\meter})
   }
@@ -214,3 +214,11 @@ Somit zeigt sich die ReaxFF-Formulierung erfolgreich in der Darstellung der chem
   }
   \label{fig:siliconunderrelaxedprofile}
 \end{figure}
+
+\todo[inline]{Der Farbgradient der Skalen wird vom Multifunktionsdrucker nicht gedruckt}
+
+\todo{Dichte der Schicht?}
+
+\subsection{Siliziumdioxid-CVD}
+
+\todo{vielleicht die Voruntersuchungen von oben kopieren}

@@ -59,9 +59,9 @@ Bei Erreichen des Timeouts startet der nächste Schritt oder ein neuer Zyklus.
 Nach jedem Schritt werden alle Atome in einem atomistischen Speicherformat zur späteren Analyse auf Festplatte gespeichert.
 Die Abscheidungssimulation endet nach einer vorgegebenen Anzahl an Zyklen oder vollständiger Füllung des Simulationsraumes mit Atomen.
 
-Mit diesem Schema lassen sich auch CVD- und PVD-Prozesse simulieren, indem man sich auf einen Schritt pro Zyklus beschränkt und im CVD-Fall mehrere Ereignisarten gleichzeitig nutzt.
-Der Zyklus-Timeout kann dann zur Kontrolle der Ausgabefrequenz genutzt werden.
-Für ALD und CVD lässt sich die Abscheidungsrate aus der Reaktionskinetik abschätzen, während man für PVD-Simulationen die Rate fest entsprechend der Prozessparameter setzen kann.
+Mit diesem Schema lassen sich auch CVD- und PVD-Prozesse simulieren, der Zyklus auf einen einzigen Schritt beschränkt wird und bei CVD-Simulationen mehrere Ereignisarten gleichzeitig betrachtet.
+Der Zyklen-Timeout kann dann zur Kontrolle der Ausgabefrequenz atomistischer Strukturen genutzt werden.
+Für ALD und CVD lässt sich die Abscheidungsrate aus der Reaktionskinetik abschätzen, während sie bei PVD-Simulationen durch den entsprechenden Prozessparameter festgelegt wird.
 
 \begin{figure}
   \captionsetup[subfigure]{singlelinecheck=false}
@@ -111,7 +111,7 @@ ReaxFF-Potentiale sind um mehrere Größenordnungen rechenaufwendiger als EAM-Po
 Werden zusätzlich Moleküle und deren Reaktionen mit Oberflächenliganden dargestellt, lassen sich Precursor-Oberflächen-Reaktionen direkt in Parsivald simulieren.
 Andernfalls muss der Precursor über sein abzuscheidendes Zentralatom und zusätzliche Mechanismen wie explizite sterische Hinderung angenähert werden.
 Die Suche nach Ereignisorten würde dann über exponierte Oberflächenatome und Revisionslisten statt über Oberflächenliganden angenähert.
-Eine tatsächliche Anwendbarkeit beider Methoden muss für jeden Prozess einzeln abgeschätzt werden, da die nun fehlenden Precursorliganden strukturell entscheidend für den Aufbau der abgeschiedene Schicht sein können.
+Eine tatsächliche Anwendbarkeit beider Methoden muss für jeden Prozess einzeln abgeschätzt werden, da die nun fehlenden Precursorliganden strukturell entscheidend für den Aufbau der abgeschiedenen Schicht sein können.
 
 \subsection{Erweiterung im Rahmen der Masterarbeit}
 
@@ -131,7 +131,7 @@ Das beinhaltet die Zahl der versuchten, erfolgreichen und fehlgeschlagenen Ereig
 Optional lässt sich eine Verteilung der Häufigkeit eines Zugriffes auf Positionen in der xy-Ebene angeben, um bei reaktiven Prozessen die Auswahlkriterien von Ereignisorten zu prüfen.
 Anhand der atomistischen Struktur lassen sich Oberflächenrauheiten, Porenverteilungen, Dichten, Schichtdicken und Eigenschaften eventueller Kristalle bestimmen (Abschnitt~\ref{mdmethods}).
 
-Eine Auswertung der Abbruchrate ist besonders wichtig, während man nach validen Prozessparametern sucht, da sich über sie Fehler in der Prozesskonfiguration oder in der gebildeten Struktur abschätzen lassen (Siehe Abbildung~\ref{fig:copperparsivald}).
+Eine Auswertung der Abbruchrate ist besonders bei der Suche nach validen Prozessparametern wichtig, da sich über sie Fehler in der Prozesskonfiguration oder in der gebildeten Struktur abschätzen lassen (siehe Abbildung~\ref{fig:copperparsivald}).
 Ereignisse, die einem Abbruch der LAMMPS-Bibliothek unterliegen, ihre Zeitbegrenzung erreichen oder isolierte Strukturen bilden, werden einem Worker zur erneuten Berechnung übergeben.
 Schlagen sie auch bei wiederholten Versuchen fehl, werden sie endgültig als fehlgeschlagen markiert und abgebrochen.
 Dieser Mechanismus ist notwendig, da LAMMPS-Prozesse gelegentlich unvorhersehbar für unbestimmte Zeit blockieren oder abstürzen und so ohne Möglichkeit der Diagnose ihre Zeitbegrenzung erreichen.

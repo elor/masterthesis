@@ -29,39 +29,6 @@ Bei KMC-Simulationen überwiegen die drei Suchoperationen, da sie für jedes Ere
 Somit liegt das Auswahlkriterium der Datenstruktur bei der Effizienz ihrer Suchoperationen, mit Ausnahme der Nachbarschaftslisten und k-d-Bäume, deren Manipulationsoperationen für große Simulationsräume \todo{phrasing}zu langsam sind.
 Die Ergebnisse der Laufzeit-Analysen der sieben Operationen auf den vorgestellten Datenstrukturen werden in Tabelle~\ref{tab:dataruntimes} zusammen gefasst, wofür Tabelle~\ref{tab:datasymbols} die verwendeten Symbole erklärt.
 
-%% \begin{figure}[!ht]
-%%   \captionsetup[subfigure]{singlelinecheck=false}{
-%%     \def\subfigwidth{0.23\textwidth}
-%%     \def\svgwidth{\textwidth}
-%%     \begin{subfigure}[t]{\subfigwidth}
-%%       \includegraphics[width=\textwidth]{datastructures-a}
-%%       \subcaption{Listen}
-%%     \end{subfigure}
-%%     \hfill
-%%     \begin{subfigure}[t]{\subfigwidth}
-%%       \includegraphics[width=\textwidth]{datastructures-b}
-%%       \subcaption{Binning}
-%%     \end{subfigure}
-%%     \hfill
-%%     \begin{subfigure}[t]{\subfigwidth}
-%%       \includegraphics[width=\textwidth]{datastructures-c}
-%%       \subcaption{Octree}
-%%     \end{subfigure}
-%%     \hfill
-%%     \begin{subfigure}[t]{\subfigwidth}
-%%       \includegraphics[width=\textwidth]{datastructures-d}
-%%       \subcaption{k-d-Baum}
-%%     \end{subfigure}
-%%   }
-%%   \caption[Übersicht über Partitionen des Simulationsraumes]{
-%%     Übersicht über Partitionen des Simulationsraumes für einige Datenstrukturen.
-%%     k-d-Baum-Partitionen sind dynamisch und ändern sich mit jeder Manipulation.
-%%   }
-%%   \todo[inline]{Hinweis von Jörg: Bild weglassen.}
-%%   \label{fig:datastructures}
-%% \end{figure}
-
-
 \begin{table}[!ht]
   \centering
 
@@ -110,7 +77,7 @@ Die Ergebnisse der Laufzeit-Analysen der sieben Operationen auf den vorgestellte
 \subsection{Effiziente Datenstrukturen}
 
 Beim Vergleich der Datenstrukturen in Tabelle~\ref{tab:dataruntimes} stellen sich Octrees, k-d-Bäume und Delaunay-Triangulationen als Favoriten für Off-Lattice KMC-Simulationen heraus, die in den folgenden Abschnitten kurz eingehender vorgestellt und diskutiert werden sollen.
-Der Speicherverbrauch der untersuchten Datenstrukturen ist praktisch linear und wird deshalb nicht als Auswahlkriterium zu Rate gezogen.
+Der Speicherverbrauch der untersuchten Datenstrukturen ist praktisch linear und bildet deshalb kein Auswahlkriterium.
 Wie Untersuchungen an Simulationsräumen verschiedener Größe zeigen, wird erst für \num{1.9e9} Atome die Grenze des Hauptspeichers erreicht (Abschnitt~\ref{goldscalability}).
 
 \subsubsection{Octrees}
@@ -197,9 +164,9 @@ Theoretisch sind mit Access Caching, Bitweiser Adressierung, Surface Flagging od
 Für Nachbarschafts- und Bereichssuchen wird wegen ihrer hervorragenden Sucheffizienz oft auf k-d-Bäume zurückgegriffen, die einen kartesischen Raum in orthogonale Zellen mit jeweils einem Atom unterteilen, wodurch sich ein balancierter Binärbaum ergibt, an dessen Knoten die Atome liegen.
 Durch implizite Betrachtung von Abstandsrelationen bei der Konstruktion (Abbildung~\ref{fig:kdtree}) lassen sich Abstands- oder Bereichssuchen in \BigO{\log{n}} durchführen, während Nachbarschaftssuchen von $N$ Atomen in Kombination mit einem Heap in \BigO{\log{n}\log{N}} möglich sind.
 
-Nachteile ergeben sich bei Modifikationen von Atomen, die durch Baumrotation in \BigO{\log{n}} aufgelöst werden müssen und im schlimmsten Fall den gesamten Baum neu strukturieren.
-Durch die einseitige, dichte und gleichverteilte Hinzufügung von Atomen während einer Oberflächenabscheidung ist dieser Fall allerdings wahrscheinlich, da der Baum auch für große Mengen von Atomen regelmäßig in z-Richtung aus der Balance gebracht wird.
-Deshalb bieten sich k-d-Bäume zwar für allgemeine Suchoperationen in Off-Lattice-Strukturen an, sind aber nicht für effiziente KMC-Simulationen geeignet.
+Nachteile ergeben sich bei Modifikationen von Atomen, die durch Baumrotation in \BigO{\log{n}} aufgelöst werden müssen und im schlimmsten Fall\footnote{Der schlimmste Fall (engl. \textit{worst case}) besteht in einer Menge von Eingabedaten, die zur größtmöglichen Laufzeit führen} den gesamten Baum neu strukturieren.
+Durch die einseitige, dichte und gleichverteilte Hinzufügung von Atomen während einer Oberflächenabscheidung ist dieser Fall allerdings gegeben, da sich der Median der Atompositionen in z-Richtung stetig verschiebt.
+Deshalb bieten sich k-d-Bäume zwar für allgemeine Suchoperationen in statischen Off-Lattice-Strukturen an, sind aber nicht für effiziente KMC-Simulationen geeignet.
 
 \begin{figure}
   \includegraphics[width=\textwidth]{kdtree-tree}
@@ -260,8 +227,8 @@ Delaunay-Triangulationen werden noch nicht direkt im KMC-Algorithmus für Off-La
 \label{dataalphaform}
 
 Delaunay-Triangulationen werden für Betrachtungen von Oberflächen interessant, da sie die konkave Oberfläche von Punktwolken über die Alpha-Form bestimmen können.
-Man erhält sie durch Vereinigung genau der Simplexe, deren Umkreisradius $r_d$ unterhalb einer frei wählbaren Grenze $\alpha$ liegt, oder durch komplementäre Algorithmen, wie sie in Abbildung~\ref{fig:delaunay-alpha} veranschaulicht sind.
-Als Resultat erhält man eine Menge von Punkten und Dreiecken, welche die scheinbare Oberfläche der Punktwolke bilden, die man für weitere Untersuchungen wie die Bestimmung von Oberflächenrauheiten benutzen kann.
+Sie werden durch Vereinigung genau der Simplexe konstruiert, deren Umkreisradius $r_d$ unterhalb einer frei wählbaren Grenze $\alpha$ liegt, oder durch komplementäre Algorithmen, wie sie in Abbildung~\ref{fig:delaunay-alpha} veranschaulicht sind.
+Als Resultat ergibt sich eine Menge von Punkten und Dreiecken, welche die scheinbare Oberfläche der Punktwolke bilden, die für weitere Untersuchungen wie die Bestimmung von Oberflächenrauheiten genutzt werden kann.
 Für Grenzwerte von $\alpha$ ergibt sich für $\alpha \rightarrow \infty$ die konvexe Hülle und für $\alpha \rightarrow 0$ die Gesamtheit der Atome.
 
 Alpha-Formen beschreiben ebenfalls Hohlräume und Poren innerhalb der Struktur und können für $\alpha \approx r_\text{bond}$ sogar Kristalldefekte lokalisieren, die zuvor per Konnektivitätsprüfung der Alpha-Form \todo{Verweis auf Newman-Ziff-Algorithmus?} von der Oberfläche isoliert werden müssen.

@@ -65,3 +65,10 @@
 \renewcommand{\TPTminimum}{\textwidth}
 
 \newcommand{\continuehere}{\todo[inline]{continuehere}{}}
+
+%% avoid the [inline] option of todo
+\newcommand{\todoline}[1]{\todo[inline]{#1}{}}
+
+%% disable todo
+%% \renewcommand{\todoline}[1]{}
+%% \renewcommand{\todo}[1]{}

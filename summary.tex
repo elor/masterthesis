@@ -37,13 +37,13 @@ Obwohl derartige Hohlräume in der Realität nicht ausgeschlossen sind, wären s
 Damit ist zu vermuten, dass sich die Vertiefungen als Artefakt der Parsivald-Methode ergeben, welche aber durch weitere Optimierung der Prozessparameter reduziert werden können, wie sich in Simulationen von Multilagen-Abscheidungen zeigte.
 
 In Abscheidungssimulationen von mehrlagigen Schichten per Kupfer-Nickel-PVD sind perfekte Übereinstimmungen mit molekulardynamischen Simulationen in Rauheit und Struktur zu beobachten, wodurch sich für dieses System eine Abwesenheit von Finite-Size-Effekten aufgrund des Parsivald-Modelles zeigt.
-Auch für dünne Lagen mit einer Dicke von nur \SI{1}{\nano\meter} sind klare Lagengrenzen vorhanden, wofür allerdings die Relaxationstemperatur sowie die Auftreffenergie des Sputterteilchens leicht erhöht werden musste.
+Auch für dünne Lagen mit einer Dicke von nur \SI{1}{\nano\meter} sind klare Lagengrenzen vorhanden, wofür allerdings die Relaxationstemperatur sowie die Auftreffenergie des gesputterten Teilchens leicht erhöht werden musste.
 Der selbe Einfluss der Sputterenergie auf die Lagenqualität wurde jedoch auch im Experiment beobachtet.
 Durch Einstellung der Simulationsparameter ließ sich die Bildung kraterförmiger Vertiefungen, wie sie bereits bei Simulationen von Kupfer-PVD zu beobachten war, vollständig eliminieren.
 
 Schließlich wurde die Abscheidung amorpher Schichten anhand von Silizium-PVD mit reaktiven Kraftfeldern simuliert, wobei sich dichte, aber vergleichsweise rauhe Schichten ergaben.
 \todo{in Silizium-Kapitel einarbeiten}Reaktive Kraftfelder wurden genutzt, da EAM-Formulierungen und N-Teilchen-Potentiale zur Bildung von Kristallen neigen, die zu untersuchenden amorphen Strukturen hingegen auf Valenzbindungen und damit verbundenen Koordinationen basieren, welche von reaktiven Kraftfeldern modelliert werden.
-Die  Oberfläche der Schicht zeigt eine RMS-Rauheit von \SI{11.5}{\angstrom}, welche sich mit experimentellen Werten deckt, allerdings im untersuchten Zeitraum \todo{untersuchen, wenn Zeit bleibt}linear ansteigt.
+Die Oberfläche der Schicht zeigt eine RMS-Rauheit von \SI{11.5}{\angstrom}, welche sich mit experimentellen Werten deckt, allerdings im untersuchten Zeitraum \todo{untersuchen, wenn Zeit bleibt}linear ansteigt.
 Anhand der Oberflächenprofile ist Porenbildung als Ursache der Rauheit erkennbar, die sich mit erhöhter Relaxationszeit und -temperatur jedoch reduzieren lässt.
 Mit fortschreitender Simulationszeit ist eine Schließung der Poren wie bei den kraterförmigen Vertiefungen der Kupfer-PVD-Simulationen zu erwarten, wodurch die Rauheit begrenzt wäre.
 
@@ -74,10 +74,10 @@ Ein direkter Vergleich mit rein molekulardynamischen Simulationen ist dafür ebe
 
 Weitere Untersuchungen der reaktiven Kraftfelder zum Zweck der Beschreibung chemischer Gasphasenabscheidungen führen zu der Frage, wie verlässlich diese zur Simulation der chemischen Reaktionen in CVD-Simulationen genutzt werden können.
 Die Nutzung von Energieminimierungen und Metropolis Monte Carlo-Methoden im Gegensatz zur Zeitintegration im kanonischen Ensemble sowie die vorherige Abschätzung des Zielzustandes im KMC-Teil des Modelles können hierbei helfen, die Verlässlichkeit zu erhöhen sowie die notwendige Simulationszeit zu reduzieren.
-Andere Gruppen haben bereits ähnliche Modelle erforscht, allerdings dabei aber entweder auf Gitteransätze zurück gegriffen\cite{stamatakis_graph-theoretical_2011} oder nur einatomige epitaktische Systeme untersucht\cite{clark_hybrid_1996}.
+Andere Gruppen haben bereits ähnliche Modelle erforscht, allerdings dabei aber entweder auf Gitteransätze zurück gegriffen\cite{stamatakis_graph-theoretical_2011} oder nur gleichatomige epitaktische Systeme untersucht\cite{clark_hybrid_1996}.
 
 %% konkrete Vorschläge zu gemischten Systemen
-Die Simulation der Abscheidung gemischter Schichten wie Oxiden und Nitriden ist unter Nutzung reaktiver Kraftfelder auch ohne explizite Beschreibung der Reaktionen hinsichtlich der Frage interessant, inwiefern diese zur Bildung von gleichatomigen Clustern und Überkoordinationen neigen, wie wie bereits für EAM-Potentiale beobachtet werden konnten\cite{lorenz_entwicklung_2012}.
+Die Simulation der Abscheidung gemischter Schichten wie Oxiden und Nitriden ist unter Nutzung reaktiver Kraftfelder auch ohne explizite Beschreibung der Reaktionen hinsichtlich der Frage interessant, inwiefern diese zur Bildung von gleichatomigen Clustern und Überkoordinationen neigen, wie bereits für EAM-Potentiale beobachtet werden konnten\cite{lorenz_entwicklung_2012}.
 Dabei bieten sich unter anderem \ce{TaN}, welches als Diffusionsbarriere für Kupfer fungiert, und \ce{TiO2}, das als High-$\kappa$-Dielektrikum für Feldeffekt-Transistoren interessant ist, an.
 In allen Fällen ist zur Vermeidung der Clusterbildung und zur Bewahrung der Stöchiometrie und Koordinationen eine sorgfältige Untersuchung der Parametrisierungen unerlässlich, weshalb die Präparation dieser Abscheidungssimulationen den Rahmen dieser Arbeit gesprengt hätten.
 
@@ -95,7 +95,7 @@ So lässt sich der Ereignisdurchsatz des Hauptprozesses verringern, indem einige
 Dazu sollte die Host-\-Worker-\-Kom\-mu\-ni\-ka\-tion indirekt über den Management-Prozess des Workerpools laufen, welcher durch eine sorgfältige Überwachung des Workerzustandes unnötige Neuberechnungen unzulässiger Zustände vermeiden könnte.
 Eine Parallelisierung des Hauptprozesses ist ebenso denkbar, wird jedoch von den derzeitigen räumlichen Datenstrukturen nicht unterstützt.
 
-Die Abkehr von globalen Datenstrukturen hin zu einer Delaunay-Triangulation des gesamten Raumes brächte neben einer Parallelisierbarkeit des Hauptprozesses auch eine eine implizite Beschreibung der Oberflächenatome per Alpha-Form, womit die Suche bei der Erstellung von Ereignissen massiv beschleunigt würde.
+Die Abkehr von globalen Datenstrukturen hin zu einer Delaunay-Triangulation des gesamten Raumes brächte neben einer Parallelisierbarkeit des Hauptprozesses auch eine implizite Beschreibung der Oberflächenatome per Alpha-Form, womit die Suche bei der Erstellung von Ereignissen massiv beschleunigt würde.
 Zusätzlich erlaubt diese Oberflächenbeschreibung beliebige Auftreffwinkel nebst der Ereignisauswahl in bisher abgeschirmten Bereichen, wodurch Verzerrungen der Ereignisraten bei chemische Gasphasenabscheidungen stark reduziert würden.
 Außerdem ergeben sich durch die Referenzierung der unmittelbaren Nachbarschaft eines Atomes auch seine Koordinationen sowie potentiellen Bindungen, welche für die Ereignisauswahl hilfreich sind, wodurch eine bisher notwendige Konnektivitätsprüfung jedes Ereignisses entfällt.
 

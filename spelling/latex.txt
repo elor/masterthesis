@@ -72,10 +72,10 @@ R_N
 t_n
 X_n
 Ausg
-bibteichert
 Binär
 bibstyles
 smf
 Hyperref
 Thumbpdf
 selbststaendigkeitserklaerung
+bibelor

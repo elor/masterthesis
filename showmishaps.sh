@@ -195,7 +195,7 @@ equationreferences(){
 }
 
 doublespaces(){
-    listfiles | xargs -0 grep -Poin '\S*[^%& ]\s\s+[^& ]\S*' | grep -v '\\\\$'
+    listfiles | xargs -0 grep -Poin '\S*[^%& ~}]\s\s+[^& ~%]\S*' | grep -v '\\\\$'
 }
 
 listabbreviations(){

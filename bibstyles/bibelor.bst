@@ -12,6 +12,7 @@ ENTRY
     eprint
     howpublished
     institution
+    isbn
     journal
     key
     language
@@ -143,6 +144,24 @@ FUNCTION {format.doiurl}
   { % url vorhanden
     swap$ duplicate$ empty$
     { pop$ ", \url{" swap$ "}" * * write$ }
+    { swap$ "{\bstdoi , doi: }\href{" swap$ * "}{" * swap$ "}" * * write$ }
+    if$
+  }
+  if$
+}
+
+FUNCTION {format.doiisbn}
+{
+  duplicate$ empty$
+  { % isbn nicht vorhanden
+    pop$ duplicate$ empty$
+    { pop$ }
+    { "{\bstdoi , doi: " swap$ "}" * * write$ }
+    if$
+  }
+  { % isbn vorhanden
+    swap$ duplicate$ empty$
+    { pop$ ", ISBN~\bstisbn{" swap$ "}" * * write$ }
     { swap$ "{\bstdoi , doi: }\href{" swap$ * "}{" * swap$ "}" * * write$ }
     if$
   }
@@ -286,6 +305,17 @@ FUNCTION {format.year}
   if$
 }
 
+FUNCTION {format.disstype}
+{
+  duplicate$ empty$
+  {
+    pop$ 
+    "Dissertation" write$
+  }
+  { "{" swap$ "}" * * write$ }
+  if$
+}
+
 FUNCTION {article}
 {
   cite$ format.bibitem
@@ -318,6 +348,7 @@ FUNCTION {book}
   publisher format.publisher
   ", " write$
   address format.address
+  doi isbn format.doiisbn
   "." write$
   newline$
 }
@@ -366,10 +397,13 @@ FUNCTION {phdthesis}
   author format.author
   ": " write$
   title format.title
-  ", Dissertation, " write$
+  ", " write$
+  type format.disstype
+  ", " write$
   school format.school
   " " write$
   year format.year
+  doi isbn format.doiisbn
   "." write$
   newline$
 }
@@ -393,6 +427,7 @@ FUNCTION {patent}
   author format.author
   ": " write$
   title format.title
+  ", Patent" write$
   doi url format.doiurl
   " " write$
   year format.year

@@ -104,7 +104,7 @@ alltabs(){
 }
 
 doublewords(){
-    listfiles | xargs -0 grep -Pon '\b(\S+)(?<![0-9])\b\s+\b\1\b'
+    listfiles | xargs -0 grep -Poin '\b(\S+)(?<![0-9])\b\s+\b\1\b'
 }
 
 updateallwords(){
@@ -195,7 +195,7 @@ equationreferences(){
 }
 
 doublespaces(){
-    listfiles | xargs -0 grep -Pn '^[^%]*\S(?<!%)\s\s' | grep -v '&'
+    listfiles | xargs -0 grep -Poin '\S*[^%& ]\s\s+[^& ]\S*' | grep -v '\\\\$'
 }
 
 listabbreviations(){
@@ -241,6 +241,10 @@ underfullboxes(){
     (( num > 0 )) && echo "$num underfull boxes left"
 }
 
+commentblocks(){
+    listfiles | xargs -0 grep -n 'comment'
+}
+
 #####################
 # begin actual work #
 #####################
@@ -267,6 +271,7 @@ underfullboxes(){
     register "disabled includes" disabledincludes
     register "LaTeX Warnings" getlatexwarnings
     register "Equation References" equationreferences
+    register "comment blocks" commentblocks
     register "todo notes" todonotes
     register "overfull boxes" overfullboxes
     register "underfull boxes" underfullboxes

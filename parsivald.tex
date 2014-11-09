@@ -1,7 +1,7 @@
 \section{Parsivald-Modell}
 \label{parsivald}
 
-\todo[inline]{Hinweis auf unterschiedliche Zeitskalen (Reaktion und ``Ankunft'')}
+\todoline{Hinweis auf unterschiedliche Zeitskalen (Reaktion und ``Ankunft'')}
 
 Parsivald (Parallel Atomistic Reaction Simulator for Vapor and Atomic Layer Depositions) entstand 2012 als namenloses Resultat meiner Bachelorarbeit\cite{lorenz_entwicklung_2012} am Fraunhofer ENAS mit dem Ziel der Simulation von Atom\-lagen\-abscheidungs-Prozessen.
 Das Programm war beschränkt auf die atomistische Simulation von Metall\-oxid-ALD mittels MEAM-Potentialen, die in dieser Arbeit auf PVD, CVD mit beliebigen Potentialen erweitert wurde.
@@ -17,7 +17,7 @@ Durch die Nutzung massiver Parallelisierung werden zudem atomistische Simulation
 
 \subsection{Beschreibung}
 
-\todo[inline]{ist für den Leser ersichtlich, dass ich hier alles der MD überlasse?}
+\todoline{ist für den Leser ersichtlich, dass ich hier alles der MD überlasse?}
 Abbildung~\ref{fig:parsivald-stephierarchy} stellt die Funktionsweise des Parsivald-Modelles vor, die im Wesentlichen aus Vor- und Nachbereitung sowie einer Prozessschleife besteht.
 Innerhalb der Hauptschleife werden nacheinander in mehreren Prozessschritten mögliche Adsorptionen, Ligandenaustausch-Reaktionen oder Relaxationen mit KMC-Mechanismen ausgewählt, mittels Molekulardynamik lokal simuliert und die Ergebnisse schließlich in die globale Struktur zurückgeführt (Abbildung~\ref{fig:parsivald-schema}).
 KMC-Ereignisse sind in diesem Modell auf eine dünne Oberflächenschicht begrenzt, wo sie jeweils innerhalb eines Kastens beschränkter Größe, der MD-Box, wirken (Abbildung~\ref{fig:parsivald-schema}).

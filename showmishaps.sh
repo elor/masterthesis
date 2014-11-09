@@ -175,7 +175,7 @@ asddsa(){
 }
 
 todonotes(){
-    listfiles | xargs -0 grep -Pno '\\todo(\[inline\])?(\{[^}]*\})?'
+    listfiles | xargs -0 grep -Po '\\todo(line|\[inline\])?(\{[^}]*\})?'
 }
 
 getdrafts(){

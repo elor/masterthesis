@@ -1,9 +1,9 @@
 \section{Stand der Forschung}
 \label{present}
-\todo{``Stand der Forschung'' könnte durch einen besseren Titel ausgedrückt werden}
 
 Molekulardynamische und kinetische Monte Carlo-Methoden wurden wiederholt zur Simulation von verschiedenen Aspekten von Gasphasenabscheidungen zu Rate gezogen.
 Im Folgenden soll ein Überblick über die bisherigen Untersuchungen gegeben werden.
+Referenz~\cite{dollet_multiscale_2004} gibt einen Überblick über weitere Multiskalen-Modelle für Gasphasenabscheidungen, von denen die meisten keine strukturellen Aussagen ermöglichen, sondern sich auf Aussagen auf der Reaktor-Skala beschränken.
 
 \subsection{Anwendungen von KMC-Simulationen für die Gasphasenabscheidung}
 
@@ -21,8 +21,8 @@ Eigene Untersuchungen des Dwivedi-Modelles resultierten in der Bildung von verti
 Ähnlich zum Dwivedi-Modell nutzt auch das Modell von \textsc{Mazaleyrat et al.}\cite{mazaleyrat_methodology_2005} ein Simulationsgitter, das aber über drei Dimensionen definiert ist, auf dem \ce{MgAl2O4}-Spinell-basiert und als Annäherung der eigentlichen Atompositionen verstanden wird.
 Durch geschickte Indizierung des Gitters wird eine effiziente Methode geschaffen, \ce{Al2O3} in KMC-Simulationen aufzuwachsen, deren strikt kristalline Repräsentation die eigentlich amorphe Struktur nicht darstellen kann, obwohl das Ziel des Modelles in der Abscheidung von Dielektrika auf Silizium-Substraten liegt.
 Von den Autoren wurde keine Betrachtung der Rauheit, des Besetzungsgrades der Gitterplätze oder des Wachstumsverhaltens jenseits des dritten Schrittes veröffentlicht.
-\todo{Anmerkung von Jörg: eigene Erfahrungen mit diesem Modell ergänzen}
-\todo{Ich habe keine eigenen Erfahrungen mit diesem Modell}
+%% {Anmerkung von Jörg: eigene Erfahrungen mit diesem Modell ergänzen}
+%% {Ich habe keine eigenen Erfahrungen mit diesem Modell}
 
 \subsubsection{Stamatakis: Oberflächen-Reaktionen mit Zacros}
 
@@ -31,42 +31,43 @@ Die Besonderheit von Zacros liegt in einer vereinheitlichten Formulierung der lo
 Ergänzt durch quantenmechanische Simulationen für die Bestimmung der Reaktionsraten, ergibt sich ein wertvolles Werkzeug zur stochastischen Simulation der Reaktionskinetik von Oberflächenprozessen.
 Aufgrund seiner Formulierung ist aber auch Zacros auf ein periodisches Simulationsgitter begrenzt, welches durch seine Beschreibung als Graph jedoch aus beliebig geformten Einheitszellen bestehen kann.
 
-Die Kombination der in der vorliegenden Arbeit vorgestellten Ansätzen mit denen von Zacros ist Gegenstand des derzeit in Beantragung befindlichen EU-Projektes ACCELERATE, einem Konsortium zur ALD-Simulation aus dem Fraunhofer ENAS, der Gruppe um Stamatakis und weiteren Partnern.\todo{Ref auf Accelerate?}
+Die Kombination der in der vorliegenden Arbeit vorgestellten Ansätze mit denen von Zacros ist Gegenstand des derzeit in Beantragung befindlichen EU-Projektes ACCELERATE, einem Konsortium zur ALD-Simulation bestehend aus dem Fraunhofer ENAS, der Gruppe um Stamatakis und weiteren Partnern.\todo{Ref auf Accelerate? Es gibt eine ganze Menge von Accelerate-Projekten.}
 
 \subsubsection{Clark: Off-Lattice-Simulationen von chemischen Gasphasenabscheidungen}
-\todo{Jörg lesen lassen}
+\todoline{Jörg}
+\textsc{Clark et al.}\cite{clark_hybrid_1996} haben eine Off-Lattice-Methode zur Simulation von Diamantwachstum per CVD entwickelt, die auf der Kombination von KMC- mit Simulated Annealing per Metropolis-Monte-Carlo-Simulationen (MMC) basiert.
+Dafür wird die lokale Nachbarschaft jedes KMC-Ereignisses, welches aus der Bindung eines Precursormoleküles an die Oberfläche besteht, durch MMC-Simu\-la\-tionen relaxiert, während hochfrequente Bewegungen von Wasserstoffatomen durch deren stochastische Verschiebung auf der Oberfläche beschrieben werden.
+Die MMC-Simulationen nutzen für die energetische Beschreibung der Ereignisorte molekulardynamische Kraftfelder, doch werden zusätzliche Zwangsbedingungen eingeführt, die stabile Bindungen erzwingen.
+Damit reduziert sich Simulationszeit, doch müssen mögliche Ereignisse durch in Vorarbeit erforscht werden, statt vom Modell dynamisch erkannt zu werden.
 
-\textsc{Clark et al.}\cite{clark_hybrid_1996} haben eine Off-Lattice-Methode zur Simulation von Diamantwachstum per CVD entwickelt, die auf der Kombination von KMC- mit \todo{irgendwo erklären, z.b. Anhang}Metropolis-Monte-Carlo-Methoden (MMC) basiert.
-Dafür wird die lokale Nachbarschaft jedes KMC-Ereignisses nach der Bindung des Precursormoleküles an die Oberfläche durch MMC-Simulationen relaxiert, während hochfrequente Atombewegungen von Wasserstoffatomen durch deren zufällige Verschiebung auf der Oberfläche beschrieben werden.
-Die MMC-Simulationen nutzen für die energetische Beschreibung der Ereignisorte molekulardynamische Kraftfelder, zeigen aber gegenüber reiner Molekulardynamik eine höhere Stabilität der Bindungen bei geringerer Rechenzeit.
-%% Die kombinierte Simulation unterteilt sich in die Betrachtung von \todo{hochfrequente Gleichgewichts-Ereignisse -.-}hochfrequenten Gleichgewichts-Ereignissen per KMC-Methoden und sowie die Simulation von Adsorptionen und Reaktionen durch MMC-Relaxationen anhand von MD-Kraftfeldern innerhalb der Nachbarschaft.
+%% Die kombinierte Simulation unterteilt sich in die Betrachtung von hochfrequenten Gleichgewichts-Ereignissen per KMC-Methoden und sowie die Simulation von Adsorptionen und Reaktionen durch MMC-Relaxationen anhand von MD-Kraftfeldern innerhalb der Nachbarschaft.
 %% In der ersten Phase des Zyklus' werden hauptsächlich Wasserstoffatome an der Oberfläche durch KMC-Ereignisse verschoben und entsprechend der erwarteten Oberflächenbedeckung ad- und desorbiert.
 %% Anschließend werden Precursorfragmente in Form von Methylgruppen an ein Kohlenstoff-Atom an der Oberfläche gebunden und bei konstanter Bindungslänge per MMC-Simulation um dieses rotiert.
 %% Zuletzt werden Bindungen zwischen Kohlenstoff-Atomen in der Nachbarschaft des Ereignisortes gebildet, indem sie in einer weiteren MMC-Simulation verschoben werden.
 
-Damit ist dieses Modell in seiner Funktionsweise dem im folgenden Abschnitt~\ref{parsivald} vorgestellten Parsivald-Modell ähnlich, doch führt letzteres eine thermische Relaxation der Ereignisorte per Molekulardynamik durch, die rechenaufwendiger ist, im Gegenzug aber auch reaktive Kraftfelder und den dafür notwendigen kontinuierlichen Ladungsaustausch unterstützt.
-Eine Erweiterung des Parsivald-Modelles zu MMC-Relaxierungen wäre aber in Zusammenhang mit der Einbindung von Elektronenstrukturrechnungen interessant.
+Dieses Modell ist dem im folgenden Abschnitt~\ref{parsivald} vorgestellten Parsivald-Modell in seiner Funktionsweise ähnlich, doch führt letzteres eine thermische Relaxation der Ereignisorte per Molekulardynamik durch.
+Diese ist gegenüber MMC-Simulationen zwar rechenaufwendiger, erlaubt im Gegenzug aber die freie Bewegung der Teilchen und Moleküle einerseits, andererseits lässt sie reaktive Kraftfelder und den dafür notwendigen kontinuierlichen Ladungsaustausch zu.
+%% Eine Erweiterung des Parsivald-Modelles zu MMC-Relaxierungen wäre aber in Zusammenhang mit der Einbindung von Elektronenstrukturrechnungen interessant.
 
 \subsubsection{Biehl: Off-Lattice-KMC von verspannten Kristallen}
-\todo{Jörg lesen lassen}
+\todoline{Jörg}
 
 In den Veröffentlichungen von \textsc{Biehl et al.}\cite{biehl_off-lattice_2005} wird ein KMC-MD-Hybrid zur zweidimensionalen Off-Lattice-Simulation von Verspannungen in heteroepitaxial gewachsenen Kristallen vorgestellt, der neben Adsorptionsereignissen auch Oberflächendiffusionen betrachtet.
 Die Relaxation von Ereignisorten wird bei diesem Modell durch eine nicht näher benannte Energieminimierung der Position einzelner Atome durchgeführt.
-Zusätzlich findet in großen zeitlichen Intervallen eine kostspielige globale Energieminimierung statt.
-Da die Anwendung in der Simulation von Kristallen liegt, wurden Lennard-Jones-Potentiale zur Darstellung von Kristallstrukturen gewählt, wodurch sich sehr stabile Strukturen aufgrund von glatten Energielandschaften ergeben.
-Damit ist nicht ersichtlich, ob sich diese Methode auch für komplizierte dreidimensionale Strukturen eignet.
+Zusätzlich findet in großen zeitlichen Intervallen eine kostspielige globale Energieminimierung statt, die laut der Autoren notwendig ist, obwohl nur kleine Änderungen der Struktur durchgeführt werden.
+Da die Anwendung in der Simulation von Kristallen liegt, wurden Lennard-Jones-Potentiale zur Darstellung von Kristallstrukturen gewählt, wodurch sich sehr stabile Zustände aufgrund von glatten Energielandschaften ergeben.
+Damit ist nicht ersichtlich, ob sich diese Methode auch für komplizierte dreidimensionale Strukturen und Kraftfelder eignet.
 
 \subsubsection{Fazit}
 
 KMC-Simulationen werden zur atomistischen Simulation von Gasphasenabscheidungen genutzt, doch sind die Atompositionen häufig auf die Punkte eines Simulationsgitters begrenzt.
-Damit können zwar große Simulationsräume effektiv betrachtet werden, allerdings werden realistische Beschreibungen der oftmals amorphen Struktur von Materialien verhindert.
+Damit können zwar große Simulationsräume effektiv betrachtet werden, doch werden realistische Beschreibungen der oftmals amorphen Materialien verhindert.
 
-Vereinzelt existieren auch Off-Lattice-Ansätze für KMC-Simulationen, die für die Durchführung von Ereignissen häufig auf molekulardynamische Simulationen zurück greifen.
-Die untersuchten Systeme setzen allerdings auf schnelle N-Teilchen-Potentiale, die sich aus der seriellen Arbeitsweise der Modelle und der damit verbundenen Forderung nach schnellen Ereignissen ergibt.
-Es wurden jedoch keine Off-Lattice-Simulationen amorpher Strukturen gefunden, wie sie häufig durch Gasphasenabscheidungen erzeugt werden.
+Vereinzelt existieren auch atomistische Off-Lattice-Ansätze für KMC-Simulationen, die für die Durchführung von Ereignissen häufig auf molekulardynamische Simulationen zurück greifen.
+Diese nutzen meist N-Teilchen-Potentiale in vergleichsweise kleinen Simulationsräumen, wodurch sich amorphe Strukturen oder Oxide nur unzuverlässig beschreiben lassen, doch beschränken sich die untersuchten Arbeiten ohnehin auf kristallines Wachstum oder Verspannungen in Kristallen.
 
 \subsection{Anwendung von MD-Simulationen für die Gasphasenabscheidung}
-\todoline{Arbeiten von Hermann Wolf und Co.}
+\todoline{Arbeiten von Hermann Wolf und Co. - welche? Konnte nur ein Paper finden}
 
 Molekulardynamische Simulationen werden seit vielen Jahrzehnten zur Bestimmung struktureller und thermodynamischer Eigenschaften verschiedener Materialien eingesetzt, aber nur selten zur Beschreibung von Gasphasenabscheidungen.
 Sie lassen sich aber zur Beschreibung von Teilaspekten nutzen, wofür meist durch die Simulation periodischer Strukturen Rückschlüsse auf bestimmte Eigenschaften gezogen werden.
@@ -81,7 +82,8 @@ Der durch unterschiedliche Bindungslängen entstehende Versatz zwischen den Kupf
 
 \subsubsection{Silizium}
 Für Silizium finden sich thermodynamische Expansions-Simulationen von \textsc{Buda et al.}\cite{buda_thermal_1990} sowie Untersuchungen von \textsc{Insepov et al.}\cite{insepov_molecular_1995} zur Auswirkung von gerichteten Cluster-Einschlägen in Abhängigkeit der Einschlagsenergie.
-\todoline{mehr! PVD und Oxidation / Hydroxylierung von Oberflächen}
+\textsc{Song et al.}\cite{song_reactive_2012} haben außerdem die Oxidierung von Silizium-Nanopartikeln mit reaktiven Kraftfeldern simuliert.
+%% {mehr! PVD und Oxidation / Hydroxylierung von Oberflächen} - Gibt's nicht
 
 \subsubsection{Aluminiumoxid}
 Für amorphe und kristalline \ce{Al2O3}-Bulksysteme finden sich Simulationsergebnisse von \textsc{Alvarez et al.}\cite{alvarez_computer_1995,alvarez_molecular_1992} und von \textsc{Gutierrez et al.}\cite{gutierrez_molecular_2002} sowie für \ce{Al2O3}-Oberflächen von \textsc{Adiga et al.}\cite{adiga_atomistic_2006}.
@@ -90,7 +92,8 @@ Sowohl Schmelzen als auch amorphes \ce{Al2O3} wurden unter anderem von \textsc{G
 Diese Vielfalt an Simulationen zeigt sich jedoch nicht in der Zahl der veröffentlichten Potentialparametrisierungen, von denen nur eine kleine Zahl für \ce{Al2O3}-Simulationen zur Verfügung stehen.
 
 \subsubsection{Fazit}
-\todo{Satz überarbeiten}Die Untersuchungen von Gasphasenabscheidungsprozessen mittels Molekulardynamik beschränken sich aufgrund der langen thermodynamischen Relaxationszeiten und des Rechenaufwandes bei der Nutzung reaktiver Kraftfelder meist auf \num{<10000} Atome, wodurch sich insbesonders bei der Bestimmung struktureller Eigenschaften Finite Size-Effekte bemerkbar machen können.
+Die Untersuchungen von Gasphasenabscheidungsprozessen mittels Molekulardynamik beschränken sich aufgrund der langen Relaxationszeiten und des Rechenaufwandes unter Nutzung reaktiver Kraftfelder.
+Wenige Untersuchungen simulieren deshalb mehr als \num{50000} Atome, weshalb sich besonders bei der Bestimmung struktureller Eigenschaften Finite Size-Effekte bemerkbar machen können.
 Darüber hinaus werden einige der genutzten Potentialparametrisierungen nicht veröffentlicht, wodurch die entsprechenden Ergebnisse nicht reproduzierbar oder auf andere Probleme übertragbar sind.
 Dem steht die Vielzahl von verschiedenen Parametrisierungen gegenüber, von denen jede einzelne nur auf ein spezielles Problem anwendbar ist.
-Eine Suche nach EAM-Kraftfeldern für Kupferatome in der Potentialdatenbank der NIST\cite{becker_interatomic_2014} ergibt beispielsweise eine zweistellige Zahl an Kupfer-Parametrisierungen, die einzeln hinsichtlich eigener Problemstellungen überprüft werden müssen (Abschnitt~\ref{copperpvd}).
+Eine Suche nach EAM-Kraftfeldern für Kupferatome in der Potentialdatenbank des NIST\cite{becker_interatomic_2014} ergibt beispielsweise eine zweistellige Zahl an Kupfer-Parametrisierungen, die einzeln hinsichtlich eigener Problemstellungen überprüft werden müssen (Abschnitt~\ref{copperpvd}).

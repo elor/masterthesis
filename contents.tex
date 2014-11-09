@@ -7,7 +7,6 @@
 
 %\pdfbookmark{Inhaltsverzeichnis}{Inhaltsverzeichnis}
 \tableofcontents
-\todoline{Überschriften überarbeiten}
 
 %%======================================================================
 %%      Abbildungsverzeichnis
@@ -96,6 +95,7 @@ FEM       & Finite Element Method               & Finite-Elemente-Methoden      
   LMP
   GMR       & Giant Magnetoresistance             & Riesenmagnetowiderstand                                     \\
   TMR
+NPH
   AMBER
   CHARMM
   EON
@@ -119,39 +119,40 @@ FEM       & Finite Element Method               & Finite-Elemente-Methoden      
 \def\listacronymname{Symbolverzeichnis}
 
 \begin{tabular}{ll}
-$\alpha$         & Parameter der Alpha-Form / Schrittweite bei MD-Minimierungen \\
-$\Delta t$       & Zeitschrittweite                                             \\
-$E$              & Energie                                                      \\
-$E_i$            & Ein KMC-Ereignis                                             \\
-$F_\alpha$       & Einbettungsfunktion des EAM-Potentiales                      \\
-$\kappa$         & Dielektrizitätskonstante eines Materiales                    \\
-$k_B$            & Boltzmann-Konstante                                          \\
-$m$              & Masse eines Teilchens                                        \\
-$M$              & Virtuelle Masse eines Thermostates                           \\
-$n_\text{cyc.}$  & Zahl der simulierten KMC-Zyklen                              \\
-$r_\text{bond}$  & Bindungslänge                                                \\
-$r_c$            & Cutoff-Radius eines Kraftfeldes                              \\
-$r_d$            & Umkugel-Radius eines Delaunay-Simplexes                      \\
-$r_s$            & Suchradius                                                   \\
-$r_{ij}$         & Radialer Abstand zwischen Teilchen $i$ und $j$               \\
-$r_i$            & Rate des Ereignisses $E_i$                                   \\
-$R_i$            & Akkumulierte Rate des Ereignisses $E_i$                      \\
-$R_N$            & Summe der Raten aller möglichen Ereignisse                   \\
-$\sigma_z$       & RMS-Rauheit einer Oberfläche                                 \\
-$\tau$           & Dämpfungszeit von Thermostaten                               \\
-$t_\text{relax}$ & Relaxationszeit einer MD-Simulation                          \\
-$u$,~$u'$        & $[0,1)$-gleichverteilte Zufallszahlen                        \\
-$\vec F(X)$      & Kraft auf ein Teilchen                                       \\
-$\vec p$         & Impulsvektor                                                 \\
-$\vec v$         & Geschwindigkeitsvektor                                       \\
-$V(X)$           & Potentielle Energie eines Teilchens                          \\
-$X$              & Zustand eines Systemes                                       \\
-$\mathbb{X}$     & Zustandsraum eines Systems                                   \\
-%% $d$              & Anzahl der Dimensionen                                       \\
-%% $T$              & Temperatur                                                   \\
-%% $V$              & Volumen                                                      \\
-%% $p$              & Druck                                                        \\
-%% $\nabla$         & Nabla-Operator                                               \\
+$\alpha$             & Parameter der Alpha-Form / Schrittweite bei MD-Minimierungen    \\
+$\Delta t$           & Zeitschrittweite                                                \\
+$E$                  & Energie                                                         \\
+$E_i$                & Ein KMC-Ereignis                                                \\
+$F_\alpha$           & Einbettungsfunktion des EAM-Potentiales                         \\
+$g_{\alpha\beta}(r)$ & Radiale Verteilungsfunktion der Atomsorten $\alpha$ und $\beta$ \\
+$\kappa$             & Dielektrizitätskonstante eines Materiales                       \\
+$k_B$                & Boltzmann-Konstante                                             \\
+$m$                  & Masse eines Teilchens                                           \\
+$M$                  & Virtuelle Masse eines Thermostates                              \\
+$n_\text{cyc.}$      & Zahl der simulierten KMC-Zyklen                                 \\
+$r_\text{bond}$      & Bindungslänge                                                   \\
+$r_c$                & Cutoff-Radius eines Kraftfeldes                                 \\
+$r_d$                & Umkugel-Radius eines Delaunay-Simplexes                         \\
+$r_s$                & Suchradius                                                      \\
+$r_{ij}$             & Radialer Abstand zwischen Teilchen $i$ und $j$                  \\
+$r_i$                & Rate des Ereignisses $E_i$                                      \\
+$R_i$                & Akkumulierte Rate des Ereignisses $E_i$                         \\
+$R_N$                & Summe der Raten aller möglichen Ereignisse                      \\
+$\sigma_z$           & RMS-Rauheit einer Oberfläche                                    \\
+$\tau$               & Dämpfungszeit von Thermostaten                                  \\
+$t_\text{relax}$     & Relaxationszeit einer MD-Simulation                             \\
+$u$,~$u'$            & $[0,1)$-gleichverteilte Zufallszahlen                           \\
+$\vec F(X)$          & Kraft auf ein Teilchen                                          \\
+$V(X)$               & Potentielle Energie eines Teilchens                             \\
+$X$                  & Zustand eines Systemes                                          \\
+$\mathbb{X}$         & Zustandsraum eines Systems                                      \\
+%% $d$               & Anzahl der Dimensionen                                          \\
+%% $T$               & Temperatur                                                      \\
+%% $V$               & Volumen                                                         \\
+%% $p$               & Druck                                                           \\
+%% $\nabla$          & Nabla-Operator                                                  \\
+%% $\vec p$             & Impulsvektor                                                    \\
+%% $\vec v$             & Geschwindigkeitsvektor                                          \\
 \end{tabular}
 
 %\printglosstex(acr)

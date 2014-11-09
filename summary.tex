@@ -1,13 +1,13 @@
 \chapter{Zusammenfassung und Ausblick}
 \label{summary}
 
-\todo{Jörg}
+\todoline{Jörg}
 
 \section{Zusammenfassung}
 %% {Was hab ich getan? - Parsivald}
 
 Im Rahmen dieser Arbeit wurde ein bestehendes Hybrid-Modell zur atomistischen Simulation von Atomlagenabscheidungen mit Methoden der Molekulardynamik und der Kinetischen Monte Carlo-Simulationen um die Beschreibung allgemeiner Gasphasenabscheidungen sowie um die Möglichkeit der Nutzung reaktiver Kraftfelder erweitert.
-Als Resultat entstand eine Software namens Parsivald, mit der die atomistische Simulation von Gasphasenabscheidungen auf der Größenordnung kompletter Nano-Bauelemente bis zu \SI{1x1}{\micro\meter} ermöglicht wird, was bis zu \num{1e9} Atomen entspricht.
+Als Resultat entstand eine Software namens \textit{Parsivald}, mit der die atomistische Simulation von Gasphasenabscheidungen auf der Größenordnung kompletter Nano-Bauelemente bis zu \SI{1x1}{\micro\meter} ermöglicht wird, was bis zu \num{1e9} Atomen entspricht.
 Dies wird durch Nutzung effizienter Datenstrukturen und einem Host-Worker-Schema der Parallelisierung ermöglicht.
 
 %% {Ergebnisse Skalierung}
@@ -69,12 +69,12 @@ Gezielte Epitaxie-Simulationen können weiterhin Hinweise auf die Einflüsse der
 
 Die Simulation von verspannten Multilagen-Systemen, bei denen durch unterschiedliche Gitterkonstanten ein Gitterversatz zu beobachten ist, führt zu der Frage, inwiefern Parsivald den untersuchten Systemen eine kristalline Struktur aufzwingt.
 
-Durch Optimierung der Simulationsparameter für die Simulation der Abscheidung amorpher Schichten lässt deren Einfluss auf die Struktur der Schicht untersuchen.
+Durch Optimierung der Parameter für die Simulation der Abscheidung amorpher Schichten lässt sich deren Einfluss auf die Struktur der Schicht untersuchen.
 Ein direkter Vergleich mit rein molekulardynamischen Simulationen ist dafür ebenfalls notwendig, hätte allerdings aufgrund der rechenaufwendigen Potentiale den zeitlichen Rahmen dieser Arbeit gesprengt.
 
 Weitere Untersuchungen der reaktiven Kraftfelder zum Zweck der Beschreibung chemischer Gasphasenabscheidungen führen zu der Frage, wie verlässlich diese zur Simulation der chemischen Reaktionen in CVD-Simulationen genutzt werden können.
 Die Nutzung von Energieminimierungen und Metropolis Monte Carlo-Methoden im Gegensatz zur Zeitintegration im kanonischen Ensemble sowie die vorherige Abschätzung des Zielzustandes im KMC-Teil des Modelles können hierbei helfen, die Verlässlichkeit zu erhöhen sowie die notwendige Simulationszeit zu reduzieren.
-Andere Gruppen haben bereits ähnliche Modelle erforscht, allerdings dabei aber entweder auf Gitteransätze zurück gegriffen\cite{stamatakis_graph-theoretical_2011} oder nur gleichatomige epitaktische Systeme untersucht\cite{clark_hybrid_1996}.
+Andere Gruppen haben bereits ähnliche Modelle erforscht, dabei aber entweder auf Gitteransätze zurück gegriffen\cite{stamatakis_graph-theoretical_2011} oder nur gleichatomige epitaktische Systeme untersucht\cite{clark_hybrid_1996}.
 
 %% konkrete Vorschläge zu gemischten Systemen
 Die Simulation der Abscheidung gemischter Schichten wie Oxiden und Nitriden ist unter Nutzung reaktiver Kraftfelder auch ohne explizite Beschreibung der Reaktionen hinsichtlich der Frage interessant, inwiefern diese zur Bildung von gleichatomigen Clustern und Überkoordinationen neigen, wie bereits für EAM-Potentiale beobachtet werden konnten\cite{lorenz_entwicklung_2012}.
@@ -84,7 +84,7 @@ In allen Fällen ist zur Vermeidung der Clusterbildung und zur Bewahrung der St�
 Zuletzt soll die Simulation des anfänglichen Schichtwachstums auf andersartigen Substraten erwähnt werden.
 Zwar wurde mit Kupfer-Nickel-Multilagen-PVD bereits eine solche Untersuchung durchgeführt, doch zeigen diese Materialien gute Hafteigenschaften.
 Interessant wäre besonders das Wachstum von High-$\kappa$-Dielektrika auf Silizium und Siliziumdioxid, wie es bei der Produktion moderner MOSFETs auftritt.
-Hierbei ist auf Diffusion der Atome auf der Oberfläche und in sie hinein zu beachten, sowie der Wachstumsmodus, der häufig Inselwachstum zeigt und somit mit dr aktuellen Parsivald-Implementierung zu oben beschriebenen nanoporösen Simulationsartefakten führen kann.
+Hierbei ist die Diffusion der Atome auf der Oberfläche und in sie hinein zu beachten, sowie Wachstumsmodus, der häufig Inselwachstum gleicht und so mit der aktuellen Parsivald-Implementierung durch sich ergebende Unebenheiten zu den oben beschriebenen nanoporösen Simulationsartefakten führen kann.
 %% Parsivald-Erweiterungen
 
 \vspace{0.5em}
@@ -104,3 +104,5 @@ Eine der umfangreichsten Ergänzungen bestünde allerdings in der Einführung we
 Diese könnten neben molekulardynamischen Potentialen theoretisch auch auf präzisere Methoden wie Elektronenstrukturrechnungen zurück greifen.
 Zur Vermeidung unnötiger Redundanz müsste ein selbst-lernendes Verzeichnis der potentiellen Reaktionen eingearbeitet werden, bei Energiebarrieren und damit verbundene Ereignisraten verwaltet und bei Bedarf ergänzt werden.
 Diese Methode wird bereits erfolgreich in anderen Off-Lattice-Modellen eingesetzt\cite{biehl_off-lattice_2005,stamatakis_graph-theoretical_2011}.
+
+\todoline{sprengen sprengen sprengen}

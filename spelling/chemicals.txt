@@ -37,3 +37,4 @@ Siliziums
 TaN
 TiO
 Sauer
+SO

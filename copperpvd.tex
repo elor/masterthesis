@@ -34,7 +34,7 @@ Die Ergebnisse stimmen im Allgemeinen gut mit experimentellen Werten überein (T
 Die meisten anderen Parametersätze unterschätzen die Bindungslänge nur leicht, mit Ausnahme der mit LAMMPS vertriebenen Dateien, welche ideale strukturelle Eigenschaften produzieren.
 Diese wurden in den weiteren Simulationen aufgrund der guten strukturellen Übereinstimmung sowie ihrer Bewährtheit in Kombination mit LAMMPS zu Rate gezogen.
 
-Mit den Parameterdateien wird der Schmelzpunkt stark überschätzt, mit Ausnahme von cu\_ag\_ymwu.eam.alloy, die den Schmelzpunkt um 300K unterschätzt (Abbildung~\ref{fig:copperthermo}).
+Mit den untersuchten Parameterdateien wird der Schmelzpunkt stark überschätzt, mit Ausnahme von cu\_ag\_ymwu.eam.alloy, die den Schmelzpunkt um 300K unterschätzt (Abbildung~\ref{fig:copperthermo}).
 Hier zeigt sich die Eigenschaft der Molekulardynamik, jeweils nur für ein enges Anwendungsgebiet passende Ergebnisse zu liefern.
 Wie Tabelle~\ref{tab:copperpots} zu entnehmen ist, wurden die verfügbaren Parametersätze nicht für thermodynamische Untersuchungen angepasst und unterstützen diese somit nicht offiziell, doch werden solche extremen Temperaturen in den durchgeführten Simulationen ohnehin nicht erreicht.
 
@@ -123,7 +123,8 @@ Weiterhin werden die abgeschiedenen Schichten auf Unebenheiten, Fehlstellen und 
 Durch die Ähnlichkeiten zwischen Kupfer und Gold wurden die Prozess-Parameter der Gold-PVD für den Kupfer-Prozess adaptiert.
 Unterschiede liegen in den Auftreffenergien von \SI{5.4}{\electronvolt}, die ebenfalls oberhalb experimenteller Werte liegen und vom Thermostat vor dem eigentlichen Auftreffen der Atome auf der Oberfläche noch weiter abgeschwächt werden.
 
-Zu Beginn der einzelnen Simulation ergeben sich extreme Abbruchraten von \SI{25}{\percent}, die durch Herausschlagen einzelner Oberflächenatome bei Ankunft des gesputterten Atomes verursacht werden\todo{Energie trotzdem zu hoch?}.
+Auch bei Kupfer-PVD liegt epitaktisches Wachstum glatter Schichten vor.
+Zu Beginn der Abscheidung ergeben sich extreme Abbruchraten von \SI{25}{\percent}, die durch Herausschlagen einzelner Oberflächenatome bei Ankunft des gesputterten Atomes verursacht werden.
 Bereits nach wenigen Ereignissen sinkt die Abbruchrate auf \SI{3}{\percent}, was auf eine Reduktion des Effektes durch thermische Relaxation und Bedeckung der Oberfläche mit temporären Off-Lattice-Atomen hinweist.
 Die kritische Bedeckung dafür liegt zwischen \SI{0.034}{\per\nano\meter\squared} und \SI{0.074}{\per\nano\meter\squared} und deckt sich somit mit der maximalen MD-Ereignisdichte von \SI{0.073}{\per\nano\meter\squared}.
 Das deutet darauf hin, dass perfekte Gitterkonfigurationen nicht robust gegenüber gerichteten Energieeinträgen sind, kleine Störungen des Gitters aber zur gleichmäßigeren Verteilung der eingebrachten Energien auf die umliegenden Atome führen.

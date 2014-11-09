@@ -1,18 +1,23 @@
 \section{MD-Simulationen: Methoden und Auswertungen}
 \label{mdmethods}
 
-\todoline{Klar machen, dass das für Präparationen gilt, nicht nur für Parsivald}
+Dieser Abschnitt soll eine Übersicht über die molekulardynamischen Vorgehensweisen geben, welche im folgenden Kapitel~\ref{results} zur Anwendung kommen.
+Diese Methoden werden für die Präparation von Strukturen, deren thermische und strukturelle Untersuchung sowie innerhalb der Parsivald-Simulationen selbst eingesetzt.
 
-Nachdem in Abschnitt~\ref{md} die Funktionsweise der Molekulardynamik beschrieben wurde, soll in diesem Abschnitt ein kurzer Überblick über die Vorgehensweisen und Methoden bei der Auswertung von MD-Simulationen gegeben werden, die in den folgenden Kapiteln wiederholt eingesetzt werden.
-Dies beinhaltet sowohl die Simulationsmethoden selbst, wie etwa Relaxierungen von Substraten, Reaktionen und Stabilitätssimulationen von Molekülen, als auch die Auswertung deren Ergebnisse durch externe Werkzeuge.
+\subsection{Zeitskalen}
+
+MD-Simulationen werden maßgeblich durch den Zeitschritt $\Delta t$, die Thermostatdämpfung $\tau$, die Barostatdämpfung $\tau_p$ und die Relaxationszeit $t_\text{relax}$ bestimmt, welche systemabhängige Maximalwerte nicht überschreiten dürfen.
+$\Delta t$ ist so zu wählen, dass schnelle Bewegungen nur geringe numerische Fehler verursachen, wofür man je nach Art des numerischen Integrators mindestens $\frac{1}{10}$ der Periodendauer der schnellsten Schwingung annehmen kann.
+$\tau$ und $\tau_p$ sollten groß genug gewählt werden, um zwischen den Zeitschritten nur geringe Änderungen vorzunehmen, da sonst die Dynamik des Systems gestört wird.
+Typischerweise wählt man $\tau = 100 \Delta t$ und  $\tau_p = 1000 \Delta t$.
+Die Relaxationszeit $t_\text{relax}$ muss zuletzt oberhalb der vom Thermostat und von Barostat erzeugten Oszillationen der Temperatur und der Dichte liegen.
+
 
 \subsection{Relaxierungen}
 
-\todoline{hochfrequente Bewegungen dominieren Zeitschrittweite}
-
 Ausgehend von einer präparierten Struktur wird das System auf die Relaxationstemperatur erwärmt, dort im kanonischen Ensemble für die Relaxationsdauer simuliert und bei Bedarf wieder auf eine Zieltemperatur abgekühlt.
 Erwärmung und Abkühlung sind zwar optional, allerdings bei einigen Strukturen zur Reduktion numerischer Fehler notwendig, wie etwa zur Wahrung der Anschlussbedingungen der MD-Simulationen innerhalb von Parsivald.
-\todoline{Anmerkung von Jörg: Das wirft natürlich die Frage auf, ob überhaupt die richtigen (also zur Substrattemperatur passenden) Strukturen gebildet werden, sofern diese temperaturabhängig sind}
+Vergleiche zwischen Parsivald und reinen MD-Simulationen sollen die Ähnlichkeit der abgeschiedenen Strukturen prüfen, um Fehler aufgrund der gewählten Temperaturen zu vermeiden.
 
 \subsection{Strukturelle Analyse}
 
@@ -22,8 +27,6 @@ Bei Kristallen kann eine Alpha-Form (Abschnitt~\ref{dataalphaform}) mit einem $\
 
 \subsection{Bestimmung der Dichte und Temperatur}
 
-\todoline{Vergleich der Zeiten (Schritt, $\tau$, $t_\text{relax}$, )}
-
 Zur Bestimmung der Dichte des Blocks eines amorphen Materials stehen verschiedene Möglichkeiten zur Verfügung, die letztendlich alle auf Zählung der Atome innerhalb eines begrenzten Volumens zurückgeführt werden können.
 Da das Volumen des Simulationsraumes im großkanonischen Ensemble durch das Barostat oszilliert, muss sie zeitlich über einen größeren Zeitraum als die Dämpfungskonstante $\tau_p$ gemittelt werden, da sie sonst nicht über die gesamte Periode der Oszillation betrachtet wird.
 
@@ -32,26 +35,27 @@ Die Temperatur wird aus dem Mittelwert der kinetischen Energie aller Teilchen be
 
 \subsection{Radiale Verteilungsfunktionen, Bindungslänge und Koordinationszahl}
 
-Die Radiale Verteilungsfunktion (RDF) ergibt sich als Histogramm der Zahl der Atome in Abhängigkeit des radialen Abstandes voneinander, gewichtet über die Volumen der Bins, welche durch die radiale Beschreibung die Form von Kugelschalen annehmen.
+Die Radiale Verteilungsfunktion (RDF) $g_{\alpha\beta}(r)$ zweier Atomsorten $\alpha$ und $\beta$ ergibt sich als Histogramm der Zahl der Atome $n_{\alpha\beta}(r)$ in Abhängigkeit des Abstandes $r$, gewichtet über die Volumen der Bins, welche durch die radiale Beschreibung die Form von Kugelschalen annehmen.
+\begin{equation}
+  g_{\alpha\beta}(r) = \frac{1}{\rho_\alpha} \frac{d n_{\alpha\beta}(r)}{4 \pi r^2 dr} ~~,\quad \rho_\alpha = \frac{N_\alpha}{V}
+\end{equation}
 Ihr erstes Maximum bildet die Bindungslänge, während das Integral bis zur Koordinationslänge (erstes Minimum nach der Bindungslänge) die erste Koordinationszahl ergibt.
-An der RDF-Darstellung lässt sich außerdem die Reichweite der Ordnung erkennen:
-Radiale Verteilungen von perfekten Kristallen bestehen ausschließlich aus Spitzen an den Gitterpunkten, die auch für große Abstände noch klar erkennbar sind.
+An der RDF-Darstellung lässt sich außerdem die strukturelle Ordnung erkennen:
+RDF von perfekten Kristallen bestehen ausschließlich aus Spitzen an den Gitterpunkten, die auch für große Abstände noch klar erkennbar sind.
 Bei amorphen Materialien hingegen konvergiert die Funktion schnell gegen den Grenzwert von 1, der anzeigt, dass keine langreichweitige Ordnung mehr vorhanden ist.
 
 Beispiele radialer Verteilungsfunktionen finden sich in Abbildungen~\ref{fig:siliconresults-b},~\ref{fig:kulkarnirdf} und~\ref{fig:amorphousrdf}.
 
-\todoline{Formel zur Berechnung der RDF aus einer Punktwolke}
-
-\subsection{Schichtdicke und Oberflächenbeschaffenheit}
+\subsection{Oberfläche, Schichtdicke, Rauheit und Porösität}
 \label{mdmethods-surface}
 
 Zur Bestimmung der Schichtdicke, Oberflächenrauheit oder Porösität muss zuerst die Oberfläche einer Schicht aus der Alpha-Form mittels Delaunay-Triangulation in Form einer Punktwolke bestimmt werden (Abschnitt~\ref{datadelaunay}).
-Im Anschluss lässt sich aus der entstandenen Punktwolke der tiefste und höchste Punkt der Oberfläche sowie die Spannweite bestimmen und durch Bildung des Mittelwertes die mittlere Schichtdicke ermitteln.
-Durch Zählung der Elemente in der Punktwolke lässt sich zudem die Bedeckung der Oberfläche mit chemischen Gruppen bestimmen.
-Durch Begutachtung der Oberflächen-Punktwolke können außerdem Rückschlüsse auf die Porösität gezogen werden, indem neben der eigentlichen Oberfläche auch sämtliche Poren und Hohlräume innerhalb der Struktur aus der Alpha-Form gelesen werden.
+Im Anschluss lässt sich aus der entstandenen Punktwolke der tiefste und höchste Punkt der Oberfläche sowie die Spannweite in z-Richtung bestimmen und durch Bildung des Mittelwertes die mittlere Schichtdicke ermitteln.
+Durch Zählung der chemischen Elemente in der Punktwolke lässt sich zudem die Bedeckung der Oberfläche mit chemischen Gruppen bestimmen.
+Durch Begutachtung der Oberflächen können außerdem Rückschlüsse auf die Porösität gezogen werden, indem neben der eigentlichen Oberfläche auch sämtliche Poren und Hohlräume innerhalb der Struktur aus der Alpha-Form gelesen werden.
 
 \subsection{Reaktionen und Stabilität von Molekülen}
 
-Einzelne oder mehrere Precursormoleküle werden mit externer Software (Materials Studio\cite{biovia_materials_2014} und Packmol\todo{Link auf Packmol}) präpariert, mit Geschwindigkeiten im Rahmen der Zieltemperatur versehen und im mikrokanonischen Ensemble im Vakuum simuliert, um Aussagen über ihre Stabilität zu erhalten.
+Einzelne oder mehrere Precursormoleküle werden mit externer Software (Materials Studio\cite{biovia_materials_2014} und Packmol\cite{martinez_packmol_2009}) präpariert, mit Geschwindigkeiten im Rahmen der Zieltemperatur versehen und im mikrokanonischen Ensemble im Vakuum simuliert, um Aussagen über ihre Stabilität zu erhalten.
 Diese wird bei einzelnen Datensätzen manuell durch Begutachtung der dynamischen Eigenschaften und der entstandenen Moleküle ermittelt, bei vielen Datensätzen wird eine automatische Auswertung auf Konnektivität der Atome durchgeführt, wodurch Aussagen über die entstandenen Moleküle getroffen werden können.
 Die gleichen Untersuchungen geben Aufschluss über den Erfolg einer Reaktion.

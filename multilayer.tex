@@ -1,11 +1,9 @@
 \section{Multilagen-PVD}
 \label{multilayer}
 
-\todo{Auf GMR/TMR-Systeme eingehen}
-\todo{Auf Röntgen-Optiken eingehen}
-\todo{Korrelierte Rauheit?}
-Mit PVD-Methoden können auch mehrlagige Schichten abgeschieden werden, die im folgenden Kapitel am Beispiel von dünnen Cu/Ni-Multilagen näher untersucht werden sollen.
-Das Kupfer-Nickel-System wurde aufgrund ähnlicher Gitterkonstanten gewählt (Ni:~\SI{3.52}{\angstrom}, Cu:~\SI{3.61}{\angstrom}), die kristallines Wachstum ermöglichen und somit Fehlstellen unterbinden.
+Mit PVD-Methoden können auch mehrlagige Schichten abgeschieden werden, wie sie für röntgenoptische oder magnetische Systeme (Riesenmagnetowiderstand GMR, Tunnelmagnetowiderstand) interessant sind.
+Im folgenden Abschnitt soll am Beispiel von dünnen \ce{Cu-Ni}-Multilagen ein System näher untersucht werden, das GMR-Effekte zeigt, aber in der Praxis von \ce{Cu-Co}-Systemen aufgrund ihres größeren GMR-Effektes abgelöst wurde\cite{bird_giant_1995}.
+Das Kupfer-Nickel-System wurde aufgrund ähnlicher Gitterkonstanten gewählt (\ce{Ni}:~\SI{3.52}{\angstrom}, \ce{Cu}:~\SI{3.61}{\angstrom}), die epitaktisches Wachstum ermöglichen und somit Fehlstellen unterbinden.
 Durch die Ähnlichkeit zur Kupfer-PVD lässt sich der Prozess zudem auf den dort entwickelten Prozessparametern und den untersuchten Potentialparametersätzen aufbauen.
 
 Im Experiment werden mehrlagige Kupfer-Nickel-Schichten per Elektro\-deposition\cite{yang_pulsed_1995} oder durch Sputtern\cite{cammarata_nanoindentation_1990} hergestellt, wobei üblicherweise Lagendicken im Bereich mehrerer Nanometer erzielt werden.
@@ -20,8 +18,9 @@ In diesen Untersuchungen wurde bereits gezeigt, dass die kinetische Energie der 
 
 \subsection{Ergebnisse}
 
-Parsivald-Simulationen erzeugen nach korrekter Parametereinstellung monokristallin gewachsene, klar abgegrenzte Atomlagen geringer Rauheit, die sich gut mit den Ergebnissen gleichartiger LAMMPS-Simulationen decken (Abbildung~\ref{fig:multilayerresults}).
+Parsivald-Simulationen erzeugen nach korrekter Parametereinstellung klar abgegrenzte epitaktische Atomlagen geringer Rauheit, die sich gut mit den Ergebnissen gleichartiger LAMMPS-Simulationen decken (Abbildung~\ref{fig:multilayerresults}).
 RMS-Rauheiten um \SI{1.2}{\angstrom} stellen sich mit beiden Simulationsmethoden bis zur zehnten Lage ein und stimmen somit miteinander und mit den bisherigen Ergebnissen überein (Abbildung~\ref{fig:multilayerplots-a}).
+Anhand der Schichten ist eine schwach korrelierte Rauheit der einzelnen Lagen erkennbar.
 
 Zuvor war eine Anpassung der Temperaturen und Relaxationszeiten notwendig, die jedoch für LAMMPS und Parsivald gleichermaßen gelten.
 Als Richtwert wurde die Qualität der einzelnen Lagen in Form des Anteils der Spezies in Abhängigkeit der Höhe über dem Substrat genutzt (Abbildung~\ref{fig:multilayerplots-b}).
@@ -58,12 +57,12 @@ Bei größeren Systemen ist zudem mit Verspannungen aufgrund der unterschiedlich
   \def\subfigwidth{7cm}
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{CuNi_profile_LAMMPS_nice}
-    \subcaption{Profil von \ce{CuNi}-Multilagen mit LAMMPS}
+    \subcaption{Profil von \ce{Cu-Ni}-Multilagen mit LAMMPS}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{CuNi_profile_Parsivald}
-    \subcaption{Profil von \ce{CuNi}-Multilagen mit Parsivald}
+    \subcaption{Profil von \ce{Cu-Ni}-Multilagen mit Parsivald}
   \end{subfigure}
   \caption{Vergleich von Multilagen-Profilen mit LAMMPS und Parsivald}
   \label{fig:multilayerresults}

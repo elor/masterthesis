@@ -105,7 +105,7 @@ Der Druck innerhalb des Systems wird dabei über die Virialgleichung ermittelt, 
 
 \todoline{Hinweis von Jörg: beachte bitte, dass Prof. Hoffmann hier zuhause ist. Tiefergehende Kenntnisse können beim Vortrag nicht schaden}
 
-\todoline{Betrachtung von Minimierungs-Algorithmen, etwa auch thermal annealing}
+\todoline{Betrachtung von Minimierungs-Algorithmen, etwa auch Simulated Annealing}
 Für die Strukturoptimierung mit molekulardynamischen Methoden werden Algorithmen zur Energieminimierung genutzt, wie die populäre Konjugierte-Gradienten-Methode (CG, Conjugated Gradients), mit denen im Idealfall das globale Minimum der Systemenergie gesucht wird.
 \todo{0K}Bei der CG-Methode wird der Zustandsraum von einem Startzustand $\vec X_0$ aus entlang des Gradienten der Energie $\nabla E(X)$ in Richtung des Minimums abgeschritten, wobei über die Schrittweite $\alpha$ das Konvergenzverhalten beeinflusst werden kann.
 \begin{figure}
@@ -147,7 +147,6 @@ Diese Anpassungen verbessern einerseits das erwartete Konvergenzverhalten, ander
 
 %% Es stehen noch weitere Minimierungsalgorithmen zur Verfügung, wie beispielsweise die Klasse der Newton-Verfahren.
 %% Obwohl diese auf dem Papier schneller konvergieren, sind für jeden Iterationsschritt durch die Berechnung der Hesse-Matrix mehr Rechenoperationen notwendig, so dass reale Berechnungszeit und Speicherverbrauch gegenüber CG-Methoden oft im Nachteil sind.
-%% \todo{Referenz für Interessierte}
 
 %% separate file for force fields to avoid having to scroll down
 \input{forcefields}
@@ -176,5 +175,4 @@ Tabelle~\ref{tab:mdsoftware} stellt ausgewählte Vertreter moderner Molekulardyn
     GROMACS\cite{lindahl_gromacs_2014,berendsen_gromacs:_1995,hess_gromacs_2008} & Uppsala University       & Biomoleküle, quelloffen                                          \\
     \hline
   \end{tabularx}
-  \todoline{Link auf das LAMMPS-Paper}
 \end{table}

@@ -19,14 +19,13 @@
   <defs
      id="defs4">
     <linearGradient
-       inkscape:collect="always"
        id="linearGradient3763">
       <stop
          style="stop-color:#000000;stop-opacity:1;"
          offset="0"
          id="stop3765" />
       <stop
-         style="stop-color:#000000;stop-opacity:0;"
+         style="stop-color:#ffffff;stop-opacity:1;"
          offset="1"
          id="stop3767" />
     </linearGradient>
@@ -55,7 +54,7 @@
        xlink:href="#linearGradient3763"
        id="linearGradient4122"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.77868916,0,0,0.42024534,-382.20696,-343.12221)"
+       gradientTransform="matrix(0,-0.77868916,-0.42024534,0,262.76659,382.20696)"
        x1="-30.883543"
        y1="570.97186"
        x2="303.19199"
@@ -68,9 +67,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.4934085"
-     inkscape:cx="27.674092"
-     inkscape:cy="160.4672"
+     inkscape:zoom="2.5138254"
+     inkscape:cx="-20.198114"
+     inkscape:cy="113.3497"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -101,10 +100,10 @@
      id="layer1"
      transform="translate(-89.834936,-146.45923)">
     <path
-       transform="matrix(0,-1,-1,0,0,0)"
-       style="fill:url(#linearGradient4122);fill-opacity:1;stroke:#000000;stroke-width:1.25;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dashoffset:0;stroke-opacity:1"
-       d="m -406.45813,-114.01824 259.14081,0 0,23.558304 -259.14081,0 z"
-       id="rect2985" />
+       style="fill:url(#linearGradient4122);fill-opacity:1;stroke:#000000;stroke-width:1.25;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dashoffset:0"
+       d="m 33.662619,406.45813 0,-259.14081 -23.558304,0 0,259.14081 z"
+       id="rect2985"
+       inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 108.40451,363.26802 5.71107,0"

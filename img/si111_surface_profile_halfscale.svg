@@ -19,14 +19,13 @@
   <defs
      id="defs4">
     <linearGradient
-       inkscape:collect="always"
        id="linearGradient3763">
       <stop
          style="stop-color:#000000;stop-opacity:1;"
          offset="0"
          id="stop3765" />
       <stop
-         style="stop-color:#000000;stop-opacity:0;"
+         style="stop-color:#ffffff;stop-opacity:1;"
          offset="1"
          id="stop3767" />
     </linearGradient>
@@ -70,6 +69,16 @@
        y1="570.97186"
        x2="303.19199"
        y2="570.97186" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3763"
+       id="linearGradient3876"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0,-0.38934458,-0.42024534,0,274.57028,394.3327)"
+       x1="-30.883543"
+       y1="570.97186"
+       x2="303.19199"
+       y2="570.97186" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -78,9 +87,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.6185353"
-     inkscape:cx="73.790189"
-     inkscape:cy="54.583998"
+     inkscape:zoom="5.2077309"
+     inkscape:cx="10.479417"
+     inkscape:cy="67.39243"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -163,10 +172,10 @@
            y="198.72736" /></flowRegion><flowPara
          id="flowPara3974-3"
          style="font-size:14.12630463px;letter-spacing:0px">0</flowPara></flowRoot>    <path
-       transform="matrix(0,-1,-1,0,0,0)"
-       style="fill:url(#linearGradient3912);fill-opacity:1;stroke:#000000;stroke-width:1.25;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dashoffset:0;stroke-opacity:1"
-       d="m -406.45828,-114.01824 129.5704,0 0,23.558304 -129.5704,0 z"
-       id="rect2985" />
+       style="fill:url(#linearGradient3876);fill-opacity:1;stroke:#000000;stroke-width:1.25;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:10;stroke-opacity:1;stroke-dashoffset:0"
+       d="m 45.466311,406.45828 0,-129.5704 -23.558304,0 0,129.5704 z"
+       id="rect2985"
+       inkscape:connector-curvature="0" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1.25;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 108.40451,363.26815 5.71107,0"

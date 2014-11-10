@@ -50,13 +50,13 @@
   \makeatother%
   \begin{picture}(1,4.06476156)%
     \put(0,0){\includegraphics[width=\unitlength]{si111_surface_profile_scale.pdf}}%
-    \put(0.4269293,1.42318884){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.74576364\unitlength}\raggedright 10\end{minipage}}}%
-    \put(0.43111775,2.77039978){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.74576364\unitlength}\raggedright 20\end{minipage}}}%
-    \put(0.42751568,4.04407732){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.74576364\unitlength}\raggedright 30\end{minipage}}}%
-    \put(0.42818583,0.1776675){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.74576364\unitlength}\raggedright 0\end{minipage}}}%
-    \put(0.42625914,3.4287127){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.74576364\unitlength}\raggedright 25\end{minipage}}}%
-    \put(0.42642668,2.08150191){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.74576364\unitlength}\raggedright 15\end{minipage}}}%
-    \put(0.42064662,0.73429084){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.74576364\unitlength}\raggedright 5\end{minipage}}}%
-    \put(0.90882837,2.02955788){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[b]{\smash{Profilhöhe~(\AA)}}}}%
+    \put(0.4269293,1.42323703){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.74576364\unitlength}\raggedright 10\end{minipage}}}%
+    \put(0.43111775,2.77044797){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.74576364\unitlength}\raggedright 20\end{minipage}}}%
+    \put(0.42751568,4.04412551){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.74576364\unitlength}\raggedright 30\end{minipage}}}%
+    \put(0.42818583,0.12903426){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.74576364\unitlength}\raggedright 0\end{minipage}}}%
+    \put(0.42625914,3.42876089){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.74576364\unitlength}\raggedright 25\end{minipage}}}%
+    \put(0.42642668,2.0815501){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.74576364\unitlength}\raggedright 15\end{minipage}}}%
+    \put(0.42064662,0.73433904){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.74576364\unitlength}\raggedright 5\end{minipage}}}%
+    \put(0.90882837,2.02960608){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[b]{\smash{Profilhöhe~(\AA)}}}}%
   \end{picture}%
 \endgroup%

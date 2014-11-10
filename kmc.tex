@@ -51,8 +51,9 @@ Eine mögliche Anwendung von KMC-Simulationen besteht in der Beschreibung der Ki
 Die Ereignisse entsprechen dann einzelnen chemischen oder physikalischen Vorgängen wie der Desorption eines Atomes von der Kristalloberfläche, der Adsorption eines Moleküls auf der Oberfläche oder der Reaktion zwischen zwei Molekülen, wobei die Reaktionsraten direkt als Ereignisraten genutzt werden.
 
 Darin zeigt sich ein Problem der KMC-Formulierung:
-Die Ereignisraten sind Eingabewerte und müssen vor der \todo{Zacros, EON}\todo{Es stimmt schon, dass andere Software das anders macht, aber ist aufgrund der Formulierung zwingend notwendig, die Energien der Ereignisse vorher zu kennen. Weiter unten beschreibe ich, wie Parsivald diese Notwendigkeit umgeht, dabei aber die Reaktionskinetik nicht mehr beschreiben kann}Auswahl der Ereignisse bekannt sein.
-Zwar lassen sich unbekannte Raten auch während der Simulation durch exaktere Methoden wie Elektronenstrukturrechnungen ermitteln, allerdings verursachen diese Methoden bei einer Vielzahl verschiedenartiger Ereignisse einen enormen Rechenaufwand.
+Die Ereignisraten sind Eingabewerte und müssen vor der Auswahl der Ereignisse bekannt sein.
+%% Note to self: {Es stimmt schon, dass andere Software das anders macht, aber ist aufgrund der Formulierung zwingend notwendig, die Energien der Ereignisse vorher zu kennen. Weiter unten beschreibe ich, wie Parsivald diese Notwendigkeit umgeht, dabei aber die Reaktionskinetik nicht mehr beschreiben kann}
+Zwar lassen sich unbekannte Raten auch während der Simulation durch exaktere Methoden wie Elektronenstrukturrechnungen ermitteln\cite{stamatakis_unraveling_2012}, allerdings verursachen diese Methoden bei einer Vielzahl verschiedenartiger Ereignisse einen enormen Rechenaufwand.
 Deshalb wird oft auf ein Simulationsgitter zurück gegriffen, um die Zahl der verschiedenartigen Zustands-Übergänge gering zu halten.
 
 Vor allem bei kristallinen Strukturen lassen sich viele Übergänge durch das Verschieben, Entfernen oder Hinzufügen von Atomen auf den Gitterplätzen beschreiben, wobei die Ereignisraten jeweils von den benachbarten Gitterplätzen abhängig sind.
@@ -65,4 +66,4 @@ Trotz Ergodizität der MD-Simulationen, durch welche verschiedenen Ergebnissen d
 %% Da dies keinen Einfluss auf die strukturellen Eigenschaften hat, lassen sich Untersuchungen der Struktur damit dennoch durchführen.
 Im Gegenzug sorgt die Kombination beider Methoden zu einer enormen Beschleunigung gegenüber reinen MD-Rechnungen und zur Möglichkeit der strukturellen Betrachtung für KMC-Simulationen, wobei für gesteigerte Effizienz der Algorithmen auf spezialisierte Datenstrukturen zurück gegriffen werden muss.
 \todoline{Sie erlaubt zudem die atomistische Betrachtung gigantischer Systeme.}
-\todoline{Passt alles auf zwei nebeneinander liegende Seiten? Dann rutschen die Datenstrukturen nach und eine Leerseite wird gespart. Auf jeden Fall die MD um eine halbe Seite kürzen}
+\todoline{Passt alles auf zwei nebeneinander liegende Seiten?}

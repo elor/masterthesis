@@ -59,7 +59,6 @@
 \begin{tabular}{lll}
 AFM       & Atomic Force Microscopy             & Rasterkraftmikroskopie                                     \\
 ALD       & Atomic Layer Deposition             & Atomlagenabscheidung                                       \\
-CG        & Conjugated Gradients                & Konjugierte Gradienten                                     \\
 CFD       & Computational Fluid Dynamics        & Eine Methode zur Gasfluss/Simulation                       \\
 CVD       & Chemical Vapor Deposition           & Chemische Gasphasenabscheidung                             \\
 DFT       & Density Functional Theory           & Dichtefunktionaltheorie                                    \\
@@ -77,7 +76,7 @@ RDF       & Radial Distribution Function        & Radiale Verteilungsfunktion   
 RMS       & Root Mean Square                    & Standardabweichung                                         \\
 ReaxFF    & Reactive Force Fields               & Reaktive Kraftfelder                                       \\
 TMA       & Trimethylaluminum (\ce{Al(CH3)3})   & Trimethylaluminium (\ce{Al(CH3)3})                         \\
-NPT       & \multicolumn{2}{l}{Großkanonisches Ensemble: Teilchenzahl, Druck und Temperatur sind konstant}   \\
+NPT       & \multicolumn{2}{l}{Isotherm-Isobares Ensemble: Teilchenzahl, Druck und Temperatur sind konstant} \\
 NVE       & \multicolumn{2}{l}{Mikrokanonisches Ensemble: Teilchenzahl, Volumen und Energie sind konstant}   \\
 NVT       & \multicolumn{2}{l}{Kanonisches Ensemble: Teilchenzahl, Volumen und Temperatur sind konstant}     \\
 Parsivald & \multicolumn{2}{l}{Parallel Atomistic Reaction Simulator for Vapor and Atomic Layer Depositions} \\
@@ -106,12 +105,11 @@ NPH
   GROMACS
   BIOVIA
   TU
+CG        & Conjugated Gradients                & Konjugierte Gradienten                                     \\
   EU
   ACCELERATE
   MOSFETs
 \end{comment}
-
-\todoline{Prüfen, ob die Abkürzungen im Text ordentlich eingeführt werden}
 
 \chapter*{Symbolverzeichnis}
 \addcontentsline{toc}{chapter}{Symbolverzeichnis}
@@ -128,7 +126,7 @@ $g_{\alpha\beta}(r)$ & Radiale Verteilungsfunktion der Atomsorten $\alpha$ und $
 $\kappa$             & Dielektrizitätskonstante eines Materiales                       \\
 $k_B$                & Boltzmann-Konstante                                             \\
 $m$                  & Masse eines Teilchens                                           \\
-$M$                  & Virtuelle Masse eines Thermostates                              \\
+$M$                  & Virtuelle Masse von Thermostaten                                \\
 $n_\text{cyc.}$      & Zahl der simulierten KMC-Zyklen                                 \\
 $r_\text{bond}$      & Bindungslänge                                                   \\
 $r_c$                & Cutoff-Radius eines Kraftfeldes                                 \\

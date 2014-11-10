@@ -1,7 +1,7 @@
 \subsection{Kraftfelder}
 \label{mdforcefields}
 
-Zentrales Element molekulardynamischer Methoden sind Kraftfelder~$\vec F(X)$, auch Potentiale~$V(X)$ genannt, welche die Interaktionen der simulierten Teilchen beschreiben.
+Das zentrale Element molekulardynamischer Methoden sind Kraftfelder~$\vec F(X)$, auch Potentiale~$V(X)$ genannt, welche die Interaktionen der simulierten Teilchen beschreiben.
 Für verschiedene Materialien existieren spezielle Potentialformulierungen, die für unterschiedliche Elemente wiederum eigene Potentialparametrisierungen in Form von Potentialdateien zur Verfügung stellen.
 Im Folgenden soll eine Auswahl dieser Potentialformulierungen kurz in ihrer Funktionsweise vorgestellt werden.
 
@@ -42,7 +42,7 @@ Damit können beispielsweise Winkel- und Torsionsabhängigkeiten wiedergegeben w
   E = \sum_i\sum_{j \neq i}{V_2\left(r_{ij}\right)} + \sum_i\sum_{j \neq i}\sum_{\substack{k \neq i \\ k \neq j}}{V_3\left(r_{ij}, r_{ik}, \theta_{ijk}\right)} + \dots
 \end{equation}
 Obwohl sich mit N-Teilchen-Potentialen komplexere Systeme betrachten lassen, zeigen sie die gleichen Schwachstellen wie Paarpotentiale, benötigen aber eine größere Anzahl an Parametern.
-Zwar gibt es erfolgreiche Anwendungen für Biomoleküle\cite{case_amber_2005,brooks_charmm:_1983,brooks_charmm:_2009,berendsen_gromacs:_1995,hess_gromacs_2008}, die allerdings aufgrund ihrer \todo{Darstellung kovalenter und H-Bindungen, nicht anderer Beziehungen}Spezialisierung nicht auf andere Stoffsysteme wie Festkörper oder Oberflächen übertragbar sind.
+Zwar gibt es erfolgreiche Anwendungen für Biomoleküle\cite{case_amber_2005,brooks_charmm:_1983,brooks_charmm:_2009,berendsen_gromacs:_1995,hess_gromacs_2008}, die allerdings aufgrund ihrer Spezialisierung zu kovalenten und Wasserstoffbrücken-Bindungen in Biomolekülen nicht auf allgemeine Stoffsysteme wie Festkörper oder Oberflächen übertragbar sind.
 
 \subsubsection{Embedded Atom Model}
 
@@ -50,7 +50,7 @@ Das Embedded Atom Model (EAM) besteht aus einem Paarpotential $V_{\alpha\beta}(r
 \begin{equation}
   E = \sum_i\left[F_\alpha\left(\sum_{j\neq i}{\rho_\beta\left(r_{ij}\right)}\right) + \frac{1}{2}\sum_{j\neq i}{V_{\alpha\beta}\left(r_{ij}\right)}\right]
 \end{equation}
-So lassen sich metallische Bulksysteme und Oberflächen simulieren, für die $\alpha$ und $\beta$ verschiedene Spezies darstellen, doch führt die Formulierung für andere Systeme zwangsläufig zur Bildung von Clustern\todo{ggfs. erläutern oder durch Zitat belegen}.
+So lassen sich metallische Bulksysteme und Oberflächen simulieren, für die $\alpha$ und $\beta$ verschiedene Spezies darstellen, doch führt die Formulierung für andere Systeme zwangsläufig zur Bildung von Clustern, wie sie bereits für vorherige Versionen des in dieser Arbeit erweiterten Parsivald-Modelles beobachtet wurden\cite{lorenz_entwicklung_2012}.
 Für eine Vielzahl an Metallen und Legierungen finden sich in Potentialdatenbanken fertige Parametrisierungen\cite{becker_interatomic_2014}, von denen viele zusätzlich zu den strukturellen auch thermodynamische Eigenschaften recht gut modellieren (Abschnitt~\ref{goldthermo}).
 
 %% \subsubsection{Modified Embedded Atom Model}
@@ -76,7 +76,10 @@ Die Gesamtenergie $E_\text{system}$ des Systemes setzt sich aus den folgenden Su
   E_\text{system} =~& E_\text{bond} + E_\text{lp} + E_\text{over} + E_\text{under} + E_\text{val} + E_\text{pen} + E_\text{coa} + E_\text{C2} \\
   \nonumber  & + E_\text{tors} + E_\text{conj} + E_\text{H-bond} + E_\text{vdWaals} + E_\text{Coulomb}
 \end{align}
-Die meisten Terme werden über die \todo{Formel der Bindungsordnung aus duin 2001}Bindungsordnung berechnet, welche sich wiederum aus Beiträgen für $\sigma$-, $\pi$- und Doppel-$\pi$-Bindungen aus dem Bindungsabstand zusammen setzt.
+Die meisten Terme werden über die Bindungsordnung berechnet, welche sich wiederum aus Beiträgen für $\sigma$-, $\pi$- und Doppel-$\pi$-Bindungen aus dem Bindungsabstand zusammen setzt und über die Parameter $p_{\text{bo,1..6}}$ für unterschiedliche Atomsorten eingestellt werden kann.
+\begin{equation}
+  BO_{ij}' = \exp\left( p_{\text{bo,1}} \cdot \left( \frac{r_{ij}}{r_0} \right)^{p_\text{bo,2}} \right) + \exp\left( p_{\text{bo,3}} \cdot \left( \frac{r_{ij}}{r_{0,\pi}} \right)^{p_\text{bo,4}} \right) + \exp\left( p_{\text{bo,5}} \cdot \left( \frac{r_{ij}}{r_{0,\pi\pi}} \right)^{p_\text{bo,6}} \right)
+\end{equation}
 Darüber hinaus werden einige Terme in der Nähe des Cutoff-Abstands sowie an Koordinations-Übergängen auf 0 gesenkt, um Diskontinuitäten zu vermeiden und einen fließenden Übergang zwischen Bindungszuständen zu ermöglichen.
 
 \begin{table}
@@ -109,7 +112,7 @@ Darüber hinaus werden einige Terme in der Nähe des Cutoff-Abstands sowie an Ko
 Aus den Termen des ReaxFF-Potentials geht hervor, dass es ursprünglich für Reaktionen von organischen Molekülen entwickelt wurde, doch hat es sich als vielseitig genug herausgestellt, auch eine Vielzahl anderer Materialien wie Kristalle und nichtorganische Verbindungen simulieren zu können.
 Die einzige Abhängigkeit besteht zum Trainingssatz, also den Test-Strukturen, an deren Werte die Parametrisierung des Reax-Kraftfeldes angepasst wurde.
 So kann die Parametrisierung in der Regel nur die Strukturen und Materialien zuverlässig wiedergeben, für die sie ursprünglich erstellt wurde.
-Für darüber hinaus gehende Anwendungen ist \todo{in der Regel}eine aufwendige Anpassung der Parametersätze mittels geeigneter Trainingsstrukturen erforderlich.\todo{Zitat?}
+Für darüber hinaus gehende Anwendungen ist in der Regel eine aufwendige Anpassung der Parametersätze mittels geeigneter Trainingsstrukturen erforderlich.
 
 In den letzten fünf Jahren haben Reactive Force Fields jedoch an Aufmerksamkeit gewonnen, so dass die Zahl verfügbarer spezialisierter Parametrisierungen stetig zunimmt.
 Es gibt auch Bestrebungen, sich ergänzende ReaxFF-Parametrisierungen zu kombinieren und somit mit einer Parametrisierung eine große Zahl von Zielsystemen betrachten zu können.

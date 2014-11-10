@@ -249,11 +249,16 @@ commentblocks(){
     listfiles | xargs -0 grep -n 'comment'
 }
 
+grandcanonical(){
+    listfiles | xargs -0 grep -Pin 'großk'
+}
+
 #####################
 # begin actual work #
 #####################
 {
 
+    register "grand canonical" grandcanonical
     # register "possible typos" listunknownwords
     # register "LaTeX Errors" getlatexerrors
     # register "word repetitions" doublewords

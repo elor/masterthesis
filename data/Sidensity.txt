@@ -1,0 +1,17 @@
+atoms at begin: 10368
+atoms at end: 57929
+mean height at begin: 18.029
+mean height at end: 94.3533
+box size: 106.416000*103.680000
+weight of silicon: 28.09 u
+
+----------------------------
+
+diff atoms: 47561
+diff height: 7.63243 nm
+substrate area: 110.3321088 nm^2
+volume: 842.102097168384 nm^3
+
+---------------------------
+
+density: 2.634 g/cm^3

@@ -89,13 +89,12 @@ Einzig mittels des bereits ausgeschlossenen Al\_AlO\_AlN-Parametersatzes lassen 
 
 \todoline{Bilder im Anhang}
 
-Simulationen von Wassermolekülen sind hingegen mit allen Parametrisierungen geglückt, doch wurden keine umfangreicheren Untersuchungen etwa hinsichtlich der Phasenübergänge angestellt.
-Anhand des Al\_AlO\_AlN-Parametersatzes wurden auch Reaktionen zwischen TMA und Wasser simuliert, wie sie beispielsweise bei Vermischung der Precursorgase im ALD-Reaktor auftreten können, aber \todo{phrasing}leider ohne Erfolg.
-Es zeigt sich, dass die \ce{Al-C}-Bindungen entweder zu stark oder in zu großem Maß von den Methylgruppen abgeschirmt sind.
+Simulationen von Wassermolekülen waren hingegen mit allen Parametrisierungen erfolgreich, doch wurden keine umfangreicheren Untersuchungen etwa hinsichtlich der Phasenübergänge durchgeführt, da für Gasphasenabscheidung lediglich die Gasphase bei niedrigen Drücken sowie isolierte Reaktionen auf der Oberfläche relevant sind.
+Anhand des Al\_AlO\_AlN-Parametersatzes wurden auch Simulationen der Reaktionen zwischen TMA und Wasser in der Gasphase versucht, wie sie beispielsweise bei Vermischung der Precursorgase im ALD-Reaktor auftreten können, doch zeigten sie keinen Erfolg, da die \ce{Al-C}-Bindungen entweder zu stark sind oder in zu großem Maß von den Methylgruppen abgeschirmt werden.
 
 \subsubsection{Precursor-Oberflächen-Reaktionen}
 
-Anstatt die Precursormoleküle in der Gasphase reagieren zu lassen, werden hier einzelne Wassermoleküle auf eine $\alpha$-\ce{Al2O3}-Kristalloberfläche gebracht, die mit den darauf befindlichen Sauerstoffatomen reagieren und die Oberfläche so hydroxylieren sollen\todo{Ref}.
+Anstatt die Precursormoleküle in der Gasphase reagieren zu lassen, werden hier einzelne Wassermoleküle auf eine $\alpha$-\ce{Al2O3}-Kristalloberfläche gebracht, die mit den darauf befindlichen Sauerstoffatomen reagieren und die Oberfläche so hydroxylieren sollen\cite{shapalov_initio_2000}.
 Zu diesem Zweck wurde ein mehrschichtiges System mit einem kristallinen Substrat und einer Schicht von Wassermolekülen in Gasphase präpariert, wie es in Abbildung~\ref{fig:wateraluminasurface-a} dargestellt ist.
 In der Simulation werden die Wassermoleküle mit einer maxwellschen Geschwindigkeit entsprechend \SI{500}{\kelvin} versehen, die Atome an der Unterseite des Substrates fest gehalten und das Berendsen-Thermostat auf den verbleibenden Teil des Substrates angewandt.
 Damit handelt es sich zwar streng gesehen nicht mehr um eine Simulation im kanonischen Ensemble, aber es wird auf separate Integratoren für Substrat (NVT) und Wasser (NVE) verzichtet, deren Grenzen bei erfolgreichen Reaktionen ohnehin aufgelöst werden.
@@ -137,8 +136,6 @@ Es zeigt sich also die sterische Hinderung der Wasserstoffmoleküle gegenüber w
 
 Eine repulsive Kraft zwischen den Wassermolekülen und der Oberfläche verhindert diese Reaktionen unter Nutzung der Narayanan-Parameter.
 Das deutet darauf hin, dass Hydroxylgruppen auf einer Aluminiumoxid-Oberfläche energetisch nicht bevorzugt werden oder die Reaktion mit einer hohen Reaktionsbarriere verbunden ist.
-Zusammen mit dem Problem, Trimethylaluminium nicht darstellen zu können, ist dieser Parametersatz somit nicht in der Lage, den ALD-Prozess darzustellen.
+Zusammen mit dem Problem, Trimethylaluminium nicht darstellen zu können, ist dieser Parametersatz somit nicht in der Lage, den ALD-Prozess durch seine Precursor-Oberflächen-Reaktionen darzustellen.
 
-\todoline{Hinweis auf vollständige ALD-Simulationen?}
-\todoline{Welche der alten Ergebnisse finden hier Anwendung?}
 \todoline{um einen Absatz kürzen, damit keine \num{1.8} Leerseiten entstehen?}

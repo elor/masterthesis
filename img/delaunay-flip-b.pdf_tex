@@ -1,6 +1,6 @@
 %% Creator: Inkscape inkscape 0.48.4, www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
-%% Accompanies image file 'si111_surface_profile_scale.pdf' (pdf, eps, ps)
+%% Accompanies image file 'delaunay-flip-b.pdf' (pdf, eps, ps)
 %%
 %% To include the image in your LaTeX document, write
 %%   \input{<filename>.pdf_tex}
@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{51.29430542bp}%
+    \setlength{\unitlength}{92.86916504bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,15 +48,7 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,4.06476156)%
-    \put(0,0){\includegraphics[width=\unitlength]{si111_surface_profile_scale.pdf}}%
-    \put(0.4269293,1.42318884){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.74576364\unitlength}\raggedright 10\end{minipage}}}%
-    \put(0.43111775,2.77039978){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.74576364\unitlength}\raggedright 20\end{minipage}}}%
-    \put(0.42751568,4.04407732){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.74576364\unitlength}\raggedright 30\end{minipage}}}%
-    \put(0.42818583,0.1776675){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.74576364\unitlength}\raggedright 0\end{minipage}}}%
-    \put(0.42625914,3.4287127){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.74576364\unitlength}\raggedright 25\end{minipage}}}%
-    \put(0.42642668,2.08150191){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.74576364\unitlength}\raggedright 15\end{minipage}}}%
-    \put(0.42064662,0.73429084){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.74576364\unitlength}\raggedright 5\end{minipage}}}%
-    \put(0.90882837,2.02955788){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[b]{\smash{Profilhöhe~(\AA)}}}}%
+  \begin{picture}(1,0.88843479)%
+    \put(0,0){\includegraphics[width=\unitlength]{delaunay-flip-b.pdf}}%
   \end{picture}%
 \endgroup%

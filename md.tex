@@ -11,10 +11,10 @@ Nachfolgend möchte ich einen kurzen Überblick über die Formulierung molekular
 
 Molekulardynamik ist eine klassische Vielteilchenmethode, die jedem Teilchen des Systemes $X$ eine Masse $m$, eine Position $\vec r$, einen Impuls $\vec p$ und Kräfte entsprechend eines lokalen Kraftfeldes $\vec{F}(X)$ oder eventuellen Randbedingungen zuweist.
 Entsprechend der Born-Oppenheimer-Näherung, nach der die Elektronen eines chemischen Systemes an ihre Atomkerne gebunden sind und schnell genug auf Änderungen des Systemes reagieren, genügt es, die Atome als Punktmassen an der Position ihres Atomkernes zu betrachten.
-Elektronische und sonstige Interaktionen werden dann durch die verwendeten Kraftfelder beschrieben, die auf \todo{nochmal in Ruhe überdenken}Näherungen physikalischer Effekte basieren, um die Simulationszeit auf Kosten der Genauigkeit zu senken.
+Elektronische und sonstige Interaktionen werden dann durch die verwendeten Kraftfelder beschrieben, welche an Daten aus Experimenten oder ab-initio-Rechnungen gefittet wurden, um die Simulationszeit auf Kosten der Genauigkeit zu senken.
 
 Der Systemzustand wird dann entweder entsprechend des gewählten Ensembles zeitlich integriert, oder hinsichtlich der Energie des Gesamt- oder eines Teilsystemes optimiert.
-Dazu stehen Integratoren für das Mikrokanonischen Ensemble (NVE), das Kanonischen Ensemble (NVT) und das Großkanonischen Ensemble (NPT) ebenso zur Verfügung wie verschiedene Optimierungsmethoden, von denen hier die Konjugierte Gradienten-Methode vorgestellt werden soll.
+Dazu stehen Integratoren für das Mikrokanonischen Ensemble (NVE), das Kanonischen Ensemble (NVT) und das Isotherm-Isobare Ensemble (NPT) ebenso zur Verfügung wie verschiedene Optimierungsmethoden, von denen hier die Konjugierte Gradienten-Methode vorgestellt werden soll.
 
 \subsubsection{Mikrokanonisches Ensemble (NVE)}
 
@@ -80,9 +80,9 @@ $M$ enthält neben Einheitenfaktoren auch die virtuelle Masse des Wärmebades un
   \dot s = \frac{1}{\tau M} \left(\sum_i{\frac{p_i^2}{2m_i}} - N d k_B T\right)
 \end{equation}
 
-\subsubsection{Großkanonisches Ensemble (NPT)}
+\subsubsection{Isotherm-Isobares Ensemble (NPT)}
 
-Wird zusätzlich noch Verformungsarbeit vom oder am System verrichtet, ergibt sich das Großkanonische Ensemble, für das statt des Volumens der mittlere Druck des Systems konstant bleibt.
+Wird zusätzlich noch Verformungsarbeit vom oder am System verrichtet, ergibt sich das isotherm-isobare Ensemble, für das statt des Volumens der mittlere Druck des Systems konstant bleibt.
 
 \begin{equation}
   N = \text{const.}
@@ -98,57 +98,68 @@ Der Druck innerhalb des Systems wird dabei über die Virialgleichung ermittelt, 
   P V = N k_B T + \frac{1}{d} \sum_{i=1}^N{\vec{r}_i \cdot \vec{F}_i}
 \end{equation}
 
-\todoline{Wenn Zeit bleibt: NPH betrachten}
-\todoline{Wenn Zeit bleibt: Erforschung des Ensembles per Monte Carlo}
+\todoline{Jörg: Ausführliche Betrachtung der konjugierten Gradienten entfernt. Sie wurden in dieser Arbeit praktisch nicht genutzt}
 
-\subsubsection{Minimierung durch Konjugierte Gradienten (CG-Minimierung)}
+%% \subsubsection{Minimierung durch Konjugierte Gradienten (CG-Minimierung)}
 
-\todoline{Hinweis von Jörg: beachte bitte, dass Prof. Hoffmann hier zuhause ist. Tiefergehende Kenntnisse können beim Vortrag nicht schaden}
+%% \todoline{Hinweis von Jörg: beachte bitte, dass Prof. Hoffmann hier zuhause ist. Tiefergehende Kenntnisse können beim Vortrag nicht schaden}
 
-\todoline{Betrachtung von Minimierungs-Algorithmen, etwa auch Simulated Annealing}
-Für die Strukturoptimierung mit molekulardynamischen Methoden werden Algorithmen zur Energieminimierung genutzt, wie die populäre Konjugierte-Gradienten-Methode (CG, Conjugated Gradients), mit denen im Idealfall das globale Minimum der Systemenergie gesucht wird.
-\todo{0K}Bei der CG-Methode wird der Zustandsraum von einem Startzustand $\vec X_0$ aus entlang des Gradienten der Energie $\nabla E(X)$ in Richtung des Minimums abgeschritten, wobei über die Schrittweite $\alpha$ das Konvergenzverhalten beeinflusst werden kann.
-\begin{figure}
-  \centering
-  \def\svgwidth{0.5\textwidth}
-  \input{img/cg-gradient.pdf_tex}
-  \caption[Minimierung durch Konjugierte Gradienten]{
-    Minimierung durch konjugierte Gradienten:\\
-    a) Optimale Schrittweite\\
-    b) Kleine Schrittweite $\Rightarrow$ viele unnötige Schritte\\
-    c) Große Schrittweite $\Rightarrow$ langsames Konvergenzverhalten
-  }
-  \label{fig:cg-gradient}
-\end{figure}
-\begin{equation}
-  \vec X_i = \vec X_{i-1} - \alpha \nabla E(\vec X_{i-1})
-\end{equation}
-Als Abbruchkriterien stehen je nach Verhalten des Systems währen der Optimierung die Differenz zwischen zwei Schritten ($|\vec X_i - \vec X_{i-1}| < X_\text{tol}$), die maximale Änderung eines Vektorelementes ($\max_k{|X_{i,k} - X_{i-1,k}|} < X_\text{tol}$),
-die Stärke des Gradienten ($|\nabla E(\vec X_{i-1})| < E_\text{tol}$), eine Anzahl an Zeitschritten ($i > i_\text{tol}$) oder eine Kombination daraus zur Verfügung.
+%% Für die Strukturoptimierung mit molekulardynamischen Methoden werden Algorithmen zur Energieminimierung genutzt, wie die populäre Konjugierte-Gradienten-Methode (CG, Conjugate Gradient Method), mit denen im Idealfall das globale Minimum der Systemenergie gesucht wird.
+%% Bei der CG-Methode wird der Zustandsraum von einem Startzustand $\vec X_0$ aus entlang des Gradienten der Energie $\nabla E(X)$ in Richtung des Minimums abgeschritten, wobei über die Schrittweite $\alpha$ das Konvergenzverhalten beeinflusst werden kann.
 
-Eine Optimierung durch minimierte Gradienten ist für eine große Zahl an Freiheitsgraden zwar schnell\todo{verglichen womit?}, stößt aber an Grenzen bei der Minimierung allgemeiner nichtlinearer Funktionen, weshalb Variationen der CG-Methode mit besserem Konvergenzverhalten entwickelt wurden.
-Einerseits kann der Optimierungsschritt durch eine Minimierung entlang der Richtung des Gradienten ersetzt werden:
-\begin{gather}
-  \min_\alpha f(X_i+\alpha \vec s_i) \rightarrow \alpha_i \\
-  \vec X_i = \vec X_{i-1} - \alpha_i \vec s_i
-\end{gather}
-Andererseits steht die Manipulation der Schrittrichtung in Abhängigkeit vorheriger Schritte zur Verfügung.
-In der populären MD-Bibliothek LAMMPS wird etwa die Polak-Ribière-Variante dieser Methode genutzt:
-\begin{equation}
-  \vec s_i = \Delta \vec X_i + \beta_i \vec s_{i-1}
-\end{equation}
-\begin{equation}
-  \beta_i = \max \left(0, \frac{\Delta \vec X_i \cdot \left(\Delta \vec X_i - \Delta \vec X_{i-1}\right)}{\Delta \vec X_{i-1} \cdot \Delta \vec X_{i-1}}\right) \text{~(Polak-Ribière)}
-\end{equation}
-Es existieren noch weitere gleichwertige Methoden mit anderen Zielsetzungen und Formulierungen.\todo{Das ist mal schwammig. Wenigstens Beispiele bringen, besser noch Referenzen}
-Diese Anpassungen verbessern einerseits das erwartete Konvergenzverhalten, andererseits stabilisieren sie den Optimierungsalgorithmus gegenüber Nichtlinearitäten und Unstetigkeiten.
+%% \begin{figure}
+%%   \centering
+%%   \def\svgwidth{0.5\textwidth}
+%%   \input{img/cg-gradient.pdf_tex}
+%%   \caption[Minimierung durch Konjugierte Gradienten]{
+%%     Minimierung durch konjugierte Gradienten:\\
+%%     a) Optimale Schrittweite\\
+%%     b) Kleine Schrittweite $\Rightarrow$ viele unnötige Schritte\\
+%%     c) Große Schrittweite $\Rightarrow$ langsames Konvergenzverhalten
+%%   }
+%%   \label{fig:cg-gradient}
+%% \end{figure}
+%% \begin{equation}
+%%   \vec X_i = \vec X_{i-1} - \alpha \nabla E(\vec X_{i-1})
+%% \end{equation}
+%% Als Abbruchkriterien stehen je nach Verhalten des Systems währen der Optimierung die Differenz zwischen zwei Schritten ($|\vec X_i - \vec X_{i-1}| < X_\text{tol}$), die maximale Änderung eines Vektorelementes ($\max_k{|X_{i,k} - X_{i-1,k}|} < X_\text{tol}$),
+%% die Stärke des Gradienten ($|\nabla E(\vec X_{i-1})| < E_\text{tol}$), eine Anzahl an Zeitschritten ($i > i_\text{tol}$) oder eine Kombination daraus zur Verfügung.
 
-%% \subsubsection{Weitere Minimierungsmethoden}
+%% Eine Optimierung durch minimierte Gradienten ist für eine große Zahl an Freiheitsgraden zwar schnell\todo{verglichen womit?}, stößt aber an Grenzen bei der Minimierung allgemeiner nichtlinearer Funktionen, weshalb Variationen der CG-Methode mit besserem Konvergenzverhalten entwickelt wurden.
+%% Einerseits kann der Optimierungsschritt durch eine Minimierung entlang der Richtung des Gradienten ersetzt werden:
+%% \begin{gather}
+%%   \min_\alpha f(X_i+\alpha \vec s_i) \rightarrow \alpha_i \\
+%%   \vec X_i = \vec X_{i-1} - \alpha_i \vec s_i
+%% \end{gather}
+%% Andererseits steht die Manipulation der Schrittrichtung in Abhängigkeit vorheriger Schritte zur Verfügung.
+%% In der populären MD-Bibliothek LAMMPS wird etwa die Polak-Ribière-Variante dieser Methode genutzt:
+%% \begin{equation}
+%%   \vec s_i = \Delta \vec X_i + \beta_i \vec s_{i-1}
+%% \end{equation}
+%% \begin{equation}
+%%   \beta_i = \max \left(0, \frac{\Delta \vec X_i \cdot \left(\Delta \vec X_i - \Delta \vec X_{i-1}\right)}{\Delta \vec X_{i-1} \cdot \Delta \vec X_{i-1}}\right) \text{~(Polak-Ribière)}
+%% \end{equation}
+%% Diese Anpassungen verbessern einerseits das erwartete Konvergenzverhalten, andererseits stabilisieren sie den Optimierungsalgorithmus gegenüber Nichtlinearitäten und Unstetigkeiten.
 
-%% Es stehen noch weitere Minimierungsalgorithmen zur Verfügung, wie beispielsweise die Klasse der Newton-Verfahren.
-%% Obwohl diese auf dem Papier schneller konvergieren, sind für jeden Iterationsschritt durch die Berechnung der Hesse-Matrix mehr Rechenoperationen notwendig, so dass reale Berechnungszeit und Speicherverbrauch gegenüber CG-Methoden oft im Nachteil sind.
+\subsubsection{Optimierungs-Methoden}
+\label{conjugategradient}
+\label{annealing}
 
-%% separate file for force fields to avoid having to scroll down
+Zusätzlich zu den Ensemble-Simulationen lassen sich in der Molekulardynamik vor allem Optimierungen anhand der Energie des Systemes durchführen, wofür verschiedene Methoden zur Verfügung stehen.
+Sie werden in dieser Arbeit nicht direkt benutzt, sollen aber der Vollständigkeit sowie der Erläuterung der zitierten Arbeiten dienen.
+
+Implementierungen der \textbf{Methode der konjugierten Gradienten} (CG, Conjugate Gradients), einer Methode zur Lösung linearer Gleichungen, schreiten beispielsweise von einem Ausgangspunkt die Energielandschaft entlang ihres Gradienten ab, wobei in jedem Schritt das Residuum zur Korrektur der Richtung des folgenden Schrittes genutzt wird.
+CG-Methoden terminieren nach spätestens $n$ schritten, wobei $n$ die Zahl der Freiheitsgrade ist, obwohl für große Systeme etwa die Größe des Residuums als Abbruchkriterium genutzt wird.
+Sie sind in der Molekulardynamik aufgrund der schnellen Konvergenz und der Möglichkeit zur effizienten Minimierung von Systemen mit vielen Freiheitsgraden weit verbreitet.
+
+Eine weitere Methode, die zwar nicht direkt zu den MD-Methoden gehört, aber diese im Hintergrund für Energieberechnungen nutzen kann, besteht im \textbf{Simulated Annealing} (simulierte Abkühlung).
+Sie bezeichnet einen Metropolis-Monte-Carlo-Algorithmus, der eine Folge zufälliger Schritte im Zustandsraum ausführt, dabei aber jedem Schritt eine Akzeptanzwahrscheinlichkeit $P$ entsprechend der Energiedifferenz $\Delta E$ zwischen den Zuständen vor und nach diesem Schritt zuweist.
+Im Fall des kanonischen Ensembles ergibt sie sich ähnlich zur Formulierung der Zustandssumme.
+%% \begin{equation}
+%%   P(\Delta E) = \exp(-\frac{\Delta E}{k_B T})
+%% \end{equation}
+Die Temperatur $T$ des Systemes wird bei der simulierten Abkühlung ausgehend von einer hohen Temperatur langsam abgesenkt, bis das Minimum mit großer Wahrscheinlichkeit erreicht wird, wobei durch ihre Position im Nenner des negativen Exponenten die Wahrscheinlichkeit der Akzeptanz positiver Energiedifferenzen ebenfalls reduziert wird.
+
 \input{forcefields}
 
 \subsection{Verfügbare Software}
@@ -158,7 +169,7 @@ In LAMMPS lassen sich zudem auch externe Parametersätze einbinden, wodurch die 
 Weiterhin unterscheiden sich die Programme in ihrer Nutzerfreundlichkeit (Kommandozeile oder grafische Oberfläche) und der Möglichkeit, sie als Bibliothek in eigene Programme einzubinden.
 Tabelle~\ref{tab:mdsoftware} stellt ausgewählte Vertreter moderner Molekulardynamiksoftware dar.
 
-\begin{table}
+\begin{table}[hb]
   \oddrowcolors
   \caption[Verfügbare Molekulardynamik-Software]{
     Verfügbare Molekulardynamik-Software

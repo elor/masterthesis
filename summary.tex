@@ -42,8 +42,8 @@ Der selbe Einfluss der Sputterenergie auf die Lagenqualität wurde jedoch auch i
 Durch Einstellung der Simulationsparameter ließ sich die Bildung kraterförmiger Vertiefungen, wie sie bereits bei Simulationen von Kupfer-PVD zu beobachten war, vollständig eliminieren.
 
 Schließlich wurde die Abscheidung amorpher Schichten anhand von Silizium-PVD mit reaktiven Kraftfeldern simuliert, wobei sich dichte, aber vergleichsweise rauhe Schichten ergaben.
-\todo{in Silizium-Kapitel einarbeiten}Reaktive Kraftfelder wurden genutzt, da EAM-Formulierungen und N-Teilchen-Potentiale zur Bildung von Kristallen neigen, die zu untersuchenden amorphen Strukturen hingegen auf Valenzbindungen und damit verbundenen Koordinationen basieren, welche von reaktiven Kraftfeldern modelliert werden.
-Die Oberfläche der Schicht zeigt eine RMS-Rauheit von \SI{11.5}{\angstrom}, welche sich mit experimentellen Werten deckt, allerdings im untersuchten Zeitraum \todo{untersuchen, wenn Zeit bleibt}linear ansteigt.
+Reaktive Kraftfelder wurden genutzt, da EAM-Formulierungen und N-Teilchen-Potentiale zur Bildung von Kristallen neigen, die zu untersuchenden amorphen Strukturen hingegen auf Valenzbindungen und damit verbundenen Koordinationen basieren, welche von reaktiven Kraftfeldern modelliert werden.
+Die Oberfläche der Schicht zeigt eine RMS-Rauheit von \SI{11.5}{\angstrom}, welche sich mit experimentellen Werten deckt, allerdings im untersuchten Zeitraum linear ansteigt.
 Anhand der Oberflächenprofile ist Porenbildung als Ursache der Rauheit erkennbar, die sich mit erhöhter Relaxationszeit und -temperatur jedoch reduzieren lässt.
 Mit fortschreitender Simulationszeit ist eine Schließung der Poren wie bei den kraterförmigen Vertiefungen der Kupfer-PVD-Simulationen zu erwarten, wodurch die Rauheit begrenzt wäre.
 
@@ -70,7 +70,7 @@ Gezielte Epitaxie-Simulationen können weiterhin Hinweise auf die Einflüsse der
 Die Simulation von verspannten Multilagen-Systemen, bei denen durch unterschiedliche Gitterkonstanten ein Gitterversatz zu beobachten ist, führt zu der Frage, inwiefern Parsivald den untersuchten Systemen eine kristalline Struktur aufzwingt.
 
 Durch Optimierung der Parameter für die Simulation der Abscheidung amorpher Schichten lässt sich deren Einfluss auf die Struktur der Schicht untersuchen.
-Ein direkter Vergleich mit rein molekulardynamischen Simulationen ist dafür ebenfalls notwendig, hätte allerdings aufgrund der rechenaufwendigen Potentiale den zeitlichen Rahmen dieser Arbeit gesprengt.
+Ein direkter Vergleich mit rein molekulardynamischen Simulationen ist dafür ebenfalls notwendig, hätte allerdings aufgrund der rechenaufwendigen Potentiale den zeitlichen Rahmen dieser Arbeit überstiegen.
 
 Weitere Untersuchungen der reaktiven Kraftfelder zum Zweck der Beschreibung chemischer Gasphasenabscheidungen führen zu der Frage, wie verlässlich diese zur Simulation der chemischen Reaktionen in CVD-Simulationen genutzt werden können.
 Die Nutzung von Energieminimierungen und Metropolis Monte Carlo-Methoden im Gegensatz zur Zeitintegration im kanonischen Ensemble sowie die vorherige Abschätzung des Zielzustandes im KMC-Teil des Modelles können hierbei helfen, die Verlässlichkeit zu erhöhen sowie die notwendige Simulationszeit zu reduzieren.
@@ -99,10 +99,8 @@ Die Abkehr von globalen Datenstrukturen hin zu einer Delaunay-Triangulation des 
 Zusätzlich erlaubt diese Oberflächenbeschreibung beliebige Auftreffwinkel nebst der Ereignisauswahl in bisher abgeschirmten Bereichen, wodurch Verzerrungen der Ereignisraten bei chemische Gasphasenabscheidungen stark reduziert würden.
 Außerdem ergeben sich durch die Referenzierung der unmittelbaren Nachbarschaft eines Atomes auch seine Koordinationen sowie potentiellen Bindungen, welche für die Ereignisauswahl hilfreich sind, wodurch eine bisher notwendige Konnektivitätsprüfung jedes Ereignisses entfällt.
 
-Eine der umfangreichsten Ergänzungen bestünde allerdings in der Einführung weiterer atomistischer Optimierungsmethoden, wie etwa Simulated Annealing durch die verbreitete Metropolis Monte Carlo-Methode, die den Rahmen dieser Arbeit gesprengt hätte.
-
+Eine der umfangreichsten Ergänzungen bestünde allerdings in der Einführung weiterer atomistischer Optimierungsmethoden, wie etwa Simulated Annealing per Metropolis Monte Carlo, für welche eine energetische Auswertung der reaktiven Kraftfelder neu implementiert werden müsste, weshalb sie in dieser Arbeit nicht umgesetzt wurde.
 Diese könnten neben molekulardynamischen Potentialen theoretisch auch auf präzisere Methoden wie Elektronenstrukturrechnungen zurück greifen.
-Zur Vermeidung unnötiger Redundanz müsste ein selbst-lernendes Verzeichnis der potentiellen Reaktionen eingearbeitet werden, bei Energiebarrieren und damit verbundene Ereignisraten verwaltet und bei Bedarf ergänzt werden.
+Zur Vermeidung unnötiger Redundanz der Rechnungen müsste ein selbstlernendes Verzeichnis der potentiellen Reaktionen eingearbeitet werden, bei Energiebarrieren und damit verbundene Ereignisraten verwaltet und bei Bedarf ergänzt werden.
 Diese Methode wird bereits erfolgreich in anderen Off-Lattice-Modellen eingesetzt\cite{biehl_off-lattice_2005,stamatakis_graph-theoretical_2011}.
 
-\todoline{sprengen sprengen sprengen}

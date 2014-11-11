@@ -230,7 +230,7 @@ FUNCTION {page.write}
 	pop$
     %duplicate$ #1 pos #1 - substring$ 'p1 :=
     %duplicate$ pos #1 + strlen pos - substring$ 'p2 :=
-	%"{\bstpage \bblpage~" p1 "}" * * write$
+  %"{\bstpage \bblpage~" p1 "}" * * write$
     %"{\bstnumpages (" p2 str.to.int$ p1 str.to.int$ - int.to.str$ ")}" * * write$
 	%pop$ pop$
   }

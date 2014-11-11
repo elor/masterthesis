@@ -259,33 +259,33 @@ grandcanonical(){
 {
 
     register "grand canonical" grandcanonical
-    # register "possible typos" listunknownwords
-    # register "LaTeX Errors" getlatexerrors
-    # register "word repetitions" doublewords
-    # register "Man/man occurences" manoccurences
-    # register "undefined references" undefinedreferences
-    # register "undefined citations" undefinedcitations
-    # register "unexplained abbreviations" unexplainedabbreviations
-    # register "multiplelabels" multiplelabels
-    # register "citations with language tag" citationswithlanguagetag
-    # register "long lines" listlonglines 333
-    # register "dots within a line" dotlines
-    # register "trailing spaces" trailingspaces
-    # register "double spaces" doublespaces
-    # register "tab stops" alltabs
-    # register "cites/refs with leading spaces" spacerefs
-    # register "unused citations" unusedcitations
-    # register "unused abbreviations" unusedabbreviations
-    # register "ASD occurences" asddsa
-    # register "disabled includes" disabledincludes
-    # register "LaTeX Warnings" getlatexwarnings
-    # register "Equation References" equationreferences
-    # register "comment blocks" commentblocks
+    register "possible typos" listunknownwords
+    register "LaTeX Errors" getlatexerrors
+    register "word repetitions" doublewords
+    register "Man/man occurences" manoccurences
+    register "undefined references" undefinedreferences
+    register "undefined citations" undefinedcitations
+    register "unexplained abbreviations" unexplainedabbreviations
+    register "multiplelabels" multiplelabels
+    register "citations with language tag" citationswithlanguagetag
+    register "long lines" listlonglines 333
+    register "dots within a line" dotlines
+    register "trailing spaces" trailingspaces
+    register "double spaces" doublespaces
+    register "tab stops" alltabs
+    register "cites/refs with leading spaces" spacerefs
+    register "unused citations" unusedcitations
+    register "unused abbreviations" unusedabbreviations
+    register "ASD occurences" asddsa
+    register "disabled includes" disabledincludes
+    register "LaTeX Warnings" getlatexwarnings
+    register "Equation References" equationreferences
+    register "comment blocks" commentblocks
     register "todo counts" todocounts
     register "todo notes" todonotes
-    # register "overfull boxes" overfullboxes
-    # register "underfull boxes" underfullboxes
-    # register "draft notes" getdrafts
+    register "overfull boxes" overfullboxes
+    register "underfull boxes" underfullboxes
+    register "draft notes" getdrafts
 
     printfinalstate
 

@@ -1,7 +1,9 @@
 \section{Gold-PVD}
 \label{goldpvd}
 
-Als Testsystem für PVD-Prozesse bietet sich Gold-Sputtering an, das zwar durch Oberflächendiffusion und Bildung von Nanopartikeln dominiert wird, aber in MD-Simulationen ein stabiles fcc-Gitter eingeht und damit robust gegenüber Fehlstellen und Unebenheiten ist.
+\todoline{Standardliteratur zitieren}
+
+Als Testsystem für PVD-Prozesse bietet sich Gold-Sputtering an, das im Experiment für amorphe und polykristalline Substrate zwar durch Oberflächendiffusion und Bildung von Nanopartikeln dominiert wird\cite{svorcik_annealing_2011}, aber in MD-Simulationen auf monokristallinen ein stabiles fcc-Gitter eingeht und damit robust gegenüber Fehlstellen und Unebenheiten ist.
 Somit besteht das Ziel in der Präparation und Simulation eines Gold-PVD-Prozesses zum Zweck der Überprüfung des Parsivald-Modelles.
 Zusätzlich werden strukturierte Substrate und das Skalierungsverhalten von Parsivald-Simulationen untersucht.
 Die genutzte EAM-Potentialdatei stammt aus dem LAMMPS-Paket\cite{plimpton_lammps_2014}, basiert aber auf Parametern von \textsc{Foiles et al.}\cite{foiles_embedded-atom-method_1986}, die für Einbettung einzelner Atome in Bulk- und Oberflächensysteme optimiert wurden.
@@ -11,17 +13,18 @@ Die genutzte EAM-Potentialdatei stammt aus dem LAMMPS-Paket\cite{plimpton_lammps
 Zur Validierung grundlegender Materialeigenschaften wurden Bindungslängen, Dichten und Koordinationszahlen aus einer relaxierten kristallinen Phase untersucht (Tabelle~\ref{tab:goldpreresults}).
 Zur Bestimmung dieser Werte wurde ein Goldkristall von \SI{40x40x40}{\angstrom} Größe auf \SI{1000}{\kelvin} aufgeheizt, im kanonischen Ensemble relaxiert und anschließend abgekühlt.
 Wie den Ergebnissen entnommen werden kann, bleibt die Kristallstruktur erwartungsgemäß erhalten und steht in guter Übereinstimmung mit Literaturwerten, wobei die Schmelztemperatur von \SI{1337}{\kelvin} während der Simulation nicht überschritten wurde.
-Die Parametrisierung repräsentiert somit das Zielsystem in Dichte und Struktur.
+Somit unterstützt die genutzte EAM-Parametrisierung das Zielsystem hinsichtlich der Dichte und Struktur monokristalliner Bulkmaterialien.
 
-\begin{table}
+\begin{table}[hbt]
+  \begin{threeparttable}
   \oddrowcolors
   \caption[Vergleich struktureller Eigenschaften von Gold]{
-    Vergleich der strukturellen Eigenschaften von Gold mit experimentellen und Literatur-Daten als Voruntersuchung des PVD-Prozesses
+    Vergleich der strukturellen Eigenschaften von Gold mit experimentellen und Literatur-Daten als Voruntersuchung des PVD-Prozesses.
   }
   \label{tab:goldpreresults}
   \begin{tabularx}{\textwidth}{|lXXXX|}
     \hline
-    \textbf{unters. Größe} & \textbf{Temperatur} & \textbf{Simulation}                     & \textbf{Referenz}                       & \textbf{Abweichung} \\
+    \textbf{unters. Größe} & \textbf{Temperatur} & \textbf{Simulation}                     & \textbf{Referenz}\tnote{a}                       & \textbf{Abweichung} \\
     \hline
     Bindungslänge          & \SI{50}{\kelvin}    & \SI{2.885}{\angstrom}                   & \SI{2.884}{\angstrom}                   & \SI{0.05}{\percent} \\
     Koordination           & \SI{50}{\kelvin}    & \SI{12.00}{}                            & \SI{12.00}{}                            & \SI{0}{\percent}    \\
@@ -29,17 +32,16 @@ Die Parametrisierung repräsentiert somit das Zielsystem in Dichte und Struktur.
     Dichte                 & \SI{500}{\kelvin}   & \SI{18.89}{\gram\per\cubic\centi\meter} & \SI{19.13}{\gram\per\cubic\centi\meter} & \SI{1.2}{\percent}  \\
     \hline
   \end{tabularx}
+  \begin{tablenotes}
+    \item[a] Referenzwerte stammen aus Standardliteratur und \cite{miller_effect_2006}
+  \end{tablenotes}
+  \end{threeparttable}
 \end{table}
 
 \subsection{Thermodynamische Eigenschaften}
 \label{goldthermo}
 
-Neben strukturellen Eigenschaften bilden EAM-Potentiale auch einige thermodynamische Eigenschaften von Metallen ab.
-Für deren Untersuchung wurde die Massendichte in Abhängigkeit der Temperatur für die Teststruktur aufgenommen, die langsam auf \SI{2000}{\kelvin}, also weit über den Schmelzpunkt von \SI{1337}{\kelvin}, aufgeheizt wurde.
-Die Ergebnisse (Abbildung~\ref{fig:goldthermo}) zeigen gute Übereinstimmung mit experimentellen Daten, wofür Relaxationszeiten $t_\text{relax}$ oberhalb von \SI{20}{\pico\second} und Thermostat-Dämpfungsparameter $\tau$ \SI{\approx0.02}{\femto\second} als notwendig ermittelt wurden.
-Bei geringeren $t_\text{relax}$ oder $\tau$ relaxiert das System innerhalb eines Temperaturschrittes nicht vollständig, wodurch der Schmelzpunkt überschätzt wird, wie in Abbildung~\ref{fig:goldthermo-b} zu sehen ist.
-
-\begin{figure}
+\begin{figure}[bh]
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{7cm}
   \begin{subfigure}[t]{\subfigwidth}
@@ -50,7 +52,7 @@ Bei geringeren $t_\text{relax}$ oder $\tau$ relaxiert das System innerhalb eines
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{gold_relaxtime}
-    \subcaption{Schmelzpunkt in Abh. der Relaxationszeit}
+    \subcaption{Dichteänderung beim Schmelzen in Abh. der Relaxationszeit}
     \label{fig:goldthermo-b}
   \end{subfigure}
   \caption[Vergleich thermodynamischer Daten von Gold]{
@@ -58,24 +60,41 @@ Bei geringeren $t_\text{relax}$ oder $\tau$ relaxiert das System innerhalb eines
     Experimentelle Werte stammen aus Standardliteratur sowie von \textsc{Brillo et al.}\cite{brillo_density_2006}.
   }
   \label{fig:goldthermo}
+  \todoline{Legende der Relaxationszeiten fehlt}
 \end{figure}
+
+Neben strukturellen Eigenschaften bilden EAM-Potentiale auch einige thermodynamische Eigenschaften von Metallen ab.
+Für deren Untersuchung wurde die Massendichte in Abhängigkeit der Temperatur für die Teststruktur aufgenommen, die langsam auf \SI{2000}{\kelvin}, also weit über den Schmelzpunkt von \SI{1337}{\kelvin}, aufgeheizt wurde.
+Dabei wird das System in zyklusch über eine Zeit von $t_\text{relax}$ im isotherm-isobaren Ensemble relaxiert, bevor die Temperatur um 50K erhöht wird.
+Die Ergebnisse (Abbildung~\ref{fig:goldthermo}) zeigen gute Übereinstimmung mit experimentellen Daten, wofür Relaxationszeiten $t_\text{relax}$ oberhalb von \SI{20}{\pico\second} und Thermostat-Dämpfungsparameter $\tau$ \SI{\approx0.02}{\femto\second} als notwendig ermittelt wurden.
+Bei geringeren $t_\text{relax}$ oder $\tau$ relaxiert das System innerhalb eines Temperaturschrittes nicht vollständig, wodurch der Schmelzpunkt überschätzt wird, wie in Abbildung~\ref{fig:goldthermo-b} zu sehen ist.
+Darin zeigt sich auch eine Änderung in der Art des Phasenüberganges, der durch erhöhte Relaxationszeiten aufgrund von zeitlichen Effekten verzögert eintritt.
+Das ergibt sich aus der Ähnlichkeit der Relaxations- zur Barostat- und Thermostatdämpfung ($t_\text{relax}\approx \tau$, $t_\text{relax}\approx \tau_p$), welche um Größenordnungen unter dem notwendigen Wert liegen (Abschnitt~\ref{mdmethods}), sodass sich kein thermisches Gleichgewicht einstellen kann.
+Die Dichteänderung ist somit um mehrere Temperatursprünge verzögert.
 
 \subsection{Simulation des PVD-Prozesses}
 
 Nach der Präparation eines Kristallsubstrates wurde es zusammen mit der EAM-Parametrisierung und weiteren Prozessparametern in einer Parsivald-Simulation eingelesen, wobei die Relaxationszeiten und Größen der MD-Simulationsräume aus den Vorbetrachtungen übernommen wurden.
 Damit ergeben sich Reaktionsräume mit einer Größe von \SI{37x37x25}{\angstrom} mit jeweils ca. \num{1800} Atomen, Relaxationszeiten von \SI{1.4}{\nano\second} in \num{1400} Simulationsschritten und Auftreffgeschwindigkeiten von \SI{4}{\angstrom/\pico\second}.
-Letztere liegen mit \SI{16.7}{\electronvolt} leicht oberhalb der üblichen Teilchenenergien von \SIrange{1}{10}{\electronvolt}\cite{thompson_energy_1968}, werden aber vor dem eigentlichen Auftreffen durch das Thermostat, welches unvermeidlich auch das auftreffende Atom betrifft, reduziert.
+Letztere liegen mit \SI{16.7}{\electronvolt} leicht oberhalb der üblichen Teilchenenergien von \SIrange{1}{10}{\electronvolt}\cite{thompson_ii._1968}, werden aber vor dem eigentlichen Auftreffen durch das Thermostat, welches unvermeidlich auch das auftreffende Atom betrifft, reduziert.
 Zur Korrektur dieses systematischen Fehlers wäre eine Aufteilung des Integrators in einen kanonischen und einen mikrokanonischen Teil notwendig, was mit einem erhöhten Rechenaufwand für jede Simulation verbunden ist und deshalb bisher nicht umgesetzt wurde.
 
-Abbildungen~\ref{fig:golddepositions-a} und~\ref{fig:golddepositions-d} zeigen, wie auf dem Substrat eine Gold-Schicht epitaktisch aufwächst.
+\todoline{Jörg: Verweis auf Vergleich mit Experimenten in 4.1.2 - ???}
+Abbildungen~\ref{fig:golddepositions-a} und~\ref{fig:golddepositions-d} zeigen, wie eine Gold-Schicht auf dem kristallinen Substrat epitaktisch aufwächst.
 Poren und Hohlräume wurden bei Untersuchungen der Alpha-Form~\ref{mdmethods-surface} nicht gefunden.
-Abbildung~\ref{fig:goldroughness-a} stellt die Rauheit dar, die beim glatten Substrat über den Abscheidungszeitraum konstant geblieben ist.
-Fehler- und Abbruchraten bei den LAMMPS-Berechnungen lagen mit \SI{0.25}{\percent} unterhalb des aus den ALD-Prozessen der Bachelorarbeit erwarteten Wertes von \SI{5}{\percent}
+Abbildung~\ref{fig:goldroughness-a} stellt die Rauheit dar, die beim glatten Substrat über den Abscheidungszeitraum mit \SI{1.2}{\angstrom} konstant geblieben ist.
+Fehler- und Abbruchraten bei den LAMMPS-Berechnungen lagen mit \SI{0.25}{\percent} unterhalb des aus den ALD-Prozessen der Bachelorarbeit erwarteten Wertes von \SI{5}{\percent}.
+
+Mit einer Rauheit von \SI{1.2}{\angstrom} liegen die Werte um einen Faktor von \num{10} unterhalb der Literaturwerte\cite{svorcik_annealing_2011}, welche jedoch Gold-Sputtering auf einem Glassubstraten untersucht haben.
+Dadurch bilden sich polykristalline Schichten, bei denen die Bildung von Goldpartikeln den Wachstumsprozess dominiert, wo hingegen in den präsentierten Untersuchungen durch den Einfluss des monokristallinen Substrates und der gleichmäßig geringen Sputterenergien epitaktisches Wachstum mit geringeren Rauheiten statt findet.
+Obwohl Gold-Evaporation einen grundlegenden Prozess darstellt, konnten keine strukturellen Daten von Gold-PVD auf einem monokristallinen Substrat gefunden werden.
+Aufgrund der hohen Mobilität der Gold-Atome auf der Oberfläche ergibt sich jedoch eine Affinität zu kristallinem Wachstum\cite{svorcik_annealing_2011,everitt_evolution_2000}, welche auch auf amorphen Substraten zu beobachten ist, auf monokristallinen Substraten jedoch zu epitaktischem Schichtwachstum führen sollte, wie es in den Parsivald-Simulationen beobachtet wurde.
+Untersuchungen von Abscheidungssimulationen auf polykristallinen Gold-Substraten stehen noch aus, können aber helfen, den Einfluss der Partikelgröße von Gold auf polykristalline Substrate zu verstehen.
 
 \subsubsection{Wachstum auf strukturierten Substraten}
 
-Neben dem glatten Substrat wurden auch Abscheidungen auf strukturierten Substraten (Abbildung~\ref{fig:golddepositions}) mit den gleichbleibenden Prozessbedingungen simuliert.
-Als Substrate wurden Stufen oder Spitzen mit einer Höhe von jeweils \SI{20}{\angstrom} und Neigungen von \SI{15}{\degree}, \SI{20}{\degree}, \SI{30}{\degree}, \SI{45}{\degree}, \SI{60}{\degree} und \SI{90}{\degree} präpariert.
+Neben dem glatten Substrat wurden am Beispiel der Gold-PVD auch Abscheidungen auf strukturierten Substraten (Abbildung~\ref{fig:golddepositions}) mit identischen Prozessbedingungen simuliert.
+Als Substrate wurden Stufen\todo{keine Stufe - was dann?} oder Spitzen mit einer Höhe von jeweils \SI{20}{\angstrom} und Neigungen von \SI{15}{\degree}, \SI{20}{\degree}, \SI{30}{\degree}, \SI{45}{\degree}, \SI{60}{\degree} und \SI{90}{\degree} präpariert.
 Auf vorherige Relaxierung der Substrate wurde aufgrund der Prozessstabilität sowie der relaxierenden Eigenschaften der MD-Ereignisse verzichtet.
 Zusätzlich wurden Lamellen und Säulen mit einer Strukturbreite von \SI{16}{\angstrom} (4 Kristall-Einheitszellen) zur Untersuchung eventueller Prozessartefakte präpariert, um Parsivald auf den Umgang mit nanoskopischen Störstellen zu untersuchen.
 Diese Störstellen zeigten nach einer kurzen Relaxierung keine strukturellen Unterschiede zum glatten Substrat.
@@ -135,13 +154,13 @@ Diese Störstellen zeigten nach einer kurzen Relaxierung keine strukturellen Unt
 
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{gold_step30_pockets}
-    \subcaption{\SI{30}{\degree}-Stufe: Keine Poren oder Hohlräume}
+    \subcaption{Alpha-Form der \SI{30}{\degree}-Stufe}
     \label{fig:goldpockets-a}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{gold_tip90_pockets}
-    \subcaption{Porenbildung an der Basis der \SI{90}{\degree}-Spitze}
+    \subcaption{Alpha-Form der \SI{90}{\degree}-Spitze}
     \label{fig:goldpockets-b}
   \end{subfigure}
 
@@ -152,31 +171,10 @@ Diese Störstellen zeigten nach einer kurzen Relaxierung keine strukturellen Unt
 
 Wie die Alpha-Formen der simulierten Strukturen (Abbildung~\ref{fig:goldpockets-a}) zeigen, beinhaltet das abgeschiedene Gold bei geringen Neigungswinkeln keine Kristalldefekte, Poren oder Hohlräume.
 Bei Abscheidungen auf Substrate hoher Neigungswinkel (>\SI{60}{\degree}) bilden sich Poren mit größerer Ausdehnung (>\SI{20}{\angstrom}).
-Durch Bildung von Überhängen an den Stufen werden die Poren zu Hohlräumen abgeschlossen, welche anschließend in der Schicht verbleiben, ihre Dichte reduzieren und ihre Struktur stören.
-Die Poren zeigen sich auch in den Oberflächenrauheiten der untersuchten Strukturen (Abbildung~\ref{fig:goldroughness}).
-
-\subsection{Vergleich mit gesputterten Schichten}
-
-Nachdem Gold in der Simulation erfolgreich aufgewachsen wurde, soll es nun auf Übereinstimmungen mit realen Schichten geprüft werden.
-AFM-Untersuchungen gesputterter Goldschichten zeigen polykristallines Wachstum mit Rauheiten im Bereich von \SI{1.1}{\nano\meter} (etwa drei fcc-Kristallschichten)\cite{svorcik_annealing_2011}.
-Dabei wird die Oberflächenrauheit von der Bildung von Nanopartikeln dominiert, deren Schmelztemperaturen mit der Größe der Partikel zunehmen\cite{liu_melting_2001}.
-Kleinere Goldpartikeln verschmelzen oberhalb ihrer spezifischen Schmelztemperatur zu größeren Partikeln, wodurch die Rauheit der Goldoberfläche mit höheren Substrat- oder Annealing-Temperaturen steigt.
-Bei Temperaturen unterhalb der Schmelztemperaturen, wie sie bei Sputtering vorhanden sind, werden durch Unterbindung der Verschmelzung kleiner Goldpartikel geringere Rauheiten erreicht, die mit längerer Sputterdauer weiter abnehmen\cite{svorcik_annealing_2011}.
-
-In Parsivald-Simulationen ist dieser Trend bisher nur selten zu beobachten, wie etwa bei der \SI{45}{\degree}-Spitze, deren Rauheit gegen Ende der Simulation langsam abnimmt.
-Die Ursachen liegen hier aber nicht in der Bildung und Verschmelzung von Nanopartikeln sondern der Schließung von Nanoporen, da die Schicht auch bei diesem Substrat per Epitaxie wächst.
-Alle untersuchten Gold-Schichten wachsen epitaktisch senkrecht zur Kristallebene, jedoch zeigen Abscheidungssimulationen auf einigen strukturierten Substraten zusätzliche Porenbildung an Überhängen, die in der aktuellen Oberflächensuche begründet sind.
-Für diese wird die Oberfläche und damit mögliche Ereignisorte parallel zur z-Achse gesucht, anstatt sie rechenaufwendig über die Alpha-Form aus einer Delaunay-Triangulation der Atompositionen zu bestimmen, wie es bereits zur Auswertung der simulierten Strukturen durchgeführt wird.
-Somit werden höher gelegene Ereignisorte in der direkten Nachbarschaft bevorzugt, was sich in der Verstärkung von Überhängen bei strukturierten Substraten mit hohen Neigungswinkeln zeigt (Abbildung~\ref{fig:goldpockets-b}).
-Als Lösung bieten sich die eben genannten Alpha-Formen (Abschnitt~\ref{datadelaunay}) an, deren Einbindung in das Parsivald-Programm noch aussteht.
-
-Bei der Analyse der simulierten Strukturen wurde bei Abscheidungen auf glatten Substraten eine Rauheit von \SI{0.12}{\nano\meter} ermittelt, welche nur ca. \SI{10}{\percent} der experimentellen Werte beziehungsweise einer Lage von Goldatomen entspricht.
-Strukturierte Substrate zeigen hier höhere Rauheiten, die zwar den experimentell bestimmten Rauheiten entsprechen (Abbildung~\ref{fig:goldroughness}), aber ebenfalls keine Nanopartikel enthalten, sondern aus epitaktisch gewachsenen, monokristallinen Schichten bestehen.
-Daran lässt sich erkennen, dass die verwendeten MD-Simulations-Boxen zu klein und die Relaxationszeiten zu kurz sind, um die Bildung von Nanopartikeln darstellen zu können.
-Zusätzlich verhindern kleine MD-Boxen in Verbindung mit monokristallinen Substraten die Ausbildung polykristalliner Strukturen, was sich im epitaktischen Wachstum monokristalliner Schichten äußert.
-Derartige Finite-Size-Effekte sind Molekulardynamik-Simulationen inhärent, werden jedoch durch Parsivald für einige Systeme zusätzlich verstärkt.
-Bei Abscheidung amorpher Schichten, wie für CVD- und ALD-Prozesse üblich, konnte dieser Effekt bisher nicht beobachtet werden (Abschnitt~\ref{siliconpvd}).
-Eine Untersuchung einer Abscheidungssimulation auf polykristallinen Gold-Substraten steht noch aus.
+Durch die Bildung von Überhängen an steilen Neigungen des Substrates werden die Poren zu Hohlräumen abgeschlossen, welche anschließend in der Schicht als Hohlräume verbleiben und somit ihre Dichte reduzieren und ihre Struktur stören.
+Die Poren zeigen sich auch in den Oberflächenrauheiten der untersuchten Strukturen (Abbildung~\ref{fig:goldroughness}), bei denen für den extremen Fall der \SI{90}{\degree}-Steigung sogar lineare Zunahme gegen Ende der Simulation beobachtet werden kann.
+Diese resultiert aus einem linearen Wachstum der Tiefe der Pore, die aus dem konstanten Wachstum der Schicht um sie herum resultiert.
+Nach ihrem Abschluss zu einem Hohlraum sollte die Rauheit aber schlagartig abnehmen, wie im nachfolgenden Abschnitt~\ref{copperpvd} anhand von Kupfer beobachtet wurde.
 
 \begin{figure}
   \captionsetup[subfigure]{singlelinecheck=false}
@@ -201,6 +199,31 @@ Eine Untersuchung einer Abscheidungssimulation auf polykristallinen Gold-Substra
 
 \end{figure}
 
+\begin{comment}
+\subsection{Vergleich mit gesputterten Schichten}
+
+Nachdem Gold in der Simulation erfolgreich aufgewachsen wurde, soll es nun auf Übereinstimmungen mit realen Schichten geprüft werden.
+AFM-Untersuchungen gesputterter Goldschichten zeigen polykristallines Wachstum mit Rauheiten im Bereich von \SI{1.1}{\nano\meter} (etwa drei fcc-Kristallschichten)\cite{svorcik_annealing_2011}.
+Dabei wird die Oberflächenrauheit von der Bildung von Nanopartikeln dominiert, deren Schmelztemperaturen mit der Größe der Partikel zunehmen\cite{liu_melting_2001}.
+Kleinere Goldpartikeln verschmelzen oberhalb ihrer spezifischen Schmelztemperatur zu größeren Partikeln, wodurch die Rauheit der Goldoberfläche mit höheren Substrat- oder Annealing-Temperaturen steigt.
+Bei Temperaturen unterhalb der Schmelztemperaturen, wie sie bei Sputtering vorhanden sind, werden durch Unterbindung der Verschmelzung kleiner Goldpartikel geringere Rauheiten erreicht, die mit längerer Sputterdauer weiter abnehmen\cite{svorcik_annealing_2011}.
+
+In Parsivald-Simulationen ist dieser Trend bisher nur selten zu beobachten, wie etwa bei der \SI{45}{\degree}-Spitze, deren Rauheit gegen Ende der Simulation langsam abnimmt.
+Die Ursachen liegen hier aber nicht in der Bildung und Verschmelzung von Nanopartikeln sondern der Schließung von Nanoporen, da die Schicht auch bei diesem Substrat per Epitaxie wächst.
+Alle untersuchten Gold-Schichten wachsen epitaktisch senkrecht zur Kristallebene, jedoch zeigen Abscheidungssimulationen auf einigen strukturierten Substraten zusätzliche Porenbildung an Überhängen, die in der aktuellen Oberflächensuche begründet sind.
+Für diese wird die Oberfläche und damit mögliche Ereignisorte parallel zur z-Achse gesucht, anstatt sie rechenaufwendig über die Alpha-Form aus einer Delaunay-Triangulation der Atompositionen zu bestimmen, wie es bereits zur Auswertung der simulierten Strukturen durchgeführt wird.
+Somit werden höher gelegene Ereignisorte in der direkten Nachbarschaft bevorzugt, was sich in der Verstärkung von Überhängen bei strukturierten Substraten mit hohen Neigungswinkeln zeigt (Abbildung~\ref{fig:goldpockets-b}).
+Als Lösung bieten sich die eben genannten Alpha-Formen (Abschnitt~\ref{datadelaunay}) an, deren Einbindung in das Parsivald-Programm noch aussteht.
+
+Bei der Analyse der simulierten Strukturen wurde bei Abscheidungen auf glatten Substraten eine Rauheit von \SI{0.12}{\nano\meter} ermittelt, welche nur ca. \SI{10}{\percent} der experimentellen Werte beziehungsweise einer Lage von Goldatomen entspricht.
+Strukturierte Substrate zeigen hier höhere Rauheiten, die zwar den experimentell bestimmten Rauheiten entsprechen (Abbildung~\ref{fig:goldroughness}), aber ebenfalls keine Nanopartikel enthalten, sondern aus epitaktisch gewachsenen, monokristallinen Schichten bestehen.
+Daran lässt sich erkennen, dass die verwendeten MD-Simulations-Boxen zu klein und die Relaxationszeiten zu kurz sind, um die Bildung von Nanopartikeln darstellen zu können.
+Zusätzlich verhindern kleine MD-Boxen in Verbindung mit monokristallinen Substraten die Ausbildung polykristalliner Strukturen, was sich im epitaktischen Wachstum monokristalliner Schichten äußert.
+Derartige Finite-Size-Effekte sind Molekulardynamik-Simulationen inhärent, werden jedoch durch Parsivald für einige Systeme zusätzlich verstärkt.
+Bei Abscheidung amorpher Schichten, wie für CVD- und ALD-Prozesse üblich, konnte dieser Effekt bisher nicht beobachtet werden (Abschnitt~\ref{siliconpvd}).
+Eine Untersuchung einer Abscheidungssimulation auf polykristallinen Gold-Substraten steht noch aus.
+\end{comment}
+
 \subsection{Skalierbarkeit mit der Simulationsgröße}
 \label{goldscalability}
 
@@ -224,7 +247,7 @@ Dazu werden verschiedene quadratische Substrate mit Breiten von \SI{100}{\angstr
       \SI{204}{\angstrom}      &  \SI{42}{\angstrom}   &  \num{152374}    &  \num{102374}         &  \num{14.5}\tnote{e}       (\num{18})   &  \SI{47.7}{\percent}     &  \SI{25.5}{\hour}   &  \SI{257}{\mebi\byte}   \\
 %%    \SI{204}{\angstrom}      &  \SI{42}{\angstrom}   &  \num{152374}    &  \num{102374}         &  \num{14.5}\tnote{e}       (\num{18})   &  \SI{47.7}{\percent}     &  \SI{25.5}{\hour}   &  \SI{257}{\mebi\byte}   \\
       \SI{500}{\angstrom}      &  \SI{93}{\angstrom}   &  \num{1708600}   &  \num{1401081}        &  \num{24.8}                (\num{50})   &  \SI{13.6}{\percent}     &  \SI{73.6}{\hour}   &  \SI{397}{\mebi\byte}  \\ % \SI{282}{\mebi\byte}
-      \SI{1000}{\angstrom}     &  \SI{5.4}{\angstrom}  &  \num{1591908}   &  \num{381588}         &  \num{44.8}                (\num{46})   &  \SI{6.1}{\percent}      &  \SI{1.5}{\hour}    &  \SI{368}{\mebi\byte}   \\
+%%      \SI{1000}{\angstrom}     &  \SI{5.4}{\angstrom}  &  \num{1591908}   &  \num{381588}         &  \num{44.8}                (\num{46})   &  \SI{6.1}{\percent}      &  \SI{1.5}{\hour}    &  \SI{368}{\mebi\byte}   \\
       \SI{1000}{\angstrom}     &  \SI{92}{\angstrom}   &  \num{6733948}   &  \num{5539942}        &  \num{75.4}\tnote{e}       (\num{149})  &  \SI{10.3}{\percent}     &  \SI{97.5}{\hour}   &  ~                      \\
       \SI{1}{\micro\meter}     &  \SI{1.3}{\angstrom}  &  \num{1.3e8}     &  \num{8186990}        &  \num{25.4}\tnote{f}       (\num{46})   &  \SI{0.03}{\percent}     &  \SI{117.5}{\hour}  &  \SI{11.5}{\gibi\byte}  \\
 %%    \SI{2}{\micro\meter}     &  \SI{0.4}{\angstrom}  &  \num{4.9e8}     &  \num{10356031}       &  \num{26.3}\tnote{f}       (\num{46})   &  \SI{0.009}{\percent}    &  \SI{117.5}{\hour}  &  ~                      \\
@@ -246,7 +269,39 @@ Dazu werden verschiedene quadratische Substrate mit Breiten von \SI{100}{\angstr
   \end{threeparttable}
 \end{table}
 
+\todoline{Limitierungen der Workerdichte (gleichzeitigen Worker)}
+\todoline{Beschreibung der Workerdichte}
+\todoline{Welche Größen bei Nanodevices von Interesse?}
+\todoline{warum nur 38.4 Worker?}
+\todoline{Wie viele Worker theoretisch?}
+\todoline{Welche Limitierung durch Hostprozess?}
+\todoline{Welche Limitierung durch maximale Dichte}
+\todoline{Skalierung... womit?}
+\todoline{``Rekord'' vermeiden}
+\todoline{realistische Werte}
+\todoline{Bedeckungsgrade - definieren}
+\todoline{Was wirkt eigentlich limitierend, und was sind sinnvolle Größen?}
+
 Mit \SI{94}{\byte} pro Atom, zusätzlich zum konstanten Programmspeicher von \SI{253}{\mebi\byte}, können auch extreme Simulationsräume mit 2 Milliarden Atomen auf einer Oberfläche von \SI{4x4}{\micro\meter} vom Arbeitsspeicher moderner Hochleistungsrechner verwaltet werden.
+
+\begin{figure}[hb]
+  \centering
+  \captionsetup[subfigure]{singlelinecheck=false}
+  \def\subfigwidth{7cm}
+  \begin{subfigure}[t]{\subfigwidth}
+    \includegraphics[width=\textwidth]{workerdichte}
+    \subcaption{Workerdichte auf der Oberfläche (1=ideal)}
+    \label{fig:goldscala-a}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{\subfigwidth}
+    \includegraphics[width=\textwidth]{memory}
+    \subcaption{Speicherverbrauch der Simulation}
+    \label{fig:goldscala-b}
+  \end{subfigure}
+  \caption{Parallelisierungseigenschaften von Parsivald}
+  \label{fig:goldscala}
+\end{figure}
 
 Anders sieht es bei der notwendigen Rechenleistung aus:
 Während kleine Simulationsräume (\SI{<200}{\angstrom}) nicht wesentlich von der parallelen Rechenleistung profitieren können, scheitern größere Prozesse am Mangel daran:

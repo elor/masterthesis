@@ -90,33 +90,6 @@ Damit steigt die Adressierungszeit für einzelne Zellen auf \BigO{\log{c}}, doch
 Als Resultat sind für Oberflächensysteme der Speicherbedarf und die Laufzeit von Suchoperationen eines dreidimensionalen Simulationsraumes auf die eines zweidimensionalen Systemes reduziert.
 Theoretisch sind mit Access Caching, Bitweiser Adressierung, Surface Flagging oder Height Mapping noch weitere Anpassungen möglich, allerdings verbessert sich dabei nur der Laufzeitfaktor, nicht die asymptotische Laufzeit, weshalb sie nur am Rand genannt sein sollen.
 
-%% \begin{algorithm}
-%%   \begin{algorithmic}
-%% %    \Input $atoms$ - Liste der Atome
-%% %    \Input $size[3]$ - Größe des Simulationsraumes
-%% %    \Input $depth$ - Tiefe des Octrees (Legt die Zellgröße fest)
-%% %    \Assumption Alle Atome befinden sich im Simulationsraum
-%% %    \Result Stammzelle eines Octrees, der alle Atome enthält
-%%     \State
-%%     \Function{construct-octree}{$atoms, spacesize, depth$}
-%%     \State $cellsize[0] \gets spacesize[0]\cdot2^{-depth}$
-%%     \State $cellsize[1] \gets spacesize[1]\cdot2^{-depth}$
-%%     \State $cellsize[2] \gets spacesize[2]\cdot2^{-depth}$
-%%     \State $root \gets$ new Octree($depth$)
-%%     \ForAll{$atom$ in $atoms$}
-%%     \State $cellindex[0] \gets \lfloor atom.pos[0] / cellsize[0] \rfloor$
-%%     \State $cellindex[1] \gets \lfloor atom.pos[1] / cellsize[1] \rfloor$
-%%     \State $cellindex[2] \gets \lfloor atom.pos[2] / cellsize[2] \rfloor$
-%%     \State $cell \gets$ \Call{getcell-octree}{$root, cellindex$, true}
-%%     \State \Call{add-atom}{cell, atom}
-%%     \EndFor
-%%     \State \Return $root$
-%%     \EndFunction
-%%   \end{algorithmic}
-%%   \caption[Octree-Konstruktion]{Octree-Konstruktion: Es handelt sich um einen typischen Binning-Algorithmus, dessen Octree-Eigenschaften in der Funktion \Call{getcell-octree}{} liegen.}
-%%   \label{alco:octree-construction}
-%% \end{algorithm}
-
 \begin{figure}
   \centering
   \includegraphics[width=\textwidth]{octree}
@@ -126,37 +99,6 @@ Theoretisch sind mit Access Caching, Bitweiser Adressierung, Surface Flagging od
   }
   \label{fig:octree}
 \end{figure}
-
-%% \begin{algorithm}
-%%   \begin{algorithmic}
-%%     %    \Input $root$ - Stammzelle des Octrees
-%%     %    \Input $i[3]$ - globale Adresse der Zielzelle
-%%     %    \Input $allocate$ - Ob die Zelle neu erstellt werden soll
-%%     \Result null falls leer, sonst Zielzelle
-%%     \State
-%%     \Function{getcell-octree}{$cell, id, allocate$}
-%%     \State $d \gets $\Call{depth}{root}
-%%     \Comment{Relative Tiefe, an der sich die Zielzellen befinden}
-%%     \If{$d = 0$}
-%%     \State\Return cell
-%%     \EndIf
-%%     \If{not $cell.children$}
-%%     \If{allocate}
-%%     \State $cell.children \gets $new cell[8]
-%%     \Else
-%%     \State \Return null
-%%     \EndIf
-%%     \EndIf
-%%     \State $childid \gets $\Call{bitand}{id[0], $2^{d-1}$}
-%%     + $2\cdot$\Call{bitand}{id[1], $2^{d-1}$}
-%%     + $4\cdot$\Call{bitand}{id[2], $2^{d-1}$}
-%%     %    \State \Comment{Indiziert die Subzelle aus der globalen Position}
-%%     \State \Return\Call{getcell-octree}{$cell.children[childid], i, allocate$}
-%%     \EndFunction
-%%   \end{algorithmic}
-%%   \caption[Zell-Adressierung in Octrees]{Rekursive Zell-Adressierung und -Allokierung im Octree: Bei jedem Schritt wird das Problem in 8 Unterzellen geteilt, woraus eine Laufzeit von \BigO{d}$=$\BigO{\log{c}} resultiert}
-%%   \label{algo:octreeaddressing}
-%% \end{algorithm}
 
 \subsection{k-d-Bäume}
 \label{datakdtree}
@@ -176,30 +118,6 @@ Deshalb bieten sich k-d-Bäume zwar für allgemeine Suchoperationen in statische
   }
   \label{fig:kdtree}
 \end{figure}
-
-%% \begin{algorithm}
-%%   \begin{algorithmic}
-%%     \Input $points$ - Liste von Punkten
-%%     \Input $k$ - Dimensionalität des Simulationsraumes
-%%     \Result Root-Element eines vollständigen k-d-Baumes aus diesen Punkten
-%%     \State
-%%     \Function{construct-kdtree}{$points, dim\gets0$}
-%%     \State $n\gets$\Call{length}{points}
-%%     \If{$n=0$}
-%%     \State \Return null
-%%     \Else
-%%     \State \Call{sort}{$points, dim$} \Comment{Sortiert $points$ nach pos[$dim$]}
-%%     \State $root\gets{}points\left[\lfloor\frac{n}{2}\rfloor\right]$
-%%     \State $dim\gets(dim+1)\mod{k}$
-%%     \State $root.left \gets$ \Call{construct-kdtree}{$points\left[0:\lfloor\frac{n}{2}\rfloor-1\right], dim$}
-%%     \State $root.right \gets$ \Call{construct-kdtree}{$points\left[\lfloor\frac{n}{2}\rfloor+1:n-1\right], dim$}
-%%     \State \Return $root$
-%%     \EndIf
-%%     \EndFunction
-%%   \end{algorithmic}
-%%   \caption[Konstruktion eines k-d-Baumes]{Rekursive Konstruktion eines k-d-Baumes (naive Implementierung)}
-%%   \label{algo:kdtree-construction}
-%% \end{algorithm}
 
 \subsection{Delaunay-Triangulation}
 \label{datadelaunay}
@@ -232,35 +150,6 @@ Für Grenzwerte von $\alpha$ ergibt sich für $\alpha \rightarrow \infty$ die ko
 
 Alpha-Formen beschreiben ebenfalls Hohlräume und Poren innerhalb der Struktur und können für $\alpha \approx r_\text{bond}$ sogar Kristalldefekte lokalisieren, die zuvor per Konnektivitätsprüfung der Alpha-Form von der Oberfläche isoliert werden müssen.
 Dabei sind Anwendungen auf auch periodische und teilperiodische Räume möglich.
-
-%% Nachbarschaftssuche nicht notwendig
-
-%% \subsubsection{Nachbarschaftssuche}
-%% Für die Nachbarschaftssuche eines Referenzpunktes werden die raumfüllenden Eigenschaften der Triangulation relevant.
-%% Der notwendigerweise konvexe, sonst aber beliebige Suchbereich um den Referenzpunkt wird von Simplexen überdeckt, die in direkter oder indirekter Nachbarschaft des Punktes liegen.
-%% Somit teilen sich alle Punkte innerhalb des Suchbereiches eine Kante eines Simplexes mit einem anderen Punkt im Suchbereich, sofern der Suchbereich hinreichend groß ist.
-%% Ausgehend vom Referenzpunkt sucht man entlang aller Kanten nach Punkten, die innerhalb des Suchbereiches liegen, bis alle potentiellen Punkte überprüft wurden.
-%% Diese Vorgehensweise ist in Algorithmus~\ref{algo:delaunay-neigbors} ausführlich beschrieben.
-
-%% \begin{algorithm}
-%%   \centering
-%%   \begin{algorithmic}
-%%     \State Result = \{\}
-%%     \State Queue = \{ P$_0$ : P$_0 \in$ Volume \}
-%%     \While{Queue $\neq \emptyset$}
-%%     \State Sei P $\in$ Queue
-%%     \State Queue = Queue $\setminus$ \{ P \}
-%%     \If{P $\in$ Volume}
-%%     \State Result = Result $\cap$ \{ P \}
-%%     \State Queue $\cap$ (Neighbors(P) $\setminus$ Result)
-%%     \EndIf
-%%     \EndWhile
-%%   \end{algorithmic}
-%%   \caption[Nachbarschaftssuche auf einer Delaunay-Triangulation]{Nachbarschaftssuche auf einer Delaunay-Triangulation.
-%%     Ist der Suchraum konvex und hinreichend groß, lässt sich damit effizient nach Nachbarn eines bestimmten Punktes suchen.
-%%   }
-%%   \label{algo:delaunay-neighbors}
-%% \end{algorithm}
 
 \begin{figure}
   \centering

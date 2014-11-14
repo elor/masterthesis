@@ -88,7 +88,9 @@ Simulationen über längere Zeiträume und größere Schichten sind notwendig, d
 
 \section{Precursorsimulationen}
 
-Zur Simulation der Stabilität von Silan wurde dieses mit Materials Studio präpariert und anschließend im mikrokanonischen Ensemble mit einer anfänglichen Temperatur von \SIrange{300}{700}{\kelvin} relaxiert.
+\todoline{Joerg: Letztlich benutzt du doch den Strukturgenerator, der die atomare Struktur einer Vielzahl von relevanten Materialien in ihrere jeweils idealen Kristallstruktur generiert. Dabei wird doch auf tabellierte Werte der Bindungslängen zurück gegriffen.}
+\todoline{Für Moleküle vereinfacht sich das auf Standard-Bindungslängen und Standard-Bindungswinkel, die man Wo findet?}
+Zur Simulation der Stabilität von Silan wurde dieses mit \todo{vorstellen, woher die Werte kommen und warum das eine ordentliche Struktur ist}Materials Studio präpariert und anschließend im mikrokanonischen Ensemble mit einer anfänglichen Temperatur von \SIrange{300}{700}{\kelvin} relaxiert.
 Eine Strukturoptimierung wurde nicht durchgeführt, da die thermische Stabilität untersucht werden sollte und die untersuchten Moleküle keine komplizierten Strukturen beinhalten.
 
 Bei Al\_Al0\_AlN, Kulkarni, Nielson und Zhang behalten die Silan-Moleküle ihre Struktur, während die einige der \ce{Si-H}-Bindungen bei den anderen Parametrisierungen brechen und einzelne Wasserstoff-Moleküle freigeben (Abbildung~\ref{fig:silanestability}).
@@ -129,7 +131,7 @@ Die beiden anderen Potentiale zeigen meist die korrekte Zahl an Bindungen für d
 
 Bei der Reaktion mehrer Precursor-Moleküle im kanonischen Ensemble zeigen sich gravierendere Unterschiede (Abbildung~\ref{fig:precursorclusters}).
 Kulkarni-Simulationen bilden etwa Sauerstoff-Cluster sowie Bindungen zwischen den Wasserstoff-Atomen der Silan-Moleküle.
-Einzig Zhang stellt halbwegs korrekte Bindungen dar, was vermutlich durch die Anwendung zur Beschreibung von Reaktionen vergleichsweise großer Moleküle gegeben ist.
+Einzig Zhang stellt teilweise korrekte Bindungen dar, was vermutlich durch die Anwendung zur Beschreibung von Reaktionen vergleichsweise großer Moleküle gegeben ist.
 Es zeigen sich jedoch auch hier Überkoordinationen, wie sie bereits in Abbildung~\ref{fig:precursorreactions} beobachtet werden konnten.
 Eine Simulation mit Newsome wurde aufgrund der instabilen Silan-Moleküle nicht durchgeführt.
 

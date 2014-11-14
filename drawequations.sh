@@ -18,7 +18,6 @@ createfile(){
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage[range-phrase={\,bis\,},binary-units,retain-explicit-plus]{siunitx}
-\usepackage[paperwidth=200pt,paperheight=100pt]{geometry}
 
 \begin{document}
 
@@ -36,7 +35,7 @@ EOF
 $sum"
         
         while (( `jobs -rp | wc -l` >= $ncpus )) ; do sleep 0.1; done
-        { pdflatex $index.tex && pdf2png.sh $index.pdf; } &
+        { pdflatex $index.tex && pdf2png.sh $index.pdf && convert $index.png -trim +repage -bordercolor white -border 10x10 -transparent white $index.png; } &
         
     fi
     popd

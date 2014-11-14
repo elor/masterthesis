@@ -104,7 +104,7 @@ alltabs(){
 }
 
 doublewords(){
-    listfiles | xargs -0 grep -Poin '\b(\S+)(?<![0-9öäüß])\b\s+\b\1\b'
+    listfiles | xargs -0 grep -Poin '\b(?<![öäüß])(\S+)(?<![0-9])\b\s+\b\1\b'
 }
 
 updateallwords(){
@@ -167,7 +167,7 @@ trailingspaces(){
 }
 
 dotlines(){
-    listfiles | xargs -0 grep -Pn '^[^%&]*(?<!engl|Kap|S|Abb|Tab|Gl|Anh|Ref|Prof|vs|Dr|z\.B|Abh|et al|unters|ca|eam|etc|[0-9]|[^A-Z][A-Z])\.(?!$|[0-9]|pdf|cpp|com|eam|\s*(\&|\\todo|%|\\\\|,|\})|Sc\.|B\.)' | grep -Pv '\\(If|State|dcauthoremail|todo|footnote)'
+    listfiles | xargs -0 grep -Pn '^[^%&]*(?<!engl|Kap|S|Abb|Tab|Gl|Anh|Ref|Prof|vs|Dr|z\.B|Abh|et al|unters|ca|eam|etc|[0-9]|[^A-Z][A-Z])\.(?!$|[0-9]|pdf|cpp|com|eam|_|\s*(\&|\\todo|%|\\\\|,|\})|Sc\.|B\.)' | grep -Pv '\\(If|State|dcauthoremail|todo|footnote)'
 }
 
 asddsa(){

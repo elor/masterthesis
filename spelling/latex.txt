@@ -79,3 +79,6 @@ Hyperref
 Thumbpdf
 selbststaendigkeitserklaerung
 bibelor
+tables
+figures
+bo

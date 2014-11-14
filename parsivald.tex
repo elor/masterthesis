@@ -61,7 +61,7 @@ Die Abscheidungssimulation endet nach einer vorgegebenen Anzahl an Zyklen oder v
 
 Mit diesem Schema lassen sich auch CVD- und PVD-Prozesse simulieren, indem der Zyklus auf einen einzigen Schritt beschränkt wird und bei CVD-Simulationen mehrere Arten von Ereignissen gleichzeitig betrachtet.
 Der Zyklen-Timeout kann dann zur Kontrolle der Ausgabefrequenz atomistischer Strukturen genutzt werden.
-Für ALD und CVD lässt sich die Abscheidungsrate aus der Reaktionskinetik abschätzen, während sie bei PVD-Simulationen durch den entsprechenden Prozessparameter festgelegt wird.
+Für ALD und CVD lässt sich die Wachstumsrate aus der Reaktionskinetik abschätzen, während sie bei PVD-Simulationen durch den entsprechenden Prozessparameter festgelegt wird.
 
 \begin{figure}
   \captionsetup[subfigure]{singlelinecheck=false}
@@ -100,7 +100,7 @@ Für ALD und CVD lässt sich die Abscheidungsrate aus der Reaktionskinetik absch
 \item Bulkdiffusion ist vernachlässigbar
 \end{enumerate}
 
-Die Beschränkung des Modelles auf diffusionsarme Oberflächenabscheidungen ergibt sich aus der Notwendigkeit, Bereiche des Simulationsraumes im statischen Gleichgewicht, in denen keinee Reaktionen statt finden, zugunsten der Rechenzeit bei der MD-Simulation zu vernachlässigen.
+Die Beschränkung des Modelles auf diffusionsarme Oberflächenabscheidungen ergibt sich aus der Notwendigkeit, Bereiche des Simulationsraumes im statischen Gleichgewicht, in denen keine Reaktionen statt finden, zugunsten der Rechenzeit bei der MD-Simulation zu vernachlässigen.
 Das betrifft die Gasphase und den größten Teil der Struktur ebenso wie abgeschirmte Bereiche der Oberfläche.
 Für Prozesse, welche die oben aufgelisteten Annahmen nicht unterstützen, degeneriert Parsivald zu einer reinen MD-Simulation, für die mit Binning und Nachbarschaftslisten effizientere Parallelisierungsmethoden existieren.
 Ein beschränktes Maß an Oberflächendiffusion lässt sich jedoch mit längeren Relaxationszeiten oder separaten Relaxations-Ereignissen annähernd behandeln, wodurch aber aufgrund der begrenzten Größe der MD-Boxen nur die Diffusion weniger Atome behandelt werden kann.

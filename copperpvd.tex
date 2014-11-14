@@ -1,7 +1,7 @@
 \section{Kupfer-PVD}
 \label{copperpvd}
 
-Mit Kupfer-PVD wurde ein zweiter Metall-PVD-Prozess auf das Parsivald-Modell angepasst und unter der Zielsetzung simuliert, die Anwendbarkeit verschiedener Potentialparametrisierungen zu prüfen.
+Mit der Kupfer-PVD wurde ein zweiter Metall-PVD-Prozess auf das Parsivald-Modell angepasst und unter der Zielsetzung simuliert, die Anwendbarkeit verschiedener Potentialparametrisierungen zu prüfen.
 Der Prozess ähnelt dem Gold-Prozess in seinen Parametern, jedoch konnten viele verschiedene Parametersätze für Kupferoberflächen, -schmelzen und -legierungen gefunden werden, von denen einige Hinweise auf die Nicht-Darstellbarkeit der reinen Metallsysteme enthalten\cite{mendelev_development_2009}\cite{mendelev_using_2007}.
 
 Aus diesem Grund ist eine einfache Voruntersuchung der verfügbaren Parametersätze notwendig, anhand derer Kandidaten für Parsivald für vollständige Abscheidungssimulationen gesucht werden.
@@ -31,12 +31,12 @@ Aus diesem Grund ist eine einfache Voruntersuchung der verfügbaren Parametersä
 
 Als Vorbetrachtung für die Anwendbarkeit in Abscheidungssimulationen wurden Koordinationszahlen, Bindungslängen und Dichten mit allen Parametersätzen ermittelt und mit experimentellen Daten verglichen.
 Die Ergebnisse stimmen im Allgemeinen gut mit experimentellen Werten überein (Tabelle~\ref{tab:copperpreresults}), zeigt aber für cu\_ag\_ymwu.eam.alloy eine Abweichung in der Bindungslänge von \SI{3.25}{\percent}, die zu einer Dichteabweichung von \SI{10.4}{\percent} führt.
-Die meisten anderen Parametersätze unterschätzen die Bindungslänge nur leicht, mit Ausnahme der mit LAMMPS vertriebenen Dateien, welche ideale strukturelle Eigenschaften produzieren.
+Die meisten anderen Parametersätze unterschätzen die Bindungslänge nur leicht, mit Ausnahme der mit LAMMPS verbreiteten Dateien (smf7, u3, u6), welche ideale strukturelle Eigenschaften produzieren.
 Diese wurden in den weiteren Simulationen aufgrund der guten strukturellen Übereinstimmung sowie ihrer Bewährtheit in Kombination mit LAMMPS zu Rate gezogen.
 
-Mit den untersuchten Parameterdateien wird der Schmelzpunkt stark überschätzt, mit Ausnahme von cu\_ag\_ymwu.eam.alloy, die den Schmelzpunkt um 300K unterschätzt (Abbildung~\ref{fig:copperthermo}).
+\todo{Satz nochmal anschauen}Mit den untersuchten Parametrisierungen wird der Schmelzpunkt stark überschätzt, mit Ausnahme von cu\_ag\_ymwu.eam.alloy, mit deren Nutzung der Schmelzpunkt um 300K in Simulationen unterschätzt wird (Abbildung~\ref{fig:copperthermo}).
 Hier zeigt sich die Eigenschaft der Molekulardynamik, jeweils nur für ein enges Anwendungsgebiet passende Ergebnisse zu liefern.
-Wie Tabelle~\ref{tab:copperpots} zu entnehmen ist, wurden die verfügbaren Parametersätze nicht für thermodynamische Untersuchungen angepasst und unterstützen diese somit nicht offiziell, doch werden solche extremen Temperaturen in den durchgeführten Simulationen ohnehin nicht erreicht.
+Wie Tabelle~\ref{tab:copperpots} zu entnehmen ist, wurden die verfügbaren Parametersätze nicht für thermodynamische Untersuchungen angepasst und unterstützen diese somit nicht, doch werden solche extremen Temperaturen in den durchgeführten Simulationen ohnehin nicht erreicht.
 
 \begin{table}
   \begin{threeparttable}
@@ -72,18 +72,19 @@ Wie Tabelle~\ref{tab:copperpots} zu entnehmen ist, wurden die verfügbaren Param
   \def\subfigwidth{7cm}
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{Cu_trelax_all}
-    \subcaption{Schmelzpunkte aller Parametrisierungen}
+    \subcaption{Dichteabhängigkeit von der Temperatur}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{Cu_smf7_meltingpoint}
-    \subcaption{Schmelzpunkte mit smf7 in Abh. von $t_\text{relax}$}
+    \subcaption{Dichteabhängigkeit bei smf7 in Abh. von $t_\text{relax}$}
   \end{subfigure}
   \caption[Vergleich der Schmelztemperatur von Kupfer]{
     Vergleich der Schmelztemperatur von Kupfer.
     Experimentelle Dichte:~\cite{brillo_density_2006}
   }
   \label{fig:copperthermo}
+  \todoline{Legenden (Parametersätze und Temperatur) + linke Grafik neu (Legende überlagert sich). Die Grafiken sind klein.}
 \end{figure}
 
 \subsection{Prozess-Simulation}
@@ -123,16 +124,17 @@ Weiterhin werden die abgeschiedenen Schichten auf Unebenheiten, Fehlstellen und 
 Durch die Ähnlichkeiten zwischen Kupfer und Gold wurden die Prozess-Parameter der Gold-PVD für den Kupfer-Prozess adaptiert.
 Unterschiede liegen in den Auftreffenergien von \SI{5.4}{\electronvolt}, die ebenfalls oberhalb experimenteller Werte liegen und vom Thermostat vor dem eigentlichen Auftreffen der Atome auf der Oberfläche noch weiter abgeschwächt werden.
 
-Auch bei Kupfer-PVD liegt epitaktisches Wachstum glatter Schichten vor.
+\todoline{So formulieren, dass sekundäre Sputterprozese (nicht direkt nennen) eigentlich gut sind}
+Auch bei Kupfer-PVD zeigt die Simulation epitaktisches Wachstum glatter Schichten.
 Zu Beginn der Abscheidung ergeben sich extreme Abbruchraten von \SI{25}{\percent}, die durch Herausschlagen einzelner Oberflächenatome bei Ankunft des gesputterten Atomes verursacht werden.
 Bereits nach wenigen Ereignissen sinkt die Abbruchrate auf \SI{3}{\percent}, was auf eine Reduktion des Effektes durch thermische Relaxation und Bedeckung der Oberfläche mit temporären Off-Lattice-Atomen hinweist.
 Die kritische Bedeckung dafür liegt zwischen \SI{0.034}{\per\nano\meter\squared} und \SI{0.074}{\per\nano\meter\squared} und deckt sich somit mit der maximalen MD-Ereignisdichte von \SI{0.073}{\per\nano\meter\squared}.
 Das deutet darauf hin, dass perfekte Gitterkonfigurationen nicht robust gegenüber gerichteten Energieeinträgen sind, kleine Störungen des Gitters aber zur gleichmäßigeren Verteilung der eingebrachten Energien auf die umliegenden Atome führen.
 
 Im weiteren Verlauf der Simulation liegt die Abbruchrate unterhalb von \SI{2}{\percent} (Abbildung~\ref{fig:copperparsivald-a}), unterliegt aber weiteren Schwankungen, die mit der RMS-Rauheit korrelieren (Abbildung~\ref{fig:copperparsivald-c}), welche durch Unebenheiten der Oberfläche auf der Nanometer-Skala dominiert wird.
-Mit einem nahezu konstanten RMS-Wert um \SI{1}{\angstrom} sind die gewachsenen Schichten durchgehend glatt, mit Ausnahme einzelner Simulationen.
+Mit einem nahezu konstanten RMS-Wert um \SI{1}{\angstrom} sind die gewachsenen Schichten durchgehend glatt, mit Ausnahme einzelner Simulationsläufe.
 
-Eines der untersuchten Cu\_u3.eam-Systeme bildet ab Schritt 70 eine \SI{2.6}{\nano\meter} breite und \SI{3.0}{\nano\meter} tiefe kraterförmige Vertiefung aus, die schließlich zu einem \SI{1}{\nano\meter} großen Hohlraum abgeschlossen wird (Abbildung~\ref{fig:coppercrater}).
+Eines der untersuchten Cu\_u3.eam-Systeme bildet beispielsweise ab Schritt 70 eine \SI{2.6}{\nano\meter} breite und \SI{3.0}{\nano\meter} tiefe kraterförmige Vertiefung aus, die schließlich zu einem \SI{1}{\nano\meter} großen Hohlraum abgeschlossen wird (Abbildung~\ref{fig:coppercrater}).
 Die Auswirkungen dieses Kraters auf die Rauheit sind in Abbildung~\ref{fig:copperparsivald-c}  klar als stetige Zunahme, gefolgt von einer schlagartigen Abnahme in Schritt 96, und in den Abbruchraten (Abbildung~\ref{fig:copperparsivald-a}) als Anstieg zwischen den Schritten 60 und 90 erkennbar, haben aber keinen Einfluss auf die Wachstumsrate (Abbildung~\ref{fig:copperparsivald-b}).
 Das gleiche Verhalten zeigt sich in weiteren Simulationen auch für die anderen Parametersätze und ist nicht auf Cu\_u3.eam begrenzt.
 
@@ -182,4 +184,6 @@ Das gleiche Verhalten zeigt sich in weiteren Simulationen auch für die anderen 
 Ergänzend ist in Abbildung~\ref{fig:copperparsivald-d} ein Histogramm der Zahl paralleler Ereignisse dargestellt.
 Die maximale Oberflächendichte der Ereignisse liegt bei der gewählten MD-Box-Größe von \SI{37x37}{\angstrom} bei \SI{0.073}{\per\nano\meter\squared}.
 Dem stehen beobachtete Maxima von \num{12} aktiven Ereignissen gegenüber, die einer Dichte von \SI{0.03}{\per\nano\meter\squared} und somit \SI{40}{\percent} maximaler Bedeckung entsprechen, wobei im Schnitt nur \num{5.3} Worker aktiv sind, was einer mittleren Bedeckung von \SI{18.5}{\percent} entspricht.
-Die Bedeckungsdichten für Systeme unterschiedlicher Größe wurden bereits in Tabelle~\ref{tab:goldscalability} für Gold-Abscheidungen aufgelistet und zeigen ähnliche Werte für kleine Systeme, können für Substrate auf der Mikrometer-Skala mangels verfügbarer Rechenleistung jedoch nicht aufrecht erhalten werden.
+Die \todo{Wort! -> Workerdichten}\todo{Workerdichte vorstellen}Bedeckungsdichten für Systeme unterschiedlicher Größe wurden bereits in Tabelle~\ref{tab:goldscalability} für Gold-Abscheidungen aufgelistet und zeigen ähnliche Werte für kleine Systeme, können für Substrate auf der Mikrometer-Skala mangels verfügbarer Rechenleistung jedoch nicht aufrecht erhalten werden.
+
+\todoline{Joerg: Da du es für Gold so intensiv diskutiert hast, stellt sich hier auch die Frage nach dem Vergleich mit Experiment. Eventuell könnte man sich damit rausreden, dass man das am Beispiel von Gold so ausführlich gemacht hat und sich bei Kupfer eher auf den Vergleich verfügbarer MD-Parametrisierungen beschränkt}

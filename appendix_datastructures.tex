@@ -25,7 +25,7 @@ Laufzeiten: \BigO{1} (Listen) bis \BigO{n} (Nachbarschaftslisten)
 \textbf{Entfernung} \\
 Entfernung eines Punktes aus der Struktur, entspricht also oft einer inversen Einfügung.
 Wird zur Entfernung von Oberflächen-Liganden aufgerufen.
-Laufzeiten normalerweise wie bei Einfügung
+Laufzeiten: wie bei der Einfügungs-Operation
 \\\\
 \textbf{Nachbarschaftssuche} \\
 Extraktion einer Menge von Punkten in der Nähe anderer Punkte, z.B. für die Präparation von Ereignisse.
@@ -137,13 +137,13 @@ Durch viele Vergleiche und Sortierungen variieren typische asymptotische Laufzei
 \\\\
 \textbf{Einfügungs-Algorithmen (Incremental Insertion)}\\
 Der Algorithmus erstellt einen beliebig großen Simplex, der die gesamte Punktmenge beinhaltet, und fügt schrittweise einzelne Punkte in die Triangulation ein.
-Der den eingefügten Punkt umfassende Simplex wird an ihm in mehrere Unter-Simplexe geteilt, auf den und dessen unmittelbare Nachbarn ein Flip-basierter Algorithmus ausgeführt wird.
+Der den eingefügten Punkt umfassende Simplex wird an diesem Punkt in mehrere Unter-Simplexe geteilt, auf die und deren unmittelbare Nachbarn ein Flip-basierter Algorithmus ausgeführt wird.
 Laufzeiten sind typischerweise gering mit \BigO{n\log{n} + n^{\lceil d/2 \rceil}}.
 \\\\
 \textbf{Divide-and-Conquer-Algorithmen}\\
-Der Algorithmus teilt die Punktmenge in Untermengen, die rekursiv trianguliert und anschließend an ihren Grenzen miteinander kostspielig zur Zieltriangulation vereinigt werden, ist dadurch aber parallelisierbar.
+Der Algorithmus teilt die Punktmenge in Untermengen, die rekursiv trianguliert und anschließend an ihren Grenzen miteinander kostspielig zur Zieltriangulation vereinigt werden, wodurch er parallelisierbar ist.
 %% Größter Rechenaufwand ist für die Vereinigung der Teiltriangulierungen notwendig, die in höheren Dimensionen nicht-trivial ist.
-Mit dem DeWall-Algorithmus\cite{cignoni_dewall:_1998} ist eine Laufzeit von Laufzeit von \BigO{n^{\lceil d/2 \rceil + 1}}, wobei der Vereinigungs-Algorithmus auch für die Einfügung von Blöcken in bestehende Strukturen sowie für teilperiodische Räume interessant ist.
+Mit dem DeWall-Algorithmus\cite{cignoni_dewall:_1998} ist eine Laufzeit von \BigO{n^{\lceil d/2 \rceil + 1}} m;glich, wobei der Vereinigungs-Algorithmus auch für die Einfügung von Blöcken in bestehende Strukturen sowie für teilperiodische Räume interessant ist.
 \\\\
 \textbf{Höherdimensionale Einbettung}\\
 Hier wird die Punktmenge in eine höhere Dimension transformiert, in der deren konvexe Hülle berechnet wird, die dann in den ursprünglichen Raum herunter projiziert wird und darin eine gültige Delaunay-Triangulation ergibt.

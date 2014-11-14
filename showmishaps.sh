@@ -259,7 +259,7 @@ grandcanonical(){
 {
 
     register "grand canonical" grandcanonical
-    register "possible typos" listunknownwords
+#    register "possible typos" listunknownwords
     register "LaTeX Errors" getlatexerrors
     register "word repetitions" doublewords
     register "Man/man occurences" manoccurences
@@ -274,7 +274,7 @@ grandcanonical(){
     register "double spaces" doublespaces
     register "tab stops" alltabs
     register "cites/refs with leading spaces" spacerefs
-    register "unused citations" unusedcitations
+#    register "unused citations" unusedcitations
     register "unused abbreviations" unusedabbreviations
     register "ASD occurences" asddsa
     register "disabled includes" disabledincludes
@@ -282,9 +282,9 @@ grandcanonical(){
     register "Equation References" equationreferences
     register "comment blocks" commentblocks
     register "todo counts" todocounts
-    register "todo notes" todonotes
     register "overfull boxes" overfullboxes
     register "underfull boxes" underfullboxes
+    register "todo notes" todonotes
     register "draft notes" getdrafts
 
     printfinalstate

@@ -82,3 +82,7 @@ bibelor
 tables
 figures
 bo
+asd
+ASD
+dsa
+DSA

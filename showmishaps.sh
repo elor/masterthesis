@@ -179,7 +179,7 @@ todonotes(){
 }
 
 todocounts(){
-    listfiles | xargs -0 grep -Pc '\\todo(line|\[inline\])?(\{[^}]*\})?' | grep -v settings.tex | grep -v :0
+    listfiles | xargs -0 grep -Pc '\\todo(line|\[inline\])?(\{[^}]*\})?' | grep -v settings.tex | grep -v :0 | awk -F: '{s+=$2;print $0} END {print "TOTAL",s}'
 }
 
 getdrafts(){
@@ -262,13 +262,11 @@ grandcanonical(){
 #    register "possible typos" listunknownwords
     register "LaTeX Errors" getlatexerrors
     register "word repetitions" doublewords
-    register "Man/man occurences" manoccurences
     register "undefined references" undefinedreferences
     register "undefined citations" undefinedcitations
     register "unexplained abbreviations" unexplainedabbreviations
     register "multiplelabels" multiplelabels
     register "citations with language tag" citationswithlanguagetag
-    register "long lines" listlonglines 333
     register "dots within a line" dotlines
     register "trailing spaces" trailingspaces
     register "double spaces" doublespaces
@@ -280,11 +278,13 @@ grandcanonical(){
     register "disabled includes" disabledincludes
     register "LaTeX Warnings" getlatexwarnings
     register "Equation References" equationreferences
+    register "Man/man occurences" manoccurences
     register "comment blocks" commentblocks
     register "todo counts" todocounts
+    register "todo notes" todonotes
+    register "long lines" listlonglines 333
     register "overfull boxes" overfullboxes
     register "underfull boxes" underfullboxes
-    register "todo notes" todonotes
     register "draft notes" getdrafts
 
     printfinalstate

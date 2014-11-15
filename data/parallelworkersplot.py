@@ -124,9 +124,9 @@ plotfunctions(functions, 'workersbydensity.pdf', xmin, xmax)
 ###############################
 
 functions={
-    r'$T_\text{MD}=05$':lambda x: pmax(x, Tmd=5),
-    r'$T_\text{MD}=15$':lambda y: pmax(y, Tmd=15),
-    r'$T_\text{MD}=60$':lambda z: pmax(z, Tmd=60),
+    r'$T_\text{MD}= 5$ s':lambda x: pmax(x, Tmd=5),
+    r'$T_\text{MD}=15$ s':lambda y: pmax(y, Tmd=15),
+    r'$T_\text{MD}=60$ s':lambda z: pmax(z, Tmd=60),
 }
 plotfunctions(functions, 'workersbymdtime.pdf', xmin, xmax)
 
@@ -135,9 +135,9 @@ plotfunctions(functions, 'workersbymdtime.pdf', xmin, xmax)
 ################################
 
 functions={
-    r'$T_\text{E}=0.03$':lambda x: pmax(x, TE=0.03),
-    r'$T_\text{E}=0.01$':lambda y: pmax(y, TE=0.01),
-    r'$T_\text{E}=0.003$':lambda z: pmax(z, TE=0.003),
+    r'$T_\text{E}=30$ ms':lambda x: pmax(x, TE=0.03),
+    r'$T_\text{E}=10$ ms':lambda y: pmax(y, TE=0.01),
+    r'$T_\text{E}= 3$ ms':lambda z: pmax(z, TE=0.003),
 }
 plotfunctions(functions, 'workersbykmctime.pdf', xmin, xmax)
 
@@ -146,8 +146,8 @@ plotfunctions(functions, 'workersbykmctime.pdf', xmin, xmax)
 ###########################
 
 functions={
-    r'$w_\text{MD}=25$':lambda x: pmax(x, mdsize=25, TE=0.02, Tmd=3),
-    r'$w_\text{MD}=37$':lambda y: pmax(y, mdsize=37, TE=0.03, Tmd=5),
-    r'$w_\text{MD}=50$':lambda z: pmax(z, mdsize=50, TE=0.04, Tmd=9)
+    r'$w_\text{MD}=25$ \AA':lambda x: pmax(x, mdsize=25, TE=0.02, Tmd=3),
+    r'$w_\text{MD}=37$ \AA':lambda y: pmax(y, mdsize=37, TE=0.03, Tmd=5),
+    r'$w_\text{MD}=50$ \AA':lambda z: pmax(z, mdsize=50, TE=0.04, Tmd=9)
 }
 plotfunctions(functions, 'workersbymdsize.pdf', xmin, xmax)

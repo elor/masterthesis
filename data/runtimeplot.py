@@ -24,8 +24,8 @@ def pmax(size, workerdensity, Tmd, TE, mdsize):
 # end of magic #
 ################
 
-def runtime(size, workerdensity=0.1, Tmd=20, TE=0.03, mdsize=37, steps=100):
-    NE=math.ceil(steps*size*size/550)
+def runtime(size, workerdensity=0.1, Tmd=15, TE=0.03, mdsize=37, steps=100):
+    NE=math.ceil(steps*size*size/5.5)
     p=pmax(size, workerdensity, Tmd, TE, mdsize)
     if p == 0:
         return 0
@@ -53,7 +53,7 @@ colormaps = {
     'default' : lambda n: hls_colormap(n, False),
 }
 
-def plotfunctions(functions, pdfname, xmin, xmax):
+def plotfunctions(functions, pdfname, xmin, xmax, ymin=False, ymax=False):
     indices=[ i for i in functions ]
     indices.sort()
 
@@ -83,7 +83,8 @@ def plotfunctions(functions, pdfname, xmin, xmax):
     ax.set_yscale('log')
 
     plt.xlim(0, sizes[-1])
-    #plt.ylim(1, 100000)
+    if ymin and ymax:
+        plt.ylim(ymin, ymax)
     
     ##################################
     # adjust plot position on canvas #
@@ -116,42 +117,45 @@ def plotfunctions(functions, pdfname, xmin, xmax):
 # plot runtime by density #
 ###########################
 
+xmin=100
+xmax=20000
+
 functions={
     r'$\rho_\text{worker}=0.1$':lambda x: runtime(x, workerdensity=0.1),
     r'$\rho_\text{worker}=0.4$':lambda y: runtime(y, workerdensity=0.4),
     r'$\rho_\text{worker}=1.0$':lambda z: runtime(z, workerdensity=1.0),
 }
-plotfunctions(functions, 'runtimebydensity.pdf', 100, 30000)
+plotfunctions(functions, 'runtimebydensity.pdf', xmin, xmax)
 
 ###############################
 # plot runtime by MD duration #
 ###############################
 
 functions={
-    r'$T_\text{MD}=05$':lambda x: runtime(x, Tmd=5),
-    r'$T_\text{MD}=15$':lambda y: runtime(y, Tmd=15),
-    r'$T_\text{MD}=60$':lambda z: runtime(z, Tmd=60),
+    r'$T_\text{MD}= 5$ s':lambda x: runtime(x, Tmd=5),
+    r'$T_\text{MD}=15$ s':lambda y: runtime(y, Tmd=15),
+    r'$T_\text{MD}=60$ s':lambda z: runtime(z, Tmd=60),
 }
-plotfunctions(functions, 'runtimebymdtime.pdf', 100, 40000)
+plotfunctions(functions, 'runtimebymdtime.pdf', xmin, xmax, 10.**5.5, 10.**10)
 
 ################################
 # plot runtime by KMC duration #
 ################################
 
 functions={
-    r'$T_\text{E}=0.03$':lambda x: runtime(x, TE=0.03),
-    r'$T_\text{E}=0.01$':lambda y: runtime(y, TE=0.01),
-    r'$T_\text{E}=0.003$':lambda z: runtime(z, TE=0.003),
+    r'$T_\text{E}=30$ ms':lambda x: runtime(x, TE=0.03),
+    r'$T_\text{E}=10$ ms':lambda y: runtime(y, TE=0.01),
+    r'$T_\text{E}= 3$ ms':lambda z: runtime(z, TE=0.003),
 }
-plotfunctions(functions, 'runtimebykmctime.pdf', 200, 50000)
+plotfunctions(functions, 'runtimebykmctime.pdf', xmin, xmax)
 
 ###########################
 # plot runtime by MD size #
 ###########################
 
 functions={
-    r'$w_\text{MD}=25$':lambda x: runtime(x, mdsize=25, TE=0.02, Tmd=3),
-    r'$w_\text{MD}=37$':lambda y: runtime(y, mdsize=37, TE=0.03, Tmd=5),
-    r'$w_\text{MD}=50$':lambda z: runtime(z, mdsize=50, TE=0.04, Tmd=9)
+    r'$w_\text{MD}=25$ \AA':lambda x: runtime(x, mdsize=25, TE=0.02, Tmd=3),
+    r'$w_\text{MD}=37$ \AA':lambda y: runtime(y, mdsize=37, TE=0.03, Tmd=5),
+    r'$w_\text{MD}=50$ \AA':lambda z: runtime(z, mdsize=50, TE=0.04, Tmd=9)
 }
-plotfunctions(functions, 'runtimebymdsize.pdf', 100, 15000)
+plotfunctions(functions, 'runtimebymdsize.pdf', xmin, xmax)

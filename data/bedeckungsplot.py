@@ -2,6 +2,28 @@
 
 import argparse
 
+#########################
+# the magical functions #
+#########################
+def pmax(size, workerdensity=0.1, Tmd=5, TE=0.03, mdsize=37):
+# too accurate version:    return min(math.ceil(math.floor(size/mdsize)**2 * workerdensity), Tmd/TE)
+    return min(pmax1(size, workerdensity, Tmd, TE, mdsize), pmax2(size, workerdensity, Tmd, TE, mdsize))
+
+def pmax1(size, workerdensity=0.1, Tmd=5, TE=0.03, mdsize=37):
+# too accurate version:    return min(math.ceil(math.floor(size/mdsize)**2 * workerdensity), Tmd/TE)
+    return math.ceil(math.floor((size/mdsize)**2) * workerdensity)
+
+def pmax2(size, workerdensity=0.1, Tmd=5, TE=0.03, mdsize=37):
+# too accurate version:    return min(math.ceil(math.floor(size/mdsize)**2 * workerdensity), Tmd/TE)
+    return math.floor(Tmd/TE)
+
+def workerdensity(size, maxdensity=0.1, Tmd=5, TE=0.03, mdsize=37):
+    return pmax(size, maxdensity, Tmd, TE, mdsize) / pmax1(size, maxdensity, Tmd, TE, mdsize)
+
+################
+# end of magic #
+################
+
 class floatrange(object):
     min = 0
     max = 0
@@ -42,7 +64,7 @@ else:
 import matplotlib.pyplot as plt
 import numpy as np
 
-import sys, re
+import sys, re, math
 from subprocess import call
 
 import colorsys
@@ -78,6 +100,13 @@ if args.bar and len(args.files) > 0:
     xwidth = (xright - xleft) / numfiles
 
 colors = colormaps['default'](numfiles)
+
+xmin=100
+xmax=50000
+base=1.02
+sizes = [base**x for x in range(int(math.log(xmin)/math.log(base)), int(math.log(xmax)/math.log(base)))]
+data = [ 0.4*workerdensity(x, TE=0.05, Tmd=5) for x in sizes ]
+plt.plot(sizes, data, '-', color='black', label=r'analytisch')
         
 for index, filename in enumerate(args.files):
     data = np.genfromtxt(filename)

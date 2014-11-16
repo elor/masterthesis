@@ -1,25 +1,26 @@
-\section{Laufzeitmaße für das Parsivald}
+\section{Laufzeitmaße für Parsivald-Simulationen}
 
-Wie für Laufzeitanalysen üblich, werden die Laufzeiten mit $T$ bezeichnet und sollten nicht mit den ähnlich bezeichneten Temperaturwerten verwechselt werden.
-\todo{Hinweis auf ISO80000-1:2009 oder die äquivalente DIN?}
+Für Parsivald-Simulationen ergeben sich verschiedene Einschränkungen, etwa in der Größe des Simulationsraumes oder der Laufzeit von MD-Simulationen, welche die Zahl der Parallelen Worker beschränken und die parallele Laufzeit erhöhen.
+Nachfolgend wird deshalb eine Laufzeitanalyse von Parsivald unter Berücksichtigung diverser Größen durchgeführt.
+Wie bei Laufzeitanalysen üblich, werden Laufzeiten mit $T$ bezeichnet und sollten nicht mit Temperaturen verwechselt werden.
 
 \subsection{Ereignis-Laufzeit $T_\text{E}$}
 
-Die Auswahl und Verarbeitung eines Ereignisses in KMC-Algorithmen ist mit einer Laufzeit~$T_\text{E}$ verbunden, die sich aus der Laufzeit von Suchoperationen $T_\text{KMC}$, der Laufzeit von Serialisierungen und Deserialisierungen zur Datenübertragung zwischen Host und Worker $T_\text{Ser.}$ und $T_\text{Des.}$ sowie der Laufzeit für die Konnektivitätsprüfung $T_\text{Konn.}$ zusammen setzt:
+Die Auswahl eines Ereignisses in KMC-Algorithmen ist mit einer Laufzeit~$T_\text{E}$ verbunden, die sich aus der Laufzeit von Suchoperationen $T_\text{KMC}$, der Laufzeit von Serialisierungen und Deserialisierungen zur Datenübertragung zwischen Host und Worker $T_\text{Ser.}$ und $T_\text{Des.}$ sowie der Laufzeit für die \todo{Wurde die Konnektivitätsprüfung vorgestellt?}Konnektivitätsprüfung $T_\text{Konn.}$ zusammen setzt.
 
 \begin{equation}
 T_\text{E} = T_\text{KMC} + T_\text{Ser.} + T_\text{Des.} + T_\text{Konn.}
 \end{equation}
-\todo{bessere Variable als $n$ für die Zahl der lokalen Atome finden}Die Laufzeiten zur Serialisierung $T_\text{Ser.}$ und zur Deserialisierung $T_\text{Des.}$ der Atompositionen sind mit \BigO{n} dabei gegenüber der Konnektivitätsprüfung (\BigO{n^2}) verschwindend gering.
-$T_\text{KMC}$ hängt von der genutzten Datenstruktur ab und ist unter Verwendung eines Octrees mit Access Caching in der aktuellen Implementierung mit einer Laufzeit von \BigO{n} verbunden.
-\todo{Aus den in Kapitel~\ref{results} vorgestellten Simulationen gehen Laufzeiten von $T_\text{E} \approx \SI{30}{\milli\second}$ hervor. ?}
+Dabei überwiegt $T_\text{Konn.}$ mit \BigO{N^2} für $N$ Atome in der MD-Box gegenüber den anderen Operationen, welche theoretisch mit \BigO{N} skalieren.
+$T_\text{KMC}$ skaliert durch das Caching-Verhaltens des benutzten Octrees tatsächlich linear mit $N$, wo hingegen die C++-Standard-Bibliothek durch ihr Buffer-Verhalten für annähernd konstante Laufzeiten von $T_\text{Ser.}$ und $T_\text{Des.}$ sorgt.
+Eine Reduktion von $T_\text{E}$ ist somit nur durch die Auslagerung der Konnektivitätsprüfung in die Worker-Prozesse oder durch die Nutzung einer Delaunay-Triangulation anstelle des Octrees möglich, wodurch die Konnektivität in \BigO{N} geprüft werden kann.
 
 \subsection{Ereignis-Durchsatz $R_\text{E}$}
 
 Als Ereignis-Durchsatz wird nachfolgend die Zahl der vom Host zur MD-Berechnung bereit gestellten Ereignisse pro Zeiteinheit bezeichnet.
-Damit handelt es sich eigentlich um eine Rate von Ereignissen, die jedoch nicht mit der Ereignisrate aus dem KMC-Formalismus verwechselt werden sollte.
-Der Wert des Ereignis-Durchsatzes beschreibt in diesem Kontext die maximal mögliche Zahl von ausgewählten Ereignissen pro Zeiteinheit und ist unabhängig von den Eigenschaften der MD-Berechnungen.
-In der aktuellen Implementierung führt ein serieller Host-Prozess alle Vor- und Nachbereitungen von Ereignissen durch, weshalb sich der Ereignis-Durchsatz als reziproker Wert der Ereignis-Laufzeit $T_\text{E}$ ergibt:
+Damit handelt es sich eigentlich um eine Rate von Ereignissen, die jedoch nicht mit der Ereignisrate aus dem KMC-Formalismus (Abschnitt~\ref{kmc}) verwechselt werden sollte.
+Der Wert des Ereignis-Durchsatzes beschreibt hier die maximal mögliche Zahl von Ereignissen pro Zeiteinheit anstatt der Zahl der tatsächlich berechneten Ereignisse.
+In der aktuellen Implementierung führt ein serieller Host-Prozess alle Vor- und Nachbereitungen von Ereignissen durch, weshalb sich der Ereignis-Durchsatz als reziproker Wert von $T_\text{E}$ ergibt:
 
 \begin{equation}
   R_\text{E} = \frac{1}{T_\text{E}}
@@ -27,49 +28,46 @@ In der aktuellen Implementierung führt ein serieller Host-Prozess alle Vor- und
 
 \subsection{MD-Laufzeit $T_\text{MD}$}
 
-Die Zeit von der Übertragung eines Ereignisses an einen Worker bis zur Vollendung der molekulardynamischen Simulationen wird im Folgenden als MD-Laufzeit $T_\text{MD}$ bezeichnet.
+Die Zeit zur Durchführung einer molekulardynamischen Simulationen beim Worker wird im Folgenden als MD-Laufzeit $T_\text{MD}$ bezeichnet.
 Sie ist hauptsächlich von den benutzten Kraftfeldern abhängig, wird jedoch auch durch die durchgeführten MD-Operationen, die Relaxationszeit, sowie die Größe der MD-Box und die damit verbundene Zahl der Atome beeinflusst.
-Vom KMC-Algorithmus ist sie hingegen unabhängig, wodurch sie sich als elementarer Wert der Laufzeiteigenschaften von Parsivald-Simulationen ergibt.
+Vom KMC-Algorithmus ist sie hingegen unabhängig.
 
 \subsection{Worker-Laufzeit $T_\text{worker}$}
 
-Ähnlich zur Ereignis-Laufzeit ergibt sich die Worker-Laufzeit, wobei die Serialisierungs- und Deserialisierungs-Operationen gegenüber den MD-Berechnungen verschwindend sind, weshalb nachfolgend die MD-Laufzeit an Stelle der Worker-Laufzeit genutzt werden soll.
-\begin{align}
-  T_\text{worker} & = T_\text{Ser.} + T_\text{Des.} + T_\text{MD} \\
-                  & \approx T_\text{MD}
-\end{align}
+Die Worker-Laufzeit ergibt sich aus der MD-Laufzeit und der Zeit zur Deserialisierung der Anfangsbedingungen und zur Serialisierung der Ergebnisse.
+Da hier die MD-Laufzeit dominiert, wird diese zur Berechnung abgeleiteter Größen genutzt.
+\begin{equation}
+  T_\text{worker} = T_\text{Ser.} + T_\text{Des.} + T_\text{MD} \approx T_\text{MD}
+\end{equation}
 
 \subsection{Serielle Laufzeit $T_1$}
 
 Die serielle Laufzeit $T_1$ bezeichnet die Laufzeit eines Programmes unter Nutzung eines einzigen Prozesses.
-Damit ist sie von der Laufzeit zur Vorbereitung der Simulation $T_\text{start}$, der Laufzeit zum Abschluss der Simulation $T_\text{end}$ und den eben vorgestellten Ereignis- und MD-Laufzeiten $T_\text{E}$ und $T_\text{MD}$ sowie der Zahl der Ereignisse $N_\text{E}$ abhängig.
-Die Laufzeiten zur Vorbereitung und zum Abschluss der Simulation sind dabei verschwindend gering.
+Damit ist sie von der vernachlässigbaren Laufzeit zur einmaligen Vorbereitung $T_\text{start}$ und den Ereignis- und MD-Laufzeiten $T_\text{E}$ und $T_\text{MD}$ sowie der Zahl der Ereignisse $N_\text{E}$ abhängig.
 
 \begin{align}
-  T_1 & = T_\text{start} + N_\text{E} \cdot (T_\text{E} + T_\text{MD}) + T_\text{end} \\
+  T_1 & = T_\text{start} + N_\text{E} \cdot (T_\text{E} + T_\text{MD}) \\
       & \approx N_\text{E} T_\text{E} + N_\text{E} T_\text{MD}
 \end{align}
 
 \subsection{Anzahl der parallelen Prozesse $p$}
 
-Ein wichtiges Maß für die Effizienz eines parallelen Prozess ist die Zahl der aktiven parallelen Prozesse $p$.
-Aufgrund der variablen Zahl der gleichzeitig aktiven Prozesse in Parsivald-Simulationen wird nachfolgend mit $p$ die mittlere Zahl der aktiven MD-Prozesse bezeichnet.
-Für die Zahl der Parallelen Prozesse ergeben sich zwei obere Schranken in der maximalen Bedeckung der Oberfläche mit MD-Boxen einerseits und dem Ereignis-Durchsatz andererseits.
-Diese Schranken werden erreicht, wenn der Parsivald-Simulation eine praktisch unbegrenzte Zahl an Worker-Prozessen zur Verfügung steht, von denen aber nur $p_\text{max}$ Prozesse parallel genutzt werden können.
+Ein wichtiges Maß für die Effizienz eines parallelen Prozess ist die Zahl der parallelen Prozesse $p$.
+Für Parsivald bezeichnet $p$ die mittlere Zahl der aktiven MD-Prozesse, wobei der Hauptprozess separat betrachtet wird.
+Für $p$ ergeben sich obere Schranken $p_\text{max}$ in der maximalen Bedeckung der Oberfläche mit MD-Boxen sowie im Ereignis-Durchsatz, welche mit unbegrenzten Workerpools erreicht werden können.
 
-Für kleine Simulationsräume lässt sich die maximale Anzahl von Ereignissen $p_\text{max,1}$ aus der dichtesten Packung von MD-Boxen der Breite $w_\text{MD}$, Tiefe $d_\text{MD}$ und Fläche $A_\text{MD} = w_\text{MD} \cdot d_\text{MD}$ auf der Oberfläche (gleichartige Symbole) abschätzen:
+Für kleine Simulationsräume lässt sich die maximale Anzahl von Ereignissen $p_\text{max,1}$ aus der dichtesten Packung von meist quadratischen MD-Boxen der Breite $w_\text{MD}$, Tiefe $d_\text{MD}$ und Fläche $A_\text{MD} = w_\text{MD} \cdot d_\text{MD}$ im Simulationsraum ($w_\text{sim}$, $d_\text{sim}$, $A_\text{sim}$) abschätzen:
 \begin{align}
-  p_\text{max,1} & = \left\lfloor\frac{w_\text{sim}}{w_\text{MD}}\right\rfloor \cdot \left\lfloor\frac{d_\text{sim}}{d_\text{MD}}\right\rfloor \\
-  & \approx \left\lfloor\frac{A_\text{sim}}{A_\text{MD}}\right\rfloor
+  p_\text{max,1} = \left\lfloor\frac{w_\text{sim}}{w_\text{MD}}\right\rfloor \cdot \left\lfloor\frac{d_\text{sim}}{d_\text{MD}}\right\rfloor
+                 \approx \left\lfloor\frac{A_\text{sim}}{A_\text{MD}}\right\rfloor
 \end{align}
 \todo{Abbildung aus Vortrag}
 Bei großen Simulationsräumen ergibt sich die Grenze im Ereignis-Durchsatz des Hauptprozesses in Verbindung mit der Laufzeit von MD-Simulationen:
 \begin{align}
-  p_\text{max,2} & = R_\text{E} \cdot T_\text{MD} \\
-                 & = \frac{T_\text{MD}}{T_\text{E}}
+  p_\text{max,2} = R_\text{E} \cdot T_\text{MD}
+                 = \frac{T_\text{MD}}{T_\text{E}}
 \end{align}
-
-Somit lässt sich die obere Schranke der Anzahl paralleler Prozesse als Minimum der beiden Werte abschätzen.
+Somit bestimmt sich $p_\text{max}$ als Minimum der beiden oberen Schranken $p_\text{max,1/2}$ .
 \begin{align}
   %% p_\text{max} & = \min(p_\text{max,1}, p_\text{max,2}) \\
   %%              & = \min\left(\left\lfloor\frac{A_\text{sim}}{A_\text{MD}}\right\rfloor, \frac{T_\text{MD}}{T_\text{E}}\right)
@@ -77,6 +75,8 @@ Somit lässt sich die obere Schranke der Anzahl paralleler Prozesse als Minimum 
 \end{align}
 
 \subsection{Workerdichte $\rho_\text{worker}$}
+
+\continuehere
 
 Ein Parsivald-spezifisches Leistungsmaß ergibt sich mit der Workerdichte, welche das Verhältnis der mittleren Anzahl der parallelen Prozesse $p$ zur maximalen Zahl gleichzeitiger Ereignisse für kleine Räume $p_\text{max,1}$ beschreibt und somit auch für verschiedene Kraftfelder und Substratgrößen vergleichbar ist.
 \begin{equation}
@@ -139,20 +139,26 @@ Aus der Beziehung $S + P = 1$ ergibt sich eine Parallelisierbarkeit $P$ von Pars
 
 \subsection{Einfluss der Laufzeitparameter}
 
-\todoline{Workerdichte plotten}
-
-\begin{figure}[p]
+\begin{figure}
   
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{7cm}
   \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{workersbydensity}
+    \includegraphics[width=\textwidth]{densitybymdtime}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{workersbymdsize}
+    \includegraphics[width=\textwidth]{maxsizebymdtime}
   \end{subfigure}
 
+  \caption{Einfluss der MD-Laufzeit auf die maximale Workerdichte und das Maximum der Simulationsgröße für effiziente Rechnungen ($\rho_\text{worker} > \SI{10}{\percent}$)}
+  
+\end{figure}
+
+\begin{figure}
+  
+  \captionsetup[subfigure]{singlelinecheck=false}
+  \def\subfigwidth{7cm}
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{workersbymdtime}
   \end{subfigure}
@@ -160,24 +166,15 @@ Aus der Beziehung $S + P = 1$ ergibt sich eine Parallelisierbarkeit $P$ von Pars
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{workersbykmctime}
   \end{subfigure}
-  \hfill
 
-  \caption{Abhängigkeiten der maximalen Zahl paralleler Prozesse}
+  \caption{Einfluss der Ereignis-Laufzeit $T_\text{E}$ und der MD-Laufzeit $T_\text{MD}$ auf die maximale Zahl paralleler Prozesse $p_\text{max}$}
   
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}
   
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{7cm}
-  \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{runtimebydensity}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{runtimebymdsize}
-  \end{subfigure}
-
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{runtimebymdtime}
   \end{subfigure}
@@ -185,8 +182,11 @@ Aus der Beziehung $S + P = 1$ ergibt sich eine Parallelisierbarkeit $P$ von Pars
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{runtimebykmctime}
   \end{subfigure}
-  \hfill
 
-  \caption{Abhängigkeiten der Laufzeit}
+  \caption{Einfluss der Ereignis-Laufzeit $T_\text{E}$ und der MD-Laufzeit $T_\text{MD}$ auf die minimale Laufzeit $T_{p_\text{max}}$ einer Parsivald-Simulation}
   
 \end{figure}
+
+\todoline[Fazit]
+
+, bei der sich die Ereignis-Laufzeit $T_\text{E}$, die MD-Laufzeit $T_\text{MD}$ und die Breite des Simulationsraumes $w_\text{sim}$ als ausschlaggebende Faktoren heraus stellen.

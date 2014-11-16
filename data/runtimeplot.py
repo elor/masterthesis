@@ -76,7 +76,7 @@ def plotfunctions(functions, pdfname, xmin, xmax, ymin=False, ymax=False):
     #plt.xlabel(r'Substratbreite (\AA)')
     plt.xlabel(r'$w_\text{sim}$ (\AA)')
     #plt.ylabel(r'Parallele Worker')
-    plt.ylabel(r'$T_p$')
+    plt.ylabel(r'$T_\infty$')
 
     ax = plt.axes()
     ax.set_xscale('log')

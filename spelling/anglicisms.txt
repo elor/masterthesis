@@ -34,7 +34,6 @@ Enter
 Equations
 Field
 Finite
-Fins
 Fitting
 Flagging
 Forks
@@ -67,7 +66,6 @@ Passivation
 Patches
 Peak
 Physical
-Pillars
 Pools
 Quadtree
 Quicksort

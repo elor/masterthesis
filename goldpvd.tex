@@ -33,10 +33,11 @@ Somit unterstützt die genutzte EAM-Parametrisierung das Zielsystem hinsichtlich
     \hline
   \end{tabularx}
   \begin{tablenotes}
-    \item[a] Referenzwerte stammen aus Standardliteratur und \cite{miller_effect_2006}
+    \item[a] Referenzwerte stammen aus Standardliteratur und Referenz~\cite{miller_effect_2006}
   \end{tablenotes}
   \end{threeparttable}
 \end{table}
+\todoline{Standardliteratur, CRC usw. zitieren}
 
 \subsection{Thermodynamische Eigenschaften}
 \label{goldthermo}
@@ -227,12 +228,10 @@ Eine Untersuchung einer Abscheidungssimulation auf polykristallinen Gold-Substra
 \subsection{Skalierbarkeit mit der Simulationsgröße}
 \label{goldscalability}
 
-Die Größe der simulierten Strukturen, wie sie beispielsweise für Beschichtungen kompletter Nano-Bauelemente von Interesse sind, ist bei jeder Simulationsmethode durch verschiedene Einflüsse wie Speicherbedarf und Laufzeit limitiert.
-Atomistische Methoden, insbesondere die Molekulardynamik, sind von algorithmischer Seite durch die Notwendigkeit der paarweisen Interaktionen und von technischer Seite durch Speicher- und Netzwerkbandbreite in ihrer Laufzeit begrenzt.
-Somit sind Systeme mit mehr als \num{100000} Atomen nur mit hohem Aufwand über viele Zeitschritte hinweg berechenbar.
-Die in Abschnitt~\ref{datastructures} vorgestellten Methoden zur Optimierung, in Kombination mit dem Parallelisierungsansatz des Parsivald-Modelles aus Abschnitt~\ref{parsivald}, sollen nachfolgend einem praktischen Test unterzogen werden.
+Ein Vergleich mit den in Abschnitt~\ref{runtime} vorgestellten Größen wird im Folgenden anhand von Gold-PVD durchgeführt, für den die Abscheidung auf einer geringe Zahl großer Substrate mit Parsivald simuliert wurde.
 
-Dazu werden verschiedene quadratische Substrate mit Breiten von \SI{100}{\angstrom}, \SI{200}{\angstrom}, \SI{500}{\angstrom}, \SI{1000}{\angstrom}, \SI{10000}{\angstrom} und \SI{20000}{\angstrom} auf Speicherbedarf, Laufzeit, Anzahl der Atome und Ereignisse, Zahl gleichzeitig aktiver Worker und Bedeckungsgrad der Oberfläche mit aktiven Ereignissen untersucht (Tabelle~\ref{tab:goldscalability}).
+Dabei gilt $T_\text{E} = \SI{30}{\milli\second}$, $T_\text{MD} = \SI{5}{\second}$, $w_\text{MD} = \SI{37}{\angstrom}$, wo hingegen $w_\text{sim}$ von \SI{106}{\angstrom} bis \SI{4}{\micro\meter} variiert wurde, wobei auch der für die Beschichtung von Nanoelektronik interessante Bereich von \SIrange{100}{1000}{\nano\meter} durchlaufen wurde.
+Die Ergebnisse sind in Tabelle~\ref{tab:goldscalability} zusammengefasst, wobei aufgrund der langen erwarteten Laufzeit nur für einige kleine Simulationsräume vollständige Abscheidungen simuliert wurden.
 
 \begin{table}\begin{threeparttable}
 
@@ -241,48 +240,41 @@ Dazu werden verschiedene quadratische Substrate mit Breiten von \SI{100}{\angstr
 
     \begin{tabularx}{\textwidth}{|Xrrrrrrr|}
       \hline
-      \textbf{Größe}\tnote{a}  &  \textbf{Wachst.}     &  \textbf{Atome}  &  \textbf{Ereignisse}  &  \textbf{Worker}\tnote{b}  ~            &  \textbf{Bed.}\tnote{c}  &  \textbf{Laufzeit}  &  \textbf{RAM}\tnote{d}  \\
+      \textbf{$w_\text{sim}$} & \textbf{Wachst.}    & \textbf{Atome} & \textbf{Ereignisse} & \textbf{Worker}\tnote{a}  ~           & \textbf{$\rho_\text{w.}$} & \textbf{Laufzeit} & \textbf{RAM}\tnote{b} \\
       \hline
-      \SI{106}{\angstrom}      &  \SI{70}{\angstrom}   &  \num{59549}     &  \num{46030}          &  \num{1.8}\tnote{e}        (\num{4})    &  \SI{21.9}{\percent}     &  \SI{32.2}{\hour}   &  \SI{254}{\mebi\byte}   \\
-      \SI{204}{\angstrom}      &  \SI{42}{\angstrom}   &  \num{152374}    &  \num{102374}         &  \num{14.5}\tnote{e}       (\num{18})   &  \SI{47.7}{\percent}     &  \SI{25.5}{\hour}   &  \SI{257}{\mebi\byte}   \\
-%%    \SI{204}{\angstrom}      &  \SI{42}{\angstrom}   &  \num{152374}    &  \num{102374}         &  \num{14.5}\tnote{e}       (\num{18})   &  \SI{47.7}{\percent}     &  \SI{25.5}{\hour}   &  \SI{257}{\mebi\byte}   \\
-      \SI{500}{\angstrom}      &  \SI{93}{\angstrom}   &  \num{1708600}   &  \num{1401081}        &  \num{24.8}                (\num{50})   &  \SI{13.6}{\percent}     &  \SI{73.6}{\hour}   &  \SI{397}{\mebi\byte}  \\ % \SI{282}{\mebi\byte}
-%%      \SI{1000}{\angstrom}     &  \SI{5.4}{\angstrom}  &  \num{1591908}   &  \num{381588}         &  \num{44.8}                (\num{46})   &  \SI{6.1}{\percent}      &  \SI{1.5}{\hour}    &  \SI{368}{\mebi\byte}   \\
-      \SI{1000}{\angstrom}     &  \SI{92}{\angstrom}   &  \num{6733948}   &  \num{5539942}        &  \num{75.4}\tnote{e}       (\num{149})  &  \SI{10.3}{\percent}     &  \SI{97.5}{\hour}   &  ~                      \\
-      \SI{1}{\micro\meter}     &  \SI{1.3}{\angstrom}  &  \num{1.3e8}     &  \num{8186990}        &  \num{25.4}\tnote{f}       (\num{46})   &  \SI{0.03}{\percent}     &  \SI{117.5}{\hour}  &  \SI{11.5}{\gibi\byte}  \\
-%%    \SI{2}{\micro\meter}     &  \SI{0.4}{\angstrom}  &  \num{4.9e8}     &  \num{10356031}       &  \num{26.3}\tnote{f}       (\num{46})   &  \SI{0.009}{\percent}    &  \SI{117.5}{\hour}  &  ~                      \\
-      \SI{2}{\micro\meter}     &  \SI{1.0}{\angstrom}  &  \num{5.1e8}     &  \num{25855695}       &  \num{189}\tnote{g}        (\num{245})  &  \SI{0.06}{\percent}     &  \SI{186.8}{\hour}  &  \SI{45.4}{\gibi\byte}  \\
-      \SI{4}{\micro\meter}     &  ~                    &  \num{1.9e9}     &  ~                    &  ~                         ~            &  ~                       &  ~                  &  \SI{182}{\gibi\byte}   \\
+      \SI{106}{\angstrom}     & \SI{70}{\angstrom}  & \num{59549}    & \num{46030}         & \num{1.8}\tnote{c}        (\num{4})   & \SI{21.9}{\percent}       & \SI{32.2}{\hour}  & \SI{254}{\mebi\byte}  \\
+      \SI{204}{\angstrom}     & \SI{42}{\angstrom}  & \num{152374}   & \num{102374}        & \num{14.5}\tnote{c}       (\num{18})  & \SI{47.7}{\percent}       & \SI{25.5}{\hour}  & \SI{257}{\mebi\byte}  \\
+%%    \SI{204}{\angstrom}     & \SI{42}{\angstrom}  & \num{152374}   & \num{102374}        & \num{14.5}\tnote{c}       (\num{18})  & \SI{47.7}{\percent}       & \SI{25.5}{\hour}  & \SI{257}{\mebi\byte}  \\
+      \SI{500}{\angstrom}     & \SI{93}{\angstrom}  & \num{1708600}  & \num{1401081}       & \num{24.8}                (\num{50})  & \SI{13.6}{\percent}       & \SI{73.6}{\hour}  & \SI{397}{\mebi\byte}  \\ % \SI{282}{\mebi\byte}
+%%      \SI{1000}{\angstrom}  & \SI{5.4}{\angstrom} & \num{1591908}  & \num{381588}        & \num{44.8}                (\num{46})  & \SI{6.1}{\percent}        & \SI{1.5}{\hour}   & \SI{368}{\mebi\byte}  \\
+      \SI{1000}{\angstrom}    & \SI{92}{\angstrom}  & \num{6733948}  & \num{5539942}       & \num{75.4}\tnote{c}       (\num{149}) & \SI{10.3}{\percent}       & \SI{97.5}{\hour}  & ~                     \\
+      \SI{1}{\micro\meter}    & \SI{1.3}{\angstrom} & \num{1.3e8}    & \num{8186990}       & \num{25.4}\tnote{d}       (\num{46})  & \SI{0.03}{\percent}       & \SI{117.5}{\hour} & \SI{11.5}{\gibi\byte} \\
+%%    \SI{2}{\micro\meter}    & \SI{0.4}{\angstrom} & \num{4.9e8}    & \num{10356031}      & \num{26.3}\tnote{d}       (\num{46})  & \SI{0.009}{\percent}      & \SI{117.5}{\hour} & ~                     \\
+      \SI{2}{\micro\meter}    & \SI{1.0}{\angstrom} & \num{5.1e8}    & \num{25855695}      & \num{189}\tnote{e}        (\num{245}) & \SI{0.06}{\percent}       & \SI{186.8}{\hour} & \SI{45.4}{\gibi\byte} \\
+      \SI{4}{\micro\meter}    & ~                   & \num{1.9e9}    & ~                   & ~                         ~           & ~                         & ~                 & \SI{182}{\gibi\byte}  \\
       \hline
     \end{tabularx}
 
     \begin{tablenotes}
-    \item[a] Breite der quadratischen Oberfläche
-    \item[b] Mittelwert und Maximum der zeitgleich bearbeiteten Ereignisse
-    \item[c] Bedeckung: Anteil der von laufenden Ereignissen abgedeckten Oberfläche
-    \item[d] Vom Hostprozess verbrauchter Arbeitsspeicher.
-    \item[e] Maximale Ereignisdichte erreicht, restliche Worker sind im Wartezustand
-    \item[f] Inzwischen behobener Fehler in Parsivald hat Workerneustart verhindert
-    \item[g] Maximaler Ereignisdurchsatz des Hosts erreicht
+    \item[a] Mittelwert $p$ und beobachtetes Maximum der Zahl paralleler Worker
+    \item[b] Vom Hostprozess verbrauchter Arbeitsspeicher.
+    \item[c] $p = p_\text{max,1}$: Maximale Workerdichte erreicht
+    \item[d] Inzwischen behobener Fehler in Parsivald hat Workerneustart verhindert
+    \item[e] $p = p_\text{max,2}$: Ereignis-Durchsatz des Hostprozesses erreicht
     \end{tablenotes}
 
   \end{threeparttable}
 \end{table}
 
-\todoline{Limitierungen der Workerdichte (gleichzeitigen Worker)}
-\todoline{Beschreibung der Workerdichte}
+
+
+\todo{woanders?}
+Bei einer Analyse der vom Hostprozess verbrauchten Ressourcen ergibt sich ein Speicherverbrauch von $\text{RAM} = \SI{253}{\mebi\byte} + \SI{94}{\byte} \cdot N_\text{Atome}$, womit auch große Simulationen mit \num{1.9e9} Atomen mit nur \SI{186}{\gibi\byte} Arbeitsspeicher durchgeführt werden können (Abbildung~\ref{fig:goldscala-b}).
+
 \todoline{Welche Größen bei Nanodevices von Interesse?}
-\todoline{warum nur 38.4 Worker?}
-\todoline{Wie viele Worker theoretisch?}
-\todoline{Welche Limitierung durch Hostprozess?}
-\todoline{Welche Limitierung durch maximale Dichte}
 \todoline{Skalierung... womit?}
 \todoline{``Rekord'' vermeiden}
 \todoline{realistische Werte}
-\todoline{Bedeckungsgrade - definieren}
-\todoline{Was wirkt eigentlich limitierend, und was sind sinnvolle Größen?}
-
-Mit \SI{94}{\byte} pro Atom, zusätzlich zum konstanten Programmspeicher von \SI{253}{\mebi\byte}, können auch extreme Simulationsräume mit 2 Milliarden Atomen auf einer Oberfläche von \SI{4x4}{\micro\meter} vom Arbeitsspeicher moderner Hochleistungsrechner verwaltet werden.
 
 \begin{figure}[hb]
   \centering
@@ -291,13 +283,25 @@ Mit \SI{94}{\byte} pro Atom, zusätzlich zum konstanten Programmspeicher von \SI
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{workerdichte}
     \subcaption{Workerdichte auf der Oberfläche (1=ideal)}
-    \label{fig:goldscala-a}
+    \label{fig:goldscala-density}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{\subfigwidth}
+    \includegraphics[width=\textwidth]{workers}
+    \subcaption{Parallele Prozesse}
+    \label{fig:goldscala-workers}
+  \end{subfigure}
+
+  \begin{subfigure}[t]{\subfigwidth}
+    \includegraphics[width=\textwidth]{runtime}
+    \subcaption{Laufzeit verschiedener Simulationen}
+    \label{fig:goldscala-runtime}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{memory}
     \subcaption{Speicherverbrauch der Simulation}
-    \label{fig:goldscala-b}
+    \label{fig:goldscala-memory}
   \end{subfigure}
   \caption{Parallelisierungseigenschaften von Parsivald}
   \label{fig:goldscala}

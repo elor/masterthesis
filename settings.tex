@@ -68,6 +68,12 @@
 \newcommand{\todoline}[1]{\todo[inline]{#1}{}}
 \newcommand{\continuehere}{\todoline{continuehere}{}}
 
+\newcommand{\ignore}[1]{}
+
 %% disable todo
-%% \renewcommand{\todoline}[1]{}
-%% \renewcommand{\todo}[1]{}
+\ifdraft{
+  % nothing to do here
+}{
+  \renewcommand{\todoline}[1]{}
+  \renewcommand{\todo}[1]{}
+}

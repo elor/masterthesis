@@ -272,7 +272,7 @@ grandcanonical(){
     register "double spaces" doublespaces
     register "tab stops" alltabs
     register "cites/refs with leading spaces" spacerefs
-#    register "unused citations" unusedcitations
+    register "unused citations" unusedcitations
     register "unused abbreviations" unusedabbreviations
     register "ASD occurences" asddsa
     register "disabled includes" disabledincludes

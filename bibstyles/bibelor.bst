@@ -57,7 +57,7 @@ FUNCTION {format.bibitem}
   duplicate$ empty$
   {
     pop$ 
-    "{\color{red}ID! }" write$
+    "{\bstwarn~ID! }" write$
   }
   {
     newline$
@@ -71,7 +71,7 @@ FUNCTION {format.address}
   duplicate$ empty$
   {
     pop$ 
-    "{\color{red}\bstaddress~Adresse}" write$
+    "{\bstwarn\bstaddress~Adresse}" write$
   }
   { "{\bstaddress " swap$ "}" * * write$ }
   if$
@@ -113,7 +113,7 @@ FUNCTION {format.author}
   duplicate$ empty$
   {
     pop$ 
-    "{\color{red}\bstauthor~Autor}" write$
+    "{\bstwarn\bstauthor~Autor}" write$
   }
   {
     author.write
@@ -126,7 +126,7 @@ FUNCTION {format.booktitle}
   duplicate$ empty$
   {
     pop$ 
-    "{\color{red}\bsttitle~Buchtitel}" write$
+    "{\bstwarn\bsttitle~Buchtitel}" write$
   }
   { "{\bsttitle " swap$ "}" * * write$ }
   if$
@@ -171,7 +171,7 @@ FUNCTION {format.doiisbn}
 FUNCTION {format.edition}
 {
   duplicate$ empty$
-  { pop$ "{\color{red}\bstedition~Ausgabe}" write$ }
+  { pop$ "{\bstwarn\bstedition~Ausgabe}" write$ }
   {
     duplicate$ "1" =
     { pop$ }
@@ -186,7 +186,7 @@ FUNCTION {format.journal}
   duplicate$ empty$
   {
     pop$ 
-    "{\color{red}\bstjournal~Journal}" write$
+    "{\bstwarn\bstjournal~Journal}" write$
   }
   { "{\bstjournal " swap$ "}" * * write$ }
   if$
@@ -197,7 +197,7 @@ FUNCTION {format.numpages}
   duplicate$ empty$
   {
     pop$ 
-    "{\color{red}\bstnumpages~(Seitenanzahl)}" write$
+    "{\bstwarn\bstnumpages~(Seitenanzahl)}" write$
   }
   { "{\bstnumpages (" swap$ "~\bblpages)}" * * write$ }
   if$
@@ -240,7 +240,7 @@ FUNCTION {page.write}
 FUNCTION {format.page}
 {
   duplicate$ empty$
-  { pop$ "{\color{red}\bstpage~Seite}" write$ }
+  { pop$ "{\bstwarn\bstpage~Seite}" write$ }
   { page.write }
   if$
 }
@@ -248,7 +248,7 @@ FUNCTION {format.page}
 FUNCTION {format.publisher}
 {
   duplicate$ empty$
-  { pop$ "{\color{red}\bstpublisher~Herausgeber}" write$ }
+  { pop$ "{\bstwarn\bstpublisher~Herausgeber}" write$ }
   { "{\bstpublisher " swap$ "}" * * write$ }
   if$
 }
@@ -256,7 +256,7 @@ FUNCTION {format.publisher}
 FUNCTION {format.school}
 {
   duplicate$ empty$
-  { pop$ "{\color{red}\bstschool~Hochschule}" write$ }
+  { pop$ "{\bstwarn\bstschool~Hochschule}" write$ }
   { "{\bstschool " swap$ "}" * * write$ }
   if$
 }
@@ -266,7 +266,7 @@ FUNCTION {format.series}
   duplicate$ empty$
   {
     pop$ 
-    "{\color{red}\bstjournal~Buchserie}" write$
+    "{\bstwarn\bstjournal~Buchserie}" write$
   }
   { "{\bstjournal " swap$ "}" * * write$ }
   if$
@@ -277,7 +277,7 @@ FUNCTION {format.title}
   duplicate$ empty$
   {
     pop$ 
-    "{\color{red}\bsttitle~Titel}" write$
+    "{\bstwarn\bsttitle~Titel}" write$
   }
   { "{\bsttitle " swap$ "}" * * write$ }
   if$
@@ -288,7 +288,7 @@ FUNCTION {format.volume}
   duplicate$ empty$
   {
     pop$ 
-    "{\color{red}\bstvolume~Volume}" write$
+    "{\bstwarn\bstvolume~Volume}" write$
   }
   { "{\bstvolume " swap$ "}" * * write$ }
   if$
@@ -299,7 +299,7 @@ FUNCTION {format.year}
   duplicate$ empty$
   {
     pop$ 
-    "{\color{red}\bstyear~(Jahr)}" write$
+    "{\bstwarn\bstyear~(Jahr)}" write$
   }
   { "{\bstyear (" swap$ ")}" * * write$ }
   if$

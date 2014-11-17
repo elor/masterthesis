@@ -1,0 +1,69 @@
+
+\documentclass[
+  draft,
+  fontsize=11pt,
+  a4paper,
+  twoside,
+  german,
+  headsepline=true,
+  footsepline=false,
+  automark,
+  headings=normal,
+  appendixprefix,
+  open=any,
+  cleardoublepage=plain,
+  abstract=true,
+  index=totoc,
+  listof=totoc,
+  bibliography=totoc,
+  BCOR9mm,
+]{scrreprt}
+
+\include{packages}
+\include{settings}
+
+\begin{document}
+
+\oddrowcolors
+\begin{longtable}{|lll|}
+  \hline
+  \textbf{Größe}                         & \textbf{Wert}                                  & \textbf{Referenz}               \\
+  \hline
+  Avogadro-Konstante $N_\text{A}$        & \SI{6.02214179}{\per\mole}                     & \cite{haynes_crc_2011} S.1-1    \\
+  Boltzmann-Konstante $k_B$              & \SI{1.3806504e-23}{\joule\per\kelvin}          & \cite{haynes_crc_2011} S.1-2    \\
+  Molare Gaskonstante $R$                & \SI{8.31472e23}{\joule\per\mole\kelvin}        & \cite{haynes_crc_2011} S.1-2    \\
+  Atomare Masseneinheit $u$              & \SI{1.660653872e-27}{\kilo\gram}               & \cite{haynes_crc_2011} S.1-2    \\
+  \hline                                                                                                            
+  Dichte von festem Gold                 & \SI{19.3}{\gpcc}                               & \cite{haynes_crc_2011} S.4-65   \\
+  Dichte von flüssigem Gold              & \SI{17.31}{\gpcc}                              & \cite{haynes_crc_2011} S.4-128  \\
+  Schmelztemperatur Gold                 & \SI{1064.18}{\celsius} (\SI{1337.33}{\kelvin}) & \cite{haynes_crc_2011} S.4-65   \\
+  Atomgewicht Gold                       & \SI{196.966569}{\gram\per\mole}                & \cite{haynes_crc_2011} S.4-65   \\
+  Kristallstruktur Gold                  & fcc                                            & \cite{haynes_crc_2011} S.4-147  \\
+  Gitterkonstante Gold                   & \SI{4.0786}{\angstrom}                         & \cite{haynes_crc_2011} S.4-147  \\
+  Bindungslänge Gold                     & \SI{2.8840}{\angstrom}                         & abgeleitet                      \\
+  Linearer Ausdehnungskoeffizient Gold   & \SI{14.2e-6}{\per\kelvin}                      & \cite{haynes_crc_2011} S.12-206 \\
+  \hline                                                                                                            
+  Dichte von festem Kupfer               & \SI{8.96}{\gpcc}                               & \cite{haynes_crc_2011} S.4-61   \\
+  Dichte von flüssigem Kupfer            & \SI{7.997}{\gpcc}                              & \cite{haynes_crc_2011} S.4-128  \\
+  Schmelztemperatur Kupfer               & \SI{1084.62}{\celsius} (\SI{1357.77}{\kelvin}) & \cite{haynes_crc_2011} S.4-61   \\
+  Atomgewicht Kupfer                     & \SI{63.546}{\gram\per\mole}                    & \cite{haynes_crc_2011} S.4-61   \\
+  Kristallstruktur Kupfer                & fcc                                            & \cite{haynes_crc_2011} S.4-146  \\
+  Gitterkonstante Kupfer                 & \SI{3.6150}{\angstrom}                         & \cite{haynes_crc_2011} S.4-146  \\
+  Bindungslänge Kupfer                   & \SI{2.5562}{\angstrom}                         & abgeleitet                      \\
+  Linearer Ausdehnungskoeffizient Kupfer & \SI{16.5}{\per\kelvin}                         & \cite{haynes_crc_2011} S.12-206 \\
+  \hline                                                                                                            
+  Kristallstruktur Nickel                & fcc                                            & \cite{haynes_crc_2011} S.4-150  \\
+  Gitterkonstante Nickel                 & \SI{3.5238}{\angstrom}                         & \cite{haynes_crc_2011} S.4-150  \\
+  \hline                                                                                                            
+  Dichte von kristallinem Silizium       & \SI{2.3296}{\gpcc}                             & \cite{haynes_crc_2011} S.4-87   \\
+  Atomgewicht Silizium                   & \SI{28.086}{\gram\per\mole}                    & \cite{haynes_crc_2011} S.4-87   \\
+  Kristallstruktur Silizium              & diamond                                        & \cite{haynes_crc_2011} S.4-151  \\
+  Gitterkonstante Silizium               & \SI{5.4305}{\angstrom}                         & \cite{haynes_crc_2011} S.4-151  \\
+  Bindungslänge Silizium                 & \SI{2.3515}{\angstrom}                         & abgeleitet                      \\
+  Schmelztemperatur Silizium             & \SI{1414}{\celsius} (\SI{1687.15}{\kelvin})    & \cite{haynes_crc_2011} S.4-87   \\
+  \hline
+\end{longtable}
+
+\include{bibliography}
+
+\end{document}

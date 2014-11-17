@@ -98,27 +98,19 @@ Der Hauptprozess und die Worker synchronisieren sich dabei nach jedem Parsivald-
 Beim Speedup handelt es sich um das Verhältnis der linearen Laufzeit zur parallelen Laufzeit.
 Damit ist er ein in der Laufzeitanalyse übliches Maß für die Effizienz paralleler Algorithmen.
 \begin{align}
-  S_p & = \frac{T_1}{T_p} = \frac{\left(p-1\right)\left(T_\text{E} + T_\text{MD}\right)}{T_\text{MD}} \\
-      & = p - 1 + \frac{p - 1}{p_\text{max,2} - 1}
+  S_p & = \frac{T_1}{T_p} = \left(p-1\right) \frac{\left(T_\text{E} + T_\text{MD}\right)}{T_\text{MD}} \\
+      & = p - \frac{p_\text{max,2} - p}{p_\text{max,2} - 1}
 \end{align}
-Bei Parsivald-Läufen mit wenigen Workern reduziert der Overhead durch den separaten Hauptprozess den Speedup, wo hingegen der Speedup $S_\text{max}$ für große Simulationsräume, für welche $p = p_\text{max,2}$ gilt, durch den Ereignis-Durchsatz und die MD-Laufzeit determiniert wird.
+Bei Parsivald-Läufen mit wenigen Workern ist der Speedup somit sublinear, nimmt aber für große Simulationsräume mit $p = p_\text{max,2}$ theoretisch einen idealen Speedup von $S_\text{max} = p_\text{max,2} = p$ an.
 %% Dabei ist nicht $S_\text{max}$ selbst maximal, sondern die Zahl der parallelen Prozesse.
-\begin{equation}
-  %% S_\text{max} & = 1 + \frac{T_\text{MD}^2 R_\text{E} - T_\text{MD}}{T_\text{MD} R_\text{E} T_\text{E} + T_\text{MD}} \\
-  %% & = \frac{1}{2} + \frac{1}{2}\frac{T_\text{MD}}{T_\text{E}} \\
-  %% & > 1 \qquad(T_\text{MD} > T_\text{E})
-  S_\text{max} = 1 + p_\text{max} + p_\text{max}^{-1} = 1 + \frac{T_\text{MD}}{T_\text{E}} + \frac{T_\text{E}}{T_\text{MD}}
-\end{equation}
 
 \subsection{Parallele Effizienz $E_p$}
 
-Die parallele Effizienz $E_p$ ist als Verhältnis aus dem Speedup $S_p$ zur Zahl der Prozesse $p$ definiert.
-\begin{align}
-  E_p & = \frac{S_p}{p} = \frac{\left(p-1\right)\left(T_\text{E} + T_\text{MD}\right)}{p T_\text{MD}}
-  %% E_\text{max} & = 1
-\end{align}
-Beim Parsivald-Modell ergibt sich mit $E_\text{max} = 1$ ideale parallele Effizienz für $p = p_\text{max,2}$, was auf volle Auslastung aller Prozesse bei vernachlässigbarem Overhead hinweist.
-Weder der Speedup noch die parallele Effizienz treffen dabei eine Aussage über die parallele Laufzeit.
+Die parallele Effizienz $E_p$ ist als Verhältnis aus dem Speedup $S_p$ zur Zahl der Prozesse $p$ definiert:
+\begin{equation}
+  E_p = \frac{S_p}{p} = 1 - \frac{p_\text{max,2} - p}{p (p_\text{max,2} - 1)}
+\end{equation}
+Somit ergibt auch der Speedup für $p = p_\text{max,2}$ mit $E_\text{max} = 1$ eine ideale Effizienz, die auf volle Auslastung aller Prozesse bei vernachlässigbarem Overhead hinweist\todo{so what?}.
 
 %% \subsection{Abschätzung des parallelen Anteils $P$ (Parallelisierbarkeit)}
 
@@ -134,14 +126,14 @@ Weder der Speedup noch die parallele Effizienz treffen dabei eine Aussage über 
 \subsection{Auswertung der Laufzeitparameter}
 
 \todo{um ein paar Zeilen kürzen?}
-Die Effizienz von Parsivald-Simulationen lässt sich über die Größe der als quadratisch angenommen Simulationsräume $w_\text{sim}$, die Ereignis-Laufzeit $T_\text{E}$ und die MD-Laufzeit $T_\text{MD}$ beeinflussen.
-Einen geringeren Einfluss haben die Größe der MD-Box $w_\text{MD}$ und die mittlere Workerdichte~$\rho_\text{worker}$ des Prozesses, die ergänzend in Anhang~\ref{appendix_runtime} untersucht werden.
+Die Parallelisierung von Parsivald-Simulationen lässt sich über die Größe der als quadratisch angenommen Simulationsräume $w_\text{sim}$, die Ereignis-Laufzeit $T_\text{E}$ und die MD-Laufzeit $T_\text{MD}$ beeinflussen.
+Einen geringeren Einfluss haben die Größe der MD-Box $w_\text{MD}$ und die mittlere Workerdichte~$\rho_\text{worker}$ des Prozesses, welche ergänzend in Anhang~\ref{appendix_runtime} untersucht werden.
 Im allgemeinen Fall muss ein Gleichgewicht zwischen $T_\text{E}$, $T_\text{MD}$, $w_\text{sim}$ und $p$ gefunden werden.
 
-Abbildung~\ref{fig:densitymaxsize} stellt den Einfluss der genannten Laufzeiten auf die Größe des effizient berechenbaren Simulationsraumes dar.
-Dabei werden für effiziente Simulationen Workerdichten oberhalb von des Wertes von \SI{10}{\percent} angenommen, der aus Erfahrungen mit dem Parsivald-Modell stammt.
-Es zeigt sich, dass mit steigender MD-Laufzeit sowie mit sinkender Ereignis-Laufzeit die Größe des Simulationsraumes für effiziente Simulationen erhöht, wobei theoretisch auch Räume mit \SI{2x2}{\micro\meter} effizient simuliert werden können, wenn man $T_\text{E} = \SI{3}{\milli\second}$ und $T_\text{MD}=\SI{100}{s}$ annimmt.
-In der aktuellen Implementierung liegt $T_\text{E}$ bei \SI{30}{\milli\second}, wobei für EAM-Potentiale mit $T_\text{MD}=\SI{5}{\second}$ Simulationsräume bis \SI{150x150}{\nano\meter} effizient simuliert werden können.
+Abbildung~\ref{fig:densitymaxsize} stellt den Einfluss von $T_\text{E}$ und $T_\text{MD}$ auf die maximale Größe des Simulationsraumes $w_\text{eff}$ für effiziente Berechnungen dar.
+Dabei werden für effiziente Simulationen Workerdichten oberhalb von des Wertes von \SI{10}{\percent} angenommen, der aus Erfahrungen mit dem Parsivald-Modell stammt und durch die stochastisch verteilte Überdeckung von MD-Boxen bedingt ist.
+Es zeigt sich, dass mit steigender MD-Laufzeit sowie mit sinkender Ereignis-Laufzeit die Größe des Simulationsraumes für effiziente Simulationen zunimmt, wobei theoretisch auch Räume mit \SI{2x2}{\micro\meter} effizient simuliert werden können.
+In der aktuellen Implementierung liegt $T_\text{E}$ bei \SI{30}{\milli\second}, wobei für EAM-Potentiale mit $T_\text{MD}=\SI{5}{\second}$ Simulationsräume bis zu \SI{150x150}{\nano\meter} effizient simuliert werden können.
 Für ReaxFF-basierte Simulationsläufe mit $T_\text{MD}=\SI{50}{\second}$ steigt dieser Wert auf \SI{400x400}{\nano\meter}.
 
 \begin{figure}[p]
@@ -160,7 +152,7 @@ Für ReaxFF-basierte Simulationsläufe mit $T_\text{MD}=\SI{50}{\second}$ steigt
 
 \end{figure}
 
-Die Beschränkung ergibt sich aus der maximalen Anzahl paralleler Worker $p_\text{max}$, welche für große Simulationsräume durch den Ereignis-Durchsatz beschränkt ist.
+Diese Beschränkung von $w_\text{eff}$ ergibt sich aus dem Ereignis-Durchsatz $R_\text{E}$ und der daraus resultierenden maximalen Anzahl paralleler Worker $p_\text{max}$.\continuehere
 Wie Abbildung~\ref{fig:workersbytime} zu entnehmen ist, steigt das Maximum der parallelen Prozesse mit der MD-Laufzeit, weshalb größere Simulationsräume möglich werden.
 Andererseits steigt es mit sinkender Ereignis-Laufzeit und somit mit steigendem Ereignis-Durchsatz, weshalb effiziente Datenstrukturen und eine Optimierung des Host-Worker-Protokolles notwendig sind.
 Eine Extrapolation der Werte aus Abbildung~\ref{figure:workersbytime} ergibt für Simulationsräume einer Größe von \SI{1x1}{\micro\meter} die Notwendigkeit von mehr als \num{10000} parallelen Prozessen, die aktuell nur mit hochparallelen Rechnerclustern möglich sind.
@@ -184,10 +176,10 @@ Der Skalierungs-Vorteil gegenüber parallelen MD-Simulationen liegt dann im geri
 \end{figure}
 
 Abbildung~\ref{fig:runtimebytime} stellt zuletzt den Einfluss der MD-Laufzeit und der Ereignis-Laufzeit auf die parallelen Laufzeit $T_\infty$ unter Annahme einer maximalen Zahl von Workern dar, wie sie in Abbildung~\ref{fig:workersbytime} dargestellt sind.
-Es zeigt sich eine konstante Laufzeit für Simulationsräume mit~$w_\text{sim} < w_{\text{sim}_\text{eff.}}$.
+Es zeigt sich eine konstante Laufzeit für Simulationsräume mit~$w_\text{sim} < w_\text{eff}$.
 Für größere Räume nimmt die Laufzeit linear mit der Größe der simulierten Oberfläche zu.
 Die Laufzeit effizienter Parsivald-Simulationen ist also unabhängig von ihrer Größe.
-Für große Räume mit $w_\text{sim} > w_{\text{sim}_\text{eff.}}$ ist die Simulationszeit außerdem von der MD-Laufzeit unabhängig.
+Für große Räume mit $w_\text{sim} > w_\text{eff}$ ist die Simulationszeit außerdem von der MD-Laufzeit unabhängig.
 Das klingt nach einem Widerspruch, doch heben sich hier $T_p \sim T_\text{MD}$ und $p \sim T_\text{MD}$ über die Beziehung $T_p \sim p^{-1}$ gegenseitig auf.
 
 \begin{figure}[p]
@@ -212,7 +204,7 @@ Das klingt nach einem Widerspruch, doch heben sich hier $T_p \sim T_\text{MD}$ u
 Für kleine Simulationsräume ermöglicht Parsivald konstante parallele Laufzeiten $T_p$ unabhängig von der Größe der Oberfläche, wohingegen für große Simulationsräume eine ideale parallele Effizienz $E_\text{max} = 1$ für bis zu $p_\text{max}$ parallele Prozesse möglich ist.
 Damit eignet sich Parsivald für effiziente atomistische Simulation von Abscheidungsprozessen.
 
-%% Wählt man $p = p_\text{max} / \rho_\text{worker}$ mit der erwarteten Workerdichte $\rho_\text{worker}$, so kann man über die Gleichungen~\ref{eq:pmax1} und~\ref{eq:pmax2} $w_\text{sim}$ so bestimmen, dass die Simulation 
+%% Wählt man $p = p_\text{max} / \rho_\text{worker}$ mit der erwarteten Workerdichte $\rho_\text{worker}$, so kann man über die Gleichungen~\ref{eq:pmax1} und~\ref{eq:pmax2} $w_\text{sim}$ so bestimmen, dass die Simulation...
 
 %% Aus $T_\text{MD}$ und $T_\text{E}$ lässt sich bei einer unbegrenzten Anzahl von Workern über die Beziehung $p_\text{max,1} = p_\text{max,2}$ aus Gleichungen~\ref{eq:pmax1} und~\ref{eq:pmax2} die ideale Raumgröße für effiziente Prozesse $w_{\text{sim}_\text{eff.}}$ bestimmen.
 %% Bei dieser Größe sind alle Prozesse voll ausgelastet, jedoch benötigt die Simulation eine minimale parallele Laufzeit~$T_p$, was aus der Wahl der Raumgröße am Knick von $p_\text{max}$ resultiert (Abbildung~\ref{fig:workersbytime}).

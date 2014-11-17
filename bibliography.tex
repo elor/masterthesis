@@ -1,4 +1,3 @@
-\cleardoublepage
 %\manualmark
 %\markboth{Literaturverzeichnis}{Literaturverzeichnis}
 %\bibliographystyle{bibstyles/gerunsrtmod} % titel kursiv, journal normal; ist fein, modifiziert damit die Namen stimmen
@@ -26,6 +25,11 @@
 \newcommand{\bblfrom}{in}
 \newcommand{\bblpage}{S.}
 \newcommand{\bblpages}{S.}
+\ifdraft{
+  \newcommand{\bstwarn}{\color{red}}
+}{
+  \newcommand{\bstwarn}{\ignore}
+}
 
 \bibliography{literature} %standard
 \todoline{Literaturverzeichnis muss noch überarbeitet werden}

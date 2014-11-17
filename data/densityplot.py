@@ -87,7 +87,7 @@ def plotfunctions(functions, pdfname, xmin, xmax):
     #plt.xlabel(r'Substratbreite (\AA)')
     plt.xlabel(r'$w_\text{sim}$ (\AA)')
     #plt.ylabel(r'Parallele Worker')
-    plt.ylabel(r'$\rho_{\text{worker}_\text{max}}$')
+    plt.ylabel(r'$\rho_\text{worker,max}$')
 
     ax = plt.axes()
     ax.set_xscale('log')

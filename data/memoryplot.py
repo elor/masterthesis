@@ -84,7 +84,7 @@ xmax=5e9
 base=1.02
 sizes = [base**x for x in range(int(math.log(xmin)/math.log(base)), int(math.log(xmax)/math.log(base)))]
 data = [ 253+x*94/1024**2 for x in sizes]
-plt.plot(sizes, data, '-', color=colors(0), label='Analytisch')
+plt.plot(sizes, data, '-', color='black', label='Analytisch')
         
 for index, filename in enumerate(args.files):
     data = np.genfromtxt(filename)

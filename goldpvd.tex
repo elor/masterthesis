@@ -3,46 +3,55 @@
 
 \todoline{Standardliteratur zitieren}
 
-Als Testsystem für PVD-Prozesse bietet sich Gold-Sputtering an, das im Experiment für amorphe und polykristalline Substrate zwar durch Oberflächendiffusion und Bildung von Nanopartikeln dominiert wird\cite{svorcik_annealing_2011}, aber in MD-Simulationen auf monokristallinen ein stabiles fcc-Gitter eingeht und damit robust gegenüber Fehlstellen und Unebenheiten ist.
-Somit besteht das Ziel in der Präparation und Simulation eines Gold-PVD-Prozesses zum Zweck der Überprüfung des Parsivald-Modelles.
-Zusätzlich werden strukturierte Substrate und das Skalierungsverhalten von Parsivald-Simulationen untersucht.
-Die genutzte EAM-Potentialdatei stammt aus dem LAMMPS-Paket\cite{plimpton_lammps_2014}, basiert aber auf Parametern von \textsc{Foiles et al.}\cite{foiles_embedded-atom-method_1986}, die für Einbettung einzelner Atome in Bulk- und Oberflächensysteme optimiert wurden.
+Als Testsystem für PVD-Prozesse bietet sich Gold-PVD an, mit der Goldschichten epitaktisch auf monokristallinen Substraten aufgewachsen werden können\cite{gottsche_uber_1956}, für amorphe oder polykristalline Substrate aber durch Bildung von Nanopartikeln polykristalline Schichten erzeugt werden\cite{svorcik_annealing_2011}.
+Die Zielsetzung für die Untersuchungen der Gold-PVD bestehen in der Voruntersuchung des MD-Potentiales, der Simulation epitaktischer Abscheidungen auf dünnen und nanostrukturierten Gold-Substraten und der Simulation von Abscheidungen auf gröberen Strukturen.
+Die genutzte EAM-Potentialparametrisierung wird mit dem LAMMPS-Paket\cite{plimpton_lammps_2014} verbreitet, basiert aber auf Parametern von \textsc{Foiles et al.}\cite{foiles_embedded-atom-method_1986}, die für die Einbettung einzelner Atome in Bulk- und Oberflächensysteme optimiert wurden und somit den Abscheidungsprozess auf atomistischer Ebene ideal darstellen sollten.
 
 \subsection{Voruntersuchungen}
 
-Zur Validierung grundlegender Materialeigenschaften wurden Bindungslängen, Dichten und Koordinationszahlen aus einer relaxierten kristallinen Phase untersucht (Tabelle~\ref{tab:goldpreresults}).
-Zur Bestimmung dieser Werte wurde ein Goldkristall von \SI{40x40x40}{\angstrom} Größe auf \SI{1000}{\kelvin} aufgeheizt, im kanonischen Ensemble relaxiert und anschließend abgekühlt.
-Wie den Ergebnissen entnommen werden kann, bleibt die Kristallstruktur erwartungsgemäß erhalten und steht in guter Übereinstimmung mit Literaturwerten, wobei die Schmelztemperatur von \SI{1337}{\kelvin} während der Simulation nicht überschritten wurde.
-Somit unterstützt die genutzte EAM-Parametrisierung das Zielsystem hinsichtlich der Dichte und Struktur monokristalliner Bulkmaterialien.
+Zur Validierung grundlegender Materialeigenschaften von kristallinem Gold wurden Bindungslängen, Dichten und Koordinationszahlen aus einer relaxierten kristallinen Phase untersucht und mit experimentellen Werten\cite{haynes_crc_2011} verglichen (Tabelle~\ref{tab:goldpreresults}).
+Eine gesammelte Übersicht der experimentellen Werte ist in Anhang~\ref{appendix_constants} zu finden.
+In der MD-Simulation wurde ein Goldkristall mit einer Größe von \SI{40x40x40}{\angstrom} auf \SI{1000}{\kelvin} aufgeheizt (Schmelzpunkt: \SI{1337}{\kelvin}), im kanonischen Ensemble relaxiert und anschließend langsam abgekühlt, wobei die Dichte und die radiale Verteilungsfunktion bestimmt wurde.
+Aus der radialen Verteilungsfunktion wurde anschließend die Bindungslänge und die Koordination bestimmt.
+
+Bei diesem Prozess bleibt die Kristallstruktur erhalten und steht in guter Übereinstimmung mit den Literaturwerten.
+Somit unterstützt die genutzte EAM-Para\-metri\-sierung das Zielsystem hinsichtlich der Dichte und Struktur monokristalliner Bulkmaterialien.
 
 \begin{table}[hbt]
   \begin{threeparttable}
   \oddrowcolors
-  \caption[Vergleich struktureller Eigenschaften von Gold]{
-    Vergleich der strukturellen Eigenschaften von Gold mit experimentellen und Literatur-Daten als Voruntersuchung des PVD-Prozesses.
+  \caption[Vergleich von strukturellen Eigenschaften von Gold]{
+    Vergleich von strukturellen Eigenschaften von Gold mit experimentellen Daten als Voruntersuchung des PVD-Prozesses
   }
   \label{tab:goldpreresults}
   \begin{tabularx}{\textwidth}{|lXXXX|}
     \hline
-    \textbf{unters. Größe} & \textbf{Temperatur} & \textbf{Simulation}                     & \textbf{Referenz}\tnote{a}                       & \textbf{Abweichung} \\
+    \textbf{unters. Größe} & \textbf{Temperatur} & \textbf{Simulation}                     & \textbf{Referenz}\tnote{a}              & \textbf{Abweichung} \\
     \hline
-    Bindungslänge          & \SI{50}{\kelvin}    & \SI{2.885}{\angstrom}                   & \SI{2.884}{\angstrom}                   & \SI{0.05}{\percent} \\
-    Koordination           & \SI{50}{\kelvin}    & \SI{12.00}{}                            & \SI{12.00}{}                            & \SI{0}{\percent}    \\
-    Dichte                 & \SI{300}{\kelvin}   & \SI{18.99}{\gram\per\cubic\centi\meter} & \SI{19.30}{\gram\per\cubic\centi\meter} & \SI{1.6}{\percent}  \\
-    Dichte                 & \SI{500}{\kelvin}   & \SI{18.89}{\gram\per\cubic\centi\meter} & \SI{19.13}{\gram\per\cubic\centi\meter} & \SI{1.2}{\percent}  \\
+    Bindungslänge          & \SI{300}{\kelvin}   & \SI{2.885}{\angstrom}                   & \SI{2.884}{\angstrom}                   & \SI{0.05}{\percent} \\
+    Koordination           & \SI{300}{\kelvin}   & \SI{12.00}{}                            & \SI{12.00}{}                            & \SI{0}{\percent}    \\
+    Dichte                 & \SI{300}{\kelvin}   & \SI{18.99}{\gram\per\cubic\centi\meter} & \SI{19.30}{\gram\per\cubic\centi\meter} & \SI{-1.6}{\percent} \\
+    Dichte                 & \SI{500}{\kelvin}   & \SI{18.89}{\gram\per\cubic\centi\meter} & \SI{19.13}{\gram\per\cubic\centi\meter} & \SI{-1.2}{\percent} \\
     \hline
   \end{tabularx}
   \begin{tablenotes}
-    \item[a] Referenzwerte stammen aus Standardliteratur und Referenz~\cite{miller_effect_2006}
+    \item[a] Referenzwerte stammen aus dem \textit{CRC Handbook for Chemistry and Physics}\cite{haynes_crc_2011}
   \end{tablenotes}
   \end{threeparttable}
 \end{table}
-\todoline{Standardliteratur, CRC usw. zitieren}
 
 \subsection{Thermodynamische Eigenschaften}
 \label{goldthermo}
 
-\begin{figure}[bh]
+Neben strukturellen Eigenschaften bilden EAM-Potentiale auch einige thermodynamische Eigenschaften von Metallen ab, die aufgrund der potentiell hohen Substrattemperaturen bei PVD-Prozessen\cite{gottsche_uber_1956} untersucht werden sollen.
+Dafür wurde in MD-Simulationen ein \SI{40x40x40}{\angstrom} großer Block schrittweise von \SI{50}{\kelvin} auf \SI{2000}{\kelvin} erhitzt, wobei der Schmelzpunkt von \SI{1337}{\kelvin}\cite{haynes_crc_2011} überschritten wurde.
+Die Relaxationszeit $t_\text{relax}$ für jeden Temperaturschritt und die Thermostat-Dämpfung $\tau$ wurden dabei variiert, um ihren Einfluss auf die Aussagekraft der Simulation zu untersuchen.
+Die Ergebnisse (Abbildung~\ref{fig:goldthermo}) zeigen generell gute Übereinstimmung mit experimentellen Daten, wofür Relaxationszeiten $t_\text{relax} > \SI{20}{\pico\second}$ und Thermostat-Dämpfungsparameter $\tau \approx \SI{20}{\femto\second}$ bei einer Zeitschrittweite von $\Delta t = \SI{1}{\femto\second}$ für die Relaxation im isotherm-isobaren Ensemble als notwendig ermittelt wurden.
+Bei geringeren $t_\text{relax}$ oder $\tau$ relaxiert das System innerhalb eines Temperaturschrittes nicht vollständig, wodurch der Schmelzpunkt überschätzt wird, wie in Abbildung~\ref{fig:goldthermo-b} zu sehen ist.
+Darin zeigt sich auch eine Änderung in der Art des Phasenüberganges, der durch erhöhte Relaxationszeiten aufgrund von zeitlichen Effekten verzögert eintritt.
+Das ergibt sich aus der Ähnlichkeit der Relaxationszeit zur Barostat-Dämpfung ($t_\text{relax}\approx \tau_p$), welche um Größenordnungen unter dem notwendigen Wert liegen (Abschnitt~\ref{mdmethods}), sodass sich das thermische Gleichgewicht nicht im Zeitrahmen der Simulation einstellen kann.
+
+\begin{figure}[th]
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{7cm}
   \begin{subfigure}[t]{\subfigwidth}
@@ -64,16 +73,9 @@ Somit unterstützt die genutzte EAM-Parametrisierung das Zielsystem hinsichtlich
   \todoline{Legende der Relaxationszeiten fehlt}
 \end{figure}
 
-Neben strukturellen Eigenschaften bilden EAM-Potentiale auch einige thermodynamische Eigenschaften von Metallen ab.
-Für deren Untersuchung wurde die Massendichte in Abhängigkeit der Temperatur für die Teststruktur aufgenommen, die langsam auf \SI{2000}{\kelvin}, also weit über den Schmelzpunkt von \SI{1337}{\kelvin}, aufgeheizt wurde.
-Dabei wird das System in zyklisch über eine Zeit von $t_\text{relax}$ im isotherm-isobaren Ensemble relaxiert, bevor die Temperatur um 50K erhöht wird.
-Die Ergebnisse (Abbildung~\ref{fig:goldthermo}) zeigen gute Übereinstimmung mit experimentellen Daten, wofür Relaxationszeiten $t_\text{relax}$ oberhalb von \SI{20}{\pico\second} und Thermostat-Dämpfungsparameter $\tau$ \SI{\approx0.02}{\femto\second} als notwendig ermittelt wurden.
-Bei geringeren $t_\text{relax}$ oder $\tau$ relaxiert das System innerhalb eines Temperaturschrittes nicht vollständig, wodurch der Schmelzpunkt überschätzt wird, wie in Abbildung~\ref{fig:goldthermo-b} zu sehen ist.
-Darin zeigt sich auch eine Änderung in der Art des Phasenüberganges, der durch erhöhte Relaxationszeiten aufgrund von zeitlichen Effekten verzögert eintritt.
-Das ergibt sich aus der Ähnlichkeit der Relaxations- zur Barostat- und Thermostatdämpfung ($t_\text{relax}\approx \tau$, $t_\text{relax}\approx \tau_p$), welche um Größenordnungen unter dem notwendigen Wert liegen (Abschnitt~\ref{mdmethods}), sodass sich kein thermisches Gleichgewicht einstellen kann.
-Die Dichteänderung ist somit um mehrere Temperatursprünge verzögert.
-
 \subsection{Simulation des PVD-Prozesses}
+
+In einer Parsivald-Simulation wurde auf einem kristallinen Substrat der Größe \SI{106x106}{\angstrom} \continuehere
 
 Nach der Präparation eines Kristallsubstrates wurde es zusammen mit der EAM-Parametrisierung und weiteren Prozessparametern in einer Parsivald-Simulation eingelesen, wobei die Relaxationszeiten und Größen der MD-Simulationsräume aus den Vorbetrachtungen übernommen wurden.
 Damit ergeben sich Reaktionsräume mit einer Größe von \SI{37x37x25}{\angstrom} mit jeweils ca. \num{1800} Atomen, Relaxationszeiten von \SI{1.4}{\nano\second} in \num{1400} Simulationsschritten und Auftreffgeschwindigkeiten von \SI{4}{\angstrom/\pico\second}.
@@ -225,33 +227,43 @@ Bei Abscheidung amorpher Schichten, wie für CVD- und ALD-Prozesse üblich, konn
 Eine Untersuchung einer Abscheidungssimulation auf polykristallinen Gold-Substraten steht noch aus.
 \end{comment}
 
+\clearpage
 \subsection{Skalierbarkeit mit der Simulationsgröße}
 \label{goldscalability}
 
-Ein Vergleich mit den in Abschnitt~\ref{runtime} vorgestellten Größen wird im Folgenden anhand von Gold-PVD durchgeführt, für den die Abscheidung auf einer geringe Zahl großer Substrate mit Parsivald simuliert wurde.
+Ein Vergleich mit den in Abschnitt~\ref{runtime} vorgestellten Laufzeitwerten wird im Folgenden anhand von Gold-PVD durchgeführt, für welche Abscheidungen auf unterschiedlich großen quadratischen Substraten mit Parsivald simuliert wurde.
 
-Dabei gilt $T_\text{E} = \SI{30}{\milli\second}$, $T_\text{MD} = \SI{5}{\second}$, $w_\text{MD} = \SI{37}{\angstrom}$, wo hingegen $w_\text{sim}$ von \SI{106}{\angstrom} bis \SI{4}{\micro\meter} variiert wurde, wobei auch der für die Beschichtung von Nanoelektronik interessante Bereich von \SIrange{100}{1000}{\nano\meter} durchlaufen wurde.
-Die Ergebnisse sind in Tabelle~\ref{tab:goldscalability} zusammengefasst, wobei aufgrund der langen erwarteten Laufzeit nur für einige kleine Simulationsräume vollständige Abscheidungen simuliert wurden.
+Aus Messungen ergeben sich die elementaren Laufzeiten als $T_\text{E} = \SI{26}{\milli\second}$ und $T_\text{MD} = \SI{4.7}{\second}$, während $w_\text{MD} = \SI{37}{\angstrom}$ fest gewählt und $w_\text{sim}$ von \SI{106}{\angstrom} bis \SI{4}{\micro\meter} variiert wurde, wobei auch der für die Beschichtung von Nanoelektronik interessante Bereich von \SIrange{100}{1000}{\nano\meter} untersucht wurde.
+Dabei wurde, durch verschiedene Störeinflüsse bedingt, eine unterschiedliche Anzahl an Parsivald-Zyklen durchlaufen, sodass die Laufzeiten keinen direkten Vergleich zulassen.
 
-\begin{table}\begin{threeparttable}
+Die Ergebnisse der Untersuchungen sind in Tabelle~\ref{tab:goldscalability} zusammengefasst und stimmen gut mit den in Abschnitt~\ref{runtimeanalysis} ermittelten analytischen Werten überein (Abbildung~\ref{fig:goldscala}).
+Die Zahl der möglichen Prozesse (Abbildung~\ref{goldscala-workers}) steht in guter Übereinstimmung mit $p_\text{max}$ für $\rho_\text{worker} = \SI{20}{\percent}$, wobei die maximale effiziente Substratbreite als $w_\text{eff} \approx \SI{100}{\nano\meter}$ ermittelt wurde.
+Für die mit $p_\text{max}$ verwandten Workerdichten $\rho_\text{worker}$ ist eine leichte Abnahme von \SI{21.9}{\percent} für $w_\text{sim} = \SI{106}{\angstrom}$ zu \SI{10.3}{\percent} für $w_\text{sim} = \SI{1000}{\angstrom}$ erkennbar, die danach jedoch quadratisch mit der Substratbreite abnimmt.
+Es existiert ein Ausreißer bei $w_\text{sim} = \SI{1}{\micro\meter}$, für den nur 46 Worker gestartet wurden ($\num{46} < p_\text{max} \approx \num{190}$), die zudem durch einen inzwischen behobenen Fehler im Host-Worker-Code auf einen Wert von \num{25.4} unterschätzt wurden.
+
+Ein Vergleich der Laufzeiten mit Werten für $T_p$ aus Gleichung~\ref{eq:runtime} zeigt ebenfalls gute Übereinstimmungen, wobei der Ausreißer bei $w_\text{sim} = \SI{1}{\micro\meter}$ ebenfalls erkennbar ist.
+Aufgrund des Wachstums von Schichten unterschiedlicher Dicke ist ein direkter Vergleich nicht aussagekräftig, doch bestätigt die Übereinstimmung mit den analytischen Werten die gute Skalierbarkeit von Parsivald mit der Substratbreite.
+
+\begin{table}[H]
+  \begin{threeparttable}
 
     \caption{Untersuchungen zur Skalierbarkeit von Parsivald}
     \label{tab:goldscalability}
 
     \begin{tabularx}{\textwidth}{|Xrrrrrrr|}
       \hline
-      \textbf{$w_\text{sim}$} & \textbf{Wachst.}    & \textbf{Atome} & \textbf{Ereignisse} & \textbf{Worker}\tnote{a}  ~           & \textbf{$\rho_\text{w.}$} & \textbf{Laufzeit} & \textbf{RAM}\tnote{b} \\
+      \textbf{$w_\text{sim}$} & \textbf{Wachst.}    & \textbf{Atome} & \textbf{$N_\text{E}$} & \textbf{Worker\tnote{a} $p$}          & \textbf{$\rho_\text{work.}$} & \textbf{$T_\text{p}$} & \textbf{RAM}\tnote{b} \\
       \hline
-      \SI{106}{\angstrom}     & \SI{70}{\angstrom}  & \num{59549}    & \num{46030}         & \num{1.8}\tnote{c}        (\num{4})   & \SI{21.9}{\percent}       & \SI{32.2}{\hour}  & \SI{254}{\mebi\byte}  \\
-      \SI{204}{\angstrom}     & \SI{42}{\angstrom}  & \num{152374}   & \num{102374}        & \num{14.5}\tnote{c}       (\num{18})  & \SI{47.7}{\percent}       & \SI{25.5}{\hour}  & \SI{257}{\mebi\byte}  \\
-%%    \SI{204}{\angstrom}     & \SI{42}{\angstrom}  & \num{152374}   & \num{102374}        & \num{14.5}\tnote{c}       (\num{18})  & \SI{47.7}{\percent}       & \SI{25.5}{\hour}  & \SI{257}{\mebi\byte}  \\
-      \SI{500}{\angstrom}     & \SI{93}{\angstrom}  & \num{1708600}  & \num{1401081}       & \num{24.8}                (\num{50})  & \SI{13.6}{\percent}       & \SI{73.6}{\hour}  & \SI{397}{\mebi\byte}  \\ % \SI{282}{\mebi\byte}
-%%      \SI{1000}{\angstrom}  & \SI{5.4}{\angstrom} & \num{1591908}  & \num{381588}        & \num{44.8}                (\num{46})  & \SI{6.1}{\percent}        & \SI{1.5}{\hour}   & \SI{368}{\mebi\byte}  \\
-      \SI{1000}{\angstrom}    & \SI{92}{\angstrom}  & \num{6733948}  & \num{5539942}       & \num{75.4}\tnote{c}       (\num{149}) & \SI{10.3}{\percent}       & \SI{97.5}{\hour}  & ~                     \\
-      \SI{1}{\micro\meter}    & \SI{1.3}{\angstrom} & \num{1.3e8}    & \num{8186990}       & \num{25.4}\tnote{d}       (\num{46})  & \SI{0.03}{\percent}       & \SI{117.5}{\hour} & \SI{11.5}{\gibi\byte} \\
-%%    \SI{2}{\micro\meter}    & \SI{0.4}{\angstrom} & \num{4.9e8}    & \num{10356031}      & \num{26.3}\tnote{d}       (\num{46})  & \SI{0.009}{\percent}      & \SI{117.5}{\hour} & ~                     \\
-      \SI{2}{\micro\meter}    & \SI{1.0}{\angstrom} & \num{5.1e8}    & \num{25855695}      & \num{189}\tnote{e}        (\num{245}) & \SI{0.06}{\percent}       & \SI{186.8}{\hour} & \SI{45.4}{\gibi\byte} \\
-      \SI{4}{\micro\meter}    & ~                   & \num{1.9e9}    & ~                   & ~                         ~           & ~                         & ~                 & \SI{182}{\gibi\byte}  \\
+      \SI{106}{\angstrom}     & \SI{70}{\angstrom}  & \num{59549}    & \num{46030}           & \num{1.8}\tnote{c}        (\num{4})   & \SI{21.9}{\percent}          & \SI{32.2}{\hour}      & \SI{254}{\mebi\byte}  \\
+%%    \SI{204}{\angstrom}     & \SI{42}{\angstrom}  & \num{152374}   & \num{102374}          & \num{14.5}\tnote{c}       (\num{18})  & \SI{13.9}{\percent}          & \SI{25.5}{\hour}      & \SI{257}{\mebi\byte}  \\
+      \SI{204}{\angstrom}     & \SI{38}{\angstrom}  & \num{142835}   & \num{92835}           & \num{5.32}\tnote{c}       (\num{12})  & \SI{17.5}{\percent}          & \SI{22.1}{\hour}      & \SI{257}{\mebi\byte}  \\
+      \SI{500}{\angstrom}     & \SI{93}{\angstrom}  & \num{1708600}  & \num{1401081}         & \num{24.8}\tnote{c}       (\num{50})  & \SI{13.6}{\percent}          & \SI{73.6}{\hour}      & \SI{397}{\mebi\byte}  \\ % \SI{282}{\mebi\byte}
+%%      \SI{1000}{\angstrom}  & \SI{5.4}{\angstrom} & \num{1591908}  & \num{381588}          & \num{44.8}                (\num{46})  & \SI{6.1}{\percent}           & \SI{1.5}{\hour}       & \SI{368}{\mebi\byte}  \\
+      \SI{1000}{\angstrom}    & \SI{92}{\angstrom}  & \num{6733948}  & \num{5539942}         & \num{75.4}\tnote{c}       (\num{149}) & \SI{10.3}{\percent}          & \SI{97.5}{\hour}      & ~                     \\
+      \SI{1}{\micro\meter}    & \SI{1.3}{\angstrom} & \num{1.3e8}    & \num{8186990}         & \num{25.4}\tnote{d}       (\num{46})  & \SI{0.03}{\percent}          & \SI{117.5}{\hour}     & \SI{11.5}{\gibi\byte} \\
+%%    \SI{2}{\micro\meter}    & \SI{0.4}{\angstrom} & \num{4.9e8}    & \num{10356031}        & \num{26.3}\tnote{d}       (\num{46})  & \SI{0.009}{\percent}         & \SI{117.5}{\hour}     & ~                     \\
+      \SI{2}{\micro\meter}    & \SI{1.0}{\angstrom} & \num{5.1e8}    & \num{25855695}        & \num{189}\tnote{e}        (\num{245}) & \SI{0.06}{\percent}          & \SI{186.8}{\hour}     & \SI{45.4}{\gibi\byte} \\
+      \SI{4}{\micro\meter}    & ~                   & \num{1.9e9}    & ~                     & ~                         ~           & ~                            & ~                     & \SI{182}{\gibi\byte}  \\
       \hline
     \end{tabularx}
 
@@ -266,17 +278,14 @@ Die Ergebnisse sind in Tabelle~\ref{tab:goldscalability} zusammengefasst, wobei 
   \end{threeparttable}
 \end{table}
 
+Zuletzt zeigt die Auswertung der vom Hostprozess verbrauchten Ressourcen  einen Speicherverbrauch von $\text{RAM} = \SI{253}{\mebi\byte} + \SI{94}{\byte} \cdot N_\text{Atome}$, womit auch große Simulationen mit \num{1.9e9} Atomen mit nur \SI{186}{\gibi\byte} Arbeitsspeicher durchgeführt werden können (Abbildung~\ref{fig:goldscala-b}).
+Somit stellt der verfügbare Arbeitsspeicher aktuell nur ein untergeordnetes Kriterium dar, jedoch spiegelt sich diese Größe auch in den atomistischen Dateien wider, die von Parsivald erzeugt werden, und somit nicht mehr effizient ausgewertet werden können, weshalb eine Auswertung zur Ausführungszeit notwendig wäre.
 
+Somit bestätigen sich einige Vorhersagen aus Abschnitt~\ref{runtime}, jedoch sind weitere Untersuchungen, etwa hinsichtlich der Ereignis-Laufzeit $T_\text{E}$, für einen umfassenden Vergleich notwendig.
 
-\todo{woanders?}
-Bei einer Analyse der vom Hostprozess verbrauchten Ressourcen ergibt sich ein Speicherverbrauch von $\text{RAM} = \SI{253}{\mebi\byte} + \SI{94}{\byte} \cdot N_\text{Atome}$, womit auch große Simulationen mit \num{1.9e9} Atomen mit nur \SI{186}{\gibi\byte} Arbeitsspeicher durchgeführt werden können (Abbildung~\ref{fig:goldscala-b}).
+\vspace{2em}
 
-\todoline{Welche Größen bei Nanodevices von Interesse?}
-\todoline{Skalierung... womit?}
-\todoline{``Rekord'' vermeiden}
-\todoline{realistische Werte}
-
-\begin{figure}[hb]
+\begin{figure}[H]
   \centering
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{7cm}
@@ -292,6 +301,8 @@ Bei einer Analyse der vom Hostprozess verbrauchten Ressourcen ergibt sich ein Sp
     \label{fig:goldscala-workers}
   \end{subfigure}
 
+  \vspace{1em}
+
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{runtime}
     \subcaption{Laufzeit verschiedener Simulationen}
@@ -306,20 +317,3 @@ Bei einer Analyse der vom Hostprozess verbrauchten Ressourcen ergibt sich ein Sp
   \caption{Parallelisierungseigenschaften von Parsivald}
   \label{fig:goldscala}
 \end{figure}
-
-Anders sieht es bei der notwendigen Rechenleistung aus:
-Während kleine Simulationsräume (\SI{<200}{\angstrom}) nicht wesentlich von der parallelen Rechenleistung profitieren können, scheitern größere Prozesse am Mangel daran:
-Im zweiten Test mit einer \SI{2x2}{\micro\meter} großen Struktur wurde die Grenze der Bandbreite des Hostprozesses erreicht:
-Die Tests haben gezeigt, dass dieser \num{38.4} Ereignisse pro Sekunde vorbereiten, starten und auswerten kann.
-Mit durchschnittlich \SI{4.86}{\second} Laufzeit pro Gold-PVD-Ereignis kann der Hostprozess aber nur 189 parallele Worker dauerhaft mit Ereignissen versorgen, woraus sich eine maximale Parallelisierbarkeit\footnote{Die Parallelisierbarkeit ist der Anteil der parallelisierbaren Laufzeit des Programmes} von \SI{99.5}{\percent} ergibt.
-Die eigentliche Beschränkung liegt folglich in der genutzten Potentialart:
-Kompliziertere und damit langsamere Potentiale, wie die später genutzten ReaxFF-Potentiale, benötigen meist mehr als \SI{30}{\second} für ein Ereignis, in extremen Fällen sogar \SI{5}{\minute}.
-Somit erlauben sie theoretisch \num{1152} bis \num{11520} parallele Worker und übersteigen damit die Möglichkeit dessen, was einem einzelnen Nutzer an einem Hochleistungsrechencluster an Rechenleistung zur Verfügung steht.
-Trotz guter Skalierbarkeit erhöht sich damit auch die gesamte Rechenzeit linear, was für eine gleichwertige Rechnung mit ReaxFF-Potentialen trotz Parallelisierung zu einem Rekord von \SI{541}{\hour} für 100 Zyklen geführt hat.
-
-Die verbleibende Einschränkung wird somit von den verfügbaren Rechenkernen gebildet.
-In Simulationen mit Substratgrößen auf der Mikrometer-Skala wurden nur kleine Teile der Oberfläche (\SI{<0.1}{\percent}) zeitgleich von Ereignissen simuliert.
-Bei Oberflächen von \SI{2x2}{\micro\meter} Größe wären in dichtester Packung der MD-Boxen mit je \SI{37x37}{\angstrom} Größe maximal \num{291600} parallele Ereignisse möglich, doch werden tatsächlich aufgrund der Überdeckung von Ereignissen häufig Bedeckungsgrade von \SI{<20}{\percent} erreicht.
-Dennoch liegt die Zahl der verfügbaren Prozessorkerne um Größenordnungen unterhalb des optimalen Wertes, was sich in entsprechend langen Simulationslaufzeiten äußert (\SI{186.8}{\hour} für \SI{1.0}{\angstrom} Schichthöhe).
-
-Zusammenfassend lässt sich sagen, dass Systeme mit einer Größe zwischen \SI{50x50}{\nano\meter} und \SI{300x300}{\nano\meter} mit modernen Computerclustern effizient berechenbar sind, wo hingegen kleinere Systeme nicht signifikant von der Effizienzsteigerung profitieren können und für größere Systeme die notwendige Rechenleistung unerreichbar bleibt.

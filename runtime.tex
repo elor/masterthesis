@@ -3,26 +3,26 @@
 
 Für Parsivald-Simulationen ergeben sich verschiedene Einschränkungen, etwa in der Größe des Simulationsraumes oder der Laufzeit von MD-Simulationen, welche die Zahl der Parallelen Worker beschränken und die parallele Laufzeit erhöhen.
 Nachfolgend wird deshalb eine Laufzeitanalyse von Parsivald unter Berücksichtigung diverser Größen durchgeführt.
-\todo{Disclaimer, dass mit ``Raumgröße'' die Größe der Oberfläche gemeint ist, da es sich hier um Oberflächenabscheidungen handelt.}
+
 Wie bei Laufzeitanalysen üblich, werden Laufzeiten mit $T$ bezeichnet und sollten nicht mit Temperaturen verwechselt werden.
+Weiterhin bezeichnet die \textit{Größe} des Simulationsraumes oder der MD-Box im folgenden die Breite oder Fläche des quadratischen Simulationsraumes, da die Laufzeit im Parsivald-Modell unabhängig von der Höhe der Schicht ist.
 
 \subsection{Ereignis-Laufzeit $T_\text{E}$}
 
 Die Auswahl eines Ereignisses in KMC-Algorithmen ist mit einer Laufzeit~$T_\text{E}$ verbunden, die sich aus der Laufzeit von Suchoperationen $T_\text{KMC}$, der Laufzeit von Serialisierungen und Deserialisierungen zur Datenübertragung zwischen Host und Worker $T_\text{Ser.}$ und $T_\text{Des.}$ sowie der Laufzeit für die \todo{Wurde die Konnektivitätsprüfung vorgestellt?}Konnektivitätsprüfung $T_\text{Konn.}$ zusammen setzt.
+Damit bezeichnet sie die Zeit, die der Host-Prozess in parallelen Parsivald-Simulationen für ein Ereignis aufbringt.
 
 \begin{equation}
 T_\text{E} = T_\text{KMC} + T_\text{Ser.} + T_\text{Des.} + T_\text{Konn.}
 \end{equation}
-Dabei überwiegt $T_\text{Konn.}$ mit \BigO{N^2} für $N$ Atome in der MD-Box gegenüber den anderen Operationen, welche theoretisch mit \BigO{N} skalieren.
-$T_\text{KMC}$ skaliert durch das Caching-Verhaltens des benutzten Octrees tatsächlich linear mit $N$, wo hingegen die C++-Standard-Bibliothek durch ihr Buffer-Verhalten für annähernd konstante Laufzeiten von $T_\text{Ser.}$ und $T_\text{Des.}$ sorgt.
-Eine Reduktion von $T_\text{E}$ ist somit nur durch die Auslagerung der Konnektivitätsprüfung in die Worker-Prozesse oder durch die Nutzung einer Delaunay-Triangulation anstelle des Octrees möglich, wodurch die Konnektivität in \BigO{N} geprüft werden kann.
+
+Aufgrund des Buffer-Verhaltens der C-Bibliothek sind $T_\text{Ser.}$ und $T_\text{Des.}$ bereits minimal, sodass Ansatzpunkte für Optimierungen nur bei den KMC-Suchoperationen (Abschnitt~\ref{datastructures}) sowie bei der Konnektivitätsprüfung, welche mit \BigO{N^2} zur Zahl der Atome in der MD-Box $N$ am stärksten skaliert, bestehen.
 
 \subsection{Ereignis-Durchsatz $R_\text{E}$}
 
-Als Ereignis-Durchsatz wird nachfolgend die Zahl der vom Host zur MD-Berechnung bereit gestellten Ereignisse pro Zeiteinheit bezeichnet.
+Als Ereignis-Durchsatz $R_\text{E}$ wird nachfolgend die Zahl der vom Host zur MD-Berechnung maximal bereit gestellten Ereignisse pro Zeiteinheit bezeichnet.
 Damit handelt es sich eigentlich um eine Rate von Ereignissen, die jedoch nicht mit der Ereignisrate aus dem KMC-Formalismus (Abschnitt~\ref{kmc}) verwechselt werden sollte.
-Der Wert des Ereignis-Durchsatzes beschreibt hier die maximal mögliche Zahl von Ereignissen pro Zeiteinheit anstatt der Zahl der tatsächlich berechneten Ereignisse.
-In der aktuellen Implementierung führt ein serieller Host-Prozess alle Vor- und Nachbereitungen von Ereignissen durch, weshalb sich der Ereignis-Durchsatz als reziproker Wert von $T_\text{E}$ ergibt:
+In der aktuellen Implementierung führt ein einziger serieller Host-Prozess alle Vor- und Nachbereitungen von Ereignissen durch, weshalb gilt:
 
 \begin{equation}
   R_\text{E} = \frac{1}{T_\text{E}}
@@ -30,7 +30,7 @@ In der aktuellen Implementierung führt ein serieller Host-Prozess alle Vor- und
 
 \subsection{MD-Laufzeit $T_\text{MD}$}
 
-Die Zeit zur Durchführung einer molekulardynamischen Simulationen beim Worker wird im Folgenden als MD-Laufzeit $T_\text{MD}$ bezeichnet.
+Die Zeit, die ein Worker zur MD-Simulation eines Ereignisses aufbringt, wird im Folgenden als MD-Laufzeit $T_\text{MD}$ bezeichnet.
 Sie ist hauptsächlich von den benutzten Kraftfeldern abhängig, wird jedoch auch durch die durchgeführten MD-Operationen, die Relaxationszeit, sowie die Größe der MD-Box und die damit verbundene Zahl der Atome beeinflusst.
 Vom KMC-Algorithmus ist sie hingegen unabhängig.
 
@@ -54,9 +54,8 @@ Damit ist sie von der vernachlässigbaren Laufzeit zur einmaligen Vorbereitung $
 
 \subsection{Anzahl der parallelen Prozesse $p$}
 
-Ein wichtiges Maß für die Effizienz eines parallelen Prozess ist die Zahl der parallelen Prozesse $p$.
-Für Parsivald bezeichnet $p-1$ die mittlere Zahl der aktiven MD-Prozesse, wobei der Hauptprozess separat betrachtet wird.
-Für $p$ ergeben sich obere Schranken $p_\text{max}$ in der maximalen Bedeckung der Oberfläche mit MD-Boxen sowie im Ereignis-Durchsatz, welche mit unbegrenzten Workerpools erreicht werden können.
+Parsivald-Simulationen werden in einen Host-Prozess und $p-1$ Workerprozesse eingeteilt, woraus sich insgesamt $p$ parallele Prozesse ergeben.
+Die oberen Schranken $p_\text{max}$ liegen dabei in Abhängigkeit der Größe des Simulationsraumes in der maximalen Abdeckung der Oberfläche mit MD-Boxen sowie im Ereignis-Durchsatz des Host-Prozesses.
 
 Für kleine Simulationsräume lässt sich die maximale Anzahl von Ereignissen $p_\text{max,1}-1$ aus der dichtesten Packung von meist quadratischen MD-Boxen der Breite $w_\text{MD}$, Tiefe $d_\text{MD}$ und Fläche $A_\text{MD} = w_\text{MD} \cdot d_\text{MD}$ im Simulationsraum ($w_\text{sim}$, $d_\text{sim}$, $A_\text{sim}$) abschätzen:
 \begin{equation}

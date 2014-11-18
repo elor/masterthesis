@@ -5,8 +5,12 @@
 mean="Mittelwert"
 max="Maximum"
 
-# awk '{print $1,$17}' parsivald_scalability.txt  | grep -v / | sed '1s/^/#/' > "$mean"
-# awk '{print $1,$18}' parsivald_scalability.txt  | grep -v / | sed '1s/^/#/' > "$max"
+filter(){
+    grep -Pv '/|102374|381588|10356031' | column -t
+}
+
+awk '{print $1,$17,$6}' parsivald_scalability.txt | sed '1s/^/#/' | filter > "$mean"
+awk '{print $1,$18,$6}' parsivald_scalability.txt | sed '1s/^/#/' | filter > "$max"
 
 ./bedeckungsplot.py -f --style 's' -x1 -y2 --xlog --ylog --xlabel 'Substratbreite (\AA)' --xrange 100:3e4 --yrange 0:1 --ylabel 'Workerdichte' "$max" "$mean" || exit 1
 

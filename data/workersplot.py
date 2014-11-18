@@ -1,29 +1,73 @@
 #!/usr/bin/env python
 
-import corporate_design
-corporate_design.set_layout(layout_type='text', size='small')
+import argparse
 
-import matplotlib
-matplotlib.use('PDF')
-
-import matplotlib.pyplot as plt
-import numpy as np
-
-import sys, math
-from subprocess import call
-
-import colorsys
-
-########################
-# the magical function #
-########################
-def pmax(size, workerdensity=0.1, Tmd=5, TE=0.03, mdsize=37):
+#########################
+# the magical functions #
+#########################
+def pmax(size, workerdensity=1.0, Tmd=5, TE=0.03, mdsize=37):
 # too accurate version:    return min(math.ceil(math.floor(size/mdsize)**2 * workerdensity), Tmd/TE)
-    return min(math.ceil(math.floor((size/mdsize)**2) * workerdensity), Tmd/TE)
+    return min(pmax1(size, workerdensity, Tmd, TE, mdsize), pmax2(size, workerdensity, Tmd, TE, mdsize))
+
+def pmax1(size, workerdensity=1.0, Tmd=5, TE=0.03, mdsize=37):
+# too accurate version:    return min(math.ceil(math.floor(size/mdsize)**2 * workerdensity), Tmd/TE)
+    return math.ceil(math.floor((size/mdsize)**2) * workerdensity)
+
+def pmax2(size, workerdensity=1.0, Tmd=5, TE=0.03, mdsize=37):
+# too accurate version:    return min(math.ceil(math.floor(size/mdsize)**2 * workerdensity), Tmd/TE)
+    return math.floor(Tmd/TE)
+
+def workerdensity(size, maxdensity=1.0, Tmd=5, TE=0.03, mdsize=37):
+    return pmax(size, maxdensity, Tmd, TE, mdsize) / pmax1(size, maxdensity, Tmd, TE, mdsize)
+
 ################
 # end of magic #
 ################
 
+class floatrange(object):
+    min = 0
+    max = 0
+    def __init__(self, s): 
+        tmpval = s.split(':')
+        self.min=float(tmpval[0])
+        self.max=float(tmpval[1])
+        if (self.min > self.max):
+            raise argparse.ArgumentTypeError("range: min must be lower than or equal to max")
+
+parser = argparse.ArgumentParser(description='Plot two columns from arbitrary data files against each other')
+parser.add_argument('files', metavar='data.txt', type=str, nargs='+', help='data files, containing columns of numerical data')
+parser.add_argument('-x', '--xcolumn', dest='xcolumn', type=int, default=1, help='column for x-axis data')
+parser.add_argument('-y', '--ycolumn', dest='ycolumn', type=int, default=2, help='column for y-axis data')
+parser.add_argument('-f', '--to-file', dest='tofile', action='store_true', help='print to pdf and png files instead of interactive output')
+parser.add_argument('--xrange', dest='xrange', type=floatrange, help='x range. Format: "min:max"')
+parser.add_argument('--yrange', dest='yrange', type=floatrange, help='y range. Format: "min:max"')
+parser.add_argument('--xlog', dest='xlog', action='store_true', help='use a logarithmic scale for the x axis')
+parser.add_argument('--ylog', dest='ylog', action='store_true', help='use a logarithmic scale for the y axis')
+parser.add_argument('--xlabel', dest='xlabel', type=str, help='x label (LaTeX compatible)')
+parser.add_argument('--ylabel', dest='ylabel', type=str, help='y label (LaTeX compatible)')
+parser.add_argument('--legend-from-column', dest='legendindex', type=int, help='read legend names from column instead of using the file names. Useful for bar plots. Doesnt do nothing yet')
+parser.add_argument('--bar', dest='bar', action='store_true', help='produce a bar plot instead of lines')
+parser.add_argument('--style', dest='linestyle', type=str, default='-', help='line style to use for a line plot')
+
+args = parser.parse_args()
+
+import corporate_design
+corporate_design.set_layout(layout_type='text', size='small')
+
+import matplotlib
+if args.tofile:
+    matplotlib.use('PDF')
+else:
+    pass
+    #    matplotlib.use('GTK')
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+import sys, re, math
+from subprocess import call
+
+import colorsys
 #######################################################################################################
 # Create colormap.                                                                                    #
 # Keyword arguments:                                                                                  #
@@ -46,108 +90,83 @@ colormaps = {
     'default' : lambda n: hls_colormap(n, False),
 }
 
-def plotfunctions(functions, pdfname, xmin, xmax):
-    indices=[ i for i in functions ]
-    indices.sort()
+numfiles = len(args.files)
+if args.bar and len(args.files) > 0:
+    if numfiles == 1:
+        xright = 0.5
+    else:
+        xright = 0.4
+    xleft = -xright
+    xwidth = (xright - xleft) / numfiles
 
-    numfiles = len(functions)
-
-    colors = colormaps['default'](numfiles)
-
-    base=1.02
-    sizes = [base**x for x in range(int(math.log(xmin)/math.log(base)), int(math.log(xmax)/math.log(base)))]
-
-    for index, function in enumerate(indices):
-        data = np.array([ functions[function](x) for x in sizes ])
-        plt.plot(sizes, data, '-', color=colors(index), label=function)
-
-    ###############
-    # show legend #
-    ###############
-    plt.legend()
-
-    #plt.xlabel(r'Substratbreite (\AA)')
-    plt.xlabel(r'$w_\text{sim}$ (\AA)')
-    #plt.ylabel(r'Parallele Worker')
-    plt.ylabel(r'$p_\text{max}$')
-
-    ax = plt.axes()
-    ax.set_xscale('log')
-    ax.set_yscale('log')
-
-    plt.xlim(0, sizes[-1])
-    #plt.ylim(1, 100000)
-    
-    ##################################
-    # adjust plot position on canvas #
-    ##################################
-    plt.subplots_adjust(bottom=0.24, left=0.16)
-    plt.minorticks_on()
-    
-    #########################
-    # axes labels and ticks #
-    #########################
-    #ax = plt.axes()
-    #ax.xaxis.set_major_locator(MultipleLocator(500))
-    #ax.xaxis.set_minor_locator(MultipleLocator(100))
-    #ax.yaxis.set_major_locator(MultipleLocator(0.5))
-    #ax.yaxis.set_minor_locator(MultipleLocator(0.125))
-
-    #ax.xaxis.set_major_formatter (FormatStrFormatter("%3.1f"))
-    #ax.yaxis.set_major_formatter (FormatStrFormatter("%3.2f"))
-
-    #######################
-    # save as pdf and png #
-    #######################
-    print('saving to %s'%pdfname)
-    plt.savefig(pdfname)
-    plt.close()
-    call(["pdf2png.sh", pdfname])
-
-
-###########################
-# plot workers by density #
-###########################
+colors = colormaps['default'](numfiles)
 
 xmin=100
-xmax=20000
+xmax=50000
+base=1.02
+sizes = [base**x for x in range(int(math.log(xmin)/math.log(base)), int(math.log(xmax)/math.log(base)))]
+data = [ pmax(x, workerdensity=0.3, TE=0.02, Tmd=5) for x in sizes ]
+plt.plot(sizes, data, '-', color='black', label=r'Analytisch')
+        
+for index, filename in enumerate(args.files):
+    data = np.genfromtxt(filename)
+    data = np.insert(data, 0, range(0, len(data)), axis=1).transpose()
+    tex_compatible_filename = filename.encode('string-escape').replace('_', '\_')
+    if args.bar:
+        xoffset = xleft + xwidth*index
+        plt.bar(data[args.xcolumn]+xoffset, data[args.ycolumn], width=xwidth, color=colors(index), label=tex_compatible_filename)
+    else:
+        plt.plot(data[args.xcolumn], data[args.ycolumn], args.linestyle, color=colors(index), label=tex_compatible_filename)
 
-functions={
-    r'$\rho_\text{worker}=0.1$':lambda x: pmax(x, workerdensity=0.1),
-    r'$\rho_\text{worker}=0.4$':lambda y: pmax(y, workerdensity=0.4),
-    r'$\rho_\text{worker}=1.0$':lambda z: pmax(z, workerdensity=1.0),
-}
-plotfunctions(functions, 'workersbydensity.pdf', xmin, xmax)
+    args.linestyle = '^'
 
-###############################
-# plot workers by MD duration #
-###############################
+###############
+# show legend #
+###############
+plt.legend()
 
-functions={
-    r'$T_\text{MD}= 5$ s':lambda x: pmax(x, Tmd=5),
-    r'$T_\text{MD}=15$ s':lambda y: pmax(y, Tmd=15),
-    r'$T_\text{MD}=60$ s':lambda z: pmax(z, Tmd=60),
-}
-plotfunctions(functions, 'workersbymdtime.pdf', xmin, xmax)
+if args.xlabel:
+    plt.xlabel(args.xlabel)
+if args.ylabel:
+    plt.ylabel(args.ylabel)
 
-################################
-# plot workers by KMC duration #
-################################
+ax = plt.axes()
+if args.xlog:
+    ax.set_xscale('log')
+if args.ylog:
+    ax.set_yscale('log')
 
-functions={
-    r'$T_\text{E}=30$ ms':lambda x: pmax(x, TE=0.03),
-    r'$T_\text{E}=10$ ms':lambda y: pmax(y, TE=0.01),
-    r'$T_\text{E}= 3$ ms':lambda z: pmax(z, TE=0.003),
-}
-plotfunctions(functions, 'workersbykmctime.pdf', xmin, xmax)
+if args.xrange:
+    plt.xlim(args.xrange.min, args.xrange.max)
 
-###########################
-# plot workers by MD size #
-###########################
+if args.yrange:
+    plt.ylim(args.yrange.min, args.yrange.max)
 
-functions={
-    r'$w_\text{MD}=25$ \AA':lambda x: pmax(x, mdsize=25, TE=0.02, Tmd=3),
-    r'$w_\text{MD}=37$ \AA':lambda y: pmax(y, mdsize=37, TE=0.03, Tmd=5),
-    r'$w_\text{MD}=50$ \AA':lambda z: pmax(z, mdsize=50, TE=0.04, Tmd=9)
-}
-plotfunctions(functions, 'workersbymdsize.pdf', xmin, xmax)
+##################################
+# adjust plot position on canvas #
+##################################
+plt.subplots_adjust(bottom=0.22, left=0.17)
+plt.minorticks_on()
+
+#########################
+# axes labels and ticks #
+#########################
+#ax = plt.axes()
+#ax.xaxis.set_major_locator(MultipleLocator(500))
+#ax.xaxis.set_minor_locator(MultipleLocator(100))
+#ax.yaxis.set_major_locator(MultipleLocator(0.5))
+#ax.yaxis.set_minor_locator(MultipleLocator(0.125))
+
+#ax.xaxis.set_major_formatter (FormatStrFormatter("%3.1f"))
+#ax.yaxis.set_major_formatter (FormatStrFormatter("%3.2f"))
+
+#######################
+# save as pdf and png #
+#######################
+if args.tofile:
+    print('saving to pdf')
+    plt.savefig('plot.pdf')
+    plt.close()
+    call(["pdf2png.sh", 'plot.pdf'])
+else:
+    plt.show()

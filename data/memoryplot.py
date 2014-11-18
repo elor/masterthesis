@@ -42,7 +42,7 @@ else:
 import matplotlib.pyplot as plt
 import numpy as np
 
-import sys, re
+import sys, re, math
 from subprocess import call
 
 import colorsys
@@ -68,8 +68,8 @@ colormaps = {
     'default' : lambda n: hls_colormap(n, False),
 }
 
-numfiles = len(args.files)
-if args.bar and len(args.files) > 0:
+numfiles = len(args.files)+1
+if args.bar and numfiles > 0:
     if numfiles == 1:
         xright = 0.5
     else:
@@ -78,6 +78,13 @@ if args.bar and len(args.files) > 0:
     xwidth = (xright - xleft) / numfiles
 
 colors = colormaps['default'](numfiles)
+
+xmin=1e4
+xmax=5e9
+base=1.02
+sizes = [base**x for x in range(int(math.log(xmin)/math.log(base)), int(math.log(xmax)/math.log(base)))]
+data = [ 253+x*94/1024**2 for x in sizes]
+plt.plot(sizes, data, '-', color=colors(0), label='Analytisch')
         
 for index, filename in enumerate(args.files):
     data = np.genfromtxt(filename)
@@ -85,12 +92,9 @@ for index, filename in enumerate(args.files):
     tex_compatible_filename = filename.encode('string-escape').replace('_', '\_')
     if args.bar:
         xoffset = xleft + xwidth*index
-        plt.bar(data[args.xcolumn]+xoffset, data[args.ycolumn], width=xwidth, color=colors(index), label=tex_compatible_filename)
+        plt.bar(data[args.xcolumn]+xoffset, data[args.ycolumn], width=xwidth, color=colors(index+1), label=tex_compatible_filename)
     else:
-        plt.plot(data[args.xcolumn], data[args.ycolumn], args.linestyle, color=colors(index), label=tex_compatible_filename)
-
-
-    args.linestyle = '^'
+        plt.plot(data[args.xcolumn], data[args.ycolumn], args.linestyle, color=colors(index+1), label=tex_compatible_filename)
 
 ###############
 # show legend #
@@ -117,7 +121,7 @@ if args.yrange:
 ##################################
 # adjust plot position on canvas #
 ##################################
-plt.subplots_adjust(bottom=0.22, left=0.19)
+plt.subplots_adjust(bottom=0.22, left=0.17)
 plt.minorticks_on()
 
 #########################

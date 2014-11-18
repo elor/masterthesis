@@ -5,19 +5,19 @@ import argparse
 #########################
 # the magical functions #
 #########################
-def pmax(size, workerdensity=0.1, Tmd=5, TE=0.03, mdsize=37):
+def pmax(size, workerdensity=1.0, Tmd=5, TE=0.03, mdsize=37):
 # too accurate version:    return min(math.ceil(math.floor(size/mdsize)**2 * workerdensity), Tmd/TE)
     return min(pmax1(size, workerdensity, Tmd, TE, mdsize), pmax2(size, workerdensity, Tmd, TE, mdsize))
 
-def pmax1(size, workerdensity=0.1, Tmd=5, TE=0.03, mdsize=37):
+def pmax1(size, workerdensity=1.0, Tmd=5, TE=0.03, mdsize=37):
 # too accurate version:    return min(math.ceil(math.floor(size/mdsize)**2 * workerdensity), Tmd/TE)
     return math.ceil(math.floor((size/mdsize)**2) * workerdensity)
 
-def pmax2(size, workerdensity=0.1, Tmd=5, TE=0.03, mdsize=37):
+def pmax2(size, workerdensity=1.0, Tmd=5, TE=0.03, mdsize=37):
 # too accurate version:    return min(math.ceil(math.floor(size/mdsize)**2 * workerdensity), Tmd/TE)
     return math.floor(Tmd/TE)
 
-def workerdensity(size, maxdensity=0.1, Tmd=5, TE=0.03, mdsize=37):
+def workerdensity(size, maxdensity=1.0, Tmd=5, TE=0.03, mdsize=37):
     return pmax(size, maxdensity, Tmd, TE, mdsize) / pmax1(size, maxdensity, Tmd, TE, mdsize)
 
 ################
@@ -105,7 +105,7 @@ xmin=100
 xmax=50000
 base=1.02
 sizes = [base**x for x in range(int(math.log(xmin)/math.log(base)), int(math.log(xmax)/math.log(base)))]
-data = [ 0.4*workerdensity(x, TE=0.05, Tmd=5) for x in sizes ]
+data = [ 0.3*workerdensity(x, maxdensity=0.2, TE=0.03, Tmd=5) for x in sizes ]
 plt.plot(sizes, data, '-', color='black', label=r'analytisch')
         
 for index, filename in enumerate(args.files):
@@ -145,7 +145,7 @@ if args.yrange:
 ##################################
 # adjust plot position on canvas #
 ##################################
-plt.subplots_adjust(bottom=0.22, left=0.19)
+plt.subplots_adjust(bottom=0.22, left=0.17)
 plt.minorticks_on()
 
 #########################

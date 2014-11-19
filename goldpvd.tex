@@ -8,6 +8,7 @@ Die Zielsetzung für die Untersuchungen der Gold-PVD bestehen in der Voruntersuc
 Die genutzte EAM-Potentialparametrisierung wird mit dem LAMMPS-Paket\cite{plimpton_lammps_2014} verbreitet, basiert aber auf Parametern von \textsc{Foiles et al.}\cite{foiles_embedded-atom-method_1986}, die für die Einbettung einzelner Atome in Bulk- und Oberflächensysteme optimiert wurden und somit den Abscheidungsprozess auf atomistischer Ebene ideal darstellen sollten.
 
 \subsection{Voruntersuchungen}
+\label{goldpreparation}
 
 Zur Validierung grundlegender Materialeigenschaften von kristallinem Gold wurden Bindungslängen, Dichten und Koordinationszahlen aus einer relaxierten kristallinen Phase untersucht und mit experimentellen Werten\cite{haynes_crc_2011} verglichen (Tabelle~\ref{tab:goldpreresults}).
 Eine gesammelte Übersicht der experimentellen Werte ist in Anhang~\ref{appendix_constants} zu finden.
@@ -290,7 +291,7 @@ Aufgrund des Wachstums von Schichten unterschiedlicher Dicke ist ein direkter Ve
   \end{threeparttable}
 \end{table}
 
-Zuletzt zeigt die Auswertung der vom Hostprozess verbrauchten Ressourcen  einen Speicherverbrauch von $\text{RAM} = \SI{253}{\mebi\byte} + \SI{94}{\byte} \cdot N_\text{Atome}$, womit auch große Simulationen mit \num{1.9e9} Atomen mit nur \SI{186}{\gibi\byte} Arbeitsspeicher durchgeführt werden können (Abbildung~\ref{fig:goldscala-b}).
+Zuletzt zeigt die Auswertung der vom Hostprozess verbrauchten Ressourcen einen Speicherverbrauch von $\text{RAM} = \SI{253}{\mebi\byte} + \SI{94}{\byte} \cdot N_\text{Atome}$, womit auch große Simulationen mit \num{1.9e9} Atomen mit nur \SI{186}{\gibi\byte} Arbeitsspeicher durchgeführt werden können (Abbildung~\ref{fig:goldscala-b}).
 Somit stellt der verfügbare Arbeitsspeicher aktuell nur ein untergeordnetes Kriterium dar, jedoch spiegelt sich diese Größe auch in den atomistischen Dateien wider, die von Parsivald erzeugt werden, und somit nicht mehr effizient ausgewertet werden können, weshalb eine Auswertung zur Ausführungszeit notwendig wäre.
 
 Somit bestätigen sich einige Vorhersagen aus Abschnitt~\ref{runtime}, jedoch sind weitere Untersuchungen, etwa hinsichtlich der Ereignis-Laufzeit $T_\text{E}$, für einen umfassenden Vergleich notwendig.

@@ -1,27 +1,25 @@
 \section{Kupfer-PVD}
 \label{copperpvd}
 
-Mit der Kupfer-PVD wurde ein zweiter Metall-PVD-Prozess auf das Parsivald-Modell angepasst und unter der Zielsetzung simuliert, die Anwendbarkeit verschiedener Potentialparametrisierungen zu prüfen.
-Der Prozess ähnelt dem Gold-Prozess in seinen Parametern, jedoch konnten viele verschiedene Parametersätze für Kupferoberflächen, -schmelzen und -legierungen gefunden werden, von denen einige Hinweise auf die Nicht-Darstellbarkeit der reinen Metallsysteme enthalten\cite{mendelev_development_2009}\cite{mendelev_using_2007}.
+Anhand der von Kupfer-PVD wurde die Abscheidung eines weiteren fcc-Metalls mit Parsivald simuliert, wofür zuvor verschiedene EAM-Parametersätze untersucht wurden (Tabelle~\ref{tab:copperpots}).
+Für diese Parametersätze wird eine kurze Voruntersuchung durchgeführt, bevor mit einer kleinen Auswahl von ihnen Abscheidungsprozesse mit Parsivald simuliert werden.
 
-Aus diesem Grund ist eine einfache Voruntersuchung der verfügbaren Parametersätze notwendig, anhand derer Kandidaten für Parsivald für vollständige Abscheidungssimulationen gesucht werden.
-
-\begin{table}
+\begin{table}[bhp]
   \oddrowcolors
   \caption{Untersuchte EAM-Parametrisierungen für Kupfersysteme}
   \label{tab:copperpots}
   \begin{tabularx}{\textwidth}{|lXc|}
     \hline
-    \textbf{Bezeichnung}        & \textbf{Anwendung \& Kommentare}                                             & \textbf{Ref.}                            \\
+    \textbf{Bezeichnung}                  & \textbf{Anwendung \& Kommentare}                                            & \textbf{Ref.}                           \\
     \hline
-    CuAg.eam.alloy              & struktur. und thermodyn. Eigenschaften von \ce{Cu-Ag}                        & \cite{williams_embedded-atom_2006}       \\
-    cu\_ag\_ymwu.eam.alloy      & Mono-, Di-, Trimere und Inseln von \ce{Cu} auf \ce{Ag}                       & \cite{wu_cu/ag_2009}                     \\
-    Cu\_smf7.eam                & Oberflächen von \ce{Ni-Cu}-Legierungen bei \SI{800}{\kelvin}                 & \cite{foiles_calculation_1985}           \\
-    Cu\_u3.eam                  & Oberflächen und Bulksysteme verschiedener Legierungen                        & \cite{foiles_embedded-atom-method_1986}  \\
-    Cu\_u6.eam                  & Aktivierungsenergie für Eigendiffusionen                                     & \cite{adams_self-diffusion_1989}         \\
-    Cu-Zr\_2.eam.fs             & Flüssige und amorphe \ce{Cu-Zr}-Legierungen                                  & \cite{mendelev_development_2009}         \\
-    Cu-Zr.eam.fs                & Flüssige und amorphe \ce{Cu-Zr}-Legierungen                                  & \cite{mendelev_using_2007}               \\
-    Mendelev\_Cu2\_2012.eam.fs  & Unterkühlte \ce{Al-Cu}-Schmelzen. Basiert auf \cite{mendelev_analysis_2008}  & \cite{becker_interatomic_2014}                 \\
+    \pot{CuAg.eam.alloy}                  & struktur. und thermodyn. Eigenschaften von \ce{Cu-Ag}                       & \cite{williams_embedded-atom_2006}      \\
+    \pot{cu\_ag\_ymwu.eam.alloy}          & Mono-, Di-, Trimere und Inseln von \ce{Cu} auf \ce{Ag}                      & \cite{wu_cu/ag_2009}                    \\
+    \pot{Cu\_smf7.eam} \qquad(\pot{smf7}) & Oberflächen von \ce{Ni-Cu}-Legierungen bei \SI{800}{\kelvin}                & \cite{foiles_calculation_1985}          \\
+    \pot{Cu\_u3.eam} \qqquad(\pot{u3})    & fcc-Metalle und Legierungen                                                 & \cite{foiles_embedded-atom-method_1986} \\
+    \pot{Cu\_u6.eam} \qqquad(\pot{u6})    & Aktivierungsenergie für Eigendiffusionen                                    & \cite{adams_self-diffusion_1989}        \\
+    \pot{Cu-Zr\_2.eam.fs}                 & Flüssige und amorphe \ce{Cu-Zr}-Legierungen                                 & \cite{mendelev_development_2009}        \\
+    \pot{Cu-Zr.eam.fs}                    & Flüssige und amorphe \ce{Cu-Zr}-Legierungen                                 & \cite{mendelev_using_2007}              \\
+    \pot{Mendelev\_Cu2\_2012.eam.fs}      & Unterkühlte \ce{Al-Cu}-Schmelzen. Basiert auf \cite{mendelev_analysis_2008} & \cite{becker_interatomic_2014}          \\
     \hline
   \end{tabularx}
 
@@ -29,34 +27,28 @@ Aus diesem Grund ist eine einfache Voruntersuchung der verfügbaren Parametersä
 
 \subsection{Voruntersuchungen}
 
-Als Vorbetrachtung für die Anwendbarkeit in Abscheidungssimulationen wurden Koordinationszahlen, Bindungslängen und Dichten mit allen Parametersätzen ermittelt und mit experimentellen Daten verglichen.
-Die Ergebnisse stimmen im Allgemeinen gut mit experimentellen Werten überein (Tabelle~\ref{tab:copperpreresults}), zeigt aber für cu\_ag\_ymwu.eam.alloy eine Abweichung in der Bindungslänge von \SI{3.25}{\percent}, die zu einer Dichteabweichung von \SI{10.4}{\percent} führt.
-Die meisten anderen Parametersätze unterschätzen die Bindungslänge nur leicht, mit Ausnahme der mit LAMMPS verbreiteten Dateien (smf7, u3, u6), welche ideale strukturelle Eigenschaften produzieren.
-Diese wurden in den weiteren Simulationen aufgrund der guten strukturellen Übereinstimmung sowie ihrer Bewährtheit in Kombination mit LAMMPS zu Rate gezogen.
+Die untersuchten Parametersätze unterscheiden sich in ihren beabsichtigten Anwendungszwecken, die von der Darstellung von kristallinem Kupfer über Legierungen bis zu Metallschmelzen reichen.
+Wie bei den Voruntersuchungen für Gold-PVD zuvor (Abschnitt~\ref{goldpreparation}) wurde eine Bestimmung der Koordinationszahl, Bindungslänge und Dichte von kristallinem Kupfer durchgeführt und die erhaltenen Werte mit Literaturwerten\cite{haynes_crc_2011} verglichen.
 
-\todo{Satz nochmal anschauen}Mit den untersuchten Parametrisierungen wird der Schmelzpunkt stark überschätzt, mit Ausnahme von cu\_ag\_ymwu.eam.alloy, mit deren Nutzung der Schmelzpunkt um 300K in Simulationen unterschätzt wird (Abbildung~\ref{fig:copperthermo}).
-Hier zeigt sich die Eigenschaft der Molekulardynamik, jeweils nur für ein enges Anwendungsgebiet passende Ergebnisse zu liefern.
-Wie Tabelle~\ref{tab:copperpots} zu entnehmen ist, wurden die verfügbaren Parametersätze nicht für thermodynamische Untersuchungen angepasst und unterstützen diese somit nicht, doch werden solche extremen Temperaturen in den durchgeführten Simulationen ohnehin nicht erreicht.
-
-\begin{table}
+\begin{table}[b!]
   \begin{threeparttable}
     \oddrowcolors
     \caption{Vergleich struktureller Eigenschaften von Kupfer mit Literaturdaten}
     \label{tab:copperpreresults}
     \begin{tabularx}{\textwidth}{|Xrrrrr|}
       \hline
-      \textbf{Parametersatz}      &  \textbf{Koord.}  &  \multicolumn{2}{c}{\textbf{Bindungslänge}}  ~  ~                       &  \textbf{Dichte}    &  ~                       \\
+      \textbf{Parametersatz}           & \textbf{Koord.} & \multicolumn{2}{c}{\textbf{Bindungslänge}}  ~  ~ & \textbf{Dichte}        & ~                                          \\
       \hline
-      Referenz                    &  \num{12.00}      &  \SI{2.556}{\angstrom}                       &  ~                       &  \SI{8.92}{\gpcc}   &  ~                       \\
-      CuAg.eam.alloy              &  \num{12.09}      &  \SI{2.559}{\angstrom}                       &  (\SI{-0.12}{\percent})  &  \SI{8.893}{\gpcc}  &  (\SI{-0.30}{\percent})  \\
-      cu\_ag\_ymwu.eam.alloy      &  \num{12.03}      &  \SI{2.473}{\angstrom}                       &  (\SI{-3.25}{\percent})  &  \SI{9.846}{\gpcc}  &  (+\SI{10.4}{\percent})  \\
-      Cu\_smf7.eam                &  \num{12.03}      &  \SI{2.558}{\angstrom}                       &  (\SI{+0.08}{\percent})  &  \SI{8.908}{\gpcc}  &  (\SI{-0.13}{\percent})  \\
-      Cu\_u3.eam                  &  \num{12.00}      &  \SI{2.558}{\angstrom}                       &  (\SI{+0.08}{\percent})  &  \SI{8.915}{\gpcc}  &  (\SI{-0.06}{\percent})  \\
-      Cu\_u6.eam                  &  \num{12.00}      &  \SI{2.558}{\angstrom}                       &  (\SI{+0.08}{\percent})  &  \SI{8.910}{\gpcc}  &  (\SI{-0.11}{\percent})  \\
-      CuNi.eam.alloy              &  \num{12.10}      &  \SI{2.559}{\angstrom}                       &  (\SI{-0.12}{\percent})  &  \SI{8.895}{\gpcc}  &  (\SI{-0.28}{\percent})  \\
-      Cu-Zr\_2.eam.fs             &  \num{12.05}      &  \SI{2.575}{\angstrom}                       &  (\SI{-0.74}{\percent})  &  \SI{8.738}{\gpcc}  &  (\SI{-2.04}{\percent})  \\
-      Cu-Zr.eam.fs                &  \num{12.09}      &  \SI{2.575}{\angstrom}                       &  (\SI{-0.74}{\percent})  &  \SI{8.738}{\gpcc}  &  (\SI{-2.04}{\percent})  \\
-      Mendelev\_Cu2\_2012.eam.fs  &  \num{12.07}      &  \SI{2.575}{\angstrom}                       &  (\SI{-0.74}{\percent})  &  \SI{8.747}{\gpcc}  &  (\SI{-1.94}{\percent})  \\
+      Referenz                         & \num{12.00}     & \SI{2.556}{\angstrom}                            & ~                      & \SI{8.96}{\gpcc}  & ~                      \\
+      \pot{CuAg.eam.alloy}             & \num{12.09}     & \SI{2.559}{\angstrom}                            & (\SI{-0.12}{\percent}) & \SI{8.893}{\gpcc} & (\SI{-0.75}{\percent}) \\
+      \pot{cu\_ag\_ymwu.eam.alloy}     & \num{12.03}     & \SI{2.473}{\angstrom}                            & (\SI{-3.25}{\percent}) & \SI{9.846}{\gpcc} & (\SI{+9.89}{\percent}) \\
+      \pot{Cu\_smf7.eam}               & \num{12.03}     & \SI{2.558}{\angstrom}                            & (\SI{+0.08}{\percent}) & \SI{8.908}{\gpcc} & (\SI{-0.58}{\percent}) \\
+      \pot{Cu\_u3.eam}                 & \num{12.00}     & \SI{2.558}{\angstrom}                            & (\SI{+0.08}{\percent}) & \SI{8.915}{\gpcc} & (\SI{-0.50}{\percent}) \\
+      \pot{Cu\_u6.eam}                 & \num{12.00}     & \SI{2.558}{\angstrom}                            & (\SI{+0.08}{\percent}) & \SI{8.910}{\gpcc} & (\SI{-0.56}{\percent}) \\
+      \pot{CuNi.eam.alloy}             & \num{12.10}     & \SI{2.559}{\angstrom}                            & (\SI{-0.12}{\percent}) & \SI{8.895}{\gpcc} & (\SI{-0.73}{\percent}) \\
+      \pot{Cu-Zr\_2.eam.fs}            & \num{12.05}     & \SI{2.575}{\angstrom}                            & (\SI{-0.74}{\percent}) & \SI{8.738}{\gpcc} & (\SI{-2.48}{\percent}) \\
+      \pot{Cu-Zr.eam.fs}               & \num{12.09}     & \SI{2.575}{\angstrom}                            & (\SI{-0.74}{\percent}) & \SI{8.738}{\gpcc} & (\SI{-2.48}{\percent}) \\
+      \pot{Mendelev\_Cu2\_2012.eam.fs} & \num{12.07}     & \SI{2.575}{\angstrom}                            & (\SI{-0.74}{\percent}) & \SI{8.747}{\gpcc} & (\SI{-2.38}{\percent}) \\
       \hline
     \end{tabularx}
 
@@ -67,76 +59,97 @@ Wie Tabelle~\ref{tab:copperpots} zu entnehmen ist, wurden die verfügbaren Param
   \end{threeparttable}
 \end{table}
 
-\begin{figure}
+Die Ergebnisse stimmen gut mit Literaturwerten überein (Tabelle~\ref{tab:copperpreresults}), zeigen aber eine größere Abweichung für \pot{cu\_ag\_ymwu.eam.alloy}, die sich wahrscheinlich aus der beabsichtigten Anwendung für nanoskopische Kupfer-Partikel anstelle von Bulkmaterialien resultiert.
+Die anderen Parametersätze zeigen für die Dichte und die Bindungslänge eine Abweichung unterhalb von \SI{1}{\percent}, wobei die mit LAMMPS verbreiteten Dateien \pot{smf7}, \pot{u3} und \pot{u6} ideale strukturelle Eigenschaften beschreiben.
+Da diese drei Parametersätze, welche von der Arbeitsgruppe um \textsc{S.~M.~Foiles}\cite{foiles_calculation_1985,foiles_embedded-atom-method_1986,adams_self-diffusion_1989} stammen, auf die Beschreibung von fcc-Metallen, ihren Oberflächen und Legierungen ausgelegt sind, werden sie in den nachfolgenden Parsivald-Simulationen genutzt.
+
+\subsection{Thermodynamische Eigenschaften}
+
+Eine Untersuchung der thermodynamischen Eigenschaften der Parametersätze, wie sie auch für die Gold-Parametrisierung durchgeführt wurde (Abschnitt~\ref{goldthermo}), zeigt eine Überschätzung der Schmelztemperatur um ca. \SI{200}{\kelvin}, mit Ausnahme von \pot{cu\_ag\_ymwu.eam.alloy}.
+Somit zeigt sich\todo{Satz nochmal lesen}, dass Parametrisierungen für die Beschreibung struktureller Eigenschaften in der Regel keine thermodynamischen Eigenschaften darstellen, oder nur für eine Auswahl von Systemen angepasst wurden.
+Unterhalb von \SI{1000}{\kelvin} stimmen die meisten Dichten mit Referenzwerten überein, die über den linearen Ausdehnungskoeffizienten von $\alpha = \SI{16.5e-6}{\per\kelvin}$\cite{haynes_crc_2011} berechnet wurden.
+Die Referenzwerte stammen aus den Referenzen~\cite{haynes_crc_2011,brillo_density_2006} (Siehe Anhang~\ref{appendix_constants}).
+
+\todo{Legenden (Parametersätze und Temperatur) + linke Grafik neu (Legende überlagert sich). Die Grafiken sind klein.}
+
+\begin{figure}[H]
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{7cm}
   \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{Cu_trelax_all}
-    \subcaption{Dichteabhängigkeit von der Temperatur}
+    \includegraphics[width=\textwidth]{Cu_smf7_meltingpoint}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{Cu_smf7_meltingpoint}
-    \subcaption{Dichteabhängigkeit bei smf7 in Abh. von $t_\text{relax}$}
+    \includegraphics[width=\textwidth]{missing}
   \end{subfigure}
   \caption[Vergleich der Schmelztemperatur von Kupfer]{
     Vergleich der Schmelztemperatur von Kupfer.
     Experimentelle Dichte:~\cite{brillo_density_2006}
   }
   \label{fig:copperthermo}
-  \todoline{Legenden (Parametersätze und Temperatur) + linke Grafik neu (Legende überlagert sich). Die Grafiken sind klein.}
+\end{figure}
+
+\begin{figure}[H]
+  \captionsetup[subfigure]{singlelinecheck=false}
+  \def\subfigwidth{7cm}
+  \begin{subfigure}[t]{\subfigwidth}
+    \includegraphics[width=\textwidth]{Cu_trelax_all}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{\subfigwidth}
+    \includegraphics[width=\textwidth]{missing}
+  \end{subfigure}
+  \caption[Vergleich der Schmelztemperatur von Kupfer]{
+    Vergleich der Schmelztemperatur von Kupfer.
+    Experimentelle Dichte:~\cite{brillo_density_2006}
+  }
+  \label{fig:copperthermo}
 \end{figure}
 
 \subsection{Prozess-Simulation}
 \label{coppersimulation}
 
-\begin{figure}
+In einer PVD-Simulation soll zunächst überprüft werden, ob Kupfer im PVD-Modus von Parsivald mit den gleichen Eigenschaften wie für den Gold-Prozess abgeschieden werden kann.
+Weiterhin werden die abgeschiedenen Schichten auf Unebenheiten, Fehlstellen und Hohlräume untersucht, um Aussagen über deren Qualität zu gewinnen.
+Durch die Ähnlichkeiten zwischen Kupfer und Gold wurden die Prozess-Parameter der Gold-PVD für den Kupfer-Prozess adaptiert.
+Unterschiede liegen in den Auftreffenergien von \SI{5.4}{\electronvolt}, die ebenfalls vom Thermostat vor dem eigentlichen Auftreffen der Atome auf der Oberfläche noch weiter abgeschwächt werden.
+
+\begin{figure}[b!]
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{0.49\textwidth}
   \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{Cu_abortstatplot}
-    \subcaption{Abbruchraten von Kupfer-Simulationen}
+    \includegraphics[width=\textwidth]{Cu_thickness}
+    \subcaption{Zeitliche Entwicklung der Schichtdicke}
     \label{fig:copperparsivald-a}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{Cu_thickness}
-    \subcaption{Zeitliche Entwicklung der Schichtdicke}
-    \label{fig:copperparsivald-b}
-  \end{subfigure}
-  \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{Cu_roughness}
     \subcaption{Zeitliche Entwicklung der Rauheit}
-    \label{fig:copperparsivald-c}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{Cu_eventhistogram}
-    \subcaption{Histogramm gleichzeitiger Ereignisse}
-    \label{fig:copperparsivald-d}
+    \label{fig:copperparsivald-b}
   \end{subfigure}
   \caption{Simulationen von Kupfer-PVD auf \SI{200x200x24}{\angstrom} großen Substraten}
   \label{fig:copperparsivald}
 \end{figure}
 
-In einer PVD-Simulation soll zunächst überprüft werden, ob Kupfer im PVD-Modus von Parsivald fehlerfrei abgeschieden werden kann.
-Weiterhin werden die abgeschiedenen Schichten auf Unebenheiten, Fehlstellen und Hohlräume untersucht, um Aussagen über deren Qualität zu gewinnen.
-Durch die Ähnlichkeiten zwischen Kupfer und Gold wurden die Prozess-Parameter der Gold-PVD für den Kupfer-Prozess adaptiert.
-Unterschiede liegen in den Auftreffenergien von \SI{5.4}{\electronvolt}, die ebenfalls oberhalb experimenteller Werte liegen und vom Thermostat vor dem eigentlichen Auftreffen der Atome auf der Oberfläche noch weiter abgeschwächt werden.
+Auch bei Kupfer-PVD zeigt die Simulation epitaktisches Wachstum glatter Schichten (Abbildungen~\ref{fig:copperparsivald-a} und~\ref{fig:copperparsivald-b}), die bei genauer Prüfung zwar keine Gitter-Fehlstellen, aber gelegentlich einzelne Hohlräume mit einem Durchmesser von ca. \SI{1}{\nano\meter} beinhalten.
+Sie bilden sich im Verlauf der Simulation als kraterförmige Vertiefungen auf der Oberfläche, die sich verjüngen, bevor sie von der aufwachsenden Schicht zu Hohlräumen abgeschlossen werden (Abbildung~\ref{fig:coppercrater}).
 
-\todoline{So formulieren, dass sekundäre Sputterprozese (nicht direkt nennen) eigentlich gut sind}
-Auch bei Kupfer-PVD zeigt die Simulation epitaktisches Wachstum glatter Schichten.
-Zu Beginn der Abscheidung ergeben sich extreme Abbruchraten von \SI{25}{\percent}, die durch Herausschlagen einzelner Oberflächenatome bei Ankunft des gesputterten Atomes verursacht werden.
+Betrachtungen der MD-Simulationen für die mit der Kraterbildung verbundenen Ereignisse zeigen, dass bei Ankunft des gesputterten Atomes seine kinetische Energie hauptsächlich an ein anderes Teilchen übertragen wird, das dadurch aus der Oberfläche geschlagen wird.
+Derartige Prozesse werden bei PVD-Prozessen bei höheren Energien erwartet\cite{mattox_handbook_2010}\todo{Ref auf ein besseres Paper?}, doch wurde es für die geringen Teilchenenergien in der Simulation \todo{phrasing}nicht erwartet.
+Untersuchungen der Oberflächenkonfiguration zeigen das Vorkommen perfekt kristalliner Flächen am Abscheidungsort, die sich auch im späteren Simulationsverlauf mit einer geringen Wahrscheinlichkeit bilden können.
+Parsivald kann mit herausgeschlagenen Atomen in der aktuellen Version nicht umgehen, weshalb das Ereignis als fehlgeschlagen markiert wird und in den Abbruchraten erkennbar sind, die das Verhältnis von fehlgeschlagenen zu ausgewählten Ereignissen beschreiben.
+Die Kraterbildung ist auch in den Rauheiten (Abbildung~\ref{fig:copperparsivald-b}) als leichte Zunahme erkennbar, doch liegt die RMS-Rauheit mit ca. \SI{1.5}{\angstrom} ebenfalls unterhalb der Bindungslänge von \SI{2.556}{\angstrom}.
+%% Es zeigt sich, dass für ein solches Verhalten eine ideale Kristalloberfläche im Umkreis von ca. \SI{3}{\nano\meter} vorhanden sein muss, auf der das Atom direkt zwischen zwei benachbarten Atomen aufkommen muss, damit eines dieser Atome die Energie aufnimmt und an einen Nachbarn abgibt, der dadurch aus der Oberfläche geschlagen wird.
+
+Dadurch werden auch die hohen Abbruchraten von \SI{25}{\percent} zu Beginn der Simulation auf dem kristallinen Substrat erklärt, da die Abbruchrate das Verhältnis der fehlgeschlagenen zu den ausgewählten Ereignissen bezeichnet.
 Bereits nach wenigen Ereignissen sinkt die Abbruchrate auf \SI{3}{\percent}, was auf eine Reduktion des Effektes durch thermische Relaxation und Bedeckung der Oberfläche mit temporären Off-Lattice-Atomen hinweist.
-Die kritische Bedeckung dafür liegt zwischen \SI{0.034}{\per\nano\meter\squared} und \SI{0.074}{\per\nano\meter\squared} und deckt sich somit mit der maximalen MD-Ereignisdichte von \SI{0.073}{\per\nano\meter\squared}.
-Das deutet darauf hin, dass perfekte Gitterkonfigurationen nicht robust gegenüber gerichteten Energieeinträgen sind, kleine Störungen des Gitters aber zur gleichmäßigeren Verteilung der eingebrachten Energien auf die umliegenden Atome führen.
+Die kritische Bedeckung dafür liegt zwischen \SI{0.034}{\per\nano\meter\squared} und \SI{0.074}{\per\nano\meter\squared} und deckt sich somit mit der maximalen MD-Ereignisdichte dieses Prozesses von \SI{0.073}{\per\nano\meter\squared}, die sich aus der kompaktesten Anordnung von MD-Boxen auf der Oberfläche ergibt.
 
-Im weiteren Verlauf der Simulation liegt die Abbruchrate unterhalb von \SI{2}{\percent} (Abbildung~\ref{fig:copperparsivald-a}), unterliegt aber weiteren Schwankungen, die mit der RMS-Rauheit korrelieren (Abbildung~\ref{fig:copperparsivald-c}), welche durch Unebenheiten der Oberfläche auf der Nanometer-Skala dominiert wird.
-Mit einem nahezu konstanten RMS-Wert um \SI{1}{\angstrom} sind die gewachsenen Schichten durchgehend glatt, mit Ausnahme einzelner Simulationsläufe.
-
-Eines der untersuchten Cu\_u3.eam-Systeme bildet beispielsweise ab Schritt 70 eine \SI{2.6}{\nano\meter} breite und \SI{3.0}{\nano\meter} tiefe kraterförmige Vertiefung aus, die schließlich zu einem \SI{1}{\nano\meter} großen Hohlraum abgeschlossen wird (Abbildung~\ref{fig:coppercrater}).
-Die Auswirkungen dieses Kraters auf die Rauheit sind in Abbildung~\ref{fig:copperparsivald-c}  klar als stetige Zunahme, gefolgt von einer schlagartigen Abnahme in Schritt 96, und in den Abbruchraten (Abbildung~\ref{fig:copperparsivald-a}) als Anstieg zwischen den Schritten 60 und 90 erkennbar, haben aber keinen Einfluss auf die Wachstumsrate (Abbildung~\ref{fig:copperparsivald-b}).
-Das gleiche Verhalten zeigt sich in weiteren Simulationen auch für die anderen Parametersätze und ist nicht auf Cu\_u3.eam begrenzt.
+Im Experiment zeigt sich für Kupfer ebenfalls ein epitaktisches Wachstum monokristalliner Schichten auf kristallinen Substraten, das jedoch stärker als bei Gold von der Abscheidungstemperatur und der Schichtdicke abhängig ist\cite{gottsche_uber_1956}.
+Dies weist auf eine thermische Relaxierung der Schicht hin, die von Parsivald aktuell nicht effizient beschrieben werden kann.
+Im Gegenzug können sich aufgrund der kleinen MD-Boxen in Parsivald-Simulationen keine Nanopartikeln auf der Oberfläche bilden, wie sie etwa das polykristalline Gold-Schichtwachstum dominieren, wodurch Störungen der kristallinen Phase von vornherein methodisch unterbunden werden.
+Deshalb sind Abscheidungssimulationen auf polykristallinen und amorphen Substraten notwendig, die jedoch ebenfalls den Rahmen der Arbeit gesprengt hätten.
 
 \begin{figure}
 
@@ -174,16 +187,37 @@ Das gleiche Verhalten zeigt sich in weiteren Simulationen auch für die anderen 
   \end{subfigure}
 
   \caption[Bildung und Abschluss eines Kupfer-Kraters]{
-    Bildung und Abschluss eines Kupfer-Kraters mit Cu\_u3.eam.\\
-    Seitenansicht der extrahierten Oberflächenatome (\SI{30x03}{\angstrom})
+    Bildung und Abschluss eines Kupfer-Kraters mit \pot{u3}.\\
+    Seitenansicht der extrahierten Oberflächenatome
   }
   \label{fig:coppercrater}
 \end{figure}
 
-\subsubsection{Maximale Ereignisdichte}
-Ergänzend ist in Abbildung~\ref{fig:copperparsivald-d} ein Histogramm der Zahl paralleler Ereignisse dargestellt.
-Die maximale Oberflächendichte der Ereignisse liegt bei der gewählten MD-Box-Größe von \SI{37x37}{\angstrom} bei \SI{0.073}{\per\nano\meter\squared}.
-Dem stehen beobachtete Maxima von \num{12} aktiven Ereignissen gegenüber, die einer Dichte von \SI{0.03}{\per\nano\meter\squared} und somit \SI{40}{\percent} maximaler Bedeckung entsprechen, wobei im Schnitt nur \num{5.3} Worker aktiv sind, was einer mittleren Bedeckung von \SI{18.5}{\percent} entspricht.
-Die \todo{Wort! -> Workerdichten}\todo{Workerdichte vorstellen}Bedeckungsdichten für Systeme unterschiedlicher Größe wurden bereits in Tabelle~\ref{tab:goldscalability} für Gold-Abscheidungen aufgelistet und zeigen ähnliche Werte für kleine Systeme, können für Substrate auf der Mikrometer-Skala mangels verfügbarer Rechenleistung jedoch nicht aufrecht erhalten werden.
+\subsection{Untersuchung der maximalen Workerdichte}
 
-\todoline{Joerg: Da du es für Gold so intensiv diskutiert hast, stellt sich hier auch die Frage nach dem Vergleich mit Experiment. Eventuell könnte man sich damit rausreden, dass man das am Beispiel von Gold so ausführlich gemacht hat und sich bei Kupfer eher auf den Vergleich verfügbarer MD-Parametrisierungen beschränkt}
+Ergänzend ist in Abbildung~\ref{fig:copperparsivald-d} ein Histogramm der Zahl paralleler Ereignisse dargestellt, aus der auf die Workerdichte geschlossen werden kann.
+Die Verteilung hat ihren Mittelwert bei $p = \num{6.3}$ mit dem Maximum von aktiven Prozessen bei $p_\text{peak} = \num{13}$, wobei der Hauptprozess bereits zu $p$ gezählt wurde.
+Dem steht eine analytisch ermittelte maximale Zahl von Prozessen mit $p_\text{max} = \num{30}$ gegenüber, die allerdings eine dichte Packung von MD-Boxen auf der Oberfläche voraus setzt.
+Durch die zufällige Auswahl der Ereignisorte und der Bewahrung der Reihenfolge der Ereignisse ergeben sich in Parsivald-Simulationen mittlere Workerdichten von $\rho_\text{worker} = \SI{18.5}{\percent}$\todo{so what?}.
+
+\begin{figure}
+
+  \captionsetup[subfigure]{justification=centering,singlelinecheck=false}
+  \def\subfigwidth{7cm}
+
+  \begin{subfigure}[t]{\subfigwidth}
+    \includegraphics[width=\textwidth]{Cu_abortstatplot}
+    \subcaption{Abbruchraten von Kupfer-Simulationen}
+    \label{fig:copperparsivald-c}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{\subfigwidth}
+    \includegraphics[width=\textwidth]{Cu_eventhistogram}
+    \subcaption{Histogramm gleichzeitiger Ereignisse}
+    \label{fig:copperparsivald-d}
+  \end{subfigure}
+  \caption{Simulationen von Kupfer-PVD auf \SI{200x200x24}{\angstrom} großen Substraten}
+  \label{fig:copperparsivald}
+\end{figure}
+
+\todoline{Abschnitt um einen Absatz kürzen?}

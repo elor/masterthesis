@@ -1,19 +1,13 @@
 \section{Silizium-PVD}
 \label{siliconpvd}
 
-\todoline{Jörg}
-Die Abscheidung amorpher Strukturen für durch Silizium-PVD soll unter Nutzung reaktiver Kraftfelder mit Parsivald simuliert werden.
-Nach Voruntersuchungen verschiedener ReaxFF-Para\-metrisierungen werden Abscheidungen auf kristallinen Silizium-Substraten unterschiedlicher Schnittebenen simuliert, die gleichartiges Wachstum zeigen, welches anhand einer ausgewählten Struktur untersucht wird.
-Anschließend werden Simulationen von Reaktionen der Siliziumdioxid-Precursor \ce{SiH4} und \ce{O2} präsentiert, welche zur \ce{SiO2}-CVD hinführen sollen.
+Mit Silizium soll ein weiteres PVD-Material untersucht werden, das im Gegensatz zu den bisher untersuchten Metallen, welche ungerichtete Bindungen aufbauen und damit die kristalline Strukturen bevorzugen, auf gerichteten Bindungen beruht.
+Deshalb werden reaktive Kraftfelder genutzt, welche auf einer expliziten Beschreibung gerichteter Bindungen über Bindungsordnungen benachbarter Atome basieren.
 
-\subsection{Potentialdateien}
+\subsection{Verfügbare ReaxFF-Parametrisierungen}
 
-\todoline{Neu schreiben: Kausalität beachten! Silizium -> gerichtete Bindungen -> Reax -> amorph}
-Die Wahl fiel dabei auf ReaxFF-Formulierungen, um neben EAM-Kraftfeldern, welche scheinbar epitaktisches Wachstum bevorzugen, auf eine Methode zurück zu greifen, die durch die Formulierung von Bindungsordnungen die Silizium-Atome an ihre Nachbarn bindet und so durch verminderte Mobilität amorphe Strukturen erzeugt.
-Da die ReaxFF-Formulierung erst innerhalb des letzten Jahrzehntes an Popularität gewonnen hat, sind die verfügbaren Potentiale auf einzelne Probleme angepasst und oftmals noch nicht in den Potentialdatenbanken zu finden.
-Tabelle~\ref{tab:siliconpotentials} listet die im Rahmen der Arbeit untersuchten ReaxFF-Parametrisierungen auf.
-
-Zudem lohnt sich die Untersuchung der ReaxFF-Parametrisierungen im Hinblick auf die Darstellbarkeit von Silan und Wasser sowie deren Reaktionen mit einander und mit Siliziumdioxid-Oberflächen, womit die umfassende Simulation eines CVD-Prozesses ermöglicht würde.
+Da die ReaxFF-Formulierung erst innerhalb des letzten Jahrzehntes an Popularität gewonnen hat, sind die verfügbaren Potentiale auf sehr spezielle Probleme angepasst und unterstützen meist entweder Bulkmaterialien oder Reaktionen zwischen Molekülen.
+Tabelle~\ref{tab:siliconpotentials} listet die im Rahmen der Arbeit untersuchten ReaxFF-Parametrisierungen auf, die in der Literatur gefunden werden konnten.
 
 \begin{table}[hb]
   \caption{Untersuchte ReaxFF-Parametrisierungen für Silizium- und Siliziumoxidsysteme}
@@ -21,29 +15,30 @@ Zudem lohnt sich die Untersuchung der ReaxFF-Parametrisierungen im Hinblick auf 
   \oddrowcolors
   \begin{tabularx}{1\textwidth}{|lXc|}
     \hline
-    \textbf{Bezeichnung} & \textbf{Anwendung \& Kommentare}                                                                          & \textbf{Ref.}                     \\
+    \textbf{Bezeichnung}  & \textbf{Anwendung \& Kommentare}                                                                          & \textbf{Ref.}                     \\
     \hline
-    Al\_AlO\_AlN         & \ce{Al}, \ce{Al2O3}, \ce{AlN}. Basiert auf einer Si-Parametrisierung                                      & \cite{plimpton_lammps_2014}       \\
-    chenoweth            & Zersetzung von Polydimethylsiloxane bei hohen Drücken und Temperaturen. Ergänzung von \ce{C-Si}-Bindungen & \cite{chenoweth_simulations_2005} \\
-    kulkarni             & Reaktion von Sauerstoff mit \ce{OH}-terminierten Siliziumoxid-Oberflächen                                 & \cite{kulkarni_oxygen_2013}       \\
-    lg                   & ``low gradients''. Siehe liu\_nitramines. Fehlerhafte Version aus LAMMPS                                  & \cite{liu_reaxff-lg:_2011}        \\
-    liu\_ettringite      & Verspannung von Ettringit (\ce{Ca6[Al(OH)6]2(SO4)3 26H2O}). Basiert auf Si-Parametrisierung               & \cite{liu_development_2012}       \\
-    liu\_nitramines      & Dichtebestimmung von Nitramin-Molekülen bei hohen Drücken. Dichte erhöht durch Van-der-Waals-Korrekturen  & \cite{liu_reaxff-lg:_2011}        \\
-    narayanan            & Präparation mit \ce{Li-Al}-Silikaten. Für Phasenübergänge von Eukryptit-Kristallen (\ce{LiAl[SiO4]})      & \cite{narayanan_reactive_2012}    \\
-    newsome              & Oxidation von \ce{SiC}-Oberflächen mit \ce{O2} und \ce{H2O} bei \SIrange{500}{5000}{\kelvin}              & \cite{newsome_oxidation_2012}     \\
-    nielson              & Reaktionskinetik an Metallkatalysatoren bei hohen Temperaturen                                            & \cite{nielson_development_2005}   \\
-    zhang                & Zersetzung energetischer Moleküle (Nitramin-Explosionen)                                                  & \cite{zhang_carbon_2009}          \\
+    \pot{Al\_Al0\_AlN}    & \ce{Al}, \ce{Al2O3}, \ce{AlN}. Basiert auf einer Si-Parametrisierung                                      & \cite{plimpton_lammps_2014}       \\
+    \pot{chenoweth}       & Zersetzung von Polydimethylsiloxane bei hohen Drücken und Temperaturen. Ergänzung von \ce{C-Si}-Bindungen & \cite{chenoweth_simulations_2005} \\
+    \pot{kulkarni}        & Reaktion von Sauerstoff mit \ce{OH}-terminierten Siliziumoxid-Oberflächen                                 & \cite{kulkarni_oxygen_2013}       \\
+    \pot{lg}              & ``low gradients''. Siehe liu\_nitramines. Fehlerhafte Version aus LAMMPS                                  & \cite{liu_reaxff-lg:_2011}        \\
+    \pot{liu\_ettringite} & Verspannung von Ettringit (\ce{Ca6[Al(OH)6]2(SO4)3 26H2O}). Basiert auf Si-Parametrisierung               & \cite{liu_development_2012}       \\
+    \pot{liu\_nitramines} & Dichtebestimmung von Nitramin-Molekülen bei hohen Drücken. Dichte erhöht durch Van-der-Waals-Korrekturen  & \cite{liu_reaxff-lg:_2011}        \\
+    \pot{narayanan}       & Präparation mit \ce{Li-Al}-Silikaten. Für Phasenübergänge von Eukryptit-Kristallen (\ce{LiAl[SiO4]})      & \cite{narayanan_reactive_2012}    \\
+    \pot{newsome}         & Oxidation von \ce{SiC}-Oberflächen mit \ce{O2} und \ce{H2O} bei \SIrange{500}{5000}{\kelvin}              & \cite{newsome_oxidation_2012}     \\
+    \pot{nielson}         & Reaktionskinetik an Metallkatalysatoren bei hohen Temperaturen                                            & \cite{nielson_development_2005}   \\
+    \pot{zhang}           & Zersetzung energetischer Moleküle (Nitramin-Explosionen)                                                  & \cite{zhang_carbon_2009}          \\
     \hline
   \end{tabularx}
 \end{table}
 
 \subsection{Voruntersuchungen}
 
-In Ergänzung zu den bisherigen Voruntersuchungen, die hauptsächlich aus Optimierungen und Relaxierungen von Kristallen bestanden, kommen hier auch Simulationen der Oberfläche und der amorphen Struktur hinzu, wie sie bereits in Abschnitt~\ref{mdmethods} vorgestellt wurden.
+In Ergänzung zu den bisherigen Voruntersuchungen, welche sich entsprechend der erwarteten Strukturen der abgeschiedenen Schichten auf die Beschreibung kristalliner Strukturen beschränkten, werden für die Silizium-Parametrisierungen auch die Eigenschaften amorpher Strukturen untersucht.
+Die verwendeten Methoden wurden bereits in Abschnitt~\ref{mdmethods} vorgestellt.
 Diese zusätzlichen Untersuchungen haben umfassendere Aussagen über die Anwendbarkeit der Parametrisierungen für vollständige Abscheidungssimulationen zum Ziel.
-Die Ergebnisse dieser Betrachtungen wurden in Tabelle~\ref{tab:siliconpreresults} zusammen gefasst und werden im Weiteren kurz diskutiert.
+Die Ergebnisse dieser Betrachtungen sind in Tabelle~\ref{tab:siliconpreresults} zusammen gefasst und werden im Weiteren kurz diskutiert.
 
-\begin{table}
+\begin{table}[th]
   \begin{threeparttable}
     \caption[Zusammenfassung der Voruntersuchungen für Silizium-Systeme]{
       Zusammenfassung der Voruntersuchungen für Silizium-Systeme.
@@ -54,18 +49,18 @@ Die Ergebnisse dieser Betrachtungen wurden in Tabelle~\ref{tab:siliconpreresults
     \oddrowcolors
     \begin{tabularx}{\textwidth}{|lCCCCCCC|}
       \hline
-      \textbf{Bezeichnung}    & LMP\tnote{a}    & c-\ce{Si} & c-\ce{SiO2} & a-\ce{Si} & \ce{SiH4} & \ce{+O2} & PVD\tnote{b} \\
-      \hline                % & LAMMPS & c-Si      & c-SiO2      & a-Si      & Silane    & +O2      & PVD          \\
-      Al\_AlO\_AlN            & \cmark & ~         & (\cmark)    &  \cmark   & \cmark    & ~        & \cmark       \\
-      chenoweth               & ~      & ~         & ~           &  ~        & ~         & ~        & ~            \\
-      kulkarni                & \cmark & \cmark    & \cmark      &  \cmark   & \cmark    & (\cmark) & \cmark       \\
-      lg                      & ~      & ~         & ~           &  ~        & ~         & ~        & ~            \\
-      liu\_ettringite         & \cmark & ~         & \cmark      &  \cmark   & ~         & ~        & \cmark       \\
-      liu\_nitramines         & ~      & ~         & ~           &  ~        & ~         & ~        & ~            \\
-      narayanan               & \cmark & ~         & \cmark      &  \cmark   & ~         & ~        & \cmark       \\
-      newsome                 & \cmark & ~         & (\cmark)    &  ~        & ~         & (\cmark) & \cmark       \\
-      nielson                 & \cmark & \cmark    & \cmark      &  \cmark   & \cmark    & ~        & \cmark       \\
-      zhang                   & \cmark & ~         & ~           &  ~        & \cmark    & \cmark   & ~            \\
+      \textbf{Bezeichnung}    & LMP\tnote{a} & c-\ce{Si} & c-\ce{SiO2} & a-\ce{Si} & \ce{SiH4} & \ce{+O2} & PVD\tnote{b} \\
+      \hline                % & LAMMPS       & c-Si      & c-SiO2      & a-Si      & Silane    & +O2      & PVD          \\
+      \pot{Al\_Al0\_AlN}      & \cmark       & ~         & (\cmark)    & \cmark    & \cmark    & ~        & \cmark       \\
+      \pot{chenoweth}         & ~            & ~         & ~           & ~         & ~         & ~        & ~            \\
+      \pot{kulkarni}          & \cmark       & \cmark    & \cmark      & \cmark    & \cmark    & (\cmark) & \cmark       \\
+      \pot{lg}                & ~            & ~         & ~           & ~         & ~         & ~        & ~            \\
+      \pot{liu\_ettringite}   & \cmark       & ~         & \cmark      & \cmark    & ~         & ~        & \cmark       \\
+      \pot{liu\_nitramines}   & ~            & ~         & ~           & ~         & ~         & ~        & ~            \\
+      \pot{narayanan}         & \cmark       & ~         & \cmark      & \cmark    & ~         & ~        & \cmark       \\
+      \pot{newsome}           & \cmark       & ~         & (\cmark)    & ~         & ~         & (\cmark) & \cmark       \\
+      \pot{nielson}           & \cmark       & \cmark    & \cmark      & \cmark    & \cmark    & ~        & \cmark       \\
+      \pot{zhang}             & \cmark       & ~         & ~           & ~         & \cmark    & \cmark   & ~            \\
       \hline
     \end{tabularx}
 
@@ -90,34 +85,36 @@ Die Ergebnisse dieser Betrachtungen wurden in Tabelle~\ref{tab:siliconpreresults
   \end{threeparttable}
 \end{table}
 
-\subsubsection{Kompatibilität mit der Molekulardynamiksoftware (LMP)}
+\subsubsection{Kompatibilität mit der Molekulardynamiksoftware LAMMPS (LMP)}
 
-Einige Potentialdateien sind aus verschiedenen Gründen nicht mit der aktuellen Version der LAMMPS-Bibliothek kompatibel, was sich in harten Abbrüchen des Programmes äußert und sie von weiteren Untersuchungen ausschließt.
-\todo{Fußnote verständlich machen}Andere Dateien lassen sich zwar laden und benutzen, äußern jedoch regelmäßige Warnungen über ihre van-der-Waals-Parameter, die aber nicht zu sonstigen Fehlern führen und meist nur Stickstoff- oder Platzhalteratome\footnote{Typischerweise beinhalten ReaxFF-Dateien wechselwirkungsfreie Platzhalterelemente unter dem Platzhalter-Element \ce{X} zur Festlegung wechselwirkungsfreier Atome in der Simulation} betrifft.
+Einige Potentialdateien sind aus unerfindlichen Gründen nicht mit der aktuellen Version der LAMMPS-Bibliothek kompatibel, was sich in harten Abbrüchen des Programmes äußert und sie von weiteren Untersuchungen ausschließt.
+Andere Dateien lassen sich zwar laden und benutzen, äußern jedoch Warnungen über fehlerhafte van-der-Waals-Parameter, die aber nicht zu sonstigen Fehlern führen und meist nur Stickstoff- oder Platzhalteratome\footnote{ReaxFF-Parametrisierungen enthalten ein wechselwirkungsfreies Platzhalter-Element \ce{X} zum Zweck des Ausschlusses einzelner Atome aus der Simulation. Einige seiner Parameter werden von LAMMPS als fehlerhaft markiert.} betreffen.
+Die Parametersätze \pot{chenoweth}, \pot{lg} und \pot{liu\_nitramines} können nicht mit LAMMPS genutzt werden.
 
 \subsubsection{Kristalleigenschaften (c-\ce{Si}, c-\ce{SiO2})}
 
-\todo{``decken sich''}Diese Untersuchungen, deren Ergebnisse detailliert in Anhang~\ref{appendix:silicon} dargestellt sind, decken sich mit dem bisherigen Vorgehen:
-Eine Kristallstruktur wird unterhalb des Schmelzpunktes relaxiert, minimiert und anschließend hinsichtlich Koordination, Dichte und Bindungslänge analysiert.
-Alle untersuchten Parametersätze erzeugen die korrekte Koordinationszahl von 4.0, mit klaren Spitzen in den radialen Verteilungsfunktionen und nahezu passenden Bindungslängen (Abbildung~\ref{fig:sisibondlengths}).
-Der Newsome-Parametersatz generiert einen RDF-Peak vor der eigentlichen Bindungslänge, welcher der Vollständigkeit halber erwähnt sein soll, bei Bestimmung der Bindungslänge aus der RDF aber nicht über die Hauptbindungslänge dominiert.
-Er führt bei amorphen Systemen jedoch zu einer Unterschätzung der Bindungslänge und Koordinationszahl (Tabelle~\ref{tab:amorphoussilicon}).
-Im Allgemeinen stimmen die Kristalleigenschaften gut mit den erwarteten Werten aus der \todo{Ref}Literatur überein.
-Anhang~\ref{appendix:silicon} beinhaltet Abbildungen eines Vergleiches der Bindungslängen sowie eine exemplarische radiale Verteilungsfunktion des Kulkarni-Potentiales im kanonischen und im isotherm-isobaren Ensemble.
+Diese Untersuchungen sind identisch zu den Untersuchungen der Kristallstrukturen aus den vorherigen Abschnitten.
+Eine Parameterdatei gilt in dieser Hinsicht als erfolgreich, wenn eine Relaxierung der Kristallstruktur unterhalb der Schmelztemperatur von \SI{1687}{\kelvin}\cite{haynes_crc_2011} die Gittereigenschaften bewahrt, wofür die \todo{Diagramm mit den Dichten}Dichten und radialen Verteilungsfunktionen sowie die daraus gewonnenen \todo{Diagramm mit Koordinationszahlen und Bindungslängen}Koordinationszahlen und Bindungslängen verglichen werden.
+Dabei überwiegen die Formen der radialen Verteilungsfunktionen, die nach dem langsamen Herunterkühlen der erhitzten Struktur wieder kristalline Eigenschaften zeigen sollten.
+Dies geschieht allerdings nur bei \pot{kulkarni} und \pot{nielson}, wohingegen die anderen Parametrisierungen auch bei niedrigen \todo{wie niedrig waren die Experimente?}Temperaturen zu einer Verformung des Gitters hin zu amorphen Systemen neigen.
+\todo{nicht auf Anhang verweisen?}\todo{vor allem: Informationen in den Anhang schreiben!}Detaillierte Informationen zu den Tests sind in Anhang~\ref{appendix_silicon} zu finden.
 
 \subsubsection{Amorphes Silizium (a-\ce{Si})}
 
-Durch langsame Relaxation zufällig positionierter Siliziumatome wurde amorphes Silizium simuliert, das wie die Kristalle zuvor auf Dichte und Bindungslängen untersucht wurde.
-Deren Werte variieren für amorphes Silizium stärker als für kristallines, liegen jedoch nah am experimentell bestimmten Wert von \SI{2.3}{\gpcc}\cite{remes_optical_1998}.
+Durch langsame Relaxation zufällig positionierter Siliziumatome wurde amorphes Silizium generiert, das wie die Kristalle zuvor auf Dichte und Bindungslängen untersucht wurde.
+Deren Werte variieren für amorphes Silizium stärker als für kristallines, liegen jedoch mit maximal \SI{4}{\percent} nah am experimentell bestimmten Wert für dünne Schichten von \SI{2.3}{\gpcc}\cite{remes_optical_1998}.
+Die meisten Parametrisierungen erzeugen plausible Werte, wobei \pot{Al\_Al0\_AlN} und \pot{newsome} sehr starke Abweichungen zeigen.
+Detaillierte Daten zu diesem Test sind in Anhang~\ref{appendix_silicon} zu finden.
 
 \subsubsection{Abscheidungssimulationen (PVD)}
 
-Die Abscheidungssimulationen selbst verlaufen wie in Kapitel~\ref{parsivald} vorgestellt und unterscheiden sich kaum von den Parsivald-Simulationen der vorherigen Abschnitte.
-\todo{Nein! Nicht durch die Kraftfelder!}Durch die reaktiven Kraftfelder werden kompliziertere lokale Bindungsverhältnisse erwartet, die zu amorphen und damit rauheren Strukturen führen.
-%Als Ausgang werden amorphe und deshalb rauhere Schichten erwartet, die sowohl für \ce{Si}-PVD als auch \ce{SiO2}-CVD kontinuierlich wachsen, aber unterschiedlichen Bedingungen unterliegen.
+Die Simulationen von Silizium-PVD selbst verlaufen wie in Kapitel~\ref{parsivald} vorgestellt und unterscheiden sich kaum von den Parsivald-Simulationen der vorherigen Abschnitte.
+Durch den Aufbau von gerichteten Bindungen zwischen den Silizium-Atomen wird die Bildung amorpher Schichten erwartet, die sich auch durch verringerte Mobilität der Atome auf der Oberfläche ergibt.
+Eine Simulation gilt als erfolgreich, wenn die Parsivald-Simulation terminiert und einen dichten Silizium-Film gebildet hat, was nur bei \pot{newsome} nicht der Fall war\todo{was war bei newsome?}.
 
 \subsection{Silizium-PVD}
 
+\continuehere
 Silizium-PVD dient in der Produktion elektronischer Bauelemente der Erzeugung einer dünnen, amorphen Siliziumschicht für unterschiedliche Anwendungsszenarien\todo{welche Anwendungen für a-Si? Solarzellen?}, für die konforme Schichten gleichbleibender Qualität gewünscht sind.
 Durch den amorphen Charakter des Materials sind nanoskopische Leerstellen und höhere Rauheiten als bei monokristallinen Schichten zu erwarten, die im Folgenden kurz untersucht werden sollen.
 \todo{Felix schreibt so was auch, wenn er keinen besseren Ausdruck findet.}Rechenaufwendigere Rechenvorschriften des ReaxFF-Potentiales legen eine längere Simulationsdauer als bei EAM-Potentialen nahe, weshalb nur eine kleine Menge an Simulationen durchgeführt wurde.

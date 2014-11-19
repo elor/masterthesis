@@ -1,5 +1,7 @@
 \chapter{Silizium-PVD}
-\label{appendix:silicon}
+\label{appendix_silicon}
+
+\todo{Überarbeiten. Also nicht sich selbst, sondern das Kapitel.}
 
 \section{Voruntersuchungen}
 
@@ -31,6 +33,7 @@ Bei Relaxierung von amorphem Silizium nach den oben beschriebenen Methoden ist a
 Bereits nach \SI{4}{\angstrom} ist keine langreichweitige Ordnung erkennbar, doch ist die Bindungslänge bei \SI{2.339}{\angstrom} klar erkennbar.
 Damit liegt sie ca. \SI{3}{\percent} oberhalb ihrer kristallinen Bindungslänge.
 Weitere strukturelle Werte für alle untersuchten Parametrisierungen sind in Tabelle~\ref{tab:amorphoussilicon} zu finden.
+Der Newsome-Parametersatz generiert eine zusätzliche Spitze in der radialen Verteilungsfunktion vor der eigentlichen Bindungslänge, welche bei amorphen Systemen zu einer Unterschätzung der Bindungslänge und Koordinationszahl führt.
 
 \begin{figure}[!ht]
   \centering
@@ -54,20 +57,20 @@ Weitere strukturelle Werte für alle untersuchten Parametrisierungen sind in Tab
       \hline
       (kristallin)              & \SI{2.352}{\angstrom} & ~                    & \num{4.00}      & \SI{2.3296}{\gpcc} & ~                        \\
       amorph                    & ~                     & ~                    & ~               & \SI{2.29}{\gpcc} \cite{remes_optical_1998} &  \\
-      Al\_Al0\_AlN              & \SI{2.379}{\angstrom} & \SI{+1.15}{\percent} & \num{4.59}      & \SI{2.373}{\gpcc}  & \SI{+3.62}{\percent}     \\
-      kulkarni                  & \SI{2.339}{\angstrom} & \SI{-0.55}{\percent} & \num{4.05}      & \SI{2.361}{\gpcc}  & \SI{+3.10}{\percent}     \\
-      liu\_ettr.                & \SI{2.401}{\angstrom} & \SI{+2.08}{\percent} & \num{4.10}      & \SI{2.314}{\gpcc}  & \SI{+1.05}{\percent}     \\
-      narayanan                 & \SI{2.383}{\angstrom} & \SI{+1.32}{\percent} & \num{4.05}      & \SI{2.365}{\gpcc}  & \SI{+3.28}{\percent}     \\
-      newsome                   & \SI{2.153}{\angstrom} & \SI{-8.46}{\percent} & \num{1.17}      & \SI{2.398}{\gpcc}  & \SI{+4.72}{\percent}     \\
-      nielson                   & \SI{2.411}{\angstrom} & \SI{+2.51}{\percent} & \num{4.82}      & \SI{2.358}{\gpcc}  & \SI{+2.97}{\percent}     \\
-      zhang                     & \SI{2.357}{\angstrom} & \SI{+0.21}{\percent} & \num{4.39}      & \SI{2.329}{\gpcc}  & \SI{+1.70}{\percent}     \\
+      \pot{Al\_Al0\_AlN}        & \SI{2.379}{\angstrom} & \SI{+1.15}{\percent} & \num{4.59}      & \SI{2.373}{\gpcc}  & \SI{+3.62}{\percent}     \\
+      \pot{kulkarni}            & \SI{2.339}{\angstrom} & \SI{-0.55}{\percent} & \num{4.05}      & \SI{2.361}{\gpcc}  & \SI{+3.10}{\percent}     \\
+      \pot{liu\_ettr.}          & \SI{2.401}{\angstrom} & \SI{+2.08}{\percent} & \num{4.10}      & \SI{2.314}{\gpcc}  & \SI{+1.05}{\percent}     \\
+      \pot{narayanan}           & \SI{2.383}{\angstrom} & \SI{+1.32}{\percent} & \num{4.05}      & \SI{2.365}{\gpcc}  & \SI{+3.28}{\percent}     \\
+      \pot{newsome}             & \SI{2.153}{\angstrom} & \SI{-8.46}{\percent} & \num{1.17}      & \SI{2.398}{\gpcc}  & \SI{+4.72}{\percent}     \\
+      \pot{nielson}             & \SI{2.411}{\angstrom} & \SI{+2.51}{\percent} & \num{4.82}      & \SI{2.358}{\gpcc}  & \SI{+2.97}{\percent}     \\
+      \pot{zhang}               & \SI{2.357}{\angstrom} & \SI{+0.21}{\percent} & \num{4.39}      & \SI{2.329}{\gpcc}  & \SI{+1.70}{\percent}     \\
       \hline
     \end{tabularx}
 
   \end{threeparttable}
 \end{table}
 
-\section{Struktur der amorphen Schicht}
+\section{Struktur der amorphen Schicht nach einer Parsivald-Simulation}
 
 Die Rauheit der aufgewachsenen Schicht hängt stark mit der Bildung und dem Wachstum der Poren zusammen, wodurch das lineare Wachstum der Poren für einen linearen Anstieg der RMS-Rauheit sorgt.
 Mit der Schließung der Poren ist eine schlagartige Reduktion der Rauheit zu erwarten, welcher sich gegen Ende der Simulation bereits andeutet, aber nicht mehr statt findet.
@@ -89,7 +92,7 @@ Simulationen über längere Zeiträume und größere Schichten sind notwendig, d
 \section{Precursorsimulationen}
 
 \todoline{Joerg: Letztlich benutzt du doch den Strukturgenerator, der die atomare Struktur einer Vielzahl von relevanten Materialien in ihrer jeweils idealen Kristallstruktur generiert. Dabei wird doch auf tabellierte Werte der Bindungslängen zurück gegriffen.}
-\todoline{Für Moleküle vereinfacht sich das auf Standard-Bindungslängen und Standard-Bindungswinkel, die man Wo findet?}
+\todoline{Für Moleküle vereinfacht sich das auf Standard-Bindungslängen und Standard-Bindungswinkel, die man Wo findet? -> CRC?!?}
 Zur Simulation der Stabilität von Silan wurde dieses mit \todo{vorstellen, woher die Werte kommen und warum das eine ordentliche Struktur ist}Materials Studio präpariert und anschließend im mikrokanonischen Ensemble mit einer anfänglichen Temperatur von \SIrange{300}{700}{\kelvin} relaxiert.
 Eine Strukturoptimierung wurde nicht durchgeführt, da die thermische Stabilität untersucht werden sollte und die untersuchten Moleküle keine komplizierten Strukturen beinhalten.
 

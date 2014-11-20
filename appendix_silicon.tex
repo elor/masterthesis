@@ -91,6 +91,13 @@ Simulationen über längere Zeiträume und größere Schichten sind notwendig, d
 
 \section{Precursorsimulationen}
 
+ReaxFF-Potentiale versprechen die Simulation von Molekülen und deren Reaktion miteinander, die mit den folgenden Tests für Silan und molekularen Sauerstoff überprüft werden sollen.
+
+\subsection{Stabilität der Precursormoleküle (\ce{SiH4}, \ce{O2})}
+
+Simulationen einzelner und mehrerer Precursormoleküle (\ce{SiH4} und \ce{O2}) hinsichtlich ihrer Stabilität wurden im mikrokanonischen beziehungsweise kanonischen Ensemble bei verschiedenen Temperaturen durchgeführt.
+\todo{Abbildung hier her kopieren}Abbildung~\ref{fig:silanestability} zeigt eine Auswahl der Ergebnisse der Silan-Simulationen, an denen sich erkennen lässt, wie instabile Simulationen zur Ablösung der Wasserstoffatome vom Silanmolekül führen.
+
 \todoline{Joerg: Letztlich benutzt du doch den Strukturgenerator, der die atomare Struktur einer Vielzahl von relevanten Materialien in ihrer jeweils idealen Kristallstruktur generiert. Dabei wird doch auf tabellierte Werte der Bindungslängen zurück gegriffen.}
 \todoline{Für Moleküle vereinfacht sich das auf Standard-Bindungslängen und Standard-Bindungswinkel, die man Wo findet? -> CRC?!?}
 Zur Simulation der Stabilität von Silan wurde dieses mit \todo{vorstellen, woher die Werte kommen und warum das eine ordentliche Struktur ist}Materials Studio präpariert und anschließend im mikrokanonischen Ensemble mit einer anfänglichen Temperatur von \SIrange{300}{700}{\kelvin} relaxiert.
@@ -124,6 +131,13 @@ Dieser Effekt ist unabhängig von der anfänglichen Temperatur.
   \label{fig:silanestability}
 
 \end{figure}
+
+\subsection{Reaktion der Precursormoleküle (\ce{SiH4 + O2})}
+
+Reaktionen von einzelnen Precursormolekülen wurden stichprobenartig in verschiedenen Orientierungen, Energien und Temperaturen vorgenommen, um einen Überblick über die Verlässlichkeit zu bekommen.
+Zusätzlich wurden durchmischte Precursorgase mit dem Ziel eventueller Reaktionen simuliert, was jedoch mit keiner der Parametrisierungen zum gewünschten Erfolg bei hoher Zuverlässigkeit führte.
+Einige Parametrisierungen zeigen jedoch vielversprechende Teilreaktionen, die korrekte Doppelbindungen und Bildung von Wasserstoffmolekülen beinhalten (Abbildung~\ref{fig:precursorreactions}).
+Vor allem bei größeren Reaktionsräumen bilden sich Cluster aus Precursormolekülen, die von attraktiven Termen in den Kraftfeldern dominiert werden, aber nicht durch chemische Wechselwirkungen zu erklären sind (Abbildung~\ref{fig:precursorclusters}).
 
 Für die Reaktion von Silan mit Wasser wurden beide Moleküle außerhalb der Cutoff-Reich\-weite der ReaxFF-Potentiale (in der Regel \SI{6}{\angstrom}) mit zufälligen Orientierungen platziert und zusätzlich zu einer geringen Anfangsgeschwindigkeit zueinander beschleunigt.
 Die relativen kinetischen Energien reichen von \SI{0.1}{\electronvolt} bis \SI{10}{\electronvolt} und decken somit einen breiten Geschwindigkeitsbereich ab.

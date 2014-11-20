@@ -86,3 +86,10 @@ Lorenz
 Parsivald
 Torre
 Wächtler
+Zhang
+Newsome
+CRC
+eltools
+Kulkarni
+xyzutils
+lmputils

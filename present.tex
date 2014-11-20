@@ -3,41 +3,36 @@
 
 Molekulardynamische und kinetische Monte Carlo-Methoden wurden wiederholt zur Simulation von verschiedenen Aspekten von Gasphasenabscheidungen zu Rate gezogen.
 Im Folgenden soll ein Überblick über die bisherigen Untersuchungen gegeben werden.
-Referenz~\cite{dollet_multiscale_2004} gibt einen Überblick über weitere Multiskalen-Modelle für Gasphasenabscheidungen, von denen die meisten keine strukturellen Aussagen ermöglichen, sondern sich auf Aussagen auf der Reaktor-Skala beschränken.
+Referenz~\cite{dollet_multiscale_2004} gibt einen Überblick über weitere Multiskalen-Modelle für Gasphasenabscheidungen, welche sich meist auf die Reaktor-Skala beschränken und keine strukturellen Eigenschaften modellieren.
 
 \subsection{Anwendungen von KMC-Simulationen für die Gasphasenabscheidung}
 
 \subsubsection{Dwivedi: gitterbasierte 2D-ALD}
 
 \textsc{V. Dwivedi} und \textsc{A. Adomaitis} haben ein zweidimensionales KMC-Modell für \ce{Al2O3}-ALD entwickelt\cite{dwivedi_multiscale_2009,dwivedi_multiscale_2009-1,dwivedi_multiscale_2010}, um den Gasverbrauch und den GPC-Wert in Abhängigkeit der Partialdrücke der Precursorgase zu ermitteln und in eine Gasflusssimulation zur Kontrolle des Durchmessers von Mikroporen einzubinden.
-Dazu werden die Plätze eines hexagonalen Gitters auf die Spezies Sauerstoff, Hydroxyl und Aluminium aufgeteilt, Zustandsübergänge in Abhängigkeit der 6 Nachbarzellen definiert und Übergangsraten ausgehend von den Energiebarrieren der entsprechenden chemischen Reaktionen ermittelt.
+Dazu werden die Plätze eines hexagonalen Gitters auf die Spezies Sauerstoff, Hydroxyl und Aluminium aufgeteilt, Zustandsübergänge in Abhängigkeit der Besetzung der 6 Nachbarzellen definiert und Übergangsraten ausgehend von den Energiebarrieren der entsprechenden chemischen Reaktionen ermittelt.
 Aussagen über die Schichthöhe ergeben sich über die Festlegung des vertikalen Gitterabstandes anhand der Einheitszelle eines \ce{Al2O3}-Kristalles mit anschließender vertikaler Oberflächensuche.
 
-Damit lassen sich zwar GPC-Werte und Precursorverbrauch in Annäherung bestimmen, doch ist durch die festlegung auf das zweidimensionale Simulationsgitter keine strukturelle Aussage möglich, obwohl passend gewählte Ereignisse die \ce{Al2O3}-Stöchiometrie erzwingen.
+Damit lassen sich zwar GPC-Werte und Precursorverbrauch in Annäherung bestimmen, doch ist durch das zweidimensionale Simulationsgitter keine strukturelle Aussage möglich, obwohl passend gewählte Ereignisse die \ce{Al2O3}-Stöchiometrie erzwingen.
 Eigene Untersuchungen des Dwivedi-Modelles resultierten in der Bildung von vertikalen, isolierten \ce{Al-O}-Ketten sowie in der Verstärkung von Kratern und konnten die präsentierten GPC-Werte nicht reproduzieren.
 
 \subsubsection{Mazaleyrat: gitterbasierte 3D-ALD}
 
-Ähnlich zum Dwivedi-Modell nutzt auch das Modell von \textsc{Mazaleyrat et al.}\cite{mazaleyrat_methodology_2005} ein Simulationsgitter, das aber über drei Dimensionen definiert ist, auf dem \ce{MgAl2O4}-Spinell-basiert und als Annäherung der eigentlichen Atompositionen verstanden wird.
-Durch geschickte Indizierung des Gitters wird eine effiziente Methode geschaffen, \ce{Al2O3} in KMC-Simulationen aufzuwachsen, deren strikt kristalline Repräsentation die eigentlich amorphe Struktur nicht darstellen kann, obwohl das Ziel des Modelles in der Abscheidung von Dielektrika auf Silizium-Substraten liegt.
+Ähnlich zum Dwivedi-Modell nutzt auch das Modell von \textsc{Mazaleyrat et al.}\cite{mazaleyrat_methodology_2005} zur Abscheidungssimulation von Dielektrika auf Silizium-Substraten ein Simulationsgitter, das allerdings in drei Dimensionen definiert ist, auf dem \ce{MgAl2O4}-Spinell-basiert und als Annäherung der eigentlichen Atompositionen verstanden wird.
+Durch geschickte Indizierung der Gitterpunkte sind effiziente Wachstumssimulationen von\ce{Al2O3} mit KMC-Methoden möglich, deren strikt kristalline Repräsentation die eigentlich amorphe Struktur nicht darstellen kann
 Von den Autoren wurde keine Betrachtung der Rauheit, des Besetzungsgrades der Gitterplätze oder des Wachstumsverhaltens jenseits des dritten Schrittes veröffentlicht.
-%% {Anmerkung von Jörg: eigene Erfahrungen mit diesem Modell ergänzen}
-%% {Ich habe keine eigenen Erfahrungen mit diesem Modell}
 
 \subsubsection{Stamatakis: Oberflächen-Reaktionen mit Zacros}
 
-Zwar handelt es sich beim Zacros-Modell von der Forschergruppe um \textsc{M. Stamatakis}\cite{stamatakis_graph-theoretical_2011,nielsen_parallel_2013,stamatakis_zacros_2014} um eine zweidimensionale Oberflächenbeschreibung für katalytische Reaktionen, doch liegt nahe, seinen effizienten graph-basierten Suchansatz für Ereignisse auch für Gasphasenabscheidungen nutzen zu wollen.
-Die Besonderheit von Zacros liegt in einer vereinheitlichten Formulierung der lokalen Zustände und Zustandsübergänge als Teilgraphen des Simulationsgitters, welche effizient durch Algorithmen zum Teilgraphen-Vergleichs überprüft werden können.
-Ergänzt durch quantenmechanische Simulationen für die Bestimmung der Reaktionsraten, ergibt sich ein wertvolles Werkzeug zur stochastischen Simulation der Reaktionskinetik von Oberflächenprozessen.
-Aufgrund seiner Formulierung ist aber auch Zacros auf ein periodisches Simulationsgitter begrenzt, welches durch seine Beschreibung als Graph jedoch aus beliebig geformten Einheitszellen bestehen kann.
-
-Die Kombination der in der vorliegenden Arbeit vorgestellten Ansätze mit denen von Zacros ist Gegenstand des derzeit in Beantragung befindlichen EU-Projektes ACCELERATE, einem Konsortium zur ALD-Simulation bestehend aus dem Fraunhofer ENAS, der Gruppe um Stamatakis und weiteren Partnern.\todo{Joerg: Nennung reicht}
+Zwar handelt es sich beim gitterbasierten Zacros-Modell von der Forschergruppe um \textsc{M. Stamatakis}\cite{stamatakis_graph-theoretical_2011,nielsen_parallel_2013,stamatakis_zacros_2014} um eine zweidimensionale Oberflächenbeschreibung für katalytische Reaktionen, doch liegt nahe, seinen effizienten graph-basierten Suchansatz für Ereignisse auch für Gasphasenabscheidungen nutzen zu wollen.
+Die Besonderheit von Zacros liegt in einer vereinheitlichten Formulierung der lokalen Zustände und Zustandsübergänge als Teilgraphen des Simulationsgitters, welche effizient durch Algorithmen zum Teilgraphen-Vergleich überprüft werden können.
+Ergänzt durch quantenmechanische Simulationen für die Bestimmung der Reaktionsraten ergibt sich ein Werkzeug zur stochastischen Simulation der Reaktionskinetik von Oberflächenprozessen.
+%% Aufgrund seiner Formulierung ist aber auch Zacros auf ein periodisches Simulationsgitter begrenzt, welches durch seine Beschreibung als Graph jedoch aus beliebig geformten Einheitszellen bestehen kann.
+Die Kombination der in der vorliegenden Arbeit vorgestellten Ansätze mit denen von Zacros ist Gegenstand des derzeit in Beantragung befindlichen EU-Projektes ACCELERATE, einem Konsortium zur ALD-Simulation bestehend aus dem Fraunhofer ENAS, der Gruppe um Stamatakis und weiteren Partnern.
 
 \subsubsection{Clark: Off-Lattice-Simulationen von chemischen Gasphasenabscheidungen}
-\todoline{Jörg}
-\textsc{Clark et al.}\cite{clark_hybrid_1996} haben eine Off-Lattice-Methode zur Simulation von Diamantwachstum per CVD entwickelt, die auf der Kombination von KMC- mit Simulated Annealing per Metropolis-Monte-Carlo-Simulationen (MMC) basiert.
-Dafür wird die lokale Nachbarschaft jedes KMC-Ereignisses, welches aus der Bindung eines Precursormoleküles an die Oberfläche besteht, durch MMC-Simu\-la\-tionen relaxiert, während hochfrequente Bewegungen von Wasserstoffatomen durch deren stochastische Verschiebung auf der Oberfläche beschrieben werden.
-Die MMC-Simulationen nutzen für die energetische Beschreibung der Ereignisorte molekulardynamische Kraftfelder, doch werden zusätzliche Zwangsbedingungen eingeführt, die stabile Bindungen erzwingen.
+\textsc{Clark et al.}\cite{clark_hybrid_1996} haben eine Off-Lattice-Methode zur Simulation von Diamantwachstum per CVD entwickelt, die auf der Kombination von KMC- mit Simulated Annealing per Metropolis-Monte-Carlo-Simulationen (MMC), deren Energiewerte mit MD-Berechnungen gewonnen werden.
+Dafür wird die lokale Nachbarschaft jedes Adsorptions-Ereignisses unter den Zwangsbedingungen der chemischen Bindungen in MMC-Simu\-la\-tionen relaxiert, während hochfrequente Bewegungen von Wasserstoffatomen durch deren stochastische Verschiebung auf der Oberfläche beschrieben werden.
 Damit reduziert sich Simulationszeit, doch müssen mögliche Ereignisse durch in Vorarbeit erforscht werden, statt vom Modell dynamisch erkannt zu werden.
 
 %% Die kombinierte Simulation unterteilt sich in die Betrachtung von hochfrequenten Gleichgewichts-Ereignissen per KMC-Methoden und sowie die Simulation von Adsorptionen und Reaktionen durch MMC-Relaxationen anhand von MD-Kraftfeldern innerhalb der Nachbarschaft.
@@ -45,18 +40,23 @@ Damit reduziert sich Simulationszeit, doch müssen mögliche Ereignisse durch in
 %% Anschließend werden Precursorfragmente in Form von Methylgruppen an ein Kohlenstoff-Atom an der Oberfläche gebunden und bei konstanter Bindungslänge per MMC-Simulation um dieses rotiert.
 %% Zuletzt werden Bindungen zwischen Kohlenstoff-Atomen in der Nachbarschaft des Ereignisortes gebildet, indem sie in einer weiteren MMC-Simulation verschoben werden.
 
-Dieses Modell ist dem im folgenden Abschnitt~\ref{parsivald} vorgestellten Parsivald-Modell in seiner Funktionsweise ähnlich, doch führt letzteres eine thermische Relaxation der Ereignisorte per Molekulardynamik durch.
-Diese ist gegenüber MMC-Simulationen zwar rechenaufwendiger, erlaubt im Gegenzug aber die freie Bewegung der Teilchen und Moleküle einerseits, andererseits lässt sie reaktive Kraftfelder und den dafür notwendigen kontinuierlichen Ladungsaustausch zu.
+Dieses Modell ist dem im folgenden Abschnitt~\ref{parsivald} vorgestellten Parsivald-Modell in seiner Funktionsweise ähnlich, welches eine thermische Relaxation der Ereignisorte per Molekulardynamik durch, um so freie Atombewegungen an der Oberfläche zu ermöglichen.
 %% Eine Erweiterung des Parsivald-Modelles zu MMC-Relaxierungen wäre aber in Zusammenhang mit der Einbindung von Elektronenstrukturrechnungen interessant.
 
 \subsubsection{Biehl: Off-Lattice-KMC von verspannten Kristallen}
-\todoline{Jörg}
-
 In den Veröffentlichungen von \textsc{Biehl et al.}\cite{biehl_off-lattice_2005} wird ein KMC-MD-Hybrid zur zweidimensionalen Off-Lattice-Simulation von Verspannungen in heteroepitaxial gewachsenen Kristallen vorgestellt, der neben Adsorptionsereignissen auch Oberflächendiffusionen betrachtet.
 Die Relaxation von Ereignisorten wird bei diesem Modell durch eine nicht näher benannte Energieminimierung der Position einzelner Atome durchgeführt.
-Zusätzlich findet in großen zeitlichen Intervallen eine kostspielige globale Energieminimierung statt, die laut der Autoren notwendig ist, obwohl nur kleine Änderungen der Struktur durchgeführt werden.
-Da die Anwendung in der Simulation von Kristallen liegt, wurden Lennard-Jones-Potentiale zur Darstellung von Kristallstrukturen gewählt, wodurch sich sehr stabile Zustände aufgrund von glatten Energielandschaften ergeben.
+Zusätzlich findet in großen zeitlichen Intervallen eine kostspielige globale Energieminimierung statt, die laut der Autoren zur Stabilisierung notwendig ist, obwohl nur kleine Änderungen der Struktur durchgeführt werden.
+Da die Anwendung in der Simulation von Kristallen liegt, wurden Lennard-Jones-Potentiale zur Darstellung von Kristallstrukturen gewählt, wodurch sich sehr stabile Strukturen aufgrund der glatten Energielandschaften ergeben.
 Damit ist nicht ersichtlich, ob sich diese Methode auch für komplizierte dreidimensionale Strukturen und Kraftfelder eignet.
+
+\subsubsection{Wolf: Transport-Simulationen in der Gasphase}
+
+\textsc{Wolf et al.}\cite{wolf_investigation_2002,wolf_simulation_2010} haben am Zentrum für Mikrotechnologien in Chemnitz in den vergangenen Jahren mit der KMC-Transportsoftware Kalypso\cite{karolewski_kalypso:_2005} die physikalische Gasphasenabscheidung auf der Reaktor-Skala simuliert, um Aussagen über das Schichtwachstum in komplizierten makroskopischen Geometrien zu gewinnen.
+Beim Auftreffen eines Atomes an der Oberfläche wird es mit einer Wahrscheinlichkeit, die von der Teilchenenergie und Auftreffwinkel abhängt, adsorbiert oder reflektiert.
+Dafür wurde eine Liste zur Interpolation von Wahrscheinlichkeiten vorbereitet, indem das Auftreffen von Atomen an verschiedenen Punkten einer Gitter-Einheitszelle per MD simuliert und anhand der Ergebnisse vieler Simulationen die Wahrscheinlichkeiten bestimmt wurden.
+Damit ist diese Methode zur Simulation von epitaktischem Wachstum gut geeignet, beschreibt aber keine rauhen Oberflächen, wie sie bei Gasphasenabscheidung häufig vorliegen\todo{Ref?}.
+Der Aufwand für die Vorausberechnung steigt für kompliziertere Oberflächen stark an und ist mit der heutigen Rechenleistung nicht realisierbar.
 
 \subsubsection{Fazit}
 
@@ -67,7 +67,6 @@ Vereinzelt existieren auch atomistische Off-Lattice-Ansätze für KMC-Simulation
 Diese nutzen meist N-Teilchen-Potentiale in vergleichsweise kleinen Simulationsräumen, wodurch sich amorphe Strukturen oder Oxide nur unzuverlässig beschreiben lassen, doch beschränken sich die untersuchten Arbeiten ohnehin auf kristallines Wachstum oder Verspannungen in Kristallen.
 
 \subsection{Anwendung von MD-Simulationen für die Gasphasenabscheidung}
-\todoline{Arbeiten von Hermann Wolf. Referenz auf Konferenzbeiträge}
 
 Molekulardynamische Simulationen werden seit vielen Jahrzehnten zur Bestimmung struktureller und thermodynamischer Eigenschaften verschiedener Materialien eingesetzt, aber nur selten zur Beschreibung von Gasphasenabscheidungen.
 Sie lassen sich aber zur Beschreibung von Teilaspekten nutzen, wofür meist durch die Simulation periodischer Strukturen Rückschlüsse auf bestimmte Eigenschaften gezogen werden.

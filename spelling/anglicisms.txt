@@ -109,3 +109,6 @@ Tree
 Speedup
 Simulated
 Conjugate
+diamant
+diamond
+inline

@@ -259,7 +259,7 @@ grandcanonical(){
 {
 
     register "grand canonical" grandcanonical
-#    register "possible typos" listunknownwords
+    register "possible typos" listunknownwords
     register "LaTeX Errors" getlatexerrors
     register "word repetitions" doublewords
     register "undefined references" undefinedreferences

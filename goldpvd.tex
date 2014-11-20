@@ -54,7 +54,12 @@ Darin zeigt sich auch eine Änderung in der Art des Phasenüberganges, der durch
 Das ergibt sich aus der Ähnlichkeit der Relaxationszeit zur Barostat-Dämpfung ($t_\text{relax}\approx \tau_p$), welche um Größenordnungen unter dem notwendigen Wert liegen (Abschnitt~\ref{mdmethods}), sodass sich das thermische Gleichgewicht nicht im Zeitrahmen der Simulation einstellen kann.
 
 \begin{figure}[tbh]
+
+  \centering
   \captionsetup[subfigure]{singlelinecheck=false}
+
+  \includegraphics[width=0.97\textwidth]{gold_trelax_legend}
+
   \def\subfigwidth{7cm}
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{gold_bestthermo}
@@ -63,16 +68,15 @@ Das ergibt sich aus der Ähnlichkeit der Relaxationszeit zur Barostat-Dämpfung 
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{gold_relaxtime}
-    \subcaption{Dichteänderung beim Schmelzen in Abh. der Relaxationszeit}
-    \label{fig:goldthermo-b}
+    \includegraphics[width=\textwidth]{gold_trelax}
+    \subcaption{Abhängigkeit der Simulation von $t_\text{relax}$}
   \end{subfigure}
+
   \caption[Vergleich thermodynamischer Daten von Gold]{
     Vergleich thermodynamischer Daten von Gold.
     Experimentelle Werte stammen aus Standardliteratur sowie von \textsc{Brillo et al.}\cite{brillo_density_2006}.
   }
   \label{fig:goldthermo}
-  \todoline{Legende der Relaxationszeiten fehlt}
 \end{figure}
 
 Somit lässt sich Gold mit der verwendeten EAM-Parametrisierung bei verschiedenen Temperaturen zuverlässig beschreiben, sofern die Relaxationszeit ausreichend groß eingestellt ist.

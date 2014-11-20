@@ -38,3 +38,5 @@ TaN
 TiO
 Sauer
 SO
+HfO
+ZrO

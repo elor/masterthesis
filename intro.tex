@@ -2,34 +2,23 @@
 \label{intro}
 
 %% {Aktueller Stand der Technologien und damit verbundene Herausforderungen}
-\todoline{hervor heben, was das Ziel der Simulationen ist: Große Räume, Viele Atome, strukturelle Aussagen, (diffusionsarm)}
-\todo{wirkt weit hergeholt. vielleicht allgemeiner schreiben, dass die Abscheidung ultradünner, hoch reiner, homogener und konformer Schichten auf strukturierten Unterlagen eine Schlüsselstellung bei der Fertiggstellung von Bauelementen der Nanoelektronik einnimmt. Zitat}
-In der Mikro- und Nanoelektronik herrscht eine anhaltende Miniaturisierung vor, die inzwischen für Transistoren, insbesondere MOSFETs, zu Strukturbreiten im Nanometerbereich geführt hat.
-Um dabei eine hohe Kapazität des Gates bei verringerter Fläche beizubehalten, schrumpft die Schichtdicke des Gate-Dielektrikums ebenfalls auf Werte unterhalb von \SI{2}{\nano\meter}, bei denen jedoch Leckströme in Folge des Tunnel-Effektes auftreten.
-Deshalb wurde begonnen, das herkömmliche Siliziumdioxid mit seiner Dielektrizität von $\kappa=\num{3.9}$ durch Dielektrika mit einem höheren Wert für $\kappa$ zu ersetzen, die deshalb als High-$\kappa$-Dielektrika bezeichnet werden.
-Mit ihnen werden die gleichen Kapazitäten bei größeren Schichtdicken erreicht, wodurch Leckströme vermieden werden.
+Gasphasenabscheidungen werden zur Produktion konformer, dünner Schichten auf strukturierten und glatten Substraten genutzt, wobei besonders die Erzeugung ultradünner, hoch reiner, homogener Schichten eine Schlüsselstellung bei der Fertigung von Bauelementen in der Nanoelektronik einnimmt\todo{Ref}.
+Mit ihnen werden beispielsweise dünne Dielektrika und Diffusionsbarrieren hergestellt, für die besonders präzise Abscheidungsmethoden notwendig sind.
+%% {weitere Anwendungen von Gasphasenabscheidung}
+Gasphasenabscheidungen werden auch für eine Vielzahl anderer Anwendungen verwendet, wie beispielsweise für die Produktion von passivierenden und protektiven Beschichtungen\todo{Ref}.
+Weiterhin erlauben sie die Herstellung vielschichtiger Materialien mit besonderen strukturellen (erhöhte Festigkeit)\todo{Ref}, magnetischen (Riesenmagnetowiderstand, magnetischer Tunnelwiderstand)\todo{Ref} und optischen (Röntgenspiegel)\todo{Ref} Eigenschaften.
+Doch auch größere Oberflächen werden per Gasphasenabscheidung mit Dünnschichten versehen, etwa zur Erhöhung der Witterungs- und Wärmebeständigkeit von Oberflächen\todo{Ref}.
 
 %% {Kandidat zur Lösung von Herausforderungen}
-
-\todo{wirkt ebenfalls weit hergeholt}
-High-$\kappa$-Dielektrika müssen dabei nachträglich als dünne Schicht auf der Silizium-Oberfläche aufgebracht werden, wofür in der Produktion auf Gasphasenabscheidungen zurück gegriffen wird.
-Bei diesen adsorbieren einzelne Atome oder Moleküle aus der Gasphase an der Oberfläche und bilden so eine dünne Schicht, deren Dicke präzise im Sub-Nanometer-Bereich kontrolliert werden kann.
+Bei Gasphasenabscheidungen adsorbieren einzelne Atome oder Moleküle aus der Gasphase auf der Oberfläche und bilden so eine dünne Schicht, deren Dicke präzise im Sub-Nanometer-Bereich kontrolliert werden kann.
 Mit Physikalischer Gasphasenabscheidung (PVD, Physical Vapor Deposition), Chemischer Gasphasenabscheidung (CVD, Chemical Vapor Deposition) und Atomlagenabscheidung (ALD, Atomic Layer Deposition) stehen Methoden zur Verfügung, die das Wachstum verschiedener Materialien mit unterschiedlichen Graden der Prozesskontrolle erlauben.
 
-%% {weitere Anwendungen von Gasphasenabscheidung}
-Deshalb werden Gasphasenabscheidungen auch für eine Vielzahl anderer Anwendungen verwendet.
-Sie ermöglichen etwa die Produktion von passivierenden und protektiven Beschichtungen sowie von Diffusionsbarrieren, wie sie unter anderem in der Mikroelektronik benutzt werden.
-Weiterhin erlauben sie die Herstellung vielschichtiger Materialien mit besonderen strukturellen (erhöhte Festigkeit), magnetischen (Riesenmagnetowiderstand, magnetischer Tunnelwiderstand) und optischen (Röntgenspiegel) Eigenschaften.
-Doch auch größere Oberflächen werden per Gasphasenabscheidung mit Dünnschichten versehen, etwa zur Erhöhung der Witterungs- und Wärmebeständigkeit von Oberflächen.
-
 %% {Mein Gebiet}
-\todo{Satz überarbeiten. Klingt gerade seltsam}Dabei sind Untersuchungen der lokalen Struktur und der Wachstumseigenschaften dünner Schichten in anspruchsvollen Geometrien in der Regel mit sehr hohem experimentellen Aufwand verbunden oder gar unmöglich.
-Atomistische Simulationen können an dieser Stelle helfen, unter verschiedenen Bedingungen die strukturellen Eigenschaften der abgeschiedenen Schicht zu beschreiben, anhand derer auch Rückschlüsse auf elektronische, mechanische \todo{thermodyn. Eigenschaften weg oder erklären. Am besten mit Zitat}und thermodynamische Eigenschaften gezogen werden können.
+Atomistische Simulationen können Stelle helfen, unter verschiedenen Bedingungen die strukturellen Eigenschaften der abgeschiedenen Schicht zu beschreiben, anhand derer auch Rückschlüsse auf elektronische oder mechanische Eigenschaften gezogen werden können.
 Dafür ist eine Modellierung chemischer Reaktionen und amorpher Strukturen ebenso notwendig wie die Beschreibung von Simulationsräumen auf der Größenordnung kompletter Nano-Bauelemente, um ebenfalls Aussagen über das Wachstum auf strukturierten und gemischten Substraten treffen zu können.
-Eine effiziente atomistische Simulation oberhalb der Nanometer-Skala war aufgrund des damit verbundenen Rechenaufwandes bisher allerdings nicht möglich.
+Zur Simulation von Abscheidungen auf kompletten Nano-Bauelementen sind große Simulationsräume bis \SI{1x1}{\micro\meter} mit bis zu \num{1e9} Atomen notwendig, die mit rein atomistischen Simulationen bisher aufgrund des hohen Rechenaufwandes nicht möglich sind oder keine strukturellen Aussagen ermöglichen.
 
 %% {Möglichkeiten zur Optimierung}
-
 Ansatzpunkte für die Simulation von Gasphasenabscheidungen bestehen in Kinetischen Monte Carlo-Methoden (KMC) einerseits und in Molekulardynamik (MD) andererseits.
 KMC kann die Reaktionskinetik komplizierter Prozesse in großen Simulationsräumen zufriedenstellend beschreiben, ermöglicht allerdings keine detaillierte strukturelle Beschreibung der simulierten Materialien.
 MD hingegen simuliert effizient atomistische Strukturen, lässt sich aber nur unzureichend zur Beschreibung von großen Simulationsräumen nutzen.
@@ -47,15 +36,15 @@ Die vorliegende Implementierung dieses Modelles soll dafür außerdem zugunsten 
 
 Im Anschluss an diese Einleitung wird zuerst in Kapitel~\ref{theory} ein Überblick über die Arten und Funktionsweisen von Gasphasenabscheidungen, sowie die Simulationsmethoden der Molekulardynamik und Kinetischen Monte Carlo-Methoden gegeben.
 
-Danach stellt Kapitel~\ref{models} den aktuellen Stand der Simulationen von Gasphasenabscheidungen mit KMC und MD vor, präsentiert die Erweiterungen des kombinierten KMC/MD-Modells und gibt einen Überblick über allgemeine molekulardynamische Methoden zur Präparation von Prozessen und Substraten sowie zur Analyse von Ergebnissen\todo{Joerg: Benutzt man dafür MD-Methoden? zur=über wäre besser}.
+Danach stellt Kapitel~\ref{models} den aktuellen Stand der Simulationen von Gasphasenabscheidungen mit KMC und MD vor, präsentiert die Erweiterungen des kombinierten KMC/MD-Modells und gibt einen Überblick über allgemeine molekulardynamische Methoden zur Präparation von Prozessen und Substraten sowie über die Analyse von Ergebnissen.
 
-Der Hauptteil der Arbeit beschäftigt sich dann in Kapitel~\ref{results} mit den Ergebnissen der Simulation von Gasphasenabscheidungen und den notwendigen Voruntersuchungen der molekulardynamischen Potentialparametrisierungen.
+Der Hauptteil der Arbeit beschäftigt sich danach in Kapitel~\ref{results} mit den Ergebnissen der Simulation von Gasphasenabscheidungen und den notwendigen Voruntersuchungen der molekulardynamischen Potentialparametrisierungen.
 Dafür wird zuerst eine Gold-PVD-Simulation als Beispielprozess für nichtreaktive Abscheidungen präpariert und damit das Wachstumsverhalten auf strukturierten Substraten sowie die Skalierbarkeit des kombinierten Modelles überprüft.
 Anhand von Kupfer-PVD werden danach Unterschiede zwischen verschiedenen Parametersätzen des selben Kraftfeldes untersucht und die Bildung und Schließung von Oberflächendefekten beobachtet.
 Die Simulation gemischter Systeme wird anhand der Multilagen-Abscheidung durch Kupfer-Nickel-PVD untersucht und die entstandenen Strukturen mit den Ergebnissen einer reinen MD-Simulation verglichen.
 Anschließend wird die Präparation und Abscheidung amorpher Strukturen am Silizium-PVD-System untersucht, wobei auch Betrachtungen der Gasphasen-Reaktionen für Siliziumoxid-CVD durchgeführt werden.
-Zuletzt werden die Oberflächen-Reaktionen des Aluminiumoxid-ALD-Prozesses mit den Prozessgasen Trimethylaluminium und Wasser simuliert.
+Zuletzt wird die reaktive Hydroxylierung einer Aluminiumoxid-Oberfläche mit Wassermolekülen simuliert.
 
 Zum Abschluss wird die Arbeit mit Kapitel~\ref{summary} zusammen gefasst, bevor interessante Fragestellungen und Anknüpfungspunkte für künftige Untersuchungen gegeben werden.
 
-\todoline{Anhänge nennen}
+Im Anhang der Arbeit sind experimentelle Referenzwerte, ergänzende Informationen zu den verwendeten Datenstrukturen und dem Laufzeitverhalten sowie ergänzende Ergebnisse der simulierten Gasphasenabscheidungen zu finden.

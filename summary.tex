@@ -1,16 +1,13 @@
 \chapter{Zusammenfassung und Ausblick}
 \label{summary}
 
-\todoline{Jörg}
-
 \section{Zusammenfassung}
 %% {Was hab ich getan? - Parsivald}
 
 Im Rahmen dieser Arbeit wurde ein bestehendes Hybrid-Modell zur atomistischen Simulation von Atomlagenabscheidungen mit Methoden der Molekulardynamik und der Kinetischen Monte Carlo-Simulationen um die Beschreibung allgemeiner Gasphasenabscheidungen sowie um die Möglichkeit der Nutzung reaktiver Kraftfelder erweitert.
-Als Resultat entstand eine Software namens \textit{Parsivald}, mit der die atomistische Simulation von Gasphasenabscheidungen auf der Größenordnung kompletter Nano-Bauelemente \todo{nicht wirklich möglich. Aufteilen, was jetzt schon geht und was anvisiert wird}bis zu \SI{1x1}{\micro\meter} ermöglicht wird, was bis zu \num{1e9} Atomen entspricht.
+Als Resultat entstand eine Software namens \textit{Parsivald}, mit der die atomistische Simulation von Gasphasenabscheidungen mit Substratgrößen bis zu \SI{200x200}{\nano\meter} ermöglicht wird, was bis zu \num{1e8} Atomen entspricht.
 Dies wird durch Nutzung effizienter Datenstrukturen und einem Host-Worker-Schema der Parallelisierung ermöglicht.
 
-\todo{Die hier vorliegenden klaren Zusammenfassungen in den jeweiligen Abschnitten ergänzen}
 %% {Ergebnisse Skalierung}
 
 Anhand der Simulation eines Gold-PVD-Prozesses wurde das Skalierungsverhalten von Parsivald untersucht, wobei gezeigt werden konnte, dass Oberflächen bis zu \SI{0.1x0.1}{\micro\meter} effizient parallelisiert werden können.
@@ -23,95 +20,53 @@ Somit konnte gezeigt werden, dass auch unter Nutzung rechenaufwendiger Parsivald
 
 %% {Was hab ich getan? - PVD}
 
-Die Funktion des Parsivald-Modells wurde weiterhin anhand von Simulationen physikalischer Gasphasenabscheidungen von Gold, Kupfer, Silizium und einem Kupfer-Nickel-Multilagensystem demonstriert.
+Die Funktion des Parsivald-Modells wurde weiterhin anhand von Simulationen physikalischer Gasphasenabscheidungen von Gold, Kupfer, Silizium und einem Kupfer-Nickel-Multi\-lagen\-system demonstriert.
 Die Ergebnisse dieser Simulationsrechnungen wurden mit denen anderer Simulationsmethoden sowie experimentellen Daten verglichen.
 
-Für Gold-PVD zeigt sich dabei epitaktisches Wachstum auf monokristallinen Substraten.
-\todoline{ggf. Streichen: das keine Bildung von Nanopartikeln zeigt, wie sie im Experiment durch AFM-Untersuchungen zu beobachten sind.
-Dieses Verhalten ist auf Finite-Size-Effekte zurückzuführen, die ein glattes Wachstum der abgeschiedenen Schichten befördern, welches zudem nanoskopische Unebenheiten automatisch ausgleicht und somit Rauheiten von nur \SI{1.2}{\angstrom} erzeugt, verglichen mit experimentellen Werten von \SI{11}{\angstrom}.}
-Weiterhin ergaben auch Abscheidungssimulationen von Gold-PVD auf strukturierten Substraten \todo{eigentlich ja hauptsächlich, oder?}überwiegend epitaktisches Wachstum.
-In einigen Fällen \todo{Wo?}formten sich zudem Nanoporen an groben Unebenheiten der Struktur, welche die Oberflächenrauheit dominierten, sich jedoch im Laufe der Simulation langsam schlossen und so Hohlräume innerhalb der Schicht bildeten.
+Für Gold-PVD zeigt sich dabei epitaktisches Wachstum auf monokristallinen Substraten, das auch bei Simulationen von Gold-PVD auf strukturierten Substraten beobachtet wurde.
+Für Strukturen mit extremen Auftreffwinkel bis zu \SI{90}{\degree} formten sich zudem Nanoporen an groben Unebenheiten der Struktur, welche die Oberflächenrauheit dominierten, sich jedoch im Laufe der Simulation langsam schlossen und so Hohlräume innerhalb der Schicht bildeten.
 Darin zeigt sich eine Schwäche des Parsivald-Programmes in der Bestimmung der Oberfläche und der damit verbundenen Ereignisorte, die für eine künstliche Abschirmung von Bereichen an steilen Hängen sorgen kann.
 Somit sind weitere Anpassungen für die Darstellung beliebiger Auftreffwinkel notwendig, wie sie etwa bei CVD- und ALD-Prozessen vorkommen.
 
-\todoline{Stärken und Ergebnisse hervor heben, nicht Schwächen und Probleme}
-Für die Simulation von Kupfer-PVD war zunächst ein Vergleich verschiedener EAM-Para\-metri\-sierungen notwendig, zwischen denen sich aber keine signifikanten Unterschiede ergaben.
-Die anschließenden Abscheidungssimulationen zeigen ebenfalls epitaktisches Wachstum, doch bilden sich in einigen Simulationen kraterförmige Vertiefungen mit einer Breite von \SI{3}{\angstrom} bis \SI{5}{\angstrom}, welche sich mit weiterem Wachstum der Schicht verjüngen und schließlich zu einem kleinen Hohlraum abschließen.
-Obwohl derartige Hohlräume in der Realität nicht ausgeschlossen sind, wären sie mit Gitterdefekten verbunden, die in den untersuchten Strukturen nicht vorhanden waren.
-Damit ist zu vermuten, dass sich die Vertiefungen als Artefakt der Parsivald-Methode ergeben, welche aber durch weitere Optimierung der Prozessparameter reduziert werden können, wie sich in Simulationen von Multilagen-Abscheidungen zeigte.
+Anhand der Simulation von Kupfer-PVD, welche ebenfalls epitaktisches Wachstum zeigte, konnte demonstriert werden, wie sich nanoskopische Unebenheiten im Laufe des Schichtwachstums zu Hohlräumen abschließen, wodurch die Bildung größerer Unebenheiten verhindert wird.
 
-In Abscheidungssimulationen von mehrlagigen Schichten per Kupfer-Nickel-PVD sind perfekte Übereinstimmungen mit molekulardynamischen Simulationen in Rauheit und Struktur zu beobachten.
-Im direkten Vergleich konnte dabei gezeigt werden, dass der Parsivald-Ansatz gegenüber der reinen MD eine enorme Beschleunigung von \todo{wie viel?}xx bringt.
-\todo{weglassen: wodurch sich für dieses System eine Abwesenheit von Finite-Size-Effekten aufgrund des Parsivald-Modelles zeigt.}
-Auch für dünne Lagen mit einer Dicke von nur \SI{1}{\nano\meter} sind klare Lagengrenzen vorhanden.
-Deren Ausprägung nimmt mit der Relaxationszeit und der \todo{Teilchenenergie?}Auftreffenergie zu, was in guter Übereinstimmung mit experimentellen \todo{Befunden?}Befunden ist\todo{Ref!}.
-\todoline{zu detailliert für eine Zusammenfassung: wofür allerdings die Relaxationstemperatur sowie die Auftreffenergie des gesputterten Teilchens leicht erhöht werden musste.
-Der selbe Einfluss der Teilchenenergie auf die Lagenqualität wurde jedoch auch im Experiment beobachtet.
-Durch Einstellung der Simulationsparameter ließ sich die Bildung kraterförmiger Vertiefungen, wie sie bereits bei Simulationen von Kupfer-PVD zu beobachten war, vollständig eliminieren.}
+In Abscheidungssimulationen von mehrlagigen Schichten per Kupfer-Nickel-PVD sind perfekte Übereinstimmungen mit molekulardynamischen Simulationen in Rauheit und Struktur bei stark verringertem Rechenaufwand zu beobachten.
+Im direkten Vergleich konnte dabei gezeigt werden, dass der Parsivald-Ansatz bei gleichen Bedingungen und gleicher Laufzeit weniger als \SI{10}{\percent} der Rechenleistung benötigt.
+Auch für dünne Lagen mit einer Dicke von nur \SI{1}{\nano\meter} sind dabei klare Lagengrenzen vorhanden, deren Ausprägung mit der Relaxationszeit, was ähnlichen Untersuchungen entspricht\cite{zhou_atomistic_1998}.
 
 Schließlich wurde die Abscheidung amorpher Schichten anhand von Silizium-PVD mit reaktiven Kraftfeldern simuliert, wobei sich dichte, aber vergleichsweise rauhe Schichten ergaben.
-Reaktive Kraftfelder wurden genutzt, da EAM-Formulierungen und N-Teilchen-Potentiale eher die Bildung von Kristallen beschreiben, die zu untersuchenden amorphen Strukturen hingegen auf Valenzbindungen und damit verbundenen Koordinationen basieren, welche \todo{Joerg: ``nur durch reaktive Kraftfelder modelliert werden können''. Eigentlich können sie ja auch von N-Teilchen-Potentialen modelliert werden}von reaktiven Kraftfeldern modelliert werden.
+Reaktive Kraftfelder wurden genutzt, da EAM-Formulierungen und N-Teilchen-Potentiale eher die Bildung von Kristallen beschreiben, die zu untersuchenden amorphen Strukturen hingegen auf Valenzbindungen und damit verbundenen Koordinationen basieren, welche für Feststoffe und Oberflächen von reaktiven Kraftfeldern modelliert werden.
 Die Oberfläche der Schicht zeigt eine RMS-Rauheit von \SI{11.5}{\angstrom}, welche sich mit experimentellen Werten deckt, allerdings im untersuchten Zeitraum linear ansteigt.
 Anhand der Oberflächenprofile ist Porenbildung als Ursache der Rauheit erkennbar, die sich mit erhöhter Relaxationszeit und -temperatur jedoch reduzieren lässt.
-\todo{weglassen: Mit fortschreitender Simulationszeit ist eine Schließung der Poren wie bei den kraterförmigen Vertiefungen der Kupfer-PVD-Simulationen zu erwarten, wodurch die Rauheit begrenzt wäre.}
 
 %% {Was hab ich getan? - CVD und ALD}
 
-Die betrachteten Silizium-Kraftfelder wurden weiterhin hinsichtlich der Beschreibung der an Siliziumdioxid-CVD beteiligten Precursor-Reaktionen untersucht.
-Dabei zeigt sich, dass chemische Reaktionen zwar beschrieben werden, aber mit den untersuchten Kraftfeldern und den genutzten Methoden nicht zuverlässig für Parsivald-Simulationen genutzt werden können.
-So sind Reaktionen zwischen Silan und Sauerstoff in der Gasphase nur mit einer begrenzten Menge von Startbedingungen erfolgreich, während sich bei großen Mengen dieser Moleküle Clusterbildung mit unrealistischen Bindungsarten zeigt.
+%% Die betrachteten Silizium-Kraftfelder wurden weiterhin hinsichtlich der Beschreibung der an Siliziumdioxid-CVD beteiligten Precursor-Reaktionen untersucht.
+%% Dabei zeigt sich, dass chemische Reaktionen zwar beschrieben werden, aber mit den untersuchten Kraftfeldern und den genutzten Methoden nicht zuverlässig für Parsivald-Simulationen genutzt werden können.
+%% So sind Reaktionen zwischen Silan und Sauerstoff in der Gasphase nur mit einer begrenzten Menge von Startbedingungen erfolgreich, während sich bei großen Mengen dieser Moleküle Clusterbildung mit unrealistischen Bindungsarten zeigt.
 
-Bei der Simulation von Oberflächen-Reaktionen von Wasser mit Aluminiumoxid mit reaktiven Kraftfeldern kann jedoch eine \todo{relativieren}perfekte Hydroxylierung beobachtet werden, die gute Übereinstimmung der Hydroxyl-Bedeckung mit experimentellen Werten zeigt.
-Allerdings konnte der zweite Precursor der \ce{Al2O3}-ALD, Trimethylaluminium\todo{Überarbeiten: Beim Precursor stabil, nur mit der Parametrisierung in der Simulation nicht}, mangels stabiler \ce{Al-C}-Bindungen nicht von den untersuchten ReaxFF-Parametrisierungen beschrieben werden.
-Damit war eine reaktive Abscheidungssimulation dieses ALD-Prozesses mit den vorgestellten Methoden bisher nicht erfolgreich.
+Bei der Simulation von Oberflächen-Reaktionen von Wasser mit Aluminiumoxid mit reaktiven Kraftfeldern kann jedoch eine Hydroxylierung beobachtet werden, die Übereinstimmung mit der Hydroxyl-Bedeckung aus ab initio-Methoden zeigt.
+Allerdings können die benutzten ReaxFF-Parametersätze den zweite Precursor der \ce{Al2O3}-ALD, Trimethylaluminium, mangels passender Parameter für \ce{Al-C}-Bindungen nicht beschreiben, weshalb eine reaktive Abscheidungssimulation dieses ALD-Prozesses mit den vorgestellten Methoden bisher nicht erfolgreich war.
 
 \section{Ausblick}
-\todoline{viel zu detailliert}
-\todoline{Unterscheidung zwischen Parsivald und möglichen Anwendungen}
-\todoline{Beschreibung ACCELERATE oder Kurzbeschreibung des Promotionsvorhabens}
 %% {Was kann ich tun? - konkrete Untersuchungen}
-Anknüpfungspunkte an die Arbeit bestehen in der Optimierung der präsentierten Simulationen zur realistischeren Beschreibung der Strukturen, der Simulation weiterer Abscheidungsprozesse sowie in der Erweiterung von Parsivald um effizientere Algorithmen und Methoden zur weiteren Senkung der Laufzeiten von Abscheidungssimulationen, wodurch auch kürzere Iterationszyklen bei der Suche nach optimalen Simulationseinstellungen ermöglicht werden.
+Anknüpfungspunkte an die Arbeit bestehen in der Erweiterung von Parsivald um effizientere Algorithmen und Methoden zur weiteren Senkung der Laufzeiten von Abscheidungssimulationen sowie in der Anwendung von Parsivald zur Simulation verschiedener Gasphasenabscheidungen.
 
-%% Weitere Optimierungen und Prozesse
-Für die EAM-Simulationen lässt sich der Einfluss polykristalliner Substrate auf die Struktur der abgeschiedenen Schicht untersuchen.
-Dabei stellt sich die Frage, wie sich die Simulationsparameter im Vergleich zu monokristallinen Substraten und dem damit verbundenen epitaktischen Wachstumsmodus verhalten, um glatte Schichten zu erzeugen.
-
-Gezielte Epitaxie-Simulationen können weiterhin Hinweise auf die Einflüsse der Simulationsparameter und der Finite-Size-Effekte geben, anhand derer Rückschlüsse für die Simulationsparameter allgemeiner Gasphasenabscheidungen gezogen werden können.
-
-\todo{weglassen: Die Simulation von verspannten Multilagen-Systemen, bei denen durch unterschiedliche Gitterkonstanten ein Gitterversatz zu beobachten ist, führt zu der Frage, inwiefern Parsivald den untersuchten Systemen eine kristalline Struktur aufzwingt.}
-
-Durch Optimierung der Parameter für die Simulation der Abscheidung amorpher Schichten lässt sich deren Einfluss auf die Struktur der Schicht untersuchen.
-Ein direkter Vergleich mit rein molekulardynamischen Simulationen ist dafür ebenfalls notwendig, hätte allerdings aufgrund der rechenaufwendigen Potentiale den zeitlichen Rahmen dieser Arbeit überstiegen.
-
-Weitere Untersuchungen der reaktiven Kraftfelder zum Zweck der Beschreibung chemischer Gasphasenabscheidungen führen zu der Frage, wie diese zur Simulation der chemischen Reaktionen in CVD-Simulationen genutzt werden können.
-Die Nutzung von Energieminimierungen und Metropolis Monte Carlo-Methoden im Gegensatz zur Zeitintegration im kanonischen Ensemble sowie die vorherige Abschätzung des Zielzustandes im KMC-Teil des Modelles können hierbei helfen, die Verlässlichkeit zu erhöhen sowie die notwendige Simulationszeit zu reduzieren.
-Andere Gruppen haben bereits ähnliche Modelle erforscht, dabei aber entweder auf Gitteransätze zurück gegriffen\cite{stamatakis_graph-theoretical_2011} oder nur gleichatomige epitaktische Systeme untersucht\cite{clark_hybrid_1996}.
-
-%% konkrete Vorschläge zu gemischten Systemen
-Die Simulation der Abscheidung gemischter Schichten wie Oxiden und Nitriden ist unter Nutzung reaktiver Kraftfelder auch ohne explizite Beschreibung der Reaktionen hinsichtlich der Frage interessant, inwiefern diese zur Bildung von gleichatomigen Clustern und Überkoordinationen neigen, wie bereits für EAM-Potentiale beobachtet werden konnten\cite{lorenz_entwicklung_2012}.
-Dabei bieten sich unter anderem \ce{TaN}, welches als Diffusionsbarriere für Kupfer fungiert, und \ce{TiO2}, das als High-$\kappa$-Dielektrikum für Feldeffekt-Transistoren interessant ist, an.
-In allen Fällen ist zur Vermeidung der Clusterbildung und zur Bewahrung der Stöchiometrie und Koordinationen eine sorgfältige Untersuchung der Parametrisierungen unerlässlich, weshalb die Präparation dieser Abscheidungssimulationen den Rahmen dieser Arbeit gesprengt hätten.
-
-Zuletzt soll die Simulation des anfänglichen Schichtwachstums auf andersartigen Substraten erwähnt werden.
-Zwar wurde mit Kupfer-Nickel-Multilagen-PVD bereits eine solche Untersuchung durchgeführt, doch zeigen diese Materialien gute Hafteigenschaften.
-Interessant wäre besonders das Wachstum von High-$\kappa$-Dielektrika auf Silizium und Siliziumdioxid, wie es bei der Produktion moderner MOSFETs auftritt.
-Hierbei ist die Diffusion der Atome auf der Oberfläche und in sie hinein zu beachten, sowie Wachstumsmodus, der häufig Inselwachstum gleicht und so mit der aktuellen Parsivald-Implementierung durch sich ergebende Unebenheiten zu den oben beschriebenen nanoporösen Simulationsartefakten führen kann.
 %% Parsivald-Erweiterungen
 
-\vspace{0.5em}
+Der Ereignisdurchsatz des Hauptprozesses ließe sich verringern, indem das Host-Worker-Protokoll optimiert wird, wodurch die obere Grenze der Zahl paralleler Worker und somit die maximale Größe des Simulationsraumes für effiziente Simulationen weiter gesteigert wird.
+Zusätzlich ermöglicht die Nutzung einer Delaunay-Triangulation des gesamten Raumes neben einer einfacheren Parallelisierbarkeit des Hauptprozesses auch eine implizite Beschreibung der Oberflächenatome per Alpha-Form, womit die Suche bei der Erstellung von Ereignissen massiv beschleunigt würde.
+Durch diesen Graph-basierten Ansatz sind außerdem die Vorausberechnung ähnlicher Ereignisse möglich, die zu einer weiteren Beschleunigung des Prozesses und zur Verringerung der Reichweiten von Adsorptionsereignissen führt.
+Ebenso würde die Ereignisauswahl vereinfacht, da die unmittelbare Nachbarschaft in der Delaunay-Triangulation direkt referenziert ist, sodass umfangreichere Ereignis-Bedingungen, wie sie bei reaktiven CVD-Simulationen notwendig werden, beschrieben werden können.
+Die anschließende Einbindung von Parsivald in das ACCELERATE-Projekt führt zu einer Sammlung von numerischen Werkzeugen für die Multiskalen-Simulation von Gasphasenabscheidungen, wobei Parsivald von effizienteren Methoden zur Bestimmung und Durchführung von Ereignissen profitieren kann, wobei seine Off-Lattice-Datenstrukturen anderer Software zur effizienten Betrachtung amorpher Strukturen verhilft.
 
-Das Parsivald-Modell lässt sich schließlich mit Algorithmen und Methoden erweitern, um so die beobachteten Unzulänglichkeiten zu umgehen, effizientere Simulationen zu erlauben und damit weitere Abscheidungsprozesse mit schnelleren Präparationszyklen zu beschreiben.
+%% Weitere Optimierungen und Prozesse
+Wie in der Arbeit demonstriert wurde, lässt sich Parsivald bereits jetzt zur effizienten Simulation von physikalischen Gasphasenabscheidungen nutzen, wobei die Simulation der PVD auf polykristallinen und amorphen Substraten ebenso denkbar ist wie die Simulation der Abscheidung gemischter Materialien, etwa Legierungen und verschiedenen Multilagen-Systemen.
 
-So lässt sich der Ereignisdurchsatz des Hauptprozesses verringern, indem einige Vor- und Nachbereitungen in die Worker-Prozesse verlagert werden, wodurch die obere Grenze der Zahl paralleler Worker praktisch eliminiert werden sollte.
-Dazu sollte die Host-\-Worker-\-Kom\-mu\-ni\-ka\-tion indirekt über den Management-Prozess des Workerpools laufen, welcher durch eine sorgfältige Überwachung des Workerzustandes unnötige Neuberechnungen unzulässiger Zustände vermeiden könnte.
-Eine Parallelisierung des Hauptprozesses ist ebenso denkbar, wird jedoch von den derzeitigen räumlichen Datenstrukturen nicht unterstützt.
+Die reaktive Simulation von chemischen Gasphasenabscheidungen ist mit dem Parsivald-Modell theoretisch möglich, konnte aber noch nicht demonstriert werden, weshalb die Untersuchung passender ReaxFF-Parametersätze notwendig ist.
+Damit wäre auch die Simulation von mehrstufigen Abscheidungen, wie sie etwa für Interconnect-Systeme in der Mikroelektronik genutzt werden\todo{Ref?}, denkbar, bei denen viele verschiedene Materialien auf struktureller Ebene per MD beschrieben werden müssten.
 
-Die Abkehr von globalen Datenstrukturen hin zu einer Delaunay-Triangulation des gesamten Raumes brächte neben einer Parallelisierbarkeit des Hauptprozesses auch eine implizite Beschreibung der Oberflächenatome per Alpha-Form, womit die Suche bei der Erstellung von Ereignissen massiv beschleunigt würde.
-Zusätzlich erlaubt diese Oberflächenbeschreibung beliebige Auftreffwinkel nebst der Ereignisauswahl in bisher abgeschirmten Bereichen, wodurch Verzerrungen der Ereignisraten bei chemische Gasphasenabscheidungen stark reduziert würden.
-Außerdem ergeben sich durch die Referenzierung der unmittelbaren Nachbarschaft eines Atomes auch seine Koordinationen sowie potentiellen Bindungen, welche für die Ereignisauswahl hilfreich sind, wodurch eine bisher notwendige Konnektivitätsprüfung jedes Ereignisses entfällt.
-
-Eine der umfangreichsten Ergänzungen bestünde allerdings in der Einführung weiterer atomistischer Optimierungsmethoden, wie etwa Simulated Annealing per Metropolis Monte Carlo, für welche eine energetische Auswertung der reaktiven Kraftfelder neu implementiert werden müsste, weshalb sie in dieser Arbeit nicht umgesetzt wurde.
-Diese könnten neben molekulardynamischen Potentialen \todo{Wort}theoretisch auch auf präzisere Methoden wie Elektronenstrukturrechnungen zurück greifen.
-Zur Vermeidung unnötiger Redundanz der Rechnungen müsste ein selbstlernendes Verzeichnis der potentiellen Reaktionen eingearbeitet werden, bei Energiebarrieren und damit verbundene Ereignisraten verwaltet und bei Bedarf ergänzt werden.
-Diese Methode wird bereits erfolgreich in anderen Off-Lattice-Modellen eingesetzt\cite{biehl_off-lattice_2005,stamatakis_graph-theoretical_2011}.
-
+Unter Nutzung verschiedener Schichtarten ist auch die Simulation des anfänglichen Schichtwachstums auf verschiedenartigen Substraten möglich.
+Zwar wurde mit Kupfer-Nickel-Multi\-lagen-PVD bereits eine solche Untersuchung durchgeführt, doch zeigen diese Materialien gute Hafteigenschaften.
+Interessant wäre besonders das Wachstum von High-$\kappa$-Dielektrika auf Silizium und Siliziumdioxid, wie es bei der Produktion moderner MOSFETs auftritt.
+Hierbei ist die Diffusion der Atome auf der Oberfläche und in sie hinein zu beachten, die mit Parsivald nur bedingt darstellbar ist.

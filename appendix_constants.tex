@@ -1,34 +1,53 @@
 \chapter{Physikalische Konstanten und Stoffeigenschaften}
 \label{appendix_constants}
 
-\footnotetext[1]{Die Bindungslängen wurden über die Kristallstrukturen aus den Gitterkonstanten berechnet}
+\footnotetext[1]{Die Kristall-Bindungslängen wurden über die Kristallstrukturen aus den Gitterkonstanten berechnet}
+\footnotetext[2]{Die Dichte bei höheren Temperaturen weit unterhalb des Schmelzpunktes wurde über die Dichte bei Raumtemperatur und den linearen Ausdehnungskoeffizienten berechnet}
+
+\begin{table}[H]
+  \centering
+  \caption{Physikalische Konstanten}
+  \oddrowcolors
+  \begin{tabularx}{\textwidth}{|XXR|}
+    \hline
+    \textbf{Größe}                  & \textbf{Wert}                               & \textbf{Referenz}            \\
+    \hline
+    Avogadro-Konstante $N_\text{A}$ & \SI{6.02214179e23}{\per\mole}               & \cite{haynes_crc_2011} S.1-1 \\
+    Boltzmann-Konstante $k_B$       & \SI{1.3806504e-23}{\joule\per\kelvin}       & \cite{haynes_crc_2011} S.1-2 \\
+    Molare Gaskonstante $R$         & \SI{8.314472}{\joule\per\mole\per\kelvin} & \cite{haynes_crc_2011} S.1-2 \\
+    Atomare Masseneinheit $u$       & \SI{1.660538782e-27}{\kilo\gram}            & \cite{haynes_crc_2011} S.1-2 \\
+    \hline
+  \end{tabularx}
+\end{table}
 
 \begin{table}[H]
   \centering
   \caption{Eigenschaften von Gold}
-  \oddrowcolors
-  \begin{tabular}{|lll|}
+  \evenrowcolors
+  \begin{tabularx}{\textwidth}{|XXR|}
     \hline
     \textbf{Größe}                           & \textbf{Wert}                                  & \textbf{Referenz}               \\
     \hline
     Dichte $\rho$, \SI{300}{\kelvin}         & \SI{19.3}{\gpcc}                               & \cite{haynes_crc_2011} S.4-65   \\
     Dichte $\rho$, \SI{500}{\kelvin}         & \SI{19.13}{\gpcc}                              & berechnet\footnotemark[2]       \\
     Dichte $\rho_m$, flüssig                 & \SI{17.31}{\gpcc}                              & \cite{haynes_crc_2011} S.4-128  \\
+    Linearer Ausdehnungskoeffizient $\alpha$ & \SI{14.2e-6}{\per\kelvin}                      & \cite{haynes_crc_2011} S.12-206 \\
     Schmelztemperatur $T_m$                  & \SI{1064.18}{\celsius} (\SI{1337.33}{\kelvin}) & \cite{haynes_crc_2011} S.4-65   \\
     Atomgewicht $u$                          & \SI{196.967}{\gram\per\mole}                   & \cite{haynes_crc_2011} S.1-12   \\
     Kristallstruktur                         & fcc                                            & \cite{haynes_crc_2011} S.4-147  \\
     Gitterkonstante $a$                      & \SI{4.0786}{\angstrom}                         & \cite{haynes_crc_2011} S.4-147  \\
     Bindungslänge $r_\text{bond}$            & \SI{2.8840}{\angstrom}                         & berechnet\footnotemark[1]       \\
-    Linearer Ausdehnungskoeffizient $\alpha$ & \SI{14.2e-6}{\per\kelvin}                      & \cite{haynes_crc_2011} S.12-206 \\
     \hline
-  \end{tabular}
+  \end{tabularx}
 \end{table}
+
+\clearpage
 
 \begin{table}[H]
   \centering
   \caption{Eigenschaften von Kupfer}
   \oddrowcolors
-  \begin{tabular}{|lll|}
+  \begin{tabularx}{\textwidth}{|XXR|}
     \hline
     \textbf{Größe}                           & \textbf{Wert}                                  & \textbf{Referenz}               \\
     \hline
@@ -41,33 +60,29 @@
     Bindungslänge $r_\text{bond}$            & \SI{2.5562}{\angstrom}                         & berechnet\footnotemark[1]       \\
     Linearer Ausdehnungskoeffizient $\alpha$ & \SI{16.5e-6}{\per\kelvin}                      & \cite{haynes_crc_2011} S.12-206 \\
     \hline
-  \end{tabular}
+  \end{tabularx}
 \end{table}
 
 \begin{table}[H]
   \centering
   \caption{Eigenschaften von Nickel}
-  \oddrowcolors
-  \begin{tabular}{|lll|}
+  \evenrowcolors
+  \begin{tabularx}{\textwidth}{|XXR|}
     \hline
-    \textbf{Größe}      & \textbf{Wert}          & \textbf{Referenz}              \\
+    \textbf{Größe}                & \textbf{Wert}          & \textbf{Referenz}              \\
     \hline
-    Kristallstruktur    & fcc                    & \cite{haynes_crc_2011} S.4-150 \\
-    Gitterkonstante $a$ & \SI{3.5238}{\angstrom} & \cite{haynes_crc_2011} S.4-150 \\
+    Kristallstruktur              & fcc                    & \cite{haynes_crc_2011} S.4-150 \\
+    Gitterkonstante $a$           & \SI{3.5238}{\angstrom} & \cite{haynes_crc_2011} S.4-150 \\
+    Bindungslänge $r_\text{bond}$ & \SI{2.4917}{\angstrom} & berechnet\footnotemark[1]      \\
     \hline
-  \end{tabular}
+  \end{tabularx}
 \end{table}
-
-\clearpage
-
-\footnotetext[1]{Die Bindungslängen wurden über die Kristallstrukturen aus den Gitterkonstanten berechnet}
-\footnotetext[2]{Die Dichte bei höheren Temperaturen wurde über die Dichte bei Raumtemperatur und den linearen Ausdehnungskoeffizienten berechnet}
 
 \begin{table}[H]
   \centering
   \caption{Eigenschaften von Silizium}
   \oddrowcolors
-  \begin{tabular}{|lll|}
+  \begin{tabularx}{\textwidth}{|XXR|}
     \hline
     \textbf{Größe}                & \textbf{Wert}                            & \textbf{Referenz}              \\
     \hline
@@ -79,18 +94,32 @@
     Kristallstruktur              & diamant                                  & \cite{haynes_crc_2011} S.4-151 \\
     Gitterkonstante $a$           & \SI{5.4305}{\angstrom}                   & \cite{haynes_crc_2011} S.4-151 \\
     Bindungslänge $r_\text{bond}$ & \SI{2.3515}{\angstrom}                   & berechnet\footnotemark[1]      \\
-    Struktur von \ce{SiH4}        & tetraedrisch                             & \cite{haynes_crc_2011} S.9-29  \\
-    Bindungslänge in \ce{SiH4}    & \SI{1.4798}                              & \cite{haynes_crc_2011} S.9-29  \\
     \hline
-  \end{tabular}
+  \end{tabularx}
+
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \caption{Eigenschaften der Silizium-CVD-Precursor}
+  \evenrowcolors
+  \begin{tabularx}{\textwidth}{|XXR|}
+    \hline
+    \textbf{Größe}                                      & \textbf{Wert}          & \textbf{Referenz}             \\
+    \hline
+    Struktur von Silan $\left(\ce{SiH4}\right)$         & tetraedrisch           & \cite{haynes_crc_2011} S.9-29 \\
+    Bindungslänge in \ce{SiH4}                          & \SI{1.4798}{\angstrom} & \cite{haynes_crc_2011} S.9-29 \\
+    Bindungslänge von Sauerstoff $\left(\ce{O2}\right)$ & \SI{1.2074}{\angstrom} & \cite{haynes_crc_2011} S.9-26 \\
+    \hline
+  \end{tabularx}
 
 \end{table}
 
 \begin{table}[H]
   \centering
   \caption{Eigenschaften von Aluminiumoxid}
-  \oddrowcolors
-  \begin{tabular}{|lll|}
+  \evenrowcolors
+  \begin{tabularx}{\textwidth}{|XXR|}
     \hline
     \textbf{Größe}                                         & \textbf{Wert}                            & \textbf{Referenz}                   \\
     \hline
@@ -98,7 +127,7 @@
                                                            & \SI{3.98}{\gpcc}                         & \cite{fiquet_high-temperature_1999} \\
     Dichte $\rho$, $\alpha$-kristallin, \SI{1500}{\kelvin} & \SI{3.80}{\gpcc}                         & \cite{fiquet_high-temperature_1999} \\
     Dichte $\rho$, $\gamma$-kristallin, \SI{300}{\kelvin}  & \SI{3.67}{\gpcc}                         & \cite{dynys_alpha_1982}             \\
-    Dichte $\rho$, amorph, \SI{300}{\kelvin}               & \SI{3.2}{\gpcc}-\SI{3.2}{\gpcc}          & \cite{wang_dependence_1997}         \\
+    Dichte $\rho$, amorph, \SI{300}{\kelvin}               & \SI{3.2}{\gpcc} - \SI{3.9}{\gpcc}          & \cite{wang_dependence_1997}         \\
     Schmelztemperatur $T_m$, $\alpha$-kristallin           & \SI{2054}{\celsius} (\SI{2327}{\kelvin}) & \cite{haynes_crc_2011} S.4-87       \\
     Atomgewicht $u$, \ce{Al}                               & \SI{26.982}{\gram\per\mole}              & \cite{haynes_crc_2011} S.1-12       \\
     Atomgewicht $u$, \ce{O}                                & \SI{15.999}{\gram\per\mole}              & \cite{haynes_crc_2011} S.1-13       \\
@@ -106,22 +135,24 @@
     Gitterkonstante $a$                                    & \SI{4.7591}{\angstrom}                   & \cite{haynes_crc_2011} S.4-146      \\
     Gitterkonstante $c$                                    & \SI{12.9894}{\angstrom}                  & \cite{haynes_crc_2011} S.4-146      \\
     \hline
-  \end{tabular}
+  \end{tabularx}
 
 \end{table}
 
 \begin{table}[H]
   \centering
-  \caption{Physikalische Konstanten}
-  \oddrowcolors
-  \begin{tabular}{|lll|}
+  \caption{Struktur der \ce{Al2O3}-ALD-Precursormoleküle}
+  \evenrowcolors
+  \begin{tabularx}{\textwidth}{|XXR|}
     \hline
-    \textbf{Größe}                  & \textbf{Wert}                           & \textbf{Referenz}               \\
+    \textbf{Größe}                                & \textbf{Wert}          & \textbf{Referenz}             \\
     \hline
-    Avogadro-Konstante $N_\text{A}$ & \SI{6.02214179e23}{\per\mole}              & \cite{haynes_crc_2011} S.1-1    \\
-    Boltzmann-Konstante $k_B$       & \SI{1.3806504e-23}{\joule\per\kelvin}   & \cite{haynes_crc_2011} S.1-2    \\
-    Molare Gaskonstante $R$         & \SI{8.31472e23}{\joule\per\mole\kelvin} & \cite{haynes_crc_2011} S.1-2    \\
-    Atomare Masseneinheit $u$       & \SI{1.660653872e-27}{\kilo\gram}        & \cite{haynes_crc_2011} S.1-2    \\
+    Bindungswinkel von Wasser                     & \SI{104.51}{\degree}   & \cite{haynes_crc_2011} S.9-24 \\
+    \ce{O-H}-Bindungslänge in Wasser              & \SI{0.9575}{\angstrom} & \cite{haynes_crc_2011} S.9-24 \\
+    Struktur von TMA $\left(\ce{Al(CH3)3}\right)$ & planar, triagonal      & \cite{haynes_crc_2011} S.9-46 \\
+    \ce{Al-C}-Bindungslänge in TMA                & \SI{1.957}{\angstrom}  & \cite{haynes_crc_2011} S.9-46 \\
+    \ce{C-H}-Bindungslänge  in TMA                & \SI{1.113}{\angstrom}  & \cite{haynes_crc_2011} S.9-46 \\
     \hline
-  \end{tabular}
+  \end{tabularx}
+
 \end{table}

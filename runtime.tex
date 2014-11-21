@@ -9,7 +9,7 @@ Weiterhin bezeichnet die \textit{Größe} des Simulationsraumes oder der MD-Box 
 
 \subsection{Ereignis-Laufzeit $T_\text{E}$}
 
-Die Auswahl eines Ereignisses in KMC-Algorithmen ist mit einer Laufzeit~$T_\text{E}$ verbunden, die sich aus der Laufzeit von Suchoperationen $T_\text{KMC}$, der Laufzeit von Serialisierungen und Deserialisierungen zur Datenübertragung zwischen Host und Worker $T_\text{Ser.}$ und $T_\text{Des.}$ sowie der Laufzeit für die \todo{Wurde die Konnektivitätsprüfung vorgestellt?}Konnektivitätsprüfung $T_\text{Konn.}$ zusammen setzt.
+Die Auswahl eines Ereignisses in KMC-Algorithmen ist mit einer Laufzeit~$T_\text{E}$ verbunden, die sich aus der Laufzeit von Suchoperationen $T_\text{KMC}$, der Laufzeit von Serialisierungen und Deserialisierungen zur Datenübertragung zwischen Host und Worker $T_\text{Ser.}$ und $T_\text{Des.}$ sowie der Laufzeit für die Konnektivitätsprüfung $T_\text{Konn.}$ zusammen setzt.
 Damit bezeichnet sie die Zeit, die der Host-Prozess in parallelen Parsivald-Simulationen für ein Ereignis aufbringt.
 
 \begin{equation}
@@ -111,7 +111,7 @@ Die parallele Effizienz $E_p$ ist als Verhältnis aus dem Speedup $S_p$ zur Zahl
 \begin{equation}
   E_p = \frac{S_p}{p} = 1 - \frac{p_\text{max,2} - p}{p (p_\text{max,2} - 1)}
 \end{equation}
-Somit ergibt sich für $p = p_\text{max,2}$ mit $E_\text{max} = 1$ eine ideale Effizienz, die auf volle Auslastung aller Prozesse bei vernachlässigbarem Overhead hinweist\todo{so what?}.
+Somit ergibt sich für $p = p_\text{max,2}$ mit $E_\text{max} = 1$ eine ideale Effizienz, die auf volle Auslastung für $p_\text{max}$ Prozesse bei vernachlässigbarem Overhead hinweist.
 
 %% \subsection{Abschätzung des parallelen Anteils $P$ (Parallelisierbarkeit)}
 
@@ -127,7 +127,6 @@ Somit ergibt sich für $p = p_\text{max,2}$ mit $E_\text{max} = 1$ eine ideale E
 \subsection{Auswertung der Laufzeitparameter}
 \label{runtimeanalysis}
 
-\todo{um ein paar Zeilen kürzen?}
 Die Parallelisierung von Parsivald-Simulationen lässt sich über die Größe der als quadratisch angenommen Simulationsräume $w_\text{sim}$, die Ereignis-Laufzeit $T_\text{E}$ und die MD-Laufzeit $T_\text{MD}$ beeinflussen.
 Einen geringeren Einfluss haben die Größe der MD-Box $w_\text{MD}$ und die mittlere Workerdichte~$\rho_\text{worker}$ des Prozesses, welche ergänzend in Anhang~\ref{appendix_runtime} untersucht werden.
 Im allgemeinen Fall muss ein Gleichgewicht zwischen $T_\text{E}$, $T_\text{MD}$, $w_\text{sim}$ und $p$ gefunden werden.
@@ -207,7 +206,6 @@ Das klingt nach einem Widerspruch, doch heben sich hier $T_p \sim T_\text{MD}$ u
 
 \subsection{Fazit}
 
-Für kleine Simulationsräume ermöglicht Parsivald konstante parallele Laufzeiten $T_p$ unabhängig von der Größe der Oberfläche, wohingegen für große Simulationsräume eine ideale parallele Effizienz $E_\text{max} = 1$ für bis zu $p_\text{max}$ parallele Prozesse möglich ist.
+Eine theoretische Analyse Laufzeit und Skalierbarkeit von Parsivald zeigt, dass für kleine Simulationsräume konstante parallele Laufzeiten $T_p$ unabhängig von der Größe der Oberfläche ermöglicht werden, wohingegen für große Simulationsräume eine ideale parallele Effizienz $E_\text{max} = 1$ für bis zu $p_\text{max}$ parallele Prozesse möglich ist.
 Damit eignet sich Parsivald für effiziente atomistische Simulation von Abscheidungsprozessen.
 Mit $w_\text{eff}$ wird dabei der größte Simulationsraum beschrieben, der in minimaler Laufzeit simuliert werden kann.
-\todo{klar machen, dass es sich um eine Analyse handelt, keine Auswertung}

@@ -122,7 +122,8 @@ Eine tatsächliche Anwendbarkeit beider Methoden muss für jeden Prozess einzeln
 
 Mit der vorliegenden Arbeit wurde das Parsivald-Modell und seine Implementierung um PVD- und CVD-Modi (Abbildung~\ref{fig:parsivald-modes}), eventgebundene sterische Hinderung zum Zweck der CVD-Simu\-lation, ein allgemeines Konfigurationsformat und allgemeine MD-Masken erweitert.
 Intern kam die Unterstützung verschiedener atomistischer Dateiformate, die Einbettung der LAMMPS-Umgebungs\-variablen zur Potentialsuche, globale und lokale Suchpfade für alle Eingabedateien und ein interner sowie beliebig viele externe Workerpools dazu.
-Ein standardisiertes Buildsystem sorgt für schnelle und sichere Kompilierung der Software, und eine Vielzahl externer Werkzeuge zur Vorbereitung und Analyse von Prozessen (Anhang~\ref{appendix_tools}) ermöglicht schnelle Zyklen der Parameteroptimierung und Auswertung.
+Ein standardisiertes Buildsystem sorgt für schnelle und sichere Kompilierung der Software, und eine Vielzahl externer Werkzeuge zur Vorbereitung und Analyse von Prozessen ermöglicht schnelle Zyklen der Parameteroptimierung und Auswertung.
+Die entwickelten Werkzeuge beinhalten Programme zur Konvertierung zwischen atomistischen Dateiformaten, zur Korrektur von Konvertierungsfehlern, zur Bestimmung von Alpha-Formen und radialen Verteilungsfunktionen und deren Auswertung, sowie zur allgemeinen Manipulation und Auswertung von atomistischen Dateien.
 
 Diese Änderungen ermöglichen eine einfachere Vorbereitung, Simulation und Untersuchung verschiedener Prozesse und eine aussagekräftigere Analyse der Ergebnisse.
 Auch eine automatisierte Optimierung der Simulation durch selbstständige Anpassung der Prozessparameter wie Temperatur, Druck und Expositionszeit oder MD-spezifischer Parameter wie Thermostatdämpfung, Relaxationsdauer oder Zeitschrittweite ist mittels des Konfigurationsmechanismus' denkbar.

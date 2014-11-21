@@ -76,7 +76,7 @@ Die Gesamtenergie $E_\text{system}$ des Systemes setzt sich aus den folgenden Su
   E_\text{system} =~& E_\text{bond} + E_\text{lp} + E_\text{over} + E_\text{under} + E_\text{val} + E_\text{pen} + E_\text{coa} + E_\text{C2} \\
   \nonumber  & + E_\text{tors} + E_\text{conj} + E_\text{H-bond} + E_\text{vdWaals} + E_\text{Coulomb}
 \end{align}
-Die meisten Terme werden über die Bindungsordnung berechnet, welche sich wiederum aus Beiträgen für $\sigma$-, $\pi$- und Doppel-$\pi$-Bindungen aus dem Bindungsabstand zusammen setzt und über die Parameter $p_{\text{bo,1..6}}$ für unterschiedliche Atomsorten eingestellt werden kann.
+Die meisten Terme werden über die Bindungsordnung $BO_{ij}'$ berechnet, welche sich wiederum aus Beiträgen für $\sigma$-, $\pi$- und Doppel-$\pi$-Bindungen aus dem Bindungsabstand zusammen setzt und über die Parameter $p_{\text{bo,1..6}}$ für unterschiedliche Atomsorten eingestellt werden kann.
 \begin{equation}
   BO_{ij}' = \exp\left( p_{\text{bo,1}} \cdot \left( \frac{r_{ij}}{r_0} \right)^{p_\text{bo,2}} \right) + \exp\left( p_{\text{bo,3}} \cdot \left( \frac{r_{ij}}{r_{0,\pi}} \right)^{p_\text{bo,4}} \right) + \exp\left( p_{\text{bo,5}} \cdot \left( \frac{r_{ij}}{r_{0,\pi\pi}} \right)^{p_\text{bo,6}} \right)
 \end{equation}

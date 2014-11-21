@@ -195,7 +195,7 @@ getlatexwarnings(){
 }
 
 equationreferences(){
-    listfiles | xargs -0 grep -n 'ref{eq'
+    listfiles | xargs -0 grep -n 'ref{eq' | grep -v '%legitequationreference'
 }
 
 doublespaces(){
@@ -266,7 +266,7 @@ grandcanonical(){
     register "unexplained abbreviations" unexplainedabbreviations
     register "multiplelabels" multiplelabels
     register "citations with language tag" citationswithlanguagetag
-    register "long lines" listlonglines 333
+    register "long lines" listlonglines 350
     register "ASD occurences" asddsa
     register "dots within a line" dotlines
     register "trailing spaces" trailingspaces

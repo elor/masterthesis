@@ -133,11 +133,11 @@ Im allgemeinen Fall muss ein Gleichgewicht zwischen $T_\text{E}$, $T_\text{MD}$,
 
 Das Skalierungsverhalten von Parsivald teilt sich anhand der Raumgröße $w_\text{sim}$ in zwei Bereiche ein.
 Für \textit{kleine Räume} mit $w_\text{sim} \le w_\text{eff}$ determiniert $p_\text{max,1}$ das Skalierungsverhalten, wohingegen für \textit{große Räume} ($w_\text{sim} \ge w_\text{eff}$) $p_\text{max,2}$ dominiert.
-Die effiziente Raumgröße $\le w_\text{eff}$ entspricht dabei einer kritischen Raumgröße, an der ein Knick in den Abbildungen~\ref{fig:densitymaxsize},\ref{fix:workersbytime} und~\ref{fig:runtimebytime} erkennbar ist.
+Die effiziente Raumgröße $\le w_\text{eff}$ entspricht dabei einer kritischen Raumgröße, an der ein Knick in den Abbildungen~\ref{fig:densitymaxsize},\ref{fig:workersbytime} und~\ref{fig:runtimebytime} erkennbar ist.
 
 Die effiziente Größe $w_\text{eff}$ lässt sich anhand der maximalen Workerdichte $\rho_\text{worker,max}$ bestimmen.
 Liegt diese oberhalb einer aus Erfahrungen gewonnenen Grenze von \SI{10}{\percent}, wird von einem effizienten Prozess im Sinne der parallelen Effizienz ausgegangen.
-Es gilt dann aufgrund der Beziehungen aus Gleichungen~\ref{eq:pmax} und~\ref{eq:workerdensity}:
+Es gilt dann aufgrund der Beziehungen aus Gleichungen~\ref{eq:pmax} und~\ref{eq:workerdensity}:%legitequationreference
 \begin{align}
   w_\text{eff} & \sim T_\text{MD}     \\
   w_\text{eff} & \sim T_\text{E}^{-1}
@@ -162,7 +162,7 @@ Unter Optimierung des Hostprozesses zu $T_\text{E} = \SI{3}{\milli\second}$ sind
 \end{figure}
 
 Dieser Einfluss ist auch in Abbildung~\ref{fig:workersbytime} zu erkennen, bei der eine Verschiebung von $w_\text{eff}$ mit einer Verschiebung des Knicks einher geht und somit mehr Prozesse für große Räume zulässt.
-Durch Extrapolierung erhält man mehr als \num{10000} Prozesse zur effizienten Simulation von \SI{1x1}{\micro\meter} großen Räumen, welche aktuell jedoch nur von wenigen Rechenclustern bereit gestellt werden können.
+Durch Extrapolierung sind Werte von mehr als \num{10000} Prozessen zur effizienten Simulation von \SI{1x1}{\micro\meter} großen Räumen ersichtlich, welche die technischen Grenzen aktueller Rechencluster übersteigen.
 Die maximale Zahl der Prozesse in kleinen Räumen wird hingegen ausschließlich über die Größe der MD-Box $w_\text{MD}$ bestimmt, welche zur Reduktion der Gesamt-Laufzeit nach Möglichkeit minimal gewählt wird.
 
 \begin{figure}[p]

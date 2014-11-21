@@ -1,7 +1,7 @@
 \section{Multilagen-PVD}
 \label{multilayer}
 
-Zur Herstellung von mehrlagigen Schichten wie röntgenoptischen oder magnetischen Systemen (Riesenmagnetowiderstand GMR, Tunnelmagnetowiderstand TMR) werden Elektrodepositionen\cite{yang_pulsed_1995} und Sputter-Prozesse\cite{basrhilia_characterization_2002,cammarata_nanoindentation_1990} genutzt, die beide zur Klasse der PVD-Methoden gehören.
+Zur Herstellung von mehrlagigen Schichten wie röntgenoptischen oder magnetischen Systemen (Riesenmagnetowiderstand GMR, Tunnelmagnetowiderstand TMR) werden Elektrodepositionen\cite{yang_pulsed_1995} und Sputter-Prozesse\cite{barshilia_characterization_2002,,cammarata_nanoindentation_1990} genutzt, die beide zur Klasse der PVD-Methoden gehören.
 Mit Parsivald werden deshalb Abscheidungssimulation von Kupfer-Nickel-Multilagen durchgeführt, bevor die Ergebnisse mit den Ergebnissen von rein molekulardynamischen Rechnungen verglichen werden.
 
 Die Wahl fiel auf das Kupfer-Nickel-System aufgrund der gleichen fcc-Struktur und der ähnlichen Gitterkonstanten von \SI{3.615}{\angstrom} für Kupfer und \SI{3.5238}{\angstrom} für Nickel\cite{haynes_crc_2011}, wodurch Gitterdefekte vermieden werden und epitaktisches Wachstum möglich ist\cite{zhou_atomistic_1998}.
@@ -86,7 +86,7 @@ Bei den LAMMPS-Simulationen wurde eine leicht verringerte Zahl von Atomen pro Zy
 
 Mit beiden Programmen konnte eine Laufzeit von \SI{3.5}{d} für 14 Lagen auf Substraten mit einer Fläche von \SI{106x106}{\angstrom} erzielt werden, wobei der Unterschied in der Zahl der parallelen Prozesse lag.
 Während LAMMPS einen kompletten Knoten mit 48 Prozessen ausgelastet hat, liefen die Parsivald-Simulationen mit $p = 4.18$ Prozessen, von denen der Hauptprozess zu weniger als \SI{2}{\percent} ausgelastet war.
-Damit erreicht Parsivald  für das untersuchte System eine Leistungssteigerung gegenüber reinen LAMMPS-Simulationen um einen Faktor von \num{14}, der für $w_\text{sim} < w_\text{eff}$ sogar quadratisch mit der Breite $w_\text{sim}$ des quadratischen Simulationsraumes zunimmt.
+Damit erreicht Parsivald für das untersuchte System eine Leistungssteigerung gegenüber reinen LAMMPS-Simulationen um einen Faktor von \num{14}, der für $w_\text{sim} < w_\text{eff}$ sogar quadratisch mit der Breite $w_\text{sim}$ des quadratischen Simulationsraumes zunimmt.
 
 \subsection{Fazit}
 

@@ -246,7 +246,7 @@ underfullboxes(){
 }
 
 commentblocks(){
-    listfiles | xargs -0 grep -n 'comment'
+    listfiles | xargs -0 grep -n 'comment' | grep -v '}%comment'
 }
 
 grandcanonical(){
@@ -266,14 +266,13 @@ grandcanonical(){
     register "unexplained abbreviations" unexplainedabbreviations
     register "multiplelabels" multiplelabels
     register "citations with language tag" citationswithlanguagetag
+    register "long lines" listlonglines 333
     register "ASD occurences" asddsa
     register "dots within a line" dotlines
     register "trailing spaces" trailingspaces
     register "double spaces" doublespaces
     register "tab stops" alltabs
     register "cites/refs with leading spaces" spacerefs
-    register "unused citations" unusedcitations
-    register "unused abbreviations" unusedabbreviations
     register "disabled includes" disabledincludes
     register "todo counts" todocounts
     register "LaTeX Warnings" getlatexwarnings
@@ -281,7 +280,8 @@ grandcanonical(){
     register "Man/man occurences" manoccurences
     register "comment blocks" commentblocks
     register "todo notes" todonotes
-    register "long lines" listlonglines 333
+    register "unused citations" unusedcitations
+    register "unused abbreviations" unusedabbreviations
     register "overfull boxes" overfullboxes
     register "underfull boxes" underfullboxes
     register "draft notes" getdrafts

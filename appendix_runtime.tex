@@ -1,49 +1,41 @@
 \chapter{Ergänzungen zur Laufzeitanalyse von Parsivald}
 \label{appendix_runtime}
 
-\section{Workerdichte}
+\section{Einfluss der Ereignis-Laufzeit auf die effiziente Raumgröße}
 
-\todoline{Text}
+Die Ereignis-Laufzeit $T_\text{E}$ hat einen ähnlichen Einfluss auf $w_\text{eff.}$ wie die MD-Laufzeit $T_\text{MD}$, doch ergibt sich eine inverse Proportionalität $w_\text{eff.} \sim T_\text{E}^{-1}$, wie in Abbildung~\ref{fig:weffeventtime} zu erkennen ist.
+Dieser Zusammenhang ergibt sich aus dem höheren Ereignisdurchsatz $R_\text{E}$ des Hauptprozesses, mit dem $p_\text{max,2}$ steigt.
+Somit verschiebt sich die Grenze $w_\text{eff.}$, für die $p_\text{max,1} = p_\text{max,2}$ gilt, weiter nach oben, wodurch größere Räume effizient betrachtet werden können.
 
-\begin{figure}[!hp]
+\begin{figure}[p]
 
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{7cm}
-  \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{densitybymdtime}
-  \end{subfigure}
-  \hfill
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{densitybykmctime}
-  \end{subfigure}
-
-  \caption{Abhängigkeiten der maximalen Workerdichte $\rho_{\text{worker}_\text{max}}$}
-
-\end{figure}
-
-\section{Maximale Raumgröße für effiziente Simulationen}
-\todoline{Text}
-
-\begin{figure}[!hp]
-  \captionsetup[subfigure]{singlelinecheck=false}
-  \def\subfigwidth{7cm}
-  \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{maxsizebymdtime}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{maxsizebykmctime}
   \end{subfigure}
 
-  \caption{Abhängigkeiten des Maximums der Breite des Simulationsraumes für effiziente Simulationen $w_{\text{sim}_\text{eff}}$}
+  \caption{Einfluss der Ereignis-Laufzeit $T_\text{E}$ auf die effiziente Simulationsgröße $w_\text{eff.}$}
+  \label{fig:weffeventtime}
 
 \end{figure}
 
-\section{Maximale Anzahl paralleler Prozesse}
+\section{Zusätzliche Einflüsse auf das Maximum der Prozesse $p_\text{max}$}
 
-\todoline{Text}
+Zusätzlich zur Ereignis- und MD-Laufzeit wird $p_\text{max}$ über die Größe der MD-Boxen $w_\text{MD}$ und die maximale Workerdichte $\rho_\text{worker,max}$ während der Simulation beeinflusst (Abbildung~\ref{fig:pmaxother}).
+$\rho_\text{worker}$ ist dabei von der Verteilung der Adsorptionsorte auf der Oberfläche abhängig und hat für gleichverteilte Simulationen von Gold-PVD Werte zwischen \SI{10}{\percent} und \SI{20}{\percent} angenommen.
+Für stärker lokalisierte Adsorptionen sind aufgrund der überlappenden MD-Boxen und der daraus resultierenden Abhängigkeit der Ereignisse geringere Werte für $\rho_\text{worker}$ zu erwarten.
+Es gilt $w_\text{eff.} \sim \rho_\text{worker,max}^{-1}$
 
-\begin{figure}[!hp]
+Die Erhöhung von $w_\text{MD}$ hat umfangreichere Einflüsse und verursacht eine Verringerung von $\rho_\text{max}$ aufgrund der Größe der Box, sowie eine Erhöhung von $T_\text{MD}$ und $T_\text{E}$ aufgrund der größeren Zahl an Atomen in der Box, was insgesamt zu einer Erhöhung von $w_\text{eff.}$ führt.
+Somit wird $p_\text{max}$ für $w_\text{sim} < w_\text{eff}$ verringert und für $w_\text{sim} > w_\text{eff}$ erhöht.
+Da mit der Vergrößerung der MD-Boxen auch die gesamte Laufzeit nahezu proportional skaliert (Abbildung~\ref{fig:tpother}), wird $w_\text{MD}$ meistens minimal gewählt.
+
+\begin{figure}[p]
 
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{7cm}
@@ -55,25 +47,12 @@
     \includegraphics[width=\textwidth]{workersbymdsize}
   \end{subfigure}
 
-  \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{workersbymdtime}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{workersbykmctime}
-  \end{subfigure}
-  \hfill
-
-  \caption{Abhängigkeiten der maximalen Zahl paralleler Prozesse}
+  \caption{Einfluss von $\rho_\text{worker}$ und $w_\text{MD}$ auf die Laufzeit $p_\text{max}$}
+  \label{fig:pmaxother}
 
 \end{figure}
 
-
-\section{Minimale Laufzeit}
-
-\todoline{Text}
-
-\begin{figure}[!hp]
+\begin{figure}[p]
 
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{7cm}
@@ -85,15 +64,7 @@
     \includegraphics[width=\textwidth]{runtimebymdsize}
   \end{subfigure}
 
-  \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{runtimebymdtime}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{runtimebykmctime}
-  \end{subfigure}
-  \hfill
-
-  \caption{Abhängigkeiten der Laufzeit}
+  \caption{Einfluss von $\rho_\text{worker}$ und $w_\text{MD}$ auf die Laufzeit $T_p$}
+  \label{fig:tpother}
 
 \end{figure}

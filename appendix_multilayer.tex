@@ -6,21 +6,21 @@
 Während der Präparation von Kupfer-Nickel-Multilagen-Simulationen haben sich verschiedene defektbehaftete Strukturen gebildet.
 Typischerweise deuten Wachstumsdefekte auf geringe Relaxationszeiten, geringe Auftreffenergien oder geringe Temperaturen hin.
 Das folgende System wurde bei \SI{500}{\kelvin} mit \SI{5.4}{\electronvolt} Auftreffenergie pro Teilchen für \SI{1.2}{\nano\second} relaxiert.
-Die Auftreffenergie wird jedoch vom Thermostat vor dem eigentlichen Auftreffen reduziert, so dass sie mit \SI{5.4}{\electronvolt} \todo{Satz komplett neu}nach Untersuchungen der Schichtqualität eigentlich zu niedrig liegt.
-
+Die Teilchenenergie liegt mit \SI{5.4}{\electronvolt} vergleichsweise hoch\cite{zhou_atomistic_1998}, wird allerdings vom Thermostat abgedämpft, weshalb die Mobilität des Adatomes verringert und das System unterrelaxiert ist.
 Als Resultat bilden sich Poren (Abbildung~\ref{fig:multilayer_surfacefail}), die sich vergleichbar zu den Kupferkratern in Abbildung~\ref{fig:coppercrater} entwickeln, sich aber erst spät wieder schließen.
 
-\begin{figure}[!ht]
+\begin{figure}[H]
   \centering
   \includegraphics[height=10cm]{CuNi_surface8_noalpha}
   \caption{Oberflächenprofil einer CuNi-Oberfläche nach nur 4 Lagen (\SI{60}{\angstrom})}
   \label{fig:multilayer_surfacefail}
 \end{figure}
 
-\clearpage
 Abbildung~\ref{fig:multilayer_columnfail} zeigt ein gleichartiges Resultat, das mit denselben Parametern erzeugt wurde.
-Hier ist erkennbar, wie sich die gebildeten Poren wieder schließen.
-Zur einfacheren Veranschaulichung wurde nur ein wenige Nanometer dünnes Profil abgebildet.
+Hier ist erkennbar, wie sich die gebildeten Poren nach vielen Schichten wieder schließen, wobei zur bessseren Veranschaulichung nur ein wenige Nanometer dünnes Profil abgebildet wurde.
+Untersuchungen experimentell abgeschiedener Schichten zeigen keine derartigen Fehlstellen\cite{yang_pulsed_1995}, allerdings ist ihre Dicke um einen Faktor von \num{100} höher.
+Auch molekulardynamische Untersuchungen\cite{zhou_atomic_2001} fanden keine Bildung von Hohlräumen.
+Das Verschwinden der Hohlräume in eigenen Experimenten deutet auf ein Artefakt der Unterrelaxierung hin.
 
 \begin{figure}[!ht]
   \captionsetup[subfigure]{singlelinecheck=false}
@@ -37,11 +37,9 @@ Zur einfacheren Veranschaulichung wurde nur ein wenige Nanometer dünnes Profil 
     \label{fig:multilayer_thickfail}
   \end{subfigure}
   \caption{Fehlgeschlagene \ce{CuNi}-Abscheidungen während der Parameter-Optimierung}
-  \todoline{Joerg: Woran machst du eigentlich fest, dass es nicht in realen Prozessen so was auch gibt?}
 \end{figure}
 
 \section{Multilagen mit einer Dicke von 5 nm}
 
 Ergänzend wurden auch Untersuchungen an Schichten mit Lagendicken begonnen, die sich an technologisch relevanten Werten von mehreren Nanometern orientieren.
-Abbildung~\ref{fig:multilayer_thickfail} stellt ein solches System dar, das aber aus Mangel an Rechenzeit für die notwendige Optimierung der Simulationsparameter nicht weiter untersucht wurde.
-Aus diesem Grund sind auch Krater- und Porenbildungen zu beobachten, die erwartungsgemäß mit Eingabe der optimalen Werte aus Kapitel~\ref{multilayer} eliminiert werden.
+Abbildung~\ref{fig:multilayer_thickfail} stellt ein solches System dar, das aber aus Mangel an Rechenzeit für weitere Optimierungszyklen der Simulationsparameter nicht weiter untersucht wurde, weshalb in der Darstellung noch Krater- und Porenbildungen zu beobachten ist, die vermutlich unter Nutzung der optimalen Werte (siehe Kapitel~\ref{multilayer}) eliminiert werden.

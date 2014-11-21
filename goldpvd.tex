@@ -34,7 +34,8 @@ Somit unterstützt die genutzte EAM-Para\-metri\-sierung das Zielsystem hinsicht
     \hline
   \end{tabularx}
   \begin{tablenotes}
-    \item[a] Referenzwerte stammen aus Referenz\cite{haynes_crc_2011} oder sind daraus berechnet. Siehe Anhang~\ref{appendix_constants}
+    \item[a] Referenzwerte stammen aus Referenz\cite{haynes_crc_2011} oder sind daraus berechnet.
+      Siehe Anhang~\ref{appendix_constants}
   \end{tablenotes}
   \end{threeparttable}
 \end{table}
@@ -46,7 +47,7 @@ Neben strukturellen Eigenschaften bilden EAM-Potentiale auch einige thermodynami
 Dafür wurde in MD-Simulationen ein Gold-Kristall mit einer Größe von \SI{40x40x40}{\angstrom} schrittweise von \SI{50}{\kelvin} auf \SI{2000}{\kelvin} im isotherm-isobaren Ensemble erwärmt, wobei der Schmelzpunkt bei \SI{1337}{\kelvin}\cite{haynes_crc_2011} überschritten wurde.
 Die Relaxationszeit $t_\text{relax}$ nach jedem Temperaturschritt von \SI{50}{\kelvin} und die Thermostat-Dämpfung $\tau$ wurden dabei variiert, um ihren Einfluss auf die Aussagekraft der Simulation zu untersuchen.
 
-Die Ergebnisse zeigen gute Übereinstimmung mit experimentellen Daten (Abbildung~\ref{fig:goldthermo}), wofür Relaxationszeiten $t_\text{relax} > \SI{20}{\pico\second}$ und Thermostat-Dämpfungsparameter $\tau = \SI{20}{\femto\second}$ bei einer Zeitschrittweite von $\Delta t = \SI{1}{\femto\second}$ für die Relaxation im isotherm-isobaren Ensemble als notwendig ermittelt wurden.
+Die Ergebnisse zeigen gute Übereinstimmung mit experimentellen Daten\cite{haynes_crc_2011,brillo_density_2006} (Abbildung~\ref{fig:goldthermo}), wofür Relaxationszeiten $t_\text{relax} > \SI{20}{\pico\second}$ und Thermostat-Dämpfungsparameter $\tau = \SI{20}{\femto\second}$ bei einer Zeitschrittweite von $\Delta t = \SI{1}{\femto\second}$ für die Relaxation im isotherm-isobaren Ensemble als notwendig ermittelt wurden.
 Bei geringeren $t_\text{relax}$ oder $\tau$ relaxiert das System innerhalb eines Temperaturschrittes nicht vollständig, wodurch der Schmelzpunkt überschätzt wird (Abbildung~\ref{fig:goldthermo-b}).
 Darin zeigt sich auch eine Änderung in der Art des Phasenüberganges, der durch erhöhte Relaxationszeiten aufgrund von zeitlichen Effekten verzögert eintritt.
 Das ergibt sich aus der Ähnlichkeit der Relaxationszeit zur Barostat-Dämpfung ($t_\text{relax}\approx \tau_p$), welche um Größenordnungen unter dem notwendigen Wert liegen (Abschnitt~\ref{mdmethods}), sodass sich das thermische Gleichgewicht nicht im Zeitrahmen der Simulation einstellen kann.
@@ -67,12 +68,13 @@ Das ergibt sich aus der Ähnlichkeit der Relaxationszeit zur Barostat-Dämpfung 
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{gold_trelax}
-    \subcaption{Abhängigkeit der Simulation von $t_\text{relax}$}
+    \subcaption{Phasenübergang in Abh. von $t_\text{relax}$}
+    \label{fig:goldthermo-b}
   \end{subfigure}
 
   \caption[Vergleich thermodynamischer Daten von Gold]{
     Vergleich thermodynamischer Daten von Gold.
-    Experimentelle Werte stammen aus Standardliteratur sowie von \textsc{Brillo et al.}\cite{brillo_density_2006}.
+    Experimentelle Werte stammen aus Referenzen~\cite{haynes_crc_2011,brillo_density_2006}.
   }
   \label{fig:goldthermo}
 \end{figure}
@@ -153,15 +155,14 @@ Dadurch können sich an den Wänden der Schwellen und Spitzen auch ungünstige S
 \end{figure}
 
 Die Schichtdicken aus den Abscheidungssimulationen auf strukturierten Substraten unterscheiden sich nicht signifikant von den für glatte Substrate gewonnenen Werten, mit Ausnahme der \SI{90}{\degree}-Strukturen.
-Die abgeschiedenen Schichten wachsen epitaktisch auf, bilden aber Hohlräume und Nanoporen, wodurch sich kein perfekter Kristall ergibt.
+Die abgeschiedenen Schichten wachsen ebenfalls epitaktisch auf, bilden aber Hohlräume und Nanoporen, wodurch sich kein perfekter Kristall ergibt.
 In der Rauheit bestehen Unterschiede zur Simulation von Abscheidungen auf glatten Substraten (\SI{0}{\degree}) in einer generell erhöhten Rauheit, die für geringe Neigungswinkel allerdings konstant bleibt.
 
-Für extreme Neigungswinkel von \SI{90}{\degree} ist eine Zunahme der Rauheit zu beobachten, die nach eingehender Untersuchung der Alpha-Formen (Abbildung~\ref{fig:goldpockets}) durch die Bildung von Nanoporen an der Basis der Spitzen und Schwellen in der Simulation verursacht wird.
-Dabei handelt es sich um ein Artefakt der Oberflächensuche der Parsivald-Simulation, die von oben eine senkrechte Suche auf den höchsten Punkt der xy-Ebene durchführt, dafür aber einen algorithmisch bedingten Suchradius ansetzt.
-Somit werden an geneigten Flächen höher gelegene Abscheidungsorte bevorzugt, wobei der Grad der Bevorzugung von der Neigung abhängt und bis \SI{90}{\degree} zunimmt, oberhalb von \SI{90}{\degree} aber von einer vollständigen Abschirmung eines Teils der Oberfläche auszugehen ist.
-Somit bilden sich Nanoporen an den Stellen, an denen kein Wachstum statt finden kann, etwa an der Basis von Spitzen und Schwellen.
-Die aufwachsende Schicht verengt die Nanoporen im weiteren Verlauf der Simulationen, bis diese schließlich zu einem Hohlraum abgeschlossen werden.
-In der Auswertung macht sich das durch einen rapiden Abfall der Rauheit bemerkbar, die sich aus der Definition der Alpha-Form ergibt, welche die gesamte Nanopore als Teil der Oberfläche ansieht und nach ihrer Schließung die mittlere Höhe der Oberfläche schlagartig zunimmt.
+Für extreme Neigungswinkel von \SI{90}{\degree} ist eine Zunahme der Rauheit zu beobachten, welche durch die Bildung von Nanoporen an der Basis der Spitzen und Schwellen in der Simulation verursacht wird (Abbildung~\ref{fig:goldpockets}).
+Dabei handelt es sich um ein Artefakt der Oberflächensuche der Parsivald-Simulation, die von oben eine senkrechte Suche nach dem höchsten Punkt in der xy-Ebene durchführt.
+Somit werden an geneigten Flächen höher gelegene Abscheidungsorte mit größeren Neigungen bevorzugt, wobei oberhalb von \SI{90}{\degree} von einer vollständigen Abschirmung eines Teils der Oberfläche auszugehen ist.
+Dadurch bilden sich Nanoporen an der Basis von Spitzen und Schwellen, die sich im weiteren Verlauf der Simulationen verengen, bis sie schließlich zu Hohlräumen abgeschlossen werden.
+In der Auswertung macht sich der Abschluss durch einen rapiden Abfall der Rauheit bemerkbar, die sich aus der Eigenschaft der Alpha-Form ergibt, die gesamte Nanopore als Teil der Oberfläche anzusehen, sodass nach ihrer Schließung die mittlere Höhe der Oberfläche schlagartig zunimmt.
 
 \begin{figure}
   \captionsetup[subfigure]{singlelinecheck=false}
@@ -240,8 +241,6 @@ Strukturierte Substrate sorgen in Parsivald-Simulationen hingegen für die Bildu
 Eine mögliche Lösung wäre die implizite Betrachtung der Oberfläche mit Delaunay-Triangulationen, wie sie bereits für die Bestimmung der Alpha-Formen genutzt werden.
 Damit würden auch schiefe Auftreffwinkel ermöglicht, wie sie bei PVD-Prozessen auftreten\todo{Referenz auf ein Paper, das schiefe Auftreffwinkel für PVD untersucht}, sowie eine bessere Betrachtung von CVD-Prozessen, die dafür bekannt sind, auch auf strukturierten Oberflächen konforme Schichten abzuscheiden\todo{Referenz auf Handbook, oder auf ein anderes Paper?}.
 
-\clearpage
-
 \subsection{Skalierbarkeit mit der Simulationsgröße}
 \label{goldscalability}
 
@@ -255,10 +254,7 @@ Die Zahl der möglichen Prozesse (Abbildung~\ref{goldscala-workers}) steht in gu
 Für die mit $p_\text{max}$ verwandten Workerdichten $\rho_\text{worker}$ ist eine leichte Abnahme von \SI{21.9}{\percent} für $w_\text{sim} = \SI{106}{\angstrom}$ zu \SI{10.3}{\percent} für $w_\text{sim} = \SI{1000}{\angstrom}$ erkennbar, die danach jedoch quadratisch mit der Substratbreite abnimmt.
 Es existiert ein Ausreißer bei $w_\text{sim} = \SI{1}{\micro\meter}$, für den nur 46 Worker gestartet wurden ($\num{46} < p_\text{max} \approx \num{190}$), die zudem durch einen inzwischen behobenen Fehler im Host-Worker-Code auf einen Wert von \num{25.4} unterschätzt wurden.
 
-Ein Vergleich der Laufzeiten mit Werten für $T_p$ aus Gleichung~\ref{eq:runtime} zeigt ebenfalls gute Übereinstimmungen, wobei der Ausreißer bei $w_\text{sim} = \SI{1}{\micro\meter}$ ebenfalls erkennbar ist.
-Aufgrund des Wachstums von Schichten unterschiedlicher Dicke ist ein direkter Vergleich nicht aussagekräftig, doch bestätigt die Übereinstimmung mit den analytischen Werten die gute Skalierbarkeit von Parsivald mit der Substratbreite.
-
-\begin{table}[H]
+\begin{table}[b!]
   \begin{threeparttable}
 
     \caption{Untersuchungen zur Skalierbarkeit von Parsivald}
@@ -270,7 +266,7 @@ Aufgrund des Wachstums von Schichten unterschiedlicher Dicke ist ein direkter Ve
       \hline
       \SI{106}{\angstrom}     & \SI{70}{\angstrom}  & \num{59549}    & \num{46030}           & \num{1.8}\tnote{c}        (\num{4})   & \SI{21.9}{\percent}          & \SI{32.2}{\hour}      & \SI{254}{\mebi\byte}  \\
 %%    \SI{204}{\angstrom}     & \SI{42}{\angstrom}  & \num{152374}   & \num{102374}          & \num{14.5}\tnote{c}       (\num{18})  & \SI{13.9}{\percent}          & \SI{25.5}{\hour}      & \SI{257}{\mebi\byte}  \\
-      \SI{204}{\angstrom}     & \SI{38}{\angstrom}  & \num{142835}   & \num{92835}           & \num{5.32}\tnote{c}       (\num{12})  & \SI{17.5}{\percent}          & \SI{22.1}{\hour}      & \SI{257}{\mebi\byte}  \\
+      \SI{204}{\angstrom}     & \SI{94}{\angstrom}  & \num{278702}   & \num{228702}          & \num{5.33}\tnote{c}       (\num{12})  & \SI{17.5}{\percent}          & \SI{55.1}{\hour}      & \SI{259}{\mebi\byte}  \\
       \SI{500}{\angstrom}     & \SI{93}{\angstrom}  & \num{1708600}  & \num{1401081}         & \num{24.8}\tnote{c}       (\num{50})  & \SI{13.6}{\percent}          & \SI{73.6}{\hour}      & \SI{397}{\mebi\byte}  \\ % \SI{282}{\mebi\byte}
 %%      \SI{1000}{\angstrom}  & \SI{5.4}{\angstrom} & \num{1591908}  & \num{381588}          & \num{44.8}                (\num{46})  & \SI{6.1}{\percent}           & \SI{1.5}{\hour}       & \SI{368}{\mebi\byte}  \\
       \SI{1000}{\angstrom}    & \SI{92}{\angstrom}  & \num{6733948}  & \num{5539942}         & \num{75.4}\tnote{c}       (\num{149}) & \SI{10.3}{\percent}          & \SI{97.5}{\hour}      & ~                     \\
@@ -292,7 +288,10 @@ Aufgrund des Wachstums von Schichten unterschiedlicher Dicke ist ein direkter Ve
   \end{threeparttable}
 \end{table}
 
-Zuletzt zeigt die Auswertung der vom Hostprozess verbrauchten Ressourcen einen Speicherverbrauch von $\text{RAM} = \SI{253}{\mebi\byte} + \SI{94}{\byte} \cdot N_\text{Atome}$, womit auch große Simulationen mit \num{1.9e9} Atomen mit nur \SI{186}{\gibi\byte} Arbeitsspeicher durchgeführt werden können (Abbildung~\ref{fig:goldscala-b}).
+Ein Vergleich der Laufzeiten mit Werten für $T_p$ aus Gleichung~\ref{eq:runtime} zeigt ebenfalls gute Übereinstimmungen, wobei der Ausreißer bei $w_\text{sim} = \SI{1}{\micro\meter}$ ebenfalls erkennbar ist.
+Aufgrund des Wachstums von Schichten unterschiedlicher Dicke bei verschiedenen Workerdichten ist ein direkter Vergleich nicht aussagekräftig, doch bestätigt die Übereinstimmung mit den analytischen Werten die gute Skalierbarkeit von Parsivald mit der Substratbreite.
+
+Zuletzt zeigt die Auswertung der vom Hostprozess verbrauchten Ressourcen einen Speicherverbrauch von $\text{RAM} = \SI{253}{\mebi\byte} + \SI{94}{\byte} \cdot N_\text{Atome}$, womit auch große Simulationen mit \num{1.9e9} Atomen mit nur \SI{186}{\gibi\byte} Arbeitsspeicher durchgeführt werden können (Abbildung~\ref{fig:goldscala-memory}).
 Somit stellt der verfügbare Arbeitsspeicher aktuell nur ein untergeordnetes Kriterium dar, jedoch spiegelt sich diese Größe auch in den atomistischen Dateien wider, die von Parsivald erzeugt werden, und somit nicht mehr effizient ausgewertet werden können, weshalb eine Auswertung zur Ausführungszeit notwendig wäre.
 
 Somit bestätigen sich einige Vorhersagen aus Abschnitt~\ref{runtime}, jedoch sind weitere Untersuchungen, etwa hinsichtlich der Ereignis-Laufzeit $T_\text{E}$, für einen umfassenden Vergleich notwendig.

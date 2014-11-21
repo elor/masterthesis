@@ -1,4 +1,4 @@
-1\section{Aluminiumoxid-ALD}
+\section{Aluminiumoxid-ALD}
 \label{aluminaald}
 
 Einen Vorzeige-Prozess für Atomlagenabscheidungen bildet die Abscheidung von Aluminiumoxid \ce{Al2O3}\cite{puurunen_surface_2005}, für die häufig das Precursorpaar Trimethylaluminium (TMA, \ce{Al(CH4)3}) und Wasser genutzt wird.
@@ -44,10 +44,7 @@ Aufgrund identischer Dichten und übereinstimmender Kristallgitter\cite{haynes_c
 Für die Bestimmung der Dichte der amorphen Struktur wurde das Bulkmaterial über den Schmelzpunkt von \SI{2317}{\kelvin} auf \SI{2555}{\kelvin} erhitzt, auf dieser Temperatur relaxiert und langsam auf Raumtemperatur abgekühlt.
 Aufgrund der strukturellen Vielfalt bei amorphen Aluminiumoxiden liegt der Referenzbereich der Dichte von gasphasen-abgeschiedenen \ce{Al2O3}-Schichten zwischen \SI{3.2}{\gpcc} und \SI{3.9}{\gpcc}\cite{wang_dependence_1997}.
 
-Die Verteilung der Koordinationszahlen amorpher Schichten wurde in dieser Arbeit nicht näher untersucht, da einerseits nur Vergleiche mit anderen MD-Rechnungen zur Verfügung stehen\cite{gutierrez_molecular_2002}, andererseits ein eigenes Werkzeug hätte geschrieben werden müssen.
-Eine Integration eines solchen Werkzeuges zur Bestimmung der Verteilung der Koordinationen in Parsivald könnte allerdings helfen, die Struktur der Schicht während der laufenden Simulation zu untersuchen.
-
-\begin{table}[bp]
+\begin{table}[b!]
   \oddrowcolors
   \caption[Vergleich struktureller Eigenschaften von $\alpha$-\ce{Al2O3}]{
     Vergleich struktureller Eigenschaften von \ce{Al2O3} für verfügbare ReaxFF-Parametrisierungen.
@@ -69,6 +66,9 @@ Eine Integration eines solchen Werkzeuges zur Bestimmung der Verteilung der Koor
   \end{tabularx}
 \end{table}
 
+Die Verteilung der Koordinationszahlen amorpher Schichten wurde in dieser Arbeit nicht näher untersucht, da einerseits nur Vergleiche mit anderen MD-Rechnungen zur Verfügung stehen\cite{gutierrez_molecular_2002}, andererseits ein eigenes Werkzeug hätte geschrieben werden müssen.
+Eine Integration eines solchen Werkzeuges zur Bestimmung der Verteilung der Koordinationen in Parsivald könnte allerdings helfen, die Struktur der Schicht während der laufenden Simulation zu untersuchen.
+
 Die Ergebnisse dieser Untersuchungen (Tabelle~\ref{tab:aluminabulks}) zeichnen ein vielseitiges Bild.
 Einerseits stimmt die kristalline Bindungslänge für alle Parametrisierungen auf weniger als \SI{3}{\percent} überein, andererseits ergeben sich große Unterschiede in der Dichte der Kristalle, die mit einer leichten Verformung der Kristallstrukturen einher geht und dabei nicht mit den Bindungslängen korreliert ist.
 Im Fall von \pot{Al\_AlO\_AlN} weicht die kristalline Dichte um \SI{+8.3}{\percent} ab und übersteigt die Dichte der dichtesten \ce{Al2O3}-Kristalle bei Normaldruck, was sich auch an den überschätzten Koordinationszahlen zeigt.
@@ -78,13 +78,52 @@ Eine Bestimmung der amorphen Dichten für die \pot{liu}- und \pot{narayanan}-Par
 
 \subsubsection{Simulationen der Stabilität von Precursormolekülen}
 
-Zur Untersuchung der Stabilität der Precursormoleküle wurden diese einzeln präpariert und per LAMMPS mit verschiedenen Kraftfeldern im kanonischen Ensemble simuliert.
-Dabei war schnell ersichtlich, dass Trimethylaluminium (TMA) von der \pot{liu}- sowie der \pot{narayanan}-Para\-metr\-isierung durch die fehlende Beschreibung von \ce{Al-C}-Bindungen praktisch nicht wiedergegeben werden kann.
-Die Methylgruppen binden nicht mit dem zentralen Aluminium-Atom, so dass sie sich von diesem mit fortlaufender Simulationszeit linear entfernen.
-\todo{Bilder!}
-Einzig mit dem bereits ausgeschlossenen \pot{Al\_AlO\_AlN}-Parametersatz lassen sich stabile TMA-Moleküle simulieren.
+Die Stabilität für Trimethylaluminium (TMA) wurde nach dessen manueller Präparation für die drei Parametersätze \pot{Al\_Al0\_AlN}, \pot{liu\_ettringite} (kurz \pot{liu}) und \pot{narayanan} untersucht (Abbildung~\ref{fig:tmastability}).
+Die genutzten Strukturdaten\cite{haynes_crc_2011} sind in Anhang~\ref{appendix_constants} zusammen gefasst.
+
+Mit den \pot{Al\_Al0\_AlN}-Parametern konnte TMA stabil simuliert werden (Abbildung~\ref{fig:tmamonomer}), jedoch nehmen die simulierten Moleküle keine planare Struktur ein, sondern weisen reduzierte \ce{C-Al-C}-Bindungs\-winkel von durchschnittlich \SI{103}{\degree} auf, wodurch sich eine angewinkelte Struktur ergibt.
+Die Bindungslängen stimmen hingegen mit durchschnittlich \SI{2.020}{\angstrom} (Referenz: \SI{1.957}{\angstrom}\cite{haynes_crc_2011}) für \ce{Al-C} und \SI{1.106}{\angstrom} (Referenz: \SI{1.113}{\angstrom}\cite{haynes_crc_2011}) für \ce{C-H} bis auf \SI{3}{\percent} mit Referenzwerten überein.
+Mit dieser Parametrisierung kann ebenfalls das TMA-Dimer bei niedrigen Temperaturen simuliert werden (Abbildung~\ref{fig:tmadimer}).
+
+\begin{figure}[b!]
+  \captionsetup[subfigure]{singlelinecheck=false}
+  \begin{subfigure}[t]{4cm}
+    \includegraphics[width=\textwidth]{tma_Al}
+    \subcaption{
+      \pot{Al\_Al0\_AlN}: \\
+      stabiles TMA
+    }
+    \label{fig:tmamonomer}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{5.5cm}
+    \includegraphics[width=\textwidth]{tma_Al_dimer}
+    \subcaption{
+      \pot{Al\_Al0\_AlN}: \\
+      stabiles TMA-Dimer
+    }
+    \label{fig:tmadimer}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{4.5cm}
+    \includegraphics[width=\textwidth]{tma_liu}
+    \subcaption{
+      \pot{liu\_ettringite}: \\
+      Keine \ce{Al-C}-Bindungen
+    }
+    \label{fig:tmaliu}
+  \end{subfigure}
+
+  \caption{Stabilität der TMA-Moleküle für verschiedene \ce{Al2O3}-Parametersätze}
+  \label{fig:tmastability}
+\end{figure}
+
+TMA-Simulationen mit dem \pot{liu}-Parametersatz zeigen hingegen keinen Erfolg, da er keine \ce{Al-C}-Bindungen beschreibt.
+Somit driften in den Simulationen ungebundene Methylgruppen vom zentralen Aluminium-Atom davon (Abbildung~\ref{fig:tmaliu}).
+Die \pot{narayanan}-Parametrisierung verfügt über keine Kohlenstoff-Parameter und kann deshalb nicht für TMA-Simulationen genutzt werden.
 
 Simulationen von Wassermolekülen waren hingegen mit allen Parametrisierungen erfolgreich.
+
 Anhand des \pot{Al\_AlO\_AlN}-Parametersatzes wurden auch Simulationen der Reaktionen zwischen TMA und Wasser in der Gasphase versucht, wie sie beispielsweise bei Vermischung der Precursorgase im ALD-Reaktor auftreten können.
 Diese zeigten keinen Erfolg, da die \ce{Al-C}-Bindungen in der \pot{Al\_AlO\_AlN}-Parametrisierung entweder zu stark sind oder in zu großem Maß von den Methylgruppen abgeschirmt werden.
 
@@ -95,6 +134,7 @@ Dazu wurde eine Kristalloberfläche mit einer variablen Menge von Wassermolekül
 In der Simulation werden die Wassermoleküle mit einer entsprechend der Maxwell-Distribution bei \SI{500}{\kelvin} versehen, die Atome an der Unterseite des Substrates fest gehalten und das aus Notwendigkeit verwendete Berendsen-Thermostat nur auf den mittleren Teil des Substrates angewandt, um seinen Einfluss auf die Reaktionen zu verringern.
 Dabei wird eine chemische Adsorption der Wassermoleküle erwartet\cite{shapovalov_ab_2000}, die zu einer Sättigung der Oberfläche mit Hydroxyl-Gruppen bei einer Bedeckung von \SI{9.2}{\per\square\nano\meter}\cite{kim_energy_2011} führen sollte.
 Die Zahl der Wassermoleküle in der Simulation kann in den drei untersuchten Systemen zu Hydroxyl-Bedeckungen von \SI{5.8}{\per\square\nano\meter}, \SI{19.0}{\per\square\nano\meter} und \SI{57.6}{\per\square\nano\meter} führen.
+
 \begin{figure}
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{0.32\textwidth}
@@ -113,7 +153,7 @@ Die Zahl der Wassermoleküle in der Simulation kann in den drei untersuchten Sys
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{alumina_h2o_topview}
     \subcaption{Draufsicht, nach der Reaktion.
-      Hydroxyl ist grün hervorgehoben.
+      \textbf{Hydroxyl} ist grün hervorgehoben.
     }
     \label{fig:wateraluminasurface-c}
   \end{subfigure}
@@ -130,8 +170,7 @@ Zusammen mit dem Problem, Trimethylaluminium nicht darstellen zu können, ist di
 Das Ergebnis der Simulationen für die \pot{liu}-Parameter (Abbildungen~\ref{fig:wateraluminasurface-b} und~\ref{fig:wateraluminasurface-c}) zeigt jedoch die gleichmäßige Bedeckung der Oberfläche mit Hydroxylgruppen (\SI{9.5}{\per\square\nano\meter}) neben gelegentlich adsorbierten Wassermolekülen, die keine Oberflächenreaktion eingegangen sind.
 Letztere sollten sich aber auf längere Sicht durch die Einflüsse der Überkoordinationsterme des ReaxFF-Potentiales von der Oberfläche lösen oder eine Reaktion mit benachbarten Sauerstoff-Atomen eingehen.
 Trotz der unterschiedlichen Startbedingungen stimmt der Bedeckungsgrad der Oberfläche mit Hydroxylgruppen den Maximalwerten von \SI{9.2}{\per\square\nano\meter}\cite{kim_energy_2011} überein.
-Die verbleibenden Wassermoleküle sind keine Adsorption auf der Oberfläche eingegangen sondern in der Gasphase verblieben, wie in Abbildung~\ref{fig:wateraluminasurface-b} am oberen Rand des periodischen Simulationsraumes erkennbar ist.
-Einige der Wassermoleküle erscheinen durch die periodischen Randbedingungen des Simulationsraumes zerteilt, doch handelt es sich tatsächlich um vollständige Wassermoleküle verbleiben.
+Die verbleibenden Wassermoleküle sind keine Adsorption auf der Oberfläche eingegangen sondern in der Gasphase verblieben, wie in Abbildung~\ref{fig:wateraluminasurface-b} am oberen Rand des periodischen Simulationsraumes erkennbar ist, bei denen sie durch periodische Randbedingungen zerteilt erscheinen.
 Es konnte damit gezeigt werden, dass die Begrenzung der Reaktion von Wasser durch die sterische Hinderung der Wassermoleküle in der Simulation wiedergegeben wird.
 
 Somit konnte mit dem \pot{liu}-Parametersatz die Hydroxylierung einer kristallinen \ce{Al2O3}-Ober\-fläche durch die Adsorption von Wassermolekülen simuliert werden.

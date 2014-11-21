@@ -250,7 +250,7 @@ Aus Messungen ergeben sich die elementaren Laufzeiten als $T_\text{E} = \SI{26}{
 Dabei wurde, durch verschiedene Störeinflüsse bedingt, eine unterschiedliche Anzahl an Parsivald-Zyklen durchlaufen, sodass die Laufzeiten keinen direkten Vergleich zulassen.
 
 Die Ergebnisse der Untersuchungen sind in Tabelle~\ref{tab:goldscalability} zusammengefasst und stimmen gut mit den in Abschnitt~\ref{runtimeanalysis} ermittelten analytischen Werten überein (Abbildung~\ref{fig:goldscala}).
-Die Zahl der möglichen Prozesse (Abbildung~\ref{goldscala-workers}) steht in guter Übereinstimmung mit $p_\text{max}$ für $\rho_\text{worker} = \SI{20}{\percent}$, wobei die maximale effiziente Substratbreite als $w_\text{eff} \approx \SI{100}{\nano\meter}$ ermittelt wurde.
+Die Zahl der möglichen Prozesse (Abbildung~\ref{fig:goldscala-workers}) steht in guter Übereinstimmung mit $p_\text{max}$ für $\rho_\text{worker} = \SI{20}{\percent}$, wobei die maximale effiziente Substratbreite als $w_\text{eff} \approx \SI{100}{\nano\meter}$ ermittelt wurde.
 Für die mit $p_\text{max}$ verwandten Workerdichten $\rho_\text{worker}$ ist eine leichte Abnahme von \SI{21.9}{\percent} für $w_\text{sim} = \SI{106}{\angstrom}$ zu \SI{10.3}{\percent} für $w_\text{sim} = \SI{1000}{\angstrom}$ erkennbar, die danach jedoch quadratisch mit der Substratbreite abnimmt.
 Es existiert ein Ausreißer bei $w_\text{sim} = \SI{1}{\micro\meter}$, für den nur 46 Worker gestartet wurden ($\num{46} < p_\text{max} \approx \num{190}$), die zudem durch einen inzwischen behobenen Fehler im Host-Worker-Code auf einen Wert von \num{25.4} unterschätzt wurden.
 

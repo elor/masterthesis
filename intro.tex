@@ -2,16 +2,16 @@
 \label{intro}
 
 %% {Aktueller Stand der Technologien und damit verbundene Herausforderungen}
-Gasphasenabscheidungen werden zur Produktion konformer, dünner Schichten auf strukturierten und glatten Substraten genutzt, wobei besonders die Erzeugung ultradünner, hoch reiner, homogener Schichten eine Schlüsselstellung bei der Fertigung von Bauelementen in der Nanoelektronik einnimmt\todo{Ref}.
-Mit ihnen werden beispielsweise dünne Dielektrika und Diffusionsbarrieren hergestellt, für die besonders präzise Abscheidungsmethoden notwendig sind.
+Gasphasenabscheidungen werden zur Produktion konformer, dünner Schichten auf strukturierten und glatten Substraten genutzt, wobei besonders die Erzeugung ultradünner, hoch reiner, homogener Schichten eine Schlüsselstellung bei der Fertigung von Bauelementen in der Nanoelektronik einnimmt\cite{mattox_handbook_2010,gordon_vapor_2001}.
+Sie sind beispielsweise für die Produktion dünner Dielektrika\cite{gordon_vapor_2001}, Interconnects\cite{waechtler_copper_2009} und Diffusionsbarrieren\cite{raaijmakers_low_1994} interessant, für die besonders präzise Abscheidungsmethoden notwendig sind.
 %% {weitere Anwendungen von Gasphasenabscheidung}
-Gasphasenabscheidungen werden auch für eine Vielzahl anderer Anwendungen verwendet, wie beispielsweise für die Produktion von passivierenden und protektiven Beschichtungen\todo{Ref}.
-Weiterhin erlauben sie die Herstellung vielschichtiger Materialien mit besonderen strukturellen (erhöhte Festigkeit)\todo{Ref}, magnetischen (Riesenmagnetowiderstand, magnetischer Tunnelwiderstand)\todo{Ref} und optischen (Röntgenspiegel)\todo{Ref} Eigenschaften.
-Doch auch größere Oberflächen werden per Gasphasenabscheidung mit Dünnschichten versehen, etwa zur Erhöhung der Witterungs- und Wärmebeständigkeit von Oberflächen\todo{Ref}.
+Gasphasenabscheidungen werden auch für eine Vielzahl anderer Anwendungen verwendet, wie beispielsweise für die Produktion von passivierenden und protektiven Beschichtungen\cite{higashiwaki_algan/gan_2006,jankowski_subnanometer_1989}.
+Weiterhin erlauben sie die Herstellung vielschichtiger Materialien mit besonderen strukturellen (erhöhte Festigkeit)\cite{cammarata_nanoindentation_1990}, magnetischen (Riesenmagnetowiderstand\cite{peter_influence_2007,seyama_giant_1999}, magnetischer Tunnelwiderstand\cite{sun_magnetic_2006}) und optischen (Röntgenspiegel\cite{jankowski_subnanometer_1989}) Eigenschaften.
+Doch auch größere Oberflächen werden per Gasphasenabscheidung mit Dünnschichten versehen, etwa zur Erhöhung der Witterungs- und Wärmebeständigkeit von Oberflächen\cite{mccurdy_successful_1999}.
 
 %% {Kandidat zur Lösung von Herausforderungen}
 Bei Gasphasenabscheidungen adsorbieren einzelne Atome oder Moleküle aus der Gasphase auf der Oberfläche und bilden so eine dünne Schicht, deren Dicke präzise im Sub-Nanometer-Bereich kontrolliert werden kann.
-Mit Physikalischer Gasphasenabscheidung (PVD, Physical Vapor Deposition), Chemischer Gasphasenabscheidung (CVD, Chemical Vapor Deposition) und Atomlagenabscheidung (ALD, Atomic Layer Deposition) stehen Methoden zur Verfügung, die das Wachstum verschiedener Materialien mit unterschiedlichen Graden der Prozesskontrolle erlauben.
+Mit Physikalischer Gasphasenabscheidung (PVD, Physical Vapor Deposition), Chemischer Gasphasenabscheidung (CVD, Chemical Vapor Deposition) und Atomlagenabscheidung (ALD, Atomic Layer Deposition) stehen Methoden zur Verfügung, die das Wachstum verschiedener Materialien mit unterschiedlichen Graden der Prozesskontrolle erlauben\cite{mattox_handbook_2010,pierson_handbook_1999}.
 
 %% {Mein Gebiet}
 Atomistische Simulationen können Stelle helfen, unter verschiedenen Bedingungen die strukturellen Eigenschaften der abgeschiedenen Schicht zu beschreiben, anhand derer auch Rückschlüsse auf elektronische oder mechanische Eigenschaften gezogen werden können.
@@ -19,10 +19,10 @@ Dafür ist eine Modellierung chemischer Reaktionen und amorpher Strukturen ebens
 Zur Simulation von Abscheidungen auf kompletten Nano-Bauelementen sind große Simulationsräume bis \SI{1x1}{\micro\meter} mit bis zu \num{1e9} Atomen notwendig, die mit rein atomistischen Simulationen bisher aufgrund des hohen Rechenaufwandes nicht möglich sind oder keine strukturellen Aussagen ermöglichen.
 
 %% {Möglichkeiten zur Optimierung}
-Ansatzpunkte für die Simulation von Gasphasenabscheidungen bestehen in Kinetischen Monte Carlo-Methoden (KMC) einerseits und in Molekulardynamik (MD) andererseits.
+Ansatzpunkte für die Simulation von Gasphasenabscheidungen bestehen in Kinetischen Monte Carlo-Methoden (KMC)\cite{voter_introduction_2007} einerseits und in Molekulardynamik (MD)\cite{abraham_computational_1986}\todo{Ref alder\_studies\_1959, abraham\_computational\_1986}? andererseits.
 KMC kann die Reaktionskinetik komplizierter Prozesse in großen Simulationsräumen zufriedenstellend beschreiben, ermöglicht allerdings keine detaillierte strukturelle Beschreibung der simulierten Materialien.
 MD hingegen simuliert effizient atomistische Strukturen, lässt sich aber nur unzureichend zur Beschreibung von großen Simulationsräumen nutzen.
-Mit der Einführung reaktiver Kraftfelder haben molekulardynamische Simulationen zudem die Möglichkeit gewonnen, chemische Reaktionen effizient zu simulieren, doch sind diese rechenaufwendiger als herkömmliche Kraftfelder und erlauben nur die Simulation weniger tausend Atome.
+Mit der Einführung reaktiver Kraftfelder\cite{van_duin_reaxff_2001} haben molekulardynamische Simulationen zudem die Möglichkeit gewonnen, chemische Reaktionen effizient zu simulieren, doch sind diese rechenaufwendiger als herkömmliche Kraftfelder und erlauben nur die Simulation weniger tausend Atome.
 Eine mögliche Lösung dieser Probleme stellt eine Kombination der beiden Methoden dar, durch die atomistische Simulationen von vollständigen Beschichtungen kompletter Nano-Bauelemente ermöglicht werden.
 
 %% {Anknüpfungspunkte und Fokus der Arbeit}

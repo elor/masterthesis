@@ -1,13 +1,13 @@
 \section{Kinetic Monte Carlo-Methoden}
 \label{kmc}
 
-Kinetische Monte Carlo-Methoden (KMC) wurden ursprünglich zur Simulation von Diffusionsprozessen entwickelt, finden aber inzwischen in vielen Gebieten der Natur- und Ingenieurswissenschaften Anwendung.
+Kinetische Monte Carlo-Methoden (KMC)\cite{voter_introduction_2007} wurden ursprünglich zur Simulation von Diffusionsprozessen entwickelt, finden aber inzwischen in vielen Gebieten der Natur- und Ingenieurswissenschaften Anwendung\todo{Ref}.
 Sie beschreiben den Zeitverlauf eines Systemes als eine Abfolge von diskreten Übergängen (Ereignissen) zwischen Systemzuständen $X_n$ und $X_m$, die mit ihrer charakteristischen Rate $r_{n m}$ gewichtet werden.
 Damit stellen sie eine numerische Lösung der Mastergleichung für Markov-Prozesse dar.
 \begin{equation}
   \frac{d \rho(X_m,t)}{d t} = \sum_n{r_{n m}\rho(X_n,t) - \sum_n{r_{m n}\rho(X_m,t)}}
 \end{equation}
-KMC-Methoden bieten sie somit hauptsächlich zur Simulation stochastischer Prozesse an, wobei sie auch Nichtgleichgewichtssysteme beschreiben können und somit unter anderem zur Simulation von Oberflächenreaktionen und Schichtabscheidung geeignet sind.
+KMC-Methoden bieten sie somit hauptsächlich zur Simulation stochastischer Prozesse an, wobei sie auch Nichtgleichgewichtssysteme beschreiben können und somit unter anderem zur Simulation von Oberflächenreaktionen und Schichtabscheidung geeignet sind\cite{battaile_kinetic_2008}.
 
 Ausgehend von einem Startzustand $X_0$ aus dem Zustandsraum $\mathbb{X}$ zum Zeitpunkt $t_0 = 0$ wird eine zeitliche Abfolge von Zuständen $X_n \in \mathbb{X}$ nach dem folgenden Algorithmus erzeugt:\\
 Zuerst werden alle Ereignisse $E_i$, die einen Übergang vom vorherigen Zustand $X_{n-1}$ zu einem beliebigen anderen Zustand $X_n^i$ ermöglichen, ermittelt und gesammelt:

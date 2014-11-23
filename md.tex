@@ -2,19 +2,19 @@
 \label{md}
 
 Ursprünglich mit dem Ziel der klassischen Simulation von Gasen und anderen Fluiden entwickelt, wurde die Molekulardynamik\cite{hoover_molecular_1986} seither um die Fähigkeit zur Simulation von Festkörpern, organischen Molekülen und Reaktionen erweitert.
-Dadurch findet sie Anwendung in Simulationen von Materialien und chemischen Stoffen bei beliebigen Temperaturen und Drücken, um deren Verhalten vorhersagen und auf reale Prozesse zurückführen zu können.
+Dadurch findet sie Anwendung in Simulationen von Materialeigenschaften und Molekülen bei beliebigen Temperaturen und Drücken, um deren Verhalten vorhersagen und auf reale Prozesse zurückführen zu können.
 
 Nachfolgend möchte ich einen kurzen Überblick über die Formulierung molekulardynamischer Methoden geben (Abschnitt~\ref{mdformulation}) und im Anschluss auf die Unterschiede und Möglichkeiten der Kraftfelder eingehen (Abschnitt~\ref{mdforcefields}).
 
 \subsection{Formulierung}
 \label{mdformulation}
 
-Molekulardynamik ist eine klassische Vielteilchenmethode, die jedem Teilchen des Systemes $X$ eine Masse $m$, eine Position $\vec r$, einen Impuls $\vec p$ und Kräfte entsprechend eines lokalen Kraftfeldes $\vec{F}(X)$ oder eventuellen Randbedingungen zuweist.
+Molekulardynamik ist eine klassische Vielteilchenmethode, die jedem Teilchen des Systemes im Zustand $X$ eine Masse $m$, eine Position $\vec r$, einen Impuls $\vec p$ und Kräfte entsprechend eines lokalen Kraftfeldes $\vec{F}(X)$ oder eventuellen Randbedingungen zuweist.
 Entsprechend der Born-Oppenheimer-Näherung, nach der die Elektronen eines chemischen Systemes an ihre Atomkerne gebunden sind und schnell genug auf Änderungen des Systemes reagieren, genügt es, die Atome als Punktmassen an der Position ihres Atomkernes zu betrachten.
-Elektronische und sonstige Interaktionen werden dann durch die verwendeten Kraftfelder beschrieben, welche an Daten aus Experimenten oder ab-initio-Rechnungen gefittet wurden, um die Simulationszeit auf Kosten der Genauigkeit zu senken.
+Elektronische und sonstige Interaktionen werden dann durch die verwendeten Kraftfelder beschrieben, welche an Daten aus Experimenten oder ab-initio-Rechnungen gefittet wurden.
 
-Der Systemzustand wird dann entweder entsprechend des gewählten Ensembles zeitlich integriert, oder hinsichtlich der Energie des Gesamt- oder eines Teilsystemes optimiert.
-Dazu stehen Integratoren für das Mikrokanonischen Ensemble (NVE), das Kanonischen Ensemble (NVT) und das Isotherm-Isobare Ensemble (NPT) ebenso zur Verfügung wie verschiedene Optimierungsmethoden, von denen hier die Konjugierte Gradienten-Methode vorgestellt werden soll.
+Der Systemzustand $X$ wird dann entweder entsprechend des gewählten Ensembles zeitlich integriert, oder hinsichtlich der Energie des Gesamt- oder eines Teilsystemes optimiert.
+Dazu stehen Integratoren für das Mikrokanonischen Ensemble (NVE), das Kanonischen Ensemble (NVT) und das Isotherm-Isobare Ensemble (NPT) ebenso zur Verfügung wie verschiedene Optimierungsmethoden, die an dieser Stelle nur kurz genannt werden sollen.
 
 \subsubsection{Mikrokanonisches Ensemble (NVE)}
 
@@ -65,7 +65,7 @@ Dabei werden Fluktuationen in der Systemtemperatur unterdrückt und somit die Er
 %% Zwar hat diese Vorgehensweise den Vorteil, mit einer geringen Anzahl an äußeren Einflüssen die Temperatur konstant zu halten, jedoch eignet es sich nur für die Betrachtung zeitgemittelter Größen, da lokale Energieeinträge in das System die Trajektorien einzelner Teilchen stören können.
 %% In Zusammenhang mit der Untersuchung dynamischer Eigenschaften ist dieses Thermostat daher nicht zu empfehlen und sollte nur bei ausreichend großen Systemen Anwendung finden.
 
-Die beste Alternative für kleine Systeme ist das \textbf{Nosé-Hoover-Thermostat}\cite{nose_unified_1984,hoover_canonical_1985}, das dem System einen zusätzlichen Freiheitsgrad $s$ hinzufügt, über den die Temperatur des Systems beeinflusst werden kann.
+Die Alternative für kleine Systeme ist das \textbf{Nosé-Hoover-Thermostat}\cite{nose_unified_1984,hoover_canonical_1985}, das dem System einen zusätzlichen Freiheitsgrad $s$ hinzufügt, über den die Temperatur des Systems beeinflusst werden kann.
 Durch die Bewahrung der Eigenschaften des kanonischen Ensembles hat sich das Nosé-Hoover-Thermostat als Standard-Thermostat in der Molekulardynamik durchgesetzt.
 Der Einfluss auf die Teilchenenergien äußert sich in der Einführung einer zusätzlichen Reibungskraft entlang des Impulses jedes Teilchens:
 
@@ -91,7 +91,7 @@ Wird zusätzlich noch Verformungsarbeit vom oder am System verrichtet, ergibt si
   \qquad
   T = \text{const.}
 \end{equation}
-Dies wird durch ein Barostat realisiert, das durch Skalierung des Simulationsraumes den mittleren Druck ähnlich zu den oben vorgestellten Thermostaten beeinflusst, sodass sich als Standard Nosé-Hoover-Barostate etabliert haben, gelegentlich aber auch Berendsen-Barostate verwendet werden.
+Dies wird durch ein Barostat realisiert, das durch Skalierung des Simulationsraumes den mittleren Druck ähnlich zu den oben vorgestellten Thermostaten beeinflusst, sodass sich als Standard Nosé-Hoover-Barostate\cite{nose_unified_1984} etabliert haben, gelegentlich aber auch Berendsen-Barostate verwendet werden.
 Der Druck innerhalb des Systems wird dabei über die Virialgleichung ermittelt, die eigentlich für Gase gilt, aber auch für Flüssigkeiten und Feststoffe gute Ergebnisse liefert.
 
 \begin{equation}
@@ -100,7 +100,7 @@ Der Druck innerhalb des Systems wird dabei über die Virialgleichung ermittelt, 
 
 %% \subsubsection{Minimierung durch Konjugierte Gradienten (CG-Minimierung)}
 
-%% \todoline{Hinweis von Jörg: beachte bitte, dass Prof. Hoffmann hier zuhause ist. Tiefergehende Kenntnisse können beim Vortrag nicht schaden}
+%% {Hinweis von Jörg: beachte bitte, dass Prof. Hoffmann hier zuhause ist. Tiefergehende Kenntnisse können beim Vortrag nicht schaden}
 
 %% Für die Strukturoptimierung mit molekulardynamischen Methoden werden Algorithmen zur Energieminimierung genutzt, wie die populäre Konjugierte-Gradienten-Methode (CG, Conjugate Gradient Method), mit denen im Idealfall das globale Minimum der Systemenergie gesucht wird.
 %% Bei der CG-Methode wird der Zustandsraum von einem Startzustand $\vec X_0$ aus entlang des Gradienten der Energie $\nabla E(X)$ in Richtung des Minimums abgeschritten, wobei über die Schrittweite $\alpha$ das Konvergenzverhalten beeinflusst werden kann.
@@ -146,16 +146,16 @@ Der Druck innerhalb des Systems wird dabei über die Virialgleichung ermittelt, 
 Zusätzlich zu den Ensemble-Simulationen lassen sich in der Molekulardynamik vor allem Optimierungen anhand der Energie des Systemes durchführen, wofür verschiedene Methoden zur Verfügung stehen.
 Sie werden in dieser Arbeit nicht direkt benutzt, sollen aber der Vollständigkeit sowie der Erläuterung der zitierten Arbeiten dienen.
 
-Implementierungen der \textbf{Methode der konjugierten Gradienten} (CG, Conjugate Gradients), einer Methode zur Lösung linearer Gleichungen, schreiten beispielsweise von einem Ausgangspunkt die Energielandschaft entlang ihres Gradienten ab, wobei in jedem Schritt das Residuum zur Korrektur der Richtung des folgenden Schrittes genutzt wird.
-CG-Methoden terminieren nach spätestens $n$ schritten, wobei $n$ die Zahl der Freiheitsgrade ist, obwohl für große Systeme etwa die Größe des Residuums als Abbruchkriterium genutzt wird.
+Implementierungen der \textbf{Methode der konjugierten Gradienten} (CG, Conjugate Gradients)\cite{nocedal_conjugate_2006}, einer Methode zur Lösung linearer Gleichungen, schreiten beispielsweise von einem Ausgangspunkt die Energielandschaft entlang ihres Gradienten ab, wobei in jedem Schritt das Residuum zur Korrektur der Richtung des nachfolgenden Schrittes genutzt wird.
+CG-Methoden terminieren nach spätestens $n$ Schritten, wobei $n$ die Zahl der Freiheitsgrade ist, wobei für Systeme mit vielen Freiheitsgraden auch die Größe des Residuums als Abbruchkriterium genutzt wird.
 Sie sind in der Molekulardynamik aufgrund der schnellen Konvergenz und der Möglichkeit zur effizienten Minimierung von Systemen mit vielen Freiheitsgraden weit verbreitet.
 
-Eine weitere Methode, die zwar nicht direkt zu den MD-Methoden gehört, aber diese im Hintergrund für Energieberechnungen nutzen kann, besteht im \textbf{Simulated Annealing} (simulierte Abkühlung).
+Eine weitere Methode, die zwar nicht direkt zu den MD-Methoden gehört, aber diese im Hintergrund für Energieberechnungen nutzen kann, besteht im \textbf{Simulated Annealing} (simulierte Abkühlung)\todo{Ref}.
 Sie bezeichnet einen Metropolis-Monte-Carlo-Algorithmus, der eine Folge zufälliger Schritte im Zustandsraum ausführt, dabei aber jedem Schritt eine Akzeptanzwahrscheinlichkeit $P$ entsprechend der Energiedifferenz $\Delta E$ zwischen den Zuständen vor und nach diesem Schritt zuweist.
-Im Fall des kanonischen Ensembles ergibt sie sich ähnlich zur Formulierung der Zustandssumme.
-%% \begin{equation}
-%%   P(\Delta E) = \exp(-\frac{\Delta E}{k_B T})
-%% \end{equation}
+%% Im Fall des kanonischen Ensembles ergibt sie sich ähnlich zur Formulierung der Zustandssumme.
+\begin{equation}
+  P(\Delta E) = \exp(-\frac{\Delta E}{k_B T})
+\end{equation}
 Die Temperatur $T$ des Systemes wird bei der simulierten Abkühlung ausgehend von einer hohen Temperatur langsam abgesenkt, bis das Minimum mit großer Wahrscheinlichkeit erreicht wird, wobei durch ihre Position im Nenner des negativen Exponenten die Wahrscheinlichkeit der Akzeptanz positiver Energiedifferenzen ebenfalls reduziert wird.
 
 \input{forcefields}

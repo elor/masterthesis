@@ -285,7 +285,8 @@ Ein Vergleich der Laufzeiten mit Werten für $T_p$ aus Gleichung~\ref{eq:runtime
 Aufgrund des Wachstums von Schichten unterschiedlicher Dicke bei verschiedenen Workerdichten ist ein direkter Vergleich nicht aussagekräftig, doch bestätigt die Übereinstimmung mit den analytischen Werten die gute Skalierbarkeit von Parsivald mit der Substratbreite.
 
 Zuletzt zeigt die Auswertung der vom Hostprozess verbrauchten Ressourcen einen Speicherverbrauch von $\text{RAM} = \SI{253}{\mebi\byte} + \SI{94}{\byte} \cdot N_\text{Atome}$, womit auch große Simulationen mit \num{1.9e9} Atomen mit nur \SI{186}{\gibi\byte} Arbeitsspeicher durchgeführt werden können (Abbildung~\ref{fig:goldscala-memory}).
-Somit stellt der verfügbare Arbeitsspeicher aktuell nur ein untergeordnetes Kriterium dar, jedoch spiegelt sich diese Größe auch in den atomistischen Dateien wider, die von Parsivald erzeugt werden, und somit nicht mehr effizient ausgewertet werden können, weshalb eine Auswertung während der Ausführung unter Nutzung der effizienten Datenstrukturen notwendig wäre.
+Somit stellt der verfügbare Arbeitsspeicher aktuell nur ein untergeordnetes Kriterium dar, jedoch spiegelt sich diese Größe auch in den von Parsivald geschriebenen atomistischen Dateien wider.
+Mit bis zu \SI{75}{\gibi\byte} können diese nicht mehr effizient ausgewertet werden, wodurch eine Auswertung zur Zeit der Simulation unter Nutzung der effizienten Datenstrukturen notwendig wäre.
 
 Somit bestätigen sich einige Vorhersagen aus Abschnitt~\ref{runtime}, jedoch sind weitere Untersuchungen, etwa hinsichtlich der Ereignis-Laufzeit $T_\text{E}$, für einen umfassenden Vergleich notwendig.
 
@@ -329,4 +330,4 @@ Somit bestätigen sich einige Vorhersagen aus Abschnitt~\ref{runtime}, jedoch si
 Mit Parsivald lässt sich Gold-PVD auf glatten und leicht strukturierten Substraten ohne weitere Probleme effizient simulieren, wobei sich durch epitaktisches Wachstum defektfreie kristalline Schichten auf glatten Substraten bilden.
 Strukturierte Substrate sorgen in Parsivald-Simulationen hingegen für die Bildung von Nanoporen und Hohlräumen, die durch die aktuelle Implementierung des Parsivald-Modelles verursacht sind.
 Eine mögliche Lösung wäre die implizite Betrachtung der Oberfläche mit Delaunay-Triangulationen, wie sie bereits für die Bestimmung der Alpha-Formen genutzt werden.
-Damit würden auch schiefe Auftreffwinkel ermöglicht, wie sie bei PVD-Prozessen auftreten\todo{Referenz auf ein Paper, das schiefe Auftreffwinkel für PVD untersucht}, sowie eine bessere Betrachtung von CVD-Prozessen, die dafür bekannt sind, auch auf strukturierten Oberflächen konforme Schichten abzuscheiden\cite{grannemann_thin_1993}.
+Damit würden auch schiefe Auftreffwinkel sowie eine bessere Betrachtung von CVD-Prozessen ermöglicht, die dafür bekannt sind, auch auf strukturierten Oberflächen konforme Schichten abzuscheiden\cite{grannemann_thin_1993}.

@@ -2,14 +2,12 @@
 \label{siliconpvd}
 
 Mit Silizium soll ein weiteres PVD-Material untersucht werden, das im Gegensatz zu den bisher untersuchten Metallen, welche ungerichtete Bindungen aufbauen und damit die kristalline Strukturen bevorzugen, auf gerichteten Bindungen beruht.
-Deshalb werden reaktive Kraftfelder genutzt, welche auf einer expliziten Beschreibung gerichteter Bindungen über Bindungsordnungen benachbarter Atome basieren.
+Deshalb werden reaktive Kraftfelder genutzt, welche Bindungen explizit über Bindungsordnungen benachbarter Atome beschreiben.
 
-\subsection{Verfügbare ReaxFF-Parametrisierungen}
-
-Da die ReaxFF-Formulierung erst innerhalb des letzten Jahrzehntes an Popularität gewonnen hat, sind die verfügbaren Potentiale auf sehr spezielle Probleme angepasst und unterstützen zumeist entweder Bulkmaterialien oder Reaktionen zwischen Molekülen.
+Da die ReaxFF-Formulierung erst innerhalb des letzten Jahrzehntes an Popularität gewonnen hat, sind die verfügbaren Parametersätze auf sehr spezielle Probleme angepasst und unterstützen zumeist entweder Bulkmaterialien oder Reaktionen zwischen Molekülen.
 Tabelle~\ref{tab:siliconpotentials} listet die im Rahmen der Arbeit untersuchten ReaxFF-Parametrisierungen auf.
 
-\begin{table}[hb]
+\begin{table}[bh]
   \caption{Untersuchte ReaxFF-Parametrisierungen für Silizium- und Siliziumoxidsysteme}
   \label{tab:siliconpotentials}
   \oddrowcolors
@@ -19,14 +17,14 @@ Tabelle~\ref{tab:siliconpotentials} listet die im Rahmen der Arbeit untersuchten
     \hline
     \pot{Al\_Al0\_AlN}    & \ce{Al}, \ce{Al2O3}, \ce{AlN}. Basiert auf einer Si-Parametrisierung                                      & \cite{plimpton_lammps_2014}       \\
     \pot{chenoweth}       & Zersetzung von Polydimethylsiloxane bei hohen Drücken und Temperaturen. Ergänzung von \ce{C-Si}-Bindungen & \cite{chenoweth_simulations_2005} \\
-    \pot{kulkarni}        & Reaktion von Sauerstoff mit \ce{OH}-terminierten Siliziumoxid-Oberflächen                                 & \cite{kulkarni_oxygen_2013}       \\
+    \pot{kulkarni}        & Reaktion von Sauerstoff mit \ce{OH}-terminiertem Siliziumoxid                                             & \cite{kulkarni_oxygen_2013}       \\
     \pot{lg}              & ``low gradients''. Siehe liu\_nitramines. Fehlerhafte Version aus LAMMPS\cite{plimpton_lammps_2014}       & \cite{liu_reaxff-lg:_2011}        \\
     \pot{liu\_ettringite} & Verspannung von Ettringit (\ce{Ca6[Al(OH)6]2(SO4)3 26H2O}). Basiert auf Si-Parametrisierung               & \cite{liu_development_2012}       \\
     \pot{liu\_nitramines} & Dichtebestimmung von Nitramin-Molekülen bei hohen Drücken. Dichte erhöht durch Van-der-Waals-Korrekturen  & \cite{liu_reaxff-lg:_2011}        \\
     \pot{narayanan}       & Präparation mit \ce{Li-Al}-Silikaten. Für Phasenübergänge von Eukryptit-Kristallen (\ce{LiAl[SiO4]})      & \cite{narayanan_reactive_2012}    \\
     \pot{newsome}         & Oxidation von \ce{SiC}-Oberflächen mit \ce{O2} und \ce{H2O} bei \SIrange{500}{5000}{\kelvin}              & \cite{newsome_oxidation_2012}     \\
-    \pot{nielson}         & Reaktionskinetik an Metallkatalysatoren bei hohen Temperaturen                                            & \cite{nielson_development_2005}   \\
-    \pot{zhang}           & Zersetzung energiereicher Moleküle (Nitramin-Explosionen)                                                  & \cite{zhang_carbon_2009}          \\
+    \pot{nielson}         & Reaktionskinetik an Metallkatalysatoren bei (\SI{1500}{\kelvin}                                           & \cite{nielson_development_2005}   \\
+    \pot{zhang}           & Zersetzung energiereicher Moleküle (Nitramin-Explosionen)                                                 & \cite{zhang_carbon_2009}          \\
     \hline
   \end{tabularx}
 \end{table}
@@ -35,6 +33,7 @@ Tabelle~\ref{tab:siliconpotentials} listet die im Rahmen der Arbeit untersuchten
 
 Zur Abschätzung der Anwendbarkeit der Parametersätze auf die Simulation von Silizium-PVD wurden die amorphe und kristalline Phase auf Stabilität und strukturelle Eigenschaften geprüft (Tabelle~\ref{tab:siliconpreresults}).
 Zusätzlich wurden in Hinblick auf Siliziumoxid-CVD auch die Precursormoleküle Silan und Sauerstoff untersucht, welche nur in Anhang~\ref{appendix_silica} betrachtet werden, da bisher kein vollständiger Abscheidungsprozess simuliert wurde.
+Referenzwerte stammen aus den Referenzen~\cite{haynes_crc_2011,remes_optical_1998} und sind in Anhang~\ref{appendix_constants} zusammen gefasst.
 
 \begin{table}[th]
   \begin{threeparttable}
@@ -87,7 +86,7 @@ Die Parametersätze \pot{chenoweth}, \pot{lg} und \pot{liu\_nitra\-mines} konnte
 
 \subsubsection{Kristalleigenschaften (c-\ce{Si})}
 
-\begin{table}[b]
+\begin{table}[!b]
   \oddrowcolors
   \caption[Strukturelle Eigenschaften von c-Si]{Strukturelle Eigenschaften kristalliner Strukturen nach der Relaxierung mit verschiedenen ReaxFF-Parametrisierungen}
   \label{tab:csiresults}
@@ -117,10 +116,7 @@ Die Parametersätze \pot{chenoweth}, \pot{lg} und \pot{liu\_nitra\-mines} konnte
 
 Eine Parametrisierung gilt als erfolgreich bei der Beschreibung von kristallinem Silizium, wenn bei einer Relaxierung des Kristalles bei \SI{600}{\kelvin} (Schmelztemperatur: \SI{1687}{\kelvin}\cite{haynes_crc_2011}) über \num{100000} Zeitschritte mit anschließender Abkühlung auf \SI{50}{\kelvin} die Gittereigenschaften bewahrt werden.
 Dafür werden die Dichten und die aus der radialen Verteilungsfunktion gewonnenen Koordinationszahlen und Bindungslängen mit Referenzwerten\cite{haynes_crc_2011} verglichen (Tabelle~\ref{tab:csiresults}).
-Die Radiale Verteilungsfunktion wird außerdem hinsichtlich der Struktur des Materiales untersucht (Abbildung~\ref{fig:siliconrdf}).
-
-Lediglich \pot{kulkarni} und \pot{nielson} sind dabei erfolgreich, wohingegen sich mit \pot{narayanan} und \pot{liu\_ettringite} amorphe Strukturen bilden, was sich auch in der stark überschätzten Dichte zeigt.
-\pot{newsome} zeigt zudem in allen Berechnungen eine Aufspaltung der Hauptbindungslänge (Abbildung~\ref{fig:newsomerdf}), welche dadurch in einigen Auswertungen unterschätzt wird.
+Die RDF wird außerdem hinsichtlich der Struktur des Materiales untersucht (Abbildung~\ref{fig:siliconrdf}).
 
 \begin{figure}[H]
   \centering
@@ -152,6 +148,9 @@ Lediglich \pot{kulkarni} und \pot{nielson} sind dabei erfolgreich, wohingegen si
   \caption{RDF-Diagramme nach der Relaxierung von c-\ce{Si}-Strukturen}
   \label{fig:siliconrdf}
 \end{figure}
+
+Lediglich \pot{kulkarni} und \pot{nielson} sind dabei erfolgreich, wohingegen sich mit \pot{narayanan} und \pot{liu\_ettringite} amorphe Strukturen bilden, was sich auch in der stark überschätzten Dichte zeigt.
+\pot{newsome} zeigt zudem in allen Berechnungen eine Aufspaltung der Hauptbindungslänge (Abbildung~\ref{fig:newsomerdf}), welche dadurch in einigen Auswertungen unterschätzt wird.
 
 \subsubsection{Amorphes Silizium (a-\ce{Si})}
 
@@ -193,7 +192,6 @@ Aufgrund der Spannweite möglicher amorpher Strukturen gilt eine Parametrisierun
   \label{fig:amorphousrdf}
 \end{figure}
 
-\todo{Generelle Frage: Hinweis auf crc vorhanden?}
 Die Ergebnisse dieser Untersuchungen führen zu ähnlichen Ergebnissen für alle Parametersätze (Tabelle~\ref{tab:amorphoussilicon}), wobei \pot{newsome} erneut zur Unterschätzung der Bindungslänge neigt.
 Die Bindungslängen sind mit \SI{<3}{\percent} Abweichung in Übereinstimmung mit der Bindungslänge von kristallinem Silizium.
 Simulationen mit \pot{kulkarni}, \pot{liu\_ettringite} und \pot{narayanan} zeigen auch eine Koordination von $\approx\num{4}$, die sich aus der Anzahl von Bindungen für Siliziumatome ergibt, doch konnten nicht alle Parametrisierungen diesen Wert reproduzieren.
@@ -220,10 +218,11 @@ Unter Nutzung der \pot{kulkarni}-ReaxFF-Parametrisierung wurden physikalische Ab
 Als Parameter für die Simulationen wurden $A_\text{sim} = \SI{106x104}{\angstrom}$, $A_\text{MD} = \SI{37x37}{\angstrom}$, $T = \SI{1300}{\kelvin}$, $\Delta t = \SI{10}{\femto\second}$, $\tau = \SI{50}{\femto\second}$, $t_\text{relax} = \SI{3.5}{\pico\second}$ und $E_\text{kin} = \SI{6.2}{\electronvolt}$ genutzt, woraus sich in Messungen $T_\text{MD} = \SI{60.71}{\second}$ und $p = \num{1.68}$ ergeben haben.
 Die Temperatur wurde als Kompromiss mit \SI{1300}{\kelvin} bewusst sehr hoch gewählt, um die Relaxierungen zu beschleunigen, da die gesamte Laufzeit bereits \SI{22.5}{\day} beträgt und linear mit der MD-Laufzeit steigt.
 Die langen Laufzeiten ergeben sich als Resultat der ReaxFF-Kraftfelder, welche im Vergleich mit anderen Kraftfeldern um ein Vielfaches rechenaufwendiger sind und auch für die mittlere Zahl von \num{1511} Atomen pro Ereignis lange Laufzeiten verursachen.
-Deshalb sind mit ihnen aber auch reine MD-Simulationen auf der hier vorgestellten Größenordnung undenkbar, wobei für Parsivald eine effiziente Größe von $w_\text{eff} = \SI{539}{\nano\meter}$ mit $p_\text{max} = 2335$ bei $\rho_\text{worker} = \SI{11}{\percent}$ berechnet wurde.
+Deshalb sind mit ihnen aber auch reine MD-Simulationen auf der hier vorgestellten Größenordnung praktisch nicht realisierbar, wobei für Parsivald eine effiziente Größe von $w_\text{eff} = \SI{539}{\nano\meter}$ mit $p_\text{max} = 2335$ bei $\rho_\text{worker} = \SI{11}{\percent}$ berechnet wurde.
 
 Das Ergebnis der Abscheidungssimulation ist eine amorphe Siliziumschicht, die mit konstanter Rate wächst, jedoch eine Zunahme der Rauheit aufgrund von sich langsam verstärkenden Oberflächenunebenheiten aufweist (Abbildung~\ref{fig:siliconresults}).
 Die Simulationen wurden für die Abscheidungen auf den verschiedenen Kristallebenen (001), (011)- und (111) wiederholt, zeigten aber keine Veränderung der Ergebnisse.
+In der RDF der Schicht (Abbildung~\ref{fig:siliconresults-b}) ist das kristalline Substrat in Form von Spitzen erkennbar, doch zeigt sich ansonsten eine amorphe Struktur.
 
 \begin{figure}[thp]
   \captionsetup[subfigure]{singlelinecheck=false}
@@ -245,20 +244,19 @@ Die Simulationen wurden für die Abscheidungen auf den verschiedenen Kristallebe
   \label{fig:siliconresults}
 \end{figure}
 
-Zur Charakterisierung der Kristalleigenschaften der abgeschiedenen Schicht wurde ihre radiale Verteilungsfunktion berechnet, die bereits nach \SI{4}{\angstrom}, keine langreichweitige Ordnung mehr zeigt, weshalb von einer amorphen Schicht auszugehen ist, wobei das kristalline Substrat in der RDF in Form von Spitzen an den Gitterabständen zu erkennen ist.
-
 Die Unebenheiten der Oberfläche, welche Tiefen von \SI{30}{\angstrom} erreichen können, liegen hauptsächlich in der Form vieler Nanoporen vor, welche eine maximale Breite von wenigen Nanometern haben (Abbildung~\ref{fig:siliconprofile}).
 Im Gegensatz zu den Vertiefungen während der Kupfer-PVD (Abschnitt~\ref{copperpvd}) werden diese nicht vollständig mit dem weiteren Wachstum der Schicht geschlossen, sodass die Ausbildung über längere Zeiträume ermöglicht wird.
 Die Rauheit der Oberfläche erreicht gegen Ende der Simulation einen RMS-Wert von \SI{1.15}{\nano\meter}, welcher nur um einen Faktor von \num{10} oberhalb der Rauheiten der zuvor betrachteten kristallinen Schichten liegt.
 Durch die begrenzte Simulationszeit ist keine Aussage über den weiteren Verlauf der Rauheit möglich, die womöglich in einen sublinearen Verlauf durch Schließung der Unebenheiten übergehen kann.
 Es ist ein schwacher Einfluss der Poren auf die Schichtdicke (Abbildung~\ref{fig:siliconresults-a}) erkennbar, welche gegen Ende der Simulation trotz konstanter PVD-Rate sublinear steigt.
-Somit wird die Schichtdicke unterschätzt, was sich auch in der Dichte der Struktur von \SI{2.597}{\gpcc} (Referenzen~\cite{remes_optical_1998,renner_density_1973}: \SIrange{2.20}{2.30}{\gpcc}) zeigt.
+Somit wird die Schichtdicke unterschätzt, was sich auch in der höheren Dichte der Struktur von \SI{2.597}{\gpcc} (Referenzen~\cite{remes_optical_1998,renner_density_1973}: \SIrange{2.20}{2.30}{\gpcc}) zeigt.
 
 Zur Untersuchung des Einflusses von Unterrelaxierung wurde eine Abscheidung bei \SI{500}{\kelvin} simuliert(Abbildung~\ref{fig:siliconunderrelaxedprofile}), die realistischen Prozessbedingungen entspricht, aufgrund der kurzen Relaxationszeit aber nicht zur vollständigen Relaxation am Adsorptionsort führt.
 Es zeigen sich höhere Rauheiten, feinere Nanoporen und steilere Hänge, die zu einer hohen Porösität der Schicht führen, weshalb zu erwarten ist, dass mit höheren Relaxierungszeiten eine verringerte Porenbildung beobachtet werden kann.
 
+\todoline{Fazit}
 
-\begin{figure}[p]
+\begin{figure}[H]
   \centering
   \captionsetup[subfigure]{singlelinecheck=false}
   \begin{subfigure}[t]{8.5cm}
@@ -278,7 +276,7 @@ Es zeigen sich höhere Rauheiten, feinere Nanoporen und steilere Hänge, die zu 
   \label{fig:siliconprofile}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}[H]
   \centering
   \captionsetup[subfigure]{singlelinecheck=false}
   \begin{subfigure}[t]{8.5cm}

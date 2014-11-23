@@ -27,7 +27,7 @@ Alle Prozesse finden in speziellen Abscheidungskammern oder Reaktoren statt, üb
   \end{tabularx}
 \end{table}
 
-\begin{table}
+\begin{table}[p]
   \begin{threeparttable}
     \caption[Auswahl möglicher Produkte von PVD, CVD und ALD]{
       Auswahl möglicher Produkte der verschiedenen Abscheidungsmethoden.
@@ -61,7 +61,7 @@ Alle Prozesse finden in speziellen Abscheidungskammern oder Reaktoren statt, üb
   \end{threeparttable}
 \end{table}
 
-\begin{figure}
+\begin{figure}[p]
   \captionsetup[subfigure]{format=plain}
   \def\chamberwidth{0.3\textwidth}
   \def\subcaptionwidth{0.65\textwidth}
@@ -161,12 +161,7 @@ So werden einerseits Gasphasenreaktionen vermieden, andererseits limitiert die S
 Die Wachstumsrate aus den kontinuierlichen Prozessen wird daher von dem Growth-per-Cycle-Wert (GPC) abgelöst, der angibt, wie viel eine Schicht im Schnitt pro Zyklus wächst.
 Über die Zahl der Zyklen lässt sich somit die Dicke der gewachsenen Schicht genauer als mit kontinuierlichen Abscheidungen steuern, was sich aber in langsameren Abscheidungsprozessen äußert.
 
-Anders als der Name des Prozesses vermuten lässt, werden aufgrund sterischer Hinderung (Abbildung~\ref{fig:sterichindrance}) der Precursorliganden keine kompletten Atomlagen in jedem Zyklus aufgebracht.
-Üblicherweise erreichen ALD-Prozesse maximal \SI{35}{\percent} einer Monolage pro Zyklus\cite{ylilammi_monolayer_1996}, doch sinkt dieser Wert mit der Größe der Precursormoleküle aufgrund der erweiterten sterischen Hinderung.
-Die Suche nach möglichen Precursorpaaren und Prozessparametern unterliegt ansonsten gleichen Anforderungen wie bei CVD.
-Eine ausführlichere Übersicht zu Atomlagenabscheidungen und zu möglichen Precursorpaaren für verschiedene Materialien findet sich in Referenz~\cite{puurunen_surface_2005}.
-
-\begin{figure}
+\begin{figure}[b]
   \centering
   \includegraphics[width=0.5\textwidth]{sterichindrance_noalpha}
   \caption[Sterische Hinderung auf einem Gitter]{
@@ -176,9 +171,20 @@ Eine ausführlichere Übersicht zu Atomlagenabscheidungen und zu möglichen Prec
   \label{fig:sterichindrance}
 \end{figure}
 
+Anders als der Name des Prozesses vermuten lässt, werden aufgrund sterischer Hinderung (Abbildung~\ref{fig:sterichindrance}) der Precursorliganden keine kompletten Atomlagen in jedem Zyklus aufgebracht.
+Üblicherweise erreichen ALD-Prozesse maximal \SI{35}{\percent} einer Monolage pro Zyklus\cite{ylilammi_monolayer_1996}, doch sinkt dieser Wert mit der Größe der Precursormoleküle aufgrund der erweiterten sterischen Hinderung.
+Die Suche nach möglichen Precursorpaaren und Prozessparametern unterliegt ansonsten gleichen Anforderungen wie bei CVD.
+Eine ausführlichere Übersicht zu Atomlagenabscheidungen und zu möglichen Precursorpaaren für verschiedene Materialien findet sich in Referenz~\cite{puurunen_surface_2005}.
+
 \subsection{Simulation von Gasphasenabscheidungen}
 
-\begin{table}
+Für die Simulation von Gasphasenabscheidungen stehen verschiedene numerische Methoden zur Verfügung, welche die Darstellung auf unterschiedlichen Zeit- und Größenordnungen ermöglichen (Tabelle~\ref{tab:deposition-simulations}).
+Jede dieser Methoden basiert auf anderen Annahmen und Formulierungen, so dass sich ihre Anwendungsgebiete zwar nur marginal überschneiden, aber der Transfer von Ergebnissen zwischen den Methoden zu präziseren Vorhersagen führen kann.
+So können CFD-Reaktorsimulationen den Gasverbrauch an charakteristischen Punkten der Oberfläche durch KMC-Simulationen ermitteln, welche wiederum auf DFT-Daten für Reaktionsraten und -energien zurück greift.
+Bisherige Simulationen verzichten aus Gründen der notwendigen Laufzeit meist auf eine strukturelle Betrachtungen der abgeschiedenen Schicht, wie sie etwa mit molekulardynamischen Rechnungen möglich werden.
+Gerade für Anwendungen in der Mikro- und Nanoelektronik sind die strukturellen Eigenschaften der Schichten eng mit ihrer Funktion (mechanische und elektronische Eigenschaften) verknüpft\todo{Ref aus Einleitung}, so dass eine strukturelle Beschreibung für eine umfassende Betrachtung des Prozesses unerlässlich ist.
+
+\begin{table}[H]
   \oddrowcolors
   \caption{Überblick über Methoden zur Simulation von Gasphasenabscheidungen}
   \label{tab:deposition-simulations}
@@ -193,11 +199,3 @@ Eine ausführlichere Übersicht zu Atomlagenabscheidungen und zu möglichen Prec
     \hline
   \end{tabularx}
 \end{table}
-
-\todoline{fig:methodscales}
-
-Für die Simulation von Gasphasenabscheidungen stehen verschiedene numerische Methoden zur Verfügung, welche die Darstellung auf unterschiedlichen Zeit- und Größenordnungen ermöglichen (Tabelle~\ref{tab:deposition-simulations}).
-Jede dieser Methoden basiert auf anderen Annahmen und Formulierungen, so dass sich ihre Anwendungsgebiete zwar nur marginal überschneiden, aber der Transfer von Ergebnissen zwischen den Methoden zu präziseren Vorhersagen führen kann.
-So können CFD-Reaktorsimulationen den Gasverbrauch an charakteristischen Punkten der Oberfläche durch KMC-Simulationen ermitteln, welche wiederum auf DFT-Daten für Reaktionsraten und -energien zurück greift.
-Bisherige Simulationen verzichten aus Gründen der notwendigen Laufzeit meist auf eine strukturelle Betrachtungen der abgeschiedenen Schicht, wie sie etwa mit molekulardynamischen Rechnungen möglich werden.
-Gerade für Anwendungen in der Mikro- und Nanoelektronik sind die strukturellen Eigenschaften der Schichten eng mit ihrer Funktion (mechanische und elektronische Eigenschaften) verknüpft und lassen sich aus ihnen ermitteln, so dass eine strukturelle Beschreibung für eine umfassende Betrachtung des Prozesses unerlässlich ist.

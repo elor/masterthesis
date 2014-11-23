@@ -2,8 +2,8 @@
 \label{mdforcefields}
 
 Das zentrale Element molekulardynamischer Methoden sind Kraftfelder~$\vec F(X)$, auch Potentiale~$V(X)$ genannt, welche die Interaktionen der simulierten Teilchen beschreiben\cite{hoover_molecular_1986}.
-Für verschiedene Materialien existieren spezielle Potentialformulierungen, die für unterschiedliche Elemente wiederum eigene Potentialparametrisierungen in Form von Potentialdateien zur Verfügung stellen.
-Im Folgenden soll eine Auswahl dieser Potentialformulierungen kurz in ihrer Funktionsweise vorgestellt werden.
+Für verschiedene Materialien existieren spezielle Potentialformulierungen, die für unterschiedliche Elemente eigene Potentialparametrisierungen in Form von Potentialdateien benötigen.
+Im Folgenden wird eine Auswahl dieser Potentialformulierungen kurz in ihrer Funktionsweise vorgestellt.
 
 \subsubsection{Paar-Potentiale}
 
@@ -15,43 +15,42 @@ Damit vereinfacht sich die Energie des Gesamtsystems auf Summen des Potentiales 
 \begin{equation}
   E = \sum_i\sum_{j \neq i}{V(r_{ij})}
 \end{equation}
-
 Stellvertretend steht das Lennard-Jones-Potential zur Darstellung von allgemeinen Fluiden:
 \begin{equation}
   V_\text{LJ}(r_{ij}) = 4 \epsilon \left[\left(\frac{\sigma}{r_{ij}}\right)^{12} - \left(\frac{\sigma}{r_{ij}}\right)^{6}\right]
 \end{equation}
 Weitere Paarpotentiale wie etwa das mit dem Lennard-Jones-Potential verwandte Bucking\-ham-Potential nehmen aufgrund unterschiedlicher Anwendungsgebiete andere Formen an (Abbildung~\ref{fig:mdpairpotentials}).
 Allen Paar-Potentialen ist gemein, eine rein radiale Abhängigkeit $V(r_{ij})$ zu besitzen, die oftmals einen charakteristischen Bindungsabstand in Abhängigkeit der Parameter bildet, welcher sich als Minimum in den Potentialen äußert.
-Unterhalb dieses Radius' dominiert ein repulsiver Term, wo hingegen oberhalb davon ein leicht attraktiver Term vorherrscht, der sich für große Radien einem konstanten Wert annähert und deshalb mit einem Cutoff-Radius $r_\text{cut}$ versehen ist.
+Unterhalb dieses Radius' dominiert ein repulsiver Term, wo hingegen oberhalb davon ein leicht attraktiver Term vorherrscht, der sich für große Radien Null annähert und deshalb mit einem Cutoff-Radius $r_\text{cut}$ versehen ist.
 
-\begin{figure}
+\begin{figure}[btp]
   \centering
   \includegraphics[width=0.5\textwidth]{mdpotplot}
   \caption{Auswahl einfacher molekulardynamischer Paarpotentiale}
   \label{fig:mdpairpotentials}
 \end{figure}
 
-\todo{Beleg, Zitat, Nachweis}Zwar zeigen Paarpotentiale gute thermodynamische Eigenschaften bei geringem Rechenaufwand, doch können sie aufgrund ihrer simplen Formulierung keine atomistischen Strukturen verlässlich vorhersagen.
+Zwar zeigen Paarpotentiale gute thermodynamische Eigenschaften bei geringem Rechenaufwand, doch können sie aufgrund ihrer einfachen Formulierung keine komplizierteren Strukturen wie etwa Moleküle beschreiben, weshalb kompliziertere Formulierungen entwickelt wurden.
 
 \subsubsection{N-Teilchen-Potentiale}
 
 N-Teilchen-Potentiale erweitern Paarpotentiale um weitere Terme, die von der Position einer festen Anzahl an Teilchen abhängen.
-Damit können beispielsweise Winkel- und Torsionsabhängigkeiten wiedergegeben werden.
+Damit können beispielsweise Winkel- und Torsionsabhängigkeiten wiedergegeben werden, die für die Beschreibung von Molekülen notwendig sind.
 
 \begin{equation}
   E = \sum_i\sum_{j \neq i}{V_2\left(r_{ij}\right)} + \sum_i\sum_{j \neq i}\sum_{\substack{k \neq i \\ k \neq j}}{V_3\left(r_{ij}, r_{ik}, \theta_{ijk}\right)} + \dots
 \end{equation}
 Obwohl sich mit N-Teilchen-Potentialen komplexere Systeme betrachten lassen, zeigen sie die gleichen Schwachstellen wie Paarpotentiale, benötigen aber eine größere Anzahl an Parametern.
-Zwar gibt es erfolgreiche Anwendungen für Biomoleküle\cite{case_amber_2005,brooks_charmm:_1983,brooks_charmm:_2009,berendsen_gromacs:_1995,hess_gromacs_2008}, die allerdings aufgrund ihrer Spezialisierung zu kovalenten und Wasserstoffbrücken-Bindungen in Biomolekülen nicht auf allgemeine Stoffsysteme wie Festkörper oder Oberflächen übertragbar sind.
+Es gibt zwar erfolgreiche Anwendungen für Biomoleküle\cite{case_amber_2005,brooks_charmm:_1983,brooks_charmm:_2009,berendsen_gromacs:_1995,hess_gromacs_2008}, die allerdings aufgrund ihrer Spezialisierung zu kovalenten und Wasserstoffbrücken-Bindungen in Biomolekülen nicht auf allgemeine Stoffsysteme wie Festkörper oder Oberflächen übertragbar sind.
 
 \subsubsection{Embedded Atom Model}
 
-Das Embedded Atom Model (EAM) besteht aus einem Paarpotential $V_{\alpha\beta}(r_{ij})$ für jedes Atom $i$ sowie einer Einbettungsfunktion $F_\alpha$, welche die Energie des Atomes in Abhängigkeit der angenäherten lokalen Elektronendichte $\rho_\beta(r_{ij})$ modelliert\cite{daw_embedded-atom_1984}.
+Das Embedded Atom Model (EAM) besteht aus einem Paarpotential $V_{\alpha\beta}(r_{ij})$ für jedes Atom~$i$ sowie einer Einbettungsfunktion $F_\alpha$, welche die Energie des Atomes in Abhängigkeit der angenäherten lokalen Elektronendichte $\rho_\beta(r_{ij})$ modelliert\cite{daw_embedded-atom_1984}.
 \begin{equation}
   E = \sum_i\left[F_\alpha\left(\sum_{j\neq i}{\rho_\beta\left(r_{ij}\right)}\right) + \frac{1}{2}\sum_{j\neq i}{V_{\alpha\beta}\left(r_{ij}\right)}\right]
 \end{equation}
 So lassen sich metallische Bulksysteme und Oberflächen simulieren, für die $\alpha$ und $\beta$ verschiedene Spezies darstellen, doch führt die Formulierung für andere Systeme zwangsläufig zur Bildung von Clustern, wie sie bereits für vorherige Versionen des in dieser Arbeit erweiterten Parsivald-Modelles beobachtet wurden\cite{lorenz_entwicklung_2012}.
-Für eine Vielzahl an Metallen und Legierungen finden sich in Potentialdatenbanken fertige Parametrisierungen\cite{becker_interatomic_2014}, von denen viele zusätzlich zu den strukturellen auch thermodynamische Eigenschaften recht gut modellieren (Abschnitt~\ref{goldthermo}).
+Für eine Vielzahl von Metallen und Legierungen finden sich in Potentialdatenbanken fertige Parametrisierungen\cite{becker_interatomic_2014}, von denen viele zusätzlich zu den strukturellen auch thermodynamische Eigenschaften recht gut modellieren (Abschnitt~\ref{goldthermo}).
 
 %% \subsubsection{Modified Embedded Atom Model}
 
@@ -68,19 +67,19 @@ Für Metalloxide und weitere Mischsysteme existiert eine Erweiterung in Form des
 \subsubsection{Reactive Force Fields}
 
 Reaktive Kraftfelder (Reactive Force Fields, ReaxFF) wurden von \textsc{van Duin et al.}\cite{van_duin_reaxff:_2001} 2001 mit dem Ziel entwickelt, Reaktionen zwischen Molekülen mit molekulardynamischen Methoden beschreiben zu können.
-Mangels expliziter Beschreibung der involvierten Elektronen war die Beschreibung von Bindungen zuvor nur mit Elektronenstrukturrechnungen möglich, denen aber eine obere Grenze von wenigen hundert Atomen gesetzt ist.
-Durch Beschreibung der Über- und Unterkoordination der Atome innerhalb ihrer Nachbarschaft, zusätzlich zum Ladungsaustausch zwischen den Atomen, Van-der-Waals- und elektrostatischen Kräften, lassen sich mit der ReaxFF-Formulierung Bindungen während der Simulation dynamisch formen und lösen, wodurch die Simulation von Reaktionen ermöglicht wird.
+%% Mangels expliziter Beschreibung der involvierten Elektronen war die Beschreibung von Bindungen zuvor nur mit Elektronenstrukturrechnungen möglich, denen aber eine obere Grenze von wenigen hundert Atomen gesetzt ist.
+Durch Beschreibung der Über- und Unterkoordination der Atome innerhalb ihrer Nachbarschaft, zusätzlich zum Ladungsausgleich zwischen den Atomen, Van-der-Waals-Wechselwirkungen und Coulomb-Kräften, lassen sich mit der ReaxFF-Formulierung Bindungen während der Simulation dynamisch formen und lösen, wodurch die Simulation von Reaktionen ermöglicht wird.
 Die Gesamtenergie $E_\text{system}$ des Systemes setzt sich aus den folgenden Summanden zusammen, über die Tabelle~\ref{tab:reaxenergies} einen kurzen Überblick gibt.
 \begin{align}
   \label{reaxformulation}
   E_\text{system} =~& E_\text{bond} + E_\text{lp} + E_\text{over} + E_\text{under} + E_\text{val} + E_\text{pen} + E_\text{coa} + E_\text{C2} \\
   \nonumber  & + E_\text{tors} + E_\text{conj} + E_\text{H-bond} + E_\text{vdWaals} + E_\text{Coulomb}
 \end{align}
-Die meisten Terme werden über die Bindungsordnung $BO_{ij}'$ berechnet, welche sich wiederum aus Beiträgen für $\sigma$-, $\pi$- und Doppel-$\pi$-Bindungen aus dem Bindungsabstand zusammen setzt und über die Parameter $p_{\text{bo,1..6}}$ für unterschiedliche Atomsorten eingestellt werden kann.
+Die meisten Terme greifen auf die Bindungsordnung $BO_{ij}'$ zurück, welche sich wiederum aus Beiträgen für $\sigma$-, $\pi$- und Doppel-$\pi$-Bindungen aus dem Bindungsabstand zusammen setzt und über die Parameter $p_{\text{bo,1..6}}$ für unterschiedliche Atomsorten eingestellt werden kann.
 \begin{equation}
   BO_{ij}' = \exp\left( p_{\text{bo,1}} \cdot \left( \frac{r_{ij}}{r_0} \right)^{p_\text{bo,2}} \right) + \exp\left( p_{\text{bo,3}} \cdot \left( \frac{r_{ij}}{r_{0,\pi}} \right)^{p_\text{bo,4}} \right) + \exp\left( p_{\text{bo,5}} \cdot \left( \frac{r_{ij}}{r_{0,\pi\pi}} \right)^{p_\text{bo,6}} \right)
 \end{equation}
-Darüber hinaus werden einige Terme in der Nähe des Cutoff-Abstands sowie an Koordinations-Übergängen auf 0 gesenkt, um Diskontinuitäten zu vermeiden und einen fließenden Übergang zwischen Bindungszuständen zu ermöglichen.
+Darüber hinaus werden einige Terme der Energiesumme in der Nähe des Cutoff-Abstands sowie an Koordinations-Übergängen auf 0 gesenkt, um Diskontinuitäten zu vermeiden und einen fließenden Übergang zwischen Bindungszuständen zu ermöglichen.
 
 \begin{table}
   \oddrowcolors
@@ -109,11 +108,11 @@ Darüber hinaus werden einige Terme in der Nähe des Cutoff-Abstands sowie an Ko
   \end{tabularx}
 \end{table}
 
-Aus den Termen des ReaxFF-Potentials geht hervor, dass es ursprünglich für Reaktionen von organischen Molekülen entwickelt wurde, doch hat es sich als vielseitig genug herausgestellt, auch eine Vielzahl anderer Materialien wie Kristalle und nichtorganische Verbindungen simulieren zu können.
+Das ReaxFF-Potential wurde ursprünglich für Reaktionen von organischen Molekülen entwickelt\cite{van_duin_reaxff:_2001}, doch hat es sich als vielseitig genug herausgestellt, auch eine Vielzahl anderer Materialien wie Kristalle und nichtorganische Verbindungen simulieren zu können\todo{Ref}.
 Die einzige Abhängigkeit besteht zum Trainingssatz, also den Test-Strukturen, an deren Werte die Parametrisierung des Reax-Kraftfeldes angepasst wurde.
 So kann die Parametrisierung in der Regel nur die Strukturen und Materialien zuverlässig wiedergeben, für die sie ursprünglich erstellt wurde.
-Für darüber hinaus gehende Anwendungen ist in der Regel eine aufwendige Anpassung der Parametersätze mittels geeigneter Trainingsstrukturen erforderlich.
+Für erweiterte Anwendungen ist in der Regel eine aufwendige Anpassung der Parametersätze mittels geeigneter Trainingsstrukturen erforderlich.
 
-In den letzten fünf Jahren haben Reactive Force Fields jedoch an Aufmerksamkeit gewonnen, so dass die Zahl verfügbarer spezialisierter Parametrisierungen stetig zunimmt.
+In den letzten fünf Jahren haben Reactive Force Fields jedoch an Aufmerksamkeit gewonnen, so dass die Zahl verfügbarer spezialisierter Parametrisierungen stetig zunimmt\todo{Ref}.
 Es gibt auch Bestrebungen, sich ergänzende ReaxFF-Parametrisierungen zu kombinieren und somit mit einer Parametrisierung eine große Zahl von Zielsystemen betrachten zu können.
 Besonders in kommerzieller MD-Software\cite{biovia_materials_2014} wird so versucht, dem Nutzer ein umfassendes Paket für die Simulation beliebiger Strukturen zu präsentieren, ohne ihm aber die Grenzen der Vorhersagekraft des Parametersatzes erkenntlich zu machen.

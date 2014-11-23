@@ -40,3 +40,5 @@ Sauer
 SO
 HfO
 ZrO
+Dimer
+Trimer

@@ -1,10 +1,10 @@
-\chapter{Simulation der CVD-Precursormoleküle \ce{SiH4} und \ce{O2}}
+\chapter{Simulation der CVD-Precursormoleküle \texorpdfstring{\ce{SiH4}}{Silan} und \texorpdfstring{\ce{O2}}{Sauerstoff}}
 \label{appendix_silica}
 
 ReaxFF-Potentiale versprechen die Simulation von Molekülen und deren Reaktion miteinander, die mit den folgenden Simulationen für Silan und molekularen Sauerstoff überprüft werden sollen.
 Das endgültige Ziel ist die vollständige Simulation reaktiver Gasphasenabscheidungen mit molekulardynamischen Methoden.
 
-\section{Stabilität der Precursormoleküle (\ce{SiH4}, \ce{O2})}
+\section{Stabilität der Precursormoleküle}
 
 Simulationen einzelner und mehrerer Precursormoleküle (\ce{SiH4} und \ce{O2}) hinsichtlich ihrer Stabilität wurden im mikrokanonischen sowie im kanonischen Ensemble bei verschiedenen Temperaturen durchgeführt.
 Abbildung~\ref{fig:silanestability} zeigt eine Auswahl der Ergebnisse der Silan-Simulationen, an denen sich erkennen lässt, wie instabile Simulationen zur Ablösung der Wasserstoffatome vom Silanmolekül führen.
@@ -41,7 +41,7 @@ Bei \pot{Al\_Al0\_AlN}, \pot{kulkarni}, \pot{nielson} und \pot{zhang} behalten d
 
 \end{figure}
 
-\section{Reaktion der Precursormoleküle (\ce{SiH4 + O2})}
+\section{Reaktion der Precursormoleküle}
 
 Reaktionen von einzelnen Precursormolekülen wurden stichprobenartig in verschiedenen Orientierungen, Energien und Temperaturen vorgenommen, um einen Überblick über die Verlässlichkeit der Reaktionsmechanismen zu bekommen (Abbildung~\ref{fig:precursorreactions}).
 Einige Parametrisierungen zeigen vielversprechende Teilreaktionen, die korrekte Doppelbindungen und Bildung von Wasserstoffmolekülen beinhalten (Abbildung~\ref{fig:newsomereaction}).
@@ -52,7 +52,7 @@ Für die Reaktion von Silan mit Wasser wurden beide Moleküle außerhalb der Cut
 Die relativen kinetischen Energien decken mit \SI{0.1}{\electronvolt} bis \SI{10}{\electronvolt}  einen breiten Bereich ab.
 
 Die meisten Parametrisierungen zeigen keine Änderung des Bindungszustandes der Moleküle, allerdings treten bei \pot{zhang}, \pot{newsome} und \pot{kulkarni} Reaktionen auf.
-Einige der \pot{zhang}-Simulationen zeigen eine Überzahl an stabilen Bindungen (Abbildung~\ref{fig:zhangreaction}), bei denen das Sauerstoff-Molekül gelegentlich aufgespalten wird, doch verringert sich ihre Wahrscheinlichkeit mit höheren Teilchenenergien und Temperaturen.
+Einige der \pot{zhang}-Simulationen zeigen eine Überzahl an stabilen Bindungen (Abbildung~\ref{fig:zhangreaction}), bei denen die \ce{O-O}-Bindungen gelegentlich gelöst werden, doch verringert sich die Wahrscheinlichkeit stabiler Überkoordinationen mit höheren Teilchenenergien und Temperaturen.
 Die beiden anderen Potentiale zeigen meist die korrekte Zahl an Bindungen für das Silizium-Atom, doch bildet sich häufig atomarer Sauer- und Wasserstoff, der allerdings bei Kontakt mit einem anderen Atom Bindungen aufbauen müsste.
 Dieses Verhalten konnte allerdings bisher nicht simuliert werden.
 

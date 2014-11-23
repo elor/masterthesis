@@ -19,7 +19,7 @@ Für diese Parametersätze wird eine kurze Voruntersuchung durchgeführt, bevor 
     \pot{Cu\_u6.eam} \qqquad(\pot{u6})    & Aktivierungsenergie für Eigendiffusionen                                    & \cite{adams_self-diffusion_1989}        \\
     \pot{Cu-Zr\_2.eam.fs}                 & Flüssige und amorphe \ce{Cu-Zr}-Legierungen                                 & \cite{mendelev_development_2009}        \\
     \pot{Cu-Zr.eam.fs}                    & Flüssige und amorphe \ce{Cu-Zr}-Legierungen                                 & \cite{mendelev_using_2007}              \\
-    \pot{Mendelev\_Cu2\_2012.eam.fs}      & Unterkühlte \ce{Al-Cu}-Schmelzen. Basiert auf \cite{mendelev_analysis_2008} & \cite{becker_interatomic_2014}          \\
+    \pot{Mendelev\_Cu2.eam.fs}            & Unterkühlte \ce{Al-Cu}-Schmelzen. Basiert auf \cite{mendelev_analysis_2008} & \cite{becker_interatomic_2014}          \\
     \hline
   \end{tabularx}
 
@@ -37,18 +37,18 @@ Wie bei den Voruntersuchungen für Gold-PVD zuvor (Abschnitt~\ref{goldpreparatio
     \label{tab:copperpreresults}
     \begin{tabularx}{\textwidth}{|Xrrrrr|}
       \hline
-      \textbf{Parametersatz}           & \textbf{Koord.} & \multicolumn{2}{c}{\textbf{Bindungslänge}}  ~  ~ & \textbf{Dichte}        & ~                                          \\
+      \textbf{Parametersatz}       & \textbf{Koord.} & \multicolumn{2}{c}{\textbf{Bindungslänge}}     & \textbf{Dichte}   & ~                      \\
       \hline
-      Referenz                         & \num{12.00}     & \SI{2.556}{\angstrom}                            & ~                      & \SI{8.96}{\gpcc}  & ~                      \\
-      \pot{CuAg.eam.alloy}             & \num{12.09}     & \SI{2.559}{\angstrom}                            & (\SI{-0.12}{\percent}) & \SI{8.893}{\gpcc} & (\SI{-0.75}{\percent}) \\
-      \pot{cu\_ag\_ymwu.eam.alloy}     & \num{12.03}     & \SI{2.473}{\angstrom}                            & (\SI{-3.25}{\percent}) & \SI{9.846}{\gpcc} & (\SI{+9.89}{\percent}) \\
-      \pot{Cu\_smf7.eam}               & \num{12.03}     & \SI{2.558}{\angstrom}                            & (\SI{+0.08}{\percent}) & \SI{8.908}{\gpcc} & (\SI{-0.58}{\percent}) \\
-      \pot{Cu\_u3.eam}                 & \num{12.00}     & \SI{2.558}{\angstrom}                            & (\SI{+0.08}{\percent}) & \SI{8.915}{\gpcc} & (\SI{-0.50}{\percent}) \\
-      \pot{Cu\_u6.eam}                 & \num{12.00}     & \SI{2.558}{\angstrom}                            & (\SI{+0.08}{\percent}) & \SI{8.910}{\gpcc} & (\SI{-0.56}{\percent}) \\
-      \pot{CuNi.eam.alloy}             & \num{12.10}     & \SI{2.559}{\angstrom}                            & (\SI{-0.12}{\percent}) & \SI{8.895}{\gpcc} & (\SI{-0.73}{\percent}) \\
-      \pot{Cu-Zr\_2.eam.fs}            & \num{12.05}     & \SI{2.575}{\angstrom}                            & (\SI{-0.74}{\percent}) & \SI{8.738}{\gpcc} & (\SI{-2.48}{\percent}) \\
-      \pot{Cu-Zr.eam.fs}               & \num{12.09}     & \SI{2.575}{\angstrom}                            & (\SI{-0.74}{\percent}) & \SI{8.738}{\gpcc} & (\SI{-2.48}{\percent}) \\
-      \pot{Mendelev\_Cu2\_2012.eam.fs} & \num{12.07}     & \SI{2.575}{\angstrom}                            & (\SI{-0.74}{\percent}) & \SI{8.747}{\gpcc} & (\SI{-2.38}{\percent}) \\
+      Referenz                     & \num{12.00}     & \SI{2.556}{\angstrom} & ~                      & \SI{8.96}{\gpcc}  & ~                      \\
+      \pot{CuAg.eam.alloy}         & \num{12.09}     & \SI{2.559}{\angstrom} & (\SI{-0.12}{\percent}) & \SI{8.893}{\gpcc} & (\SI{-0.75}{\percent}) \\
+      \pot{cu\_ag\_ymwu.eam.alloy} & \num{12.03}     & \SI{2.473}{\angstrom} & (\SI{-3.25}{\percent}) & \SI{9.846}{\gpcc} & (\SI{+9.89}{\percent}) \\
+      \pot{Cu\_smf7.eam}           & \num{12.03}     & \SI{2.558}{\angstrom} & (\SI{+0.08}{\percent}) & \SI{8.908}{\gpcc} & (\SI{-0.58}{\percent}) \\
+      \pot{Cu\_u3.eam}             & \num{12.00}     & \SI{2.558}{\angstrom} & (\SI{+0.08}{\percent}) & \SI{8.915}{\gpcc} & (\SI{-0.50}{\percent}) \\
+      \pot{Cu\_u6.eam}             & \num{12.00}     & \SI{2.558}{\angstrom} & (\SI{+0.08}{\percent}) & \SI{8.910}{\gpcc} & (\SI{-0.56}{\percent}) \\
+      \pot{CuNi.eam.alloy}         & \num{12.10}     & \SI{2.559}{\angstrom} & (\SI{-0.12}{\percent}) & \SI{8.895}{\gpcc} & (\SI{-0.73}{\percent}) \\
+      \pot{Cu-Zr\_2.eam.fs}        & \num{12.05}     & \SI{2.575}{\angstrom} & (\SI{-0.74}{\percent}) & \SI{8.738}{\gpcc} & (\SI{-2.48}{\percent}) \\
+      \pot{Cu-Zr.eam.fs}           & \num{12.09}     & \SI{2.575}{\angstrom} & (\SI{-0.74}{\percent}) & \SI{8.738}{\gpcc} & (\SI{-2.48}{\percent}) \\
+      \pot{Mendelev\_Cu2.eam.fs}   & \num{12.07}     & \SI{2.575}{\angstrom} & (\SI{-0.74}{\percent}) & \SI{8.747}{\gpcc} & (\SI{-2.38}{\percent}) \\
       \hline
     \end{tabularx}
 
@@ -65,7 +65,7 @@ Da diese drei Parametersätze, welche von der Arbeitsgruppe um \textsc{S.~M.~Foi
 
 \subsection{Thermodynamische Eigenschaften}
 
-Eine Untersuchung der thermodynamischen Eigenschaften der Parametersätze, wie sie auch für die Gold-Parametrisierung durchgeführt wurde (Abschnitt~\ref{goldthermo}), zeigt eine Überschätzung der Schmelztemperatur um ca. \SI{200}{\kelvin}, mit Ausnahme von \pot{cu\_ag\_ymwu.eam.alloy}.
+asd Eine Untersuchung der thermodynamischen Eigenschaften der Parametersätze, wie sie auch für die Gold-Parametrisierung durchgeführt wurde (Abschnitt~\ref{goldthermo}), zeigt eine Überschätzung der Schmelztemperatur um ca. \SI{200}{\kelvin}, mit Ausnahme von \pot{cu\_ag\_ymwu.eam.alloy} (Abbildung~\ref{fig:copperthermo}).
 Somit zeigt sich, dass Parametrisierungen für die Beschreibung struktureller Eigenschaften in der Regel keine thermodynamischen Eigenschaften darstellen, oder nur für eine Auswahl von Systemen angepasst wurden.
 Unterhalb von \SI{1000}{\kelvin} stimmen die meisten Dichten mit Referenzwerten überein, die über den linearen Ausdehnungskoeffizienten von $\alpha = \SI{16.5e-6}{\per\kelvin}$\cite{haynes_crc_2011} berechnet wurden.
 Die Referenzwerte stammen aus den Referenzen~\cite{haynes_crc_2011,brillo_density_2006} (Siehe Anhang~\ref{appendix_constants}).
@@ -103,7 +103,7 @@ Die Referenzwerte stammen aus den Referenzen~\cite{haynes_crc_2011,brillo_densit
     Vergleich der Schmelztemperatur von Kupfer.
     Experimentelle Dichte:~\cite{brillo_density_2006}
   }
-  \label{fig:copperthermo}
+  \label{fig:copperthermo2}
 \end{figure}
 
 \subsection{Prozess-Simulation}

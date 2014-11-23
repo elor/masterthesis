@@ -25,6 +25,7 @@ preparetexcode(){
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage[range-phrase={\,bis\,},binary-units,retain-explicit-plus]{siunitx}
+\usepackage[version=3]{mhchem}
 
 \begin{document}
 

@@ -1,11 +1,11 @@
 \section{Multilagen-PVD}
 \label{multilayer}
 
-Zur Herstellung von mehrlagigen Schichten wie röntgenoptischen oder magnetischen Systemen (Riesenmagnetowiderstand GMR, Tunnelmagnetowiderstand TMR) werden Elektrodepositionen\cite{yang_pulsed_1995} und Sputter-Prozesse\cite{barshilia_characterization_2002,,cammarata_nanoindentation_1990} genutzt, die beide zur Klasse der PVD-Methoden gehören.
+Zur Herstellung von mehrlagigen Schichten wie röntgenoptischen oder magnetischen Systemen (Riesenmagnetowiderstand GMR, Tunnelmagnetowiderstand TMR) werden Elektrodepositionen\cite{yang_pulsed_1995} und Sputter-Prozesse\cite{barshilia_characterization_2002,cammarata_nanoindentation_1990} genutzt, die beide zur Klasse der PVD-Methoden gehören.
 Mit Parsivald werden deshalb Abscheidungssimulation von Kupfer-Nickel-Multilagen durchgeführt, bevor die Ergebnisse mit den Ergebnissen von rein molekulardynamischen Rechnungen verglichen werden.
 
 Die Wahl fiel auf das Kupfer-Nickel-System aufgrund der gleichen fcc-Struktur und der ähnlichen Gitterkonstanten von \SI{3.615}{\angstrom} für Kupfer und \SI{3.5238}{\angstrom} für Nickel\cite{haynes_crc_2011}, wodurch Gitterdefekte vermieden werden und epitaktisches Wachstum möglich ist\cite{zhou_atomistic_1998}.
-In MD-Simulationen von \textsc{Zhou et al.}\cite{zhou_atomistic_1998} wurden bereits Gitterdefekte und -versetzungen für Lagen von je \SI{20}{\angstrom} Dicke untersucht, doch wurde während dieser Simulationen keine Amorphisierung der Schichten beobachtet.
+In MD-Simulationen von \textsc{Zhou et al.}\cite{zhou_atomistic_1998} wurden bereits Gitterdefekte und -versetzungen für Lagen von je \SI{20}{\angstrom} Dicke untersucht, doch wurden während dieser Simulationen keine amorphen Schichten beobachtet.
 In dieser und weiteren Untersuchungen\cite{zhou_atomic_2001} wurden erfolgreich EAM-Potentiale benutzt, um dünne Multilagen-Systeme zu simulieren.
 Dabei bildeten sich in der Simulation klar abgetrennte Lagen aus, die nur bei hoher Energie des auftreffenden Teilchens zu einer Durchmischung des Systemes führen\cite{zhou_atomistic_1998}.
 
@@ -25,7 +25,7 @@ Die PVD-Raten wurden so gewählt, dass einzelne Lagen mit einer Dicke von \SI{1}
 Abscheidungen von Lagen mit einer Dicke von \SI{5}{\nano\meter} wurden ebenfalls mit Parsivald simuliert, doch mangels verfügbarer Rechenzeit nicht eingehender untersucht.
 Anhang~\ref{appendix_multilayer} enthält neben diesen Systemen auch Darstellungen von strukturellen Fehlern, die bei der Fehleinstellung der Simulationsparameter von der Simulation verursacht werden können.
 
-Eine Untersuchung der Ergebnisse der Parsivald-Simulationen zeigt nach korrekter Parametereinstellung \todo{Joerg: hier sollte vielleicht irgendwo mal erwähnt werden, dass das für dieses System erwartet ist? Eigentlich müsste man da was zu Mischbarkeit und Phasendiagramm der Legierungsbildung sagen ...}klar abgegrenzte epitaktische Atomlagen (Abbildungen~\ref{fig:multilayerresults}), die eine geringe Rauheit von \SI{1.2}{\angstrom} zeigen (Abbildung~\ref{fig:multilayerplots-a}), welche unterhalb der Bindungslängen liegt.
+Eine Untersuchung der Ergebnisse der Parsivald-Simulationen zeigt nach korrekter Parametereinstellung \todo{Joerg: hier sollte vielleicht irgendwo mal erwähnt werden, dass das für dieses System erwartet ist? Eigentlich müsste da was zu Mischbarkeit und Phasendiagramm der Legierungsbildung gesagt werden ...}klar abgegrenzte epitaktische Atomlagen (Abbildungen~\ref{fig:multilayerresults}), die eine geringe Rauheit von \SI{1.2}{\angstrom} zeigen (Abbildung~\ref{fig:multilayerplots-a}), welche unterhalb der Bindungslängen liegt.
 Bei Untersuchungen der Alpha-Form konnten weder Poren noch Hohlräume gefunden werden.
 Die Lagen zeigen jedoch bei geringeren Relaxationszeiten eine stärkere Durchmischung, wie in Abbildung~\ref{fig:multilayerplots-b} anhand der nach Schichthöhe aufgelösten Atomkonzentration ersichtlich ist.
 In der Simulation wird die Durchmischung durch eine Unterrelaxation verursacht, bei der sich das auftreffende Atom nicht weit genug auf der Oberfläche bewegen kann, um einen günstigen Ablagerungsort zu erreichen.
@@ -64,7 +64,7 @@ Im Gegensatz zu Parsivald wird bei den reinen LAMMPS-Rechnungen der komplette Si
 
 Beim Vergleich der Ergebnisse von Parsivald und LAMMPS zeigt sich jedoch eine gute Übereinstimmung der Schichten (Abbildung~\ref{fig:multilayerresults}), die auch in den Rauheiten erkennbar ist (Abbildung~\ref{fig:multilayerplots-a}).
 Sowohl die Ergebnisse der Abscheidungssimulationen mit Parsivald als auch die der LAMMPS-Rechnungen weisen Rauheiten unterhalb der Bindungslängen auf und zeigen weder Hohlräume noch Gitterdefekte.
-Bei den LAMMPS-Simulationen wurde eine leicht verringerte Zahl von Atomen pro Zyklus aufgeschieden, woraus sich ca. \SI{6}{\percent} dünnere Schichten ergeben.
+Bei den LAMMPS-Simulationen wurde versehentlich eine leicht geringere Zahl von Atomen pro Lage adsorbiert, woraus sich ca. \SI{6}{\percent} dünnere Schichten ergeben.
 
 \begin{figure}[tp]
   \captionsetup[subfigure]{singlelinecheck=false}

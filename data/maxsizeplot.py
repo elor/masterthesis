@@ -106,7 +106,7 @@ def plotfunctions(functions, pdfname, xmin, xmax, xlabel):
     #plt.xlabel(r'Substratbreite (\AA)')
     plt.xlabel(xlabel)
     #plt.ylabel(r'Parallele Worker')
-    plt.ylabel(r'$w_\text{eff.}$ (\textmu m)')
+    plt.ylabel(r'$w_\text{eff}$ (\textmu m)')
 
     ax = plt.axes()
     ax.set_xscale('log')

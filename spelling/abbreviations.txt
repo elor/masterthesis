@@ -64,3 +64,7 @@ EAM
 EON
 TMR
 NPH
+Konn
+Ser
+SI
+max

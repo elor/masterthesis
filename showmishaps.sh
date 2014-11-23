@@ -183,7 +183,7 @@ todocounts(){
 }
 
 getdrafts(){
-    listfiles | xargs -0 grep -Pn 'draft'
+    listfiles | xargs -0 grep -Pn '(?<!if)draft'
 }
 
 getlatexerrors(){
@@ -278,12 +278,12 @@ grandcanonical(){
     register "LaTeX Warnings" getlatexwarnings
     register "Equation References" equationreferences
     register "Man/man occurences" manoccurences
-    register "comment blocks" commentblocks
     register "todo notes" todonotes
     register "unused citations" unusedcitations
     register "unused abbreviations" unusedabbreviations
     register "overfull boxes" overfullboxes
     register "underfull boxes" underfullboxes
+    register "comment blocks" commentblocks
     register "draft notes" getdrafts
 #    register "possible typos" listunknownwords
 

@@ -86,3 +86,7 @@ asd
 ASD
 dsa
 DSA
+XXR
+captions
+doi
+definitions

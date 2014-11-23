@@ -93,3 +93,13 @@ eltools
 Kulkarni
 xyzutils
 lmputils
+gosalvez
+Kalypso
+higashiwaki
+ritala
+seyama
+suntola
+Voter
+ylammi
+zdistribution
+url

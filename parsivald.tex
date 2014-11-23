@@ -141,7 +141,7 @@ Die Auswertung der Abbruchrate, also des Verhältnisses von fehlgeschlagenen Ere
 Ein Abbruch ist dabei eine MD-Simulation, die abstürzt, ihre Zeitbegrenzung erreicht oder zur Desorption von Atomen und Molekülen führt.
 Da die LAMMPS-Bibliothek mit einer geringen Wahrscheinlichkeit unvorhergesehen und ohne Fehlernachrichten abstürzen kann, obwohl die Simulation selbst erfolgreich verlaufen wäre, werden fehlgeschlagene MD-Boxen einem zweiten Prozess zur Simulation übergeben.
 Schlägt auch diese fehl, liegt mit hoher Wahrscheinlichkeit ein struktureller oder methodischer Fehler vor.
-In der aktuellen Implementierung gitl das Herausschlagen von Atomen aus der Oberfläche, wie es bei Sputter-Prozessen statt finden kann, als Abbruch, weshalb in der vorliegenden Arbeit geringe Teilchenenergien oder schnelle Thermostatdämpfungen eingesetzt werden.
+In der aktuellen Implementierung gilt das Herausschlagen von Atomen aus der Oberfläche, wie es bei Sputter-Prozessen statt finden kann, als Abbruch, weshalb in der vorliegenden Arbeit geringe Teilchenenergien oder schnelle Thermostatdämpfungen eingesetzt werden.
 
 Da bei Abbrüchen bereits ausgewählte Ereignisse verworfen und somit die Abscheidungsraten leicht unterschätzt werden, müssen die Ereignisraten dynamisch entsprechend der mittleren oder erwarteten Abbruchrate angepasst werden.
 Für CVD-Simulationen ist eine Anpassung der Ereignisraten in der Regel nicht notwendig, da fehlerhafte MD-Ereignisse auf eine versehentliche Auswahl eines Ereignisortes zurück zu führen sind.

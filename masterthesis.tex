@@ -5,6 +5,10 @@
 \paperonlyfalse
 %% \paperonlytrue
 
+\newif\iftestonly
+\testonlyfalse
+%% \testonlytrue
+
 \documentclass[
 draft,
 fontsize=11pt,
@@ -31,33 +35,36 @@ BCOR9mm,
 
 \begin{document}
 
-\include{titel}
-\pagenumbering{roman}
-\include{abstract}
-\include{contents}
+\iftestonly
+  \include{test}
+\else
+  \include{titel}
+  \pagenumbering{roman}
+  \include{abstract}
+  \include{contents}
 
-\pagenumbering{arabic}
+  \pagenumbering{arabic}
 
-\cleardoublepage
-\include{intro}
-\cleardoublepage
-\include{theory}
-\cleardoublepage
-\include{models}
-\cleardoublepage
-\include{results}
-\cleardoublepage
-\include{summary}
+  \cleardoublepage
+  \include{intro}
+  \cleardoublepage
+  \include{theory}
+  \cleardoublepage
+  \include{models}
+  \cleardoublepage
+  \include{results}
+  \cleardoublepage
+  \include{summary}
 
-\cleardoublepage
-\include{appendix}
+  \cleardoublepage
+  \include{appendix}
+
+\fi
 
 \cleardoublepage
 \include{bibliography}
 
 \include{unischeiss}
-
-\include{test}
 
 \end{document}
 

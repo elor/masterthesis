@@ -7,7 +7,8 @@ Diese Methoden werden für die Präparation von Strukturen, deren thermische und
 \subsection{Zeitskalen}
 
 MD-Simulationen werden maßgeblich durch den Zeitschritt $\Delta t$, die Thermostatdämpfung $\tau$, die Barostatdämpfung $\tau_p$ und die Relaxationszeit $t_\text{relax}$ bestimmt, welche systemabhängige Maximalwerte nicht überschreiten dürfen.
-$\Delta t$ ist so zu wählen, dass schnelle Bewegungen nur geringe numerische Fehler verursachen, wofür je nach Art des numerischen Integrators mindestens \SI{20}{\percent} der Periodendauer der schnellsten Schwingung als Richtwert angenommen werden kann.
+$\Delta t$ ist so zu wählen, dass schnelle Bewegungen nur geringe numerische Fehler verursachen, wofür je nach Art des numerischen Integrators mindestens \SI{20}{\percent} der Periodendauer der schnellsten Schwingung als Richtwert angenommen wurde.
+
 $\tau$ und $\tau_p$ sollten groß genug gewählt werden, um zwischen den Zeitschritten nur geringe Änderungen vorzunehmen, da sonst die Dynamik des Systems gestört wird.
 Typische Werte sind $\tau = 100 \Delta t$ und $\tau_p = 1000 \Delta t$.
 Die Relaxationszeit $t_\text{relax}$ muss zuletzt oberhalb der vom Thermostat und von Barostat erzeugten Oszillationen der Temperatur und der Dichte liegen.

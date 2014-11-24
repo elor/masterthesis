@@ -146,7 +146,7 @@ Der Druck innerhalb des Systems wird dabei über die Virialgleichung ermittelt, 
 Zusätzlich zu den Ensemble-Simulationen lassen sich in der Molekulardynamik vor allem Optimierungen anhand der Energie des Systemes durchführen, wofür verschiedene Methoden zur Verfügung stehen.
 Sie werden in dieser Arbeit nicht direkt benutzt, sollen aber der Vollständigkeit sowie der Erläuterung der zitierten Arbeiten dienen.
 
-Implementierungen der \textbf{Methode der konjugierten Gradienten} (CG, Conjugate Gradients)\cite{nocedal_conjugate_2006}, einer Methode zur Lösung linearer Gleichungen, schreiten beispielsweise von einem Ausgangspunkt die Energielandschaft entlang ihres Gradienten ab, wobei in jedem Schritt das Residuum zur Korrektur der Richtung des nachfolgenden Schrittes genutzt wird.
+Implementierungen der \textbf{Methode der konjugierten Gradienten} (CG, Conjugate Gradients)\cite{press_numerical_2007}, einer Methode zur Lösung linearer Gleichungen, schreiten beispielsweise von einem Ausgangspunkt die Energielandschaft entlang ihres Gradienten ab, wobei in jedem Schritt das Residuum zur Korrektur der Richtung des nachfolgenden Schrittes genutzt wird.
 CG-Methoden terminieren nach spätestens $n$ Schritten, wobei $n$ die Zahl der Freiheitsgrade ist, wobei für Systeme mit vielen Freiheitsgraden auch die Größe des Residuums als Abbruchkriterium genutzt wird.
 Sie sind in der Molekulardynamik aufgrund der schnellen Konvergenz und der Möglichkeit zur effizienten Minimierung von Systemen mit vielen Freiheitsgraden weit verbreitet.
 

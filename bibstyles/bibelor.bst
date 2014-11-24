@@ -15,7 +15,6 @@ ENTRY
     isbn
     journal
     key
-    language
     note
     number
     numpages
@@ -138,7 +137,7 @@ FUNCTION {format.doiurl}
   { % url nicht vorhanden
     pop$ duplicate$ empty$
     { pop$ }
-    { "{\bstdoi , doi: " swap$ "}" * * write$ }
+    { duplicate$ "{\bstdoi , doi: }\href{http://dx.doi.org/" swap$ * "}{" * swap$ "}" * * write$ }
     if$
   }
   { % url vorhanden
@@ -150,19 +149,37 @@ FUNCTION {format.doiurl}
   if$
 }
 
-FUNCTION {format.doiisbn}
+FUNCTION {format.patenturl}
 {
   duplicate$ empty$
-  { % isbn nicht vorhanden
+  { % url nicht vorhanden
     pop$ duplicate$ empty$
     { pop$ }
-    { "{\bstdoi , doi: " swap$ "}" * * write$ }
+    { "{\bstpatent , Patent " swap$ "}" * * write$ }
     if$
   }
-  { % isbn vorhanden - this is bullshit!
+  { % url vorhanden
     swap$ duplicate$ empty$
-    { pop$ ", ISBN~\bstisbn{" swap$ "}" * * write$ }
-    { swap$ "{\bstdoi , doi: }\href{" swap$ * "}{" * swap$ "}" * * write$ }
+    { pop$ ", \url{" swap$ "}" * * write$ }
+    { swap$ "{\bstpatent , Patent }\href{" swap$ * "}{" * swap$ "}" * * write$ }
+    if$
+  }
+  if$
+}
+
+FUNCTION {format.isbnurl}
+{
+  duplicate$ empty$
+  { % url nicht vorhanden
+    pop$ duplicate$ empty$
+    { pop$ }
+    { "{\bstisbn , ISBN: " swap$ "}" * * write$ }
+    if$
+  }
+  { % url vorhanden
+    swap$ duplicate$ empty$
+    { pop$ ", \url{" swap$ "}" * * write$ }
+    { swap$ "{\bstisbn , ISBN: }\href{" swap$ * "}{" * swap$ "}" * * write$ }
     if$
   }
   if$
@@ -348,7 +365,7 @@ FUNCTION {book}
   publisher format.publisher
   ", " write$
   address format.address
-  doi isbn format.doiisbn
+  doi isbn format.isbnurl
   "." write$
   newline$
 }
@@ -403,7 +420,7 @@ FUNCTION {phdthesis}
   school format.school
   " " write$
   year format.year
-  doi isbn format.doiisbn
+  doi isbn format.isbnurl
   "." write$
   newline$
 }
@@ -427,8 +444,7 @@ FUNCTION {patent}
   author format.author
   ": " write$
   title format.title
-  ", Patent" write$
-  doi url format.doiurl
+  number url format.patenturl
   " " write$
   year format.year
   "." write$
@@ -459,7 +475,31 @@ FUNCTION {standard}
 
 FUNCTION {begin.bib}
 {
-  "\begin{thebibliography}{\bstmaxid}" write$ newline$
+  "\providecommand{\bstmaxid}{99}"                write$  newline$
+  "\providecommand{\bstaddress}{}"                write$  newline$
+  "\providecommand{\bstauthor}{\scshape}"         write$  newline$
+  "\providecommand{\bstdoi}{}"                    write$  newline$
+  "\providecommand{\bstisbn}{}"                   write$  newline$
+  "\providecommand{\bstpatent}{}"                 write$  newline$
+  "\providecommand{\bstedition}{}"                write$  newline$
+  "\providecommand{\bstetal}{\scshape}"           write$  newline$
+  "\providecommand{\bstjournal}{}"                write$  newline$
+  "\providecommand{\bstnumpages}{}"               write$  newline$
+  "\providecommand{\bstpage}{}"                   write$  newline$
+  "\providecommand{\bstpages}{}"                  write$  newline$
+  "\providecommand{\bstpublisher}{}"              write$  newline$
+  "\providecommand{\bstschool}{}"                 write$  newline$
+  "\providecommand{\bsttitle}{\itshape}"          write$  newline$
+  "\providecommand{\bstvolume}{}"                 write$  newline$
+  "\providecommand{\bstyear}{}"                   write$  newline$
+  "\providecommand{\bbland}{und}"                 write$  newline$
+  "\providecommand{\bblarticle}{Artikel}"         write$  newline$
+  "\providecommand{\bbledition}{Ausg.}"           write$  newline$
+  "\providecommand{\bblfrom}{in}"                 write$  newline$
+  "\providecommand{\bblpage}{S.}"                 write$  newline$
+  "\providecommand{\bblpages}{S.}"                write$  newline$
+  "\providecommand{\bstwarn}[1]{\color{red} #1}"  write$  newline$
+  "\begin{thebibliography}{\bstmaxid}"            write$  newline$
 }
 FUNCTION {end.bib}
 {

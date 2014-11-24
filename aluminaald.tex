@@ -2,7 +2,7 @@
 \label{aluminaald}
 
 Einen Vorzeige-Prozess für Atomlagenabscheidungen bildet die Abscheidung von Aluminiumoxid \ce{Al2O3}, für die häufig das Precursorpaar Trimethylaluminium (TMA, \ce{Al(CH4)3}) und Wasser genutzt wird\cite{puurunen_surface_2005}.
-Aufgrund seiner relativ hohen Permittivität von $k\approx 8$ ersetzt \ce{Al2O3} langsam gemeinsam mit Materialien wie \ce{HfO2} und \ce{ZrO2}\cite{chang_ultrathin_2001,smith_chemical_2000}, Siliziumdioxid ($k=3.9$) als Dielektrikum in der Halbleiterindustrie.
+Aufgrund seiner relativ hohen Dielektrizitätskonstanten von $k\approx 8$ ersetzt \ce{Al2O3} langsam gemeinsam mit Materialien wie \ce{HfO2} und \ce{ZrO2}\cite{smith_chemical_2000} das gebräuchliche Siliziumdioxid ($k=3.9$) als Dielektrikum in der Halbleiterindustrie, wird aber auch häufig zur Herstellung passivierender Schichten eingesetzt\cite{yun_passivation_2004,poodt_high-speed_2010}.
 Deshalb soll der TMA-\ce{H2O}-Prozess im Folgenden besonders hinsichtlich der Reaktion der Precursormoleküle mit der Oberfläche untersucht werden.
 
 Dazu wurden verschiedene Parametersätze hinsichtlich der Anwendbarkeit auf reaktive Oberflächenabscheidungen untersucht, und schließlich erste Oberflächenreaktionen mit ihnen simuliert.
@@ -10,7 +10,8 @@ Dabei ist bisher lediglich die Simulation der reaktiven Hydroxylierung der Oberf
 
 \subsection{Parametersätze}
 
-Für die MD-Simulation von \ce{Al2O3} stehen drei Parametrisierungen zur Verfügung, die bereits aus den Untersuchungen der Silizium-Potentiale bekannt sind (Abschnitt~\ref{siliconpvd}):\\
+Für die MD-Simulation von \ce{Al2O3} stehen drei Parametrisierungen zur Verfügung, die bereits aus den Untersuchungen der Silizium-Potentiale bekannt sind (Abschnitt~\ref{siliconpvd}):
+
 \pot{Al\_Al0\_AlN} aus LAMMPS\cite{plimpton_lammps_2014}, \pot{liu\_ettringite}\cite{liu_development_2012}, welches nachfolgend nur als \pot{liu} geführt werden soll, und \pot{narayanan}\cite{narayanan_reactive_2012}.
 Ihnen ist gemein, dass sie ausgehend von Silizium-Parametrisierungen um Parameter für Aluminium-Verbindungen erweitert wurden, weshalb sie auch im vorherigen Kapitel untersucht wurden.
 Auf eine Bewahrung der Konsistenz der Siliziumparameter wurde dabei scheinbar verzichtet, so dass etwa mit der \pot{liu}-Parametrisierung eine verlässliche Simulation von Silizium-Verbindungen verhindert, im Gegenzug aber die Simulation von Aluminium-Verbindungen ermöglicht wird.

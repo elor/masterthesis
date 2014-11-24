@@ -123,7 +123,7 @@ Der Druck innerhalb des Systems wird dabei über die Virialgleichung ermittelt, 
 %% Als Abbruchkriterien stehen je nach Verhalten des Systems währen der Optimierung die Differenz zwischen zwei Schritten ($|\vec X_i - \vec X_{i-1}| < X_\text{tol}$), die maximale Änderung eines Vektorelementes ($\max_k{|X_{i,k} - X_{i-1,k}|} < X_\text{tol}$),
 %% die Stärke des Gradienten ($|\nabla E(\vec X_{i-1})| < E_\text{tol}$), eine Anzahl an Zeitschritten ($i > i_\text{tol}$) oder eine Kombination daraus zur Verfügung.
 
-%% Eine Optimierung durch minimierte Gradienten ist für eine große Zahl an Freiheitsgraden zwar schnell\todo{verglichen womit?}, stößt aber an Grenzen bei der Minimierung allgemeiner nichtlinearer Funktionen, weshalb Variationen der CG-Methode mit besserem Konvergenzverhalten entwickelt wurden.
+%% Eine Optimierung durch minimierte Gradienten ist für eine große Zahl an Freiheitsgraden zwar schnell, stößt aber an Grenzen bei der Minimierung allgemeiner nichtlinearer Funktionen, weshalb Variationen der CG-Methode mit besserem Konvergenzverhalten entwickelt wurden.
 %% Einerseits kann der Optimierungsschritt durch eine Minimierung entlang der Richtung des Gradienten ersetzt werden:
 %% \begin{gather}
 %%   \min_\alpha f(X_i+\alpha \vec s_i) \rightarrow \alpha_i \\
@@ -150,7 +150,7 @@ Implementierungen der \textbf{Methode der konjugierten Gradienten} (CG, Conjugat
 CG-Methoden terminieren nach spätestens $n$ Schritten, wobei $n$ die Zahl der Freiheitsgrade ist, wobei für Systeme mit vielen Freiheitsgraden auch die Größe des Residuums als Abbruchkriterium genutzt wird.
 Sie sind in der Molekulardynamik aufgrund der schnellen Konvergenz und der Möglichkeit zur effizienten Minimierung von Systemen mit vielen Freiheitsgraden weit verbreitet.
 
-Eine weitere Methode, die zwar nicht direkt zu den MD-Methoden gehört, aber diese im Hintergrund für Energieberechnungen nutzen kann, besteht im \textbf{Simulated Annealing} (simulierte Abkühlung)\todo{Ref}.
+Eine weitere Methode, die zwar nicht direkt zu den MD-Methoden gehört, aber diese im Hintergrund für Energieberechnungen nutzen kann, besteht im \textbf{Simulated Annealing} (simulierte Abkühlung)\cite{press_numerical_2007}.
 Sie bezeichnet einen Metropolis-Monte-Carlo-Algorithmus, der eine Folge zufälliger Schritte im Zustandsraum ausführt, dabei aber jedem Schritt eine Akzeptanzwahrscheinlichkeit $P$ entsprechend der Energiedifferenz $\Delta E$ zwischen den Zuständen vor und nach diesem Schritt zuweist.
 %% Im Fall des kanonischen Ensembles ergibt sie sich ähnlich zur Formulierung der Zustandssumme.
 \begin{equation}

@@ -57,7 +57,7 @@ Damit ist sie von der vernachlässigbaren Laufzeit zur einmaligen Vorbereitung $
 Parsivald-Simulationen werden in einen Host-Prozess und $p-1$ Workerprozesse eingeteilt, woraus sich insgesamt $p$ parallele Prozesse ergeben.
 Die oberen Schranken $p_\text{max}$ liegen dabei in Abhängigkeit der Größe des Simulationsraumes in der maximalen Abdeckung der Oberfläche mit MD-Boxen sowie im Ereignis-Durchsatz des Host-Prozesses.
 
-Für kleine Simulationsräume lässt sich die maximale Anzahl von Ereignissen $p_\text{max,1}-1$ aus der \todo{überlappungsfrei?}\todo{Ergänzen, was die mittlere Packung von zufällig verteilten Quadraten auf der Oberfläche ist}dichtesten Packung von meist quadratischen MD-Boxen der Breite $w_\text{MD}$, Tiefe $d_\text{MD}$ und Fläche $A_\text{MD} = w_\text{MD} \cdot d_\text{MD}$ im Simulationsraum ($w_\text{sim}$, $d_\text{sim}$, $A_\text{sim}$) abschätzen:
+Für kleine Simulationsräume lässt sich die maximale Anzahl von Ereignissen $p_\text{max,1}-1$ aus der \todo{square percolation aus data/?}dichtesten Packung von nicht-überlappenden, meist quadratischen MD-Boxen der Breite $w_\text{MD}$, Tiefe $d_\text{MD}$ und Fläche $A_\text{MD} = w_\text{MD} \cdot d_\text{MD}$ im Simulationsraum ($w_\text{sim}$, $d_\text{sim}$, $A_\text{sim}$) abschätzen:
 \begin{equation}
   p_\text{max,1} = \left\lfloor\frac{w_\text{sim}}{w_\text{MD}}\right\rfloor \cdot \left\lfloor\frac{d_\text{sim}}{d_\text{MD}}\right\rfloor + 1 \approx \left\lfloor\frac{A_\text{sim}}{A_\text{MD}}\right\rfloor + 1
   \label{eq:pmax1}
@@ -159,7 +159,7 @@ Unter Optimierung des Hostprozesses zu $T_\text{E} = \SI{3}{\milli\second}$ sind
   \caption{Einfluss der MD-Laufzeit auf die maximale Workerdichte und das Maximum der Simulationsgröße für effiziente Rechnungen ($\rho_\text{worker} > \SI{10}{\percent}$)}
   \label{fig:densitymaxsize}
 
-  \todoline{grüne Fläche für den effizienten Bereich weglassen}
+  \todoline{grüne Fläche und Text sind weg. Jörg fragen, ob das besser ist.}
 
 \end{figure}
 
@@ -186,8 +186,8 @@ Die maximale Zahl der Prozesse in kleinen Räumen wird hingegen ausschließlich 
 
 Für die Gesamt-Laufzeit ergibt sich ein konstantes Skalierungsverhalten für kleine Räume, während große Räume lineares Verhalten mit der Größe der Oberfläche zeigen.
 Die Laufzeit $T_p$ ist also unabhängig von $w_\text{sim}$, solange $w \le w_\text{eff}$ gilt.
-Für große Räume mit $w_\text{sim} > w_\text{eff}$ ist die Gesamt-Laufzeit außerdem von der MD-Laufzeit unabhängig\todo{Begründen und Grenzen ansprechen}.
-Das klingt nach einem Widerspruch, doch heben sich hier $T_p \sim T_\text{MD}$ und $p \sim T_\text{MD}$ über die Beziehung $T_p \sim p^{-1}$ gegenseitig auf.
+Für große Räume mit $w_\text{sim} > w_\text{eff}$ ist die Gesamt-Laufzeit $T_p$ außerdem von der MD-Laufzeit unabhängig, was sich durch die gegenseitige Aufhebung von $T_p \sim T_\text{MD}$ und $p_\text{max} \sim T_\text{MD}$ über die Beziehung $T_p \sim p^{-1}$ ergibt.
+Mit der MD-Zeit steigt also die maximale Zahl der Worker linear, wodurch mehr Ereignisse gleichzeitig bearbeitet werden und so alle zu simulierenden Ereignisse des Parsivald-Zyklus' theoretisch in der selben Zeit $T_p$ abgearbeitet werden können, sofern eine ausreichende Zahl von Prozessen zur Verfügung steht.
 
 \begin{figure}[p]
 
@@ -209,5 +209,5 @@ Das klingt nach einem Widerspruch, doch heben sich hier $T_p \sim T_\text{MD}$ u
 \subsection{Fazit}
 
 Eine theoretische Analyse Laufzeit und Skalierbarkeit von Parsivald zeigt, dass für kleine Simulationsräume konstante parallele Laufzeiten $T_p$ unabhängig von der Größe der Oberfläche ermöglicht werden, wohingegen für große Simulationsräume eine ideale parallele Effizienz $E_\text{max} = 1$ für bis zu $p_\text{max}$ parallele Prozesse möglich ist.
-Die Grenze zwischen diesen Bereichen lässt sich als effiziente Raumgröße $w_\text{eff}$ ermitteln, welche den größten Simulationsraum beschriebt, der in minimaler Laufzeit simuliert werden kann.
+Die Grenze zwischen diesen Bereichen lässt sich als effiziente Raumgröße $w_\text{eff}$ ermitteln, welche den größten Simulationsraum beschreibt, der in minimaler Laufzeit simuliert werden kann.
 Damit eignet sich Parsivald für effiziente atomistische Simulationen von Abscheidungsprozessen.

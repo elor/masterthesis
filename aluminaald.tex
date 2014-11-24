@@ -66,7 +66,7 @@ Ihre Referenzwerte wurden auf die gleiche Weise durch die Untersuchung der ideal
 Für die Bestimmung der Dichte der amorphen Struktur wurde das Bulkmaterial über den Schmelzpunkt von \SI{2317}{\kelvin} auf \SI{2555}{\kelvin} erhitzt, bei dieser Temperatur relaxiert und langsam auf Raumtemperatur abgekühlt.
 Aufgrund der strukturellen Vielfalt bei amorphen Aluminiumoxiden liegt der Referenzbereich der Dichte von gasphasen-abgeschiedenen \ce{Al2O3}-Schichten zwischen \SI{3.2}{\gpcc} und \SI{3.9}{\gpcc}\cite{wang_dependence_1997}.
 
-Die Verteilung der Koordinationszahlen amorpher Schichten wurde in dieser Arbeit nicht näher untersucht, da einerseits nur Vergleiche mit anderen MD-Rechnungen zur Verfügung stehen\cite{gutierrez_molecular_2002}, andererseits ein weiteres eigenes Werkzeug hätte geschrieben und getestetwerden müssen.
+Die Verteilung der Koordinationszahlen amorpher Schichten wurde in dieser Arbeit nicht näher untersucht, da einerseits nur Vergleiche mit anderen MD-Rechnungen zur Verfügung stehen\cite{gutierrez_molecular_2002}, andererseits ein weiteres eigenes Werkzeug hätte geschrieben und getestet werden müssen.
 Die Integration eines solchen Werkzeuges zur Bestimmung der Verteilung der Koordinationen in Parsivald könnte allerdings helfen, die Struktur der Schicht während der laufenden Simulation zu untersuchen.
 
 Die Ergebnisse dieser Untersuchungen (Tabelle~\ref{tab:aluminabulks}) zeichnen ein vielseitiges Bild.
@@ -91,29 +91,22 @@ Mit dieser Parametrisierung konnte ebenfalls das TMA-Dimer bei niedrigen Tempera
 \begin{figure}[b!]
   \captionsetup[subfigure]{singlelinecheck=false}
 
-  \hspace{1.5em}
-  \begin{subfigure}[c]{0.7cm}
-    \includegraphics[width=\textwidth]{Al}
-  \end{subfigure}
-  \begin{subfigure}[c]{0.7cm}
-    \ce{Al}
-  \end{subfigure}
-  \begin{subfigure}[c]{0.7cm}
-    \includegraphics[width=\textwidth]{C}
-  \end{subfigure}
-  \begin{subfigure}[c]{0.7cm}
-    \ce{C}
-  \end{subfigure}
-  \begin{subfigure}[c]{0.7cm}
-    \includegraphics[width=\textwidth]{H}
-  \end{subfigure}
-  \begin{subfigure}[c]{0.7cm}
-    \ce{H}
-  \end{subfigure}
-
+  \vspace{1em}
 
   \begin{subfigure}[t]{4cm}
-    \includegraphics[width=\textwidth]{tma_Al}
+    \begin{overpic}[width=\textwidth]{tma_Al}
+      \put(20,100){
+        \begin{minipage}{4.7cm}
+          \begin{framed}
+            \chemlegendce{Al}
+            \hspace{0.5em}
+            \chemlegendce{C}
+            \hspace{0.5em}
+            \chemlegendce{H}
+          \end{framed}
+        \end{minipage}
+      }
+    \end{overpic}
     \subcaption{
       \pot{Al\_Al0\_AlN}: \\
       stabiles TMA
@@ -169,32 +162,19 @@ Bei vollständiger chemischer Adsorption aller Wassermoleküle ergäben für die
   \centering
   \captionsetup[subfigure]{singlelinecheck=false}
 
-  \begin{subfigure}[c]{0.7cm}
-    \includegraphics[width=\textwidth]{Al}
-  \end{subfigure}
-  \begin{subfigure}[c]{0.7cm}
-    \ce{Al}
-  \end{subfigure}
-  \begin{subfigure}[c]{0.7cm}
-    \includegraphics[width=\textwidth]{O}
-  \end{subfigure}
-  \begin{subfigure}[c]{0.7cm}
-    \ce{O}
-  \end{subfigure}
-  \begin{subfigure}[c]{0.7cm}
-    \includegraphics[width=\textwidth]{H}
-  \end{subfigure}
-  \begin{subfigure}[c]{0.7cm}
-    \ce{H}
-  \end{subfigure}
-  \begin{subfigure}[c]{0.7cm}
-    \includegraphics[width=\textwidth]{C}
-  \end{subfigure}
-  \begin{subfigure}[c]{3cm}
-    Hydroxyl-\ce{H}
+  \begin{subfigure}[c]{7.5cm}
+    \begin{framed}
+      \chemlegendce{Al}
+      \hspace{0.5em}
+      \chemlegendce{O}
+      \hspace{0.5em}
+      \chemlegendce{H}
+      \hspace{0.5em}
+      \chemlegend{C}{Hydroxyl-H}
+    \end{framed}
   \end{subfigure}
 
-  \vspace{2em}
+  \vspace{1em}
 
   \def\subfigwidth{0.32\textwidth}
   \begin{subfigure}[t]{\subfigwidth}

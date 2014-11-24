@@ -365,7 +365,7 @@ FUNCTION {book}
   publisher format.publisher
   ", " write$
   address format.address
-  doi isbn format.isbnurl
+  isbn url format.isbnurl
   "." write$
   newline$
 }
@@ -420,7 +420,7 @@ FUNCTION {phdthesis}
   school format.school
   " " write$
   year format.year
-  doi isbn format.isbnurl
+  isbn url format.isbnurl
   "." write$
   newline$
 }

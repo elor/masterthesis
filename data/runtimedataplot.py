@@ -62,7 +62,7 @@ def hls_colormap(ncolor=100, endpoint=True, h=[0.0, 1.0], l=[0.5, 0.5], s=[0.8, 
     cmap = np.array([h, l, s]).T
     cmap = map(lambda x: colorsys.hls_to_rgb(x[0], x[1], x[2]), cmap)
     cmap = matplotlib.colors.ListedColormap(cmap)
-    return cmap
+    return lambda i: cmap(i) if i!=0 else colorsys.hls_to_rgb(0,0,0)
 
 colormaps = {
     'default' : lambda n: hls_colormap(n, False),

@@ -106,7 +106,7 @@ xmax=50000
 base=1.02
 sizes = [base**x for x in range(int(math.log(xmin)/math.log(base)), int(math.log(xmax)/math.log(base)))]
 data = [ pmax(x, workerdensity=0.3, TE=0.02, Tmd=5) for x in sizes ]
-plt.plot(sizes, data, '-', color='black', label=r'Analytisch')
+plt.plot(sizes, data, '-', color='black', label=r'Modell')
         
 for index, filename in enumerate(args.files):
     data = np.genfromtxt(filename)

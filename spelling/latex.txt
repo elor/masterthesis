@@ -90,3 +90,17 @@ XXR
 captions
 doi
 definitions
+tempdima
+tempdimb
+tempdimc
+sdf
+fds
+Ep
+color
+RE
+Sp
+TE
+TMD
+Tp
+Tworker
+url

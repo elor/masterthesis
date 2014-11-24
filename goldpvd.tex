@@ -127,7 +127,7 @@ Ergänzend wurde zur Prüfung der Robustheit des Parsivald-Prozesses nanostruktu
 \subsubsection{Simulation von Abscheidungen auf strukturierten Substraten}
 
 Neben der Abscheidung auf glatten Substraten wurden am Beispiel der Gold-PVD auch Abscheidungen auf strukturierten Substraten mit identischen Prozessbedingungen simuliert (Abbildung~\ref{fig:golddepositions}).
-Dafür wurden Substrate präpariert, welche die Form von \todo{Klingt auch komisch, aber besser lassen.}Schwellen oder Spitzen mit einer Höhe von \SI{20}{\angstrom}, einer Breite von \SI{50}{\angstrom} und Neigungen von \SI{15}{\degree}, \SI{20}{\degree}, \SI{30}{\degree}, \SI{45}{\degree}, \SI{60}{\degree} und \SI{90}{\degree} annehmen (Abbildungen~\ref{fig:golddepositions-b} und~\ref{fig:golddepositions-c}).
+Dafür wurden Substrate präpariert, welche die Form von Schwellen oder Spitzen mit einer Höhe von \SI{20}{\angstrom}, einer Breite von \SI{50}{\angstrom} und Neigungen von \SI{15}{\degree}, \SI{20}{\degree}, \SI{30}{\degree}, \SI{45}{\degree}, \SI{60}{\degree} und \SI{90}{\degree} annehmen (Abbildungen~\ref{fig:golddepositions-b} und~\ref{fig:golddepositions-c}).
 Auf vorherige Relaxierung der Substrate wurde aufgrund der Stabilität sowie der relaxierenden Eigenschaften der MD-Ereignisse verzichtet.
 Dadurch können sich an den Wänden der Schwellen und Spitzen auch ungünstige Schnitte durch die Einheitszellen ergeben, die in den weiteren Untersuchungen aber nicht maßgeblich für die Struktur der abgeschiedenen Schichten sind.
 
@@ -321,10 +321,8 @@ Somit bestätigen sich einige Vorhersagen aus Abschnitt~\ref{runtime}, jedoch si
     \subcaption{Speicherverbrauch der Simulation}
     \label{fig:goldscala-memory}
   \end{subfigure}
-  \caption{Parallelisierungseigenschaften von Parsivald im Vergleich zu den Modellrechnungen (Abschnitt~\ref{runtime})}
+  \caption{Parallelisierungseigenschaften von Parsivald im Vergleich zu dem Modell der Laufzeiteigenschaften (Abschnitt~\ref{runtime})}
   \label{fig:goldscala}
-  \todoline{``Modell'' statt ``Analytisch'', ``Parsivald (Max)'' und Parsivald (``Mittelw.'')}
-  \todoline{(c) Analytisch nicht mit ``Maximum''-Markern versehen}
 \end{figure}
 
 \subsection{Fazit}
@@ -332,4 +330,5 @@ Somit bestätigen sich einige Vorhersagen aus Abschnitt~\ref{runtime}, jedoch si
 Mit Parsivald lässt sich Gold-PVD auf glatten und leicht strukturierten Substraten effizient simulieren, wobei sich durch epitaktisches Wachstum defektfreie kristalline Schichten auf glatten Substraten bilden.
 Strukturierte Substrate sorgen in Parsivald-Simulationen hingegen für die Bildung von Nanoporen und Hohlräumen, die durch die aktuelle Implementierung des Parsivald-Modelles verursacht sind.
 Eine mögliche Lösung wäre die implizite Betrachtung der Oberfläche mit Delaunay-Triangulationen, wie sie bereits für die Bestimmung der Alpha-Formen genutzt werden.
+\todo{Begründen, warum Abbildung c keine Linie enthält}
 Damit würden auch schiefe Auftreffwinkel sowie eine bessere Betrachtung von CVD-Prozessen ermöglicht, die dafür bekannt sind, auch auf strukturierten Oberflächen konforme Schichten abzuscheiden\cite{granneman_thin_1993}.

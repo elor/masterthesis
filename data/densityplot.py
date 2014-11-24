@@ -72,7 +72,7 @@ def plotfunctions(functions, pdfname, xmin, xmax):
     #########################
     # fill the viable areas #
     #########################
-    plt.fill_between([sizes[0], sizes[-1]], 0.1, 100, facecolor='green', alpha=0.3)
+#    plt.fill_between([sizes[0], sizes[-1]], 0.1, 100, facecolor='green', alpha=0.3)
 #    plt.fill_between([sizes[0], sizes[-1]], 0.1, 1e-3, facecolor='red', alpha=0.3)
 
     for index, function in enumerate(indices):
@@ -92,7 +92,7 @@ def plotfunctions(functions, pdfname, xmin, xmax):
     ax = plt.axes()
     ax.set_xscale('log')
     ax.set_yscale('log')
-    ax.text(120, 0.12, r'effizient (>10\%)', fontsize=8, style='italic')
+#    ax.text(120, 0.12, r'effizient (>10\%)', fontsize=8, style='italic')
 
     plt.xlim(0, sizes[-1])
     plt.ylim(1e-3, 2)

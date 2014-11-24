@@ -135,14 +135,12 @@ Für erfolgreiche Abscheidungsprozesse ist es wichtig, neben passenden Umgebungs
 Zudem sollten die gasförmigen Nebenprodukte inert sein, um nicht mit der Oberfläche oder der Reaktorwand zu reagieren, während sie mit dem kontinuierlichen Gasfluss aus dem Reaktor gespült werden.
 Auch eine physikalische Adsorption der Nebenprodukte auf der Oberfläche kann den Dünnfilm verunreinigen.
 Dabei sind stets die Prozesstemperaturen, -drücke, Reaktionsbarrieren und die Stabilität aller involvierten Moleküle zu beachten.
-\todo{Wachstumsrate bei PVD?}Die Schichtdicke lässt sich bei der CVD auf mehrere Nanometer genau kontrollieren, was hinsichtlich einer gegenüber der ALD vergleichsweise hohen Wachstumsrate (\SI{>1}{\micro\meter\per\hour} im Kontrast zu \SI{0.1}{\nano\meter} pro Zyklus je \SIrange{1}{10}{\second}\cite{pierson_handbook_1999,puurunen_surface_2005}) für viele Anwendungen ausreichend ist.
-
-%% {Wenn Zeit bleibt: Abbildung Beispiel Precursor-Moleküle}
-%% \missingfigure{Beispiel Precursor-Moleküle}
+Die Schichtdicke lässt sich bei der CVD auf mehrere Nanometer genau kontrollieren, was hinsichtlich einer gegenüber der ALD vergleichsweise hohen Wachstumsrate (\SI{>1}{\micro\meter\per\hour} im Kontrast zu \SI{0.1}{\nano\meter} pro Zyklus je \SIrange{1}{10}{\second}\cite{pierson_handbook_1999,puurunen_surface_2005}) für viele Anwendungen ausreichend ist.
+PVD ermöglicht zwar vergleichbare Wachstumsraten, bildet aber aufgrund senkrechten Auftreffwinkel der Atome keine konformen Schichten auf strukturierten Oberflächen.
 
 \subsection{Atomlagenabscheidung}
 
-\begin{figure}
+\begin{figure}[t]
   \centering
   \def\svgwidth{\textwidth}
   \input{img/ald-schema.pdf_tex}
@@ -153,14 +151,6 @@ Dabei sind stets die Prozesstemperaturen, -drücke, Reaktionsbarrieren und die S
   \label{fig:ald-schema}
 \end{figure}
 
-Als Variation einer Chemischen Gasphasenabscheidung entstanden Atomlagenabscheidungen (ALD, Atomic Layer Deposition) mit dem Ziel, konforme dünne Schichten kontrolliert in einzelnen Atomlagen mit Sub-Nanometer-Genauigkeit der Schichtdicke aufwachsen zu lassen\cite{suntola_method_1977,puurunen_surface_2005,elliott_atomic-scale_2012}.
-.
-Dazu werden zwei Precursorgase wechselweise in separaten Schritten (Halbzyklen) in den Reaktor geleitet, wo sie wie bei CVD-Prozessen mit der Oberfläche reagieren und so langsam eine Schicht bilden (Abbildung~\ref{fig:ald-schema}).
-Zwischen den Precursorschritten entfernen Spülschritte mit inertem Gas verbleibende Precursormoleküle und Nebenprodukte aus dem Reaktor und verhindern so gleichzeitige Reaktionen beider Precursorgase.
-So werden einerseits Gasphasenreaktionen vermieden, andererseits limitiert die Sättigung der Oberfläche mit Precursorliganden in jedem Precursorschritt die Zunahme der Dicke pro Zyklus.
-Die Wachstumsrate aus den kontinuierlichen Prozessen wird daher von dem Growth-per-Cycle-Wert (GPC) abgelöst, der angibt, wie viel eine Schicht im Schnitt pro Zyklus wächst.
-Über die Zahl der Zyklen lässt sich somit die Dicke der gewachsenen Schicht genauer als mit kontinuierlichen Abscheidungen steuern, was sich aber in langsameren Abscheidungsprozessen äußert.
-
 \begin{figure}[b]
   \centering
   \includegraphics[width=0.5\textwidth]{sterichindrance_noalpha}
@@ -170,6 +160,14 @@ Die Wachstumsrate aus den kontinuierlichen Prozessen wird daher von dem Growth-p
   }
   \label{fig:sterichindrance}
 \end{figure}
+
+Als Variation einer Chemischen Gasphasenabscheidung entstanden Atomlagenabscheidungen (ALD, Atomic Layer Deposition) mit dem Ziel, konforme dünne Schichten kontrolliert in einzelnen Atomlagen mit Sub-Nanometer-Genauigkeit der Schichtdicke aufwachsen zu lassen\cite{suntola_method_1977,puurunen_surface_2005,elliott_atomic-scale_2012}.
+.
+Dazu werden zwei Precursorgase wechselweise in separaten Schritten (Halbzyklen) in den Reaktor geleitet, wo sie wie bei CVD-Prozessen mit der Oberfläche reagieren und so langsam eine Schicht bilden (Abbildung~\ref{fig:ald-schema}).
+Zwischen den Precursorschritten entfernen Spülschritte mit inertem Gas verbleibende Precursormoleküle und Nebenprodukte aus dem Reaktor und verhindern so gleichzeitige Reaktionen beider Precursorgase.
+So werden einerseits Gasphasenreaktionen vermieden, andererseits limitiert die Sättigung der Oberfläche mit Precursorliganden in jedem Precursorschritt die Zunahme der Dicke pro Zyklus.
+Die Wachstumsrate aus den kontinuierlichen Prozessen wird daher von dem Growth-per-Cycle-Wert (GPC) abgelöst, der angibt, wie viel eine Schicht im Schnitt pro Zyklus wächst.
+Über die Zahl der Zyklen lässt sich somit die Dicke der gewachsenen Schicht genauer als mit kontinuierlichen Abscheidungen steuern, was sich aber in langsameren Abscheidungsprozessen äußert.
 
 Anders als der Name des Prozesses vermuten lässt, werden aufgrund sterischer Hinderung (Abbildung~\ref{fig:sterichindrance}) der Precursorliganden keine kompletten Atomlagen in jedem Zyklus aufgebracht.
 Üblicherweise erreichen ALD-Prozesse maximal \SI{35}{\percent} einer Monolage pro Zyklus\cite{ylilammi_monolayer_1996}, doch sinkt dieser Wert mit der Größe der Precursormoleküle aufgrund der erweiterten sterischen Hinderung.
@@ -182,9 +180,9 @@ Für die Simulation von Gasphasenabscheidungen stehen verschiedene numerische Me
 Jede dieser Methoden basiert auf anderen Annahmen und Formulierungen, so dass sich ihre Anwendungsgebiete zwar nur marginal überschneiden, aber der Transfer von Ergebnissen zwischen den Methoden zu präziseren Vorhersagen führen kann.
 So können CFD-Reaktorsimulationen (Computational Fluid Dynamics) den Gasverbrauch an charakteristischen Punkten der Oberfläche durch KMC-Simulationen ermitteln, welche wiederum auf DFT-Daten (Dichtefunktionaltheorie) für Reaktionsraten und -energien zurück greift.
 Bisherige Simulationen verzichten aus Gründen der notwendigen Laufzeit meist auf eine strukturelle Betrachtungen der abgeschiedenen Schicht, wie sie etwa mit molekulardynamischen Rechnungen möglich werden.
-Gerade für Anwendungen in der Mikro- und Nanoelektronik sind die strukturellen Eigenschaften der Schichten eng mit ihrer Funktion (mechanische und elektronische Eigenschaften) verknüpft\todo{Ref aus Einleitung}, so dass eine strukturelle Beschreibung für eine umfassende Betrachtung des Prozesses unerlässlich ist.
+Gerade für Anwendungen in der Mikro- und Nanoelektronik sind die strukturellen Eigenschaften der Schichten eng mit ihrer Funktion (mechanische\cite{chasiotis_mechanical_2003,cammarata_nanoindentation_1990} und elektronische Eigenschaften\cite{aspnes_optical_1982,steudel_influence_2004}) verknüpft, so dass eine strukturelle Beschreibung für eine umfassende Betrachtung des Prozesses unerlässlich ist.
 
-\begin{table}[H]
+\begin{table}[hb]
   \oddrowcolors
   \caption{Überblick über Methoden zur Simulation von Gasphasenabscheidungen}
   \label{tab:deposition-simulations}

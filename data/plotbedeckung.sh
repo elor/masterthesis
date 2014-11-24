@@ -2,8 +2,8 @@
 #
 # Plot der Bedeckung der Oberfläche mit Workern
 
-mean="Mittelwert"
-max="Maximum"
+mean="Parsivald (Mittelwert)"
+max="Parsivald (Maximum)"
 
 filter(){
     grep -Pv '/|102374|381588|10356031' | column -t

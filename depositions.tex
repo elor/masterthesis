@@ -122,7 +122,7 @@ Physikalische Gasphasenabscheidungen (PVD, Physical Vapor Deposition) sind eine 
 Zu ihnen zählt neben der thermischen oder elektrischen Evaporation auch Sputtering, bei dem aus einem Block des gewünschten Materiales (Target) per Elektronen- oder Ionenstrahl kontinuierlich Atome herausgeschlagen werden, die sich dann auf dem Substrat absetzen und dort zu einer dünnen Schicht verbinden\cite{mattox_handbook_2010,helmersson_ionized_2006}.
 Anhand der Energien der herausschlagenden Partikel, dem Teilchenstrom und der Substrattemperatur lässt sich dabei die Wachstumsrate und Qualität des abgeschiedenen Dünnfilmes beeinflussen.
 Durch die geradlinige Ausbreitung der aus dem Target evaporierten oder geschlagenen Partikel lassen sich zwar dünne, konforme Schichten auf glatten Substraten erzeugen\cite{svorcik_annealing_2011}, doch wird dadurch eine ebenmäßige Beschichtung komplizierter Geometrien verhindert.
-Die Abscheidung gemischter Systeme wie Legierungen und mehrlagigen Schichten wird hierbei durch Nutzung mehrerer Targets ermöglicht\cite{cammarata_nanoindentation_1990}.
+Die Abscheidung gemischter Systeme wie Legierungen und mehrlagigen Schichten wird bei der PVD durch Nutzung mehrerer Targets ermöglicht\cite{cammarata_nanoindentation_1990}.
 
 \subsection{Chemische Gasphasenabscheidung}
 
@@ -135,7 +135,7 @@ Für erfolgreiche Abscheidungsprozesse ist es wichtig, neben passenden Umgebungs
 Zudem sollten die gasförmigen Nebenprodukte inert sein, um nicht mit der Oberfläche oder der Reaktorwand zu reagieren, während sie mit dem kontinuierlichen Gasfluss aus dem Reaktor gespült werden.
 Auch eine physikalische Adsorption der Nebenprodukte auf der Oberfläche kann den Dünnfilm verunreinigen.
 Dabei sind stets die Prozesstemperaturen, -drücke, Reaktionsbarrieren und die Stabilität aller involvierten Moleküle zu beachten.
-Wie bei PVD lässt sich die Schichtdicke auf mehrere Nanometer genau kontrollieren, was hinsichtlich einer gegenüber ALD vergleichsweise hohen Wachstumsrate (\SI{>1}{\micro\meter\per\hour} im Kontrast zu \SI{0.1}{\nano\meter} pro Zyklus je \SIrange{1}{10}{\second}\cite{pierson_handbook_1999,puurunen_surface_2005}) für viele Anwendungen ausreichend ist.
+\todo{Wachstumsrate bei PVD?}Die Schichtdicke lässt sich bei der CVD auf mehrere Nanometer genau kontrollieren, was hinsichtlich einer gegenüber der ALD vergleichsweise hohen Wachstumsrate (\SI{>1}{\micro\meter\per\hour} im Kontrast zu \SI{0.1}{\nano\meter} pro Zyklus je \SIrange{1}{10}{\second}\cite{pierson_handbook_1999,puurunen_surface_2005}) für viele Anwendungen ausreichend ist.
 
 %% {Wenn Zeit bleibt: Abbildung Beispiel Precursor-Moleküle}
 %% \missingfigure{Beispiel Precursor-Moleküle}
@@ -180,7 +180,7 @@ Eine ausführlichere Übersicht zu Atomlagenabscheidungen und zu möglichen Prec
 
 Für die Simulation von Gasphasenabscheidungen stehen verschiedene numerische Methoden zur Verfügung, welche die Darstellung auf unterschiedlichen Zeit- und Größenordnungen ermöglichen (Tabelle~\ref{tab:deposition-simulations}).
 Jede dieser Methoden basiert auf anderen Annahmen und Formulierungen, so dass sich ihre Anwendungsgebiete zwar nur marginal überschneiden, aber der Transfer von Ergebnissen zwischen den Methoden zu präziseren Vorhersagen führen kann.
-So können CFD-Reaktorsimulationen den Gasverbrauch an charakteristischen Punkten der Oberfläche durch KMC-Simulationen ermitteln, welche wiederum auf DFT-Daten für Reaktionsraten und -energien zurück greift.
+So können CFD-Reaktorsimulationen (Computational Fluid Dynamics) den Gasverbrauch an charakteristischen Punkten der Oberfläche durch KMC-Simulationen ermitteln, welche wiederum auf DFT-Daten (Dichtefunktionaltheorie) für Reaktionsraten und -energien zurück greift.
 Bisherige Simulationen verzichten aus Gründen der notwendigen Laufzeit meist auf eine strukturelle Betrachtungen der abgeschiedenen Schicht, wie sie etwa mit molekulardynamischen Rechnungen möglich werden.
 Gerade für Anwendungen in der Mikro- und Nanoelektronik sind die strukturellen Eigenschaften der Schichten eng mit ihrer Funktion (mechanische und elektronische Eigenschaften) verknüpft\todo{Ref aus Einleitung}, so dass eine strukturelle Beschreibung für eine umfassende Betrachtung des Prozesses unerlässlich ist.
 

@@ -1,3 +1,5 @@
+\graphicspath{{img/},{img-results/}}
+
 \pagestyle{scrheadings} % Standart Kopf- und Fußzeile
 \setkomafont{pageheadfoot}{\small\scshape} % for new Koma Script
 
@@ -40,28 +42,37 @@
 \newcommand{\cmark}{\ding{51}}
 \newcommand{\ccross}{\ding{55}}
 
-\definecolor{Green}{rgb}{0.7 1.0 0.7}
-\definecolor{Yellow}{rgb}{1.0 1.0 0.7}
-\definecolor{Red}{rgb}{1.0 0.7 0.7}
+\definecolor{Green}{rgb}{0.0 1.0 0.0}
+\definecolor{Yellow}{rgb}{1.0 1.0 0.0}
+\definecolor{Red}{rgb}{1.0 0.0 0.0}
 \definecolor{lightgray}{gray}{0.9}
 
 \newcolumntype{C}{>{\centering\arraybackslash}X}
 \newcolumntype{R}{>{\hsize=0.15\textwidth}X}
 
-\newcommand{\cG}[1]{\cellcolor{Green}#1}
-\newcommand{\cY}[1]{\cellcolor{Yellow}#1}
-\newcommand{\cR}[1]{\cellcolor{Red}#1}
-
-\algnewcommand\algorithmicinput{\textbf{Input: }}
-\algnewcommand\Input{\item[\algorithmicinput]}
-\algnewcommand\algorithmicresult{\textbf{Result: }}
-\algnewcommand\Result{\item[\algorithmicresult]}
-\algnewcommand\algorithmicassumption{\textbf{Assumption: }}
-\algnewcommand\Assumption{\item[\algorithmicassumption]}
+\newcommand{\cG}[1]{\transparent{5.0}\cellcolor{Green}#1}
+\newcommand{\cY}[1]{\transparent{5.0}\cellcolor{Yellow}#1}
+\newcommand{\cR}[1]{\transparent{5.0}\cellcolor{Red}#1}
 
 \DeclareSIUnit\gpcc{\gram\per\cubic\centi\meter}
-\def\oddrowcolors{\rowcolors{0}{white}{lightgray}}
-\def\evenrowcolors{\rowcolors{0}{lightgray}{white}}
+\def\oddrowcolors{\rowcolors{1}{}{black}}
+\def\evenrowcolors{\rowcolors{1}{black}{}}
+
+%% rowcolors fix: This makes the rowcolors boxes transparent, so they won't overwrite hline and vline commands (i.e. table borders)
+\makeatletter
+\def\CT@@do@color{%
+  \global\let\CT@do@color\relax
+        \@tempdima\wd\z@
+        \advance\@tempdima\@tempdimb
+        \advance\@tempdima\@tempdimc
+        \kern-\@tempdimb
+\transparent{0.2}%
+        \leaders\vrule
+                \hskip\@tempdima\@plus 1fill
+        \kern-\@tempdimc
+        \hskip-\wd\z@ \@plus -1fill }
+\makeatother
+\setlength{\arrayrulewidth}{0.6pt}
 
 %threeparttable textwidth
 \renewcommand{\TPTminimum}{\textwidth}

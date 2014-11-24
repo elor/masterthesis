@@ -81,7 +81,7 @@ Referenzwerte stammen aus den Referenzen~\cite{haynes_crc_2011,remes_optical_199
 
 \subsubsection{Kompatibilität mit der Molekulardynamiksoftware LAMMPS (LMP)}
 
-Einige Potentialdateien sind aus unerfindlichen Gründen nicht mit der aktuellen Version der LAMMPS-Bibliothek kompatibel, was sich in harten Abbrüchen des Programmes äußert und sie von weiteren Untersuchungen ausschließt.
+Einige Potentialdateien sind nicht mit der aktuellen Version der LAMMPS-Bibliothek kompatibel, was sich in harten Abbrüchen des Programmes äußert und sie von weiteren Untersuchungen ausschließt.
 Die Parametersätze \pot{chenoweth}, \pot{lg} und \pot{liu\_nitra\-mines} konnten aus diesem Grund nicht für MD-Simulationen genutzt werden.
 
 \subsubsection{Kristalleigenschaften (c-\ce{Si})}
@@ -204,7 +204,7 @@ Untersuchungen der RDF-Diagramme zeigt keine langreichweitige Ordnung nach \SI{4
 Die Simulationen von Silizium-PVD selbst verlaufen wie in Kapitel~\ref{parsivald} vorgestellt und unterscheiden sich kaum von den Parsivald-Simulationen der vorherigen Abschnitte.
 Durch den Aufbau von gerichteten Bindungen zwischen den Silizium-Atomen wird die Bildung amorpher Schichten erwartet, die sich auch durch verringerte Mobilität der Atome auf der Oberfläche ergibt.
 Eine Simulation gilt als erfolgreich, wenn die Parsivald-Simulation erfolgreich terminiert und einen dichten Silizium-Film gebildet hat.
-Bis auf die \pot{zhang}-Parametrisierung, bei der sich sämtliche MD-Simulationen aufgehangen haben, konnten alle Parametrisierungen einen dünnen Film erzeugen.
+Bis auf die \pot{zhang}-Parametrisierung, bei der sämtliche MD-Simulationen ohne Fehlerausgabe abgestürzt sind, konnten alle Parametrisierungen einen dünnen Film erzeugen.
 Aufgrund der insgesamt guten Ergebnisse wurden alle weitergehenden PVD-Simulationen mit dem \pot{kulkarni}-Parametersatz durchgeführt.
 
 \subsubsection{Vorbereitungen chemischer Gasphasenabscheidungen}
@@ -214,15 +214,16 @@ Als Favorit stellt sich hier der \pot{kulkarni}-Parametersatz heraus, der sowohl
 
 \subsection{Simulationen von Silizium-PVD}
 
-Unter Nutzung der \pot{kulkarni}-ReaxFF-Parametrisierung wurden physikalische Abscheidungen dünner Schichten aus amorphem Silizium simuliert wurden.
+Unter Nutzung der \pot{kulkarni}-ReaxFF-Parametrisierung wurden physikalische Abscheidungen dünner Schichten aus amorphem Silizium simuliert.
 Als Parameter für die Simulationen wurden $A_\text{sim} = \SI{106x104}{\angstrom}$, $A_\text{MD} = \SI{37x37}{\angstrom}$, $T = \SI{1300}{\kelvin}$, $\Delta t = \SI{10}{\femto\second}$, $\tau = \SI{50}{\femto\second}$, $t_\text{relax} = \SI{3.5}{\pico\second}$ und $E_\text{kin} = \SI{6.2}{\electronvolt}$ genutzt, woraus sich in Messungen $T_\text{MD} = \SI{60.71}{\second}$ und $p = \num{1.68}$ ergeben haben.
 Die Temperatur wurde als Kompromiss mit \SI{1300}{\kelvin} bewusst sehr hoch gewählt, um die Relaxierungen zu beschleunigen, da die gesamte Laufzeit bereits \SI{22.5}{\day} beträgt und linear mit der MD-Laufzeit steigt.
 Die langen Laufzeiten ergeben sich als Resultat der ReaxFF-Kraftfelder, welche im Vergleich mit anderen Kraftfeldern um ein Vielfaches rechenaufwendiger sind und auch für die mittlere Zahl von \num{1511} Atomen pro Ereignis lange Laufzeiten verursachen.
 Deshalb sind mit ihnen aber auch reine MD-Simulationen auf der hier vorgestellten Größenordnung praktisch nicht realisierbar, wobei für Parsivald eine effiziente Größe von $w_\text{eff} = \SI{539}{\nano\meter}$ mit $p_\text{max} = 2335$ bei $\rho_\text{worker} = \SI{11}{\percent}$ berechnet wurde.
 
-Das Ergebnis der Abscheidungssimulation ist eine amorphe Siliziumschicht, die mit konstanter Rate wächst, jedoch eine Zunahme der Rauheit aufgrund von sich langsam verstärkenden Oberflächenunebenheiten aufweist (Abbildung~\ref{fig:siliconresults}).
+Das Ergebnis der Abscheidungssimulation ist eine amorphe Siliziumschicht, die mit konstanter Rate wächst.
+Aufgrund von sich langsam verstärkenden Oberflächenunebenheiten nimmt hier die Rauheit beim Wachstum zu (Abbildung~\ref{fig:siliconresults}).
 Die Simulationen wurden für die Abscheidungen auf den verschiedenen Kristallebenen (001), (011)- und (111) wiederholt, zeigten aber keine Veränderung der Ergebnisse.
-In der RDF der Schicht (Abbildung~\ref{fig:siliconresults-b}) ist das kristalline Substrat in Form von Spitzen erkennbar, doch zeigt sich ansonsten eine amorphe Struktur.
+In der RDF der Schicht (Abbildung~\ref{fig:siliconresults-b}) ist das kristalline Substrat in Form von Spitzen erkennbar, doch zeigen sich ansonsten Charakteristika einer amorphen Struktur.
 
 \begin{figure}[thp]
   \captionsetup[subfigure]{singlelinecheck=false}
@@ -251,7 +252,7 @@ Durch die begrenzte Simulationszeit ist keine Aussage über den weiteren Verlauf
 Es ist ein schwacher Einfluss der Poren auf die Schichtdicke (Abbildung~\ref{fig:siliconresults-a}) erkennbar, welche gegen Ende der Simulation trotz konstanter PVD-Rate sublinear steigt.
 Somit wird die Schichtdicke unterschätzt, was sich auch in der höheren Dichte der Struktur von \SI{2.597}{\gpcc} (Referenzen~\cite{remes_optical_1998,renner_density_1973}: \SIrange{2.20}{2.30}{\gpcc}) zeigt.
 
-Zur Untersuchung des Einflusses von Unterrelaxierung wurde eine Abscheidung bei \SI{500}{\kelvin} simuliert(Abbildung~\ref{fig:siliconunderrelaxedprofile}), die realistischen Prozessbedingungen entspricht, aufgrund der kurzen Relaxationszeit aber nicht zur vollständigen Relaxation am Adsorptionsort führt.
+Zur Untersuchung des Einflusses von Unterrelaxierung wurde eine Abscheidung bei \SI{500}{\kelvin} simuliert (Abbildung~\ref{fig:siliconunderrelaxedprofile}), die realistischen Prozessbedingungen entspricht, aufgrund der kurzen Relaxationszeit aber nicht zur vollständigen Relaxation am Adsorptionsort führt.
 Es zeigen sich höhere Rauheiten, feinere Nanoporen und steilere Hänge, die zu einer hohen Porösität der Schicht führen, weshalb zu erwarten ist, dass mit höheren Relaxierungszeiten eine verringerte Porenbildung beobachtet werden kann.
 
 \todoline{Fazit}

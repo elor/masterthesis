@@ -127,7 +127,7 @@ Ergänzend wurde zur Prüfung der Robustheit des Parsivald-Prozesses nanostruktu
 \subsubsection{Simulation von Abscheidungen auf strukturierten Substraten}
 
 Neben der Abscheidung auf glatten Substraten wurden am Beispiel der Gold-PVD auch Abscheidungen auf strukturierten Substraten mit identischen Prozessbedingungen simuliert (Abbildung~\ref{fig:golddepositions}).
-Dafür wurden Substrate präpariert, welche die Form von Schwellen oder Spitzen mit einer Höhe von \SI{20}{\angstrom}, einer Breite von \SI{50}{\angstrom} und Neigungen von \SI{15}{\degree}, \SI{20}{\degree}, \SI{30}{\degree}, \SI{45}{\degree}, \SI{60}{\degree} und \SI{90}{\degree} annehmen (Abbildungen~\ref{fig:golddepositions-b} und~\ref{fig:golddepositions-c}).
+Dafür wurden Substrate präpariert, welche die Form von \todo{Klingt auch komisch, aber besser lassen.}Schwellen oder Spitzen mit einer Höhe von \SI{20}{\angstrom}, einer Breite von \SI{50}{\angstrom} und Neigungen von \SI{15}{\degree}, \SI{20}{\degree}, \SI{30}{\degree}, \SI{45}{\degree}, \SI{60}{\degree} und \SI{90}{\degree} annehmen (Abbildungen~\ref{fig:golddepositions-b} und~\ref{fig:golddepositions-c}).
 Auf vorherige Relaxierung der Substrate wurde aufgrund der Stabilität sowie der relaxierenden Eigenschaften der MD-Ereignisse verzichtet.
 Dadurch können sich an den Wänden der Schwellen und Spitzen auch ungünstige Schnitte durch die Einheitszellen ergeben, die in den weiteren Untersuchungen aber nicht maßgeblich für die Struktur der abgeschiedenen Schichten sind.
 
@@ -237,7 +237,7 @@ In der Auswertung macht sich der Abschluss durch einen rapiden Abfall der Rauhei
 \subsection{Skalierbarkeit mit der Simulationsgröße}
 \label{goldscalability}
 
-Ein Vergleich mit den in Abschnitt~\ref{runtime} vorgestellten Laufzeitwerten wird im Folgenden anhand von Gold-PVD durchgeführt, für welche Abscheidungen auf unterschiedlich großen quadratischen Substraten mit Parsivald simuliert wurde.
+Ein Vergleich mit den in Abschnitt~\ref{runtime} vorgestellten Laufzeitwerten wird im Folgenden anhand von Gold-PVD durchgeführt, für welche Abscheidungen auf unterschiedlich großen quadratischen Substraten mit Parsivald \todo{Hardware erwähnen. wie viele Kerne insgesamt? Heterogener Cluster?}simuliert wurde.
 
 Aus Messungen ergeben sich die elementaren Laufzeiten als $T_\text{E} = \SI{26}{\milli\second}$ und $T_\text{MD} = \SI{4.7}{\second}$, während $w_\text{MD} = \SI{37}{\angstrom}$ fest gewählt und $w_\text{sim}$ von \SI{106}{\angstrom} bis \SI{4}{\micro\meter} variiert wurde, wobei auch der für die Beschichtung von Nanoelektronik interessante Bereich von \SIrange{100}{1000}{\nano\meter} untersucht wurde.
 Dabei wurde, durch verschiedene Störeinflüsse bedingt, eine unterschiedliche Anzahl an Parsivald-Zyklen durchlaufen, sodass die Laufzeiten keinen direkten Vergleich zulassen.
@@ -288,7 +288,7 @@ Zuletzt zeigt die Auswertung der vom Hostprozess verbrauchten Ressourcen einen S
 Somit stellt der verfügbare Arbeitsspeicher aktuell nur ein untergeordnetes Kriterium dar, jedoch spiegelt sich diese Größe auch in den von Parsivald geschriebenen atomistischen Dateien wider.
 Mit bis zu \SI{75}{\gibi\byte} können diese nicht mehr effizient ausgewertet werden, wodurch eine Auswertung zur Zeit der Simulation unter Nutzung der effizienten Datenstrukturen notwendig wäre.
 
-Somit bestätigen sich einige Vorhersagen aus Abschnitt~\ref{runtime}, jedoch sind weitere Untersuchungen, etwa hinsichtlich der Ereignis-Laufzeit $T_\text{E}$, für einen umfassenden Vergleich notwendig.
+Somit bestätigen sich einige Vorhersagen aus Abschnitt~\ref{runtime}, jedoch sind weitere systematische Untersuchungen, etwa hinsichtlich der Ereignis-Laufzeit $T_\text{E}$, für einen umfassenden Vergleich notwendig.
 
 \vspace{2em}
 
@@ -321,13 +321,15 @@ Somit bestätigen sich einige Vorhersagen aus Abschnitt~\ref{runtime}, jedoch si
     \subcaption{Speicherverbrauch der Simulation}
     \label{fig:goldscala-memory}
   \end{subfigure}
-  \caption{Parallelisierungseigenschaften von Parsivald}
+  \caption{Parallelisierungseigenschaften von Parsivald im Vergleich zu den Modellrechnungen (Abschnitt~\ref{runtime})}
   \label{fig:goldscala}
+  \todoline{``Modell'' statt ``Analytisch'', ``Parsivald (Max)'' und Parsivald (``Mittelw.'')}
+  \todoline{(c) Analytisch nicht mit ``Maximum''-Markern versehen}
 \end{figure}
 
 \subsection{Fazit}
 
-Mit Parsivald lässt sich Gold-PVD auf glatten und leicht strukturierten Substraten ohne weitere Probleme effizient simulieren, wobei sich durch epitaktisches Wachstum defektfreie kristalline Schichten auf glatten Substraten bilden.
+Mit Parsivald lässt sich Gold-PVD auf glatten und leicht strukturierten Substraten effizient simulieren, wobei sich durch epitaktisches Wachstum defektfreie kristalline Schichten auf glatten Substraten bilden.
 Strukturierte Substrate sorgen in Parsivald-Simulationen hingegen für die Bildung von Nanoporen und Hohlräumen, die durch die aktuelle Implementierung des Parsivald-Modelles verursacht sind.
 Eine mögliche Lösung wäre die implizite Betrachtung der Oberfläche mit Delaunay-Triangulationen, wie sie bereits für die Bestimmung der Alpha-Formen genutzt werden.
 Damit würden auch schiefe Auftreffwinkel sowie eine bessere Betrachtung von CVD-Prozessen ermöglicht, die dafür bekannt sind, auch auf strukturierten Oberflächen konforme Schichten abzuscheiden\cite{granneman_thin_1993}.

@@ -15,12 +15,12 @@ Mit der Physikalischen Gasphasenabscheidung (PVD, Physical Vapor Deposition), de
 
 %% {Mein Gebiet}
 Atomistische Simulationen können helfen, unter verschiedenen Bedingungen die strukturellen Eigenschaften der abgeschiedenen Schicht zu beschreiben, anhand derer auch Rückschlüsse auf elektronische\cite{aspnes_optical_1982,steudel_influence_2004} oder mechanische Eigenschaften\cite{chasiotis_mechanical_2003,cammarata_nanoindentation_1990} gezogen werden können.
-Dafür ist eine Modellierung chemischer Reaktionen und amorpher Strukturen ebenso notwendig wie die Beschreibung von Simulationsräumen auf der Größenordnung kompletter Nano-Bauelemente, um ebenfalls Aussagen über das Wachstum auf strukturierten und gemischten Substraten treffen zu können.
+Dafür ist eine Modellierung chemischer Reaktionen und amorpher Strukturen ebenso notwendig wie die Beschreibung von Simulationsräumen auf der Größenordnung kompletter Nano-Bauelemente, um ebenfalls Aussagen über das Wachstum auf strukturierten und \todo{Was sind gemischte Substrate?}gemischten Substraten treffen zu können.
 Zur Simulation von Abscheidungen auf kompletten Nano-Bauelementen sind große Simulationsräume bis \SI{1x1}{\micro\meter} mit bis zu \num{1e9} Atomen notwendig, die mit rein atomistischen Simulationen bisher aufgrund des hohen Rechenaufwandes nicht möglich sind\cite{plimpton_computational_1995}.
 % oder keine strukturellen Aussagen ermöglichen.
 
 %% {Möglichkeiten zur Optimierung}
-Ansatzpunkte für die Simulation von Gasphasenabscheidungen bestehen in Kinetischen Monte Carlo-Methoden (KMC)\cite{voter_introduction_2007} einerseits und in Molekulardynamik (MD)\cite{hoover_molecular_1986} andererseits.
+Ansatzpunkte für die Simulation von Gasphasenabscheidungen bestehen in Kinetischen Monte Carlo-Methoden (KMC)\cite{voter_introduction_2007} einerseits und in der Molekulardynamik (MD)\cite{hoover_molecular_1986} andererseits.
 KMC kann die Reaktionskinetik komplizierter Prozesse in großen Simulationsräumen zufriedenstellend beschreiben, ermöglicht allerdings keine detaillierte strukturelle Beschreibung der simulierten Materialien.
 MD hingegen simuliert effizient atomistische Strukturen, lässt sich aber nur unzureichend zur Beschreibung von großen Simulationsräumen nutzen.
 Mit der Einführung reaktiver Kraftfelder haben molekulardynamische Simulationen zudem die Möglichkeit gewonnen, chemische Reaktionen effizient zu simulieren, doch sind diese rechenaufwendiger als herkömmliche Kraftfelder und erlauben nur die Simulation weniger tausend Atome\cite{van_duin_reaxff:_2001}.

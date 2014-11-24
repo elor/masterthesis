@@ -57,7 +57,7 @@ Damit ist sie von der vernachlässigbaren Laufzeit zur einmaligen Vorbereitung $
 Parsivald-Simulationen werden in einen Host-Prozess und $p-1$ Workerprozesse eingeteilt, woraus sich insgesamt $p$ parallele Prozesse ergeben.
 Die oberen Schranken $p_\text{max}$ liegen dabei in Abhängigkeit der Größe des Simulationsraumes in der maximalen Abdeckung der Oberfläche mit MD-Boxen sowie im Ereignis-Durchsatz des Host-Prozesses.
 
-Für kleine Simulationsräume lässt sich die maximale Anzahl von Ereignissen $p_\text{max,1}-1$ aus der dichtesten Packung von meist quadratischen MD-Boxen der Breite $w_\text{MD}$, Tiefe $d_\text{MD}$ und Fläche $A_\text{MD} = w_\text{MD} \cdot d_\text{MD}$ im Simulationsraum ($w_\text{sim}$, $d_\text{sim}$, $A_\text{sim}$) abschätzen:
+Für kleine Simulationsräume lässt sich die maximale Anzahl von Ereignissen $p_\text{max,1}-1$ aus der \todo{überlappungsfrei?}\todo{Ergänzen, was die mittlere Packung von zufällig verteilten Quadraten auf der Oberfläche ist}dichtesten Packung von meist quadratischen MD-Boxen der Breite $w_\text{MD}$, Tiefe $d_\text{MD}$ und Fläche $A_\text{MD} = w_\text{MD} \cdot d_\text{MD}$ im Simulationsraum ($w_\text{sim}$, $d_\text{sim}$, $A_\text{sim}$) abschätzen:
 \begin{equation}
   p_\text{max,1} = \left\lfloor\frac{w_\text{sim}}{w_\text{MD}}\right\rfloor \cdot \left\lfloor\frac{d_\text{sim}}{d_\text{MD}}\right\rfloor + 1 \approx \left\lfloor\frac{A_\text{sim}}{A_\text{MD}}\right\rfloor + 1
   \label{eq:pmax1}
@@ -159,6 +159,8 @@ Unter Optimierung des Hostprozesses zu $T_\text{E} = \SI{3}{\milli\second}$ sind
   \caption{Einfluss der MD-Laufzeit auf die maximale Workerdichte und das Maximum der Simulationsgröße für effiziente Rechnungen ($\rho_\text{worker} > \SI{10}{\percent}$)}
   \label{fig:densitymaxsize}
 
+  \todoline{grüne Fläche für den effizienten Bereich weglassen}
+
 \end{figure}
 
 Dieser Einfluss ist auch in Abbildung~\ref{fig:workersbytime} zu erkennen, bei der eine Verschiebung von $w_\text{eff}$ mit einer Verschiebung des Knicks einher geht und somit mehr Prozesse für große Räume zulässt.
@@ -184,7 +186,7 @@ Die maximale Zahl der Prozesse in kleinen Räumen wird hingegen ausschließlich 
 
 Für die Gesamt-Laufzeit ergibt sich ein konstantes Skalierungsverhalten für kleine Räume, während große Räume lineares Verhalten mit der Größe der Oberfläche zeigen.
 Die Laufzeit $T_p$ ist also unabhängig von $w_\text{sim}$, solange $w \le w_\text{eff}$ gilt.
-Für große Räume mit $w_\text{sim} > w_\text{eff}$ ist die Gesamt-Laufzeit außerdem von der MD-Laufzeit unabhängig.
+Für große Räume mit $w_\text{sim} > w_\text{eff}$ ist die Gesamt-Laufzeit außerdem von der MD-Laufzeit unabhängig\todo{Begründen und Grenzen ansprechen}.
 Das klingt nach einem Widerspruch, doch heben sich hier $T_p \sim T_\text{MD}$ und $p \sim T_\text{MD}$ über die Beziehung $T_p \sim p^{-1}$ gegenseitig auf.
 
 \begin{figure}[p]

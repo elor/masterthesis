@@ -47,7 +47,7 @@ Da mit der Vergrößerung der MD-Boxen auch die gesamte Laufzeit nahezu proporti
     \includegraphics[width=\textwidth]{workersbymdsize}
   \end{subfigure}
 
-  \caption{Einfluss von $\rho_\text{worker}$ und $w_\text{MD}$ auf die Laufzeit $p_\text{max}$}
+  \caption{Einfluss von $\rho_\text{worker}$ und $w_\text{MD}$ auf das Maximum von Prozessen $p_\text{max}$}
   \label{fig:pmaxother}
 
 \end{figure}
@@ -72,6 +72,8 @@ Da mit der Vergrößerung der MD-Boxen auch die gesamte Laufzeit nahezu proporti
 \clearpage
 
 \section{Abschätzung der maximalen Workerdichte per Random Sequential Adsorption}
+\label{appendix_rsamaxdensity}
+
 Bei Random Sequential Adsorption (RSA) werden geometrische Objekte nichtüberlappend an zufälligen Positionen in einem Raum verteilt, bis kein weiteres Objekt platziert werden kann.
 Die Verteilung der quadratischen Worker auf der Oberfläche geschieht auf eine ähnliche Weise, sodass als Grenzwert der Workerdichte \SI{56.2}{\percent}\cite{brosilow_random_1991} angegeben werden kann.
 
@@ -80,7 +82,7 @@ Dadurch kollidieren die MD-Boxen zurückgestellter Ereignisse mit nachfolgenden 
 Somit reduziert sich das Maximum der Workerdichte für große Simulationsräume auf den Grenzwert von \SI{25.95}{\percent} (Abbildung~\ref{fig:rsamaxdensity}).
 Dieser Wert wurde über eine modifizierte RSA-Simulation ermittelt, die auf diese Parsivald-Methode der Ereignisauswahl und -Durchführung angepasst wurde.
 
-KMC-Ereignisse werden in Parsivald für geringe Zeiträume durch einen trivialen Warteschlangen-Algorithmus vorausberechnet, um eine hohe Parallelisierbarkeit zu ermöglichen.
+KMC-Ereignisse werden in Parsivald für geringe Zeiträume durch einen trivialen Warte\-schlangen-Algorithmus vorausberechnet, um eine hohe Parallelisierbarkeit zu ermöglichen.
 Um häufige Revisionen der Ereignisse und damit verbundene Leistungseinbußen zu vermeiden, wird die Tiefe der Abhängigkeitsbäume der Ereignisse beschränkt, was sich in einer verminderten Zahl von Versuchen zur Erzeugung eines neuen KMC-Ereignisses äußert.
 Im Gegenzug sinkt damit die Workerdichte auf die für Gold-PVD und Kupfer-PVD in den Abschnitten~\ref{goldpvd} und~\ref{copperpvd} beobachteten Werte von \SIrange{10}{20}{\percent}.
 
@@ -90,7 +92,7 @@ Im Gegenzug sinkt damit die Workerdichte auf die für Gold-PVD und Kupfer-PVD in
   \centering
   \includegraphics[width=10cm]{rsa_maxdensity}
 
-  \caption[Abschätzung der maximalen Workerdichte ]{
+  \caption[Abschätzung der maximalen Workerdichte per RSA-Simulation]{
     Abschätzung der maximalen Workerdichte durch eine modifizierte RSA-Simulation.
     Als Grenzwert für viele KMC-Versuche ergibt sich \SI{25.95}{\percent}
   }

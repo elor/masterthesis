@@ -1509,3 +1509,10 @@ Strukturanalysen
 Durch
 Bereits
 Anhand
+Abhängigkeitsbäume
+Leistungseinbußen
+Revisionen
+Schematische
+verminderten
+Versuche
+Warteschlangen

@@ -35,6 +35,11 @@ Die Erhöhung von $w_\text{MD}$ hat umfangreichere Einflüsse und verursacht ein
 Somit wird $p_\text{max}$ für $w_\text{sim} < w_\text{eff}$ verringert und für $w_\text{sim} > w_\text{eff}$ erhöht.
 Da mit der Vergrößerung der MD-Boxen auch die gesamte Laufzeit nahezu proportional skaliert (Abbildung~\ref{fig:tpother}), wird $w_\text{MD}$ meistens minimal gewählt.
 
+\section{Abschätzung der maximalen Workerdichte per Random Sequential Adsorption}
+Bei Random Sequential Adsorption (RSA) werden beliebige Objekte nichtüberlappend an zufälligen Positionen auf einer Oberfläche verteilt, bis kein weiteres Objekt platziert werden kann.
+Die Verteilung der Worker auf der Oberfläche geschieht auf eine ähnliche Weise, sodass als Grenzwert der Workerdichte \SI{56.2}{\percent}\cite{brosilow_random_1991} angegeben werden kann.
+Da überlappende MD-Boxen in Parsivald nicht komplett abgelehnt werden, sondern ihre Berechnung nur bis zum Abschluss des überdeckten Ereignisses zurück gestellt wird und sich so ein kompletter Abhängigkeitsbaum bildet\cite{lorenz_entwicklung_2012}, liegt die Workerdichte typischerweise unterhalb dieses Wertes\todo{maximale Workerdichte plotten?}.
+
 \begin{figure}[p]
 
   \captionsetup[subfigure]{singlelinecheck=false}

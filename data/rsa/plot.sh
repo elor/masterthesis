@@ -10,6 +10,6 @@ done | xargs -n2 | sort -n > results.txt
 
 dataplot.py -f --xlog results.txt
 
-mv plot.pdf maxdensity.pdf
-mv plot.png maxdensity.png
+mv -v plot.pdf maxdensity.pdf
+mv -v plot.png maxdensity.png
 

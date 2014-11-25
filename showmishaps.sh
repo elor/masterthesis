@@ -195,7 +195,7 @@ todocounts(){
 }
 
 getdrafts(){
-    listfiles | xargs -0 grep -Pn '(?<!if)draft'
+    listfiles | xargs -0 grep -Pn '(?<!if)draft(?>!mode)'
 }
 
 getlatexerrors(){
@@ -299,7 +299,7 @@ grandcanonical(){
     register "underfull boxes" underfullboxes
     register "comment blocks" commentblocks
     register "draft notes" getdrafts
-   register "possible typos" listunknownwords
+#   register "possible typos" listunknownwords
 
     printfinalstate
 

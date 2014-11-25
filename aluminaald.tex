@@ -84,14 +84,8 @@ Damit ist die \pot{liu}-Parametrisierung erfolgreich bei der Darstellung von Kri
 Die Stabilität für Trimethylaluminium (TMA) wurde nach dessen manueller Präparation für die drei Parametersätze \pot{Al\_Al0\_AlN}, \pot{liu\_ettringite} (kurz \pot{liu}) und \pot{narayanan} untersucht (Abbildung~\ref{fig:tmastability}).
 Die Strukturdaten von TMA\cite{haynes_crc_2011} sind in Anhang~\ref{appendix_constants} zusammen gefasst.
 
-Mit den \pot{Al\_Al0\_AlN}-Parametern konnte TMA stabil simuliert werden (Abbildung~\ref{fig:tmamonomer}), jedoch nehmen die simulierten Moleküle nicht die erwartete planare Struktur ein, sondern weisen eine trigonal-pyramidale Struktur mit leicht reduzierten \ce{C-Al-C}-Bindungs\-winkeln von durchschnittlich \SI{103}{\degree} auf.
-Die Bindungslängen stimmen hingegen mit durchschnittlich \SI{2.020}{\angstrom} (Referenz: \SI{1.957}{\angstrom}\cite{haynes_crc_2011}) für \ce{Al-C} und \SI{1.106}{\angstrom} (Referenz: \SI{1.113}{\angstrom}\cite{haynes_crc_2011}) für \ce{C-H} bis auf \SI{3}{\percent} mit Referenzwerten überein.
-Mit dieser Parametrisierung konnte ebenfalls das TMA-Dimer bei niedrigen Temperaturen simuliert werden (Abbildung~\ref{fig:tmadimer}).
-
-\begin{figure}[b!]
+\begin{figure}[bt]
   \captionsetup[subfigure]{singlelinecheck=false}
-
-  \vspace{1em}
 
   \begin{subfigure}[t]{4cm}
     \begin{overpic}[width=\textwidth]{tma_Al}
@@ -136,6 +130,10 @@ Mit dieser Parametrisierung konnte ebenfalls das TMA-Dimer bei niedrigen Tempera
   \label{fig:tmastability}
 \end{figure}
 
+Mit den \pot{Al\_Al0\_AlN}-Parametern konnte TMA stabil simuliert werden (Abbildung~\ref{fig:tmamonomer}), jedoch nehmen die simulierten Moleküle nicht die erwartete planare Struktur ein, sondern weisen eine trigonal-pyramidale Struktur mit leicht reduzierten \ce{C-Al-C}-Bindungs\-winkeln von durchschnittlich \SI{103}{\degree} auf.
+Die Bindungslängen stimmen hingegen mit durchschnittlich \SI{2.020}{\angstrom} (Referenz: \SI{1.957}{\angstrom}\cite{haynes_crc_2011}) für \ce{Al-C} und \SI{1.106}{\angstrom} (Referenz: \SI{1.113}{\angstrom}\cite{haynes_crc_2011}) für \ce{C-H} bis auf \SI{3}{\percent} mit Referenzwerten überein.
+Mit dieser Parametrisierung konnte ebenfalls das TMA-Dimer bei niedrigen Temperaturen simuliert werden (Abbildung~\ref{fig:tmadimer}).
+
 TMA-Simulationen mit dem \pot{liu}-Parametersatz zeigen hingegen keinen Erfolg, da er keine \ce{Al-C}-Bindungen beschreibt.
 Somit lösen sich in den Simulationen ungebundene Methylgruppen vom zentralen Aluminium-Atom (Abbildung~\ref{fig:tmaliu}).
 Die \pot{narayanan}-Parametrisierung verfügt über keine Kohlenstoff-Parameter und kann deshalb nicht für TMA-Simulationen genutzt werden.
@@ -157,7 +155,7 @@ Das aus Notwendigkeit verwendete Berendsen-Thermostat wirkte nur auf den mittler
 Dabei wird eine chemische Adsorption der Wassermoleküle erwartet\cite{shapovalov_ab_2000}, die zu einer Sättigung der Oberfläche mit Hydroxyl-Gruppen bei einer Bedeckung von \SI{9.2}{\per\square\nano\meter}\cite{kim_energy_2011} führen sollte.
 Bei vollständiger chemischer Adsorption aller Wassermoleküle ergäben für die drei präparierten Systeme Hydroxyl-Bedeckungen von jeweils \SI{5.8}{\per\square\nano\meter}, \SI{19.0}{\per\square\nano\meter} und \SI{57.6}{\per\square\nano\meter}.
 
-\begin{figure}[t]
+\begin{figure}[tb]
   \centering
   \captionsetup[subfigure]{singlelinecheck=false}
 

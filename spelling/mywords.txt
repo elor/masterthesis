@@ -1516,3 +1516,4 @@ Schematische
 verminderten
 Versuche
 Warteschlangen
+sequenzielle

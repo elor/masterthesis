@@ -4,7 +4,7 @@
 Dieser Abschnitt soll eine Übersicht über die molekulardynamischen Vorgehensweisen geben, welche im folgenden Kapitel~\ref{results} zur Anwendung kommen.
 Diese Methoden werden für die Präparation von Strukturen, deren thermische und strukturelle Untersuchung sowie innerhalb der Parsivald-Simulationen selbst eingesetzt.
 
-\subsection{Zeitskalen}
+\subsection{Zeitskalen in MD-Simulationen}
 
 MD-Simulationen werden maßgeblich durch den Zeitschritt $\Delta t$, die Thermostatdämpfung $\tau$, die Barostatdämpfung $\tau_p$ und die Relaxationszeit $t_\text{relax}$ bestimmt, welche systemabhängige Maximalwerte nicht überschreiten dürfen.
 $\Delta t$ ist so zu wählen, dass schnelle Bewegungen nur geringe numerische Fehler verursachen, wofür je nach Art des numerischen Integrators mindestens \SI{20}{\percent} der Periodendauer der schnellsten Schwingung als Richtwert angenommen wurde.
@@ -19,9 +19,9 @@ Ausgehend von einer präparierten Struktur wird das System auf die Relaxationste
 Erwärmung und Abkühlung sind zwar optional, allerdings bei einigen Strukturen zur Reduktion numerischer Fehler notwendig, wie etwa zur Wahrung der Anschlussbedingungen der MD-Simulationen innerhalb von Parsivald.
 Vergleiche zwischen Parsivald und reinen MD-Simulationen sollen die Ähnlichkeit der abgeschiedenen Strukturen prüfen, um Fehler aufgrund der gewählten Temperaturen zu vermeiden.
 
-\subsection{Strukturelle Analyse}
+\subsection{Strukturanalysen}
 
-Zur Auswertung einer Struktur bietet sich zuerst eine visuelle Beurteilung an, die mit entsprechenden Programmen vorgenommen werden kann.
+Zur Auswertung einer Struktur bietet sich zuerst eine visuelle Beurteilung an, die mit entsprechenden Visualisierungsprogrammen vorgenommen werden kann.
 Im Anschluss können die Dichte, Radiale Verteilungsfunktion, Bindungslänge und Koordinationszahl bestimmt werden, um die Struktur weiter zu charakterisieren und Aussagen über Kristallbildung treffen zu können.
 Bei Kristallen kann eine Alpha-Form (Abschnitt~\ref{dataalphaform}) mit einem $\alpha$-Wert knapp oberhalb der Bindungslänge genutzt werden, um Fehlstellen im Gitter oder Gitterversetzungen zu identifizieren.
 

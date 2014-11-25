@@ -101,7 +101,7 @@ Daran ist die Eigenschaft von MD-Potentialen erkennbar, nach der Parametrisierun
 Unterhalb von \SI{1000}{\kelvin} stimmen die meisten Dichten mit Referenzwerten überein, die über den linearen Ausdehnungskoeffizienten von $\alpha = \SI{16.5e-6}{\per\kelvin}$\cite{haynes_crc_2011} berechnet wurden, weshalb die geringen Abscheidungstemperaturen von \SI{500}{\kelvin} die Schichteigenschaften nicht verfälschen sollten.
 Die Referenzwerte stammen aus den Referenzen~\cite{haynes_crc_2011,brillo_density_2006} (Siehe Anhang~\ref{appendix_constants}).
 
-\subsection{Prozess-Simulation}
+\subsection{Simulation von Kupfer-PVD}
 \label{coppersimulation}
 
 In einer PVD-Simulation soll zunächst überprüft werden, ob Kupfer im PVD-Modus von Parsivald mit den gleichen Eigenschaften wie für den Gold-Prozess abgeschieden werden kann.
@@ -145,12 +145,14 @@ Dadurch werden auch die hohen Abbruchraten von \SI{25}{\percent} zu Beginn der S
 Bereits nach wenigen Ereignissen sinkt die Abbruchrate auf \SI{3}{\percent}, was auf eine Reduktion des Effektes durch thermische Relaxation und Bedeckung der Oberfläche mit temporären Off-Lattice-Atomen hinweist.
 Die kritische Bedeckung dafür liegt zwischen \SI{0.034}{\per\nano\meter\squared} und \SI{0.074}{\per\nano\meter\squared} und deckt sich somit mit der maximalen MD-Ereignisdichte dieses Prozesses von \SI{0.073}{\per\nano\meter\squared}, die sich aus der kompaktesten Anordnung von MD-Boxen auf der Oberfläche ergibt.
 
+
 Im Experiment zeigt sich für Kupfer ebenfalls ein epitaktisches Wachstum monokristalliner Schichten auf kristallinen Substraten, das jedoch stärker als bei Gold von der Abscheidungstemperatur und der Schichtdicke abhängig ist\cite{gottsche_uber_1956}.
 Dies weist auf eine thermische Relaxierung der Schicht hin, die von Parsivald aktuell nicht effizient beschrieben werden kann.
 Im Gegenzug können sich aufgrund der kleinen MD-Boxen in Parsivald-Simulationen keine Nanopartikeln auf der Oberfläche bilden, wie sie etwa das polykristalline Gold-Schichtwachstum dominieren, wodurch Störungen der kristallinen Phase von vornherein methodisch unterbunden werden.
 Deshalb sind Abscheidungssimulationen auf polykristallinen und amorphen Substraten notwendig, die jedoch ebenfalls den Rahmen der Arbeit gesprengt hätten.
 
-\begin{figure}[t!]
+\vspace{2em}
+\begin{figure}[h!]
 
   \captionsetup[subfigure]{justification=centering,singlelinecheck=false}
   \def\subfigwidth{0.32\textwidth}
@@ -192,6 +194,7 @@ Deshalb sind Abscheidungssimulationen auf polykristallinen und amorphen Substrat
   \label{fig:coppercrater}
 \end{figure}
 
+\clearpage
 \subsection{Untersuchung der maximalen Workerdichte}
 
 Ergänzend ist in Abbildung~\ref{fig:copperworkerdensity-b} ein Histogramm der Zahl paralleler Ereignisse dargestellt, aus der auf die Workerdichte geschlossen werden kann.
@@ -200,9 +203,7 @@ Die Verteilung hat ihren Mittelwert bei $p = \num{6.3}$ mit dem Maximum von akti
 Dem steht eine analytisch ermittelte maximale Zahl von Prozessen mit $p_\text{max} = \num{30}$ gegenüber, die allerdings eine dichte Packung von MD-Boxen auf der Oberfläche voraus setzt.
 Durch die zufällige Auswahl der Ereignisorte und der Bewahrung der Reihenfolge der Ereignisse ergeben sich in Parsivald-Simulationen vergleichsweise effiziente Workerdichten von $\rho_\text{worker} = \SI{18.5}{\percent}$.
 
-\vspace{2em}
-
-\begin{figure}[bh]
+\begin{figure}[t]
 
   \captionsetup[subfigure]{justification=centering,singlelinecheck=false}
   \def\subfigwidth{7cm}
@@ -221,3 +222,9 @@ Durch die zufällige Auswahl der Ereignisorte und der Bewahrung der Reihenfolge 
   \caption{Abbruchraten und Workerhistogramm für \ce{Cu}-PVD-Simulationen}
   \label{fig:copperworkerdensity}
 \end{figure}
+
+\subsection{Fazit}
+
+Mit Parsivald lässt sich auch die physikalische Gasphasenabscheidung von Kupfer effizient auf glatten Substraten simulieren, wofür eine Vielzahl von ähnlichen EAM-Parametrisierungen zur Verfügung steht.
+Durch epitaktisches Wachstum bilden sich dabei nahezu defektfreie Schichten, an deren Oberfläche gelegentlich kraterförmige Vertiefungen entstehen, welche zu nanoskopischen Hohlräumen abgeschlossen werden.
+Diese Defekte werden durch die aktuelle Implementierung des Parsivald-Modelles verursacht, haben aber aufgrund ihrer geringen Größe keine weitere Auswirkung auf das Wachstum der Schicht.

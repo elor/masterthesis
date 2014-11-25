@@ -81,7 +81,7 @@ Somit lässt sich Gold mit der verwendeten EAM-Parametrisierung bei verschiedene
 Für Parsivald-Rechnungen sind durch Nutzung der nur teilperiodischen Räume keine Barostate notwendig, wodurch die Relaxationszeit lediglich die schnelleren Temperatur-Oszillationen, die vom Thermostat verursacht werden, abdecken muss.
 In den nachfolgenden Simulationen mit EAM-Potentialen wird deshalb $t_\text{relax} = 5 \tau$ gewählt.
 
-\subsection{Simulation des PVD-Prozesses}
+\subsection{Simulation von Gold-PVD}
 
 In einer Parsivald-Simulation wurde auf einem kristallinen Substrat mit einer Oberfläche von \SI{106x106}{\angstrom} an der (001)-Kristallebene im PVD-Modus über 100 Parsivald-Zyklen ein Goldfilm abgeschieden.
 Es wurden dafür MD-Boxen mit einer Größe von \SI{37x37x25}{\angstrom} mit jeweils ca. \num{1800} Atomen, Relaxationszeiten von \SI{1.4}{\pico\second} in \num{1400} Simulationsschritten und Auftreffgeschwindigkeiten von \SI{4}{\angstrom/\pico\second} genutzt.
@@ -327,6 +327,6 @@ Somit bestätigen sich einige Vorhersagen aus Abschnitt~\ref{runtime}, jedoch si
 \subsection{Fazit}
 
 Mit Parsivald lässt sich Gold-PVD auf glatten und leicht strukturierten Substraten effizient simulieren, wobei sich durch epitaktisches Wachstum defektfreie kristalline Schichten auf glatten Substraten bilden.
-Strukturierte Substrate sorgen in Parsivald-Simulationen hingegen für die Bildung von Nanoporen und Hohlräumen, die durch die aktuelle Implementierung des Parsivald-Modelles verursacht sind.
+Strukturierte Substrate sorgen in Parsivald-Simulationen hingegen für die Bildung von Nanoporen und Hohlräumen, die durch die aktuelle Implementierung des Parsivald-Modelles verursacht werden.
 Eine mögliche Lösung wäre die implizite Betrachtung der Oberfläche mit Delaunay-Triangulationen, wie sie bereits für die Bestimmung der Alpha-Formen genutzt werden.
 Damit würden auch schiefe Auftreffwinkel sowie eine bessere Betrachtung von CVD-Prozessen ermöglicht, die dafür bekannt sind, auch auf strukturierten Oberflächen konforme Schichten abzuscheiden\cite{granneman_thin_1993}.

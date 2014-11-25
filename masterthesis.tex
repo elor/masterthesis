@@ -1,16 +1,17 @@
-\pdfminorversion=4
-\pdfobjcompresslevel=0
-
-\newif\ifpaperonly
-\paperonlyfalse
+\include{presettings}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% document-wide settings %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\draftmodetrue
+\testonlytrue
+%% \colortblfixfalse
 %% \paperonlytrue
-
-\newif\iftestonly
-\testonlyfalse
-%% \testonlytrue
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \documentclass[
+\ifdraftmode
 draft,
+\fi
 fontsize=11pt,
 a4paper,
 twoside,
@@ -68,7 +69,5 @@ BCOR9mm,
 
 \end{document}
 
-\todoline{figures und tables: captions überarbeiten}
 \todoline{figures und tables positionieren!}
 \todoline{figures und tables: centering?}
-\todoline{Tabellen-Hintergründe überschreiben die horizontalen und vertikalen Linien. Das ist ganz große Kacke}

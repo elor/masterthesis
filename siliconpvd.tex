@@ -13,18 +13,18 @@ Tabelle~\ref{tab:siliconpotentials} listet die im Rahmen der Arbeit untersuchten
   \oddrowcolors
   \begin{tabularx}{1\textwidth}{|lXc|}
     \hline
-    \textbf{Parametrisierung}  & \textbf{Anwendung \& Kommentare}                                                                     & \textbf{Ref.}                     \\
+    \textbf{Parametrisierung} & \textbf{Anwendung \& Kommentare}                                                                          & \textbf{Ref.}                     \\
     \hline
-    \pot{Al\_Al0\_AlN}    & \ce{Al}, \ce{Al2O3}, \ce{AlN}. Basiert auf einer Si-Parametrisierung                                      & \cite{plimpton_lammps_2014}       \\
-    \pot{chenoweth}       & Zersetzung von Polydimethylsiloxane bei hohen Drücken und Temperaturen. Ergänzung von \ce{C-Si}-Bindungen & \cite{chenoweth_simulations_2005} \\
-    \pot{kulkarni}        & Reaktion von Sauerstoff mit \ce{OH}-terminiertem Siliziumoxid                                             & \cite{kulkarni_oxygen_2013}       \\
-    \pot{lg}              & ``low gradients''. Siehe liu\_nitramines. Fehlerhafte Version aus LAMMPS\cite{plimpton_lammps_2014}       & \cite{liu_reaxff-lg:_2011}        \\
-    \pot{liu\_ettringite} & Verspannung von Ettringit (\ce{Ca6[Al(OH)6]2(SO4)3 26H2O}). Basiert auf Si-Parametrisierung               & \cite{liu_development_2012}       \\
-    \pot{liu\_nitramines} & Dichtebestimmung von Nitramin-Molekülen bei hohen Drücken. Dichte erhöht durch Van-der-Waals-Korrekturen  & \cite{liu_reaxff-lg:_2011}        \\
-    \pot{narayanan}       & Präparation mit \ce{Li-Al}-Silikaten. Für Phasenübergänge von Eukryptit-Kristallen (\ce{LiAl[SiO4]})      & \cite{narayanan_reactive_2012}    \\
-    \pot{newsome}         & Oxidation von \ce{SiC}-Oberflächen mit \ce{O2} und \ce{H2O} bei \SIrange{500}{5000}{\kelvin}              & \cite{newsome_oxidation_2012}     \\
-    \pot{nielson}         & Reaktionskinetik an Metallkatalysatoren bei \SI{1500}{\kelvin}                                           & \cite{nielson_development_2005}   \\
-    \pot{zhang}           & Zersetzung energiereicher Moleküle (Nitramin-Explosionen)                                                 & \cite{zhang_carbon_2009}          \\
+    \pot{Al\_Al0\_AlN}        & \ce{Al}, \ce{Al2O3}, \ce{AlN}. Basiert auf einer Si-Parametrisierung                                      & \cite{plimpton_lammps_2014}       \\
+    \pot{chenoweth}           & Zersetzung von Polydimethylsiloxane bei hohen Drücken und Temperaturen. Ergänzung von \ce{C-Si}-Bindungen & \cite{chenoweth_simulations_2005} \\
+    \pot{kulkarni}            & Reaktion von Sauerstoff mit \ce{OH}-terminiertem Siliziumoxid                                             & \cite{kulkarni_oxygen_2013}       \\
+    \pot{lg}                  & ``low gradients''. Siehe liu\_nitramines. Fehlerhafte Version aus LAMMPS\cite{plimpton_lammps_2014}       & \cite{liu_reaxff-lg:_2011}        \\
+    \pot{liu\_ettringite}     & Verspannung von Ettringit (\ce{Ca6[Al(OH)6]2(SO4)3 26H2O}). Basiert auf Si-Parametrisierung               & \cite{liu_development_2012}       \\
+    \pot{liu\_nitramines}     & Dichtebestimmung von Nitramin-Molekülen bei hohen Drücken. Dichte erhöht durch Van-der-Waals-Korrekturen  & \cite{liu_reaxff-lg:_2011}        \\
+    \pot{narayanan}           & Präparation mit \ce{Li-Al}-Silikaten. Für Phasenübergänge von Eukryptit-Kristallen (\ce{LiAl[SiO4]})      & \cite{narayanan_reactive_2012}    \\
+    \pot{newsome}             & Oxidation von \ce{SiC}-Oberflächen bei \SIrange{500}{5000}{\kelvin}                                       & \cite{newsome_oxidation_2012}     \\
+    \pot{nielson}             & Reaktionskinetik an Metallkatalysatoren bei \SI{1500}{\kelvin}                                            & \cite{nielson_development_2005}   \\
+    \pot{zhang}               & Zersetzung energiereicher Moleküle (Nitramin-Explosionen)                                                 & \cite{zhang_carbon_2009}          \\
     \hline
   \end{tabularx}
 \end{table}
@@ -34,7 +34,7 @@ Tabelle~\ref{tab:siliconpotentials} listet die im Rahmen der Arbeit untersuchten
 Zur Abschätzung der Anwendbarkeit der Parametersätze auf die Simulation von Silizium-PVD wurden die amorphe und kristalline Phase auf Stabilität und strukturelle Eigenschaften geprüft (Tabelle~\ref{tab:siliconpreresults}).
 Zusätzlich wurden in Hinblick auf Siliziumoxid-CVD auch die Precursormoleküle Silan und Sauerstoff untersucht, welche nur in Anhang~\ref{appendix_silica} betrachtet werden, da bisher kein vollständiger Abscheidungsprozess simuliert wurde.
 Referenzwerte stammen aus den Referenzen~\cite{haynes_crc_2011,remes_optical_1998} und sind in Anhang~\ref{appendix_constants} zusammen gefasst.
-
+\nopagebreak[4]
 \begin{table}[th]
   \begin{threeparttable}
     \caption{Zusammenfassung der Ergebnisse der Silizium-Voruntersuchungen}
@@ -78,7 +78,7 @@ Referenzwerte stammen aus den Referenzen~\cite{haynes_crc_2011,remes_optical_199
     \end{tablenotes}
   \end{threeparttable}
 \end{table}
-
+\nopagebreak[4]
 \subsubsection{Kompatibilität mit der Molekulardynamiksoftware LAMMPS (LMP)}
 
 Einige Potentialdateien sind nicht mit der aktuellen Version der LAMMPS-Bibliothek kompatibel, was sich in harten Abbrüchen des Programmes äußert und sie von weiteren Untersuchungen ausschließt.
@@ -255,7 +255,7 @@ Somit wird die Schichtdicke unterschätzt, was sich auch in der höheren Dichte 
 Zur Untersuchung des Einflusses von Unterrelaxierung wurde eine Abscheidung bei \SI{500}{\kelvin} simuliert (Abbildung~\ref{fig:siliconunderrelaxedprofile}), die realistischen Prozessbedingungen entspricht, aufgrund der kurzen Relaxationszeit aber nicht zur vollständigen Relaxation am Adsorptionsort führt.
 Es zeigen sich höhere Rauheiten, feinere Nanoporen und steilere Hänge, die zu einer hohen Porösität der Schicht führen, weshalb zu erwarten ist, dass mit höheren Relaxierungszeiten eine verringerte Porenbildung beobachtet werden kann.
 
-\begin{figure}[p]
+\begin{figure}[h!]
   \centering
   \captionsetup[subfigure]{singlelinecheck=false}
   \begin{subfigure}[t]{8.5cm}
@@ -275,7 +275,7 @@ Es zeigen sich höhere Rauheiten, feinere Nanoporen und steilere Hänge, die zu 
   \label{fig:siliconprofile}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}[h!]
   \centering
   \captionsetup[subfigure]{singlelinecheck=false}
   \begin{subfigure}[t]{8.5cm}
@@ -299,5 +299,3 @@ Es zeigen sich höhere Rauheiten, feinere Nanoporen und steilere Hänge, die zu 
 
 Nach der Auswahl einer passenden ReaxFF-Parametrisierung aus \num{10} Kandidaten wurde mit ihr die Silizium-PVD auf kristallinen Silizium-Substraten unterschiedlicher Orientierungen simuliert, wobei sich amorphe Schichten mit einer Dicke von \SI{80}{\angstrom} gebildet haben.
 Die abschnittsweise linear ansteigende Oberflächenrauheit der aufwachsenden Schicht wird dabei durch die Bildung von Nanoporen mit einer Tiefe von \SI{30}{\angstrom} dominiert, die zumindest teilweise durch eine Unterrelaxation der MD-Boxen verursacht werden, weshalb eine weitergehende Optimierung der Simulationsparameter notwendig ist.
-
-\todoline{kürzen? profile kleiner?}

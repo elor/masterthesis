@@ -19,7 +19,7 @@ Durch die Nutzung massiver Parallelisierung werden zudem atomistische Simulation
   \centering
   \def\svgwidth{\textwidth}
   \input{img/parsivald-schema-flat.pdf_tex}
-  \caption{Simulation einer Adsorption in Parsivald, verteilt auf KMC und MD}
+  \caption[Schema einer Adsorption in Parsivald]{Schema einer Adsorption in Parsivald, verteilt auf KMC und MD}
   \label{fig:parsivald-schema}
 \end{figure}
 
@@ -32,7 +32,7 @@ Die MD-Simulation führt in der Regel eine Relaxierung der Oberfläche im kanoni
   \centering
   \def\svgwidth{\textwidth}
   \input{img/parsivald-stephierarchy.pdf_tex}
-  \caption[Funktionsweise des Parsivald-Programmes]{
+  \caption[Schema der Funktionsweise des Parsivald-Programmes]{
     Funktionsweise des Parsivald-Programmes.
     Event-Typen unterscheiden sich durch die MD-Simulation (Relaxation, Reaktion) oder das Precursorgas.\\
     Siehe auch Abbildung~\ref{fig:parsivald-modes}.
@@ -84,8 +84,8 @@ Die Ereignisraten ergeben sich für PVD-Prozesse aus der Adsorptionsrate der Ato
     \input{img/parsivald-modes-pvd.pdf_tex}
     \subcaption{PVD-Modus}
   \end{subfigure}
-  \caption[Prozesszyklen für ALD, CVD und PVD]{
-    Prozesszyklen für ALD, CVD und PVD.
+  \caption[Parsivald-Zyklen für ALD, CVD und PVD]{
+    Parsivald-Zyklen für ALD, CVD und PVD.
     Atomistische und statistische Ausgaben erfolgen nach jedem Schritt.
     ALD (a) nutzt einen Schritt pro Halbzyklus.
   }

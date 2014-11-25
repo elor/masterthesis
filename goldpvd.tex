@@ -19,9 +19,7 @@ Somit unterstützt die genutzte EAM-Para\-metri\-sierung das Zielsystem hinsicht
 \begin{table}[hbt]
   \begin{threeparttable}
   \oddrowcolors
-  \caption[Vergleich von strukturellen Eigenschaften von Gold]{
-    Vergleich von strukturellen Eigenschaften von Gold mit experimentellen Daten als Voruntersuchung des PVD-Prozesses
-  }
+  \caption{Vergleich der strukturellen Eigenschaften von Gold mit experimentellen Daten}
   \label{tab:goldpreresults}
   \begin{tabularx}{\textwidth}{|lXXXX|}
     \hline
@@ -73,7 +71,7 @@ Das ergibt sich aus der Ähnlichkeit der Relaxationszeit zur Barostat-Dämpfung 
   \end{subfigure}
 
   \caption[Vergleich thermodynamischer Daten von Gold]{
-    Vergleich thermodynamischer Daten von Gold.
+    Vergleich thermodynamischer Daten von Gold für unterschiedliche Relaxationszeiten.
     Experimentelle Werte stammen aus Referenzen~\cite{haynes_crc_2011,brillo_density_2006}.
   }
   \label{fig:goldthermo}
@@ -118,7 +116,7 @@ Ergänzend wurde zur Prüfung der Robustheit des Parsivald-Prozesses nanostruktu
   \end{subfigure}
 
   \caption[Schichteigenschaften von Gold auf glatten Substraten]{
-    Zeitverlauf der Schichteigenschaften von Gold auf glatten Substraten
+    Entwicklung der Schichteigenschaften von Gold auf glatten Substraten
   }
   \label{fig:goldsmooth}
 
@@ -147,8 +145,8 @@ Dadurch können sich an den Wänden der Schwellen und Spitzen auch ungünstige S
     \label{fig:goldrough-b}
   \end{subfigure}
 
-  \caption[Schichteigenschaften von Gold auf Gold-Spitzen]{
-    Zeitverlauf der Schichteigenschaften von Gold auf Gold-Spitzen
+  \caption[Schichteigenschaften von Gold auf strukturierten Substraten]{
+    Entwicklung der Schichteigenschaften von Gold auf strukturierten Substraten
   }
   \label{fig:goldrough}
 
@@ -208,7 +206,7 @@ In der Auswertung macht sich der Abschluss durch einen rapiden Abfall der Rauhei
     \label{fig:golddepositions-f}
   \end{subfigure}
   \caption[Gold-Abscheidung auf strukturierten Substraten]{
-    Goldschicht nach 50 Abscheidungsschritten (\SI{47}{\angstrom}) auf strukturierten Substraten
+    Goldschicht nach \num{50} Abscheidungsschritten (\SI{47}{\angstrom}) auf strukturierten Substraten
   }
   \label{fig:golddepositions}
 \end{figure}
@@ -229,7 +227,7 @@ In der Auswertung macht sich der Abschluss durch einen rapiden Abfall der Rauhei
     \label{fig:goldpockets-b}
   \end{subfigure}
 
-  \caption[Porenbildung bei Gold-Strukturen]{Porenbildung bei Gold-Strukturen nach 40 Schritten (\num{22000} Ereignisse $\hat{=}$ \SI{38}{\angstrom}).
+  \caption[Porenbildung bei Gold-Strukturen]{Porenbildung bei Gold-Strukturen über \num{40} Schritte (\num{22000} Ereignisse $\hat{=}$ \SI{38}{\angstrom}).
   }
   \label{fig:goldpockets}
 \end{figure}
@@ -240,7 +238,7 @@ In der Auswertung macht sich der Abschluss durch einen rapiden Abfall der Rauhei
 \begin{table}[b!]
   \begin{threeparttable}
 
-    \caption{Untersuchungen zur Skalierbarkeit von Parsivald}
+    \caption{Laufzeitgrößen von Parsivald für Gold-PVD}
     \label{tab:goldscalability}
 
     \begin{tabularx}{\textwidth}{|Xrrrrrrr|}
@@ -305,7 +303,7 @@ Somit bestätigen sich einige Vorhersagen aus Abschnitt~\ref{runtime}, jedoch si
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{workers}
-    \subcaption{Parallele Prozesse}
+    \subcaption{Zahl der Parallelen Prozesse}
     \label{fig:goldscala-workers}
   \end{subfigure}
 
@@ -319,7 +317,7 @@ Somit bestätigen sich einige Vorhersagen aus Abschnitt~\ref{runtime}, jedoch si
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{memory}
-    \subcaption{Speicherverbrauch der Simulation}
+    \subcaption{Speicherverbrauch der Hauptprozesse}
     \label{fig:goldscala-memory}
   \end{subfigure}
   \caption{Parallelisierungseigenschaften von Parsivald im Vergleich zu dem Modell der Laufzeiteigenschaften (Abschnitt~\ref{runtime})}

@@ -103,3 +103,6 @@ Voter
 ylammi
 zdistribution
 Dalla
+Xeon
+Opteron
+

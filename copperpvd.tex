@@ -4,7 +4,7 @@
 Anhand von Kupfer-PVD wurde die Abscheidung eines weiteren fcc-Metalls mit Parsivald simuliert, wofür zuvor verschiedene EAM-Parametersätze untersucht wurden (Tabelle~\ref{tab:copperpots}).
 Für diese Parametersätze wird eine kurze Voruntersuchung durchgeführt, bevor mit einer kleinen Auswahl von ihnen Abscheidungsprozesse mit Parsivald simuliert werden.
 
-\begin{table}[bhp]
+\begin{table}[h]
   \oddrowcolors
   \caption{Untersuchte EAM-Parametrisierungen für Kupfersysteme}
   \label{tab:copperpots}
@@ -26,9 +26,6 @@ Für diese Parametersätze wird eine kurze Voruntersuchung durchgeführt, bevor 
 \end{table}
 
 \subsection{Voruntersuchungen}
-
-Die untersuchten Parametersätze unterscheiden sich in ihren beabsichtigten Anwendungszwecken, die von der Darstellung von kristallinem Kupfer über Legierungen bis zu Metallschmelzen reichen.
-Wie bei den Voruntersuchungen für Gold-PVD zuvor (Abschnitt~\ref{goldpreparation}) wurde eine Bestimmung der Koordinationszahl, Bindungslänge und Dichte von kristallinem Kupfer durchgeführt und die erhaltenen Werte mit Literaturwerten\cite{haynes_crc_2011} verglichen.
 
 \begin{table}[b!]
   \begin{threeparttable}
@@ -59,28 +56,24 @@ Wie bei den Voruntersuchungen für Gold-PVD zuvor (Abschnitt~\ref{goldpreparatio
   \end{threeparttable}
 \end{table}
 
+Die untersuchten Parametersätze unterscheiden sich in ihren beabsichtigten Anwendungszwecken, die von der Darstellung von kristallinem Kupfer über Legierungen bis zu Metallschmelzen reichen.
+Wie bei den Voruntersuchungen für Gold-PVD zuvor (Abschnitt~\ref{goldpreparation}) wurde eine Bestimmung der Koordinationszahl, Bindungslänge und Dichte von kristallinem Kupfer durchgeführt und die erhaltenen Werte mit Literaturwerten\cite{haynes_crc_2011} verglichen.
+
 Die Ergebnisse stimmen gut mit Literaturwerten überein (Tabelle~\ref{tab:copperpreresults}), zeigen aber eine größere Abweichung für \pot{cu\_ag\_ymwu.eam.alloy}, die sich wahrscheinlich aus der beabsichtigten Anwendung für nanoskopische Kupfer-Partikel anstelle von Bulkmaterialien resultiert.
 Die anderen Parametersätze zeigen für die Dichte und die Bindungslänge eine Abweichung unterhalb von \SI{1}{\percent}, wobei die mit LAMMPS verbreiteten Dateien \pot{smf7}, \pot{u3} und \pot{u6} ideale strukturelle Eigenschaften beschreiben.
 Da diese drei Parametersätze, welche von der Arbeitsgruppe um \textsc{S.~M.~Foiles}\cite{foiles_calculation_1985,foiles_embedded-atom-method_1986,adams_self-diffusion_1989} stammen, auf die Beschreibung von fcc-Metallen, ihren Oberflächen und Legierungen ausgelegt sind, werden sie in den nachfolgenden Parsivald-Simulationen genutzt.
 
 \subsection{Thermodynamische Eigenschaften}
 
-Wie für Gold zuvor (Abschnitt~\ref{goldthermo}) wurde auch für die Kupfer-Parametersätze eine Untersuchung der thermodynamischen Eigenschaften durchgeführt.
-Dabei zeigt sich für die meisten Parametersätze mit Ausnahme von \pot{cu\_ag\_ymwu.eam.alloy} eine Überschätzung der Schmelztemperatur um ca. \SI{200}{\kelvin} (Abbildung~\ref{fig:copperthermo}).
-
-Daran ist die Eigenschaft von MD-Potentialen erkennbar, nach der Parametrisierungen für die Beschreibung struktureller Eigenschaften in der Regel keine thermodynamischen Eigenschaften darstellen.
-Unterhalb von \SI{1000}{\kelvin} stimmen die meisten Dichten mit Referenzwerten überein, die über den linearen Ausdehnungskoeffizienten von $\alpha = \SI{16.5e-6}{\per\kelvin}$\cite{haynes_crc_2011} berechnet wurden, weshalb die geringen Abscheidungstemperaturen von \SI{500}{\kelvin} die Schichteigenschaften nicht verfälschen sollten.
-Die Referenzwerte stammen aus den Referenzen~\cite{haynes_crc_2011,brillo_density_2006} (Siehe Anhang~\ref{appendix_constants}).
-
-\begin{figure}[H]
+\begin{figure}[b!]
   \centering
   \captionsetup[subfigure]{singlelinecheck=false}
-  \begin{subfigure}[c]{9.4cm}
+  \begin{subfigure}[c]{8cm}
     \includegraphics[width=\textwidth]{Cu_u6_meltingpoint}
   \end{subfigure}
   \begin{subfigure}[c]{3cm}
     \includegraphics[width=\textwidth]{Cu_u6_meltingpoint_legend}
-    \vspace{1.5em}
+    \vspace{1em}
   \end{subfigure}
   \hfill
   \caption[Vergleich der Schmelztemperatur von Kupfer]{
@@ -88,18 +81,16 @@ Die Referenzwerte stammen aus den Referenzen~\cite{haynes_crc_2011,brillo_densit
     Experimentelle Dichte:~\cite{brillo_density_2006}
   }
   \label{fig:copperthermo}
-  \todoline{Schriftgröße zwischen beiden Diagrammen anpassen}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[b!]
   \centering
   \captionsetup[subfigure]{singlelinecheck=false}
-  \begin{subfigure}[c]{9.4cm}
+  \begin{subfigure}[c]{8cm}
     \includegraphics[width=\textwidth]{Cu_trelax_all}
   \end{subfigure}
-  \begin{subfigure}[c]{4.7cm}
+  \begin{subfigure}[c]{5cm}
     \includegraphics[width=\textwidth]{Cu_trelax_all_legend}
-    \vspace{1.5em}
   \end{subfigure}
   \hfill
   \caption[Vergleich der Schmelztemperatur von Kupfer]{
@@ -109,6 +100,13 @@ Die Referenzwerte stammen aus den Referenzen~\cite{haynes_crc_2011,brillo_densit
   \label{fig:copperthermo2}
 \end{figure}
 
+Wie für Gold zuvor (Abschnitt~\ref{goldthermo}) wurde auch für die Kupfer-Parametersätze eine Untersuchung der thermodynamischen Eigenschaften durchgeführt.
+Dabei zeigt sich für die meisten Parametersätze mit Ausnahme von \pot{cu\_ag\_ymwu.eam.alloy} eine Überschätzung der Schmelztemperatur um ca. \SI{200}{\kelvin} (Abbildung~\ref{fig:copperthermo}).
+
+Daran ist die Eigenschaft von MD-Potentialen erkennbar, nach der Parametrisierungen für die Beschreibung struktureller Eigenschaften in der Regel keine thermodynamischen Eigenschaften darstellen.
+Unterhalb von \SI{1000}{\kelvin} stimmen die meisten Dichten mit Referenzwerten überein, die über den linearen Ausdehnungskoeffizienten von $\alpha = \SI{16.5e-6}{\per\kelvin}$\cite{haynes_crc_2011} berechnet wurden, weshalb die geringen Abscheidungstemperaturen von \SI{500}{\kelvin} die Schichteigenschaften nicht verfälschen sollten.
+Die Referenzwerte stammen aus den Referenzen~\cite{haynes_crc_2011,brillo_density_2006} (Siehe Anhang~\ref{appendix_constants}).
+
 \subsection{Prozess-Simulation}
 \label{coppersimulation}
 
@@ -117,7 +115,7 @@ Weiterhin werden die abgeschiedenen Schichten auf Unebenheiten, Fehlstellen und 
 Durch die Ähnlichkeiten zwischen Kupfer und Gold wurden die Prozess-Parameter der Gold-PVD für den Kupfer-Prozess adaptiert.
 Unterschiede liegen in den Auftreffenergien von \SI{5.4}{\electronvolt}, die ebenfalls vom Thermostat vor dem eigentlichen Auftreffen der Atome auf der Oberfläche noch weiter abgeschwächt werden.
 
-\begin{figure}[b!]
+\begin{figure}[b]
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{0.49\textwidth}
   \begin{subfigure}[t]{\subfigwidth}
@@ -156,7 +154,7 @@ Dies weist auf eine thermische Relaxierung der Schicht hin, die von Parsivald ak
 Im Gegenzug können sich aufgrund der kleinen MD-Boxen in Parsivald-Simulationen keine Nanopartikeln auf der Oberfläche bilden, wie sie etwa das polykristalline Gold-Schichtwachstum dominieren, wodurch Störungen der kristallinen Phase von vornherein methodisch unterbunden werden.
 Deshalb sind Abscheidungssimulationen auf polykristallinen und amorphen Substraten notwendig, die jedoch ebenfalls den Rahmen der Arbeit gesprengt hätten.
 
-\begin{figure}
+\begin{figure}[t!]
 
   \captionsetup[subfigure]{justification=centering,singlelinecheck=false}
   \def\subfigwidth{0.32\textwidth}
@@ -200,12 +198,15 @@ Deshalb sind Abscheidungssimulationen auf polykristallinen und amorphen Substrat
 
 \subsection{Untersuchung der maximalen Workerdichte}
 
-Ergänzend ist in Abbildung~\ref{fig:copperworkerdensity-b} ein Histogramm der Zahl paralleler Ereignisse dargestellt, aus der auf die Workerdichte geschlossen werden kann\todo{hier findet keine Limitierung durch die Zahl der verfügbaren Kerne statt?}.
+Ergänzend ist in Abbildung~\ref{fig:copperworkerdensity-b} ein Histogramm der Zahl paralleler Ereignisse dargestellt, aus der auf die Workerdichte geschlossen werden kann.
+Für die Simulationen wurde eine ausreichende Zahl von Workern zur Verfügung gestellt.
 Die Verteilung hat ihren Mittelwert bei $p = \num{6.3}$ mit dem Maximum von aktiven Prozessen bei $p_\text{peak} = \num{13}$, wobei der Hauptprozess bereits zu $p$ gezählt wurde.
 Dem steht eine analytisch ermittelte maximale Zahl von Prozessen mit $p_\text{max} = \num{30}$ gegenüber, die allerdings eine dichte Packung von MD-Boxen auf der Oberfläche voraus setzt.
 Durch die zufällige Auswahl der Ereignisorte und der Bewahrung der Reihenfolge der Ereignisse ergeben sich in Parsivald-Simulationen vergleichsweise effiziente Workerdichten von $\rho_\text{worker} = \SI{18.5}{\percent}$.
 
-\begin{figure}
+\vspace{2em}
+
+\begin{figure}[bh]
 
   \captionsetup[subfigure]{justification=centering,singlelinecheck=false}
   \def\subfigwidth{7cm}

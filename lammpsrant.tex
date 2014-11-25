@@ -7,7 +7,7 @@ Damit ist LAMMPS \todo{faktisch}faktisch konkurrenzlos, allerdings stößt man b
 Ein hauptsächliches Problem besteht in der Interaktion mit MPI-Bibliotheken.
 Es liegt nahe, für hochparallele Systeme wie Parsivald auf MPI zu setzen, um Tasks vom Host an seine Worker zu vermitteln.
 LAMMPS nutzt jedoch intern \todo{lammps.cpp, Zeile 247}globale MPI-Calls, auch wenn nur kleine Systeme untersucht werden oder explizit auf MPI verzichtet wird.
-Zwar wird LAMMPS statisch verlinkt, nicht aber die MPI-Bibliothek\footnote{LAMMPS liegt auch ein MPI-Platzhalter(Stub) für serielle Anwendungsfälle bei, der aber separat verlinkt werden muss, statt in LAMMPS hinein kompiliert zu werden}, so dass ein Umschreiben der exportierten Symbole nicht zum gewünschten Erfolg führt.
+Zwar wird LAMMPS statisch verlinkt, nicht aber die MPI-Bibliothek\footnote{LAMMPS liegt auch ein MPI-Platzhalter(Stub) für serielle Anwendungsfälle bei, der aber separat verlinkt werden muss, statt in LAMMPS hinein kompiliert zu werden}, sodass ein Umschreiben der exportierten Symbole nicht zum gewünschten Erfolg führt.
 Dieses Problem lässt sich durch fork-Prozesse oder proprietäre Patches umgehen, ist aber keine sichere Lösung für umfangreiche Software.
 Zwar lässt sich LAMMPS auch mit einem MPI-Stub kompilieren, jedoch führt dieser durch kollidierende Namen globaler Funktionen der notwendigerweise dynamisch verlinkten MPI-Bibliotheken unweigerlich zu Problemen.
 

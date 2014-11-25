@@ -7,5 +7,11 @@
 %\includepdf[pagecommand={}]{selbststaendigkeitserklaerung.pdf}
 %\stepcounter{page}
 %\includepdf{selbststaendigkeitserklaerung.pdf}
-\cleardoublepage
-\includepdf[pagecommand={\thispagestyle{plain}}]{selbststaendigkeitserklaerung.pdf}
+\ifdraft{
+}{
+  \iftestonly
+  \else
+    \cleardoublepage
+    \includepdf[pagecommand={\thispagestyle{plain}}]{selbststaendigkeitserklaerung.pdf}
+  \fi
+}

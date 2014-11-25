@@ -33,6 +33,18 @@ EOF
     fi
 }
 
+starttime(){
+    timebefore=`date +%s%N`
+}
+
+endtime(){
+    timeafter=`date +%s%N`
+    
+    let runtime=timeafter-timebefore
+    
+    echo "$runtime" | sed -r 's/([0-9]{3})([0-9]{6})$/.\1 s/'
+}
+
 printfinalstate(){
     if $everythingok; then
         cat <<EOF
@@ -175,7 +187,7 @@ asddsa(){
 }
 
 todonotes(){
-    listfiles | xargs -0 grep -Po '\\todo(line|\[inline\])?(\{[^}]*\})?' | grep -v settings.tex
+    listfiles | xargs -0 grep -Pon '\\todo(line|\[inline\])?(\{[^}]*\})?' | grep -v settings.tex
 }
 
 todocounts(){
@@ -258,6 +270,8 @@ grandcanonical(){
 #####################
 {
 
+    starttime
+
     register "grand canonical" grandcanonical
     register "LaTeX Errors" getlatexerrors
     register "word repetitions" doublewords
@@ -285,8 +299,10 @@ grandcanonical(){
     register "underfull boxes" underfullboxes
     register "comment blocks" commentblocks
     register "draft notes" getdrafts
-    register "possible typos" listunknownwords
+#    register "possible typos" listunknownwords
 
     printfinalstate
+
+    register "runtime of this script" endtime
 
 } 2>&1

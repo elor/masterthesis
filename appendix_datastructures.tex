@@ -35,7 +35,7 @@ Laufzeiten: \BigO{1} (Nachbarschaftslisten) bis \BigO{n} (Listen)
 \textbf{Bereichssuche} \\
 Extraktion einer Menge von Punkten in der Nähe eines beliebigen Punktes, z.B. zur Prüfung möglicher Reaktionen.
 Wird für jede mögliche Reaktion durchgeführt und ist damit häufigste Operation.
-Laufzeiten: \BigO{r_s^3} (Binning) bis \BigO{n} (Listen)
+Laufzeiten: \BigO{r_\text{s}^3} (Binning) bis \BigO{n} (Listen)
 \\\\
 \textbf{Oberflächensuche} \\
 Die Bestimmung der globalen Oberfläche oder eines Punktes auf der Oberfläche entlang einer Geraden, je nach Prozess und verfügbaren Algorithmen.
@@ -91,11 +91,11 @@ Für MD-Simulationen lohnen sich Nachbarschaftslisten jedoch, da sich die Nachba
 \subsubsection{Binning-Methoden}
 Beim Binning werden Punkte in meist quaderförmige Raumbereiche (Bins) eingeteilt, wodurch bei Suchoperationen vom Zustand der Bins Rückschlüsse auf das Suchergebnis gezogen werden können.
 Die Koordinaten des Bins ergibt sich aus der globalen Position der Atome durch lineare Beziehungen.
-Innerhalb der Bins liegen wiederum Atomlisten vor, doch werden die Maße der Bins oberhalb der Manipulations-Reichweiten gewählt, so dass die Nachteile der Atomlisten unterdrückt werden.
+Innerhalb der Bins liegen wiederum Atomlisten vor, doch werden die Maße der Bins oberhalb der Manipulations-Reichweiten gewählt, sodass die Nachteile der Atomlisten unterdrückt werden.
 Bins selbst können in einer übergeordneten Datenstruktur verwaltet werden, beispielsweise die in Abschnitt~\ref{dataoctree} verwendeten Octrees.
 
 \subsubsection{Suchbäume}
-In Suchbäumen wird jedes Atom entsprechend seiner Position als Knoten eines balancierten Binär-Baumes verwaltet, so dass Suchoperationen in \BigO{\log{n}} terminieren.
+In Suchbäumen wird jedes Atom entsprechend seiner Position als Knoten eines balancierten Binär-Baumes verwaltet, sodass Suchoperationen in \BigO{\log{n}} terminieren.
 Durch seine Formulierung müssen die Beziehungen zwischen den Knoten rekursiv aktualisiert werden, wofür gelegentlich der gesamte Baum aufwendig umstrukturiert werden muss.
 Eine mögliche Form wird mit dem k-d-Baum in Abschnitt~\ref{datakdtree} vorgestellt.
 

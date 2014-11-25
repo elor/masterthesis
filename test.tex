@@ -1,96 +1,96 @@
-\begin{table}[H]
-  %% \oddrowcolors
-  \begin{tabularx}{0.8\textwidth}{|XXX|}
-    \hline
-    sdf & fds & sdf \\
-    \hline
-    sdf & fds & sdf \\
-    sdf & fds & sdf \\
-    sdf & fds & sdf \\
-    \hline
-  \end{tabularx}
-\end{table}
+%% \begin{table}[H]
+%%   %% \oddrowcolors
+%%   \begin{tabularx}{0.8\textwidth}{|XXX|}
+%%     \hline
+%%     sdf & fds & sdf \\
+%%     \hline
+%%     sdf & fds & sdf \\
+%%     sdf & fds & sdf \\
+%%     sdf & fds & sdf \\
+%%     \hline
+%%   \end{tabularx}
+%% \end{table}
 
-\begin{table}[H]
-  \oddrowcolors
-  \begin{tabularx}{0.8\textwidth}{|XXX|}
-    \hline
-    sdf & fds & sdf \\
-    \hline
-    sdf & fds & sdf \\
-    sdf & fds & sdf \\
-    sdf & fds & sdf \\
-    \hline
-  \end{tabularx}
-\end{table}
+%% \begin{table}[H]
+%%   \oddrowcolors
+%%   \begin{tabularx}{0.8\textwidth}{|XXX|}
+%%     \hline
+%%     sdf & fds & sdf \\
+%%     \hline
+%%     sdf & fds & sdf \\
+%%     sdf & fds & sdf \\
+%%     sdf & fds & sdf \\
+%%     \hline
+%%   \end{tabularx}
+%% \end{table}
 
-\begin{table}[H]
-  \evenrowcolors
-  \begin{tabularx}{0.8\textwidth}{|XXX|}
-    \hline
-    sdf & fds & sdf \\
-    \hline
-    sdf & fds & sdf \\
-    sdf & fds & sdf \\
-    sdf & fds & sdf \\
-    \hline
-  \end{tabularx}
-\end{table}
+%% \begin{table}[H]
+%%   \evenrowcolors
+%%   \begin{tabularx}{0.8\textwidth}{|XXX|}
+%%     \hline
+%%     sdf & fds & sdf \\
+%%     \hline
+%%     sdf & fds & sdf \\
+%%     sdf & fds & sdf \\
+%%     sdf & fds & sdf \\
+%%     \hline
+%%   \end{tabularx}
+%% \end{table}
 
-\setlength{\arrayrulewidth}{0.6pt}
-\begin{table}[H]
-  \oddrowcolors
-  \begin{tabularx}{0.8\textwidth}{|XXX|}
-    \hline
-    sdf & fds & sdf \\
-    \hline
-    sdf & fds & sdf \\
-    sdf & fds & sdf \\
-    sdf & fds & sdf \\
-    \hline
-  \end{tabularx}
-\end{table}
+%% \setlength{\arrayrulewidth}{0.6pt}
+%% \begin{table}[H]
+%%   \oddrowcolors
+%%   \begin{tabularx}{0.8\textwidth}{|XXX|}
+%%     \hline
+%%     sdf & fds & sdf \\
+%%     \hline
+%%     sdf & fds & sdf \\
+%%     sdf & fds & sdf \\
+%%     sdf & fds & sdf \\
+%%     \hline
+%%   \end{tabularx}
+%% \end{table}
 
-\begin{table}[!ht]
-  \centering
+%% \begin{table}[!ht]
+%%   \centering
 
-  \caption{Abschätzung der Komplexität für verschiedene Datenstrukturen und Operationen}
-  \label{tab:dataruntimes}
-  \begin{tabularx}{\textwidth}{|X|*8c|}
-    \hline
-    \textbf{Datenstr.} & Konstr.         & Einfüg.         & Modif.          & Entf.           & Ortss.                     & NB-Su.              & Oberfl.        & RAM                         \\
-    \hline
-    Atomlisten         & \cG{$n$}        & \cG{$1$}        & \cG{$1$}        & \cG{$1$}        & \cR{$n$}                   & \cR{$n$}            & \cR{$n$}       & \cG{$n$}                    \\
-    NB-Listen          & \cY{$n\log{n}$} & \cR{$n$}        & \cR{$n$}        & \cR{$n$}        & \cR{$n$}                   & \cG{$1$}            & \cR{$n$}       & \cR{$\frac{r_c^3}{s^3}n^2$} \\
-    Binning            & \cG{$n$}        & \cG{$1$}        & \cG{$1$}        & \cG{$1$}        & \cG{$r_s^3$}               & \cG{$r_s^3$}        & \cR{$c$}       & \cY{$n+c$}                  \\
-    Octree             & \cY{$n\log{c}$} & \cY{$\log{c}$}  & \cY{$\log{c}$}  & \cG{$1$}        & \cY{$r_s^3\log{c}$}        & \cY{$r_s^3\log{c}$} & \cY{$\log{c}$} & \cY{$n+c^\frac{2}{3}$}      \\
-    k-d-Baum           & \cY{$n\log{n}$} & \cY{$\log{n}$}  & \cY{$\log{n}$}  & \cY{$\log{n}$}  & \cY{$r_s^3\log{n}$}        & \cY{$r_s^3\log{n}$} & \cY{$\log{n}$} & \cG{$n$}                    \\
-    Delaunay           & \cY{$n\log{n}$} & \cY{$k\log{k}$} & \cY{$k\log{k}$} & \cY{$k\log{k}$} & \cG{$r_s^3+n^\frac{1}{3}$} & \cG{$r_s^3$}        & \cG{$1$}       & \cY{$nk$}                   \\
-    \hline
-    %Atomfeld          & \cG{$n$}        & \cG{$1$}        & \cG{$1$}        & \cG{$1$}        & \cR{$n$}                   & \cR{$n$}            & \cR{$n$}       & \cG{$n$}                    \\
-  \end{tabularx}
-  \vspace{1em}
-  \hspace{0.15\textwidth}
-  \begin{tabularx}{0.6\textwidth}{|C|C|C|}
-    \hline
-    \cG{optimal} & \cY{vertretbar} & \cR{ineffizient} \\
-    \hline
-  \end{tabularx}
+%%   \caption{Abschätzung der Komplexität für verschiedene Datenstrukturen und Operationen}
+%%   \label{tab:dataruntimes}
+%%   \begin{tabularx}{\textwidth}{|X|*8c|}
+%%     \hline
+%%     \textbf{Datenstr.} & Konstr.         & Einfüg.         & Modif.          & Entf.           & Ortss.                     & NB-Su.              & Oberfl.        & RAM                         \\
+%%     \hline
+%%     Atomlisten         & \cG{$n$}        & \cG{$1$}        & \cG{$1$}        & \cG{$1$}        & \cR{$n$}                   & \cR{$n$}            & \cR{$n$}       & \cG{$n$}                    \\
+%%     NB-Listen          & \cY{$n\log{n}$} & \cR{$n$}        & \cR{$n$}        & \cR{$n$}        & \cR{$n$}                   & \cG{$1$}            & \cR{$n$}       & \cR{$\frac{r_c^3}{s^3}n^2$} \\
+%%     Binning            & \cG{$n$}        & \cG{$1$}        & \cG{$1$}        & \cG{$1$}        & \cG{$r_s^3$}               & \cG{$r_s^3$}        & \cR{$c$}       & \cY{$n+c$}                  \\
+%%     Octree             & \cY{$n\log{c}$} & \cY{$\log{c}$}  & \cY{$\log{c}$}  & \cG{$1$}        & \cY{$r_s^3\log{c}$}        & \cY{$r_s^3\log{c}$} & \cY{$\log{c}$} & \cY{$n+c^\frac{2}{3}$}      \\
+%%     k-d-Baum           & \cY{$n\log{n}$} & \cY{$\log{n}$}  & \cY{$\log{n}$}  & \cY{$\log{n}$}  & \cY{$r_s^3\log{n}$}        & \cY{$r_s^3\log{n}$} & \cY{$\log{n}$} & \cG{$n$}                    \\
+%%     Delaunay           & \cY{$n\log{n}$} & \cY{$k\log{k}$} & \cY{$k\log{k}$} & \cY{$k\log{k}$} & \cG{$r_s^3+n^\frac{1}{3}$} & \cG{$r_s^3$}        & \cG{$1$}       & \cY{$nk$}                   \\
+%%     \hline
+%%     %Atomfeld          & \cG{$n$}        & \cG{$1$}        & \cG{$1$}        & \cG{$1$}        & \cR{$n$}                   & \cR{$n$}            & \cR{$n$}       & \cG{$n$}                    \\
+%%   \end{tabularx}
+%%   \vspace{1em}
+%%   \hspace{0.15\textwidth}
+%%   \begin{tabularx}{0.6\textwidth}{|C|C|C|}
+%%     \hline
+%%     \cG{optimal} & \cY{vertretbar} & \cR{ineffizient} \\
+%%     \hline
+%%   \end{tabularx}
 
-  \vspace{1em}
+%%   \vspace{1em}
 
-  \oddrowcolors
-  \caption{Symbole für Laufzeit- und Speicherabschätzungen}
-  \label{tab:datasymbols}
-  \begin{tabularx}{\textwidth}{|cX|cX|}
-    \hline
-    \textbf{Symbol} & \textbf{Bedeutung}                 & \textbf{Symbol} & \textbf{Bedeutung} \\
-    \hline
-    \BigO{}         & Worst-Case-Komplexität             & $n$             & Zahl der Atome     \\
-    $k$             & Zahl von Nächstnachbarn            & $b$             & Zahl der Bins      \\
-    $k_r$           & Zahl von Nachbarn mit $d \leq r_c$ & $r_c$           & Cutoff-Radius      \\
-    $r_s$           & Suchradius                         & $s$             & lineare Raumgröße  \\
-    \hline
-  \end{tabularx}
+%%   \oddrowcolors
+%%   \caption{Symbole für Laufzeit- und Speicherabschätzungen}
+%%   \label{tab:datasymbols}
+%%   \begin{tabularx}{\textwidth}{|cX|cX|}
+%%     \hline
+%%     \textbf{Symbol} & \textbf{Bedeutung}                 & \textbf{Symbol} & \textbf{Bedeutung} \\
+%%     \hline
+%%     \BigO{}         & Worst-Case-Komplexität             & $n$             & Zahl der Atome     \\
+%%     $k$             & Zahl von Nächstnachbarn            & $b$             & Zahl der Bins      \\
+%%     $k_r$           & Zahl von Nachbarn mit $d \leq r_c$ & $r_c$           & Cutoff-Radius      \\
+%%     $r_s$           & Suchradius                         & $s$             & lineare Raumgröße  \\
+%%     \hline
+%%   \end{tabularx}
 
-\end{table}
+%% \end{table}

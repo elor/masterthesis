@@ -23,7 +23,7 @@ Tabelle~\ref{tab:siliconpotentials} listet die im Rahmen der Arbeit untersuchten
     \pot{liu\_nitramines} & Dichtebestimmung von Nitramin-Molekülen bei hohen Drücken. Dichte erhöht durch Van-der-Waals-Korrekturen  & \cite{liu_reaxff-lg:_2011}        \\
     \pot{narayanan}       & Präparation mit \ce{Li-Al}-Silikaten. Für Phasenübergänge von Eukryptit-Kristallen (\ce{LiAl[SiO4]})      & \cite{narayanan_reactive_2012}    \\
     \pot{newsome}         & Oxidation von \ce{SiC}-Oberflächen mit \ce{O2} und \ce{H2O} bei \SIrange{500}{5000}{\kelvin}              & \cite{newsome_oxidation_2012}     \\
-    \pot{nielson}         & Reaktionskinetik an Metallkatalysatoren bei (\SI{1500}{\kelvin}                                           & \cite{nielson_development_2005}   \\
+    \pot{nielson}         & Reaktionskinetik an Metallkatalysatoren bei \SI{1500}{\kelvin}                                           & \cite{nielson_development_2005}   \\
     \pot{zhang}           & Zersetzung energiereicher Moleküle (Nitramin-Explosionen)                                                 & \cite{zhang_carbon_2009}          \\
     \hline
   \end{tabularx}
@@ -118,7 +118,7 @@ Eine Parametrisierung gilt als erfolgreich bei der Beschreibung von kristallinem
 Dafür werden die Dichten und die aus der radialen Verteilungsfunktion gewonnenen Koordinationszahlen und Bindungslängen mit Referenzwerten\cite{haynes_crc_2011} verglichen (Tabelle~\ref{tab:csiresults}).
 Die RDF wird außerdem hinsichtlich der Struktur des Materiales untersucht (Abbildung~\ref{fig:siliconrdf}).
 
-\begin{figure}[H]
+\begin{figure}[p]
   \centering
 
   \captionsetup[subfigure]{singlelinecheck=false}
@@ -157,7 +157,7 @@ Lediglich \pot{kulkarni} und \pot{nielson} sind dabei erfolgreich, wohingegen si
 Zur Untersuchung amorpher Siliziumstrukturen wurden diese durch Relaxierung zufälliger Siliziumstrukturen mit einer Dichte von \SI{2.11}{\gpcc} im kanonischen Ensemble bei \SI{1500}{\kelvin} erzeugt und auf \SI{50}{\kelvin} abgekühlt, bevor sie mit den oben beschriebenen Methoden analysiert wurden.
 Aufgrund der Spannweite möglicher amorpher Strukturen gilt eine Parametrisierung hier allgemein als erfolgreich, wenn sie in einer stabilen Relaxation eine amorphe Struktur erzeugen kann, weshalb beinahe alle Parametrisierungen einen Erfolg vorweisen.
 
-\begin{table}[H]
+\begin{table}[h]
   \begin{threeparttable}
 
     \caption{Vergleich der Struktur amorphen Siliziums}
@@ -218,14 +218,14 @@ Unter Nutzung der \pot{kulkarni}-ReaxFF-Parametrisierung wurden physikalische Ab
 Als Parameter für die Simulationen wurden $A_\text{sim} = \SI{106x104}{\angstrom}$, $A_\text{MD} = \SI{37x37}{\angstrom}$, $T = \SI{1300}{\kelvin}$, $\Delta t = \SI{10}{\femto\second}$, $\tau = \SI{50}{\femto\second}$, $t_\text{relax} = \SI{3.5}{\pico\second}$ und $E_\text{kin} = \SI{6.2}{\electronvolt}$ genutzt, woraus sich in Messungen $T_\text{MD} = \SI{60.71}{\second}$ und $p = \num{1.68}$ ergeben haben.
 Die Temperatur wurde als Kompromiss mit \SI{1300}{\kelvin} bewusst sehr hoch gewählt, um die Relaxierungen zu beschleunigen, da die gesamte Laufzeit bereits \SI{22.5}{\day} beträgt und linear mit der MD-Laufzeit steigt.
 Die langen Laufzeiten ergeben sich als Resultat der ReaxFF-Kraftfelder, welche im Vergleich mit anderen Kraftfeldern um ein Vielfaches rechenaufwendiger sind und auch für die mittlere Zahl von \num{1511} Atomen pro Ereignis lange Laufzeiten verursachen.
-Deshalb sind mit ihnen aber auch reine MD-Simulationen auf der hier vorgestellten Größenordnung praktisch nicht realisierbar, wobei für Parsivald eine effiziente Größe von $w_\text{eff} = \SI{539}{\nano\meter}$ mit $p_\text{max} = 2335$ bei $\rho_\text{worker} = \SI{11}{\percent}$ berechnet wurde.
+Deshalb sind mit ihnen aber auch reine MD-Simulationen auf der hier vorgestellten Größenordnung praktisch nicht realisierbar, wobei für Parsivald eine effiziente Größe von $w_\text{eff} = \SI{539}{\nano\meter}$ mit $p_\text{max} = \num{2335}$ bei $\rho_\text{worker} = \SI{11}{\percent}$ berechnet wurde.
 
 Das Ergebnis der Abscheidungssimulation ist eine amorphe Siliziumschicht, die mit konstanter Rate wächst.
 Aufgrund von sich langsam verstärkenden Oberflächenunebenheiten nimmt hier die Rauheit beim Wachstum zu (Abbildung~\ref{fig:siliconresults}).
-Die Simulationen wurden für die Abscheidungen auf den verschiedenen Kristallebenen (001), (011)- und (111) wiederholt, zeigten aber keine Veränderung der Ergebnisse.
+Die Simulationen wurden für die Abscheidungen auf den Kristallebenen (001), (011)- und (111) wiederholt, zeigten aber keine Veränderung der Ergebnisse.
 In der RDF der Schicht (Abbildung~\ref{fig:siliconresults-b}) ist das kristalline Substrat in Form von Spitzen erkennbar, doch zeigen sich ansonsten Charakteristika einer amorphen Struktur.
 
-\begin{figure}[thp]
+\begin{figure}[t]
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{0.48\textwidth}
   \begin{subfigure}[t]{\subfigwidth}
@@ -255,9 +255,7 @@ Somit wird die Schichtdicke unterschätzt, was sich auch in der höheren Dichte 
 Zur Untersuchung des Einflusses von Unterrelaxierung wurde eine Abscheidung bei \SI{500}{\kelvin} simuliert (Abbildung~\ref{fig:siliconunderrelaxedprofile}), die realistischen Prozessbedingungen entspricht, aufgrund der kurzen Relaxationszeit aber nicht zur vollständigen Relaxation am Adsorptionsort führt.
 Es zeigen sich höhere Rauheiten, feinere Nanoporen und steilere Hänge, die zu einer hohen Porösität der Schicht führen, weshalb zu erwarten ist, dass mit höheren Relaxierungszeiten eine verringerte Porenbildung beobachtet werden kann.
 
-\todoline{Fazit}
-
-\begin{figure}[H]
+\begin{figure}[p]
   \centering
   \captionsetup[subfigure]{singlelinecheck=false}
   \begin{subfigure}[t]{8.5cm}
@@ -277,7 +275,7 @@ Es zeigen sich höhere Rauheiten, feinere Nanoporen und steilere Hänge, die zu 
   \label{fig:siliconprofile}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[p]
   \centering
   \captionsetup[subfigure]{singlelinecheck=false}
   \begin{subfigure}[t]{8.5cm}
@@ -296,3 +294,10 @@ Es zeigen sich höhere Rauheiten, feinere Nanoporen und steilere Hänge, die zu 
   }
   \label{fig:siliconunderrelaxedprofile}
 \end{figure}
+
+\subsection{Fazit}
+
+Nach der Auswahl einer passenden ReaxFF-Parametrisierung aus \num{10} Kandidaten wurde mit ihr die Silizium-PVD auf kristallinen Silizium-Substraten unterschiedlicher Orientierungen simuliert, wobei sich amorphe Schichten mit einer Dicke von \SI{80}{\angstrom} gebildet haben.
+Die abschnittsweise linear ansteigende Oberflächenrauheit der aufwachsenden Schicht wird dabei durch die Bildung von Nanoporen mit einer Tiefe von \SI{30}{\angstrom} dominiert, die zumindest teilweise durch eine Unterrelaxation der MD-Boxen verursacht werden, weshalb eine weitergehende Optimierung der Simulationsparameter notwendig ist.
+
+\todoline{kürzen? profile kleiner?}

@@ -9,14 +9,12 @@ In MD-Simulationen von \textsc{Zhou et al.}\cite{zhou_atomistic_1998} wurden ber
 In dieser und weiteren Untersuchungen\cite{zhou_atomic_2001} wurden erfolgreich EAM-Potentiale benutzt, um dünne Multilagen-Systeme zu simulieren.
 Dabei bildeten sich in der Simulation klar abgetrennte Lagen aus, die nur bei hoher Energie des auftreffenden Teilchens zu einer Durchmischung des Systemes führen\cite{zhou_atomistic_1998}.
 
-\todoline{irreführend geschrieben. Letztlich kommen diese Dicken ja von den jeweiligen technologischen Erfordernissen und den Abscheideeinstellungen - das ist ja keine Größe die den Strukturen fundamental eigen ist}
-
 In experimentellen Untersuchungen von \ce{Cu-Ni}-Multilagen wurden für Sputter-Prozesse Dop\-pel\-lagen-Dicken von \SIrange{1.6}{12}{\nano\meter}\cite{cammarata_nanoindentation_1990} und \SI{160}{\nano\meter} für Elektrodepositions-Prozesse\cite{yang_pulsed_1995} verwendet.
 Eine Untersuchung der Oberfläche für gesputterte Schichten mit einer Dicke von \SI{1.5}{\micro\meter} bei Doppellagen-Dicken von \SIrange{51}{117}{\angstrom} ergab Unebenheiten an der Oberfläche mit einer Tiefe von \SIrange{30}{40}{\nano\meter}\cite{barshilia_characterization_2002}.
 Damit sind die experimentellen Lagen häufig dicker als die mit Parsivald simulierten Doppel\-lagen-Dicken von \SI{2}{\nano\meter}, allerdings beschränken sich die Untersuchungen auf mechanische, magnetische oder elektronische Eigenschaften, sodass ohnehin kein direkter Vergleich mit strukturellen Daten möglich ist.
-Da dickere Lagen zudem mit einer Rechenzeit von mehreren Wochen einher gehen, waren sie aufgrund der Notwendigkeit mehrerer Anpassungszyklen der Abscheidungssimulation im zeitlichen Rahmen dieser Arbeit nicht durchführbar.
-Stattdessen werden die Ergebnisse mit denen anderer MD-Rechnungen verglichen.
-Sofern die MD-Rechnungen mit dem benutzten EAM-Parametersatz das Zielsystem hinreichend beschreiben und eine Übereinstimmung mit der Parsivald-Simulation vorliegt, sollten auch größere Systeme effizient simuliert werden können.
+Da dickere Lagen zudem mit einer Rechenzeit von mehreren Wochen verbunden sind, waren sie aufgrund der Notwendigkeit mehrerer Anpassungszyklen der Abscheidungssimulation im zeitlichen Rahmen dieser Arbeit nicht durchführbar.
+Stattdessen werden die Ergebnisse mit denen anderer MD-Rechnungen dünner Lagen verglichen\cite{zhou_atomistic_1998,zhou_atomic_2001}.
+Sofern die MD-Rechnungen mit dem benutzten EAM-Parametersatz das Zielsystem hinreichend beschreiben und eine Übereinstimmung mit der Parsivald-Simulation vorliegt, sollten auch größere Parsivald-Simulationen mit Experimenten überein stimmen.
 
 \subsection{Multilagen-Simulationen mit Parsivald}
 
@@ -89,12 +87,11 @@ Bei den LAMMPS-Simulationen wurde versehentlich eine leicht geringere Zahl von A
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
     \includegraphics[width=\textwidth]{CuNi_23abit_57_profile}
-    \subcaption{Profil von \ce{Cu-Ni}-Multilagen mit Parsivald}
+    \subcaption{Profil von \ce{Cu-Ni}-Multilagen, Parsivald-Simulation}
   \end{subfigure}
 
   \caption{Vergleich von Multilagen-Profilen mit LAMMPS und Parsivald}
   \label{fig:multilayerresults}
-  \todoline{Farbcode: Was ist was?}
 \end{figure}
 
 \subsection{Vergleich der Parallelisierbarkeit}

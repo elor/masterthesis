@@ -38,7 +38,7 @@ Daraus ergibt ergeben sich die Bewegungsgleichungen für jedes Teilchen $i$, wel
 
 \subsubsection{Kanonisches Ensemble (NVT)}
 
-Aufbauend auf dem mikrokanonischen Ensemble tauscht das kanonische Ensemble zusätzlich Energie mit einem Wärmebad aus, so dass nicht mehr die Energie des Systems, sondern seine mittlere Temperatur $T$ konstant bleibt.
+Aufbauend auf dem mikrokanonischen Ensemble tauscht das kanonische Ensemble zusätzlich Energie mit einem Wärmebad aus, sodass nicht mehr die Energie des Systems, sondern seine mittlere Temperatur $T$ konstant bleibt.
 
 \begin{equation}
   N = \text{const.}
@@ -53,7 +53,7 @@ Das \textbf{Berendsen-Thermostat}\cite{berendsen_molecular_1984} etwa skaliert d
 \begin{equation}
   \overline{E_{kin}} = \frac{1}{2} \overline{m v^2} = \frac{d}{2} k_B T_\text{Ziel}
 \end{equation}
-Anstatt einer harten Reskalierung wird für eine exponentielle Annäherung der Temperatur an $T_\text{Ziel}$ gesorgt, indem in jedem Zeitschritt nur ein Teil der Differenz in Abhängigkeit der Dämpfungszeit $\tau$ angeglichen wird.
+Anstatt einer harten Reskalierung wird für eine exponentielle Annäherung der Temperatur an $T_\text{Ziel}$ gesorgt, indem in jedem Zeitschritt nur ein Teil der Differenz in Abhängigkeit der Dämpfungszeit~$\tau$ angeglichen wird.
 \begin{equation}
   \vec v_i' = \vec v_i \cdot \sqrt{1 + \frac{\Delta t}{\tau} \left(\frac{T_\text{Ziel}}{T} - 1\right)}
 \end{equation}
@@ -73,7 +73,7 @@ Der Einfluss auf die Teilchenenergien äußert sich in der Einführung einer zus
   \dot{\vec p_i} = \vec{F_i} - s \vec{p_i}
 \end{equation}
 Der Reibungskoeffizient $s$ ändert sich in Abhängigkeit der Systemtemperatur, wobei er auch negative Werte annehmen und so Teilchen entlang ihrer Bewegungsrichtung beschleunigen kann.
-Auch bei diesem Thermostat bestimmt der Faktor $\tau$, welcher mit der frei wählbaren Konstante $M$ multipliziert wird, das Zeitverhalten des Thermostates, also die mittlere Dauer zur Einstellung des thermodynamischen Gleichgewichtes.
+Auch bei diesem Thermostat bestimmt der Faktor $\tau$, welcher mit der frei wählbaren Konstante~$M$ multipliziert wird, das Zeitverhalten des Thermostates, also die mittlere Dauer zur Einstellung des thermodynamischen Gleichgewichtes.
 $M$ enthält neben Einheitenfaktoren auch die virtuelle Masse des Wärmebades und wird üblicherweise so gewählt, dass $\tau$ unabhängig von der Masse und Größe des Systems ist.
 
 \begin{equation}

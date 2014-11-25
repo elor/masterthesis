@@ -14,7 +14,7 @@ Für die MD-Simulation von \ce{Al2O3} stehen drei Parametrisierungen zur Verfüg
 
 \pot{Al\_Al0\_AlN} aus LAMMPS\cite{plimpton_lammps_2014}, \pot{liu\_ettringite}\cite{liu_development_2012}, welches nachfolgend nur als \pot{liu} geführt werden soll, und \pot{narayanan}\cite{narayanan_reactive_2012}.
 Ihnen ist gemein, dass sie ausgehend von Silizium-Parametrisierungen um Parameter für Aluminium-Verbindungen erweitert wurden, weshalb sie auch im vorherigen Kapitel untersucht wurden.
-Auf eine Bewahrung der Konsistenz der Siliziumparameter wurde dabei scheinbar verzichtet, so dass etwa mit der \pot{liu}-Parametrisierung eine verlässliche Simulation von Silizium-Verbindungen verhindert, im Gegenzug aber die Simulation von Aluminium-Verbindungen ermöglicht wird.
+Auf eine Bewahrung der Konsistenz der Siliziumparameter wurde dabei scheinbar verzichtet, sodass etwa mit der \pot{liu}-Parametrisierung eine verlässliche Simulation von Silizium-Verbindungen verhindert, im Gegenzug aber die Simulation von Aluminium-Verbindungen ermöglicht wird.
 Eine Kombination verschiedener Parametrisierungen ist zwar denkbar und wird bereits kommerzieller Software durchgeführt\cite{biovia_materials_2014}, würde aber für die vorliegenden Potentiale höchstens zweifelhafte Verbesserungen bringen.
 
 Die \pot{Al\_Al0\_AlN}-Datei stammt direkt aus der offiziellen LAMMPS-Distribution\cite{plimpton_lammps_2014}, wurde jedoch am 17. Mai 2013 während der Ergänzung von Referenzen auf wissenschaftliche Publikationen in anderen Parameterdateien kommentarlos aus dem Paket entfernt\cite{thompson_lammps_2013}.
@@ -134,7 +134,6 @@ Mit dieser Parametrisierung konnte ebenfalls das TMA-Dimer bei niedrigen Tempera
 
   \caption{Stabilität der TMA-Moleküle für verschiedene \ce{Al2O3}-Parametersätze}
   \label{fig:tmastability}
-  \todoline{Farbkodierung}
 \end{figure}
 
 TMA-Simulationen mit dem \pot{liu}-Parametersatz zeigen hingegen keinen Erfolg, da er keine \ce{Al-C}-Bindungen beschreibt.
@@ -170,7 +169,7 @@ Bei vollständiger chemischer Adsorption aller Wassermoleküle ergäben für die
       \hspace{0.5em}
       \chemlegendce{H}
       \hspace{0.5em}
-      \chemlegend{C}{Hydroxyl-H}
+      \chemlegend{OH}{Hydroxyl-H}
     \end{framed}
   \end{subfigure}
 
@@ -178,21 +177,21 @@ Bei vollständiger chemischer Adsorption aller Wassermoleküle ergäben für die
 
   \def\subfigwidth{0.32\textwidth}
   \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{alumina_h2o_before}
+    \includegraphics[width=\textwidth]{AlO_first_transparent}
     \subcaption{Seitenansicht, vor der Reaktion}
     \label{fig:wateraluminasurface-a}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{alumina_h2o_after}
+    \includegraphics[width=\textwidth]{AlO_hydroxylation_side}
     \subcaption{Seitenansicht, nach der Reaktion}
     \label{fig:wateraluminasurface-b}
   \end{subfigure}
   \hfill
   \begin{subfigure}[t]{\subfigwidth}
-    \includegraphics[width=\textwidth]{alumina_h2o_topview}
+    \includegraphics[width=\textwidth]{AlO_hydroxylation_top_transparent_thinner}
     \subcaption{Draufsicht, nach der Reaktion.
-      \textbf{Hydroxyl} ist grün hervorgehoben.
+%      \textbf{Hydroxyl} ist grün hervorgehoben.
     }
     \label{fig:wateraluminasurface-c}
   \end{subfigure}
@@ -200,7 +199,6 @@ Bei vollständiger chemischer Adsorption aller Wassermoleküle ergäben für die
     Das Wasser reagiert mit Sauerstoffatomen an der Oberfläche zu Hydroxylgruppen.
   }
   \label{fig:wateraluminasurface}
-  \todoline{Farbkodierung}
 \end{figure}
 
 Mit den \pot{narayanan}-Parametern konnten keine Adsorptionen beobachtet werden, da sie in den Simulationen durch eine repulsive Kraft zwischen den Wassermolekülen und der Oberfläche verhindert werden.
@@ -209,8 +207,10 @@ Das deutet darauf hin, dass Hydroxylgruppen auf einer Aluminiumoxid-Oberfläche 
 Das Ergebnis der Simulationen für die \pot{liu}-Parameter (Abbildungen~\ref{fig:wateraluminasurface-b} und~\ref{fig:wateraluminasurface-c}) zeigt jedoch die gleichmäßige Bedeckung der Oberfläche mit Hydroxylgruppen neben gelegentlich adsorbierten Wassermolekülen, die keine Oberflächenreaktion eingegangen sind.
 Letztere sollten sich aber auf längere Sicht durch die Einflüsse der Überkoordinationsterme des ReaxFF-Potentiales von der Oberfläche lösen oder eine Reaktion mit benachbarten Sauerstoff-Atomen eingehen.
 Die Hydroxyl-Bedeckung der Oberfläche stimmt dabei mit \SI{9.5}{\per\square\nano\meter} mit den Referenzwerten von \SI{9.2}{\per\square\nano\meter} überein, wodurch die Sättigung der Oberfläche mit Hydroxylgruppen bestätigt wird.
+Einige der Atome in Abbildung~\ref{fig:wateraluminasurface} sind scheinbar stark überkoordiniert, doch werden die Bindungen für die Visualisierung aus den Nachbarschaftsbeziehungen der Atome generiert und sind nicht repräsentativ für die Beschreibung der Bindungen durch ReaxFF.
 Die überschüssigen Wassermoleküle sind in der Gasphase verblieben, wie in Abbildung~\ref{fig:wateraluminasurface-b} am oberen Rand des periodischen Simulationsraumes erkennbar ist, bei denen sie durch periodische Randbedingungen zerteilt erscheinen.
 Es konnte damit gezeigt werden, dass die Begrenzung der Reaktion von Wasser durch die sterische Hinderung der Wassermoleküle in der Simulation wiedergegeben wird.
+
 
 \subsection{Fazit}
 

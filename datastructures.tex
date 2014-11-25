@@ -13,7 +13,7 @@ Das bedeutet auch, dass die Atome über \textbf{niedrige Diffusionskoeffizienten
 Weiterhin werden \textbf{scharfe Phasengrenzen} vorausgesetzt, also zweidimensionale Grenzflächen, die sich durch eine vergleichsweise geringe Menge von Atomen darstellen lassen.
 Zuletzt finden die Simulationen aus praktischen Gründen in \textbf{teilperiodischen Räumen} statt, also Räumen, die in der xy-Ebene periodisch, aber in z-Richtung beliebig ausgedehnt sein können.
 
-%% Daraus ergeben sich jeweils Vor- und Nachteile für verschiedene Datenstrukturen, so dass etwa für die Vereinigung zweier disjunkter Triangulation (Stitching) in periodischen Räumen zusätzlicher Aufwand gegenüber nichtperiodischen Räumen betrieben werden muss.
+%% Daraus ergeben sich jeweils Vor- und Nachteile für verschiedene Datenstrukturen, sodass etwa für die Vereinigung zweier disjunkter Triangulation (Stitching) in periodischen Räumen zusätzlicher Aufwand gegenüber nichtperiodischen Räumen betrieben werden muss.
 %% Die größten Vorteile ergeben sich aus der Lokalität von Ereignissen, da so für die meisten Datenstrukturen nur kleine Teilstrukturen überprüft und aktualisiert werden müssen.
 
 \subsection{Vergleich der Laufzeiten mit verschiedenen Datenstrukturen}
@@ -36,16 +36,16 @@ Die Ergebnisse der Laufzeit-Analysen der sieben Operationen auf den vorgestellte
   \label{tab:dataruntimes}
   \begin{tabularx}{\textwidth}{|X|*8c|}
     \hline
-    \textbf{Datenstr.} & Konstr.         & Einfüg.         & Modif.          & Entf.           & Ortss.                     & NB-Su.              & Oberfl.        & RAM                         \\
+    \textbf{Datenstr.} & Konstr.         & Einfüg.         & Modif.          & Entf.           & Ortss.                            & NB-Su.                     & Oberfl.        & RAM                                \\
     \hline
-    Atomlisten         & \cG{$n$}        & \cG{$1$}        & \cG{$1$}        & \cG{$1$}        & \cR{$n$}                   & \cR{$n$}            & \cR{$n$}       & \cG{$n$}                    \\
-    NB-Listen          & \cY{$n\log{n}$} & \cR{$n$}        & \cR{$n$}        & \cR{$n$}        & \cR{$n$}                   & \cG{$1$}            & \cR{$n$}       & \cR{$\frac{r_c^3}{s^3}n^2$} \\
-    Binning            & \cG{$n$}        & \cG{$1$}        & \cG{$1$}        & \cG{$1$}        & \cG{$r_s^3$}               & \cG{$r_s^3$}        & \cR{$c$}       & \cY{$n+c$}                  \\
-    Octree             & \cY{$n\log{c}$} & \cY{$\log{c}$}  & \cY{$\log{c}$}  & \cG{$1$}        & \cY{$r_s^3\log{c}$}        & \cY{$r_s^3\log{c}$} & \cY{$\log{c}$} & \cY{$n+c^\frac{2}{3}$}      \\
-    k-d-Baum           & \cY{$n\log{n}$} & \cY{$\log{n}$}  & \cY{$\log{n}$}  & \cY{$\log{n}$}  & \cY{$r_s^3\log{n}$}        & \cY{$r_s^3\log{n}$} & \cY{$\log{n}$} & \cG{$n$}                    \\
-    Delaunay           & \cY{$n\log{n}$} & \cY{$k\log{k}$} & \cY{$k\log{k}$} & \cY{$k\log{k}$} & \cG{$r_s^3+n^\frac{1}{3}$} & \cG{$r_s^3$}        & \cG{$1$}       & \cY{$nk$}                   \\
+    Atomlisten         & \cG{$n$}        & \cG{$1$}        & \cG{$1$}        & \cG{$1$}        & \cR{$n$}                          & \cR{$n$}                   & \cR{$n$}       & \cG{$n$}                           \\
+    NB-Listen          & \cY{$n\log{n}$} & \cR{$n$}        & \cR{$n$}        & \cR{$n$}        & \cR{$n$}                          & \cG{$1$}                   & \cR{$n$}       & \cR{$\frac{r_\text{c}^3}{s^3}n^2$} \\
+    Binning            & \cG{$n$}        & \cG{$1$}        & \cG{$1$}        & \cG{$1$}        & \cG{$r_\text{s}^3$}               & \cG{$r_\text{s}^3$}        & \cR{$c$}       & \cY{$n+c$}                         \\
+    Octree             & \cY{$n\log{c}$} & \cY{$\log{c}$}  & \cY{$\log{c}$}  & \cG{$1$}        & \cY{$r_\text{s}^3\log{c}$}        & \cY{$r_\text{s}^3\log{c}$} & \cY{$\log{c}$} & \cY{$n+c^\frac{2}{3}$}             \\
+    k-d-Baum           & \cY{$n\log{n}$} & \cY{$\log{n}$}  & \cY{$\log{n}$}  & \cY{$\log{n}$}  & \cY{$r_\text{s}^3\log{n}$}        & \cY{$r_\text{s}^3\log{n}$} & \cY{$\log{n}$} & \cG{$n$}                           \\
+    Delaunay           & \cY{$n\log{n}$} & \cY{$k\log{k}$} & \cY{$k\log{k}$} & \cY{$k\log{k}$} & \cG{$r_\text{s}^3+n^\frac{1}{3}$} & \cG{$r_\text{s}^3$}        & \cG{$1$}       & \cY{$nk$}                          \\
     \hline
-    %Atomfeld          & \cG{$n$}        & \cG{$1$}        & \cG{$1$}        & \cG{$1$}        & \cR{$n$}                   & \cR{$n$}            & \cR{$n$}       & \cG{$n$}                    \\
+    %Atomfeld          & \cG{$n$}        & \cG{$1$}        & \cG{$1$}        & \cG{$1$}        & \cR{$n$}                          & \cR{$n$}                   & \cR{$n$}       & \cG{$n$}                           \\
   \end{tabularx}
   \vspace{1em}
   \hspace{0.15\textwidth}
@@ -62,12 +62,12 @@ Die Ergebnisse der Laufzeit-Analysen der sieben Operationen auf den vorgestellte
   \label{tab:datasymbols}
   \begin{tabularx}{\textwidth}{|cX|cX|}
     \hline
-    \textbf{Symbol} & \textbf{Bedeutung}                 & \textbf{Symbol} & \textbf{Bedeutung} \\
+    \textbf{Symbol} & \textbf{Bedeutung}                        & \textbf{Symbol} & \textbf{Bedeutung} \\
     \hline
-    \BigO{}         & Worst-Case-Komplexität             & $n$             & Zahl der Atome     \\
-    $k$             & Zahl von Nächstnachbarn            & $b$             & Zahl der Bins      \\
-    $k_r$           & Zahl von Nachbarn mit $d \leq r_c$ & $r_c$           & Cutoff-Radius      \\
-    $r_s$           & Suchradius                         & $s$             & lineare Raumgröße  \\
+    \BigO{}         & Worst-Case-Komplexität                    & $n$             & Zahl der Atome     \\
+    $k$             & Zahl von Nächstnachbarn                   & $b$             & Zahl der Bins      \\
+    $k_r$           & Zahl von Nachbarn mit $d \leq r_\text{c}$ & $r_\text{c}$    & Cutoff-Radius      \\
+    $r_\text{s}$    & Suchradius                                & $s$             & lineare Raumgröße  \\
     \hline
   \end{tabularx}
 
@@ -129,7 +129,7 @@ Eine Liste von Eigenschaften der Simplexe sowie einer Übersicht über die versc
 
 Delaunay-Triangulationen werden noch nicht direkt im KMC-Algorithmus für Off-Lattice-Systeme genutzt, doch sind sie aufgrund ihrer Beziehung zu Alpha-Formen für die Analyse von Oberflächen unentbehrlich (Abschnitt~\ref{mdmethods}).
 
-\begin{figure}[H]
+\begin{figure}[!h]
   \centering
   \def\svgwidth{\textwidth}
   \input{img/delaunay.pdf_tex}
@@ -150,7 +150,7 @@ Für Grenzwerte von $\alpha$ ergibt sich für $\alpha \rightarrow \infty$ die ko
 Alpha-Formen beschreiben ebenfalls Hohlräume und Poren innerhalb der Struktur und können für $\alpha \approx r_\text{bond}$ sogar Kristalldefekte lokalisieren, die zuvor per Konnektivitätsprüfung der Alpha-Form von der Oberfläche isoliert werden müssen.
 Dabei sind Anwendungen auf auch periodische und teilperiodische Räume möglich.
 
-\begin{figure}[H]
+\begin{figure}[!h]
   \centering
   \captionsetup[subfigure]{singlelinecheck=false}{
     \def\subwidth{0.4\textwidth}

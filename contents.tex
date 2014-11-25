@@ -105,7 +105,7 @@ Parsivald & \multicolumn{2}{l}{Parallel Atomistic Reaction Simulator for Vapor a
   CG     & Conjugated Gradients    & Konjugierte Gradienten                                              \\
   EU
   ACCELERATE
-  XXR, SI - latex table definitions
+  XXX, XXR, SI - latex table definitions
   Mathematische hyperref-Symbole: TE TMD RE
 \end{comment}
 
@@ -131,16 +131,16 @@ $\nabla$             & Nabla-Operator                                           
 %% $n_\text{cyc.}$   & Zahl der simulierten KMC-Zyklen                                     \\
 $p$                  & Anzahl paralleler Prozesse                                          \\
 $p$                  & Druck                                                               \\
-$p_\text{max,1}$     & Obere Schranke für $p$ für Simulationsräume                         \\
-$p_\text{max,2}$     & Obere Schranke für $p$ für große Simulationsräume                   \\
-$r_c$                & Cutoff-Radius eines Kraftfeldes                                     \\
+$p_\text{max,1}$     & Obere Schranke für $p$ in kleinen Simulationsräumen                 \\
+$p_\text{max,2}$     & Obere Schranke für $p$ in großen Simulationsräumen                  \\
+$r_\text{c}$         & Cutoff-Radius eines MD-Kraftfeldes                                  \\
 $r_d$                & Umkugel-Radius eines Delaunay-Simplexes                             \\
 $\rho_\text{worker}$ & Relative Workerdichte auf der Oberfläche des Simulationsraumes      \\
-$R_i$                & Akkumulierte Ereignisrate von $E_i$                                 \\
-$r_{ij}$             & Radialer Abstand zwischen Teilchen $i$ und $j$                      \\
+$R_i$                & Summe der Ereignisraten von $E_1$ bis $E_i$                         \\
+$r_{ij}$             & Radialer Abstand zwischen Teilchen $i$ und Teilchen $j$             \\
 $r_i$                & Ereignisrate von $E_i$                                              \\
 $R_N$                & Summe aller Ereignisraten                                           \\
-$r_s$                & Radius für Suchoperationen                                          \\
+$r_\text{s}$         & Radius für Suchoperationen                                          \\
 $r_\text{bond}$      & Bindungslänge                                                       \\
 $\sigma_z$           & RMS-Rauheit einer Oberfläche                                        \\
 $\tau$               & Dämpfungszeit von Thermostaten                                      \\
@@ -149,8 +149,8 @@ $T_1$                & Serielle Laufzeit einer Rechnung                         
 $T_p$                & Parallele Laufzeit einer Rechnung für $p$ Prozesse                  \\
 $T$                  & Temperatur                                                          \\
 $T_\text{E}$         & Laufzeit zur Auswahl eines KMC-Ereignisses                          \\
-$T_\text{MD}$        & Laufzeit einer MD-Simulation                                        \\
-$t_\text{relax}$     & Relaxationszeit einer MD-Simulation                                 \\
+$T_\text{MD}$        & Laufzeit der MD-Simulation eines Ereignisses                        \\
+$t_\text{relax}$     & Relaxationszeit in einer MD-Simulation                              \\
 $u$,~$u'$            & $[0,1)$-gleichverteilte Zufallszahlen                               \\
 $\vec F(X)$          & Kraft auf ein Teilchen                                              \\
 $\vec p$             & Impulsvektor                                                        \\
@@ -161,9 +161,8 @@ $w_\text{eff}$       & Maximale Breite eines Simulationsraumes für effiziente S
 $w_\text{MD}$        & Breite der MD-Box                                                   \\
 $w_\text{sim}$       & Breite des Simulationsraumes                                        \\
 $X$                  & Zustand eines Systemes                                              \\
-$\mathbb{X}$         & Zustandsraum eines Systems                                          \\
+$\mathbb{X}$         & Zustandsraum für ein System                                         \\
 \end{longtable}
-\todoline{Sortieren und Aussortieren}
 
 %%======================================================================
 %%      Ende

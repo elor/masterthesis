@@ -237,16 +237,6 @@ In der Auswertung macht sich der Abschluss durch einen rapiden Abfall der Rauhei
 \subsection{Skalierbarkeit mit der Simulationsgröße}
 \label{goldscalability}
 
-Ein Vergleich mit den in Abschnitt~\ref{runtime} vorgestellten Laufzeitwerten wird im Folgenden anhand von Gold-PVD durchgeführt, für welche Abscheidungen auf unterschiedlich großen quadratischen Substraten mit Parsivald \todo{Hardware erwähnen. wie viele Kerne insgesamt? Heterogener Cluster?}simuliert wurde.
-
-Aus Messungen ergeben sich die elementaren Laufzeiten als $T_\text{E} = \SI{26}{\milli\second}$ und $T_\text{MD} = \SI{4.7}{\second}$, während $w_\text{MD} = \SI{37}{\angstrom}$ fest gewählt und $w_\text{sim}$ von \SI{106}{\angstrom} bis \SI{4}{\micro\meter} variiert wurde, wobei auch der für die Beschichtung von Nanoelektronik interessante Bereich von \SIrange{100}{1000}{\nano\meter} untersucht wurde.
-Dabei wurde, durch verschiedene Störeinflüsse bedingt, eine unterschiedliche Anzahl an Parsivald-Zyklen durchlaufen, sodass die Laufzeiten keinen direkten Vergleich zulassen.
-
-Die Ergebnisse der Untersuchungen sind in Tabelle~\ref{tab:goldscalability} zusammengefasst und stimmen gut mit den in Abschnitt~\ref{runtimeanalysis} ermittelten analytischen Werten überein (Abbildung~\ref{fig:goldscala}).
-Die Zahl der möglichen Prozesse (Abbildung~\ref{fig:goldscala-workers}) steht in guter Übereinstimmung mit $p_\text{max}$ für $\rho_\text{worker} = \SI{20}{\percent}$, wobei die maximale effiziente Substratbreite als $w_\text{eff} \approx \SI{100}{\nano\meter}$ ermittelt wurde.
-Für die mit $p_\text{max}$ verwandten Workerdichten $\rho_\text{worker}$ ist eine leichte Abnahme von \SI{21.9}{\percent} für $w_\text{sim} = \SI{106}{\angstrom}$ zu \SI{10.3}{\percent} für $w_\text{sim} = \SI{1000}{\angstrom}$ erkennbar, die danach jedoch quadratisch mit der Substratbreite abnimmt.
-Es existiert ein Ausreißer bei $w_\text{sim} = \SI{1}{\micro\meter}$, für den nur 46 Worker gestartet wurden ($\num{46} < p_\text{max} \approx \num{190}$), die zudem durch einen inzwischen behobenen Fehler im Host-Worker-Code auf einen Wert von \num{25.4} unterschätzt wurden.
-
 \begin{table}[b!]
   \begin{threeparttable}
 
@@ -281,8 +271,21 @@ Es existiert ein Ausreißer bei $w_\text{sim} = \SI{1}{\micro\meter}$, für den 
   \end{threeparttable}
 \end{table}
 
-Ein Vergleich der Laufzeiten mit Werten für $T_p$ aus Gleichung~\ref{eq:runtime} zeigt ebenfalls gute Übereinstimmungen, wobei der Ausreißer bei $w_\text{sim} = \SI{1}{\micro\meter}$ ebenfalls erkennbar ist.%legitequationreference
-Aufgrund des Wachstums von Schichten unterschiedlicher Dicke bei verschiedenen Workerdichten ist ein direkter Vergleich nicht aussagekräftig, doch bestätigt die Übereinstimmung mit den analytischen Werten die gute Skalierbarkeit von Parsivald mit der Substratbreite.
+Ein Vergleich mit den in Abschnitt~\ref{runtime} vorgestellten Laufzeitwerten wird im Folgenden anhand von Gold-PVD durchgeführt, für welche Abscheidungen auf unterschiedlich großen quadratischen Substraten mit Parsivald simuliert wurde.
+Die Rechnungen wurden auf dem \textit{enssim}-Cluster des Fraunhofer ENAS und des Zentrums für Mikrotechnologien an der TU Chemnitz durchgeführt, bei welchem es sich um ein heterogenes System mit \num{912} Opteron- und \num{60} Xeon-Kernen handelt.
+Sofern nicht anders angegeben, wurden die Hauptprozesse auf den schnellen Xeon-Kerne ausgeführt und ihnen ausreichend viele Worker zur Verfügung gestellt ($p > p_\text{max}$).
+
+Aus Messungen ergeben sich die elementaren Laufzeiten als $T_\text{E} = \SI{26}{\milli\second}$ und $T_\text{MD} = \SI{4.7}{\second}$, während $w_\text{MD} = \SI{37}{\angstrom}$ fest gewählt und $w_\text{sim}$ von \SI{106}{\angstrom} bis \SI{4}{\micro\meter} variiert wurde, wobei auch der für die Beschichtung von Nanoelektronik interessante Bereich von \SIrange{100}{1000}{\nano\meter} untersucht wurde.
+Dabei wurde, durch verschiedene Störeinflüsse bedingt, eine unterschiedliche Anzahl an Parsivald-Zyklen durchlaufen, sodass die Laufzeiten keinen direkten Vergleich zulassen.
+
+Die Ergebnisse der Untersuchungen sind in Tabelle~\ref{tab:goldscalability} zusammengefasst und stimmen gut mit den in Abschnitt~\ref{runtimeanalysis} ermittelten analytischen Werten überein (Abbildung~\ref{fig:goldscala}).
+Die Zahl der möglichen Prozesse (Abbildung~\ref{fig:goldscala-workers}) steht für $\rho_\text{worker}=\SI{20}{\percent}$ in guter Übereinstimmung mit $p_\text{max}$, wobei die maximale effiziente Substratbreite als $w_\text{eff} \approx \SI{100}{\nano\meter}$ ermittelt wurde.
+Für die mit $p_\text{max}$ verwandten Workerdichten $\rho_\text{worker}$ ist eine leichte Abnahme von \SI{21.9}{\percent} für $w_\text{sim} = \SI{106}{\angstrom}$ zu \SI{10.3}{\percent} für $w_\text{sim} = \SI{1000}{\angstrom}$ erkennbar, die danach jedoch quadratisch mit der Substratbreite abnimmt.
+Es existiert ein Ausreißer bei $w_\text{sim} = \SI{1}{\micro\meter}$, für den nur 46 Worker gestartet wurden ($\num{46} < p_\text{max} \approx \num{190}$), die zudem durch einen inzwischen behobenen Fehler im Host-Worker-Code auf einen Wert von \num{25.4} unterschätzt wurden.
+
+Ein Vergleich der Laufzeiten mit Werten für $T_p$ aus Gleichung~\ref{eq:runtime} zeigt ebenfalls gute Übereinstimmungen, wobei erneut der Ausreißer bei $w_\text{sim} = \SI{1}{\micro\meter}$ erkennbar ist (Abbildung~\ref{fig:goldscala-runtime}). %legitequationreference
+Aufgrund der unterschiedlichen Auslastung der Rechenknoten durch Drittprozesse, der damit verbundenen variablen MD-Laufzeiten und der unterschiedlichen Schichtdicke lässt sich keine ideale Kurve in das Laufzeit-Diagramm eintragen, sodass nur einzelne Werte mit ihrer Vorhersage aus dem Modell (Abschnitt~\ref{runtime}) verglichen wurden.
+Die Übereinstimmung mit den Modell-Werten bestätigt jedoch die gute Skalierbarkeit von Parsivald mit der Substratbreite.
 
 Zuletzt zeigt die Auswertung der vom Hostprozess verbrauchten Ressourcen einen Speicherverbrauch von $\text{RAM} = \SI{253}{\mebi\byte} + \SI{94}{\byte} \cdot N_\text{Atome}$, womit auch große Simulationen mit \num{1.9e9} Atomen mit nur \SI{186}{\gibi\byte} Arbeitsspeicher durchgeführt werden können (Abbildung~\ref{fig:goldscala-memory}).
 Somit stellt der verfügbare Arbeitsspeicher aktuell nur ein untergeordnetes Kriterium dar, jedoch spiegelt sich diese Größe auch in den von Parsivald geschriebenen atomistischen Dateien wider.
@@ -290,9 +293,7 @@ Mit bis zu \SI{75}{\gibi\byte} können diese nicht mehr effizient ausgewertet we
 
 Somit bestätigen sich einige Vorhersagen aus Abschnitt~\ref{runtime}, jedoch sind weitere systematische Untersuchungen, etwa hinsichtlich der Ereignis-Laufzeit $T_\text{E}$, für einen umfassenden Vergleich notwendig.
 
-\vspace{2em}
-
-\begin{figure}[H]
+\begin{figure}[t]
   \centering
   \captionsetup[subfigure]{singlelinecheck=false}
   \def\subfigwidth{7cm}
@@ -330,5 +331,4 @@ Somit bestätigen sich einige Vorhersagen aus Abschnitt~\ref{runtime}, jedoch si
 Mit Parsivald lässt sich Gold-PVD auf glatten und leicht strukturierten Substraten effizient simulieren, wobei sich durch epitaktisches Wachstum defektfreie kristalline Schichten auf glatten Substraten bilden.
 Strukturierte Substrate sorgen in Parsivald-Simulationen hingegen für die Bildung von Nanoporen und Hohlräumen, die durch die aktuelle Implementierung des Parsivald-Modelles verursacht sind.
 Eine mögliche Lösung wäre die implizite Betrachtung der Oberfläche mit Delaunay-Triangulationen, wie sie bereits für die Bestimmung der Alpha-Formen genutzt werden.
-\todo{Begründen, warum Abbildung c keine Linie enthält}
 Damit würden auch schiefe Auftreffwinkel sowie eine bessere Betrachtung von CVD-Prozessen ermöglicht, die dafür bekannt sind, auch auf strukturierten Oberflächen konforme Schichten abzuscheiden\cite{granneman_thin_1993}.

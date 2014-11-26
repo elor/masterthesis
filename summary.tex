@@ -54,12 +54,12 @@ Anknüpfungspunkte an die Arbeit bestehen in der Erweiterung von Parsivald um ef
 
 %% Parsivald-Erweiterungen
 
-Der Ereignisdurchsatz des Hauptprozesses ließe sich verringern, indem das Host-Worker-Protokoll optimiert wird, wodurch die obere Grenze der Zahl paralleler Worker und somit die maximale Größe des Simulationsraumes für effiziente Simulationen weiter gesteigert wird.
+Der Ereignisdurchsatz des Hauptprozesses ließe sich erhöhen, indem das Host-Worker-Protokoll optimiert wird, wodurch die obere Grenze der Zahl paralleler Worker und somit die maximale Größe des Simulationsraumes für effiziente Simulationen weiter gesteigert wird.
 Zusätzlich ermöglicht die Nutzung einer Delaunay-Triangulation des gesamten Raumes neben einer einfacheren Parallelisierbarkeit des Hauptprozesses auch eine implizite Beschreibung der Oberflächenatome per Alpha-Form, womit die Suche bei der Erstellung von Ereignissen massiv beschleunigt würde.
 Durch diesen Graph-basierten Ansatz ist außerdem die Vorausberechnung ähnlicher Ereignisse möglich, die zu einer weiteren Beschleunigung des Prozesses und zur Verringerung der Reichweiten von Adsorptionsereignissen führt.
 Ebenso würde die Ereignisauswahl vereinfacht, da die unmittelbare Nachbarschaft in der Delaunay-Triangulation direkt referenziert ist, sodass umfangreichere Ereignis-Bedingungen, wie sie bei reaktiven CVD-Simulationen notwendig werden, beschrieben werden können.
 Die anschließende Einbindung von Parsivald in das ACCELERATE-Projekt führt zu einer Sammlung von numerischen Werkzeugen für die Multiskalen-Simulation von Gasphasenabscheidungen, wobei Parsivald von effizienteren Methoden zur Bestimmung und Durchführung von Ereignissen profitieren kann.
-Seine Off-Lattice-Datenstrukturen können hingegen anderer Software wie Zacros\cite{stamatakis_zacros_2014} zur effizienten Beschreibung amorpher Strukturen verhelfen.
+Seine Off-Lattice-Datenstrukturen können hingegen anderer Software wie Zacros\cite{stamatakis_zacros_2014} zur effizienten Beschreibung amorpher dreidimensionaler Strukturen verhelfen.
 
 %% Weitere Optimierungen und Prozesse
 Wie in der Arbeit demonstriert wurde, lässt sich Parsivald bereits jetzt zur effizienten Simulation von physikalischen Gasphasenabscheidungen nutzen, wobei PVD-Simulationen auf polykristallinen und amorphen Substraten bessere Vergleichbarkeit mit Experimenten ermöglicht\cite{adamov_electrical_1974}.

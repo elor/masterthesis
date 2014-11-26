@@ -125,12 +125,12 @@ Somit ergibt sich für $p = p_\text{max,2}$ mit $E_\text{max} = 1$ eine ideale E
 \label{runtimeanalysis}
 
 Die Parallelisierung von Parsivald-Simulationen lässt sich über die Größe der als quadratisch angenommen Simulationsräume $w_\text{sim}$, die Ereignis-Laufzeit $T_\text{E}$ und die MD-Laufzeit $T_\text{MD}$ beeinflussen.
-Einen geringeren Einfluss haben die Größe der MD-Box $w_\text{MD}$ und die mittlere Workerdichte~$\rho_\text{worker}$ des Prozesses, welche ergänzend in Anhang~\ref{appendix_runtime} untersucht werden.
+Einen geringeren Einfluss haben die Größe der MD-Box $w_\text{MD}$ und die mittlere Workerdichte~$\rho_\text{worker}$ des Prozesses, welche ergänzend in Anhang~\ref{appendix_rsamaxdensity} untersucht werden.
 Im allgemeinen Fall muss ein Gleichgewicht zwischen $T_\text{E}$, $T_\text{MD}$, $w_\text{sim}$ und $p$ gefunden werden.
 
 Das Skalierungsverhalten von Parsivald teilt sich anhand der Raumgröße $w_\text{sim}$ in zwei Bereiche ein.
 Für \textit{kleine Räume} mit $w_\text{sim} \le w_\text{eff}$ determiniert $p_\text{max,1}$ das Skalierungsverhalten, wohingegen für \textit{große Räume} ($w_\text{sim} \ge w_\text{eff}$) $p_\text{max,2}$ dominiert.
-Die effiziente Raumgröße $\le w_\text{eff}$ entspricht dabei einer kritischen Raumgröße, an der ein Knick in den Abbildungen~\ref{fig:densitymaxsize},\ref{fig:workersbytime} und~\ref{fig:runtimebytime} erkennbar ist.
+Die effiziente Raumgröße $w_\text{eff}$ entspricht dabei einer kritischen Raumgröße, an der ein Knick in den Abbildungen~\ref{fig:densitymaxsize}, \ref{fig:workersbytime} und~\ref{fig:runtimebytime} erkennbar ist.
 
 Die effiziente Größe $w_\text{eff}$ lässt sich anhand der maximalen Workerdichte $\rho_\text{worker,max}$ bestimmen.
 Liegt diese oberhalb einer aus Erfahrungen gewonnenen Grenze von \SI{10}{\percent}, wird von einem effizienten Prozess im Sinne der parallelen Effizienz ausgegangen.
@@ -139,7 +139,7 @@ Es gilt dann aufgrund der Beziehungen aus Gleichungen~\ref{eq:pmax} und~\ref{eq:
   w_\text{eff} & \sim T_\text{MD}     \\
   w_\text{eff} & \sim T_\text{E}^{-1}
 \end{align}
-Für die aktuelle Implementierung ergibt sich für EAM-Potentiale mit \SI{5}{\second} MD-Laufzeit die effiziente Größe als $w_\text{eff} = \SI{150}{\nano\meter}$ und für ReaxFF-Potentiale mit $T_\text{MD}=\SI{50}{\second}$ als $w_\text{eff} = \SI{400}{\nano\meter}$.
+Für die aktuelle Implementierung ergibt sich für EAM-Potentiale mit $T_\text{MD}=\SI{5}{\second}$ die effiziente Größe als $w_\text{eff} = \SI{150}{\nano\meter}$ und für ReaxFF-Potentiale mit $T_\text{MD}=\SI{50}{\second}$ als $w_\text{eff} = \SI{400}{\nano\meter}$.
 Unter Optimierung des Hostprozesses zu $T_\text{E} = \SI{3}{\milli\second}$ sind theoretisch \SI{2x2}{\micro\meter} große Räume effizient berechenbar, doch ist hierbei die Zahl der notwendigen Prozessoren zu beachten.
 
 \begin{figure}[p]
@@ -180,7 +180,7 @@ Die maximale Zahl der Prozesse in kleinen Räumen wird hingegen ausschließlich 
 \end{figure}
 
 Für die Gesamt-Laufzeit ergibt sich ein konstantes Skalierungsverhalten für kleine Räume, während große Räume lineares Verhalten mit der Größe der Oberfläche zeigen.
-Die Laufzeit $T_p$ ist also unabhängig von $w_\text{sim}$, solange $w \le w_\text{eff}$ gilt.
+Die Laufzeit $T_p$ ist also unabhängig von $w_\text{sim}$, solange $w_\text{sim} \le w_\text{eff}$ gilt.
 Für große Räume mit $w_\text{sim} > w_\text{eff}$ ist die Gesamt-Laufzeit $T_p$ außerdem von der MD-Laufzeit unabhängig, was sich durch die gegenseitige Aufhebung von $T_p \sim T_\text{MD}$ und $p_\text{max} \sim T_\text{MD}$ über die Beziehung $T_p \sim p^{-1}$ ergibt.
 Mit der MD-Zeit steigt also die maximale Zahl der Worker linear, wodurch mehr Ereignisse gleichzeitig bearbeitet werden und so alle zu simulierenden Ereignisse des Parsivald-Zyklus' theoretisch in der selben Zeit $T_p$ abgearbeitet werden können, sofern eine ausreichende Zahl von Prozessen zur Verfügung steht.
 

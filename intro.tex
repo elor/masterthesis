@@ -30,12 +30,12 @@ Eine mögliche Lösung dieser Probleme stellt eine Kombination der beiden Method
 
 Das Ziel der vorliegenden Arbeit ist, ein bestehendes Multiskalen-Modell zur Simulation von Atomlagenabscheidungen per KMC und MD auf allgemeine Gasphasenabscheidungen zu erweitern und die Simulation von Gasphasenabscheidungen, insbesondere der physikalischen Gasphasenabscheidung, damit zu realisieren.
 Dabei soll auch die Präparation neuer Abscheidungsprozesse sowie die Möglichkeit untersucht werden, die Oberflächen-Reaktionen bei chemischen Gasphasenabscheidungen durch reaktive Kraftfelder molekulardynamisch zu beschreiben.
-Außerdem soll vorliegende Implementierung dieses Modelles zugunsten der schnellen Prozesspräparation um Konfigurationsdateien, zentrale Datenbanken der Substrate und Prozesskonfigurationen sowie um eine einfachere Kontrolle der Prozessparallelisierung ergänzt werden.
+Außerdem soll die vorliegende Implementierung dieses Modelles zugunsten der schnellen Prozesspräparation um Konfigurationsdateien, zentrale Datenbanken der Substrate und Prozesskonfigurationen sowie um eine einfachere Kontrolle der Prozessparallelisierung ergänzt werden.
 
 %% {Struktur der Arbeit}
 \subsubsection{Struktur der Arbeit}
 
-Im Anschluss an diese Einleitung wird zuerst in Kapitel~\ref{theory} ein Überblick über die Arten und Funktionsweisen von Gasphasenabscheidungen, sowie die Simulationsmethoden der Molekulardynamik und Kinetischen Monte Carlo-Methoden gegeben.
+Im Anschluss an diese Einleitung wird zuerst in Kapitel~\ref{theory} ein Überblick über die Arten und Funktionsweisen von Gasphasenabscheidungen sowie über die Simulationsmethoden der Molekulardynamik und Kinetischen Monte Carlo-Methoden gegeben.
 
 Danach stellt Kapitel~\ref{models} den aktuellen Stand der Simulationen von Gasphasenabscheidungen mit KMC und MD vor, präsentiert die Erweiterungen des kombinierten KMC/MD-Modells sowie eine Laufzeitanalyse dieses Modells und gibt einen Überblick über allgemeine molekulardynamische Methoden zur Präparation von Prozessen und Substraten sowie über die Analyse von Ergebnissen.
 
@@ -43,8 +43,9 @@ Der Hauptteil der Arbeit beschäftigt sich in Kapitel~\ref{results} mit den Erge
 Dafür wird zuerst eine Gold-PVD-Simulation als Beispielprozess für nichtreaktive Abscheidungen präpariert und damit das Wachstumsverhalten auf strukturierten Substraten sowie die Skalierbarkeit des kombinierten Modelles überprüft.
 Anhand von Kupfer-PVD werden danach Unterschiede zwischen verschiedenen Parametersätzen des selben Kraftfeldes untersucht und die Bildung und Schließung von Oberflächendefekten beobachtet.
 Die Simulation gemischter Systeme wird anhand der Multilagen-Abscheidung durch Kupfer-Nickel-PVD untersucht und die entstandenen Strukturen mit den Ergebnissen einer reinen MD-Simulation verglichen.
-Anschließend wird die Präparation und Abscheidung amorpher Strukturen am Silizium-PVD-System untersucht, wobei auch Betrachtungen der Gasphasen-Reaktionen für Siliziumoxid-CVD durchgeführt werden.
-Zuletzt wird die reaktive Hydroxylierung einer Aluminiumoxid-Oberfläche mit Wassermolekülen simuliert.
+Anschließend wird die Präparation und Abscheidung amorpher Strukturen am Silizium-PVD-System untersucht.
+%, wobei auch Betrachtungen der Gasphasen-Reaktionen für Siliziumoxid-CVD durchgeführt werden.
+Zuletzt wird die Hydroxylierung einer Aluminiumoxid-Oberfläche mit Wassermolekülen mit reaktiven Kraftfeldern simuliert.
 
 Zum Abschluss wird die Arbeit mit Kapitel~\ref{summary} zusammen gefasst, bevor zukünftige Fragestellungen und Anknüpfungspunkte für weitere Untersuchungen gegeben werden.
 

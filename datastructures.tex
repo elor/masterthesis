@@ -7,7 +7,7 @@ wodurch die Wahl der optimalen Datenstruktur zur Maximierung von Größe, Genaui
 
 \subsection{Numerische Voraussetzungen an Gasphasenabscheidungen}
 
-Für eine effiziente KMC-Simulation werden für zu untersuchende Gasphasenabscheidungen folgende Voraussetzungen getroffen:
+Für eine effiziente KMC-Simulation werden an zu untersuchende Gasphasenabscheidungen folgende Voraussetzungen getroffen:
 Zuerst sollten die KMC-Ereignisse \textbf{lokal}, also auf eine geringe Reichweite begrenzt sein.
 Das bedeutet auch, dass die Atome über \textbf{niedrige Diffusionskoeffizienten} verfügen, was sich aus der Notwendigkeit ergibt, im statischen Gleichgewicht befindliche Bereiche des Simulationsraumes von atomistischen Simulationen auszuschließen.
 Weiterhin werden \textbf{scharfe Phasengrenzen} vorausgesetzt, also zweidimensionale Grenzflächen, die sich durch eine vergleichsweise geringe Menge von Atomen darstellen lassen.
@@ -26,7 +26,7 @@ Atomistische KMC-Simulationen beschränken sich auf die Manipulations-Operatione
 Die Effizienz dieser Operationen geht dabei aus deren asymptotischer Laufzeit hervor, welche üblicherweise in asymptotischer Notation (\BigO{}) angegeben wird.
 
 Bei KMC-Simulationen überwiegen die drei Suchoperationen, da sie für jedes Ereignis beim Aufbau der KMC-Ereignislisten durchgeführt werden müssen, wo hingegen die Manipulationen nur für das tatsächlich durchgeführte Ereignis ausgeführt werden müssen.
-Somit liegt das Auswahlkriterium der Datenstruktur bei der Effizienz ihrer Suchoperationen, mit Ausnahme der Nachbarschaftslisten und k-d-Bäume, deren Manipulationsoperationen für große Simulationsräume superlinear mit der Eingabegröße skalieren und damit nicht für häufige Manipulationen großer Strukturen geeignet sind.
+Somit liegt das Auswahlkriterium der Datenstruktur bei der Effizienz ihrer Suchoperationen, mit Ausnahme der Nachbarschaftslisten und k-d-Bäume, deren Manipulationsoperationen für große Simulationsräume mit der Zahl der Atome skalieren und damit nicht für häufige Manipulationen großer Strukturen geeignet sind.
 Die Ergebnisse der Laufzeit-Analysen der sieben Operationen auf den vorgestellten Datenstrukturen werden in Tabelle~\ref{tab:dataruntimes} zusammen gefasst, wofür Tabelle~\ref{tab:datasymbols} die verwendeten Symbole erklärt.
 
 \begin{table}[!ht]
@@ -85,7 +85,7 @@ Wie Untersuchungen an Simulationsräumen verschiedener Größe zeigen, wird erst
 \label{dataoctree}
 
 Octrees sind eine Optimierung raumfüllender orthogonaler Partitionierungen, wie sie üblicherweise für Binning-Methoden genutzt werden, bei der statt linearer Adressierung auf einen mehrdimensionalen Binärbaum zurück gegriffen wird, woher auch der Name stammt (1D: Binary Tree, 2D: Quadtree, 3D: Octree, etc.).
-Der Simulationsraum wird rekursiv in jeweils 8 disjunkte geometrisch ähnliche Unterzellen halber Breite aufgeteilt, wodurch die eigentlichen Bins in der festen Tiefe $\frac{\log{c}}{d\log{2}}$ liegen.
+Der Simulationsraum wird rekursiv in jeweils 8 disjunkte geometrisch ähnliche Unterzellen halber Breite aufgeteilt, wodurch die eigentlichen Bins in der festen Tiefe $\frac{\log_2{c}}{d}$ liegen.
 
 Damit steigt die Adressierungszeit für einzelne Zellen auf \BigO{\log{c}}, doch werden nur die Bins allokiert, die tatsächlich gefüllt sind (Abbildung~\ref{fig:octree}), wodurch leere Superzellen bei Suchoperationen automatisch übergangen werden.
 Als Resultat sind für Oberflächensysteme der Speicherbedarf und die Laufzeit von Suchoperationen eines dreidimensionalen Simulationsraumes auf die eines zweidimensionalen Systemes reduziert.
@@ -113,8 +113,8 @@ Theoretisch sind mit Access Caching, Bitweiser Adressierung, Surface Flagging od
   \label{fig:kdtree}
 \end{figure}
 
-Für Nachbarschafts- und Bereichssuchen wird wegen ihrer hervorragenden Sucheffizienz oft auf k-d-Bäume zurückgegriffen, die einen kartesischen Raum in orthogonale Zellen mit jeweils einem Atom unterteilen, wodurch sich ein balancierter Binärbaum ergibt, an dessen Knoten die Atome liegen.
-Durch implizite Betrachtung von Abstandsrelationen bei der Konstruktion (Abbildung~\ref{fig:kdtree}) lassen sich Abstands- oder Bereichssuchen in \BigO{\log{n}} durchführen, während Nachbarschaftssuchen von $N$ Atomen in Kombination mit einem Heap in \BigO{\log{n}\log{N}} möglich sind.
+Für Nachbarschafts- und Bereichssuchen wird wegen ihrer hervorragenden Sucheffizienz oft auf k-d-Bäume zurückgegriffen, die einen kartesischen Raum in orthogonale Zellen mit jeweils einem Atom unterteilen, wodurch sich ein balancierter Binärbaum ergibt, an dessen Knoten die Atome liegen (Abbildung~\ref{fig:kdtree}).
+Durch implizite Betrachtung von Abstandsrelationen bei der Konstruktion lassen sich Abstands- oder Bereichssuchen in \BigO{\log{n}} durchführen, während Nachbarschaftssuchen von $N$ Atomen in Kombination mit einem Heap in \BigO{\log{n}\log{N}} möglich sind.
 
 Nachteile ergeben sich bei Modifikationen von Atomen, die durch Baumrotation in \BigO{\log{n}} aufgelöst werden müssen und gelegentlich den gesamten Baum neu strukturieren.
 Durch die einseitige, dichte und gleichverteilte Hinzufügung von Atomen während einer Oberflächenabscheidung ist dieser Fall allerdings gegeben, da sich der Median der Atompositionen in z-Richtung stetig verschiebt.
@@ -146,7 +146,7 @@ Delaunay-Triangulationen werden noch nicht direkt im KMC-Algorithmus für Off-La
 
 Delaunay-Triangulationen werden für Betrachtungen von Oberflächen interessant, da sie die konkave Oberfläche von Punktwolken über die Alpha-Form bestimmen können.
 Sie werden durch Vereinigung genau der Simplexe konstruiert, deren Umkreisradius $r_d$ unterhalb einer frei wählbaren Grenze $\alpha$ liegt, oder durch komplementäre Algorithmen, wie sie in Abbildung~\ref{fig:delaunay-alpha} veranschaulicht sind.
-Als Resultat ergibt sich eine Menge von Punkten und Dreiecken, welche die scheinbare Oberfläche der Punktwolke bilden, die für weitere Untersuchungen wie die Bestimmung von Oberflächenrauheiten genutzt werden kann.
+Als Resultat ergibt sich eine Menge von Punkten und Dreiecken, welche die scheinbare Oberfläche der Punktwolke bilden und für weitere Untersuchungen wie die Bestimmung von Oberflächenrauheiten genutzt werden kann.
 Für Grenzwerte von $\alpha$ ergibt sich für $\alpha \rightarrow \infty$ die konvexe Hülle und für $\alpha \rightarrow 0$ die Gesamtheit der Atome.
 
 Alpha-Formen beschreiben ebenfalls Hohlräume und Poren innerhalb der Struktur und können für $\alpha \approx r_\text{bond}$ sogar Kristalldefekte lokalisieren, die zuvor per Konnektivitätsprüfung der Alpha-Form von der Oberfläche isoliert werden müssen.

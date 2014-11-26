@@ -59,9 +59,9 @@ Für diese Parametersätze wird eine kurze Voruntersuchung durchgeführt, bevor 
 \end{table}
 
 Die untersuchten Parametersätze unterscheiden sich in ihren beabsichtigten Anwendungszwecken, die von der Darstellung von kristallinem Kupfer über Legierungen bis zu Metallschmelzen reichen.
-Wie bei den Voruntersuchungen für Gold-PVD zuvor (Abschnitt~\ref{goldpreparation}) wurde eine Bestimmung der Koordinationszahl, Bindungslänge und Dichte von kristallinem Kupfer durchgeführt und die erhaltenen Werte mit Literaturwerten\cite{haynes_crc_2011} verglichen.
+Wie bei den Voruntersuchungen für Gold-PVD zuvor (Abschnitt~\ref{goldpreparation}) wurde eine Bestimmung der Koordinationszahl, Bindungslänge und Dichte von kristallinem Kupfer durchgeführt und die erhaltenen Werte mit Literaturwerten\cite{haynes_crc_2011} verglichen (Tabelle~\ref{tab:copperpreresults}).
 
-Die Ergebnisse stimmen gut mit Literaturwerten überein (Tabelle~\ref{tab:copperpreresults}), zeigen aber eine größere Abweichung für \pot{cu\_ag\_ymwu.eam.alloy}, die sich wahrscheinlich aus der beabsichtigten Anwendung für nanoskopische Kupfer-Partikel anstelle von Bulkmaterialien resultiert.
+Die Ergebnisse stimmen gut mit Literaturwerten überein, zeigen aber eine größere Abweichung für \pot{cu\_ag\_ymwu.eam.alloy}, die sich wahrscheinlich aus der beabsichtigten Anwendung für nanoskopische Kupfer-Partikel anstelle von Bulkmaterialien resultiert.
 Die anderen Parametersätze zeigen für die Dichte und die Bindungslänge eine Abweichung unterhalb von \SI{1}{\percent}, wobei die mit LAMMPS verbreiteten Dateien \pot{smf7}, \pot{u3} und \pot{u6} ideale strukturelle Eigenschaften beschreiben.
 Da diese drei Parametersätze, welche von der Arbeitsgruppe um \textsc{S.~M.~Foiles}\cite{foiles_calculation_1985,foiles_embedded-atom-method_1986,adams_self-diffusion_1989} stammen, auf die Beschreibung von fcc-Metallen, ihren Oberflächen und Legierungen ausgelegt sind, werden sie in den nachfolgenden Parsivald-Simulationen genutzt.
 
@@ -139,7 +139,7 @@ An den betroffenen Abscheidungsorten liegen glatte, perfekt kristalline Oberflä
 Untersuchungen des Einflusses der Teilchenenergie auf den Sputter-Prozess\cite{zhou_atomistic_1998} haben für glatte Oberflächen eine geringere Wahrscheinlichkeit des Energieaustausches gezeigt als für unebene Oberflächen, doch wurden bei diesen Simulationen Energieminimierungen durchgeführt.
 Die Kraterbildung sollte so eigentlich von einer atomaren Stufe ausgehen, doch wird die Energie in Parsivald-Simulationen bei unebenen Oberflächen scheinbar besser auf die Oberflächenatome aufgeteilt.
 
-Parsivald kann mit herausgeschlagenen Atomen in der aktuellen Version nicht umgehen, weshalb das Ereignis als fehlgeschlagen markiert wird und in den Abbruchraten (Abbildung~\ref{fig:copperworkerdensity-a}) erkennbar sind, die das Verhältnis von fehlgeschlagenen zu ausgewählten Ereignissen beschreiben.
+Parsivald kann mit herausgeschlagenen Atomen in der aktuellen Version nicht umgehen, weshalb die Ereignisse als fehlgeschlagen markiert werden und in den Abbruchraten (Abbildung~\ref{fig:copperworkerdensity-a}) erkennbar sind, die das Verhältnis von fehlgeschlagenen zu ausgewählten Ereignissen beschreiben.
 Die Kraterbildung ist auch in den Rauheiten (Abbildung~\ref{fig:copperparsivald-b}) als leichte Zunahme erkennbar, doch liegt die RMS-Rauheit mit ca. \SI{1.5}{\angstrom} ebenfalls unterhalb der Bindungslänge von \SI{2.556}{\angstrom}.
 %% Es zeigt sich, dass für ein solches Verhalten eine ideale Kristalloberfläche im Umkreis von ca. \SI{3}{\nano\meter} vorhanden sein muss, auf der das Atom direkt zwischen zwei benachbarten Atomen aufkommen muss, damit eines dieser Atome die Energie aufnimmt und an einen Nachbarn abgibt, der dadurch aus der Oberfläche geschlagen wird.
 

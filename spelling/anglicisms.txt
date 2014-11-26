@@ -80,7 +80,6 @@ Scan
 Search
 Simulator
 Size
-Sputtering
 Square
 Stitching
 Stub

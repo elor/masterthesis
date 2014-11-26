@@ -141,9 +141,9 @@ Der den eingefügten Punkt umfassende Simplex wird an diesem Punkt in mehrere Un
 Laufzeiten sind typischerweise gering mit \BigO{n\log{n} + n^{\lceil d/2 \rceil}}.
 \\\\
 \textbf{Divide-and-Conquer-Algorithmen}\\
-Der Algorithmus teilt die Punktmenge in Untermengen, die rekursiv trianguliert und anschließend an ihren Grenzen miteinander kostspielig zur Zieltriangulation vereinigt werden, wodurch er parallelisierbar ist.
+Der Algorithmus teilt die Punktmenge in Untermengen, die rekursiv trianguliert und anschließend an ihren Grenzen miteinander kostspielig zur Zieltriangulation vereinigt werden, wodurch er aber parallelisierbar ist.
 %% Größter Rechenaufwand ist für die Vereinigung der Teiltriangulierungen notwendig, die in höheren Dimensionen nicht-trivial ist.
-Mit dem DeWall-Algorithmus\cite{cignoni_dewall:_1998} ist eine Laufzeit von \BigO{n^{\lceil d/2 \rceil + 1}} m;glich, wobei der Vereinigungs-Algorithmus auch für die Einfügung von Blöcken in bestehende Strukturen sowie für teilperiodische Räume interessant ist.
+Mit dem DeWall-Algorithmus\cite{cignoni_dewall:_1998} ist eine Laufzeit von \BigO{n^{\lceil d/2 \rceil + 1}} möglich, wobei der Vereinigungs-Algorithmus auch für die Einfügung von Blöcken in bestehende Strukturen sowie für teilperiodische Räume interessant ist.
 \\\\
 \textbf{Höherdimensionale Einbettung}\\
 Hier wird die Punktmenge in eine höhere Dimension transformiert, in der deren konvexe Hülle berechnet wird, die dann in den ursprünglichen Raum herunter projiziert wird und darin eine gültige Delaunay-Triangulation ergibt.

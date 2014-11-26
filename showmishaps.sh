@@ -191,7 +191,7 @@ todonotes(){
 }
 
 todocounts(){
-    listfiles | xargs -0 grep -Pc '\\todo(line|\[inline\])?(\{[^}]*\})?' | grep -v settings.tex | grep -v :0 | awk -F: '{s+=$2;print $0} END {print "TOTAL",s}'
+    listfiles | xargs -0 grep -Pc '\\todo(line|\[inline\])?(\{[^}]*\})?' | grep -v settings.tex | grep -v :0 | awk -F: '{s+=$2;print $0} END { if(s > 0) {print "TOTAL",s}}'
 }
 
 getdrafts(){
@@ -299,7 +299,7 @@ grandcanonical(){
     register "underfull boxes" underfullboxes
     register "comment blocks" commentblocks
     register "draft notes" getdrafts
-#   register "possible typos" listunknownwords
+    register "possible typos" listunknownwords
 
     printfinalstate
 

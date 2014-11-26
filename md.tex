@@ -9,7 +9,7 @@ Nachfolgend möchte ich einen kurzen Überblick über die Formulierung molekular
 \subsection{Formulierung der Molekulardynamik}
 \label{mdformulation}
 
-Molekulardynamik ist eine klassische Vielteilchenmethode, die jedem Teilchen des Systemes im Zustand $X$ eine Masse $m$, eine Position $\vec r$, einen Impuls $\vec p$ und Kräfte entsprechend eines lokalen Kraftfeldes $\vec{F}(X)$ oder eventuellen Randbedingungen zuweist.
+Molekulardynamik ist eine klassische Vielteilchenmethode, die jedem Teilchen des Systemes im Zustand $X$ eine Masse $m$, eine Position $\vec r$, einen Impuls $\vec p$ und Kräfte entsprechend eines lokalen Kraftfeldes $\vec{F}(X)$ unter eventuellen Zwangsbedingungen zuweist.
 Entsprechend der Born-Oppenheimer-Näherung, nach der die Elektronen eines chemischen Systemes an ihre Atomkerne gebunden sind und schnell genug auf Änderungen des Systemes reagieren, genügt es, die Atome als Punktmassen an der Position ihres Atomkernes zu betrachten.
 Elektronische und sonstige Interaktionen werden dann durch die verwendeten Kraftfelder beschrieben, welche an Daten aus Experimenten oder ab-initio-Rechnungen gefittet wurden.
 
@@ -30,10 +30,10 @@ Diese grundlegende Ensembleformulierung betrachtet die drei Größen Teilchenzah
 Daraus ergibt ergeben sich die Bewegungsgleichungen für jedes Teilchen $i$, welche anschließend durch eine numerische Integrationsmethode, etwa dem Velocity-Verlet-Algorithmus, zeitlich integriert werden.
 
 \begin{equation}
-  \dot{\vec r_i} = \frac{\vec p_i}{m_i}
+  \dot{\vec{r}}_i = \frac{\vec p_i}{m_i}
 \end{equation}
 \begin{equation}
-  \dot{\vec p_i} = m \vec a_i = \vec F_i(X)
+  \dot{\vec{p}}_i = m \vec a_i = \vec F_i(X)
 \end{equation}
 
 \subsubsection{Kanonisches Ensemble (NVT)}
@@ -70,7 +70,7 @@ Durch die Bewahrung der Eigenschaften des kanonischen Ensembles hat sich das Nos
 Der Einfluss auf die Teilchenenergien äußert sich in der Einführung einer zusätzlichen Reibungskraft entlang des Impulses jedes Teilchens:
 
 \begin{equation}
-  \dot{\vec p_i} = \vec{F_i} - s \vec{p_i}
+  \dot{\vec{p}}_i = \vec{F_i} - s \vec{p_i}
 \end{equation}
 Der Reibungskoeffizient $s$ ändert sich in Abhängigkeit der Systemtemperatur, wobei er auch negative Werte annehmen und so Teilchen entlang ihrer Bewegungsrichtung beschleunigen kann.
 Auch bei diesem Thermostat bestimmt der Faktor $\tau$, welcher mit der frei wählbaren Konstante~$M$ multipliziert wird, das Zeitverhalten des Thermostates, also die mittlere Dauer zur Einstellung des thermodynamischen Gleichgewichtes.
@@ -95,7 +95,7 @@ Dies wird durch ein Barostat realisiert, das durch Skalierung des Simulationsrau
 Der Druck innerhalb des Systems wird dabei über die Virialgleichung ermittelt, die eigentlich für Gase gilt, aber auch für Flüssigkeiten und Feststoffe gute Ergebnisse liefert.
 
 \begin{equation}
-  P V = N k_B T + \frac{1}{d} \sum_{i=1}^N{\vec{r}_i \cdot \vec{F}_i}
+  p V = N k_B T + \frac{1}{d} \sum_{i=1}^N{\vec{r}_i \cdot \vec{F}_i}
 \end{equation}
 
 %% \subsubsection{Minimierung durch Konjugierte Gradienten (CG-Minimierung)}
@@ -103,7 +103,7 @@ Der Druck innerhalb des Systems wird dabei über die Virialgleichung ermittelt, 
 %% {Hinweis von Jörg: beachte bitte, dass Prof. Hoffmann hier zuhause ist. Tiefergehende Kenntnisse können beim Vortrag nicht schaden}
 
 %% Für die Strukturoptimierung mit molekulardynamischen Methoden werden Algorithmen zur Energieminimierung genutzt, wie die populäre Konjugierte-Gradienten-Methode (CG, Conjugate Gradient Method), mit denen im Idealfall das globale Minimum der Systemenergie gesucht wird.
-%% Bei der CG-Methode wird der Zustandsraum von einem Startzustand $\vec X_0$ aus entlang des Gradienten der Energie $\nabla E(X)$ in Richtung des Minimums abgeschritten, wobei über die Schrittweite $\alpha$ das Konvergenzverhalten beeinflusst werden kann.
+%% Bei der CG-Methode wird der Zustandsraum von einem Startzustand $\vec X_0$ aus entlang des Gradienten der Energie $\vec\nabla E(X)$ in Richtung des Minimums abgeschritten, wobei über die Schrittweite $\alpha$ das Konvergenzverhalten beeinflusst werden kann.
 
 %% \begin{figure}
 %%   \centering
@@ -118,10 +118,10 @@ Der Druck innerhalb des Systems wird dabei über die Virialgleichung ermittelt, 
 %%   \label{fig:cg-gradient}
 %% \end{figure}
 %% \begin{equation}
-%%   \vec X_i = \vec X_{i-1} - \alpha \nabla E(\vec X_{i-1})
+%%   \vec X_i = \vec X_{i-1} - \alpha \vec\nabla E(\vec X_{i-1})
 %% \end{equation}
 %% Als Abbruchkriterien stehen je nach Verhalten des Systems währen der Optimierung die Differenz zwischen zwei Schritten ($|\vec X_i - \vec X_{i-1}| < X_\text{tol}$), die maximale Änderung eines Vektorelementes ($\max_k{|X_{i,k} - X_{i-1,k}|} < X_\text{tol}$),
-%% die Stärke des Gradienten ($|\nabla E(\vec X_{i-1})| < E_\text{tol}$), eine Anzahl an Zeitschritten ($i > i_\text{tol}$) oder eine Kombination daraus zur Verfügung.
+%% die Stärke des Gradienten ($|\vec\nabla E(\vec X_{i-1})| < E_\text{tol}$), eine Anzahl an Zeitschritten ($i > i_\text{tol}$) oder eine Kombination daraus zur Verfügung.
 
 %% Eine Optimierung durch minimierte Gradienten ist für eine große Zahl an Freiheitsgraden zwar schnell, stößt aber an Grenzen bei der Minimierung allgemeiner nichtlinearer Funktionen, weshalb Variationen der CG-Methode mit besserem Konvergenzverhalten entwickelt wurden.
 %% Einerseits kann der Optimierungsschritt durch eine Minimierung entlang der Richtung des Gradienten ersetzt werden:
@@ -147,11 +147,11 @@ Zusätzlich zu den Ensemble-Simulationen lassen sich in der Molekulardynamik vor
 Sie werden in dieser Arbeit nicht direkt benutzt, sollen aber der Vollständigkeit sowie der Erläuterung der zitierten Arbeiten dienen.
 
 Implementierungen der \textbf{Methode der konjugierten Gradienten} (CG, Conjugate Gradients)\cite{press_numerical_2007}, einer Methode zur Lösung linearer Gleichungen, schreiten beispielsweise von einem Ausgangspunkt die Energielandschaft entlang ihres Gradienten ab, wobei in jedem Schritt das Residuum zur Korrektur der Richtung des nachfolgenden Schrittes genutzt wird.
-CG-Methoden terminieren nach spätestens $n$ Schritten, wobei $n$ die Zahl der Freiheitsgrade ist, wobei für Systeme mit vielen Freiheitsgraden auch die Größe des Residuums als Abbruchkriterium genutzt wird.
+CG-Methoden terminieren nach spätestens $n$ Schritten, wobei $n$ die Zahl der Freiheitsgrade ist, wobei für Systeme mit vielen Freiheitsgraden oft die Größe des Residuums als Abbruchkriterium genutzt wird.
 Sie sind in der Molekulardynamik aufgrund der schnellen Konvergenz und der Möglichkeit zur effizienten Minimierung von Systemen mit vielen Freiheitsgraden weit verbreitet.
 
-Eine weitere Methode, die zwar nicht direkt zu den MD-Methoden gehört, aber diese im Hintergrund für Energieberechnungen nutzen kann, besteht im \textbf{Simulated Annealing} (simulierte Abkühlung)\cite{press_numerical_2007}.
-Sie bezeichnet einen Metropolis-Monte-Carlo-Algorithmus, der eine Folge zufälliger Schritte im Zustandsraum ausführt, dabei aber jedem Schritt eine Akzeptanzwahrscheinlichkeit $P$ entsprechend der Energiedifferenz $\Delta E$ zwischen den Zuständen vor und nach diesem Schritt zuweist.
+Eine weitere Methode, die zwar nicht direkt zu den MD-Methoden gehört, diese aber im Hintergrund für Energieberechnungen nutzen kann, besteht im \textbf{Simulated Annealing} (simulierte Abkühlung)\cite{press_numerical_2007}.
+Sie bezeichnet einen Metropolis-Monte-Carlo-Algorithmus (MMC), der eine Folge zufälliger Schritte im Zustandsraum ausführt, dabei aber jedem Schritt eine Akzeptanzwahrscheinlichkeit $P$ entsprechend der Energiedifferenz $\Delta E$ zwischen den Zuständen vor und nach diesem Schritt zuweist.
 %% Im Fall des kanonischen Ensembles ergibt sie sich ähnlich zur Formulierung der Zustandssumme.
 \begin{equation}
   P(\Delta E) = \exp(-\frac{\Delta E}{k_B T})
@@ -166,6 +166,7 @@ Für molekulardynamische Simulationen stehen sowohl kommerzielle als auch freie 
 In LAMMPS lassen sich zudem auch externe Parametersätze einbinden, wodurch die Betrachtung neuer Problemstellungen erleichtert wird.
 Weiterhin unterscheiden sich die Programme in ihrer Nutzerfreundlichkeit (Kommandozeile oder grafische Oberfläche) und der Möglichkeit, sie als Bibliothek in eigene Programme einzubinden.
 Tabelle~\ref{tab:mdsoftware} stellt ausgewählte Vertreter moderner Molekulardynamiksoftware dar.
+Die MD-Simulationen im Rahmen dieser Arbeit wurden hauptsächlich mit LAMMPS durchgeführt.
 
 \begin{table}[hb]
   \oddrowcolors

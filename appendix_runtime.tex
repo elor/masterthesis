@@ -29,7 +29,7 @@ Somit verschiebt sich die Grenze $w_\text{eff}$, für die $p_\text{max,1} = p_\t
 Zusätzlich zur Ereignis- und MD-Laufzeit wird $p_\text{max}$ über die Größe der MD-Boxen $w_\text{MD}$ und die maximale Workerdichte $\rho_\text{worker,max}$ während der Simulation beeinflusst (Abbildung~\ref{fig:pmaxother}).
 $\rho_\text{worker}$ ist dabei von der Verteilung der Adsorptionsorte auf der Oberfläche abhängig und hat für gleichverteilte Simulationen von Gold-PVD Werte zwischen \SI{10}{\percent} und \SI{20}{\percent} angenommen.
 Für stärker lokalisierte Adsorptionen sind aufgrund der überlappenden MD-Boxen und der daraus resultierenden Abhängigkeit der Ereignisse geringere Werte für $\rho_\text{worker}$ zu erwarten.
-Es gilt $w_\text{eff} \sim \rho_\text{worker,max}^{-1}$
+Es gilt $w_\text{eff} \sim \rho_\text{worker,max}^{-1}$.
 
 Die Erhöhung von $w_\text{MD}$ hat umfangreichere Einflüsse und verursacht eine Verringerung von $\rho_\text{max}$ aufgrund der Größe der Box, sowie eine Erhöhung von $T_\text{MD}$ und $T_\text{E}$ aufgrund der größeren Zahl an Atomen in der Box, was insgesamt zu einer Erhöhung von $w_\text{eff}$ führt.
 Somit wird $p_\text{max}$ für $w_\text{sim} < w_\text{eff}$ verringert und für $w_\text{sim} > w_\text{eff}$ erhöht.
@@ -80,7 +80,7 @@ Die Verteilung der quadratischen Worker auf der Oberfläche geschieht auf eine �
 Da Parsivald die Ereignisorte mit KMC-Methoden wählt, muss die zeitliche Reihenfolge der Ereignisse eingehalten werden, weshalb die überdeckenden Ereignisse nicht verworfen, sondern bis zum Abschluss des überdeckten Ereignisses zurück gestellt werden und sich so ein kompletter Abhängigkeitsbaum aufbaut, wie er in meiner Bachelorarbeit wird\cite{lorenz_entwicklung_2012}.
 Dadurch kollidieren die MD-Boxen zurückgestellter Ereignisse mit nachfolgenden Ereignissen, welche wiederum zurückgestellt werden müssen.
 Somit reduziert sich das Maximum der Workerdichte für große Simulationsräume auf den Grenzwert von \SI{25.95}{\percent} (Abbildung~\ref{fig:rsamaxdensity}).
-Dieser Wert wurde über eine modifizierte RSA-Simulation ermittelt, die auf diese Parsivald-Methode der Ereignisauswahl und -Durchführung angepasst wurde.
+Dieser Wert wurde über eine modifizierte RSA-Simulation ermittelt, die auf diese Parsivald-Methode der Ereignisauswahl und -durchführung angepasst wurde.
 
 KMC-Ereignisse werden in Parsivald für geringe Zeiträume durch einen trivialen Warte\-schlangen-Algorithmus vorausberechnet, um eine hohe Parallelisierbarkeit zu ermöglichen.
 Um häufige Revisionen der Ereignisse und damit verbundene Leistungseinbußen zu vermeiden, wird die Tiefe der Abhängigkeitsbäume der Ereignisse beschränkt, was sich in einer verminderten Zahl von Versuchen zur Erzeugung eines neuen KMC-Ereignisses äußert.

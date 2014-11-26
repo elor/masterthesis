@@ -19,7 +19,7 @@ Eigene Untersuchungen des Dwivedi-Modelles resultierten in der Bildung von verti
 \subsubsection{Mazaleyrat: gitterbasierte 3D-ALD}
 
 Ähnlich zum Dwivedi-Modell nutzt auch das Modell von \textsc{Mazaleyrat et al.}\cite{mazaleyrat_methodology_2005} zur Abscheidungssimulation von Dielektrika auf Silizium-Substraten ein Simulationsgitter, das allerdings in drei Dimensionen definiert ist, auf dem \ce{MgAl2O4}-Spinell-basiert und als Annäherung der eigentlichen Atompositionen verstanden wird.
-Durch geschickte Indizierung der Gitterpunkte sind effiziente Wachstumssimulationen von\ce{Al2O3} mit KMC-Methoden möglich, deren strikt kristalline Repräsentation die eigentlich amorphe Struktur nicht darstellen kann
+Durch geschickte Indizierung der Gitterpunkte sind effiziente Wachstumssimulationen von \ce{Al2O3} mit KMC-Methoden möglich, deren strikt kristalline Repräsentation die eigentlich amorphe Struktur nicht darstellen kann.
 Von den Autoren wurde keine Betrachtung der Rauheit, des Besetzungsgrades der Gitterplätze oder des Wachstumsverhaltens jenseits des dritten Schrittes veröffentlicht.
 
 \subsubsection{Stamatakis: Oberflächen-Reaktionen mit Zacros}
@@ -31,16 +31,16 @@ Ergänzt durch quantenmechanische Simulationen für die Bestimmung der Reaktions
 Die Kombination der in der vorliegenden Arbeit vorgestellten Ansätze mit denen von Zacros ist Gegenstand des derzeit in Beantragung befindlichen EU-Projektes ACCELERATE, einem Konsortium zur ALD-Simulation bestehend aus dem Fraunhofer ENAS, der Gruppe um Stamatakis und weiteren Partnern.
 
 \subsubsection{Clark: Off-Lattice-Simulationen von chemischen Gasphasenabscheidungen}
-\textsc{Clark et al.}\cite{clark_hybrid_1996} haben eine Off-Lattice-Methode zur Simulation von Diamantwachstum per CVD entwickelt, die auf der Kombination von KMC- mit Simulated Annealing per Metropolis-Monte-Carlo-Simulationen (MMC), deren Energiewerte mit MD-Berechnungen gewonnen werden.
+\textsc{Clark et al.}\cite{clark_hybrid_1996} haben eine Off-Lattice-Methode zur Simulation von Diamantwachstum per CVD entwickelt, die auf der Kombination von KMC- mit Simulated Annealing per Metropolis-Monte-Carlo-Simulationen (MMC) basiert, deren Energiewerte mit MD-Berechnungen gewonnen werden.
 Dafür wird die lokale Nachbarschaft jedes Adsorptions-Ereignisses unter den Zwangsbedingungen der chemischen Bindungen in MMC-Simu\-la\-tionen relaxiert, während hochfrequente Bewegungen von Wasserstoffatomen durch deren stochastische Verschiebung auf der Oberfläche beschrieben werden.
-Damit reduziert sich Simulationszeit, doch müssen mögliche Ereignisse durch in Vorarbeit erforscht werden, statt vom Modell dynamisch erkannt zu werden.
+Somit reduziert sich die Simulationszeit, doch müssen mögliche Ereignisse in Vorarbeit festgelegt werden, statt vom Modell dynamisch erkannt zu werden.
 
 %% Die kombinierte Simulation unterteilt sich in die Betrachtung von hochfrequenten Gleichgewichts-Ereignissen per KMC-Methoden und sowie die Simulation von Adsorptionen und Reaktionen durch MMC-Relaxationen anhand von MD-Kraftfeldern innerhalb der Nachbarschaft.
 %% In der ersten Phase des Zyklus' werden hauptsächlich Wasserstoffatome an der Oberfläche durch KMC-Ereignisse verschoben und entsprechend der erwarteten Oberflächenbedeckung ad- und desorbiert.
 %% Anschließend werden Precursorfragmente in Form von Methylgruppen an ein Kohlenstoff-Atom an der Oberfläche gebunden und bei konstanter Bindungslänge per MMC-Simulation um dieses rotiert.
 %% Zuletzt werden Bindungen zwischen Kohlenstoff-Atomen in der Nachbarschaft des Ereignisortes gebildet, indem sie in einer weiteren MMC-Simulation verschoben werden.
 
-Dieses Modell ist dem im folgenden Abschnitt~\ref{parsivald} vorgestellten Parsivald-Modell in seiner Funktionsweise ähnlich, welches eine thermische Relaxation der Ereignisorte per Molekulardynamik durch, um so freie Atombewegungen an der Oberfläche zu ermöglichen.
+Dieses Modell ist dem im folgenden Abschnitt~\ref{parsivald} vorgestellten Parsivald-Modell in seiner Funktionsweise ähnlich, welches eine thermische Relaxation der Ereignisorte per Molekulardynamik durchführt, um so freie Atombewegungen an der Oberfläche zu ermöglichen.
 %% Eine Erweiterung des Parsivald-Modelles zu MMC-Relaxierungen wäre aber in Zusammenhang mit der Einbindung von Elektronenstrukturrechnungen interessant.
 
 \subsubsection{Biehl: Off-Lattice-KMC von verspannten Kristallen}
@@ -53,7 +53,7 @@ Damit ist nicht ersichtlich, ob sich diese Methode auch für komplizierte dreidi
 \subsubsection{Wolf: Transport-Simulationen in der Gasphase}
 
 \textsc{Wolf et al.}\cite{wolf_investigation_2002,wolf_simulation_2010} haben am Zentrum für Mikrotechnologien in Chemnitz in den vergangenen Jahren mit der KMC-Transportsoftware Kalypso\cite{karolewski_kalypso:_2005} die physikalische Gasphasenabscheidung auf der Reaktor-Skala simuliert, um Aussagen über das Schichtwachstum in komplizierten makroskopischen Geometrien zu gewinnen.
-Beim Auftreffen eines Atomes an der Oberfläche wird es mit einer Wahrscheinlichkeit, die von der Teilchenenergie und Auftreffwinkel abhängt, adsorbiert oder reflektiert.
+Beim Auftreffen eines Atomes an der Oberfläche wird es mit einer Wahrscheinlichkeit, die von der Teilchenenergie und dem Auftreffwinkel abhängt, adsorbiert oder reflektiert.
 Dafür wurde eine Liste zur Interpolation von Wahrscheinlichkeiten vorbereitet, indem das Auftreffen von Atomen an verschiedenen Punkten einer Gitter-Einheitszelle per MD simuliert und anhand der Ergebnisse vieler Simulationen die Wahrscheinlichkeiten bestimmt wurden.
 Damit ist diese Methode zur Simulation von epitaktischem Wachstum glatter Schichten geeignet, beschreibt aber weder rauhe Oberflächen noch amorphe Schichten.
 Der Aufwand für die Vorausberechnung steigt für kompliziertere Oberflächen stark an und ist mit der heutigen Rechenleistung nicht realisierbar.
@@ -68,7 +68,7 @@ Diese nutzen meist N-Teilchen-Potentiale in vergleichsweise kleinen Simulationsr
 
 \subsection{Anwendung von MD-Simulationen für die Gasphasenabscheidung}
 
-Molekulardynamische Simulationen werden seit vielen Jahrzehnten zur Bestimmung struktureller und thermodynamischer Eigenschaften verschiedener Materialien eingesetzt, aber nur selten zur Beschreibung von Gasphasenabscheidungen.
+Molekulardynamische Simulationen werden seit vielen Jahrzehnten zur Bestimmung struktureller und thermodynamischer Eigenschaften verschiedener Materialien eingesetzt, aber nur selten zur Simulation von Gasphasenabscheidungen.
 Sie lassen sich aber zur Beschreibung von Teilaspekten nutzen, wofür meist durch die Simulation periodischer Strukturen Rückschlüsse auf bestimmte Eigenschaften gezogen werden.
 
 \subsubsection{Gold}

@@ -53,7 +53,7 @@ Die Ausgabe erfolgt kontinuierlich in Ereignis-Logs sowie nach jedem Parsivald-S
 Eine typische Abscheidungs-Simulation verläuft nach folgendem Schema:
 Zuerst wird das Substrat aus einer Datei gelesen und periodisch auf die Größe des Simulationsraums erweitert.
 Das Substrat muss xy-periodische Anschlussbedingungen und eine Mindesthöhe entsprechend der Größe der MD-Box erfüllen und stabil gegenüber den genutzten MD-Potentialen sein.
-Es lassen sich ansonsten beliebig gemischte und strukturierte Substrate verwenden.
+Es lassen sich ansonsten beliebige heterogene und strukturierte Substrate verwenden.
 Pro Precursorart und Schritt (Halbzyklus für ALD) wird eine Ereignismaske vorbereitet, welche die physikalischen und numerischen Parameter inklusive der MD-Masken beinhaltet.
 Anschließend beginnt die Hauptschleife mit dem ersten Parsivald-Schritt, in dem mögliche Ereignisse auf der Oberfläche gesucht werden, die vom KMC-Algorithmus nacheinander ausgewählt und von MD-Workern möglichst parallel simuliert werden.
 Bei Erreichen der vorgegebenen Simulationszeit startet der nächste Schritt im Zyklus.
@@ -111,7 +111,7 @@ Ein beschränktes Maß an Oberflächendiffusion lässt sich zwar mit längeren R
 
 Weiterhin ist Parsivald auf die zugrunde liegende Molekulardynamik beschränkt.
 So lassen sich nur Systeme simulieren, für die Potentialparametrisierungen existieren, die sowohl Bulksysteme als auch Oberflächen darstellen können, wie es bei EAM- und vielen ReaxFF-Potentialen der Fall ist.
-ReaxFF-Potentiale sind um mehrere Größenordnungen rechenaufwendiger als EAM-Potentiale, welche in gleichem Maße rechenaufwendiger als Paarpotentiale sind, weshalb große Systeme nicht mehr mit reiner Molekulardynamik berechenbar sind und sich die Effizienz von Parsivald bemerkbar macht.
+ReaxFF-Potentiale sind um mehrere Größenordnungen rechenaufwendiger als EAM-Potentiale, welche in gleichem Maße rechenaufwendiger als Paarpotentiale sind, weshalb große Systeme nicht mehr mit reiner Molekulardynamik berechenbar sind\cite{plimpton_computational_1995} und sich die Effizienz von Parsivald bemerkbar macht.
 
 Werden zusätzlich Moleküle und deren Reaktionen mit Oberflächenliganden dargestellt, lassen sich Precursor-Oberflächen-Reaktionen direkt in Parsivald simulieren.
 Andernfalls muss der Precursor über sein abzuscheidendes Zentralatom und zusätzliche Mechanismen wie explizite sterische Hinderung angenähert werden.
@@ -141,7 +141,7 @@ Die Auswertung der Abbruchrate, also des Verhältnisses von fehlgeschlagenen Ere
 Ein Abbruch ist dabei eine MD-Simulation, die abstürzt, ihre Zeitbegrenzung erreicht oder zur Desorption von Atomen und Molekülen führt.
 Da die LAMMPS-Bibliothek mit einer geringen Wahrscheinlichkeit unvorhergesehen und ohne Fehlernachrichten abstürzen kann, obwohl die Simulation selbst erfolgreich verlaufen wäre, werden fehlgeschlagene MD-Boxen einem zweiten Prozess zur Simulation übergeben.
 Schlägt auch diese fehl, liegt mit hoher Wahrscheinlichkeit ein struktureller oder methodischer Fehler vor.
-In der aktuellen Implementierung gilt das Herausschlagen von Atomen aus der Oberfläche, wie es bei Sputter-Prozessen statt finden kann, als Abbruch, weshalb in der vorliegenden Arbeit geringe Teilchenenergien oder schnelle Thermostatdämpfungen eingesetzt werden.
+In der aktuellen Implementierung gilt das Herausschlagen von Atomen aus der Oberfläche, wie es bei Sputter-Prozessen statt finden kann\cite{zhou_atomistic_1998}, als Abbruch, weshalb in der vorliegenden Arbeit geringe Teilchenenergien oder schnelle Thermostatdämpfungen eingesetzt werden.
 
 Da bei Abbrüchen bereits ausgewählte Ereignisse verworfen und somit die Abscheidungsraten leicht unterschätzt werden, müssen die Ereignisraten dynamisch entsprechend der mittleren oder erwarteten Abbruchrate angepasst werden.
 Für CVD-Simulationen ist eine Anpassung der Ereignisraten in der Regel nicht notwendig, da fehlerhafte MD-Ereignisse auf eine versehentliche Auswahl eines Ereignisortes zurück zu führen sind.

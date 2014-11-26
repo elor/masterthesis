@@ -14,7 +14,7 @@ done | xargs -n3 | sort -n | column -t > results.txt
 awk '{print $1,$2}' results.txt | column -t > "$mean"
 awk '{print $1,$3}' results.txt | column -t > "$max"
 
-dataplot.py --yrange 0:0.32 -f --xlabel 'KMC-Versuche' --ylabel 'Workerdichte' --xlog "$max" "$mean" || exit 1
+./dataplot.py --yrange 0:0.32 -f --xlabel 'KMC-Versuche' --ylabel 'Workerdichte' --xlog "$max" "$mean" || exit 1
 
 mv -v plot.pdf rsa_maxdensity.pdf
 mv -v plot.png rsa_maxdensity.png

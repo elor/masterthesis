@@ -35,7 +35,7 @@ Die Temperatur wird aus dem Mittelwert der kinetischen Energie aller Teilchen be
 
 \subsection{Radiale Verteilungsfunktionen, Bindungslänge und Koordinationszahl}
 
-Die Radiale Verteilungsfunktion (RDF) $g_{\alpha\beta}(r)$ zweier Atomsorten $\alpha$ und $\beta$ ergibt sich als Histogramm der Zahl der Atome $n_{\alpha\beta}(r)$ in Abhängigkeit des Abstandes $r$, gewichtet über die Volumen der Bins, welche durch die radiale Beschreibung die Form von Kugelschalen annehmen.
+Die Radiale Verteilungsfunktion (RDF) $g_{\alpha\beta}(r)$ zweier Atomsorten $\alpha$ und $\beta$ ergibt sich als Histogramm der Zahl der Atome $n_{\alpha\beta}(r)$ in Abhängigkeit des Abstandes $r$, gewichtet über das Volumen der Bins, welche durch die radiale Beschreibung die Form von Kugelschalen annehmen.
 \begin{equation}
   g_{\alpha\beta}(r) = \frac{1}{\rho_\alpha} \frac{d n_{\alpha\beta}(r)}{4 \pi r^2 dr} ~~,\quad \rho_\alpha = \frac{N_\alpha}{V}
 \end{equation}
@@ -44,7 +44,7 @@ An der RDF-Darstellung lässt sich außerdem die strukturelle Ordnung erkennen:
 RDF von perfekten Kristallen bestehen ausschließlich aus Spitzen an den Gitterpunkten, die auch für große Abstände noch klar erkennbar sind.
 Bei amorphen Materialien hingegen konvergiert die Funktion schnell gegen den Grenzwert von 1, der anzeigt, dass keine langreichweitige Ordnung mehr vorhanden ist.
 
-Beispiele radialer Verteilungsfunktionen finden sich in Abbildungen~\ref{fig:siliconresults-b},~\ref{fig:kulkarnirdf} und~\ref{fig:amorphousrdf}.
+Beispiele radialer Verteilungsfunktionen finden sich in Abbildungen~\ref{fig:siliconrdf},~\ref{fig:amorphousrdf} und~\ref{fig:siliconresults-b}.
 
 \subsection{Oberfläche, Schichtdicke, Rauheit und Porösität}
 \label{mdmethods-surface}
@@ -57,5 +57,5 @@ Durch Begutachtung der Oberflächen können außerdem Rückschlüsse auf die Por
 \subsection{Reaktionen und Stabilität von Molekülen}
 
 Einzelne oder mehrere Precursormoleküle werden mit externer Software (Materials Studio\cite{biovia_materials_2014} und Packmol\cite{martinez_packmol:_2009}) präpariert, mit Geschwindigkeiten im Rahmen der Zieltemperatur versehen und im mikrokanonischen Ensemble im Vakuum simuliert, um Aussagen über ihre Stabilität zu erhalten.
-Diese wird bei einzelnen Datensätzen manuell durch Begutachtung der dynamischen Eigenschaften und der entstandenen Moleküle ermittelt, bei vielen Datensätzen wird eine automatische Auswertung auf Konnektivität der Atome durchgeführt, wodurch Aussagen über die entstandenen Moleküle getroffen werden können.
+Diese wird bei einzelnen Datensätzen manuell durch Begutachtung der dynamischen Eigenschaften und der entstandenen Moleküle ermittelt, bei vielen Datensätzen wird eine automatische Auswertung der Konnektivität der Moleküle durchgeführt, wodurch Aussagen über die entstandenen Moleküle getroffen werden können.
 Die gleichen Untersuchungen geben Aufschluss über den Erfolg einer Reaktion.

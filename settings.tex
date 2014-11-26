@@ -56,8 +56,8 @@
 \definecolor{Red}{rgb}{1.0 0.0 0.0}
 \definecolor{lightgray}{gray}{0.9}
 
-\newcommand{\oddrowcolors}{\def\eltransparency{0.15}\rowcolors{1}{}{black}}
-\newcommand{\evenrowcolors}{\def\eltransparency{0.15}\rowcolors{1}{black}{}}
+\newcommand{\oddrowcolors}{\def\eltransparency{0.1}\rowcolors{1}{}{black}}
+\newcommand{\evenrowcolors}{\def\eltransparency{0.1}\rowcolors{1}{black}{}}
 
 %% rowcolors fix: This makes the rowcolors boxes transparent, so they won't overwrite hline and vline commands (i.e. table borders)
 \def\eltransparency{1.0}
@@ -74,7 +74,6 @@
         \kern-\@tempdimc
         \hskip-\wd\z@ \@plus -1fill }
 \makeatother
-\def\arraystretch{1.1}
 %\setlength{\arrayrulewidth}{0.6pt}
 
 \else
@@ -88,6 +87,8 @@
 \newcommand{\evenrowcolors}{\rowcolors{1}{lightgray}{}}
 
 \fi
+
+\def\arraystretch{1.1}
 
 %threeparttable textwidth
 \renewcommand{\TPTminimum}{\textwidth}

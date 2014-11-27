@@ -39,6 +39,7 @@ printvariants:
 	make disablerowcolors
 	make all
 	cp $(OUTPDF) $(VARIANTPREFIX)_print_norowcolors.pdf
+	make resetvariants
 
 onlinevariants: resetvariants
 	make resetvariants
@@ -53,6 +54,7 @@ onlinevariants: resetvariants
 	make disablerowcolors
 	make all
 	cp $(OUTPDF) $(VARIANTPREFIX)_online_norowcolors.pdf
+	make resetvariants
 
 resetvariants:
 	make clean

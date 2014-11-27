@@ -1,11 +1,12 @@
 OUT=masterthesis
 BIBFILE=literature.bib
+VARIANTPREFIX=masterarbeit_erik_e_lorenz
 
 OUTPDF=$(OUT).pdf
 BAKPDF=$(OUT)_bak.pdf
 
 TEX=pdflatex
-TEXFLAGS=
+TEXFLAGS=--halt-on-error --interaction=nonstopmode
 
 BIBTEX=bibtex
 BIBFLAGS=
@@ -18,24 +19,45 @@ all:
 #	make $(OUTPDF) # is a third pass necessary?
 	@echo "build successful. $(OUTPDF) created and copied to $(BAKPDF)"
 
-allvariants: always
+allvariants:
+	make printvariants
+	make onlinevariants
+
+printvariants:
+	make resetvariants
+	make disablecolorlinks
+	make all
+	cp $(OUTPDF) $(VARIANTPREFIX)_print.pdf
+	make resetvariants
+	make disablecolorlinks
+	make disabletablefix
+	make all
+	cp $(OUTPDF) $(VARIANTPREFIX)_print_notablefix.pdf
+	make resetvariants
+	make disablecolorlinks
+	make disabletablefix
+	make disablerowcolors
+	make all
+	cp $(OUTPDF) $(VARIANTPREFIX)_print_norowcolors.pdf
+
+onlinevariants: resetvariants
+	make resetvariants
+	make all
+	cp $(OUTPDF) $(VARIANTPREFIX)_online.pdf
+	make resetvariants
+	make disabletablefix
+	make all
+	cp $(OUTPDF) $(VARIANTPREFIX)_online_notablefix.pdf
+	make resetvariants
+	make disabletablefix
+	make disablerowcolors
+	make all
+	cp $(OUTPDF) $(VARIANTPREFIX)_online_norowcolors.pdf
+
+resetvariants:
+	make clean
 	make disabledraft
 	make resetoptions
-	make all
-	cp $(OUTPDF) $(OUT)_online.pdf
-	make resetoptions
-	make disabletablefix
-	make all
-	cp $(OUTPDF) $(OUT)_online_notablefix.pdf
-	make resetoptions
-	make disablecolorlinks
-	make all
-	cp $(OUTPDF) $(OUT)_print.pdf
-	make resetoptions
-	make disablecolorlinks
-	make disabletablefix
-	make all
-	cp $(OUTPDF) $(OUT)_print_notablefix.pdf
 
 continuous:
 	latexrefre.sh
@@ -53,6 +75,9 @@ enabletest: $(OUT).tex always
 
 disabletablefix: $(OUT).tex always
 	sed -r -i -e 's/^%% (\\colortblfixfalse)$$/\1/' $<
+
+disablerowcolors: $(OUT).tex always
+	sed -r -i -e 's/^%% (\\rowcolorsfalse)$$/\1/' $<
 
 enabledraft: $(OUT).tex always
 	sed -r -i -e 's/^\s*%*\s*draft\s*,\s*$$/  draft,/' $<

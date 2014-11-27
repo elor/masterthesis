@@ -50,41 +50,57 @@
 \newcommand{\cY}[1]{\cellcolor{Yellow}#1}
 \newcommand{\cR}[1]{\cellcolor{Red}#1}
 
-\ifcolortblfix
-\definecolor{Green}{rgb}{0.0 1.0 0.0}
-\definecolor{Yellow}{rgb}{1.0 1.0 0.0}
-\definecolor{Red}{rgb}{1.0 0.0 0.0}
-\definecolor{lightgray}{gray}{0.9}
+\newcommand{\setdefaultcolors}{
+  \definecolor{Green}{rgb}{0.7 1.0 0.7}
+  \definecolor{Yellow}{rgb}{1.0 1.0 0.7}
+  \definecolor{Red}{rgb}{1.0 0.7 0.7}
+}
 
-\newcommand{\oddrowcolors}{\def\eltransparency{0.1}\rowcolors{1}{}{black}}
-\newcommand{\evenrowcolors}{\def\eltransparency{0.1}\rowcolors{1}{black}{}}
+\ifrowcolors
+  \ifcolortblfix
+    \definecolor{Green}{rgb}{0.0 1.0 0.0}
+    \definecolor{Yellow}{rgb}{1.0 1.0 0.0}
+    \definecolor{Red}{rgb}{1.0 0.0 0.0}
 
-%% rowcolors fix: This makes the rowcolors boxes transparent, so they won't overwrite hline and vline commands (i.e. table borders)
-\def\eltransparency{1.0}
-\makeatletter
-\def\CT@@do@color{%
-  \global\let\CT@do@color\relax
-        \@tempdima\wd\z@
-        \advance\@tempdima\@tempdimb
-        \advance\@tempdima\@tempdimc
-        \kern-\@tempdimb
-\transparent{\eltransparency}%
-        \leaders\vrule
-                \hskip\@tempdima\@plus 1fill
-        \kern-\@tempdimc
-        \hskip-\wd\z@ \@plus -1fill }
-\makeatother
-%\setlength{\arrayrulewidth}{0.6pt}
+    \newcommand{\oddrowcolors}{\def\eltransparency{0.1}\rowcolors{1}{}{black}}
+    \newcommand{\evenrowcolors}{\def\eltransparency{0.1}\rowcolors{1}{black}{}}
+
+    %% rowcolors fix: This makes the rowcolors boxes transparent, so they won't overwrite hline and vline commands (i.e. table borders)
+    \def\eltransparency{1.0}
+    \makeatletter
+    \def\CT@@do@color{%
+      \global\let\CT@do@color\relax
+            \@tempdima\wd\z@
+            \advance\@tempdima\@tempdimb
+            \advance\@tempdima\@tempdimc
+            \kern-\@tempdimb
+    \transparent{\eltransparency}%
+            \leaders\vrule
+                    \hskip\@tempdima\@plus 1fill
+            \kern-\@tempdimc
+            \hskip-\wd\z@ \@plus -1fill }
+    \makeatother
+    %\setlength{\arrayrulewidth}{0.6pt}
+
+  \else
+
+    \setdefaultcolors
+
+    \definecolor{lightgray}{gray}{0.9}
+    \newcommand{\oddrowcolors}{\rowcolors{1}{}{lightgray}}
+    \newcommand{\evenrowcolors}{\rowcolors{1}{lightgray}{}}
+
+  \fi
 
 \else
 
-\definecolor{Green}{rgb}{0.7 1.0 0.7}
-\definecolor{Yellow}{rgb}{1.0 1.0 0.7}
-\definecolor{Red}{rgb}{1.0 0.7 0.7}
-\definecolor{lightgray}{gray}{0.9}
+  \setdefaultcolors
+  \definecolor{Green}{rgb}{0.7 1.0 0.7}
+  \definecolor{Yellow}{rgb}{1.0 1.0 0.7}
+  \definecolor{Red}{rgb}{1.0 0.7 0.7}
 
-\newcommand{\oddrowcolors}{\rowcolors{1}{}{lightgray}}
-\newcommand{\evenrowcolors}{\rowcolors{1}{lightgray}{}}
+  \newcommand{\oddrowcolors}{}
+  \newcommand{\evenrowcolors}{}
 
 \fi
 

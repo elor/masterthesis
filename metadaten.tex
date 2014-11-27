@@ -14,7 +14,10 @@
 \newcommand{\dcauthorlastname}{Lorenz}
 \newcommand{\dcauthorfirstname}{Erik E.}
 \newcommand{\dcauthoremail}{erik.e.lorenz@gmail.com}
-\newcommand{\dcdate}{\today}
+\setdatetoday
+\addtocounter{datenumber}{-1}
+\setdatebynumber{\thedatenumber}
+\newcommand{\dcdate}{\datedate}
 
 \newcommand{\dcplace}{Chemnitz} % Ort, kann an der TU meist so bleiben
 \newcommand{\dcuni}{Technische Universität \dcplace}

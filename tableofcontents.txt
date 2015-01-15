@@ -1,0 +1,96 @@
+1 Einleitung
+2 Grundlagen
+2.1 Gasphasenabscheidungen
+2.1.1 Physikalische Gasphasenabscheidung
+2.1.2 Chemische Gasphasenabscheidung
+2.1.3 Atomlagenabscheidung
+2.1.4 Methoden zur Simulation von Gasphasenabscheidungen
+2.2 Molekulardynamik
+2.2.1 Formulierung der Molekulardynamik
+2.2.2 Auswahl verfügbarer Molekulardynamik-Software
+2.2.3 Molekulardynamische Kraftfelder
+2.3 Kinetic Monte Carlo-Methoden
+2.4 Datenstrukturen
+2.4.1 Numerische Voraussetzungen an Gasphasenabscheidungen
+2.4.2 Vergleich der Laufzeiten für verschiedene Datenstrukturen
+2.4.3 Effiziente Datenstrukturen
+2.4.4 Alpha-Form
+3 Methoden und Modelle
+3.1 Stand der Forschung
+3.1.1 Anwendungen von KMC-Simulationen für die Gasphasenabscheidung
+3.1.2 Anwendung von MD-Simulationen für die Gasphasenabscheidung
+3.2 Parsivald-Modell
+3.2.1 Zielsetzung für Parsivald
+3.2.2 Beschreibung des Parsivald-Modells
+3.2.3 Annahmen und Einschränkungen
+3.2.4 Erweiterungen im Rahmen der Masterarbeit
+3.2.5 Behandlung von fehlerhaften Ereignissen
+3.3 Laufzeitanalyse von Parsivald-Simulationen
+3.3.1 Ereignis-Laufzeit TE
+3.3.2 Ereignis-Durchsatz RE
+3.3.3 MD-Laufzeit TMD
+3.3.4 Worker-Laufzeit Tworker
+3.3.5 Serielle Laufzeit T1
+3.3.6 Anzahl der parallelen Prozesse p
+3.3.7 Workerdichte rhoworker
+3.3.8 Parallele Laufzeit Tp
+3.3.9 Speedup Sp
+3.3.10 Parallele Effizienz Ep
+3.3.11 Auswertung der Laufzeitparameter
+3.3.12 Fazit
+3.4 MD-Simulationen: Methoden und Auswertungen
+3.4.1 Zeitskalen in MD-Simulationen
+3.4.2 Relaxierungen
+3.4.3 Strukturanalysen
+3.4.4 Bestimmung der Dichte und Temperatur
+3.4.5 Radiale Verteilungsfunktionen, Bindungslänge und Koordinationszahl
+3.4.6 Oberfläche, Schichtdicke, Rauheit und Porösität
+3.4.7 Reaktionen und Stabilität von Molekülen
+4 Simulationen von Gasphasenabscheidungen
+4.1 Gold-PVD
+4.1.1 Voruntersuchungen
+4.1.2 Thermodynamische Eigenschaften
+4.1.3 Simulation von Gold-PVD
+4.1.4 Skalierbarkeit mit der Simulationsgröße
+4.1.5 Fazit
+4.2 Kupfer-PVD
+4.2.1 Voruntersuchungen
+4.2.2 Thermodynamische Eigenschaften
+4.2.3 Simulation von Kupfer-PVD
+4.2.4 Untersuchung der maximalen Workerdichte
+4.2.5 Fazit
+4.3 Multilagen-PVD
+4.3.1 Multilagen-Simulationen mit Parsivald
+4.3.2 Vergleich mit Ergebnissen reiner MD-Simulationen
+4.3.3 Vergleich der Parallelisierbarkeit
+4.3.4 Fazit
+4.4 Silizium-PVD
+4.4.1 Voruntersuchungen
+4.4.2 Simulationen von Silizium-PVD
+4.4.3 Fazit
+4.5 Aluminiumoxid-ALD
+4.5.1 ReaxFF-Parametersätze
+4.5.2 Voruntersuchungen
+4.5.3 Fazit
+5 Zusammenfassung und Ausblick
+5.1 Zusammenfassung
+5.2 Ausblick
+A Physikalische Konstanten und Stoffeigenschaften
+B Datenstrukturen
+B.1 Übersicht über KMC-Operationen
+B.2 Beschreibung grundlegender Datenstrukturen
+B.3 Delaunay-Triangulationen
+B.3.1 Ausgewählte Eigenschaften einer Delaunay-Triangulation
+B.3.2 Algorithmen zur Konstruktion einer Delaunay-Triangulation
+C Ergänzungen zur Laufzeitanalyse von Parsivald
+C.1 Einfluss der Ereignis-Laufzeit auf die effiziente Raumgröße weff
+C.2 Zusätzliche Einflüsse auf das Maximum der Prozesse pmax
+C.3 Abschätzung der maximalen Workerdichte per Random Sequential Adsorption
+D Ergänzungen zur Simulation von Gold-PVD
+E Multilagen-PVD
+E.1 Porenbildung bei Unterrelaxation
+E.2 Simulationen mit Lagendicken von jeweils 5 nm
+F Simulation der CVD-Precursormoleküle Silan und Sauerstoff
+F.1 Stabilität der Precursormoleküle
+F.2 Reaktion der Precursormoleküle
+Literaturverzeichnis

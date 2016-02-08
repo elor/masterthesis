@@ -1,0 +1,14 @@
+server-build:
+  script:
+    - module load app/texlive-2013
+    - make clean
+    - make
+  tags:
+    - centos
+
+desktop-build:
+  script:
+    - make clean
+    - make
+  tags:
+    - xubuntu
